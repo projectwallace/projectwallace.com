@@ -8,7 +8,6 @@
 	import Image from './og-image.png?w=1200'
 	import { get_css_state } from '$lib/css-state.svelte'
 	import Hero from '$components/Hero.svelte'
-	import { captureException } from '@sentry/sveltekit'
 	let { data } = $props()
 
 	type Status = 'initial' | 'fetching' | 'analyzing' | 'done' | 'error'
@@ -21,13 +20,12 @@
 		status = 'analyzing'
 	}
 
-	function on_error(original_error: Error) {
+	function on_error() {
 		status = 'error'
 	}
 
-	function on_render_error(original_error: Error | unknown) {
+	function on_render_error() {
 		status = 'error'
-		captureException(original_error)
 	}
 </script>
 

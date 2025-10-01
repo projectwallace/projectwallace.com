@@ -4,7 +4,7 @@ export class IsOnline {
 	private is_online: boolean
 
 	constructor() {
-		this.is_online = $state(navigator.onLine)
+		this.is_online = $state(typeof navigator === 'undefined' ? true : navigator.onLine)
 
 		$effect(() => {
 			if (typeof window !== 'undefined') {

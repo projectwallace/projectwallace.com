@@ -100,16 +100,17 @@ const config: PlaywrightTestConfig = {
 		//     channel: 'chrome',
 		//   },
 		// },
-	]
+	],
 
 	/* Folder for test artifacts such as screenshots, videos, traces, etc. */
 	// outputDir: 'test-results/',
 
 	/* Run your local dev server before starting the tests */
-	// webServer: {
-	//   command: 'npm run dev',
-	//   port: 5173,
-	// },
+	webServer: {
+		command: 'npm run build && npm run preview',
+		port: 4173,
+		timeout: 600_000, // 10 minutes
+	},
 }
 
 export default config

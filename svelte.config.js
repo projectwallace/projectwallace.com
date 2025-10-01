@@ -1,6 +1,6 @@
 import mdsvexConfig from './mdsvex.config.js'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import adapter from '@sveltejs/adapter-vercel'
+import adapter from '@sveltejs/adapter-netlify'
 import { mdsvex } from 'mdsvex'
 import { preprocessMeltUI } from '@melt-ui/pp'
 
@@ -17,7 +17,9 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			edge: false,
+		}),
 		serviceWorker: {
 			register: false,
 		},
@@ -26,16 +28,13 @@ const config = {
 		},
 		csp: {
 			directives: {
-				// unsafe-inline is required for Sentry 😑
 				'script-src': [
 					'counterscale.bartveneman.workers.dev',
 					'self',
-					'unsafe-inline'
 				],
 				'connect-src': [
 					'self',
 					'counterscale.bartveneman.workers.dev',
-					'o50610.ingest.us.sentry.io',
 				],
 				'style-src': ['self', 'unsafe-inline', 'blob:'],
 				'img-src': ['self'],
@@ -45,7 +44,7 @@ const config = {
 					'self',
 					'https://www.projectwallace.com',
 				],
-				'default-src': ['self', 'o50610.ingest.us.sentry.io'],
+				'default-src': ['self'],
 			}
 		}
 	},

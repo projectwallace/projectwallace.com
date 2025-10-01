@@ -1,6 +1,0 @@
-{
-	"version": 2,
-	"cleanUrls": true,
-	"trailingSlash": false,
-	"installCommand": "npm install --omit=dev --no-fund --no-audit --ignore-scripts"
-}
