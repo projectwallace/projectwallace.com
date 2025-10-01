@@ -1,14 +1,14 @@
-import { GITHUB_TOKEN } from '$env/static/private'
+import { GH_TOKEN } from '$env/static/private'
 
 export async function graphql(fetch: typeof globalThis.fetch, query: string) {
-	if (!GITHUB_TOKEN) {
-		throw new Error(`GITHUB_TOKEN is not set`)
+	if (!GH_TOKEN) {
+		throw new Error(`GH_TOKEN is not set`)
 	}
 
 	let response = await fetch(`https://api.github.com/graphql`, {
 		method: 'POST',
 		headers: {
-			authorization: `bearer ${GITHUB_TOKEN}`
+			authorization: `bearer ${GH_TOKEN}`
 		},
 		body: JSON.stringify({
 			query
