@@ -10,7 +10,6 @@
 	import { get_css_state } from '$lib/css-state.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
-	import { captureException } from '@sentry/sveltekit'
 
 	let css_state = get_css_state()
 	let status: 'idle' | 'done' | 'error' = $state(css_state.origins.length > 0 ? 'done' : 'idle')
@@ -26,9 +25,8 @@
 		error = undefined
 	}
 
-	function on_render_error(original_error: Error | unknown) {
+	function on_render_error() {
 		status = 'error'
-		captureException(original_error)
 	}
 </script>
 

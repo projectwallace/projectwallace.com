@@ -1,14 +1,7 @@
-import * as Sentry from '@sentry/sveltekit'
 import { sequence } from '@sveltejs/kit/hooks'
 import { redirect, type Handle } from '@sveltejs/kit'
 import * as v from 'valibot'
 import { theme_schema, type Theme } from '$lib/theme'
-
-Sentry.init({
-	dsn: "https://e5b77e4a23c6fed08fa9f7d9eb8749a8@o50610.ingest.us.sentry.io/4508721021321216",
-	tracesSampleRate: 1,
-	enableLogs: true,
-})
 
 export const handle_redirects: Handle = async function ({ event, resolve }) {
 	const redirects = [
@@ -83,10 +76,7 @@ const set_theme: Handle = async function ({ event, resolve }) {
 }
 
 export const handle: Handle = sequence(
-	Sentry.sentryHandle(),
 	set_theme,
 	handle_redirects,
 	apply_security_headers
 )
-
-export const handleError = Sentry.handleErrorWithSentry()

@@ -27,7 +27,6 @@
 		"@projectwallace/css-design-tokens": "^0.6.0",
 		"@projectwallace/css-layer-tree": "^2.0.0",
 		"@projectwallace/format-css": "^2.1.1",
-		"@sentry/sveltekit": "^10.8.0",
 		"@sveltejs/enhanced-img": "0.4.4",
 		"@sveltejs/kit": "^2.21.1",
 		"@sveltejs/pancake": "^0.0.18",

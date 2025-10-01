@@ -166,14 +166,7 @@ export function highlight_css(node: HTMLElement, {
 				}
 			})
 		} catch (error) {
-			import('@sentry/sveltekit').then(({ captureException }) => {
-				captureException(error, {
-					fingerprint: ['use-css-highlight-error'],
-					tags: {
-						user_agent: navigator.userAgent
-					},
-				})
-			})
+			// noop
 		}
 	}
 
