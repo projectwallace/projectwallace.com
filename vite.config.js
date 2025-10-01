@@ -9,7 +9,8 @@ const config = {
 			sourceMapsUploadOptions: {
 				org: "project-wallace",
 				project: "projectwallacecom"
-			}
+			},
+			autoUploadSourceMaps: false,
 		}),
 		enhancedImages(),
 		sveltekit(),
