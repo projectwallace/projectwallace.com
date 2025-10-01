@@ -10,7 +10,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"test": "playwright test --forbid-only",
+		"test": "playwright test",
 		"test:unit": "vitest run --exclude **/*.spec.ts",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"lint": "oxlint --config oxlintrc.json",
