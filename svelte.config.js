@@ -1,6 +1,6 @@
 import mdsvexConfig from './mdsvex.config.js'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
-import adapter from '@sveltejs/adapter-vercel'
+import adapter from '@sveltejs/adapter-netlify'
 import { mdsvex } from 'mdsvex'
 import { preprocessMeltUI } from '@melt-ui/pp'
 
@@ -17,7 +17,9 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({
+			edge: false,
+		}),
 		serviceWorker: {
 			register: false,
 		},
