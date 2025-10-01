@@ -1,0 +1,100 @@
+name: Test
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit --ignore-scripts
+
+      - name: Unit tests
+        run: npm run test:unit
+
+  lint-js:
+    name: Lint JS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit --ignore-scripts
+
+      - name: Lint JS
+        run: npm run lint
+
+  lint-css:
+    name: Lint CSS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit --ignore-scripts
+
+      - name: Lint CSS
+        run: npm run stylelint
+
+  check:
+    name: Typescript Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit --ignore-scripts
+
+      - name: Run Svelte Check
+        run: npm run check
+
+  audit:
+    name: NPM Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit --ignore-scripts
+
+      - name: Run NPM Audit
+        run: npm audit --audit-level=high

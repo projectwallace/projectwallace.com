@@ -1,0 +1,39 @@
+name: Playwright Tests
+on:
+  deployment_status:
+jobs:
+  test:
+    name: Playwright end-to-end tests
+    if: github.ref != 'refs/heads/main' && github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit --ignore-scripts
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --no-shell
+
+      - name: Run Playwright tests
+        run: npx playwright test --forbid-only
+        env:
+          # This might depend on your test-runner/language binding
+          PLAYWRIGHT_TEST_BASE_URL: ${{ github.event.deployment_status.target_url }}
+
+      - name: Store Playwright test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: css-coverage
+          path: css-coverage/*.json
+          retention-days: 30

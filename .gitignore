@@ -1,0 +1,19 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+*.local
+!.env.example
+.vercel
+.output
+
+/static/public
+/static/all.css
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/css-coverage
+
+# Sentry Config File
+.env.sentry-build-plugin

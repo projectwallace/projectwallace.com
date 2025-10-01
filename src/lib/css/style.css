@@ -1,0 +1,657 @@
+@layer config {
+	@layer color {
+		html {
+			--teal-100: hsl(151.7deg 33% 90%);
+			--teal-200: hsl(151.7deg 43% 75%);
+			--teal-300: hsl(151.7deg 53% 60%);
+			--teal-400: hsl(151.7deg 66% 47.3%);
+			--teal-500: hsl(152deg 65.6% 41%);
+			--teal-600: hsl(152deg 68.6% 36%);
+			--teal-700: hsl(152deg 72% 33%);
+			--teal-800: hsl(152deg 80% 25%);
+			--blue-100: hsl(215.9deg 90% 85%);
+			--blue-200: hsl(215.9deg 90% 70%);
+			--blue-300: hsl(215.9deg 90% 60%);
+			--blue-400: hsl(215.9deg 92% 40%);
+			--blue-500: hsl(216deg 92.2% 35.1%);
+			--blue-700: hsl(216.1deg 92.2% 25.1%);
+			--blue-800: hsl(216.1deg 80% 9%);
+			--yellow-400: hsl(60deg 80% 50%);
+			--yellow-500: hsl(60deg 80% 42%);
+			--yellow-600: hsl(60deg 90% 35%);
+			--orange-100: hsl(31.7deg 90% 90%);
+			--orange-300: #fcb76a;
+			--orange-400: hsl(31.7deg 96.7% 47.3%);
+			--pink-300: rgb(233 44 120);
+			--pink-400: hsl(335.9deg 89% 50%);
+			--pink-500: hsl(335.9deg 80% 40%);
+			--green-100: hsl(121.9deg 40% 93%);
+			--green-200: hsl(121.9deg 50% 73%);
+			--green-300: hsl(121.9deg 55% 58%);
+			--green-400: hsl(121.9deg 60% 43%);
+			--green-500: hsl(121.9deg 70% 31%);
+			--green-600: hsl(121.9deg 35% 23%);
+			--green-700: hsl(166deg 25% 17%);
+			--red-100: hsl(4deg 26% 91%);
+			--red-200: hsl(4deg 46% 71%);
+			--red-300: hsl(4deg 66% 51%);
+			--red-400: hsl(0deg 70% 42%);
+			--red-600: hsl(0deg 70% 16%);
+			--red-700: hsl(0deg 74% 11%);
+			--red-900: hsl(338.9deg 26.8% 24.1%);
+			--purple-100: hsl(273.3deg 69.2% 97.5%);
+			--purple-200: hsl(272deg 66.7% 82.4%);
+			--purple-300: hsl(271.7deg 66.1% 57.3%);
+			--purple-400: hsl(271.7deg 66% 47.3%);
+			--purple-500: hsl(271.7deg 65.7% 42.4%);
+			--purple-600: hsl(272.4deg 66.7% 29.4%);
+			--purple-700: hsl(271.9deg 66.3% 37.3%);
+			--purple-800: hsl(271.7deg 66.4% 25.7%);
+			--purple-900: hsl(272.2deg 67.5% 15.7%);
+			--white: hsl(0deg 0% 100%);
+			--gray-100: hsl(198deg 5% 97.3%);
+			--gray-200: hsl(198deg 10% 82%);
+			--gray-300: hsl(198deg 12% 66%);
+			--gray-400: hsl(198deg 12% 52%);
+			--gray-450: hsl(198.6deg 19.6% 28%);
+			--gray-500: hsl(198.6deg 19.6% 20.8%);
+			--gray-600: hsl(205.3deg 19.6% 19%);
+			--gray-700: hsl(203deg 23% 16%);
+			--gray-800: hsl(203.3deg 27.3% 12.9%);
+			--gray-850: hsl(203.3deg 29% 8.5%);
+			--gray-900: hsl(195deg 33.3% 4.7%);
+			--black: hsl(0deg 0% 0%);
+		}
+	}
+
+	@layer text {
+		html {
+			/* FONTS */
+			--font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+			--font-display: 'Teko', 'Teko Fallback', 'Arial Narrow', sans-serif;
+			--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+
+			/* WEIGHTS */
+			--font-normal: 400;
+			--font-medium: 500;
+			--font-bold: 700;
+			--font-ultrabold: 900;
+
+			/* SIZES */
+			--size-xs: 0.75rem;
+			/* 12px */
+			--size-sm: 0.875rem;
+			/* 14px */
+			--size-base: 1rem;
+			/* 16px */
+			--size-lg: 1.125rem;
+			/* 18px */
+			--size-xl: 1.25rem;
+			/* 20px */
+			--size-2xl: 1.5rem;
+			/* 24px */
+			--size-3xl: 1.875rem;
+			/* 30px */
+			--size-4xl: 2.25rem;
+			/* 36px */
+			--size-5xl: 3rem;
+			/* 48px */
+			--size-6xl: 3.75rem;
+			/* 60px */
+			--size-7xl: 4.5rem;
+			/* 72px */
+			--size-specimen: 0.825rem;
+
+			/* LINE-HEIGHTS */
+			--leading-none: 1;
+			--leading-tight: 1.1;
+			--leading-snug: 1.25;
+			--leading-base: 1.5;
+			--leading-relaxed: 1.625;
+
+			/* LETTER-SPACING */
+			--tracking-tight: -0.025em;
+			--tracking-normal: 0;
+			--tracking-wide: 0.025em;
+			--tracking-wider: 0.04em;
+		}
+	}
+
+	@layer spacing {
+		html {
+			--space-0: 0;
+			--space-px: 1px;
+			--space-1: 0.125rem;
+			--space-2: 0.5rem;
+			--space-3: 0.75rem;
+			--space-4: 1rem;
+			--space-5: 1.25rem;
+			--space-6: 1.5rem;
+			--space-7: 1.75rem;
+			--space-8: 2rem;
+			--space-9: 2.25rem;
+			--space-10: 2.5rem;
+			--space-11: 2.75rem;
+			--space-12: 3rem;
+			--space-14: 3.5rem;
+			--space-16: 4rem;
+			--space-20: 5rem;
+			--space-24: 6rem;
+			--space-28: 7rem;
+			--space-32: 8rem;
+			--space-36: 9rem;
+			--space-40: 10rem;
+			--space-44: 11rem;
+			--space-48: 12rem;
+			--space-64: 14rem;
+			--space-72: 18rem;
+			--space-80: 20rem;
+			--space-96: 24rem;
+		}
+	}
+
+	@layer shadows {
+		html {
+			--shadow-color: rgb(0 0 0 / 0.1);
+			--shadow-inset: inset 0 0.125rem 0.25rem var(--shadow-color);
+			--shadow-sm: 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color);
+			--shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+			--shadow-lg: 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+			--shadow-xl: 0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color);
+			--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+		}
+	}
+}
+
+@layer base {
+	html {
+		scrollbar-gutter: stable;
+	}
+
+	html,
+	body,
+	.app {
+		height: 100%;
+	}
+
+	body {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeSpeed;
+	}
+
+	form {
+		text-align: left;
+	}
+
+	input {
+		border-radius: 0;
+	}
+
+	pre,
+	code {
+		font-family: var(--font-mono);
+		font-weight: var(--font-normal);
+		hyphens: none;
+	}
+
+	pre {
+		font-size: var(--size-xs);
+		word-spacing: normal;
+		word-break: normal;
+		overflow-wrap: normal;
+		tab-size: 2;
+		hyphens: none;
+		overflow: auto;
+		max-width: none;
+	}
+
+	@media print {
+		pre,
+		code {
+			color: inherit;
+			font-size: var(--size-xs);
+			line-height: 1.5;
+		}
+
+		pre {
+			white-space: pre-wrap;
+		}
+	}
+
+	em,
+	cite {
+		font-style: normal;
+	}
+
+	img {
+		overflow: hidden;
+		word-break: break-all;
+		font-weight: var(--font-normal);
+		font-size: var(--size-xs);
+		line-height: var(--leading-tight);
+		font-family: var(--font-body);
+	}
+
+	@media print {
+		*,
+		*::before,
+		*::after {
+			background: transparent !important;
+			color: inherit !important;
+			border-color: inherit !important;
+			box-shadow: none !important;
+			text-shadow: none !important;
+		}
+
+		html {
+			color-scheme: light;
+		}
+
+		body {
+			color: var(--black);
+		}
+	}
+}
+
+@layer theme {
+	@font-face {
+		font-display: swap;
+		font-family: 'Teko';
+		font-weight: 500;
+		src:
+			local('Teko Medium'),
+			local('Teko-Medium'),
+			url('../../../teko-500.2019-08-10.woff2') format('woff2');
+		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
+			U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+	}
+
+	@font-face {
+		font-family: 'Teko Fallback';
+		src: local('Arial Narrow');
+		font-weight: 500;
+		size-adjust: 85%;
+		ascent-override: 114%;
+		descent-override: 60%;
+		line-gap-override: normal;
+	}
+
+	@layer elements {
+		html {
+			/* Accent colors */
+			--accent: light-dark(var(--teal-300), var(--teal-400));
+			--accent-100: var(--teal-100);
+			--accent-200: var(--teal-200);
+			--accent-300: var(--teal-300);
+			--accent-400: var(--teal-400);
+			--accent-500: var(--teal-500);
+			--accent-600: var(--teal-600);
+			--accent-700: var(--teal-700);
+			--accent-800: var(--teal-800);
+
+			/* Error colors */
+			--error: var(--red-400);
+			--error-100: var(--red-100);
+			--error-200: var(--red-200);
+			--error-300: var(--red-300);
+			--error-400: var(--red-400);
+			--error-600: var(--red-600);
+			--error-700: var(--red-700);
+			--error-900: var(--red-900);
+
+			/* Success colors */
+			--success: var(--green-400);
+			--success-100: var(--green-100);
+			--success-200: var(--green-200);
+			--success-300: var(--green-300);
+			--success-400: var(--green-400);
+			--success-600: var(--green-600);
+
+			/* Base colors */
+			--fg: light-dark(var(--gray-850), var(--gray-200));
+			--bg: light-dark(var(--gray-100), var(--gray-850));
+
+			/* Map all background colors */
+			--bg-0: light-dark(var(--white), var(--black));
+			--bg-100: light-dark(var(--gray-100), var(--gray-850));
+			--bg-200: light-dark(var(--gray-200), var(--gray-800));
+			--bg-300: light-dark(var(--gray-300), var(--gray-700));
+			--bg-400: light-dark(var(--gray-300), var(--gray-600));
+			--bg-500: light-dark(var(--gray-500), var(--gray-500));
+			--bg-600: light-dark(var(--gray-600), var(--gray-450));
+			--bg-700: light-dark(var(--gray-700), var(--gray-400));
+			--bg-800: light-dark(var(--gray-800), var(--gray-300));
+			--bg-850: light-dark(var(--gray-850), var(--gray-200));
+			--bg-900: light-dark(var(--gray-900), var(--gray-100));
+
+			/* Map all foreground colors */
+			--fg-0: light-dark(var(--black), var(--white));
+			--fg-100: light-dark(var(--gray-900), var(--gray-100));
+			--fg-200: light-dark(var(--gray-850), var(--gray-200));
+			--fg-300: light-dark(var(--gray-800), var(--gray-300));
+			--fg-400: light-dark(var(--gray-700), var(--gray-400));
+			--fg-450: light-dark(var(--gray-600), var(--gray-450));
+			--fg-500: light-dark(var(--gray-500), var(--gray-500));
+			--fg-600: light-dark(var(--gray-450), var(--gray-600));
+			--fg-700: light-dark(var(--gray-400), var(--gray-700));
+			--fg-800: light-dark(var(--gray-300), var(--gray-800));
+			--fg-850: light-dark(var(--gray-200), var(--gray-850));
+			--fg-900: light-dark(var(--gray-100), var(--gray-900));
+
+			/* Special cases */
+			--uneven-tr-bg: color-mix(in srgb, var(--gray-450) 10%, transparent);
+			/* Mimics the 'Highlight' CSS system color keyword */
+			--highlight: rgb(from light-dark(var(--accent-600), var(--accent)) r g b / 0.12);
+
+			/* Setup theme */
+			color-scheme: dark light;
+			accent-color: var(--accent);
+
+			& * {
+				transition-duration: .1s;
+				transition-property: color, background-color, border-color;
+				transition-timing-function: ease-out;
+			}
+
+			&[data-theme="dark"] {
+				color-scheme: dark;
+			}
+
+			&[data-theme="light"] {
+				color-scheme: light;
+			}
+
+			@media print {
+				color-scheme: light;
+			}
+		}
+
+		[data-theme="naked"] {
+			color-scheme: dark light !important;
+
+			&,
+			& *,
+			& ::before,
+			& ::after,
+			& ::marker,
+			& ::file-selector-button {
+				all: revert !important;
+			}
+
+			& [aria-hidden='true'] {
+				display: none !important;
+			}
+		}
+
+		body {
+			background-color: var(--bg);
+			color: var(--fg);
+			font-size: var(--size-base);
+			line-height: calc(var(--leading-base) * 1rem);
+		}
+
+		p code {
+			display: inline-block;
+			margin-right: 1ch;
+			margin-left: 1ch;
+			color: light-dark(var(--accent-700), var(--accent-300));
+		}
+
+		p code::before,
+		p code::after {
+			content: '`';
+		}
+
+		[aria-selected='true'] {
+			outline: 1px solid light-dark(var(--accent-600), var(--accent));
+			outline-offset: -1px;
+			background-color: var(--highlight);
+			position: relative;
+			z-index: 1;
+		}
+
+		:focus-visible {
+			outline: 2px solid var(--accent);
+			outline-offset: -2px;
+			position: relative;
+			z-index: 1;
+		}
+
+		input,
+		textarea,
+		button {
+			&:focus-visible {
+				outline-offset: 2px;
+			}
+		}
+
+
+		@layer syntax {
+			html {
+				--highlight-property: light-dark(var(--blue-400), var(--blue-100));
+				--highlight-number: light-dark(var(--blue-300), var(--blue-200));
+				--highlight-string: light-dark(var(--orange-400), var(--orange-300));
+				--highlight-name: light-dark(var(--purple-500), var(--purple-200));
+				--highlight-selector: light-dark(var(--green-500), var(--teal-400));
+				--highlight-comment: var(--fg-400);
+				--highlight-value: var(--fg-200);
+				--highlight-atrule: light-dark(var(--red-300), #ff7b72);
+				--highlight-important: var(--highlight-atrule);
+			}
+
+			::highlight(Property) {
+				color: var(--highlight-property);
+			}
+
+			::highlight(AtruleName),
+			::highlight(Function),
+			::highlight(Important) {
+				color: var(--highlight-atrule);
+			}
+
+			::highlight(Unit),
+			::highlight(Function) {
+				color: var(--highlight-name);
+			}
+
+			::highlight(SelectorList),
+			::highlight(Selector) {
+				color: var(--highlight-selector);
+			}
+
+			::highlight(AtrulePrelude),
+			::highlight(Value) {
+				color: var(--highlight-value);
+			}
+
+			::highlight(Number) {
+				color: var(--highlight-number);
+			}
+
+			::highlight(String) {
+				color: var(--highlight-string);
+			}
+
+			::highlight(Comment) {
+				color: var(--highlight-comment);
+			}
+		}
+	}
+
+	@layer components {
+		.font-heading {
+			font-family: var(--font-display);
+			font-weight: var(--font-medium);
+			letter-spacing: var(--tracking-wider);
+			line-height: var(--leading-none);
+			font-style: normal;
+			text-transform: uppercase;
+		}
+
+		.title {
+			letter-spacing: var(--tracking-tight);
+			font-weight: var(--font-ultrabold);
+			line-height: var(--leading-none);
+		}
+
+		.input {
+			padding: var(--space-3) var(--space-4);
+			color: var(--fg-200);
+			background-color: var(--bg-100);
+			border: 1px solid var(--fg-450);
+			border-radius: 0;
+			font: inherit;
+			font-size: var(--size-base);
+			flex-grow: 1;
+
+			&:disabled {
+				background-color: var(--bg-200);
+				color: var(--fg-400);
+				border-color: var(--fg-500);
+			}
+		}
+
+		textarea {
+			width: 100%;
+			min-height: var(--space-36);
+			font-family: var(--font-mono);
+			font-size: var(--size-sm);
+			line-height: var(--size-base);
+			white-space: pre;
+			height: 100%;
+		}
+
+		/* Nasty hack: can't extend our <Button> component styles, so let's just duplicate it like this */
+		::file-selector-button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: var(--space-2);
+			cursor: pointer;
+			text-align: center;
+			text-decoration: none;
+			white-space: nowrap;
+			border: 0 solid transparent;
+			font-family: var(--font-display);
+			font-weight: var(--font-medium);
+			font-style: normal;
+			letter-spacing: var(--tracking-wider);
+			line-height: var(--leading-tight);
+			text-transform: uppercase;
+			padding: var(--space-2) var(--space-4);
+			font-size: var(--size-base);
+			background-color: var(--accent-400);
+			color: var(--gray-800);
+
+			&:focus,
+			&:hover {
+				background-color: var(--accent-300);
+			}
+		}
+
+		.specimen {
+			font-size: var(--size-sm);
+			font-family: var(--font-mono);
+			font-weight: var(--font-normal);
+			color: var(--fg-100);
+		}
+
+		.report-section {
+			display: grid;
+
+			/* Making this larger than 24rem will cause horizontal overflows */
+			grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+			gap: var(--space-4);
+			align-items: start;
+			margin-top: var(--space-4);
+		}
+
+		.report-section-full-width {
+			grid-column: 1 / -1;
+		}
+
+		/* Checkerd background pattern */
+		.color-example {
+			--color-example-pattern-size: 1rem;
+			--color-example-pattern-color: var(--gray-700);
+
+			/* Create the actual background */
+			background-image: repeating-linear-gradient(45deg,
+					var(--color-example-pattern-color) 25%,
+					transparent 25%,
+					transparent 75%,
+					var(--color-example-pattern-color) 75%,
+					var(--color-example-pattern-color)),
+				repeating-linear-gradient(45deg,
+					var(--color-example-pattern-color) 25%,
+					transparent 25%,
+					transparent 75%,
+					var(--color-example-pattern-color) 75%,
+					var(--color-example-pattern-color));
+			background-position: 0px 0px,
+				calc(var(--color-example-pattern-size) / 2) calc(var(--color-example-pattern-size) / 2);
+			background-size: var(--color-example-pattern-size) var(--color-example-pattern-size);
+		}
+	}
+}
+
+@layer utilities {
+	.sr-only {
+		/* stylelint-disable property-no-deprecated */
+		clip: rect(0, 0, 0, 0);
+		/* stylelint-enable property-no-deprecated */
+		white-space: nowrap;
+		border-width: 0;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		position: absolute;
+		overflow: hidden;
+	}
+
+	.icon-sprite {
+		position: absolute;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+	}
+
+	/**
+	 * Make entire parent clickable from a link within:
+	 *
+	 * <element class="coverable">
+	 *   <a class="coverable-link" href="">Example</a>
+	 *   <img src="">
+	 * </element>
+	 */
+	.coverable {
+		position: relative;
+	}
+
+	.coverable-link {
+		position: static;
+	}
+
+	.coverable-link::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+	}
+
+	.prevent-orphan {
+		text-wrap: nowrap;
+	}
+
+	.scroll-container {
+		scrollbar-width: thin;
+		scrollbar-color: var(--fg-450) transparent;
+		transition: scrollbar-color .1s ease-out;
+
+		&:hover,
+		&:focus {
+			scrollbar-color: var(--fg-400) transparent;
+		}
+	}
+}

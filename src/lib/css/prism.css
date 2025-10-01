@@ -1,0 +1,97 @@
+/*
+-----------------------------------------------
+	syntax-highlighting [prism]
+-----------------------------------------------
+*/
+
+/*	colors --------------------------------- */
+
+pre[class*='language-'] {
+	--base: var(--fg-200);
+	--comment: var(--highlight-comment);
+	--keyword: var(--highlight-property);
+	--function: var(--highlight-name);
+	--string: var(--highlight-string);
+	--number: var(--highlight-number);
+	--tags: var(--function);
+	--important: var(--highlight-important);
+	--ident: var(--highlight-property);
+}
+
+/*	type-base ------------------------------ */
+
+code[class*='language-'],
+pre[class*='language-'] {
+	background: none;
+	text-align: left;
+}
+
+/*	code-blocks ---------------------------- */
+
+pre[class*='language-'] {
+	padding: 1.5rem 2rem;
+	margin: 0.8rem 0 2.4rem;
+}
+
+/*	tokens --------------------------------- */
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: var(--highlight-comment);
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: var(--highlight-property);
+}
+
+.token.boolean,
+.token.number {
+	color: var(--highlight-number);
+}
+
+.token.attr-name,
+.token.attr-value,
+.token.string {
+	color: var(--highlight-string);
+}
+
+.token.selector,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: var(--highlight-selector);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable {
+	color: var(--base);
+}
+
+.token.atrule .rule {
+	color: var(--highlight-atrule);
+}
+
+.token.keyword {
+	color: var(--highlight-name);
+}
+
+.token.important,
+.token.bold {
+	color: var(--highlight-important);
+}
+
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}

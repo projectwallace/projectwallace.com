@@ -1,0 +1,48 @@
+name: Monthly Tasks Creation
+on:
+  schedule:
+    # At 11:33 AM, on day 1 of the month
+    - cron: 33 11 1 * *
+
+jobs:
+  create_monthly_changelog_issue:
+    name: Create monthly changelog issue
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create issue
+        run: |
+          new_issue_url=$(gh issue create \
+            --title "$TITLE" \
+            --assignee "$ASSIGNEES" \
+            --label "$LABELS" \
+            --body "$BODY")
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TITLE: Write monthly changelog - $(date +'%B %Y')
+          ASSIGNEES: bartveneman
+          LABELS: blog,changelog
+          BODY: Future you will thank you
+
+  create_monthly_dependency_update_issue:
+    name: Create monthly dependencies update issue
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create issue
+        run: |
+          new_issue_url=$(gh issue create \
+            --title "$TITLE" \
+            --assignee "$ASSIGNEES" \
+            --label "$LABELS" \
+            --body "$BODY")
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          TITLE: Update dependencies - $(date +'%B %Y')
+          ASSIGNEES: bartveneman
+          LABELS: dependencies
+          BODY: Run `npx out`

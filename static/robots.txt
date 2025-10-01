@@ -1,0 +1,7 @@
+Sitemap: https://www.projectwallace.com/sitemap.txt
+
+User-Agent: *
+Allow: /
+
+User-Agent: GPTBot
+Disallow: /
