@@ -4,7 +4,7 @@ on:
 jobs:
   test:
     name: Playwright end-to-end tests
-    if: github.ref != 'refs/heads/main' && github.event.deployment_status.state == 'success'
+    if: github.event.deployment_status.state == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     concurrency:
