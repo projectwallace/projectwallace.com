@@ -37,7 +37,7 @@
 
 	async function onchange(event: Event) {
 		let files = (event.target as HTMLInputElement)?.files
-		data = []
+		let new_data: Coverage[] = []
 
 		if (!files) return
 
@@ -48,8 +48,11 @@
 			}
 			let text = await file.text()
 			let parsed = parse_json(text)
-			data = [...data, ...parsed]
+			new_data = new_data.concat(parsed)
 		}
+
+		// only update state once to prevent hundreds of re-renders
+		data = new_data
 	}
 
 	let drag_state: 'idle' | 'dragging' = $state('idle')
