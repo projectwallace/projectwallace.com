@@ -48,7 +48,7 @@
 			}
 			let text = await file.text()
 			let parsed = parse_json(text)
-			new_data = new_data.concat(parsed)
+			new_data.push(...parsed)
 		}
 
 		// only update state once to prevent hundreds of re-renders
