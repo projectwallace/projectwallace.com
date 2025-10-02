@@ -18,3 +18,14 @@ test('outdated docs/blog', async ({ page }) => {
 	await page.goto('/blog/delete-account', { waitUntil: 'domcontentloaded' })
 	await expect(page).toHaveURL(/\/blog$/)
 })
+
+test.describe('robots.txt', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/robots.txt', { waitUntil: 'domcontentloaded' })
+	})
+
+	test('should have link to sitemap', async ({ page }) => {
+		let content = await page.locator('pre').first().textContent()
+		expect(content).toContain('Sitemap: https://www.projectwallace.com/sitemap.txt')
+	})
+})
