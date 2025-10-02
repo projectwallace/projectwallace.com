@@ -250,6 +250,10 @@
 		}
 	}
 
+	th {
+		background-color: var(--bg-100);
+	}
+
 	tbody tr {
 		cursor: pointer;
 	}
