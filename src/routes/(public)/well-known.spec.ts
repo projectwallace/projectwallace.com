@@ -16,7 +16,7 @@ test.describe('.well-known/security.txt', () => {
 		let date_match = content?.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/i)
 		expect.soft(date_match).toBeTruthy()
 		let parsed_date = new Date(date_match![0])
-		expect.soft(parsed_date.getTime()).toBeGreaterThanOrEqual(new Date().getTime())
+		expect.soft(parsed_date.getTime()).toBeGreaterThanOrEqual(Date.now())
 	})
 })
 
