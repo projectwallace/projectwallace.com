@@ -4,7 +4,7 @@ export type Range = {
 }
 
 export type Coverage = {
-	url: string;
-	text?: string;
-	ranges: Range[];
+	url: string
+	text?: string
+	ranges: Range[]
 }
