@@ -5,15 +5,18 @@ export function ext(url: string) {
 	try {
 		let parsed_url = new URL(url)
 		return parsed_url.pathname.slice(parsed_url.pathname.lastIndexOf('.') + 1)
-	} catch (error) {
+	} catch {
 		let ext_index = url.lastIndexOf('.')
 		return url.slice(ext_index, url.indexOf('/', ext_index) + 1)
 	}
 }
 
-function get_css_and_ranges_from_html(html: string, old_ranges: Range[]) {
-	let parser = new DOMParser()
-	let doc = parser.parseFromString(html, 'text/html')
+interface HtmlParser {
+	(html: string): Document;
+}
+
+function get_css_and_ranges_from_html(parse_html: HtmlParser, html: string, old_ranges: Range[]) {
+	let doc = parse_html(html)
 	let combined_css = ''
 	let new_ranges = []
 	let current_offset = 0
@@ -50,7 +53,7 @@ function get_css_and_ranges_from_html(html: string, old_ranges: Range[]) {
 	};
 }
 
-export function calculate_coverage(browser_coverage: Coverage[]) {
+export function calculate_coverage(browser_coverage: Coverage[], parse_html: HtmlParser) {
 	let total_bytes = 0
 	let used_bytes = 0
 	let unused_bytes = 0
@@ -73,7 +76,7 @@ export function calculate_coverage(browser_coverage: Coverage[]) {
 		// But!!! in case of running Playwright on localhost we still end
 		// up here because all CSS is reported as { url: 'http://localhost/my-page', text: '.my-css {}' }
 		// which is not HTML but pure CSS
-		let { css, ranges } = get_css_and_ranges_from_html(entry.text, entry.ranges)
+		let { css, ranges } = get_css_and_ranges_from_html(parse_html, entry.text, entry.ranges)
 		filtered_coverage.push({
 			url: entry.url,
 			text: css,
@@ -89,7 +92,7 @@ export function calculate_coverage(browser_coverage: Coverage[]) {
 	// - only bytes of deduplicated stylesheets are counted
 	// - after all entries have been processed, we calculate the total bytes, used bytes, and unused bytes
 
-	let checked_stylesheets = new Map<string, { url: string, ranges: { start: number, end: number }[] }>()
+	let checked_stylesheets = new Map<string, { url: string, ranges: Range[] }>()
 
 	for (let entry of prettified_coverage) {
 		let text = entry.text || ''

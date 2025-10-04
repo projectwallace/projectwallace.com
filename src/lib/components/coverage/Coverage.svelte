@@ -23,7 +23,12 @@
 	} = create_keyboard_list()
 	let selected_index = $state(0)
 
-	let calculated = $derived(calculate_coverage(browser_coverage))
+	function parse_html(html: string) {
+		let parser = new DOMParser()
+		return parser.parseFromString(html, 'text/html')
+	}
+
+	let calculated = $derived(calculate_coverage(browser_coverage, parse_html))
 
 	let max_lines = $derived.by(() => {
 		let max = 0
