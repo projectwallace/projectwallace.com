@@ -58,57 +58,13 @@ const config: PlaywrightTestConfig = {
 				userAgent: devices['Desktop Chrome'].userAgent + ' (Playwright Test)',
 			}
 		}
-
-		// {
-		//   name: 'firefox',
-		//   use: {
-		//     ...devices['Desktop Firefox'],
-		//   },
-		// },
-
-		// {
-		//   name: 'webkit',
-		//   use: {
-		//     ...devices['Desktop Safari'],
-		//   },
-		// },
-
-		/* Test against mobile viewports. */
-		// {
-		//   name: 'Mobile Chrome',
-		//   use: {
-		//     ...devices['Pixel 5'],
-		//   },
-		// },
-		// {
-		//   name: 'Mobile Safari',
-		//   use: {
-		//     ...devices['iPhone 12'],
-		//   },
-		// },
-
-		/* Test against branded browsers. */
-		// {
-		//   name: 'Microsoft Edge',
-		//   use: {
-		//     channel: 'msedge',
-		//   },
-		// },
-		// {
-		//   name: 'Google Chrome',
-		//   use: {
-		//     channel: 'chrome',
-		//   },
-		// },
 	],
-
-	/* Folder for test artifacts such as screenshots, videos, traces, etc. */
-	// outputDir: 'test-results/',
 
 	/* Run your local dev server before starting the tests */
 	webServer: {
-		command: 'npm run build && npm run preview',
-		port: 4173,
+		command: process.env.CI ? 'npm run build && npm run preview' : 'npm run dev',
+		port: process.env.CI ? 4173 : 5173,
+		reuseExistingServer: !process.env.CI,
 		timeout: 600_000, // 10 minutes
 	},
 }
