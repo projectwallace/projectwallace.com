@@ -91,17 +91,15 @@
 		<hr />
 	{/if}
 
-
 	<Container size="2xl">
 		<Markdown>
 			<p>
-				How to <a
-					href="https://developer.chrome.com/docs/devtools/coverage/"
-					rel="noreferrer external"
-					target="_blank">record CSS coverage</a
-				>
-				<Icon name="external" size={16} /> in your browser. After that, export the data as JSON and select or drop the
-				file here. Or
+				How to
+				<a href="https://developer.chrome.com/docs/devtools/coverage/" rel="noreferrer external" target="_blank">
+					record CSS coverage
+				</a>
+				<Icon name="external" size={16} /> in your browser. After that, export the data as JSON and select or drop the file
+				here. Or
 				<button type="button" class="example" onclick={load_example}>load an example file</button>.
 			</p>
 		</Markdown>
