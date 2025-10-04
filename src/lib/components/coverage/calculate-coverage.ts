@@ -3,7 +3,7 @@ import { prettify } from './prettify'
 import { ext } from './ext'
 
 interface HtmlParser {
-	(html: string): Document;
+	(html: string): Document
 }
 
 function get_css_and_ranges_from_html(parse_html: HtmlParser, html: string, old_ranges: Range[]) {
@@ -29,7 +29,7 @@ function get_css_and_ranges_from_html(parse_html: HtmlParser, html: string, old_
 			if (range.start >= start_index && range.end <= end_index) {
 				new_ranges.push({
 					start: current_offset + (range.start - start_index),
-					end: current_offset + (range.end - start_index),
+					end: current_offset + (range.end - start_index)
 				})
 			}
 		}
@@ -41,7 +41,7 @@ function get_css_and_ranges_from_html(parse_html: HtmlParser, html: string, old_
 	return {
 		css: combined_css,
 		ranges: new_ranges
-	};
+	}
 }
 
 export function calculate_coverage(browser_coverage: Coverage[], parse_html: HtmlParser) {
@@ -51,6 +51,7 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 	let files_found = browser_coverage.length
 	let filtered_coverage = []
 
+	// SECTION: filter input for eligible CSS input
 	for (let entry of browser_coverage) {
 		if (!entry.text) continue
 		let extension = ext(entry.url).toLowerCase()
@@ -71,19 +72,22 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 		filtered_coverage.push({
 			url: entry.url,
 			text: css,
-			ranges,
+			ranges
 		})
 	}
 
+	// SECTION: prettify css and update coverage accordingly
 	let prettified_coverage = prettify(filtered_coverage)
 
+	// SECTION: De-duplicate coverage URL's and ranges
+	//
 	// prerequisites
 	// - we check each stylesheet content only once (to avoid counting the same content multiple times)
 	// - if a duplicate stylesheet enters the room, we add it's ranges to the existing stylesheet's ranges
 	// - only bytes of deduplicated stylesheets are counted
 	// - after all entries have been processed, we calculate the total bytes, used bytes, and unused bytes
 
-	let checked_stylesheets = new Map<string, { url: string, ranges: Range[] }>()
+	let checked_stylesheets = new Map<string, { url: string; ranges: Range[] }>()
 
 	for (let entry of prettified_coverage) {
 		let text = entry.text || ''
@@ -108,14 +112,14 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 			total_bytes += text.length
 			checked_stylesheets.set(text, {
 				url: entry.url,
-				ranges: entry.ranges,
+				ranges: entry.ranges
 			})
 		}
 	}
 
+	// SECTION: calculate used vs. unused bytes
 	// We sort the ranges by their start position
 	// Then we iterate over the ranges and calculate the used bytes
-	// Unused pieces of the stylesheet are stored in the unused_parts array
 	for (let [text, { ranges }] of checked_stylesheets) {
 		let last_position = 0
 		ranges.sort((a, b) => a.start - b.start)
@@ -129,6 +133,7 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 		}
 	}
 
+	// SECTION: calculate coverage for each individual stylesheet we found
 	let coverage_per_stylesheet = Array.from(checked_stylesheets).map(([text, { url, ranges }]) => {
 		let used = ranges.reduce((acc, range) => acc + (range.end - range.start), 0)
 		let trimmed_text = text.trim()
@@ -162,15 +167,12 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 			if (is_in_range && !is_closing_brace && !is_empty) {
 				lines_covered++
 				line_coverage[index] = 1
-			}
-			else if ((is_empty || is_closing_brace) && prev_is_covered) {
+			} else if ((is_empty || is_closing_brace) && prev_is_covered) {
 				lines_covered++
 				line_coverage[index] = 1
-			}
-			else if (is_empty && line_coverage[index - 1] === 0) {
+			} else if (is_empty && line_coverage[index - 1] === 0) {
 				line_coverage[index] = 0
-			}
-			else {
+			} else {
 				line_coverage[index] = 0
 			}
 			offset = next_offset
@@ -187,11 +189,13 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 			line_coverage,
 			total_lines: line_coverage.length,
 			covered_lines: lines_covered,
-			uncovered_lines: line_coverage.length - lines_covered,
+			uncovered_lines: line_coverage.length - lines_covered
 		}
 	})
 
-	let coverage_ratio = coverage_per_stylesheet.reduce((acc, sheet) => acc + sheet.coverage_ratio, 0) / coverage_per_stylesheet.length
+	// TODO: calculate byte_coverage AND line_coverage
+	let coverage_ratio =
+		coverage_per_stylesheet.reduce((acc, sheet) => acc + sheet.coverage_ratio, 0) / coverage_per_stylesheet.length
 
 	return {
 		files_found,
@@ -199,6 +203,6 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 		used_bytes,
 		unused_bytes,
 		coverage_ratio,
-		coverage_per_stylesheet,
+		coverage_per_stylesheet
 	}
 }
