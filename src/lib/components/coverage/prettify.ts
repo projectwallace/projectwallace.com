@@ -16,7 +16,7 @@ export function prettify(coverage: Coverage[]): Coverage[] {
 			tokenTypes.WhiteSpace,
 			tokenTypes.Semicolon,
 			tokenTypes.Comment,
-			tokenTypes.Colon,
+			tokenTypes.Colon
 		])
 
 		// Initialize the ranges with an empty array of token indexes
@@ -33,7 +33,6 @@ export function prettify(coverage: Coverage[]): Coverage[] {
 			}
 			return -1
 		}
-
 
 		let index = 0
 
@@ -53,8 +52,7 @@ export function prettify(coverage: Coverage[]): Coverage[] {
 			}
 		})
 
-
-		let new_tokens: { index: number, start: number, end: number }[] = []
+		let new_tokens: { index: number; start: number; end: number }[] = []
 		index = 0
 
 		tokenize(formatted, (type, start, end) => {
@@ -73,8 +71,8 @@ export function prettify(coverage: Coverage[]): Coverage[] {
 		let new_ranges: Range[] = []
 
 		for (let range of ext_ranges) {
-			let start_token = new_tokens.find(token => token.index === range.tokens.at(0))
-			let end_token = new_tokens.find(token => token.index === range.tokens.at(-1))
+			let start_token = new_tokens.find((token) => token.index === range.tokens.at(0))
+			let end_token = new_tokens.find((token) => token.index === range.tokens.at(-1))
 			if (start_token !== undefined && end_token !== undefined) {
 				new_ranges.push({
 					start: start_token?.start,
@@ -82,7 +80,6 @@ export function prettify(coverage: Coverage[]): Coverage[] {
 				})
 			}
 		}
-
 
 		return { url, text: formatted, ranges: new_ranges }
 	})
