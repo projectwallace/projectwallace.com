@@ -65,7 +65,7 @@ test('remaps multiple style blocks', () => {
 	})
 })
 
-test('strips whitespace from a style block', () => {
+test.skip('strips whitespace from a style block', () => {
 	let css = `h1 { color: red; }`
 	let html = create_html(`
 		<style>

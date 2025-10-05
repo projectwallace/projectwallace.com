@@ -15,8 +15,8 @@ export function get_css_and_ranges_from_html(parse_html: HtmlParser, html: strin
 	let style_elements = doc.querySelectorAll('style')
 
 	for (let style_element of style_elements) {
-		let style_content = style_element.textContent.trim()
-		if (!style_content) continue
+		let style_content = style_element.textContent
+		if (!style_content.trim()) continue
 
 		// Append the style content directly to the combined CSS
 		combined_css += style_content
@@ -139,11 +139,7 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 	let unused_bytes = 0
 	let files_found = browser_coverage.length
 	let filtered_coverage = filter_coverage(browser_coverage, parse_html)
-
-	// SECTION: prettify css and update coverage accordingly
 	let prettified_coverage = prettify(filtered_coverage)
-
-	// SECTION: De-duplicate coverage URL's and ranges
 	let deduplicated = deduplicate_entries(prettified_coverage)
 
 	// SECTION: calculate used vs. unused bytes
@@ -156,7 +152,7 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 		for (let range of ranges) {
 			if (range.start > last_position) {
 				let unused_text = text.slice(last_position, range.start)
-				unused_bytes += unused_text.trim().length
+				unused_bytes += unused_text.length
 			}
 			used_bytes += range.end - range.start - 1
 			last_position = range.end
