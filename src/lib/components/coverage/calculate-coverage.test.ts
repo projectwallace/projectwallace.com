@@ -147,6 +147,10 @@ describe('calculates coverage', () => {
 			expect.soft(result.total_bytes).toBe(80)
 			expect.soft(result.used_bytes).toBe(37)
 			expect.soft(result.unused_bytes).toBe(41)
+			expect.soft(result.total_lines).toBe(11)
+			expect.soft(result.covered_lines).toBe(7)
+			expect.soft(result.uncovered_lines).toBe(4)
+			expect.soft(result.line_coverage).toBe(7 / 11)
 		})
 
 		test('calculates stats per stylesheet', () => {

@@ -137,6 +137,9 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 	let total_bytes = 0
 	let used_bytes = 0
 	let unused_bytes = 0
+	let total_lines = 0
+	let covered_lines = 0
+	let uncovered_lines = 0
 	let files_found = browser_coverage.length
 	let filtered_coverage = filter_coverage(browser_coverage, parse_html)
 	let prettified_coverage = prettify(filtered_coverage)
@@ -161,13 +164,13 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 
 	// SECTION: calculate coverage for each individual stylesheet we found
 	let coverage_per_stylesheet = Array.from(deduplicated).map(([text, { url, ranges }]) => {
-		let used_bytes = ranges.reduce((acc, range) => acc + (range.end - range.start), 0)
+		let file_used_bytes = ranges.reduce((acc, range) => acc + (range.end - range.start), 0)
 		let trimmed_text = text.trim()
 
 		let lines = trimmed_text.split('\n')
-		let total_lines = lines.length
-		let line_coverage = new Uint8Array(total_lines)
-		let lines_covered = 0
+		let total_file_lines = lines.length
+		let line_coverage = new Uint8Array(total_file_lines)
+		let file_lines_covered = 0
 		let offset = 0
 		let index = 0
 		for (let line of lines) {
@@ -192,10 +195,10 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 			let prev_is_covered = index > 0 ? line_coverage[index - 1] === 1 : false
 
 			if (is_in_range && !is_closing_brace && !is_empty) {
-				lines_covered++
+				file_lines_covered++
 				line_coverage[index] = 1
 			} else if ((is_empty || is_closing_brace) && prev_is_covered) {
-				lines_covered++
+				file_lines_covered++
 				line_coverage[index] = 1
 			} else if (is_empty && line_coverage[index - 1] === 0) {
 				line_coverage[index] = 0
@@ -206,17 +209,21 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 			index++
 		}
 
+		total_lines += total_file_lines
+		covered_lines += file_lines_covered
+		uncovered_lines += total_file_lines - file_lines_covered
+
 		return {
 			url,
 			text: trimmed_text,
 			ranges,
-			used_bytes,
+			used_bytes: file_used_bytes,
 			total_bytes: trimmed_text.length,
-			coverage_ratio: lines_covered / total_lines,
+			coverage_ratio: file_lines_covered / total_file_lines,
 			line_coverage,
-			total_lines,
-			covered_lines: lines_covered,
-			uncovered_lines: total_lines - lines_covered
+			total_lines: total_file_lines,
+			covered_lines: file_lines_covered,
+			uncovered_lines: total_file_lines - file_lines_covered
 		}
 	})
 
@@ -227,13 +234,13 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 	return {
 		files_found,
 		total_bytes,
-		// total_lines,
+		total_lines,
 		used_bytes,
-		// used_lines,
+		covered_lines,
 		unused_bytes,
-		// unused_lines,
+		uncovered_lines,
 		coverage_ratio,
-		// line_coverage_ratio,
+		line_coverage: covered_lines / total_lines,
 		coverage_per_stylesheet
 	}
 }

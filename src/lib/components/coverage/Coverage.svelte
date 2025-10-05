@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PaneGroup, Pane, PaneResizer } from 'paneforge'
 	import { format_filesize } from '$lib/format-filesize'
-	import { format_percentage } from '$lib/format-number'
+	import { format_number, format_percentage } from '$lib/format-number'
 	import { create_keyboard_list } from '$components/use-keyboard-list.svelte'
 	import Panel from '$components/Panel.svelte'
 	import Meter from '$components/Meter.svelte'
@@ -44,7 +44,7 @@
 		selected_index = active_index
 	}
 
-	let sort_by = $state<'bytes' | 'coverage' | 'name' | undefined>(undefined)
+	let sort_by = $state<'bytes' | 'coverage' | 'name' | 'lines' | undefined>(undefined)
 	let sort_direction = $state<'asc' | 'desc'>('asc')
 
 	let sorted_items = $derived.by(() => {
@@ -65,6 +65,9 @@
 			if (sort_by === 'name') {
 				return sort_direction === 'asc' ? string_sort(a.url, b.url) : string_sort(b.url, a.url)
 			}
+			if (sort_by === 'lines') {
+				return sort_direction === 'asc' ? a.covered_lines - b.covered_lines : b.covered_lines - a.covered_lines
+			}
 			return 0
 		})
 	})
@@ -81,7 +84,7 @@
 	})
 </script>
 
-{#snippet sorted_th(name: 'bytes' | 'coverage' | 'name', label: string)}
+{#snippet sorted_th(name: 'bytes' | 'coverage' | 'name' | 'lines', label: string)}
 	{@const sort_by_attr = sort_by === name ? (sort_direction === 'asc' ? 'ascending' : 'descending') : undefined}
 	<th scope="col" aria-sort={sort_by_attr}>
 		<button
@@ -108,18 +111,22 @@
 			<div>
 				<dt>Coverage</dt>
 				<dd>{format_percentage(calculated.coverage_ratio)}</dd>
+				<dd>{format_percentage(calculated.line_coverage)} of lines</dd>
 			</div>
 			<div>
-				<dt>Total size</dt>
+				<dt>Total</dt>
 				<dd>{format_filesize(calculated.used_bytes + calculated.unused_bytes)}</dd>
+				<dd>{format_number(calculated.total_lines)} lines</dd>
 			</div>
 			<div>
 				<dt>Used</dt>
 				<dd>{format_filesize(calculated.used_bytes)}</dd>
+				<dd>{format_number(calculated.covered_lines)} lines</dd>
 			</div>
 			<div>
 				<dt>Unused</dt>
 				<dd>{format_filesize(calculated.unused_bytes)}</dd>
+				<dd>{format_number(calculated.uncovered_lines)} lines</dd>
 			</div>
 		</div>
 	</Panel>
@@ -128,7 +135,7 @@
 <h2 class="sr-only">Coverage per stylesheet</h2>
 <div class="devtools" data-empty={calculated.coverage_per_stylesheet.length === 0 ? 'true' : 'false'}>
 	{#if calculated.coverage_per_stylesheet.length > 0}
-		<PaneGroup direction="horizontal">
+		<PaneGroup direction="horizontal" autoSaveId="css-coverage">
 			<Pane defaultSize={50} minSize={20}>
 				<Table>
 					<caption class="sr-only">Coverage per origin</caption>
@@ -136,6 +143,7 @@
 						<tr>
 							{@render sorted_th('name', 'URL')}
 							{@render sorted_th('bytes', 'Total size')}
+							{@render sorted_th('lines', 'Lines')}
 							{@render sorted_th('coverage', 'Coverage')}
 							<th scope="col">Coverage visualized</th>
 						</tr>
@@ -144,12 +152,13 @@
 						<tbody use:root={{ onchange }} style:--meter-height="0.5rem">
 							{#each sorted_items as item_index, index}
 								{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
-								{@const { url, total_bytes, coverage_ratio } = stylesheet}
+								{@const { url, total_bytes, total_lines, coverage_ratio, covered_lines } = stylesheet}
 								<tr use:item={{ value: index.toString() }} aria-selected={selected_index === index ? 'true' : 'false'}>
 									<td class="url">
 										{url}
 									</td>
 									<td class="numeric">{format_filesize(total_bytes)}</td>
+									<td class="numeric">{format_number(total_lines)}</td>
 									<td class="numeric">{format_percentage(coverage_ratio)}</td>
 									<td>
 										<div style:width={(stylesheet.total_lines / max_lines) * 100 + '%'}>
@@ -228,6 +237,11 @@
 			flex-direction: row;
 			justify-content: space-between;
 		}
+
+		& > div {
+			display: grid;
+			row-gap: var(--space-2);
+		}
 	}
 
 	.css-slide {
@@ -236,15 +250,16 @@
 		border-inline-start: 1px solid var(--fg-450);
 	}
 
-	dt {
+	dt,
+	dd:last-of-type {
 		text-transform: uppercase;
 		color: var(--fg-300);
 		font-weight: var(--font-bold);
 		font-size: var(--size-sm);
 	}
 
-	dd {
-		font-size: var(--size-5xl);
+	dd:first-of-type {
+		font-size: var(--size-4xl);
 		line-height: var(--leading-none);
 		font-weight: var(--font-ultrabold);
 		color: var(--fg-0);
