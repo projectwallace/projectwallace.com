@@ -92,7 +92,52 @@ describe('collect coverage', () => {
 			]
 		})
 	})
+
 	test.todo('collects coverage from <style> and <link rel="stylesheet">')
+
+	describe('coverage quirks', () => {
+		test('coverage does not include the prelude and name of an atrule', async () => {
+			let html = `
+				<!doctype html>
+				<html>
+					<head>
+						<title>test document</title>
+						<link rel="stylesheet" href="http://localhost/style.css">
+					</head>
+					<body>
+						<h1>Hello world</h1>
+					</body>
+				</html>
+				`
+			let css = `
+				@media all {
+					h1 {
+						color: green;
+					}
+				}
+				@supports (display: grid) {
+					h1 {
+						font-size: 24px;
+					}
+				}
+			`
+			let coverage = await collect_coverage(html, { link_css: css })
+			expect.soft(coverage).toHaveLength(1)
+			let sheet = coverage.at(0)!
+			expect.soft(sheet?.ranges).toEqual([
+				{ start: 12, end: 16 },
+				{ start: 23, end: 54 },
+				{ start: 75, end: 91 },
+				{ start: 98, end: 132 }
+			])
+			// Browser coverage data always skips the `@` symbol with the atrule name
+			// as well as the opening `{` and closing `}` of the atrule.
+			expect.soft(sheet.text!.substring(12, 16)).toBe('all ')
+			expect.soft(sheet.text!.substring(23, 54)).toBe('h1 {\n\t\t\t\t\t\tcolor: green;\n\t\t\t\t\t}')
+			expect.soft(sheet.text!.substring(75, 91)).toBe('(display: grid) ')
+			expect.soft(sheet.text!.substring(98, 132)).toBe('h1 {\n\t\t\t\t\t\tfont-size: 24px;\n\t\t\t\t\t}')
+		})
+	})
 })
 
 describe('calculates coverage', () => {
