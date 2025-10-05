@@ -20,6 +20,10 @@ jobs:
       - name: Install dependencies
         run: npm install --no-fund --no-audit --ignore-scripts
 
+      # A bit heavy but we need these for our css coverage tests
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --no-shell
+
       - name: Unit tests
         run: npm run test:unit
 
