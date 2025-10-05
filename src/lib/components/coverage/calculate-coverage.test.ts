@@ -164,6 +164,7 @@ describe('calculates coverage', () => {
 			expect.soft(sheet.total_lines).toBe(11)
 			expect.soft(sheet.covered_lines).toBe(7)
 			expect.soft(sheet.uncovered_lines).toBe(4)
+			expect.soft(sheet.coverage_ratio).toBe(7 / 11)
 			expect.soft(sheet.line_coverage).toEqual(new Uint8Array([1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1]))
 		})
 	})

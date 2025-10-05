@@ -43,15 +43,21 @@ test.describe('loading example file', () => {
 		let size_column = header.getByRole('columnheader').nth(1)
 		await expect.soft(size_column).toHaveAccessibleName('Total size')
 		await expect.soft(size_column).not.toHaveAttribute('aria-sort')
-		let coverage_column = header.getByRole('columnheader').nth(2)
+		let line_count_column = header.getByRole('columnheader').nth(2)
+		await expect.soft(line_count_column).toHaveAccessibleName('Lines')
+		await expect.soft(line_count_column).not.toHaveAttribute('aria-sort')
+		let coverage_column = header.getByRole('columnheader').nth(3)
 		await expect.soft(coverage_column).toHaveAccessibleName('Coverage')
 		await expect.soft(coverage_column).not.toHaveAttribute('aria-sort')
 
 		// Row contents:
 		let first_row = table.getByRole('row').nth(1)
-		await expect.soft(first_row.getByRole('cell').nth(0)).toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
+		await expect
+			.soft(first_row.getByRole('cell').nth(0))
+			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
-		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('72.16%')
+		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('2,619')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.16%')
 
 		// Elements in correct state:
 		await expect.soft(table.getByRole('row').nth(1)).toHaveAttribute('aria-selected', 'true')
@@ -87,9 +93,11 @@ test.describe('loading example file', () => {
 		await expect.soft(url_header).toHaveAttribute('aria-sort', 'descending')
 		let first_row = table.getByRole('row').nth(1)
 		await expect.soft(first_row).toHaveAttribute('aria-selected', 'true')
-		await expect.soft(first_row.getByRole('cell').nth(0)).toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/Textarea.D3Oc5lUl.css')
+		await expect
+			.soft(first_row.getByRole('cell').nth(0))
+			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/Textarea.D3Oc5lUl.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('238 B')
-		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('100%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('100%')
 		let css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('textarea.svelte-g7hyhb {')
 
@@ -97,9 +105,11 @@ test.describe('loading example file', () => {
 		await url_header.click()
 		await expect.soft(url_header).toHaveAttribute('aria-sort', 'ascending')
 		await expect.soft(first_row).toHaveAttribute('aria-selected', 'true')
-		await expect.soft(first_row.getByRole('cell').nth(0)).toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
+		await expect
+			.soft(first_row.getByRole('cell').nth(0))
+			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
-		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('72.16%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.16%')
 	})
 
 	test('sorting by total size', async ({ page }) => {
@@ -109,9 +119,11 @@ test.describe('loading example file', () => {
 		await expect.soft(size_header).toHaveAttribute('aria-sort', 'descending')
 		let first_row = table.getByRole('row').nth(1)
 		await expect.soft(first_row).toHaveAttribute('aria-selected', 'true')
-		await expect.soft(first_row.getByRole('cell').nth(0)).toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
+		await expect
+			.soft(first_row.getByRole('cell').nth(0))
+			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
-		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('72.16%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.16%')
 		let css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('.logo.svelte-1jiwtxp {')
 
@@ -119,23 +131,27 @@ test.describe('loading example file', () => {
 		await size_header.click()
 		await expect.soft(size_header).toHaveAttribute('aria-sort', 'ascending')
 		await expect.soft(first_row).toHaveAttribute('aria-selected', 'true')
-		await expect.soft(first_row.getByRole('cell').nth(0)).toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/FormattedDate.JHv9Zh3p.css')
+		await expect
+			.soft(first_row.getByRole('cell').nth(0))
+			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/FormattedDate.JHv9Zh3p.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('69 B')
-		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('100%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('100%')
 		css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('time.svelte-60ldmz {')
 	})
 
 	test('sorting by coverage', async ({ page }) => {
 		let header = table.getByRole('row').first()
-		let coverage_header = header.getByRole('columnheader').nth(2)
+		let coverage_header = header.getByRole('columnheader').nth(3)
 		await coverage_header.click()
 		await expect.soft(coverage_header).toHaveAttribute('aria-sort', 'descending')
 		let first_row = table.getByRole('row').nth(1)
 		await expect.soft(first_row).toHaveAttribute('aria-selected', 'true')
-		await expect.soft(first_row.getByRole('cell').nth(0)).toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/23.lTvFD_l9.css')
+		await expect
+			.soft(first_row.getByRole('cell').nth(0))
+			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/23.lTvFD_l9.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('405 B')
-		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('100%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('100%')
 		let css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('.form.svelte-148ca8f {')
 
@@ -143,9 +159,11 @@ test.describe('loading example file', () => {
 		await coverage_header.click()
 		await expect.soft(coverage_header).toHaveAttribute('aria-sort', 'ascending')
 		await expect.soft(first_row).toHaveAttribute('aria-selected', 'true')
-		await expect.soft(first_row.getByRole('cell').nth(0)).toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/25.C4edrrKC.css')
+		await expect
+			.soft(first_row.getByRole('cell').nth(0))
+			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/25.C4edrrKC.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('780 B')
-		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('0%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('0%')
 		css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('.page.svelte-1b1m7j9 {')
 	})

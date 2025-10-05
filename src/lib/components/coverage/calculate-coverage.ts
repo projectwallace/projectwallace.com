@@ -191,7 +191,7 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 
 			let trimmed_line = line.trim()
 			let is_empty = trimmed_line.length === 0
-			let is_closing_brace = trimmed_line === '}'
+			let is_closing_brace = !is_empty && trimmed_line === '}'
 			let prev_is_covered = index > 0 ? line_coverage[index - 1] === 1 : false
 
 			if (is_in_range && !is_closing_brace && !is_empty) {
