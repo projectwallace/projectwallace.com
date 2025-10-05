@@ -145,7 +145,7 @@
 							{#each sorted_items as item_index, index}
 								{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
 								{@const { url, total_bytes, coverage_ratio } = stylesheet}
-								<tr use:item={{ value: index.toString() }} aria-selected={selected_index === index ? 'true': 'false'}>
+								<tr use:item={{ value: index.toString() }} aria-selected={selected_index === index ? 'true' : 'false'}>
 									<td class="url">
 										{url}
 									</td>
