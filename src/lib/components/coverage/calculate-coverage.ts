@@ -45,6 +45,10 @@ export function get_css_and_ranges_from_html(parse_html: HtmlParser, html: strin
 	}
 }
 
+function is_html(text: string): boolean {
+	return /<\/?(html|body|head|div|span|script|style)/i.test(text)
+}
+
 export function filter_coverage(coverage: Coverage[], parse_html: HtmlParser): Coverage[] {
 	let result = []
 
@@ -59,16 +63,21 @@ export function filter_coverage(coverage: Coverage[], parse_html: HtmlParser): C
 			continue
 		}
 
-		// At this point it's almost certainly an inline HTML style tag
-		// TODO
-		// But!!! in case of running Playwright on localhost we still end
-		// up here because all CSS is reported as { url: 'http://localhost/my-page', text: '.my-css {}' }
-		// which is not HTML but pure CSS
-		let { css, ranges } = get_css_and_ranges_from_html(parse_html, entry.text, entry.ranges)
+		if (is_html(entry.text)) {
+			let { css, ranges } = get_css_and_ranges_from_html(parse_html, entry.text, entry.ranges)
+			result.push({
+				url: entry.url,
+				text: css,
+				ranges
+			})
+			continue
+		}
+
+		// At this point it can only be CSS
 		result.push({
 			url: entry.url,
-			text: css,
-			ranges
+			text: entry.text,
+			ranges: entry.ranges
 		})
 	}
 
@@ -229,7 +238,6 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 		}
 	})
 
-	// TODO: calculate byte_coverage AND line_coverage
 	let coverage_ratio =
 		coverage_per_stylesheet.reduce((acc, sheet) => acc + sheet.coverage_ratio, 0) / coverage_per_stylesheet.length
 

@@ -143,26 +143,55 @@ test.describe('collect coverage', () => {
 })
 
 test.describe('calculates coverage', () => {
-	// TODO: add support for <style> tag extraction
-	test.skip('from <style> tag', async () => {
-		let html = `
-		<!doctype html>
-		<html>
-			<head>
-				<title>test document</title>
-				<style>
-					body { margin: 0; }
-					p { color: green } /* not covered */
-					h1 { color: red; }
-				</style>
-			</head>
-			<body>
-				<h1>Hello world</h1>
-			</body>
-		</html>
-	`
-		let coverage = await collect_coverage(html)
-		let result = calculate_coverage(coverage, html_parser)
+	test.describe('from <style> tag', async () => {
+		let coverage: Coverage[]
+
+		test.beforeAll(async () => {
+			let html = `
+			<!doctype html>
+				<html>
+					<head>
+						<title>test document</title>
+						<style>
+							body { margin: 0; }
+							p { color: green } /* not covered */
+							h1 { color: red; }
+						</style>
+					</head>
+					<body>
+						<h1>Hello world</h1>
+					</body>
+				</html>
+			`
+			coverage = await collect_coverage(html)
+		})
+
+		test('counts totals', () => {
+			let result = calculate_coverage(coverage, html_parser)
+			expect.soft(result.files_found).toBe(1)
+			expect.soft(result.total_bytes).toBe(80)
+			expect.soft(result.used_bytes).toBe(37)
+			expect.soft(result.unused_bytes).toBe(41)
+			expect.soft(result.total_lines).toBe(11)
+			expect.soft(result.covered_lines).toBe(7)
+			expect.soft(result.uncovered_lines).toBe(11 - 7)
+			expect.soft(result.line_coverage).toBe(7 / 11)
+		})
+
+		test('calculates stats per stylesheet', () => {
+			let result = calculate_coverage(coverage, html_parser)
+			let sheet = result.coverage_per_stylesheet.at(0)!
+			expect.soft(sheet.url).toBe('http://localhost/test.html')
+			expect.soft(sheet.ranges).toEqual([
+				{ start: 0, end: 20 },
+				{ start: 61, end: 80 }
+			])
+			expect.soft(sheet.total_lines).toBe(11)
+			expect.soft(sheet.covered_lines).toBe(7)
+			expect.soft(sheet.uncovered_lines).toBe(4)
+			expect.soft(sheet.coverage_ratio).toBe(7 / 11)
+			expect.soft(sheet.line_coverage).toEqual(new Uint8Array([1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1]))
+		})
 	})
 
 	test.describe('from <link rel="stylesheet">', () => {
