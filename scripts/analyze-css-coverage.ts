@@ -60,3 +60,23 @@ if (result.line_coverage >= minLineCoverage) {
 	)
 	process.exit(1)
 }
+
+// TODO: show uncovered blocks of code
+// Muhahaha, that's huge to render and review, good luck with that
+// like this:
+//
+// ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+// url: https://projectwallacecom-17odovju6-project-wallace.vercel.app/_app/immutable/assets/Icon.H5P8WqwA.css
+// ───────────────────────────────────────────────────────────────────────────────────────────────────────────
+//
+// ```css
+// 210 | ...
+// 211 |   color: red;
+// 212 | }
+// 213 |
+// 214 | h1 {
+// 215 |   color: green;
+// 216 | }
+// 217 |
+// 218 | ...
+// ```

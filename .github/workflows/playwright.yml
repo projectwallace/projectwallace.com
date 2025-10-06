@@ -62,5 +62,5 @@ jobs:
           name: css-coverage
           path: ./css-coverage
 
-      - name: Analyze coverage
+      - name: Analyze CSS Code Coverage
         run: node scripts/analyze-css-coverage.ts --minLineCoverage=0.85
