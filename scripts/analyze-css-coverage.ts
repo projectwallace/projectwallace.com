@@ -19,14 +19,14 @@ let { values } = parseArgs({
 
 if (!values.minLineCoverage) {
 	console.error('Please specifiy a minLineCoverage option (--minLineCoverage=0.8)')
-	process.exitCode = 1
+	process.exit(1)
 }
 
 let minLineCoverage = Number(values.minLineCoverage)
 
 if (Number.isNaN(minLineCoverage) || minLineCoverage <= 0 || minLineCoverage > 1) {
 	console.error('Please specify a valid number between 0 and 1 for --minLineCoverage')
-	process.exitCode = 1
+	process.exit(1)
 }
 
 function parse_html(html: string) {
@@ -56,6 +56,7 @@ if (result.line_coverage < minLineCoverage) {
 	console.error(
 		`☠️ Line coverage is ${result.line_coverage.toFixed(2)} which is lower than the threshold of ${minLineCoverage}`
 	)
+	process.exit(1)
 } else {
 	console.log(`🎉 Line coverage is ${result.line_coverage.toFixed(2)}!`)
 }
