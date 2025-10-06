@@ -1,8 +1,10 @@
-import { test, expect, describe, beforeAll } from 'vitest'
-import { chromium } from '@playwright/test'
+// The only reason this is a .spec file and not a .test is because we need playwright installed
+// import { test, expect, describe, beforeAll } from 'vitest'
+import { chromium, test, expect } from '@playwright/test'
 import { calculate_coverage } from './calculate-coverage'
 import { DOMParser } from 'linkedom'
 import type { Coverage } from './types'
+import { format } from '@projectwallace/format-css'
 
 function html_parser(html: string) {
 	return new DOMParser().parseFromString(html, 'text/html')
@@ -33,7 +35,7 @@ async function collect_coverage(html: string, { link_css }: { link_css?: string 
 	return coverage
 }
 
-describe('collect coverage', () => {
+test.describe('collect coverage', () => {
 	test('collects coverage from html <style> tag', async () => {
 		let html = `
 		<!doctype html>
@@ -93,9 +95,9 @@ describe('collect coverage', () => {
 		})
 	})
 
-	test.todo('collects coverage from <style> and <link rel="stylesheet">')
+	// test.todo('collects coverage from <style> and <link rel="stylesheet">')
 
-	describe('coverage quirks', () => {
+	test.describe('coverage quirks', () => {
 		test('coverage does not include the prelude and name of an atrule', async () => {
 			let html = `
 				<!doctype html>
@@ -140,7 +142,7 @@ describe('collect coverage', () => {
 	})
 })
 
-describe('calculates coverage', () => {
+test.describe('calculates coverage', () => {
 	// TODO: add support for <style> tag extraction
 	test.skip('from <style> tag', async () => {
 		let html = `
@@ -163,9 +165,19 @@ describe('calculates coverage', () => {
 		let result = calculate_coverage(coverage, html_parser)
 	})
 
-	describe('from <link rel="stylesheet">', () => {
+	test.describe('from <link rel="stylesheet">', () => {
 		let coverage: Coverage[]
-		beforeAll(async () => {
+		let css = `
+			body { margin: 0; }
+			p { color: green } /* not covered */
+			h1 { color: red; }
+			p { color: green } /* not covered */
+			@media (width > 40em) {
+				h1 { font-size: 24px; }
+			}
+		`
+
+		test.beforeAll(async () => {
 			let html = `
 				<!doctype html>
 				<html>
@@ -178,24 +190,19 @@ describe('calculates coverage', () => {
 					</body>
 				</html>
 			`
-			let css = `
-				body { margin: 0; }
-				p { color: green } /* not covered */
-				h1 { color: red; }
-			`
 			coverage = await collect_coverage(html, { link_css: css })
 		})
 
 		test('counts totals', () => {
 			let result = calculate_coverage(coverage, html_parser)
 			expect.soft(result.files_found).toBe(1)
-			expect.soft(result.total_bytes).toBe(80)
-			expect.soft(result.used_bytes).toBe(37)
-			expect.soft(result.unused_bytes).toBe(41)
-			expect.soft(result.total_lines).toBe(11)
-			expect.soft(result.covered_lines).toBe(7)
-			expect.soft(result.uncovered_lines).toBe(4)
-			expect.soft(result.line_coverage).toBe(7 / 11)
+			expect.soft(result.total_bytes).toBe(174)
+			expect.soft(result.used_bytes).toBe(75)
+			expect.soft(result.unused_bytes).toBe(93)
+			expect.soft(result.total_lines).toBe(21)
+			expect.soft(result.covered_lines).toBe(12)
+			expect.soft(result.uncovered_lines).toBe(21 - 12)
+			expect.soft(result.line_coverage).toBe(12 / 21)
 		})
 
 		test('calculates stats per stylesheet', () => {
@@ -204,13 +211,18 @@ describe('calculates coverage', () => {
 			expect.soft(sheet.url).toBe('http://localhost/style.css')
 			expect.soft(sheet.ranges).toEqual([
 				{ start: 0, end: 20 },
-				{ start: 61, end: 80 }
+				{ start: 61, end: 80 },
+				{ start: 128, end: 142 },
+				{ start: 146, end: 172 }
 			])
-			expect.soft(sheet.total_lines).toBe(11)
-			expect.soft(sheet.covered_lines).toBe(7)
-			expect.soft(sheet.uncovered_lines).toBe(4)
-			expect.soft(sheet.coverage_ratio).toBe(7 / 11)
-			expect.soft(sheet.line_coverage).toEqual(new Uint8Array([1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1]))
+			expect.soft(sheet.total_lines).toBe(21)
+			expect.soft(sheet.covered_lines).toBe(12)
+			expect.soft(sheet.uncovered_lines).toBe(21 - 12)
+			expect.soft(sheet.coverage_ratio).toBe(12 / 21)
+			expect
+				.soft(sheet.line_coverage)
+				.toEqual(new Uint8Array([1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1]))
+			expect.soft(sheet.text).toEqual(format(css))
 		})
 	})
 })
