@@ -1,6 +1,6 @@
-import type { Coverage, Range } from './types'
-import { prettify } from './prettify'
-import { ext } from './ext'
+import type { Coverage, Range } from './types.ts'
+import { prettify } from './prettify.ts'
+import { ext } from './ext.ts'
 import type { HTMLDocument } from 'linkedom/types/html/document'
 
 interface HtmlParser {
@@ -142,15 +142,15 @@ export function deduplicate_entries(
 // TODO: add flag for prettification on/off
 // When disabled we can skip the prettify step as well as recalculating the ranges in HTML (get_css_and_ranges_from_html)
 // This also means that when pretty=true, parse_html MUST also be included. parse_html is optional when pretty=false
-export function calculate_coverage(browser_coverage: Coverage[], parse_html: HtmlParser) {
+export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser) {
 	let total_bytes = 0
 	let used_bytes = 0
 	let unused_bytes = 0
 	let total_lines = 0
 	let covered_lines = 0
 	let uncovered_lines = 0
-	let files_found = browser_coverage.length
-	let filtered_coverage = filter_coverage(browser_coverage, parse_html)
+	let files_found = coverage.length
+	let filtered_coverage = filter_coverage(coverage, parse_html)
 	let prettified_coverage = prettify(filtered_coverage)
 	let deduplicated = deduplicate_entries(prettified_coverage)
 
