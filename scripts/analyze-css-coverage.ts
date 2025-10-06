@@ -34,7 +34,7 @@ function parse_html(html: string) {
 }
 
 let files = fs.readdirSync('./css-coverage')
-console.log(`🔎 Checking ${files.length} files...`)
+console.log(`Checking ${files.length} files...`)
 
 let data = files.reduce((all_files, file_path) => {
 	if (!file_path.endsWith('.json')) return all_files
@@ -50,13 +50,13 @@ let data = files.reduce((all_files, file_path) => {
 
 let result = calculate_coverage(data, parse_html)
 
-console.log(`✨ Analyzed ${result.files_found} coverage entries`)
+console.log(`Analyzed ${result.files_found} coverage entries`)
 
-if (result.line_coverage < minLineCoverage) {
+if (result.line_coverage >= minLineCoverage) {
+	console.log(`Success: line coverage is ${result.line_coverage.toFixed(2)}`)
+} else {
 	console.error(
-		`☠️ Line coverage is ${result.line_coverage.toFixed(2)} which is lower than the threshold of ${minLineCoverage}`
+		`Failed: line coverage is ${result.line_coverage.toFixed(2)} which is lower than the threshold of ${minLineCoverage}`
 	)
 	process.exit(1)
-} else {
-	console.log(`🎉 Line coverage is ${result.line_coverage.toFixed(2)}!`)
 }
