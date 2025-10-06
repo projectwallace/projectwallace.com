@@ -283,7 +283,13 @@
 	}
 
 	tr {
-		--meter-bg: var(--bg-500);
+		--meter-bg: repeating-linear-gradient(
+			-45deg,
+			var(--error-400),
+			var(--error-400) 3px,
+			var(--error-200) 3px,
+			var(--error-200) 6px
+		);
 	}
 
 	.sort-button {

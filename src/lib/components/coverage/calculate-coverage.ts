@@ -178,20 +178,22 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 			let end = offset + line.length
 			let next_offset = end + 1 // +1 for the newline character
 			let is_in_range = false
-
-			for (let range of ranges) {
-				if (range.start <= start && range.end >= end) {
-					is_in_range = true
-					break
-				} else if (line.startsWith('@') && range.start > start && range.start < next_offset) {
-					is_in_range = true
-					break
-				}
-			}
-
 			let trimmed_line = line.trim()
 			let is_empty = trimmed_line.length === 0
 			let is_closing_brace = !is_empty && trimmed_line === '}'
+
+			if (!is_empty && !is_closing_brace) {
+				for (let range of ranges) {
+					if (range.start <= start && range.end >= end) {
+						is_in_range = true
+						break
+					} else if (trimmed_line.startsWith('@') && range.start > start && range.start < next_offset) {
+						is_in_range = true
+						break
+					}
+				}
+			}
+
 			let prev_is_covered = index > 0 ? line_coverage[index - 1] === 1 : false
 
 			if (is_in_range && !is_closing_brace && !is_empty) {
