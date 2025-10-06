@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { ext } from './calculate-coverage'
+import { ext } from './ext'
 
 let valid = [
 	'https://example.com/style.css',
