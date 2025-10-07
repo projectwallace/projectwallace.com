@@ -113,7 +113,8 @@ if (showUncovered !== 'none') {
 	const NUM_LEADING_LINES = 3
 	const NUM_TRAILING_LINES = NUM_LEADING_LINES
 	let terminal_width = process.stdout.columns || 80
-	let line_number = (num: number) => `${num.toString().padStart(5, ' ')} │ `
+	let line_number = (num: number, covered: boolean = true) =>
+		`${num.toString().padStart(5, ' ')} ${covered ? '│' : '╟'} `
 
 	for (let sheet of result.coverage_per_stylesheet) {
 		if (
@@ -146,7 +147,7 @@ if (showUncovered !== 'none') {
 					}
 					// Render uncovered lines while increasing cursor until reaching next covered block
 					while (line_coverage[i] === 0) {
-						console.log(styleText('red', line_number(i)), lines[i])
+						console.log(styleText('red', line_number(i, false)), lines[i])
 						i++
 					}
 					// Forward cursor N lines to render N trailing lines
