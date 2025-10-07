@@ -18,6 +18,10 @@ let { values } = parseArgs({
 		minLineCoverage: {
 			type: 'string'
 		},
+		minFileLineCoverage: {
+			type: 'string',
+			default: '0'
+		},
 		showUncovered: {
 			type: 'boolean',
 			default: false
@@ -28,6 +32,8 @@ let { values } = parseArgs({
 let valuesSchema = v.object({
 	// Coerce args string to number and validate that it's between 0 and 1
 	minLineCoverage: v.pipe(v.string(), v.transform(Number), v.number(), v.minValue(0), v.maxValue(1)),
+	// Coerce args string to number and validate that it's between 0 and 1
+	minFileLineCoverage: v.optional(v.pipe(v.string(), v.transform(Number), v.number(), v.minValue(0), v.maxValue(1))),
 	showUncovered: v.boolean()
 })
 
@@ -36,8 +42,6 @@ if (!parse_result.success) {
 	console.error('Please specifiy a minLineCoverage option (--minLineCoverage=0.8) between 0 and 1')
 	process.exit(1)
 }
-
-let minLineCoverage = parse_result.output.minLineCoverage
 
 function parse_html(html: string) {
 	return new DOMParser().parseFromString(html, 'text/html')
@@ -62,8 +66,10 @@ let result = calculate_coverage(data, parse_html)
 
 console.log(`Analyzed ${result.files_found} coverage entries`)
 
+// Verify minLineCoverage
+let minLineCoverage = parse_result.output.minLineCoverage
 if (result.line_coverage >= minLineCoverage) {
-	console.log(`${color.bold(color.green('Success'))}: line coverage is ${result.line_coverage.toFixed(2)}`)
+	console.log(`${color.bold(color.green('Success'))}: total line coverage is ${result.line_coverage.toFixed(2)}`)
 } else {
 	console.error(
 		`${color.red(color.bold('Failed'))}: line coverage is ${result.line_coverage.toFixed(2)} which is lower than the threshold of ${minLineCoverage}`
@@ -71,16 +77,39 @@ if (result.line_coverage >= minLineCoverage) {
 	process.exit(1)
 }
 
+// Verify minFileLineCoverage
+let minFileLineCoverage = parse_result.output.minFileLineCoverage
+if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
+	if (result.coverage_per_stylesheet.some((sheet) => sheet.coverage_ratio < minFileLineCoverage)) {
+		console.error(
+			`${color.red(color.bold('Failed'))}: Not all files meet the minimum line coverage of ${minFileLineCoverage}:`
+		)
+		console.log()
+		for (let sheet of result.coverage_per_stylesheet) {
+			if (sheet.coverage_ratio < minFileLineCoverage) {
+				console.error(`${color.dim('-')} ${sheet.url}`)
+				console.error(`  Coverage: ${color.red(sheet.coverage_ratio.toFixed(2))}`)
+			}
+		}
+	} else {
+		console.log(`${color.bold(color.green('Success'))}: all files pass minFileLineCoverage of ${minFileLineCoverage}`)
+	}
+}
+
 if (parse_result.output.showUncovered) {
 	const NUM_LEADING_LINES = 3
 	const NUM_TRAILING_LINES = NUM_LEADING_LINES
+
+	let first = new URL(result.coverage_per_stylesheet.at(0)!.url)
+	let common_website = result.coverage_per_stylesheet.map((s) => new URL(s.url)).every((s) => s.origin === first.origin)
+
 	for (let sheet of result.coverage_per_stylesheet) {
 		if (sheet.coverage_ratio !== 1) {
 			console.log()
 			console.log(color.dim('─'.repeat(process.stdout.columns || 80)))
-			console.log(`${sheet.url}`)
+			console.log(`${common_website ? sheet.url.substring(sheet.url.indexOf('/', 'https://'.length)) : sheet.url}`)
 			console.log(
-				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines} of ${sheet.total_lines} lines covered`
+				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines}/${sheet.total_lines} lines covered`
 			)
 			console.log(color.dim('─'.repeat(process.stdout.columns || 80)))
 
