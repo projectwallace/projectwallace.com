@@ -7,6 +7,8 @@ import { parseArgs } from 'node:util'
 import * as v from 'valibot'
 import color from 'picocolors'
 
+color.createColors(true)
+
 let args = process.argv.slice(2)
 
 let { values } = parseArgs({
@@ -75,12 +77,12 @@ if (parse_result.output.showUncovered) {
 	for (let sheet of result.coverage_per_stylesheet) {
 		if (sheet.coverage_ratio !== 1) {
 			console.log()
-			console.log(color.dim('─'.repeat(process.stdout.columns)))
+			console.log(color.dim('─'.repeat(process.stdout.columns || 80)))
 			console.log(`${sheet.url}`)
 			console.log(
 				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines} of ${sheet.total_lines} lines covered`
 			)
-			console.log(color.dim('─'.repeat(process.stdout.columns)))
+			console.log(color.dim('─'.repeat(process.stdout.columns || 80)))
 
 			let lines = sheet.text.split('\n')
 			let line_coverage = sheet.line_coverage
