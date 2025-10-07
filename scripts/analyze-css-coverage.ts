@@ -86,10 +86,12 @@ console.log(`Analyzed ${result.files_found} coverage entries`)
 
 // Verify minLineCoverage
 if (result.line_coverage >= minLineCoverage) {
-	console.log(`${styleText(['bold', 'green'], 'Success')}: total line coverage is ${result.line_coverage.toFixed(2)}`)
+	console.log(
+		`${styleText(['bold', 'green'], 'Success')}: total line coverage is ${(result.line_coverage * 100).toFixed(2)}%`
+	)
 } else {
 	console.error(
-		`${styleText(['bold', 'red'], 'Failed')}: line coverage is ${result.line_coverage.toFixed(2)} which is lower than the threshold of ${minLineCoverage}`
+		`${styleText(['bold', 'red'], 'Failed')}: line coverage is ${(result.line_coverage * 100).toFixed(2)}% which is lower than the threshold of ${minLineCoverage}`
 	)
 	process.exit(1)
 }
@@ -98,11 +100,11 @@ if (result.line_coverage >= minLineCoverage) {
 if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
 	if (result.coverage_per_stylesheet.some((sheet) => sheet.coverage_ratio < minFileLineCoverage)) {
 		console.error(
-			`${styleText(['bold', 'red'], 'Failed')}: Not all files meet the minimum line coverage of ${minFileLineCoverage}:`
+			`${styleText(['bold', 'red'], 'Failed')}: Not all files meet the minimum line coverage of ${minFileLineCoverage * 100}%:`
 		)
 	} else {
 		console.log(
-			`${styleText(['bold', 'green'], 'Success')}: all files pass minFileLineCoverage of ${minFileLineCoverage}`
+			`${styleText(['bold', 'green'], 'Success')}: all files pass minFileLineCoverage of ${minFileLineCoverage * 100}%`
 		)
 	}
 }
@@ -127,6 +129,10 @@ if (showUncovered !== 'none') {
 			console.log(
 				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines}/${sheet.total_lines} lines covered`
 			)
+			if (minFileLineCoverage) {
+				let lines_to_cover = minFileLineCoverage * sheet.total_lines - sheet.covered_lines
+				console.log(`💡 Cover ${Math.ceil(lines_to_cover)} more lines to meet the threshold`)
+			}
 			console.log(styleText('dim', '─'.repeat(terminal_width)))
 
 			let lines = sheet.text.split('\n')
