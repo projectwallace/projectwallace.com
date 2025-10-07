@@ -61,10 +61,10 @@ let result = calculate_coverage(data, parse_html)
 console.log(`Analyzed ${result.files_found} coverage entries`)
 
 if (result.line_coverage >= minLineCoverage) {
-	console.log(`Success: line coverage is ${result.line_coverage.toFixed(2)}`)
+	console.log(`${color.bold(color.green('Success'))}: line coverage is ${result.line_coverage.toFixed(2)}`)
 } else {
 	console.error(
-		`Failed: line coverage is ${result.line_coverage.toFixed(2)} which is lower than the threshold of ${minLineCoverage}`
+		`${color.red(color.bold('Failed'))}: line coverage is ${result.line_coverage.toFixed(2)} which is lower than the threshold of ${minLineCoverage}`
 	)
 	process.exit(1)
 }
@@ -88,39 +88,23 @@ if (parse_result.output.showUncovered) {
 
 			for (let i = 0; i < lines.length; i++) {
 				if (line_coverage[i] === 0) {
-					// Rewind cursor N lines
+					// Rewind cursor N lines to render N previous lines
 					for (let j = i - NUM_LEADING_LINES; j < i; j++) {
 						console.log(color.dim(line_number(j)), color.dim(lines[j]))
 					}
+					// Render uncovered lines while increasing cursor until reaching next covered block
 					while (line_coverage[i] === 0) {
 						console.log(color.red(line_number(i)), lines[i])
 						i++
 					}
+					// Forward cursor N lines to render N trailing lines
 					for (let end = i + NUM_TRAILING_LINES; i < end && i < lines.length; i++) {
 						console.log(color.dim(line_number(i)), color.dim(lines[i]))
 					}
+					// Show empty line between blocks
 					console.log()
 				}
 			}
 		}
 	}
 }
-// TODO: show uncovered blocks of code
-// Muhahaha, that's huge to render and review, good luck with that
-// like this:
-//
-// ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-// url: https://projectwallacecom-17odovju6-project-wallace.vercel.app/_app/immutable/assets/Icon.H5P8WqwA.css
-// ───────────────────────────────────────────────────────────────────────────────────────────────────────────
-//
-// ```css
-// 210 | ...
-// 211 |   color: red;
-// 212 | }
-// 213 |
-// 214 | h1 {
-// 215 |   color: green;
-// 216 | }
-// 217 |
-// 218 | ...
-// ```
