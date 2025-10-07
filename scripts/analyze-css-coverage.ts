@@ -3,9 +3,8 @@ import * as path from 'node:path'
 import { calculate_coverage } from '../src/lib/components/coverage/calculate-coverage.ts'
 import { DOMParser } from 'linkedom'
 import type { Coverage } from '../src/lib/components/coverage/types.ts'
-import { parseArgs } from 'node:util'
+import { parseArgs, styleText } from 'node:util'
 import * as v from 'valibot'
-import { styleText } from 'node:util'
 
 let args = process.argv.slice(2)
 
