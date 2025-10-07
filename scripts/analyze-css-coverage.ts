@@ -20,18 +20,24 @@ let { values } = parseArgs({
 			default: '0'
 		},
 		showUncovered: {
-			type: 'boolean',
-			default: false
+			type: 'string',
+			default: 'none'
 		}
 	}
 })
+
+const showUncoveredOptions = {
+	none: 'none',
+	all: 'all',
+	violations: 'violations'
+} as const
 
 let valuesSchema = v.object({
 	// Coerce args string to number and validate that it's between 0 and 1
 	minLineCoverage: v.pipe(v.string(), v.transform(Number), v.number(), v.minValue(0), v.maxValue(1)),
 	// Coerce args string to number and validate that it's between 0 and 1
 	minFileLineCoverage: v.optional(v.pipe(v.string(), v.transform(Number), v.number(), v.minValue(0), v.maxValue(1))),
-	showUncovered: v.boolean()
+	showUncovered: v.optional(v.pipe(v.string(), v.enum(showUncoveredOptions)))
 })
 
 let parse_result = v.safeParse(valuesSchema, values)
@@ -81,13 +87,6 @@ if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
 		console.error(
 			`${styleText(['bold', 'red'], 'Failed')}: Not all files meet the minimum line coverage of ${minFileLineCoverage}:`
 		)
-		console.log()
-		for (let sheet of result.coverage_per_stylesheet) {
-			if (sheet.coverage_ratio < minFileLineCoverage) {
-				console.error(`${styleText('dim', '-')} ${sheet.url}`)
-				console.error(`  Coverage: ${styleText('red', sheet.coverage_ratio.toFixed(2))}`)
-			}
-		}
 	} else {
 		console.log(
 			`${styleText(['bold', 'green'], 'Success')}: all files pass minFileLineCoverage of ${minFileLineCoverage}`
@@ -95,22 +94,29 @@ if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
 	}
 }
 
-if (parse_result.output.showUncovered) {
+if (parse_result.output.showUncovered !== 'none') {
 	const NUM_LEADING_LINES = 3
 	const NUM_TRAILING_LINES = NUM_LEADING_LINES
 
 	let first = new URL(result.coverage_per_stylesheet.at(0)!.url)
 	let common_website = result.coverage_per_stylesheet.map((s) => new URL(s.url)).every((s) => s.origin === first.origin)
+	let terminal_width = process.stdout.columns || 80
 
 	for (let sheet of result.coverage_per_stylesheet) {
-		if (sheet.coverage_ratio !== 1) {
+		if (
+			(sheet.coverage_ratio !== 1 && parse_result.output.showUncovered === 'all') ||
+			(minFileLineCoverage !== undefined &&
+				minFileLineCoverage !== 0 &&
+				sheet.coverage_ratio < minFileLineCoverage &&
+				parse_result.output.showUncovered === 'violations')
+		) {
 			console.log()
-			console.log(styleText('dim', '─'.repeat(process.stdout.columns || 80)))
+			console.log(styleText('dim', '─'.repeat(terminal_width)))
 			console.log(`${common_website ? sheet.url.substring(sheet.url.indexOf('/', 'https://'.length)) : sheet.url}`)
 			console.log(
 				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines}/${sheet.total_lines} lines covered`
 			)
-			console.log(styleText('dim', '─'.repeat(process.stdout.columns || 80)))
+			console.log(styleText('dim', '─'.repeat(terminal_width)))
 
 			let lines = sheet.text.split('\n')
 			let line_coverage = sheet.line_coverage
