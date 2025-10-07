@@ -4,6 +4,8 @@ import { calculate_coverage } from '../src/lib/components/coverage/calculate-cov
 import { DOMParser } from 'linkedom'
 import type { Coverage } from '../src/lib/components/coverage/types.ts'
 import { parseArgs } from 'node:util'
+import * as v from 'valibot'
+import color from 'picocolors'
 
 let args = process.argv.slice(2)
 
@@ -13,21 +15,27 @@ let { values } = parseArgs({
 	options: {
 		minLineCoverage: {
 			type: 'string'
+		},
+		showUncovered: {
+			type: 'boolean',
+			default: false
 		}
 	}
 })
 
-if (!values.minLineCoverage) {
-	console.error('Please specifiy a minLineCoverage option (--minLineCoverage=0.8)')
+let valuesSchema = v.object({
+	// Coerce args string to number and validate that it's between 0 and 1
+	minLineCoverage: v.pipe(v.string(), v.transform(Number), v.number(), v.minValue(0), v.maxValue(1)),
+	showUncovered: v.boolean()
+})
+
+let parse_result = v.safeParse(valuesSchema, values)
+if (!parse_result.success) {
+	console.error('Please specifiy a minLineCoverage option (--minLineCoverage=0.8) between 0 and 1')
 	process.exit(1)
 }
 
-let minLineCoverage = Number(values.minLineCoverage)
-
-if (Number.isNaN(minLineCoverage) || minLineCoverage <= 0 || minLineCoverage > 1) {
-	console.error('Please specify a valid number between 0 and 1 for --minLineCoverage')
-	process.exit(1)
-}
+let minLineCoverage = parse_result.output.minLineCoverage
 
 function parse_html(html: string) {
 	return new DOMParser().parseFromString(html, 'text/html')
@@ -61,6 +69,42 @@ if (result.line_coverage >= minLineCoverage) {
 	process.exit(1)
 }
 
+if (parse_result.output.showUncovered) {
+	const NUM_LEADING_LINES = 3
+	const NUM_TRAILING_LINES = NUM_LEADING_LINES
+	for (let sheet of result.coverage_per_stylesheet) {
+		if (sheet.coverage_ratio !== 1) {
+			console.log()
+			console.log(color.dim('─'.repeat(process.stdout.columns)))
+			console.log(`${sheet.url}`)
+			console.log(
+				`Coverage: ${sheet.coverage_ratio.toFixed(2)}%, ${sheet.covered_lines} of ${sheet.total_lines} lines covered`
+			)
+			console.log(color.dim('─'.repeat(process.stdout.columns)))
+
+			let lines = sheet.text.split('\n')
+			let line_coverage = sheet.line_coverage
+			let line_number = (num: number) => `${num.toString().padStart(5, ' ')} │ `
+
+			for (let i = 0; i < lines.length; i++) {
+				if (line_coverage[i] === 0) {
+					// Rewind cursor N lines
+					for (let j = i - NUM_LEADING_LINES; j < i; j++) {
+						console.log(color.dim(line_number(j)), color.dim(lines[j]))
+					}
+					while (line_coverage[i] === 0) {
+						console.log(color.red(line_number(i)), lines[i])
+						i++
+					}
+					for (let end = i + NUM_TRAILING_LINES; i < end && i < lines.length; i++) {
+						console.log(color.dim(line_number(i)), color.dim(lines[i]))
+					}
+					console.log()
+				}
+			}
+		}
+	}
+}
 // TODO: show uncovered blocks of code
 // Muhahaha, that's huge to render and review, good luck with that
 // like this:
