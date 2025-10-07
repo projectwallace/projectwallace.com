@@ -5,6 +5,7 @@ import { DOMParser } from 'linkedom'
 import type { Coverage } from '../src/lib/components/coverage/types.ts'
 import { parseArgs, styleText } from 'node:util'
 import * as v from 'valibot'
+import { parse_json } from '../src/lib/components/coverage/parse-coverage.ts'
 
 let args = process.argv.slice(2)
 
@@ -12,6 +13,9 @@ let { values } = parseArgs({
 	args,
 	allowPositionals: true,
 	options: {
+		coverageDir: {
+			type: 'string'
+		},
 		minLineCoverage: {
 			type: 'string'
 		},
@@ -33,31 +37,42 @@ const showUncoveredOptions = {
 } as const
 
 let valuesSchema = v.object({
+	coverageDir: v.pipe(v.string(), v.nonEmpty()),
 	// Coerce args string to number and validate that it's between 0 and 1
 	minLineCoverage: v.pipe(v.string(), v.transform(Number), v.number(), v.minValue(0), v.maxValue(1)),
 	// Coerce args string to number and validate that it's between 0 and 1
 	minFileLineCoverage: v.optional(v.pipe(v.string(), v.transform(Number), v.number(), v.minValue(0), v.maxValue(1))),
-	showUncovered: v.optional(v.pipe(v.string(), v.enum(showUncoveredOptions)))
+	showUncovered: v.optional(v.pipe(v.string(), v.enum(showUncoveredOptions)), 'none')
 })
 
 let parse_result = v.safeParse(valuesSchema, values)
 if (!parse_result.success) {
-	console.error('Please specifiy a minLineCoverage option (--minLineCoverage=0.8) between 0 and 1')
+	console.error(styleText(['red', 'bold'], 'Failure'), ': invalid arguments')
+	for (let issue of parse_result.issues) {
+		console.error(`- ${issue.path?.map((p) => p.key).join('.')}: ${issue.message}`)
+	}
 	process.exit(1)
 }
+let { coverageDir, minLineCoverage, minFileLineCoverage, showUncovered } = parse_result.output
 
 function parse_html(html: string) {
 	return new DOMParser().parseFromString(html, 'text/html')
 }
 
-let files = fs.readdirSync('./css-coverage')
+let files = fs.readdirSync(coverageDir)
+
+if (files.length === 0) {
+	console.error(styleText(['red', 'bold'], 'Failure'), `: no JSON files found in ${coverageDir}`)
+	process.exit(1)
+}
+
 console.log(`Checking ${files.length} files...`)
 
 let data = files.reduce((all_files, file_path) => {
 	if (!file_path.endsWith('.json')) return all_files
 	try {
-		let content = fs.readFileSync(path.resolve('./css-coverage', file_path), 'utf-8')
-		let parsed = JSON.parse(content) as Coverage[]
+		let content = fs.readFileSync(path.resolve(coverageDir, file_path), 'utf-8')
+		let parsed = parse_json(content)
 		all_files.push(...parsed)
 		return all_files
 	} catch {
@@ -70,7 +85,6 @@ let result = calculate_coverage(data, parse_html)
 console.log(`Analyzed ${result.files_found} coverage entries`)
 
 // Verify minLineCoverage
-let minLineCoverage = parse_result.output.minLineCoverage
 if (result.line_coverage >= minLineCoverage) {
 	console.log(`${styleText(['bold', 'green'], 'Success')}: total line coverage is ${result.line_coverage.toFixed(2)}`)
 } else {
@@ -81,7 +95,6 @@ if (result.line_coverage >= minLineCoverage) {
 }
 
 // Verify minFileLineCoverage
-let minFileLineCoverage = parse_result.output.minFileLineCoverage
 if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
 	if (result.coverage_per_stylesheet.some((sheet) => sheet.coverage_ratio < minFileLineCoverage)) {
 		console.error(
@@ -94,25 +107,23 @@ if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
 	}
 }
 
-if (parse_result.output.showUncovered !== 'none') {
+if (showUncovered !== 'none') {
 	const NUM_LEADING_LINES = 3
 	const NUM_TRAILING_LINES = NUM_LEADING_LINES
-
-	let first = new URL(result.coverage_per_stylesheet.at(0)!.url)
-	let common_website = result.coverage_per_stylesheet.map((s) => new URL(s.url)).every((s) => s.origin === first.origin)
 	let terminal_width = process.stdout.columns || 80
+	let line_number = (num: number) => `${num.toString().padStart(5, ' ')} │ `
 
 	for (let sheet of result.coverage_per_stylesheet) {
 		if (
-			(sheet.coverage_ratio !== 1 && parse_result.output.showUncovered === 'all') ||
+			(sheet.coverage_ratio !== 1 && showUncovered === 'all') ||
 			(minFileLineCoverage !== undefined &&
 				minFileLineCoverage !== 0 &&
 				sheet.coverage_ratio < minFileLineCoverage &&
-				parse_result.output.showUncovered === 'violations')
+				showUncovered === 'violations')
 		) {
 			console.log()
 			console.log(styleText('dim', '─'.repeat(terminal_width)))
-			console.log(`${common_website ? sheet.url.substring(sheet.url.indexOf('/', 'https://'.length)) : sheet.url}`)
+			console.log(sheet.url)
 			console.log(
 				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines}/${sheet.total_lines} lines covered`
 			)
@@ -120,7 +131,6 @@ if (parse_result.output.showUncovered !== 'none') {
 
 			let lines = sheet.text.split('\n')
 			let line_coverage = sheet.line_coverage
-			let line_number = (num: number) => `${num.toString().padStart(5, ' ')} │ `
 
 			for (let i = 0; i < lines.length; i++) {
 				if (line_coverage[i] === 0) {

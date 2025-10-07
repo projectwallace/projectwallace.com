@@ -127,6 +127,32 @@ export function deduplicate_entries(
 	return checked_stylesheets
 }
 
+export type StylesheetCoverage = {
+	url: string
+	text: string
+	ranges: Range[]
+	used_bytes: number
+	total_bytes: number
+	coverage_ratio: number
+	line_coverage: Uint8Array
+	total_lines: number
+	covered_lines: number
+	uncovered_lines: number
+}
+
+export type CoverageResult = {
+	files_found: number
+	total_bytes: number
+	total_lines: number
+	used_bytes: number
+	covered_lines: number
+	unused_bytes: number
+	uncovered_lines: number
+	coverage_ratio: number
+	line_coverage: number
+	coverage_per_stylesheet: StylesheetCoverage[]
+}
+
 /**
  * @description
  * CSS Code Coverage calculation
@@ -138,11 +164,7 @@ export function deduplicate_entries(
  * 4. Calculate used/unused CSS bytes (fastest path, no inspection of the actual CSS needed)
  * 5. Calculate line-coverage, byte-coverage per stylesheet
  */
-
-// TODO: add flag for prettification on/off
-// When disabled we can skip the prettify step as well as recalculating the ranges in HTML (get_css_and_ranges_from_html)
-// This also means that when pretty=true, parse_html MUST also be included. parse_html is optional when pretty=false
-export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser) {
+export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser): CoverageResult {
 	let total_bytes = 0
 	let used_bytes = 0
 	let unused_bytes = 0
