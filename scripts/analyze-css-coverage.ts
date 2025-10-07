@@ -7,8 +7,6 @@ import { parseArgs } from 'node:util'
 import * as v from 'valibot'
 import color from 'picocolors'
 
-color.createColors(true)
-
 let args = process.argv.slice(2)
 
 let { values } = parseArgs({
