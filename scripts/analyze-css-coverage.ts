@@ -78,7 +78,7 @@ if (parse_result.output.showUncovered) {
 			console.log(color.dim('─'.repeat(process.stdout.columns)))
 			console.log(`${sheet.url}`)
 			console.log(
-				`Coverage: ${sheet.coverage_ratio.toFixed(2)}%, ${sheet.covered_lines} of ${sheet.total_lines} lines covered`
+				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines} of ${sheet.total_lines} lines covered`
 			)
 			console.log(color.dim('─'.repeat(process.stdout.columns)))
 
