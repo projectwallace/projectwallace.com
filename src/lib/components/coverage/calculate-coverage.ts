@@ -127,31 +127,26 @@ export function deduplicate_entries(
 	return checked_stylesheets
 }
 
-export type StylesheetCoverage = {
-	url: string
-	text: string
-	ranges: Range[]
+type CoverageData = {
 	unused_bytes: number
 	used_bytes: number
 	total_bytes: number
 	line_coverage_ratio: number
 	byte_coverage_ratio: number
-	line_coverage: Uint8Array
 	total_lines: number
 	covered_lines: number
 	uncovered_lines: number
 }
 
-export type CoverageResult = {
+export type StylesheetCoverage = CoverageData & {
+	url: string
+	text: string
+	ranges: Range[]
+	line_coverage: Uint8Array
+}
+
+export type CoverageResult = CoverageData & {
 	files_found: number
-	total_bytes: number
-	total_lines: number
-	used_bytes: number
-	covered_lines: number
-	unused_bytes: number
-	uncovered_lines: number
-	byte_coverage_ratio: number
-	line_coverage_ratio: number
 	coverage_per_stylesheet: StylesheetCoverage[]
 }
 
