@@ -37,46 +37,44 @@ export function prettify(coverage: Coverage[]): Coverage[] {
 		let index = 0
 
 		tokenize(text, (type, start, end) => {
-			if (!irrelevant_tokens.has(type)) {
-				index++
+			if (irrelevant_tokens.has(type)) return
+			index++
 
-				// format-css changes the Url token to a Function,String,RightParenthesis token sequence
-				if (type === tokenTypes.Url) {
-					index += 2
-				}
+			// format-css changes the Url token to a Function,String,RightParenthesis token sequence
+			if (type === tokenTypes.Url) {
+				index += 2
+			}
 
-				let range_index = is_in_range(start, end)
-				if (range_index !== -1) {
-					ext_ranges[range_index]!.tokens.push(index)
-				}
+			let range_index = is_in_range(start, end)
+			if (range_index !== -1) {
+				ext_ranges[range_index]!.tokens.push(index)
 			}
 		})
 
-		let new_tokens: { index: number; start: number; end: number }[] = []
+		let new_tokens: Map<number, Range> = new Map()
 		index = 0
 
 		tokenize(formatted, (type, start, end) => {
-			if (!irrelevant_tokens.has(type)) {
-				index++
+			if (irrelevant_tokens.has(type)) return
+			index++
 
-				// format-css changes the Url token to a Function,String,RightParenthesis token sequence
-				if (type === tokenTypes.Url) {
-					index += 2
-				}
-
-				new_tokens.push({ index, start, end })
+			// format-css changes the Url token to a Function,String,RightParenthesis token sequence
+			if (type === tokenTypes.Url) {
+				index += 2
 			}
+
+			new_tokens.set(index, { start, end })
 		})
 
 		let new_ranges: Range[] = []
 
 		for (let range of ext_ranges) {
-			let start_token = new_tokens.find((token) => token.index === range.tokens.at(0))
-			let end_token = new_tokens.find((token) => token.index === range.tokens.at(-1))
+			let start_token = new_tokens.get(range.tokens.at(0)!)
+			let end_token = new_tokens.get(range.tokens.at(-1)!)
 			if (start_token !== undefined && end_token !== undefined) {
 				new_ranges.push({
-					start: start_token?.start,
-					end: end_token?.end
+					start: start_token.start,
+					end: end_token.end
 				})
 			}
 		}
