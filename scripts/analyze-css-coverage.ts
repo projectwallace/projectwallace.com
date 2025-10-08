@@ -7,6 +7,18 @@ import { parseArgs, styleText } from 'node:util'
 import * as v from 'valibot'
 import { parse_json } from '../src/lib/components/coverage/parse-coverage.ts'
 
+// TODO: architecture
+// Create CLI that
+// - creates cli config
+// - validates cli input against schema
+// Create Program() that
+// - takes input (parsed and validated args)
+// - runs and returns calculations
+// - compares it with arguments passed
+// - returns a Result (passed: boolean, violations, etc.)
+// Create a printer that accepts a formatter
+// - formats can be tap, pretty (default), minimal etc.
+
 let args = process.argv.slice(2)
 
 let { values } = parseArgs({
