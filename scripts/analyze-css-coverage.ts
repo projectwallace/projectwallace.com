@@ -93,7 +93,7 @@ if (result.line_coverage >= minLineCoverage) {
 	console.error(
 		`${styleText(['bold', 'red'], 'Failed')}: line coverage is ${(result.line_coverage * 100).toFixed(2)}% which is lower than the threshold of ${minLineCoverage}`
 	)
-	process.exit(1)
+	process.exitCode = 1
 }
 
 // Verify minFileLineCoverage
@@ -102,6 +102,7 @@ if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
 		console.error(
 			`${styleText(['bold', 'red'], 'Failed')}: Not all files meet the minimum line coverage of ${minFileLineCoverage * 100}%:`
 		)
+		process.exitCode = 1
 	} else {
 		console.log(
 			`${styleText(['bold', 'green'], 'Success')}: all files pass minFileLineCoverage of ${minFileLineCoverage * 100}%`
@@ -114,7 +115,7 @@ if (showUncovered !== 'none') {
 	const NUM_TRAILING_LINES = NUM_LEADING_LINES
 	let terminal_width = process.stdout.columns || 80
 	let line_number = (num: number, covered: boolean = true) =>
-		`${num.toString().padStart(5, ' ')} ${covered ? '┆' : '┃'} `
+		`${num.toString().padStart(5, ' ')} ${covered ? '│' : '☓'} `
 
 	for (let sheet of result.coverage_per_stylesheet) {
 		if (
