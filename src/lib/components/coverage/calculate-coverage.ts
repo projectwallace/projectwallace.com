@@ -167,12 +167,6 @@ export type CoverageResult = {
  * 5. Calculate line-coverage, byte-coverage per stylesheet
  */
 export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser): CoverageResult {
-	let total_bytes = 0
-	let total_used_bytes = 0
-	let total_unused_bytes = 0
-	let total_lines = 0
-	let total_covered_lines = 0
-	let total_uncovered_lines = 0
 	let files_found = coverage.length
 	let filtered_coverage = filter_coverage(coverage, parse_html)
 	let prettified_coverage = prettify(filtered_coverage)
@@ -247,13 +241,6 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 			index++
 		}
 
-		total_bytes += text.length
-		total_used_bytes += file_bytes_covered
-		total_unused_bytes += file_bytes_uncovered
-		total_lines += total_file_lines
-		total_covered_lines += file_lines_covered
-		total_uncovered_lines += total_file_lines - file_lines_covered
-
 		return {
 			url,
 			text,
@@ -269,6 +256,27 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 			uncovered_lines: total_file_lines - file_lines_covered
 		}
 	})
+
+	let { total_lines, total_covered_lines, total_uncovered_lines, total_bytes, total_used_bytes, total_unused_bytes } =
+		coverage_per_stylesheet.reduce(
+			(totals, sheet) => {
+				totals.total_lines += sheet.total_lines
+				totals.total_covered_lines += sheet.covered_lines
+				totals.total_uncovered_lines += sheet.uncovered_lines
+				totals.total_bytes += sheet.total_bytes
+				totals.total_used_bytes += sheet.used_bytes
+				totals.total_unused_bytes += sheet.unused_bytes
+				return totals
+			},
+			{
+				total_lines: 0,
+				total_covered_lines: 0,
+				total_uncovered_lines: 0,
+				total_bytes: 0,
+				total_used_bytes: 0,
+				total_unused_bytes: 0
+			}
+		)
 
 	return {
 		files_found,

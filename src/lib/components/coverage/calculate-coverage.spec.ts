@@ -169,7 +169,7 @@ test.describe('calculates coverage', () => {
 		test('counts totals', () => {
 			let result = calculate_coverage(coverage, html_parser)
 			expect.soft(result.files_found).toBe(1)
-			expect.soft(result.total_bytes).toBe(80)
+			expect.soft(result.total_bytes).toBe(81)
 			expect.soft(result.used_bytes).toBe(37)
 			expect.soft(result.unused_bytes).toBe(44)
 			expect.soft(result.total_lines).toBe(11)
@@ -225,7 +225,7 @@ test.describe('calculates coverage', () => {
 		test('counts totals', () => {
 			let result = calculate_coverage(coverage, html_parser)
 			expect.soft(result.files_found).toBe(1)
-			expect.soft(result.total_bytes).toBe(174)
+			expect.soft(result.total_bytes).toBe(175)
 			expect.soft(result.used_bytes).toBe(80)
 			expect.soft(result.unused_bytes).toBe(95)
 			expect.soft(result.total_lines).toBe(21)
