@@ -169,16 +169,6 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 
 	// SECTION: calculate coverage for each individual stylesheet we found
 	let coverage_per_stylesheet = Array.from(deduplicated).map(([text, { url, ranges }]) => {
-		let lines = text.split('\n')
-		let total_file_lines = lines.length
-		let line_coverage = new Uint8Array(total_file_lines)
-		let file_lines_covered = 0
-		let file_total_bytes = 0
-		let file_bytes_covered = 0
-		let file_bytes_uncovered = 0
-		let offset = 0
-		let index = 0
-
 		function is_line_covered(line: string, start_offset: number) {
 			let end = start_offset + line.length
 			let next_offset = end + 1 // account for newline character
@@ -187,6 +177,9 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 
 			if (!is_empty && !is_closing_brace) {
 				for (let range of ranges) {
+					if (range.start > end || range.end < start_offset) {
+						continue
+					}
 					if (range.start <= start_offset && range.end >= end) {
 						return true
 					} else if (line.startsWith('@') && range.start > start_offset && range.start < next_offset) {
@@ -197,50 +190,50 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 			return false
 		}
 
-		for (let line of lines) {
+		let lines = text.split('\n')
+		let total_file_lines = lines.length
+		let line_coverage = new Uint8Array(total_file_lines)
+		let file_lines_covered = 0
+		let file_total_bytes = text.length
+		let file_bytes_covered = 0
+		let offset = 0
+
+		for (let index = 0; index < lines.length; index++) {
+			let line = lines[index]
 			let start = offset
 			let end = offset + line.length
 			let next_offset = end + 1 // +1 for the newline character
 			let is_empty = /^\s*$/.test(line)
 			let is_closing_brace = line.endsWith('}')
 			let is_in_range = is_line_covered(line, start)
-			file_total_bytes += line.length + 1
+			let is_covered = false
 
-			if (is_in_range) {
-				file_bytes_covered += line.length + 1
-			} else {
-				file_bytes_uncovered += line.length + 1
-			}
-
-			let prev_is_covered = index > 0 ? line_coverage[index - 1] === 1 : false
+			let prev_is_covered = index > 0 && line_coverage[index - 1] === 1
 
 			if (is_in_range && !is_closing_brace && !is_empty) {
-				file_lines_covered++
-				line_coverage[index] = 1
+				is_covered = true
 			} else if ((is_empty || is_closing_brace) && prev_is_covered) {
-				file_lines_covered++
-				line_coverage[index] = 1
-			} else if (is_empty && !prev_is_covered) {
+				is_covered = true
+			} else if (is_empty && !prev_is_covered && is_line_covered(lines[index + 1], next_offset)) {
 				// If the next line is covered, mark this empty line as covered
-				// and vice versa
-				if (is_line_covered(lines[index + 1], next_offset)) {
-					line_coverage[index] = 1
-					file_lines_covered++
-				} else {
-					line_coverage[index] = 0
-				}
-			} else {
-				line_coverage[index] = 0
+				is_covered = true
 			}
+
+			line_coverage[index] = is_covered ? 1 : 0
+
+			if (is_covered) {
+				file_lines_covered++
+				file_bytes_covered += line.length + 1
+			}
+
 			offset = next_offset
-			index++
 		}
 
 		return {
 			url,
 			text,
 			ranges,
-			unused_bytes: file_bytes_uncovered,
+			unused_bytes: file_total_bytes - file_bytes_covered,
 			used_bytes: file_bytes_covered,
 			total_bytes: file_total_bytes,
 			line_coverage_ratio: file_lines_covered / total_file_lines,
