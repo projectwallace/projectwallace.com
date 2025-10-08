@@ -131,9 +131,11 @@ export type StylesheetCoverage = {
 	url: string
 	text: string
 	ranges: Range[]
+	unused_bytes: number
 	used_bytes: number
 	total_bytes: number
-	coverage_ratio: number
+	line_coverage_ratio: number
+	byte_coverage_ratio: number
 	line_coverage: Uint8Array
 	total_lines: number
 	covered_lines: number
@@ -148,8 +150,8 @@ export type CoverageResult = {
 	covered_lines: number
 	unused_bytes: number
 	uncovered_lines: number
-	coverage_ratio: number
-	line_coverage: number
+	byte_coverage_ratio: number
+	line_coverage_ratio: number
 	coverage_per_stylesheet: StylesheetCoverage[]
 }
 
@@ -166,63 +168,59 @@ export type CoverageResult = {
  */
 export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser): CoverageResult {
 	let total_bytes = 0
-	let used_bytes = 0
-	let unused_bytes = 0
+	let total_used_bytes = 0
+	let total_unused_bytes = 0
 	let total_lines = 0
-	let covered_lines = 0
-	let uncovered_lines = 0
+	let total_covered_lines = 0
+	let total_uncovered_lines = 0
 	let files_found = coverage.length
 	let filtered_coverage = filter_coverage(coverage, parse_html)
 	let prettified_coverage = prettify(filtered_coverage)
 	let deduplicated = deduplicate_entries(prettified_coverage)
 
-	// SECTION: calculate used vs. unused bytes
-	// We sort the ranges by their start position
-	// Then we iterate over the ranges and calculate the used bytes
-	for (let [text, { ranges }] of deduplicated) {
-		total_bytes += text.length
-		let last_position = 0
-		ranges.sort((a, b) => a.start - b.start)
-		for (let range of ranges) {
-			if (range.start > last_position) {
-				let unused_text = text.slice(last_position, range.start)
-				unused_bytes += unused_text.length
-			}
-			used_bytes += range.end - range.start - 1
-			last_position = range.end
-		}
-	}
-
 	// SECTION: calculate coverage for each individual stylesheet we found
 	let coverage_per_stylesheet = Array.from(deduplicated).map(([text, { url, ranges }]) => {
-		let file_used_bytes = ranges.reduce((acc, range) => acc + (range.end - range.start), 0)
-		let trimmed_text = text.trim()
-
-		let lines = trimmed_text.split('\n')
+		let lines = text.split('\n')
 		let total_file_lines = lines.length
 		let line_coverage = new Uint8Array(total_file_lines)
 		let file_lines_covered = 0
+		let file_total_bytes = 0
+		let file_bytes_covered = 0
+		let file_bytes_uncovered = 0
 		let offset = 0
 		let index = 0
+
+		function is_line_covered(line: string, start_offset: number) {
+			let end = start_offset + line.length
+			let next_offset = end + 1 // account for newline character
+			let is_empty = /^\s*$/.test(line)
+			let is_closing_brace = line.endsWith('}')
+
+			if (!is_empty && !is_closing_brace) {
+				for (let range of ranges) {
+					if (range.start <= start_offset && range.end >= end) {
+						return true
+					} else if (line.startsWith('@') && range.start > start_offset && range.start < next_offset) {
+						return true
+					}
+				}
+			}
+			return false
+		}
+
 		for (let line of lines) {
 			let start = offset
 			let end = offset + line.length
 			let next_offset = end + 1 // +1 for the newline character
-			let is_in_range = false
-			let trimmed_line = line.trim()
-			let is_empty = trimmed_line.length === 0
-			let is_closing_brace = !is_empty && trimmed_line === '}'
+			let is_empty = /^\s*$/.test(line)
+			let is_closing_brace = line.endsWith('}')
+			let is_in_range = is_line_covered(line, start)
+			file_total_bytes += line.length + 1
 
-			if (!is_empty && !is_closing_brace) {
-				for (let range of ranges) {
-					if (range.start <= start && range.end >= end) {
-						is_in_range = true
-						break
-					} else if (trimmed_line.startsWith('@') && range.start > start && range.start < next_offset) {
-						is_in_range = true
-						break
-					}
-				}
+			if (is_in_range) {
+				file_bytes_covered += line.length + 1
+			} else {
+				file_bytes_uncovered += line.length + 1
 			}
 
 			let prev_is_covered = index > 0 ? line_coverage[index - 1] === 1 : false
@@ -233,8 +231,15 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 			} else if ((is_empty || is_closing_brace) && prev_is_covered) {
 				file_lines_covered++
 				line_coverage[index] = 1
-			} else if (is_empty && line_coverage[index - 1] === 0) {
-				line_coverage[index] = 0
+			} else if (is_empty && !prev_is_covered) {
+				// If the next line is covered, mark this empty line as covered
+				// and vice versa
+				if (is_line_covered(lines[index + 1], next_offset)) {
+					line_coverage[index] = 1
+					file_lines_covered++
+				} else {
+					line_coverage[index] = 0
+				}
 			} else {
 				line_coverage[index] = 0
 			}
@@ -242,17 +247,22 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 			index++
 		}
 
+		total_bytes += text.length
+		total_used_bytes += file_bytes_covered
+		total_unused_bytes += file_bytes_uncovered
 		total_lines += total_file_lines
-		covered_lines += file_lines_covered
-		uncovered_lines += total_file_lines - file_lines_covered
+		total_covered_lines += file_lines_covered
+		total_uncovered_lines += total_file_lines - file_lines_covered
 
 		return {
 			url,
-			text: trimmed_text,
+			text,
 			ranges,
-			used_bytes: file_used_bytes,
-			total_bytes: trimmed_text.length,
-			coverage_ratio: file_lines_covered / total_file_lines,
+			unused_bytes: file_bytes_uncovered,
+			used_bytes: file_bytes_covered,
+			total_bytes: file_total_bytes,
+			line_coverage_ratio: file_lines_covered / total_file_lines,
+			byte_coverage_ratio: file_bytes_covered / file_total_bytes,
 			line_coverage,
 			total_lines: total_file_lines,
 			covered_lines: file_lines_covered,
@@ -260,19 +270,16 @@ export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser)
 		}
 	})
 
-	let coverage_ratio =
-		coverage_per_stylesheet.reduce((acc, sheet) => acc + sheet.coverage_ratio, 0) / coverage_per_stylesheet.length
-
 	return {
 		files_found,
 		total_bytes,
 		total_lines,
-		used_bytes,
-		covered_lines,
-		unused_bytes,
-		uncovered_lines,
-		coverage_ratio,
-		line_coverage: covered_lines / total_lines,
+		used_bytes: total_used_bytes,
+		covered_lines: total_covered_lines,
+		unused_bytes: total_unused_bytes,
+		uncovered_lines: total_uncovered_lines,
+		byte_coverage_ratio: total_used_bytes / total_bytes,
+		line_coverage_ratio: total_covered_lines / total_lines,
 		coverage_per_stylesheet
 	}
 }

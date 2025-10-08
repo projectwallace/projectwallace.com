@@ -13,6 +13,8 @@ let { values } = parseArgs({
 	args,
 	allowPositionals: true,
 	options: {
+		// TODO: allow glob?
+		// TODO: convert to coveragedir, min-line-coverage, etc.
 		coverageDir: {
 			type: 'string'
 		},
@@ -85,20 +87,20 @@ let result = calculate_coverage(data, parse_html)
 console.log(`Analyzed ${result.files_found} coverage entries`)
 
 // Verify minLineCoverage
-if (result.line_coverage >= minLineCoverage) {
+if (result.line_coverage_ratio >= minLineCoverage) {
 	console.log(
-		`${styleText(['bold', 'green'], 'Success')}: total line coverage is ${(result.line_coverage * 100).toFixed(2)}%`
+		`${styleText(['bold', 'green'], 'Success')}: total line coverage is ${(result.line_coverage_ratio * 100).toFixed(2)}%`
 	)
 } else {
 	console.error(
-		`${styleText(['bold', 'red'], 'Failed')}: line coverage is ${(result.line_coverage * 100).toFixed(2)}% which is lower than the threshold of ${minLineCoverage}`
+		`${styleText(['bold', 'red'], 'Failed')}: line coverage is ${(result.line_coverage_ratio * 100).toFixed(2)}% which is lower than the threshold of ${minLineCoverage}`
 	)
 	process.exitCode = 1
 }
 
 // Verify minFileLineCoverage
 if (minFileLineCoverage !== undefined && minFileLineCoverage !== 0) {
-	if (result.coverage_per_stylesheet.some((sheet) => sheet.coverage_ratio < minFileLineCoverage)) {
+	if (result.coverage_per_stylesheet.some((sheet) => sheet.line_coverage_ratio < minFileLineCoverage)) {
 		console.error(
 			`${styleText(['bold', 'red'], 'Failed')}: Not all files meet the minimum line coverage of ${minFileLineCoverage * 100}%:`
 		)
@@ -119,17 +121,17 @@ if (showUncovered !== 'none') {
 
 	for (let sheet of result.coverage_per_stylesheet) {
 		if (
-			(sheet.coverage_ratio !== 1 && showUncovered === 'all') ||
+			(sheet.line_coverage_ratio !== 1 && showUncovered === 'all') ||
 			(minFileLineCoverage !== undefined &&
 				minFileLineCoverage !== 0 &&
-				sheet.coverage_ratio < minFileLineCoverage &&
+				sheet.line_coverage_ratio < minFileLineCoverage &&
 				showUncovered === 'violations')
 		) {
 			console.log()
 			console.log(styleText('dim', '─'.repeat(terminal_width)))
 			console.log(sheet.url)
 			console.log(
-				`Coverage: ${(sheet.coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines}/${sheet.total_lines} lines covered`
+				`Coverage: ${(sheet.line_coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines}/${sheet.total_lines} lines covered`
 			)
 			if (minFileLineCoverage) {
 				let lines_to_cover = minFileLineCoverage * sheet.total_lines - sheet.covered_lines

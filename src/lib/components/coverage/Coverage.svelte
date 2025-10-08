@@ -60,7 +60,9 @@
 				return sort_direction === 'asc' ? a.total_bytes - b.total_bytes : b.total_bytes - a.total_bytes
 			}
 			if (sort_by === 'coverage') {
-				return sort_direction === 'asc' ? a.coverage_ratio - b.coverage_ratio : b.coverage_ratio - a.coverage_ratio
+				return sort_direction === 'asc'
+					? a.line_coverage_ratio - b.line_coverage_ratio
+					: b.line_coverage_ratio - a.line_coverage_ratio
 			}
 			if (sort_by === 'name') {
 				return sort_direction === 'asc' ? string_sort(a.url, b.url) : string_sort(b.url, a.url)
@@ -110,12 +112,12 @@
 		<div class="coverage-summary">
 			<div>
 				<dt>Coverage</dt>
-				<dd>{format_percentage(calculated.coverage_ratio)}</dd>
-				<dd>{format_percentage(calculated.line_coverage)} of lines</dd>
+				<dd>{format_percentage(calculated.byte_coverage_ratio)}</dd>
+				<dd>{format_percentage(calculated.line_coverage_ratio)} of lines</dd>
 			</div>
 			<div>
 				<dt>Total</dt>
-				<dd>{format_filesize(calculated.used_bytes + calculated.unused_bytes)}</dd>
+				<dd>{format_filesize(calculated.total_bytes)}</dd>
 				<dd>{format_number(calculated.total_lines)} lines</dd>
 			</div>
 			<div>
@@ -152,17 +154,17 @@
 						<tbody use:root={{ onchange }} style:--meter-height="0.5rem">
 							{#each sorted_items as item_index, index}
 								{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
-								{@const { url, total_bytes, total_lines, coverage_ratio, covered_lines } = stylesheet}
+								{@const { url, total_bytes, total_lines, line_coverage_ratio, covered_lines } = stylesheet}
 								<tr use:item={{ value: index.toString() }} aria-selected={selected_index === index ? 'true' : 'false'}>
 									<td class="url">
 										{url}
 									</td>
 									<td class="numeric">{format_filesize(total_bytes)}</td>
 									<td class="numeric">{format_number(total_lines)}</td>
-									<td class="numeric">{format_percentage(coverage_ratio)}</td>
+									<td class="numeric">{format_percentage(line_coverage_ratio)}</td>
 									<td>
 										<div style:width={(stylesheet.total_lines / max_lines) * 100 + '%'}>
-											<Meter max={1} value={coverage_ratio} />
+											<Meter max={1} value={line_coverage_ratio} />
 										</div>
 									</td>
 								</tr>
