@@ -342,7 +342,7 @@
 			/* Special cases */
 			--uneven-tr-bg: color-mix(in srgb, var(--gray-450) 10%, transparent);
 			/* Mimics the 'Highlight' CSS system color keyword */
-			--highlight: rgb(from light-dark(var(--accent-600), var(--accent)) r g b / 0.12);
+			--highlight: rgb(from light-dark(var(--accent-600), var(--accent)) r g b / 0.14);
 
 			/* Setup theme */
 			color-scheme: dark light;

@@ -10,6 +10,7 @@
 		"sourceMap": false,
 		"strict": true,
 		"moduleResolution": "node",
+		"allowImportingTsExtensions": true,
 
 		// https://svelte.dev/docs/svelte/typescript#tsconfig.json-settings
 		"target": "ES2022",

@@ -38,3 +38,29 @@ jobs:
           name: css-coverage
           path: css-coverage/*.json
           retention-days: 30
+
+  css-coverage:
+    name: Verify CSS Code Coverage
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          cache: 'npm'
+          node-version: '>=22.18.0'
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit --ignore-scripts
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: css-coverage
+          path: ./css-coverage
+
+      - name: Analyze CSS Code Coverage
+        run: node scripts/analyze-css-coverage.ts --coverageDir=./css-coverage --minLineCoverage=.8  --minFileLineCoverage=.62 --showUncovered=violations

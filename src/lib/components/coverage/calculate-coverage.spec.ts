@@ -170,12 +170,12 @@ test.describe('calculates coverage', () => {
 			let result = calculate_coverage(coverage, html_parser)
 			expect.soft(result.files_found).toBe(1)
 			expect.soft(result.total_bytes).toBe(80)
-			expect.soft(result.used_bytes).toBe(37)
-			expect.soft(result.unused_bytes).toBe(41)
+			expect.soft(result.used_bytes).toBe(42)
+			expect.soft(result.unused_bytes).toBe(38)
 			expect.soft(result.total_lines).toBe(11)
 			expect.soft(result.covered_lines).toBe(7)
 			expect.soft(result.uncovered_lines).toBe(11 - 7)
-			expect.soft(result.line_coverage).toBe(7 / 11)
+			expect.soft(result.line_coverage_ratio).toBe(7 / 11)
 		})
 
 		test('calculates stats per stylesheet', () => {
@@ -189,7 +189,7 @@ test.describe('calculates coverage', () => {
 			expect.soft(sheet.total_lines).toBe(11)
 			expect.soft(sheet.covered_lines).toBe(7)
 			expect.soft(sheet.uncovered_lines).toBe(4)
-			expect.soft(sheet.coverage_ratio).toBe(7 / 11)
+			expect.soft(sheet.line_coverage_ratio).toBe(7 / 11)
 			expect.soft(sheet.line_coverage).toEqual(new Uint8Array([1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1]))
 		})
 	})
@@ -226,12 +226,12 @@ test.describe('calculates coverage', () => {
 			let result = calculate_coverage(coverage, html_parser)
 			expect.soft(result.files_found).toBe(1)
 			expect.soft(result.total_bytes).toBe(174)
-			expect.soft(result.used_bytes).toBe(75)
-			expect.soft(result.unused_bytes).toBe(93)
+			expect.soft(result.used_bytes).toBe(91)
+			expect.soft(result.unused_bytes).toBe(83)
 			expect.soft(result.total_lines).toBe(21)
 			expect.soft(result.covered_lines).toBe(12)
 			expect.soft(result.uncovered_lines).toBe(21 - 12)
-			expect.soft(result.line_coverage).toBe(12 / 21)
+			expect.soft(result.line_coverage_ratio).toBe(12 / 21)
 		})
 
 		test('calculates stats per stylesheet', () => {
@@ -247,7 +247,7 @@ test.describe('calculates coverage', () => {
 			expect.soft(sheet.total_lines).toBe(21)
 			expect.soft(sheet.covered_lines).toBe(12)
 			expect.soft(sheet.uncovered_lines).toBe(21 - 12)
-			expect.soft(sheet.coverage_ratio).toBe(12 / 21)
+			expect.soft(sheet.line_coverage_ratio).toBe(12 / 21)
 			expect
 				.soft(sheet.line_coverage)
 				.toEqual(new Uint8Array([1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1]))
@@ -284,10 +284,10 @@ test.describe('calculates coverage', () => {
 
 		test('counts totals', () => {
 			let result = calculate_coverage(coverage, html_parser)
-			expect.soft(result.covered_lines).toBe(8)
-			expect.soft(result.uncovered_lines).toBe(6)
+			expect.soft(result.covered_lines).toBe(9)
+			expect.soft(result.uncovered_lines).toBe(5)
 			expect.soft(result.total_lines).toBe(14)
-			expect.soft(result.line_coverage).toBe(8 / 14)
+			expect.soft(result.line_coverage_ratio).toBe(9 / 14)
 		})
 
 		test('extracts and formats css', () => {
@@ -318,11 +318,11 @@ test.describe('calculates coverage', () => {
 					// h1 {}
 					1, 1, 1, 1,
 					// comment + p {}
-					0, 0, 0, 0, 0,
+					0, 0, 0, 0,
 					// @media
 					1,
 					// h1 {
-					0,
+					1, 0,
 					// color: green; }
 					1, 1, 1
 				])

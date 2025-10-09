@@ -4,36 +4,13 @@
 	import Label from '$components/Label.svelte'
 	import Icon from '$components/Icon.svelte'
 	import Seo from '$components/Seo.svelte'
-	import * as v from 'valibot'
 	import Content from './content.md'
 	import Markdown from '$components/Markdown.svelte'
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
-
-	let CoverageSchema = v.array(
-		v.object({
-			text: v.undefinedable(v.string()),
-			url: v.string(),
-			ranges: v.array(
-				v.object({
-					start: v.number(),
-					end: v.number()
-				})
-			)
-		})
-	)
+	import { parse_json } from '$components/coverage/parse-coverage'
 
 	let data: Coverage[] = $state([])
-
-	function parse_json(input: string) {
-		try {
-			let parse_result = JSON.parse(input)
-			v.parse(CoverageSchema, parse_result)
-			return parse_result as Coverage[]
-		} catch (error) {
-			return [] as Coverage[]
-		}
-	}
 
 	async function onchange(event: Event) {
 		let files = (event.target as HTMLInputElement)?.files

@@ -57,7 +57,7 @@ test.describe('loading example file', () => {
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
 		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('2,619')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.16%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('74.95%')
 
 		// Elements in correct state:
 		await expect.soft(table.getByRole('row').nth(1)).toHaveAttribute('aria-selected', 'true')
@@ -73,8 +73,8 @@ test.describe('loading example file', () => {
 		await expect.soft(ranges.nth(3)).toHaveClass(/uncovered/)
 
 		await expect.soft(ranges.nth(0)).toHaveText('1 2 3 4 5 6 7 8 9 10 11 12 13 14')
-		await expect.soft(ranges.nth(1)).toHaveText('15 16 17 18')
-		await expect.soft(ranges.nth(3)).toHaveText('51 52 53 54 55 56')
+		await expect.soft(ranges.nth(1)).toHaveText('15 16 17')
+		await expect.soft(ranges.nth(3)).toHaveText('51 52 53 54 55')
 	})
 
 	test('selecting a row', async ({ page }) => {
@@ -109,7 +109,7 @@ test.describe('loading example file', () => {
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.16%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('74.95%')
 	})
 
 	test('sorting by total size', async ({ page }) => {
@@ -123,7 +123,7 @@ test.describe('loading example file', () => {
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
 		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.16%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('74.95%')
 		let css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('.logo.svelte-1jiwtxp {')
 

@@ -1,6 +1,6 @@
-import type { Coverage, Range } from './types'
-import { prettify } from './prettify'
-import { ext } from './ext'
+import type { Coverage, Range } from './types.ts'
+import { prettify } from './prettify.ts'
+import { ext } from './ext.ts'
 import type { HTMLDocument } from 'linkedom/types/html/document'
 
 interface HtmlParser {
@@ -127,6 +127,29 @@ export function deduplicate_entries(
 	return checked_stylesheets
 }
 
+type CoverageData = {
+	unused_bytes: number
+	used_bytes: number
+	total_bytes: number
+	line_coverage_ratio: number
+	byte_coverage_ratio: number
+	total_lines: number
+	covered_lines: number
+	uncovered_lines: number
+}
+
+export type StylesheetCoverage = CoverageData & {
+	url: string
+	text: string
+	ranges: Range[]
+	line_coverage: Uint8Array
+}
+
+export type CoverageResult = CoverageData & {
+	files_found: number
+	coverage_per_stylesheet: StylesheetCoverage[]
+}
+
 /**
  * @description
  * CSS Code Coverage calculation
@@ -138,99 +161,83 @@ export function deduplicate_entries(
  * 4. Calculate used/unused CSS bytes (fastest path, no inspection of the actual CSS needed)
  * 5. Calculate line-coverage, byte-coverage per stylesheet
  */
-
-// TODO: add flag for prettification on/off
-// When disabled we can skip the prettify step as well as recalculating the ranges in HTML (get_css_and_ranges_from_html)
-// This also means that when pretty=true, parse_html MUST also be included. parse_html is optional when pretty=false
-export function calculate_coverage(browser_coverage: Coverage[], parse_html: HtmlParser) {
-	let total_bytes = 0
-	let used_bytes = 0
-	let unused_bytes = 0
-	let total_lines = 0
-	let covered_lines = 0
-	let uncovered_lines = 0
-	let files_found = browser_coverage.length
-	let filtered_coverage = filter_coverage(browser_coverage, parse_html)
+export function calculate_coverage(coverage: Coverage[], parse_html: HtmlParser): CoverageResult {
+	let files_found = coverage.length
+	let filtered_coverage = filter_coverage(coverage, parse_html)
 	let prettified_coverage = prettify(filtered_coverage)
 	let deduplicated = deduplicate_entries(prettified_coverage)
 
-	// SECTION: calculate used vs. unused bytes
-	// We sort the ranges by their start position
-	// Then we iterate over the ranges and calculate the used bytes
-	for (let [text, { ranges }] of deduplicated) {
-		total_bytes += text.length
-		let last_position = 0
-		ranges.sort((a, b) => a.start - b.start)
-		for (let range of ranges) {
-			if (range.start > last_position) {
-				let unused_text = text.slice(last_position, range.start)
-				unused_bytes += unused_text.length
-			}
-			used_bytes += range.end - range.start - 1
-			last_position = range.end
-		}
-	}
-
 	// SECTION: calculate coverage for each individual stylesheet we found
 	let coverage_per_stylesheet = Array.from(deduplicated).map(([text, { url, ranges }]) => {
-		let file_used_bytes = ranges.reduce((acc, range) => acc + (range.end - range.start), 0)
-		let trimmed_text = text.trim()
-
-		let lines = trimmed_text.split('\n')
-		let total_file_lines = lines.length
-		let line_coverage = new Uint8Array(total_file_lines)
-		let file_lines_covered = 0
-		let offset = 0
-		let index = 0
-		for (let line of lines) {
-			let start = offset
-			let end = offset + line.length
-			let next_offset = end + 1 // +1 for the newline character
-			let is_in_range = false
-			let trimmed_line = line.trim()
-			let is_empty = trimmed_line.length === 0
-			let is_closing_brace = !is_empty && trimmed_line === '}'
+		function is_line_covered(line: string, start_offset: number) {
+			let end = start_offset + line.length
+			let next_offset = end + 1 // account for newline character
+			let is_empty = /^\s*$/.test(line)
+			let is_closing_brace = line.endsWith('}')
 
 			if (!is_empty && !is_closing_brace) {
 				for (let range of ranges) {
-					if (range.start <= start && range.end >= end) {
-						is_in_range = true
-						break
-					} else if (trimmed_line.startsWith('@') && range.start > start && range.start < next_offset) {
-						is_in_range = true
-						break
+					if (range.start > end || range.end < start_offset) {
+						continue
+					}
+					if (range.start <= start_offset && range.end >= end) {
+						return true
+					} else if (line.startsWith('@') && range.start > start_offset && range.start < next_offset) {
+						return true
 					}
 				}
 			}
-
-			let prev_is_covered = index > 0 ? line_coverage[index - 1] === 1 : false
-
-			if (is_in_range && !is_closing_brace && !is_empty) {
-				file_lines_covered++
-				line_coverage[index] = 1
-			} else if ((is_empty || is_closing_brace) && prev_is_covered) {
-				file_lines_covered++
-				line_coverage[index] = 1
-			} else if (is_empty && line_coverage[index - 1] === 0) {
-				line_coverage[index] = 0
-			} else {
-				line_coverage[index] = 0
-			}
-			offset = next_offset
-			index++
+			return false
 		}
 
-		total_lines += total_file_lines
-		covered_lines += file_lines_covered
-		uncovered_lines += total_file_lines - file_lines_covered
+		let lines = text.split('\n')
+		let total_file_lines = lines.length
+		let line_coverage = new Uint8Array(total_file_lines)
+		let file_lines_covered = 0
+		let file_total_bytes = text.length
+		let file_bytes_covered = 0
+		let offset = 0
+
+		for (let index = 0; index < lines.length; index++) {
+			let line = lines[index]
+			let start = offset
+			let end = offset + line.length
+			let next_offset = end + 1 // +1 for the newline character
+			let is_empty = /^\s*$/.test(line)
+			let is_closing_brace = line.endsWith('}')
+			let is_in_range = is_line_covered(line, start)
+			let is_covered = false
+
+			let prev_is_covered = index > 0 && line_coverage[index - 1] === 1
+
+			if (is_in_range && !is_closing_brace && !is_empty) {
+				is_covered = true
+			} else if ((is_empty || is_closing_brace) && prev_is_covered) {
+				is_covered = true
+			} else if (is_empty && !prev_is_covered && is_line_covered(lines[index + 1], next_offset)) {
+				// If the next line is covered, mark this empty line as covered
+				is_covered = true
+			}
+
+			line_coverage[index] = is_covered ? 1 : 0
+
+			if (is_covered) {
+				file_lines_covered++
+				file_bytes_covered += line.length + 1
+			}
+
+			offset = next_offset
+		}
 
 		return {
 			url,
-			text: trimmed_text,
+			text,
 			ranges,
-			used_bytes: file_used_bytes,
-			total_bytes: trimmed_text.length,
-			coverage_ratio: file_lines_covered / total_file_lines,
+			unused_bytes: file_total_bytes - file_bytes_covered,
+			used_bytes: file_bytes_covered,
+			total_bytes: file_total_bytes,
+			line_coverage_ratio: file_lines_covered / total_file_lines,
+			byte_coverage_ratio: file_bytes_covered / file_total_bytes,
 			line_coverage,
 			total_lines: total_file_lines,
 			covered_lines: file_lines_covered,
@@ -238,19 +245,37 @@ export function calculate_coverage(browser_coverage: Coverage[], parse_html: Htm
 		}
 	})
 
-	let coverage_ratio =
-		coverage_per_stylesheet.reduce((acc, sheet) => acc + sheet.coverage_ratio, 0) / coverage_per_stylesheet.length
+	let { total_lines, total_covered_lines, total_uncovered_lines, total_bytes, total_used_bytes, total_unused_bytes } =
+		coverage_per_stylesheet.reduce(
+			(totals, sheet) => {
+				totals.total_lines += sheet.total_lines
+				totals.total_covered_lines += sheet.covered_lines
+				totals.total_uncovered_lines += sheet.uncovered_lines
+				totals.total_bytes += sheet.total_bytes
+				totals.total_used_bytes += sheet.used_bytes
+				totals.total_unused_bytes += sheet.unused_bytes
+				return totals
+			},
+			{
+				total_lines: 0,
+				total_covered_lines: 0,
+				total_uncovered_lines: 0,
+				total_bytes: 0,
+				total_used_bytes: 0,
+				total_unused_bytes: 0
+			}
+		)
 
 	return {
 		files_found,
 		total_bytes,
 		total_lines,
-		used_bytes,
-		covered_lines,
-		unused_bytes,
-		uncovered_lines,
-		coverage_ratio,
-		line_coverage: covered_lines / total_lines,
+		used_bytes: total_used_bytes,
+		covered_lines: total_covered_lines,
+		unused_bytes: total_unused_bytes,
+		uncovered_lines: total_uncovered_lines,
+		byte_coverage_ratio: total_used_bytes / total_bytes,
+		line_coverage_ratio: total_covered_lines / total_lines,
 		coverage_per_stylesheet
 	}
 }
