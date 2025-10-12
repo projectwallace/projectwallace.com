@@ -131,9 +131,9 @@ if (showUncovered !== 'none') {
 	const NUM_TRAILING_LINES = NUM_LEADING_LINES
 	let terminal_width = process.stdout.columns || 80
 	let line_number = (num: number, covered: boolean = true) =>
-		`${num.toString().padStart(5, ' ')} ${covered ? '│' : '☓'} `
+		`${num.toString().padStart(5, ' ')} ${covered ? '│' : '━'} `
 
-	for (let sheet of result.coverage_per_stylesheet) {
+	for (let sheet of result.coverage_per_stylesheet.sort((a, b) => a.line_coverage_ratio - b.line_coverage_ratio)) {
 		if (
 			(sheet.line_coverage_ratio !== 1 && showUncovered === 'all') ||
 			(minFileLineCoverage !== undefined &&
@@ -147,7 +147,7 @@ if (showUncovered !== 'none') {
 			console.log(
 				`Coverage: ${(sheet.line_coverage_ratio * 100).toFixed(2)}%, ${sheet.covered_lines}/${sheet.total_lines} lines covered`
 			)
-			if (minFileLineCoverage) {
+			if (minFileLineCoverage && minFileLineCoverage !== 0 && sheet.line_coverage_ratio < minFileLineCoverage) {
 				let lines_to_cover = minFileLineCoverage * sheet.total_lines - sheet.covered_lines
 				console.log(
 					`💡 Cover ${Math.ceil(lines_to_cover)} more lines to meet the file threshold of ${minFileLineCoverage * 100}%`
