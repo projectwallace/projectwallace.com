@@ -1,3 +1,5 @@
+// oxlint-disable max-depth
+
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { calculate_coverage } from '../src/lib/components/coverage/calculate-coverage.ts'

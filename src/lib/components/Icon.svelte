@@ -40,7 +40,7 @@
 </script>
 
 <svg width={size} height={size} class={[color, 'icon', classname]} aria-hidden="true" fill-rule="evenodd">
-	<use xlink:href="#svg--{name}" />
+	<use href="#svg--{name}" />
 </svg>
 
 <style>
