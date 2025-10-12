@@ -3,6 +3,7 @@
 	import type { CssLocation } from '$lib/css-location'
 	import { highlight_css } from './use-css-highlight'
 	import Icon from '$components/Icon.svelte'
+	import { last } from '@melt-ui/svelte/internal/helpers'
 
 	type BaseProps = {
 		css?: string
@@ -164,32 +165,49 @@
 
 	function jump_to_next_uncovered() {
 		if (!line_number_chunks) return
+		if (!body) return
 
 		let current_scroll_offset = body?.scrollTop || 0
 
-		let next_uncovered_chunk = line_number_chunks.findIndex((chunk) => {
+		let next_uncovered_chunk = line_number_chunks.find((chunk) => {
 			if (chunk.is_covered) return false
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top > current_scroll_offset
-		})
+		})!
+		let next_chunk = next_uncovered_chunk
+		let first_uncovered_chunk = line_number_chunks.find((chunk) => !chunk.is_covered)!
+		let is_scrolled_to_bottom = body.scrollTop === body.scrollHeight - body.clientHeight
 
-		let next_chunk = line_number_chunks[next_uncovered_chunk] || line_number_chunks.find((chunk) => !chunk.is_covered)
+		if (!next_uncovered_chunk || is_scrolled_to_bottom) {
+			// If there are no more uncovered chunks below the current scroll position,
+			// jump to the first uncovered chunk
+			next_chunk = first_uncovered_chunk
+		}
+
 		scroll_to_line(next_chunk.start_line)
 	}
 
 	function jump_to_previous_uncovered() {
 		if (!line_number_chunks) return
+		if (!body) return
 
 		let current_scroll_offset = body?.scrollTop || 0
 
-		let previous_uncovered_chunk = line_number_chunks.findLastIndex((chunk) => {
+		let previous_uncovered_chunk = line_number_chunks.findLast((chunk) => {
 			if (chunk.is_covered) return false
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top < current_scroll_offset
-		})
+		})!
+		let last_uncovered_chunk = line_number_chunks.findLast((chunk) => !chunk.is_covered)!
+		let next_chunk = previous_uncovered_chunk
+		let is_scrolled_to_top = body.scrollTop === 0
 
-		let next_chunk =
-			line_number_chunks[previous_uncovered_chunk] || line_number_chunks.findLast((chunk) => !chunk.is_covered)
+		if (!previous_uncovered_chunk || is_scrolled_to_top) {
+			// If there are no more uncovered chunks above the current scroll position,
+			// jump to the last uncovered chunk
+			next_chunk = last_uncovered_chunk
+		}
+
 		scroll_to_line(next_chunk.start_line)
 	}
 </script>
@@ -197,15 +215,7 @@
 <!-- TODO: get rid of #key (only needed because of buggy use:highlight_css)
  but also throwing away this node and recreating it each time is *way* faster -->
 {#key css}
-	<div
-		bind:this={body}
-		class="wrapper scroll-container"
-		class:with-line-numbers={show_line_numbers}
-		class:with-coverage={show_coverage}
-		style:--pre-line-height="{LINE_HEIGHT}px"
-		style:--pre-line-number-width={line_number_width}
-		style:height="calc({total_lines + 1} * var(--pre-line-height))"
-	>
+	<div class="window">
 		{#if show_coverage && line_number_chunks && line_number_chunks.length > 1}
 			{@const uncovered_blocks_count = line_number_chunks.filter((c) => !c.is_covered).length}
 			<div class="toolbar">
@@ -222,36 +232,79 @@
 				</button>
 			</div>
 		{/if}
-		{#if show_line_numbers}
-			<div class="line-numbers" aria-hidden="true">
-				{#if show_coverage === true && line_number_chunks && line_number_chunks.length > 0}
-					{#each line_number_chunks as chunk (chunk.start_line)}
-						<div class={['line-number-range', { uncovered: !chunk.is_covered }]}>
-							{Array.from({ length: chunk.size }, (_, i) => i + 1 + chunk.start_line)
-								.join('\n')
-								.trim()}
-						</div>
-					{/each}
-				{:else}
-					{Array.from({ length: total_lines }, (_, i) => i + 1)
-						.join('\n')
-						.trim()}
-				{/if}
-			</div>
-		{/if}
-		<pre dir="ltr" translate="no" class:wrap style:height="calc({total_lines + 1} * var(--pre-line-height))"><code
-				class="language-css"
-				bind:this={code_node}
-				use:highlight_css={{ css }}
-				data-testid="pre-css">{css}</code
-			></pre>
+		<div
+			bind:this={body}
+			class="body scroll-container"
+			class:with-line-numbers={show_line_numbers}
+			class:with-coverage={show_coverage}
+			style:--pre-line-height="{LINE_HEIGHT}px"
+			style:--pre-line-number-width={line_number_width}
+			style:height="calc({total_lines + 1} * var(--pre-line-height))"
+		>
+			{#if show_line_numbers}
+				<div class="line-numbers" aria-hidden="true">
+					{#if show_coverage === true && line_number_chunks && line_number_chunks.length > 0}
+						{#each line_number_chunks as chunk (chunk.start_line)}
+							<div class={['line-number-range', { uncovered: !chunk.is_covered }]}>
+								{Array.from({ length: chunk.size }, (_, i) => i + 1 + chunk.start_line)
+									.join('\n')
+									.trim()}
+							</div>
+						{/each}
+					{:else}
+						{Array.from({ length: total_lines }, (_, i) => i + 1)
+							.join('\n')
+							.trim()}
+					{/if}
+				</div>
+			{/if}
+			<pre dir="ltr" translate="no" class:wrap style:height="calc({total_lines + 1} * var(--pre-line-height))"><code
+					class="language-css"
+					bind:this={code_node}
+					use:highlight_css={{ css }}
+					data-testid="pre-css">{css}</code
+				></pre>
+		</div>
 	</div>
 {/key}
 
 <style>
+	.window {
+		display: flex;
+		flex-direction: column;
+		height: 100%; /* Needed to force scrollbar on .wrapper contents */
+	}
+
+	.toolbar {
+		background-color: var(--bg-200);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-2);
+		padding-inline: var(--space-2);
+		padding-block: var(--space-2);
+
+		p {
+			margin-inline-end: auto;
+			font-size: var(--size-sm);
+		}
+
+		button {
+			padding-inline: var(--space-2);
+			padding-block: var(--space-1);
+			background-color: transparent;
+
+			&:hover,
+			&:focus {
+				background-color: var(--bg-400);
+			}
+		}
+	}
+
 	/* We set --pre-line-height on the actual element */
 	/* stylelint-disable csstools/value-no-unknown-custom-properties */
-	.wrapper {
+	.body {
+		flex: 1 1 auto;
 		position: relative;
 		display: grid;
 		grid-template-columns: auto;
@@ -280,45 +333,12 @@
 			}
 		}
 
-		& .line-numbers,
-		& pre {
+		& > * {
 			padding-block: var(--space-2);
 			line-height: var(--pre-line-height);
 			font-family: var(--font-mono);
 			font-size: var(--size-specimen);
-		}
-	}
-
-	.toolbar {
-		position: sticky;
-		top: 0;
-		right: 0;
-		left: 0;
-		grid-row: 1 / -1;
-		grid-column: 1 / -1;
-		z-index: 1;
-		background-color: var(--bg-200);
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: var(--space-2);
-		padding-inline: var(--space-2);
-		padding-block: var(--space-2);
-
-		p {
-			margin-inline-end: auto;
-			font-size: var(--size-sm);
-		}
-
-		button {
-			padding-inline: var(--space-2);
-			padding-block: var(--space-1);
-			background-color: transparent;
-
-			&:hover,
-			&:focus {
-				background-color: var(--bg-400);
-			}
+			min-height: 100%; /* Push horizontal scrollbar to the bottom of container */
 		}
 	}
 
