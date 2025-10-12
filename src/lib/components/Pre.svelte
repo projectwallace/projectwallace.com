@@ -161,6 +161,37 @@
 			behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
 		})
 	}
+
+	function jump_to_next_uncovered() {
+		if (!line_number_chunks) return
+
+		let current_scroll_offset = body?.scrollTop || 0
+
+		let next_uncovered_chunk = line_number_chunks.findIndex((chunk) => {
+			if (chunk.is_covered) return false
+			let chunk_top = chunk.start_line * LINE_HEIGHT
+			return chunk_top > current_scroll_offset
+		})
+
+		let next_chunk = line_number_chunks[next_uncovered_chunk] || line_number_chunks.find((chunk) => !chunk.is_covered)
+		scroll_to_line(next_chunk.start_line)
+	}
+
+	function jump_to_previous_uncovered() {
+		if (!line_number_chunks) return
+
+		let current_scroll_offset = body?.scrollTop || 0
+
+		let previous_uncovered_chunk = line_number_chunks.findLastIndex((chunk) => {
+			if (chunk.is_covered) return false
+			let chunk_top = chunk.start_line * LINE_HEIGHT
+			return chunk_top < current_scroll_offset
+		})
+
+		let next_chunk =
+			line_number_chunks[previous_uncovered_chunk] || line_number_chunks.findLast((chunk) => !chunk.is_covered)
+		scroll_to_line(next_chunk.start_line)
+	}
 </script>
 
 <!-- TODO: get rid of #key (only needed because of buggy use:highlight_css)
@@ -181,43 +212,11 @@
 				<p>
 					{uncovered_blocks_count} un-covered {uncovered_blocks_count === 1 ? 'block' : 'blocks'}
 				</p>
-				<button
-					type="button"
-					onclick={() => {
-						let current_scroll_offset = body?.scrollTop || 0
-
-						let previous_uncovered_chunk = line_number_chunks.findLastIndex((chunk) => {
-							if (chunk.is_covered) return false
-							let chunk_top = chunk.start_line * LINE_HEIGHT
-							return chunk_top < current_scroll_offset
-						})
-
-						let next_chunk =
-							line_number_chunks[previous_uncovered_chunk] || line_number_chunks.findLast((chunk) => !chunk.is_covered)
-						scroll_to_line(next_chunk.start_line)
-					}}
-					title="Go to the previous un-covered block"
-				>
+				<button type="button" onclick={jump_to_previous_uncovered} title="Go to the previous un-covered block">
 					<span class="sr-only">Go to the previous un-covered block</span>
 					<Icon name="chevron-up" size={12} />
 				</button>
-				<button
-					type="button"
-					onclick={() => {
-						let current_scroll_offset = body?.scrollTop || 0
-
-						let next_uncovered_chunk = line_number_chunks.findIndex((chunk) => {
-							if (chunk.is_covered) return false
-							let chunk_top = chunk.start_line * LINE_HEIGHT
-							return chunk_top > current_scroll_offset
-						})
-
-						let next_chunk =
-							line_number_chunks[next_uncovered_chunk] || line_number_chunks.find((chunk) => !chunk.is_covered)
-						scroll_to_line(next_chunk.start_line)
-					}}
-					title="Go to the next un-covered block"
-				>
+				<button type="button" onclick={jump_to_next_uncovered} title="Go to the next un-covered block">
 					<span class="sr-only">Go to the next un-covered block</span>
 					<Icon name="chevron-down" size={12} />
 				</button>
