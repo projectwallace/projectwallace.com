@@ -6,8 +6,7 @@
 	import Panel from '$components/Panel.svelte'
 	import Meter from '$components/Meter.svelte'
 	import Pre from '$components/Pre.svelte'
-	import { calculate_coverage } from './calculate-coverage'
-	import type { Coverage } from './types'
+	import { calculate_coverage, type Coverage } from '@projectwallace/css-code-coverage'
 	import Empty from '$components/Empty.svelte'
 	import Table from '$components/Table.svelte'
 	import { string_sort } from '$lib/string-sort'
@@ -187,8 +186,8 @@
 		</PaneGroup>
 	{:else}
 		<Empty>
-			Analyzed {calculated.files_found}
-			{calculated.files_found > 1 ? 'entries' : 'entry'} but no CSS coverage found.
+			Analyzed {calculated.total_files_found}
+			{calculated.total_files_found > 1 ? 'entries' : 'entry'} but no CSS coverage found.
 		</Empty>
 	{/if}
 </div>

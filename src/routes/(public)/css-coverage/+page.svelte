@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { parse_coverage, type Coverage } from '@projectwallace/css-code-coverage'
 	import CoverageReport from '$components/coverage/Coverage.svelte'
-	import type { Coverage } from '$components/coverage/types'
 	import Label from '$components/Label.svelte'
 	import Icon from '$components/Icon.svelte'
 	import Seo from '$components/Seo.svelte'
@@ -8,7 +8,6 @@
 	import Markdown from '$components/Markdown.svelte'
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
-	import { parse_json } from '$components/coverage/parse-coverage'
 
 	let data: Coverage[] = $state([])
 
@@ -24,7 +23,7 @@
 				continue
 			}
 			let text = await file.text()
-			let parsed = parse_json(text)
+			let parsed = parse_coverage(text)
 			new_data.push(...parsed)
 		}
 
@@ -36,7 +35,7 @@
 
 	async function load_example() {
 		let { default: example_data } = await import('./example-coverage.json?raw')
-		data = parse_json(example_data)
+		data = parse_coverage(example_data)
 	}
 </script>
 
