@@ -50,8 +50,11 @@ test.describe('navigation', () => {
 
 			if (section.items !== undefined) {
 				for (let sub_section of section.items) {
+					let link = page.getByRole('link', { name: sub_section.title })
 					let element = page.locator('#' + sub_section.id)
 					await expect.soft(element, `Expect "#${sub_section.id}" to be on the page`).toHaveCount(1)
+					await link.click()
+					await expect.soft(element).toBeInViewport()
 				}
 			}
 		}
@@ -156,7 +159,7 @@ test.describe('URL preloading', () => {
 
 		// Select a file
 		await page.getByRole('tab', { name: 'Analyze File' }).click()
-		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1]);
+		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1])
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 		await expect.soft(page).toHaveURL('/design-tokens')
 	})
@@ -211,8 +214,8 @@ test.describe('Design Tokens panel', () => {
 		await button.click()
 
 		let clipboard_text = await page.evaluate(async () => {
-			return await navigator.clipboard.readText();
-		});
+			return await navigator.clipboard.readText()
+		})
 		expect.soft(clipboard_text).toContain('"com.projectwallace.css-authored-as": "12px"')
 	})
 })

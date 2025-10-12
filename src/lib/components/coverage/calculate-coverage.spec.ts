@@ -143,7 +143,7 @@ test.describe('collect coverage', () => {
 })
 
 test.describe('calculates coverage', () => {
-	test.describe('from <style> tag', async () => {
+	test.describe('from <style> tag', () => {
 		let coverage: Coverage[]
 
 		test.beforeAll(async () => {

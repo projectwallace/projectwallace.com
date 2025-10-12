@@ -2,6 +2,7 @@
 	import { onMount, onDestroy } from 'svelte'
 	import type { CssLocation } from '$lib/css-location'
 	import { highlight_css } from './use-css-highlight'
+	import Icon from '$components/Icon.svelte'
 
 	type BaseProps = {
 		css?: string
@@ -125,10 +126,10 @@
 
 		let chunks = [
 			{
-				start: 0,
-				covered: line_coverage[0] === 1,
-				end: 0,
-				size: 0,
+				start_line: 0,
+				is_covered: line_coverage[0] === 1,
+				end_line: 0,
+				size: 0
 			}
 		]
 
@@ -136,23 +137,61 @@
 			let is_covered = line_coverage[index]
 			if (index > 0 && is_covered !== line_coverage[index - 1]) {
 				let last_chunk = chunks.at(-1)!
-				last_chunk.end = index
-				last_chunk.size = index - last_chunk.start
+				last_chunk.end_line = index
+				last_chunk.size = index - last_chunk.start_line
 
 				chunks.push({
-					start: index,
-					covered: is_covered === 1,
-					end: index,
+					start_line: index,
+					is_covered: is_covered === 1,
+					end_line: index,
 					size: 0
 				})
 			}
 		}
 
 		let last_chunk = chunks.at(-1)!
-		last_chunk.size = line_coverage.length - last_chunk.start
+		last_chunk.size = line_coverage.length - last_chunk.start_line
 
 		return chunks
 	})
+
+	function scroll_to_line(line: number) {
+		body?.scrollTo({
+			top: line * LINE_HEIGHT,
+			behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+		})
+	}
+
+	function jump_to_next_uncovered() {
+		if (!line_number_chunks) return
+
+		let current_scroll_offset = body?.scrollTop || 0
+
+		let next_uncovered_chunk = line_number_chunks.findIndex((chunk) => {
+			if (chunk.is_covered) return false
+			let chunk_top = chunk.start_line * LINE_HEIGHT
+			return chunk_top > current_scroll_offset
+		})
+
+		let next_chunk = line_number_chunks[next_uncovered_chunk] || line_number_chunks.find((chunk) => !chunk.is_covered)
+		scroll_to_line(next_chunk.start_line)
+	}
+
+	function jump_to_previous_uncovered() {
+		if (!line_number_chunks) return
+
+		let current_scroll_offset = body?.scrollTop || 0
+
+		let previous_uncovered_chunk = line_number_chunks.findLastIndex((chunk) => {
+			if (chunk.is_covered) return false
+			let chunk_top = chunk.start_line * LINE_HEIGHT
+			return chunk_top < current_scroll_offset
+		})
+
+		let next_chunk =
+			line_number_chunks[previous_uncovered_chunk] || line_number_chunks.findLast((chunk) => !chunk.is_covered)
+		scroll_to_line(next_chunk.start_line)
+	}
 </script>
 
 <!-- TODO: get rid of #key (only needed because of buggy use:highlight_css)
@@ -167,12 +206,28 @@
 		style:--pre-line-number-width={line_number_width}
 		style:height="calc({total_lines + 1} * var(--pre-line-height))"
 	>
+		{#if show_coverage && line_number_chunks && line_number_chunks.length > 1}
+			{@const uncovered_blocks_count = line_number_chunks.filter((c) => !c.is_covered).length}
+			<div class="toolbar">
+				<p>
+					{uncovered_blocks_count} un-covered {uncovered_blocks_count === 1 ? 'block' : 'blocks'}
+				</p>
+				<button type="button" onclick={jump_to_previous_uncovered} title="Go to the previous un-covered block">
+					<span class="sr-only">Go to the previous un-covered block</span>
+					<Icon name="chevron-up" size={12} />
+				</button>
+				<button type="button" onclick={jump_to_next_uncovered} title="Go to the next un-covered block">
+					<span class="sr-only">Go to the next un-covered block</span>
+					<Icon name="chevron-down" size={12} />
+				</button>
+			</div>
+		{/if}
 		{#if show_line_numbers}
 			<div class="line-numbers" aria-hidden="true">
-				{#if show_coverage === true && line_number_chunks !== undefined}
-					{#each line_number_chunks as chunk (chunk.start)}
-						<div class={['line-number-range', { uncovered: !chunk.covered }]}>
-							{Array.from({ length: chunk.size }, (_, i) => i + 1 + chunk.start)
+				{#if show_coverage === true && line_number_chunks && line_number_chunks.length > 0}
+					{#each line_number_chunks as chunk (chunk.start_line)}
+						<div class={['line-number-range', { uncovered: !chunk.is_covered }]}>
+							{Array.from({ length: chunk.size }, (_, i) => i + 1 + chunk.start_line)
 								.join('\n')
 								.trim()}
 						</div>
@@ -225,11 +280,45 @@
 			}
 		}
 
-		& > * {
+		& .line-numbers,
+		& pre {
 			padding-block: var(--space-2);
 			line-height: var(--pre-line-height);
 			font-family: var(--font-mono);
 			font-size: var(--size-specimen);
+		}
+	}
+
+	.toolbar {
+		position: sticky;
+		top: 0;
+		right: 0;
+		left: 0;
+		grid-row: 1 / -1;
+		grid-column: 1 / -1;
+		z-index: 1;
+		background-color: var(--bg-200);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-2);
+		padding-inline: var(--space-2);
+		padding-block: var(--space-2);
+
+		p {
+			margin-inline-end: auto;
+			font-size: var(--size-sm);
+		}
+
+		button {
+			padding-inline: var(--space-2);
+			padding-block: var(--space-1);
+			background-color: transparent;
+
+			&:hover,
+			&:focus {
+				background-color: var(--bg-400);
+			}
 		}
 	}
 
