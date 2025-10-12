@@ -46,7 +46,7 @@ test.describe('interaction', () => {
 				color: red;
 				font-size: 1em;
 
-				${Array(1000)
+				${Array.from({ length: 1000 })
 					.fill(0)
 					.map((_, i) => `padding: 0px ${i}px;`)
 					.join('')}
