@@ -19,6 +19,38 @@ test('does SEO well', async ({ page }) => {
 
 test.describe('navigation', () => {
 	test.beforeEach(async ({ page }) => {
+		// Try to cover as many sections of the design tokens page as possible
+		// to increase chances of catching any rendering issues and increase
+		// CSS code coverage.
+		const MOCK_CSS = `
+			@font-face {
+				font-family: 'MyFont';
+				src: url('myfont.woff2') format('woff2');
+				font-weight: normal;
+				font-style: normal;
+				not-a-descriptor: warning;
+			}
+
+			body {
+				color: #f00;
+				background: linear-gradient(to right, red, blue);
+				height: 100haha;
+
+				&:hover {
+					font-size: 16px;
+				}
+			}
+
+			button {
+				font-family: 'Arial', sans-serif;
+				font-size: 14px;
+				line-height: 1.5;
+				border-radius: 4px;
+				tranition: color 0.3s ease-in-out;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+				text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+			}
+		`
 		await page.route('**/api/get-css*', async (route) => {
 			await route.fulfill({
 				status: 200,
@@ -29,7 +61,7 @@ test.describe('navigation', () => {
 						media: undefined,
 						rel: 'stylesheet',
 						type: 'link',
-						css: 'body { color: red; &:hover { font-size: 16px; } }'
+						css: MOCK_CSS
 					}
 				] satisfies CSSOrigin[]
 			})

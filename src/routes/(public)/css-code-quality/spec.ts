@@ -24,18 +24,47 @@ test.describe('interaction', () => {
 		// Verify that Report is shown
 		await expect.soft(page.getByTestId('css-quality-report')).toBeVisible()
 		await expect.soft(page).toHaveURL('/css-code-quality?url=example.com&prettify=1')
+
+		// Shows top-level numbers
+		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
+		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
+		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
 	})
 
 	test('analyzes raw input', async ({ page }) => {
 		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
 
+		// Construct some big gnarly CSS so we trip some rules
+		const MOCK_CSS = `
+			@import url("test.css");
+			@import url("test.css");
+			@import url("test.css");
+			@import url("test.css");
+			@import url("test.css");
+
+			h1 {
+				color: red;
+				font-size: 1em;
+
+				${Array.from({ length: 1000 })
+					.fill(0)
+					.map((_, i) => `padding: 0px ${i}px;`)
+					.join('')}
+			}
+		`
+
 		// Fill in some CSS
-		await page.getByLabel('CSS to analyze').fill(`h1{color:red;font-size:1em;}`)
+		await page.getByLabel('CSS to analyze').fill(MOCK_CSS)
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
 		// Verify that Report is shown
 		await expect(page.getByTestId('css-quality-report')).toBeVisible()
 		await expect.soft(page).toHaveURL('/css-code-quality')
+
+		// Shows top-level numbers
+		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
+		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
+		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
 	})
 
 	test('filters by selected category', async ({ page }) => {

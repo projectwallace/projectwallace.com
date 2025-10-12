@@ -75,10 +75,7 @@ test('pre-fills the page when coming from another page', async ({ page }) => {
 	})
 
 	// Now navigate to the get-css page
-	await page
-		.getByRole('navigation', { name: 'Primary' })
-		.getByRole('link', { name: 'CSS Scraper' })
-		.click()
+	await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'CSS Scraper' }).click()
 	await expect.soft(page).toHaveURL('/get-css?url=example.com&prettify=1')
 	await expect.soft(page.getByLabel('URL to crawl')).toHaveValue('example.com')
 	await expect.soft(page.getByTestId('pre-css')).toHaveText(css_fixture)
@@ -103,4 +100,15 @@ test.describe('offline', () => {
 		await page.context().setOffline(false)
 		await expect(page.getByTestId('offline-message')).not.toBeVisible()
 	})
+})
+
+test('errors on an invalid URL', async ({ page }) => {
+	await page.goto('/get-css', { waitUntil: 'domcontentloaded' })
+	await expect(page).toBeHydrated()
+
+	// Fill in a URL and submit
+	await page.getByLabel('URL').fill('not-a-valid-url')
+	await page.getByRole('button', { name: 'Crawl URL' }).click()
+
+	await expect.soft(page.getByTestId('error-message')).toBeVisible()
 })
