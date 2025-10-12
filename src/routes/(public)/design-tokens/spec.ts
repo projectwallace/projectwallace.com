@@ -28,11 +28,13 @@ test.describe('navigation', () => {
 				src: url('myfont.woff2') format('woff2');
 				font-weight: normal;
 				font-style: normal;
+				not-a-descriptor: warning;
 			}
 
 			body {
 				color: #f00;
 				background: linear-gradient(to right, red, blue);
+				height: 100haha;
 
 				&:hover {
 					font-size: 16px;

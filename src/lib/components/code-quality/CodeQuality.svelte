@@ -30,6 +30,7 @@
 	<div class="stat">
 		<dt class="stat-name">{name}</dt>
 		<dd
+			data-testid="{name.toLowerCase()}-score"
 			class={[
 				'stat-value',
 				{

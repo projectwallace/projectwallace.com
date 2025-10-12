@@ -121,6 +121,16 @@
 
 <Container>
 	<div class="output">
+		{#if status === STATUS.ERROR || status === STATUS.REMOTE_ERROR}
+			<p class="error" data-testid="error-message">
+				{#if status === STATUS.ERROR}
+					Something went wrong
+				{:else if status === STATUS.REMOTE_ERROR}
+					{errorMessage}
+				{/if}
+			</p>
+		{/if}
+
 		<header>
 			<Label for="scraped-css">Scraped CSS</Label>
 			{#if status === STATUS.DONE}
@@ -138,36 +148,44 @@
 			{/if}
 		</div>
 	</div>
-
-	{#if status === STATUS.ERROR || status === STATUS.REMOTE_ERROR}
-		<p class="error">
-			{#if status === STATUS.ERROR}
-				Something went wrong
-			{:else if status === STATUS.REMOTE_ERROR}
-				{errorMessage}
-			{/if}
-		</p>
-	{/if}
 </Container>
 
 <Container size="md">
 	<Markdown>
-		<p>This CSS scraper loads the HTML of your website and goes through all the <code>&lt;link&gt;</code> and <code>&lt;style&gt;</code> tags to (recursively) find CSS.</p>
+		<p>
+			This CSS scraper loads the HTML of your website and goes through all the <code>&lt;link&gt;</code> and
+			<code>&lt;style&gt;</code> tags to (recursively) find CSS.
+		</p>
 
 		<ol>
 			<li>Load the HTML for the URL you fill in</li>
 			<li>Find all <code>&lt;link rel="stylesheet"&gt;</code> tags and load the CSS from the <code>href</code> URL</li>
 			<li>Find all <code>&lt;style&gt;</code> tags and extract the CSS from it's contents</li>
-			<li>Find all CSS <code>@import</code> statements in the CSS we just loaded and load the CSS from the <code>@import</code>'s URL</li>
-			<li>Go through all the DOM elements that have a non-empty <code>style="&hellip;"</code> attribute. Create a CSS Ruleset for each DOM node and add it to 1 single origin that contains all inline styles.</li>
+			<li>
+				Find all CSS <code>@import</code> statements in the CSS we just loaded and load the CSS from the
+				<code>@import</code>'s URL
+			</li>
+			<li>
+				Go through all the DOM elements that have a non-empty <code>style="&hellip;"</code> attribute. Create a CSS Ruleset
+				for each DOM node and add it to 1 single origin that contains all inline styles.
+			</li>
 			<li>Combine all the CSS</li>
 		</ol>
 
-		<p>Once it's on the page here you can inspect each separate CSS origin in the Network Panel. From there you can see what we found and where it originated from. It also shows the <code>media</code> type in case of a <code>&lt;link&gt;</code> tag, as well as the <code>rel="&hellip;"</code>. For all origins it shows the total filesize.</p>
+		<p>
+			Once it's on the page here you can inspect each separate CSS origin in the Network Panel. From there you can see
+			what we found and where it originated from. It also shows the <code>media</code> type in case of a
+			<code>&lt;link&gt;</code>
+			tag, as well as the <code>rel="&hellip;"</code>. For all origins it shows the total filesize.
+		</p>
 
-		<hr>
+		<hr />
 
-		<p>If you want to learn more about CSS scraping you can read it in our blog post <a href="/blog/ways-to-scrape-css">3 ways to scrape CSS from a website</a>. Here we explain the possible angles and the pros and cons of each approach.</p>
+		<p>
+			If you want to learn more about CSS scraping you can read it in our blog post <a href="/blog/ways-to-scrape-css"
+				>3 ways to scrape CSS from a website</a
+			>. Here we explain the possible angles and the pros and cons of each approach.
+		</p>
 	</Markdown>
 </Container>
 
