@@ -6,8 +6,7 @@
 	import Panel from '$components/Panel.svelte'
 	import Meter from '$components/Meter.svelte'
 	import Pre from '$components/Pre.svelte'
-	import { calculate_coverage } from './calculate-coverage'
-	import type { Coverage } from './types'
+	import { calculate_coverage, type Coverage } from '@projectwallace/css-code-coverage'
 	import Empty from '$components/Empty.svelte'
 	import Table from '$components/Table.svelte'
 	import { string_sort } from '$lib/string-sort'
@@ -154,7 +153,7 @@
 						<tbody use:root={{ onchange }} style:--meter-height="0.5rem">
 							{#each sorted_items as item_index, index}
 								{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
-								{@const { url, total_bytes, total_lines, line_coverage_ratio, covered_lines } = stylesheet}
+								{@const { url, total_bytes, total_lines, line_coverage_ratio } = stylesheet}
 								<tr use:item={{ value: index.toString() }} aria-selected={selected_index === index ? 'true' : 'false'}>
 									<td class="url">
 										{url}
@@ -180,15 +179,15 @@
 				<div class="css-slide">
 					{#if selected_index !== -1}
 						{@const coverage = calculated.coverage_per_stylesheet.at(mapped_selected_index)!}
-						<Pre line_numbers line_coverage={coverage.line_coverage} css={coverage.text} />
+						<Pre line_numbers coverage_chunks={coverage.chunks} css={coverage.text} />
 					{/if}
 				</div>
 			</Pane>
 		</PaneGroup>
 	{:else}
 		<Empty>
-			Analyzed {calculated.files_found}
-			{calculated.files_found > 1 ? 'entries' : 'entry'} but no CSS coverage found.
+			Analyzed {calculated.total_files_found}
+			{calculated.total_files_found > 1 ? 'entries' : 'entry'} but no CSS coverage found.
 		</Empty>
 	{/if}
 </div>
