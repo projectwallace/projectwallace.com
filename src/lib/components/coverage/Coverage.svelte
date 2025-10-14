@@ -153,7 +153,7 @@
 						<tbody use:root={{ onchange }} style:--meter-height="0.5rem">
 							{#each sorted_items as item_index, index}
 								{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
-								{@const { url, total_bytes, total_lines, line_coverage_ratio, covered_lines } = stylesheet}
+								{@const { url, total_bytes, total_lines, line_coverage_ratio } = stylesheet}
 								<tr use:item={{ value: index.toString() }} aria-selected={selected_index === index ? 'true' : 'false'}>
 									<td class="url">
 										{url}
@@ -179,7 +179,7 @@
 				<div class="css-slide">
 					{#if selected_index !== -1}
 						{@const coverage = calculated.coverage_per_stylesheet.at(mapped_selected_index)!}
-						<Pre line_numbers line_coverage={coverage.line_coverage} css={coverage.text} />
+						<Pre line_numbers coverage_chunks={coverage.chunks} css={coverage.text} />
 					{/if}
 				</div>
 			</Pane>

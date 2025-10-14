@@ -3,13 +3,12 @@
 	import type { CssLocation } from '$lib/css-location'
 	import { highlight_css } from './use-css-highlight'
 	import Icon from '$components/Icon.svelte'
-	import { last } from '@melt-ui/svelte/internal/helpers'
 
 	type BaseProps = {
 		css?: string
 		selected_location?: CssLocation
 		locations?: CssLocation[]
-		line_coverage?: number[] | Uint8Array
+		coverage_chunks?: { start_line: number; is_covered: boolean; end_line: number; total_lines: number }[]
 	}
 
 	type WrappingProps = BaseProps & {
@@ -32,7 +31,7 @@
 		wrap = false,
 		// Used in MinifyCss
 		line_numbers = false,
-		line_coverage = []
+		coverage_chunks = []
 	}: Props = $props()
 
 	// Keep track of whether the browser supports the Highlight API
@@ -51,8 +50,10 @@
 
 	let total_lines = $derived(css.split('\n').length)
 	let line_number_width = $derived(total_lines.toString().length)
-	let show_line_numbers = $derived(line_coverage || (line_numbers && total_lines > 1 && total_lines < 10_000))
-	let show_coverage = $derived(line_coverage.length > 0)
+	let show_line_numbers = $derived(
+		coverage_chunks !== undefined || (line_numbers && total_lines > 1 && total_lines < 10_000)
+	)
+	let show_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
 
 	onMount(function () {
 		supports_highlights = 'highlights' in window.CSS
@@ -121,41 +122,6 @@
 		}
 	})
 
-	// Split coverage line numbers into chunks so we can easily loop over them in our layout
-	let line_number_chunks = $derived.by(() => {
-		if (!show_coverage) return
-
-		let chunks = [
-			{
-				start_line: 0,
-				is_covered: line_coverage[0] === 1,
-				end_line: 0,
-				size: 0
-			}
-		]
-
-		for (let index = 0; index < line_coverage.length; index++) {
-			let is_covered = line_coverage[index]
-			if (index > 0 && is_covered !== line_coverage[index - 1]) {
-				let last_chunk = chunks.at(-1)!
-				last_chunk.end_line = index
-				last_chunk.size = index - last_chunk.start_line
-
-				chunks.push({
-					start_line: index,
-					is_covered: is_covered === 1,
-					end_line: index,
-					size: 0
-				})
-			}
-		}
-
-		let last_chunk = chunks.at(-1)!
-		last_chunk.size = line_coverage.length - last_chunk.start_line
-
-		return chunks
-	})
-
 	function scroll_to_line(line: number) {
 		body?.scrollTo({
 			top: line * LINE_HEIGHT,
@@ -164,18 +130,18 @@
 	}
 
 	function jump_to_next_uncovered() {
-		if (!line_number_chunks) return
+		if (!coverage_chunks) return
 		if (!body) return
 
 		let current_scroll_offset = body?.scrollTop || 0
 
-		let next_uncovered_chunk = line_number_chunks.find((chunk) => {
+		let next_uncovered_chunk = coverage_chunks.find((chunk) => {
 			if (chunk.is_covered) return false
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top > current_scroll_offset
 		})!
 		let next_chunk = next_uncovered_chunk
-		let first_uncovered_chunk = line_number_chunks.find((chunk) => !chunk.is_covered)!
+		let first_uncovered_chunk = coverage_chunks.find((chunk) => !chunk.is_covered)!
 		let is_scrolled_to_bottom = body.scrollTop === body.scrollHeight - body.clientHeight
 
 		if (!next_uncovered_chunk || is_scrolled_to_bottom) {
@@ -188,17 +154,17 @@
 	}
 
 	function jump_to_previous_uncovered() {
-		if (!line_number_chunks) return
+		if (!coverage_chunks) return
 		if (!body) return
 
 		let current_scroll_offset = body?.scrollTop || 0
 
-		let previous_uncovered_chunk = line_number_chunks.findLast((chunk) => {
+		let previous_uncovered_chunk = coverage_chunks.findLast((chunk) => {
 			if (chunk.is_covered) return false
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top < current_scroll_offset
 		})!
-		let last_uncovered_chunk = line_number_chunks.findLast((chunk) => !chunk.is_covered)!
+		let last_uncovered_chunk = coverage_chunks.findLast((chunk) => !chunk.is_covered)!
 		let next_chunk = previous_uncovered_chunk
 		let is_scrolled_to_top = body.scrollTop === 0
 
@@ -216,8 +182,8 @@
  but also throwing away this node and recreating it each time is *way* faster -->
 {#key css}
 	<div class="window">
-		{#if show_coverage && line_number_chunks && line_number_chunks.length > 1}
-			{@const uncovered_blocks_count = line_number_chunks.filter((c) => !c.is_covered).length}
+		{#if show_coverage}
+			{@const uncovered_blocks_count = coverage_chunks.filter((c) => !c.is_covered).length}
 			<div class="toolbar">
 				<p>
 					{uncovered_blocks_count} un-covered {uncovered_blocks_count === 1 ? 'block' : 'blocks'}
@@ -243,10 +209,10 @@
 		>
 			{#if show_line_numbers}
 				<div class="line-numbers" aria-hidden="true">
-					{#if show_coverage === true && line_number_chunks && line_number_chunks.length > 0}
-						{#each line_number_chunks as chunk (chunk.start_line)}
+					{#if show_coverage === true}
+						{#each coverage_chunks as chunk (chunk.start_line)}
 							<div class={['line-number-range', { uncovered: !chunk.is_covered }]}>
-								{Array.from({ length: chunk.size }, (_, i) => i + 1 + chunk.start_line)
+								{Array.from({ length: chunk.total_lines }, (_, i) => i + chunk.start_line)
 									.join('\n')
 									.trim()}
 							</div>
