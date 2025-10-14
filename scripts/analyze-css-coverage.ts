@@ -2,12 +2,10 @@
 
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import { calculate_coverage } from '../src/lib/components/coverage/calculate-coverage.ts'
 import { DOMParser } from 'linkedom'
-import type { Coverage } from '../src/lib/components/coverage/types.ts'
 import { parseArgs, styleText } from 'node:util'
 import * as v from 'valibot'
-import { parse_json } from '../src/lib/components/coverage/parse-coverage.ts'
+import { calculate_coverage, parse_coverage, type Coverage } from '@projectwallace/css-code-coverage'
 
 // TODO: architecture
 // Create CLI that
@@ -88,7 +86,7 @@ let data = files.reduce((all_files, file_path) => {
 	if (!file_path.endsWith('.json')) return all_files
 	try {
 		let content = fs.readFileSync(path.resolve(coverageDir, file_path), 'utf-8')
-		let parsed = parse_json(content)
+		let parsed = parse_coverage(content)
 		all_files.push(...parsed)
 		return all_files
 	} catch {
@@ -98,7 +96,7 @@ let data = files.reduce((all_files, file_path) => {
 
 let result = calculate_coverage(data, parse_html)
 
-console.log(`Analyzed ${result.files_found} coverage entries`)
+console.log(`Analyzed ${result.total_files_found} coverage entries`)
 
 // Verify minLineCoverage
 if (result.line_coverage_ratio >= minLineCoverage) {
