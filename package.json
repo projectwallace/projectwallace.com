@@ -15,7 +15,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"lint": "oxlint --config oxlintrc.json",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore",
-		"build-css": "cat .svelte-kit/output/client/_app/immutable/assets/*.css > static/all.css"
+		"css-coverage": "css-coverage --coverage-dir=./css-coverage --min-line-coverage=.8  --min-file-line-coverage=.62 --show-uncovered=all"
 	},
 	"dependencies": {
 		"@bramus/specificity": "^2.4.2",
@@ -23,7 +23,7 @@
 		"@melt-ui/svelte": "^0.86.6",
 		"@oddbird/popover-polyfill": "^0.6.1",
 		"@projectwallace/css-analyzer": "^7.6.0",
-		"@projectwallace/css-code-coverage": "^0.2.2",
+		"@projectwallace/css-code-coverage": "^0.4.0",
 		"@projectwallace/css-code-quality": "^3.0.2",
 		"@projectwallace/css-design-tokens": "^0.6.0",
 		"@projectwallace/css-layer-tree": "^2.0.0",
