@@ -6,7 +6,7 @@
 	import Panel from '$components/Panel.svelte'
 	import Meter from '$components/Meter.svelte'
 	import Pre from '$components/Pre.svelte'
-	import { calculate_coverage, type Coverage } from '@projectwallace/css-code-coverage'
+	import { calculate_coverage, type Coverage, type CoverageResult } from '@projectwallace/css-code-coverage'
 	import Empty from '$components/Empty.svelte'
 	import Table from '$components/Table.svelte'
 	import { string_sort } from '$lib/string-sort'
@@ -21,15 +21,15 @@
 		elements: { root, item }
 	} = create_keyboard_list()
 	let selected_index = $state(0)
+	let calculated: CoverageResult | undefined = $state(undefined)
 
-	function parse_html(html: string) {
-		let parser = new DOMParser()
-		return parser.parseFromString(html, 'text/html')
-	}
-
-	let calculated = $derived(calculate_coverage(browser_coverage, parse_html))
+	// @ts-expect-error This is very unconventional, maybe fix later with async svelte support
+	$effect(async () => {
+		calculated = await calculate_coverage(browser_coverage)
+	})
 
 	let max_lines = $derived.by(() => {
+		if (!calculated) return 0
 		let max = 0
 		for (let sheet of calculated.coverage_per_stylesheet) {
 			if (sheet.total_lines > max) {
@@ -43,17 +43,23 @@
 		selected_index = active_index
 	}
 
-	let sort_by = $state<'bytes' | 'coverage' | 'name' | 'lines' | undefined>(undefined)
+	type SortBy = 'bytes' | 'coverage' | 'name' | 'lines'
+
+	let sort_by = $state<SortBy | undefined>(undefined)
 	let sort_direction = $state<'asc' | 'desc'>('asc')
 
 	let sorted_items = $derived.by(() => {
+		if (!calculated) return new Uint8Array()
+
 		let item_indexes = Uint8Array.from({ length: calculated.coverage_per_stylesheet.length }, (_, i) => i)
+
 		if (sort_by === undefined) {
 			return item_indexes
 		}
+
 		return item_indexes.sort((_a, _b) => {
-			let a = calculated.coverage_per_stylesheet[_a]
-			let b = calculated.coverage_per_stylesheet[_b]
+			let a = calculated!.coverage_per_stylesheet[_a]
+			let b = calculated!.coverage_per_stylesheet[_b]
 
 			if (sort_by === 'bytes') {
 				return sort_direction === 'asc' ? a.total_bytes - b.total_bytes : b.total_bytes - a.total_bytes
@@ -85,8 +91,8 @@
 	})
 </script>
 
-{#snippet sorted_th(name: 'bytes' | 'coverage' | 'name' | 'lines', label: string)}
-	{@const sort_by_attr = sort_by === name ? (sort_direction === 'asc' ? 'ascending' : 'descending') : undefined}
+{#snippet sorted_th(sort: SortBy | undefined, name: SortBy, label: string)}
+	{@const sort_by_attr = sort === name ? (sort_direction === 'asc' ? 'ascending' : 'descending') : undefined}
 	<th scope="col" aria-sort={sort_by_attr}>
 		<button
 			class="sort-button"
@@ -98,7 +104,7 @@
 		>
 			{label}
 			<span class="sort-indicator" aria-hidden="true">
-				{#if sort_by === name}
+				{#if sort === name}
 					{sort_direction === 'asc' ? '▲' : '▼'}
 				{/if}
 			</span>
@@ -106,91 +112,96 @@
 	</th>
 {/snippet}
 
-<header data-testid="coverage-summary">
-	<Panel element="dl" aria-label="Coverage summary">
-		<div class="coverage-summary">
-			<div>
-				<dt>Coverage</dt>
-				<dd>{format_percentage(calculated.byte_coverage_ratio)}</dd>
-				<dd>{format_percentage(calculated.line_coverage_ratio)} of lines</dd>
-			</div>
-			<div>
-				<dt>Total</dt>
-				<dd>{format_filesize(calculated.total_bytes)}</dd>
-				<dd>{format_number(calculated.total_lines)} lines</dd>
-			</div>
-			<div>
-				<dt>Used</dt>
-				<dd>{format_filesize(calculated.used_bytes)}</dd>
-				<dd>{format_number(calculated.covered_lines)} lines</dd>
-			</div>
-			<div>
-				<dt>Unused</dt>
-				<dd>{format_filesize(calculated.unused_bytes)}</dd>
-				<dd>{format_number(calculated.uncovered_lines)} lines</dd>
-			</div>
-		</div>
-	</Panel>
-</header>
-
-<h2 class="sr-only">Coverage per stylesheet</h2>
-<div class="devtools" data-empty={calculated.coverage_per_stylesheet.length === 0 ? 'true' : 'false'}>
-	{#if calculated.coverage_per_stylesheet.length > 0}
-		<PaneGroup direction="horizontal" autoSaveId="css-coverage">
-			<Pane defaultSize={50} minSize={20}>
-				<Table>
-					<caption class="sr-only">Coverage per origin</caption>
-					<thead>
-						<tr>
-							{@render sorted_th('name', 'URL')}
-							{@render sorted_th('bytes', 'Total size')}
-							{@render sorted_th('lines', 'Lines')}
-							{@render sorted_th('coverage', 'Coverage')}
-							<th scope="col">Coverage visualized</th>
-						</tr>
-					</thead>
-					{#key browser_coverage && sort_by && sort_direction}
-						<tbody use:root={{ onchange }} style:--meter-height="0.5rem">
-							{#each sorted_items as item_index, index}
-								{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
-								{@const { url, total_bytes, total_lines, line_coverage_ratio } = stylesheet}
-								<tr use:item={{ value: index.toString() }} aria-selected={selected_index === index ? 'true' : 'false'}>
-									<td class="url">
-										{url}
-									</td>
-									<td class="numeric">{format_filesize(total_bytes)}</td>
-									<td class="numeric">{format_number(total_lines)}</td>
-									<td class="numeric">{format_percentage(line_coverage_ratio)}</td>
-									<td>
-										<div style:width={(stylesheet.total_lines / max_lines) * 100 + '%'}>
-											<Meter max={1} value={line_coverage_ratio} />
-										</div>
-									</td>
-								</tr>
-							{/each}
-						</tbody>
-					{/key}
-				</Table>
-			</Pane>
-			<PaneResizer>
-				<div class="pane-resizer"></div>
-			</PaneResizer>
-			<Pane defaultSize={50} minSize={20}>
-				<div class="css-slide">
-					{#if selected_index !== -1}
-						{@const coverage = calculated.coverage_per_stylesheet.at(mapped_selected_index)!}
-						<Pre line_numbers coverage_chunks={coverage.chunks} css={coverage.text} />
-					{/if}
+{#if calculated}
+	<header data-testid="coverage-summary">
+		<Panel element="dl" aria-label="Coverage summary">
+			<div class="coverage-summary">
+				<div>
+					<dt>Coverage</dt>
+					<dd>{format_percentage(calculated.byte_coverage_ratio)}</dd>
+					<dd>{format_percentage(calculated.line_coverage_ratio)} of lines</dd>
 				</div>
-			</Pane>
-		</PaneGroup>
-	{:else}
-		<Empty>
-			Analyzed {calculated.total_files_found}
-			{calculated.total_files_found > 1 ? 'entries' : 'entry'} but no CSS coverage found.
-		</Empty>
-	{/if}
-</div>
+				<div>
+					<dt>Total</dt>
+					<dd>{format_filesize(calculated.total_bytes)}</dd>
+					<dd>{format_number(calculated.total_lines)} lines</dd>
+				</div>
+				<div>
+					<dt>Used</dt>
+					<dd>{format_filesize(calculated.used_bytes)}</dd>
+					<dd>{format_number(calculated.covered_lines)} lines</dd>
+				</div>
+				<div>
+					<dt>Unused</dt>
+					<dd>{format_filesize(calculated.unused_bytes)}</dd>
+					<dd>{format_number(calculated.uncovered_lines)} lines</dd>
+				</div>
+			</div>
+		</Panel>
+	</header>
+
+	<h2 class="sr-only">Coverage per stylesheet</h2>
+	<div class="devtools" data-empty={calculated.coverage_per_stylesheet.length === 0 ? 'true' : 'false'}>
+		{#if calculated.coverage_per_stylesheet.length > 0}
+			<PaneGroup direction="horizontal" autoSaveId="css-coverage">
+				<Pane defaultSize={50} minSize={20}>
+					<Table>
+						<caption class="sr-only">Coverage per origin</caption>
+						<thead>
+							<tr>
+								{@render sorted_th(sort_by, 'name', 'URL')}
+								{@render sorted_th(sort_by, 'bytes', 'Total size')}
+								{@render sorted_th(sort_by, 'lines', 'Lines')}
+								{@render sorted_th(sort_by, 'coverage', 'Coverage')}
+								<th scope="col">Coverage visualized</th>
+							</tr>
+						</thead>
+						{#key browser_coverage && sort_by && sort_direction}
+							<tbody use:root={{ onchange }} style:--meter-height="0.5rem">
+								{#each sorted_items as item_index, index}
+									{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
+									{@const { url, total_bytes, total_lines, line_coverage_ratio } = stylesheet}
+									<tr
+										use:item={{ value: index.toString() }}
+										aria-selected={selected_index === index ? 'true' : 'false'}
+									>
+										<td class="url">
+											{url}
+										</td>
+										<td class="numeric">{format_filesize(total_bytes)}</td>
+										<td class="numeric">{format_number(total_lines)}</td>
+										<td class="numeric">{format_percentage(line_coverage_ratio)}</td>
+										<td>
+											<div style:width={(stylesheet.total_lines / max_lines) * 100 + '%'}>
+												<Meter max={1} value={line_coverage_ratio} />
+											</div>
+										</td>
+									</tr>
+								{/each}
+							</tbody>
+						{/key}
+					</Table>
+				</Pane>
+				<PaneResizer>
+					<div class="pane-resizer"></div>
+				</PaneResizer>
+				<Pane defaultSize={50} minSize={20}>
+					<div class="css-slide">
+						{#if selected_index !== -1}
+							{@const coverage = calculated.coverage_per_stylesheet.at(mapped_selected_index)!}
+							<Pre line_numbers coverage_chunks={coverage.chunks} css={coverage.text} />
+						{/if}
+					</div>
+				</Pane>
+			</PaneGroup>
+		{:else}
+			<Empty>
+				Analyzed {calculated.total_files_found}
+				{calculated.total_files_found > 1 ? 'entries' : 'entry'} but no CSS coverage found.
+			</Empty>
+		{/if}
+	</div>
+{/if}
 
 <style>
 	:global {
