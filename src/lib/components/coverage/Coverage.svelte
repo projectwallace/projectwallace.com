@@ -49,13 +49,17 @@
 	let sort_direction = $state<'asc' | 'desc'>('asc')
 
 	let sorted_items = $derived.by(() => {
+		if (!calculated) return new Uint8Array()
+
 		let item_indexes = Uint8Array.from({ length: calculated.coverage_per_stylesheet.length }, (_, i) => i)
+
 		if (sort_by === undefined) {
 			return item_indexes
 		}
+
 		return item_indexes.sort((_a, _b) => {
-			let a = calculated.coverage_per_stylesheet[_a]
-			let b = calculated.coverage_per_stylesheet[_b]
+			let a = calculated!.coverage_per_stylesheet[_a]
+			let b = calculated!.coverage_per_stylesheet[_b]
 
 			if (sort_by === 'bytes') {
 				return sort_direction === 'asc' ? a.total_bytes - b.total_bytes : b.total_bytes - a.total_bytes
