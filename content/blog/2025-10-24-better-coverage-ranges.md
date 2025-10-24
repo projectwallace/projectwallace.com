@@ -1,6 +1,6 @@
 ---
 title: Can we have better CSS Coverage ranges, please?
-excerpt:
+excerpt: Browers often don't report atrule ranges correctly in the CSS Coverage ranges.
 ---
 
 The last couple of months I've been working hard on improving how we can [inspect](/css-coverage/) what parts of CSS are used by the browser and which parts aren't. There's some stuff I'm doing to [make](https://github.com/projectwallace/css-code-coverage) large coverage reports so you can inspect several pages in one go by combining coverage JSON files into a single one, prettifying all the CSS etc. Very fun, very helpful. But there's one thing in particular that is being consistently troublesome for me:
