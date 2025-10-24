@@ -181,15 +181,11 @@
 		margin-right: 0.25ch;
 		margin-left: 0.25ch;
 		color: var(--highlight-name);
+		background-color: var(--bg-200);
 	}
 
 	:global(.markdown pre code) {
 		color: var(--fg-200);
-	}
-
-	:global(.markdown :is(p, li, figcaption) :not(pre) code::before),
-	:global(.markdown :is(p, li, figcaption) :not(pre) code::after) {
-		content: '`';
 	}
 
 	:global(.markdown aside) {

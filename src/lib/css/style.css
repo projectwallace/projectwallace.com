@@ -391,16 +391,12 @@
 			line-height: calc(var(--leading-base) * 1rem);
 		}
 
-		p code {
+		:is(p, li) code {
 			display: inline-block;
 			margin-right: 1ch;
 			margin-left: 1ch;
 			color: light-dark(var(--accent-700), var(--accent-300));
-		}
-
-		p code::before,
-		p code::after {
-			content: '`';
+			padding-inline: .5ch;
 		}
 
 		[aria-selected='true'] {
