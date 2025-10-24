@@ -184,19 +184,21 @@
 	<div class="window">
 		{#if show_coverage}
 			{@const uncovered_blocks_count = coverage_chunks.filter((c) => !c.is_covered).length}
-			<div class="toolbar">
-				<p>
-					{uncovered_blocks_count} un-covered {uncovered_blocks_count === 1 ? 'block' : 'blocks'}
-				</p>
-				<button type="button" onclick={jump_to_previous_uncovered} title="Go to the previous un-covered block">
-					<span class="sr-only">Go to the previous un-covered block</span>
-					<Icon name="chevron-up" size={12} />
-				</button>
-				<button type="button" onclick={jump_to_next_uncovered} title="Go to the next un-covered block">
-					<span class="sr-only">Go to the next un-covered block</span>
-					<Icon name="chevron-down" size={12} />
-				</button>
-			</div>
+			{#if uncovered_blocks_count > 0}
+				<div class="toolbar">
+					<p>
+						{uncovered_blocks_count} un-covered {uncovered_blocks_count === 1 ? 'block' : 'blocks'}
+					</p>
+					<button type="button" onclick={jump_to_previous_uncovered} title="Go to the previous un-covered block">
+						<span class="sr-only">Go to the previous un-covered block</span>
+						<Icon name="chevron-up" size={12} />
+					</button>
+					<button type="button" onclick={jump_to_next_uncovered} title="Go to the next un-covered block">
+						<span class="sr-only">Go to the next un-covered block</span>
+						<Icon name="chevron-down" size={12} />
+					</button>
+				</div>
+			{/if}
 		{/if}
 		<div
 			bind:this={body}
