@@ -7,7 +7,7 @@ The last couple of months I've been working hard on improving how we can [inspec
 
 **Browers often don't report atrule ranges correctly.**
 
-'Often' doesn't mean 'always'. But often enough that it has bitten me more than I care to admit. It depends on where in they live and whether neibouring rules are covered. But take this example that I've created using Playwright's [coverage API](https://playwright.dev/docs/api/class-coverage#coverage-start-css-coverage), but I've observed this in Edge/Chrome as well:
+'Often' doesn't mean 'always'. But often enough that it has bitten me more than I care to admit. It depends on where in they live and whether neighbouring rules are covered. But take this example that I've created using Playwright's [coverage API](https://playwright.dev/docs/api/class-coverage#coverage-start-css-coverage), but I've observed this in Edge/Chrome as well:
 
 ```html
 <!doctype html>
