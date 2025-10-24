@@ -128,12 +128,12 @@
 				</div>
 				<div>
 					<dt>Used</dt>
-					<dd>{format_filesize(calculated.used_bytes)}</dd>
+					<dd>{format_filesize(calculated.covered_bytes)}</dd>
 					<dd>{format_number(calculated.covered_lines)} lines</dd>
 				</div>
 				<div>
 					<dt>Unused</dt>
-					<dd>{format_filesize(calculated.unused_bytes)}</dd>
+					<dd>{format_filesize(calculated.uncovered_bytes)}</dd>
 					<dd>{format_number(calculated.uncovered_lines)} lines</dd>
 				</div>
 			</div>

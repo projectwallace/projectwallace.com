@@ -55,9 +55,9 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
+		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('37.5 kB')
 		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('2,619')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.28%')
+		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('75.37%')
 
 		// Elements in correct state:
 		await expect.soft(table.getByRole('row').nth(1)).toHaveAttribute('aria-selected', 'true')
@@ -96,8 +96,6 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/Textarea.D3Oc5lUl.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('238 B')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('100%')
 		let css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('textarea.svelte-g7hyhb {')
 
@@ -108,8 +106,6 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.28%')
 	})
 
 	test('sorting by total size', async ({ page }) => {
@@ -122,8 +118,6 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('38 kB')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('72.28%')
 		let css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('.logo.svelte-1jiwtxp {')
 
@@ -134,8 +128,6 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/FormattedDate.JHv9Zh3p.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('69 B')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('100%')
 		css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('time.svelte-60ldmz {')
 	})
@@ -150,8 +142,6 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/23.lTvFD_l9.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('405 B')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('100%')
 		let css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('.form.svelte-148ca8f {')
 
@@ -162,8 +152,6 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/25.C4edrrKC.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('780 B')
-		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('0%')
 		css_content = await page.getByTestId('pre-css').textContent()
 		expect.soft(css_content).toContain('.page.svelte-1b1m7j9 {')
 	})

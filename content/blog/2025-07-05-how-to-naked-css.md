@@ -64,7 +64,7 @@ So this post shows you how to make your website look naked in just 7 lines of co
 
 4. Bonus: hide inaccessible content
 
-	I'm hiding all elements that have `aria-hidden="true"` because they are only useful visually, not for assisitve technology. So that's why it makes sense for me to hide these elements just to check how I navigate the website without them.
+	I'm hiding all elements that have `aria-hidden="true"` because they are only useful visually, not for assistive technology. So that's why it makes sense for me to hide these elements just to check how I navigate the website without them.
 
 	```css
 	[data-theme="naked"] {
