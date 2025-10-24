@@ -201,6 +201,14 @@
 			</Empty>
 		{/if}
 	</div>
+	{#if selected_index !== -1}
+		{#each calculated.coverage_per_stylesheet.at(mapped_selected_index)!.chunks as chunk}
+			<pre style="outline: 1px solid red">{chunk.start_offset},{chunk.end_offset}<br
+				/>{calculated.coverage_per_stylesheet
+					.at(mapped_selected_index)!
+					.text.substring(chunk.start_offset, chunk.end_offset)}</pre>
+		{/each}
+	{/if}
 {/if}
 
 <style>
