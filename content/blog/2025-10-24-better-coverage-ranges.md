@@ -3,11 +3,11 @@ title: Can we have better CSS Coverage ranges, please?
 excerpt: Browers often don't report atrule ranges correctly in the CSS Coverage ranges.
 ---
 
-The last couple of months I've been working hard on improving how we can [inspect](/css-coverage/) what parts of CSS are used by the browser and which parts aren't. There's some stuff I'm doing to [make](https://github.com/projectwallace/css-code-coverage) large coverage reports so you can inspect several pages in one go by combining coverage JSON files into a single one, prettifying all the CSS etc. Very fun, very helpful. But there's one thing in particular that is being consistently troublesome for me:
+The last couple of months I've been working hard on improving how we can [inspect](/css-coverage/) what parts of CSS are used by the browser and which parts aren't. There's some stuff I'm doing to [make](https://github.com/projectwallace/css-code-coverage) large coverage reports so you can inspect several pages in one go by combining coverage JSON files into a single one, prettifying all the CSS etc. But there's one thing that is being consistently troublesome for me:
 
 **Browers often don't report atrule ranges correctly.**
 
-'Often' doesn't mean 'always'. But often enough that it has bitten me more than I care to admit. It depends on where in they live and whether neighbouring rules are covered. But take this example that I've created using Playwright's [coverage API](https://playwright.dev/docs/api/class-coverage#coverage-start-css-coverage), but I've observed this in Edge/Chrome as well:
+'Often' doesn't mean 'always', but more than enough that it has bitten me more than I care to admit. It depends on where in they live and whether neighbouring rules are covered. But take this example that I've created using Playwright's [coverage API](https://playwright.dev/docs/api/class-coverage#coverage-start-css-coverage), but I've observed this in Edge/Chrome as well:
 
 ```html
 <!doctype html>
@@ -47,12 +47,12 @@ let coverage = [
 ]
 ```
 
-It doesn't mark the whole stylesheet as covered. Instead there are 4 different sections. Let's highlight the bits that the browser says are covered:
+It doesn't mark the whole stylesheet as covered. Instead there are 4 different ranges. Let's highlight the bits that the browser says are covered, leaving out tabs and newlines for readability:
 
 1. `all ` (Missing `@media ` and opening `{`)
-2. `h1 {\n\t\tcolor: green;\n\t}`
+2. `h1 { color: green; }`
 3. `(display: grid) ` (Missing `@supports ` and opening `{`)
-4. `h1 {\n\t\tfont-size: 24px;\n\t}`
+4. `h1 { font-size: 24px; }`
 
 And both atrule ranges also miss their closing `}`.
 
