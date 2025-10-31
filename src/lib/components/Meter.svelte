@@ -9,7 +9,7 @@
 <style>
 	meter {
 		--_meter-color: var(--meter-color, light-dark(var(--accent), var(--accent-500)));
-		--_meter-bg: var(--meter-bg, var(--bg-200));
+		--_meter-bg: var(--meter-bg, transparent);
 		--_meter-height: var(--meter-height, 1em);
 		width: 100%;
 		background: var(--_meter-bg);
@@ -19,14 +19,10 @@
 
 	meter::-webkit-meter-bar {
 		background: var(--_meter-bg);
-		border: none;
-		border-radius: 0;
-		height: var(--_meter-height);
 	}
 
 	meter::-webkit-meter-optimum-value {
 		background: var(--_meter-color);
-		border-radius: 0;
 	}
 
 	meter::-moz-meter-bar {
@@ -34,11 +30,7 @@
 	}
 
 	@media print {
-		meter::-webkit-meter-optimum-value {
-			border: 1px solid;
-		}
-
-		meter::-moz-meter-bar {
+		meter {
 			border: 1px solid;
 		}
 	}
