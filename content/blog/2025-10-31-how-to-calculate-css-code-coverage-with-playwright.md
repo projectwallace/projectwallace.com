@@ -14,11 +14,11 @@ One of the most common questions around analyzing CSS quality is how to detect u
 
 1. [Writing Playwright tests](#writing-playwright-tests)
 2. [Collect CSS Coverage from Playwright tests](#collect-css-coverage-from-playwright-tests)
-3. [Analyzing and linting CSS Coverage](#analyzing-and-linting-css-coverage)
+3. [Bonus: Analyzing and linting CSS Coverage](#bonus-analyzing-and-linting-css-coverage)
 
 ## Writing Playwright tests
 
-Start with writing Playwright tests for our website. Playwright tests run in a headless browser and they emulate user behaviour to verify that your website works as intended. The Project Wallace website has 230 tests. Here is one of them:
+Start with writing Playwright tests for our website. Playwright tests run in a headless browser and they emulate user behaviour to verify that your website works as intended. The Project Wallace website has 230 of these tests. Here is one of them:
 
 ```ts
 import { test, expect } from './tests/fixtures'
@@ -57,6 +57,7 @@ export const test = base_test.extend<Fixtures>({
 		async ({ page }, use, testInfo) => {
 			// start before test
 			await page.coverage.startCSSCoverage()
+			// run the test
 			await use()
 			// stop after test
 			let coverage = await page.coverage.stopCSSCoverage()
@@ -69,7 +70,7 @@ export const test = base_test.extend<Fixtures>({
 })
 ```
 
-You can peek at [our implementation on GitHub](https://github.com/projectwallace/projectwallace.com/blob/68080570ce614335bd6c10d5980f767c2628de86/tests/fixtures.ts#L6-L41).
+You can peek at [our implementation on GitHub](https://github.com/projectwallace/projectwallace.com/blob/68080570ce614335bd6c10d5980f767c2628de86/tests/fixtures.ts#L6-L41). That one is a bit more involved because it automatically generates a unique file name for each coverage file and attaches it to the test.
 
 Let's break it down:
 
@@ -87,8 +88,9 @@ export const test = base_test.extend<Fixtures>({
 		async ({ page }, use, testInfo) => {
 			// etc.
 		},
-		{ auto: true },
+		{ auto: true }
 	]
+})
 ```
 
 ### Collecting coverage
@@ -98,6 +100,7 @@ The core of the fixture is surprisingly small! Start collecting, run the test an
 ```ts
 // start before test
 await page.coverage.startCSSCoverage()
+// Run the test
 await use()
 // stop after test
 let coverage = await page.coverage.stopCSSCoverage()
@@ -113,14 +116,14 @@ await fs.writeFile('./css-coverage/path-to-file.json', JSON.stringify(coverage))
 
 That's all! Because of the auto-fixture every test will now self-report all CSS Coverage data.
 
-## Analyzing and linting CSS Coverage
+## Bonus: Analyzing and linting CSS Coverage
 
-After running our 230 Playwright tests we have megabytes of coverage data that we can start analyzing. As you could read in my [previous blog post](https://www.projectwallace.com/blog/better-coverage-ranges) there are a lot of gaps to fill. On top of that many tests report the same coverage ranges for the same files so there is also a lot deduplication to do. And prettifying the CSS because no-one likes inspecting minified CSS. This is where our new [@projectwallace/css-code-coverage](https://github.com/projectwallace/css-code-coverage) package comes in handy. It does all that for us and generates handy statitstics. It even ships with a CLI that works as a CSS Coverage linter!
+After running our 230 Playwright tests we have megabytes of coverage data that we can start analyzing. As you could read in my [previous blog post](https://www.projectwallace.com/blog/better-coverage-ranges) there are a lot of gaps to fill. On top of that many tests report the same coverage ranges for the same files so there is also a lot deduplication to do. And prettifying the CSS because no-one likes inspecting minified CSS. This is where our new [@projectwallace/css-code-coverage](https://github.com/projectwallace/css-code-coverage) package comes in handy. It does all that for us and generates handy statistics. It even ships with a CLI that works as a CSS Coverage linter!
 
-The previous step generated a folder full with 230 JSON files in `/css-coverage`. We're going to use @projectwallace/css-code-coverage to make sure that our coverage is at an acceptable number:
+The previous step generated a `/css-coverage` folder full with 230 JSON files. We're going to use @projectwallace/css-code-coverage to make sure that our coverage is at an acceptable number:
 
 ```sh
-css-coverage --coverage-dir=./css-coverage --min-line-coverage=.9  --min-file-line-coverage=.62 --show-uncovered=all
+css-coverage --coverage-dir=./css-coverage --min-line-coverage=.9  --min-file-line-coverage=.7 --show-uncovered=all
 ```
 
 See [our implementation here](https://github.com/projectwallace/projectwallace.com/blob/68080570ce614335bd6c10d5980f767c2628de86/package.json#L18) as a `package.json` script.
@@ -143,4 +146,4 @@ This is the result when running it for projectwallace.com's repository:
 
 The @projectwallace/css-code-coverage package focuses on lines and not on bytes because as developers we also look at lines of code.
 
-Running this CLI in a GitHub action after the Playwright test gives you have accurate test data in each run and and a safeguard against shipping unused CSS!
+Running this CLI in a GitHub action after the Playwright test gives you have accurate test data in each run and helps you catch shipping unused CSS!
