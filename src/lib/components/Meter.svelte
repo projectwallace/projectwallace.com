@@ -33,13 +33,5 @@
 		meter {
 			border: 1px solid;
 		}
-
-		meter::-webkit-meter-optimum-value {
-			border: 1px solid;
-		}
-
-		meter::-moz-meter-bar {
-			border: 1px solid;
-		}
 	}
 </style>
