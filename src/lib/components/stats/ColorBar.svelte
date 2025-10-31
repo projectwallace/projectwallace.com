@@ -1,6 +1,9 @@
+<script lang="ts" module>
+	export type Sizing = 'relative' | 'evenly'
+</script>
+
 <script lang="ts">
 	import type { CssAnalysis } from '$lib/analyze-css'
-	import type { Sizing } from './ColorBar'
 
 	type Colors = CssAnalysis['values']['colors']
 

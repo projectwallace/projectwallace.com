@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { createTreeView } from '@melt-ui/svelte'
 	import { setContext } from 'svelte'
-	import Tree from './Tree.svelte'
-	import type { TreeItem } from './types'
+	import Tree, { type TreeItem } from './Tree.svelte'
 	import Icon from '$components/Icon.svelte'
 	import CopyButton from '$components/CopyButton.svelte'
 	import Pre from '$components/Pre.svelte'
@@ -202,7 +201,8 @@
 					<button type="submit" class="sr-only" tabindex="-1">Search</button>
 					{#if filtered_results !== undefined && filtered_results.size > 0 && search_query.trim().length > 0}
 						<p class="search-info" data-testid="search-info">
-							{filtered_results.size} {filtered_results.size === 1 ? 'property' : 'properties'} shown,
+							{filtered_results.size}
+							{filtered_results.size === 1 ? 'property' : 'properties'} shown,
 							{result.all.size - filtered_results.size} hidden by search
 						</p>
 						<button type="reset">Clear search</button>
@@ -215,7 +215,13 @@
 				<div class="empty-wrapper">
 					<Empty>
 						No properties matching the search or filters.
-						<button class="clear-search" onclick={() => { search_query = ''; reset_filters();}}>Clear all</button>?
+						<button
+							class="clear-search"
+							onclick={() => {
+								search_query = ''
+								reset_filters()
+							}}>Clear all</button
+						>?
 					</Empty>
 				</div>
 			{:else}
@@ -367,7 +373,7 @@
 			display: inline;
 		}
 
-		button[type="reset"] {
+		button[type='reset'] {
 			text-decoration: underline;
 		}
 	}

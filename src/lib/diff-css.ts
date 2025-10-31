@@ -1,7 +1,7 @@
 import { structuredPatch } from 'diff'
 import { format } from '@projectwallace/format-css'
 
-export type StructuredPatch = {
+type StructuredPatch = {
 	hunks: Hunk[]
 	lines_added: number
 	lines_removed: number
@@ -15,7 +15,7 @@ type Line = {
 	new_line_number: number
 }
 
-export type Hunk = {
+type Hunk = {
 	oldStart: number
 	oldLines: number
 	newStart: number
@@ -33,7 +33,7 @@ export function diff_css(old_css: string, new_css: string): StructuredPatch {
 		return {
 			hunks: [],
 			lines_added: 0,
-			lines_removed: 0,
+			lines_removed: 0
 		}
 	}
 
@@ -80,6 +80,6 @@ export function diff_css(old_css: string, new_css: string): StructuredPatch {
 	return {
 		hunks,
 		lines_added,
-		lines_removed,
+		lines_removed
 	} as StructuredPatch
 }

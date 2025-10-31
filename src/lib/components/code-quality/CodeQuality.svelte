@@ -11,7 +11,7 @@
 	import FilterOption from '$components/FilterOption.svelte'
 	import Heading from '$components/Heading.svelte'
 	import Container from '$components/Container.svelte'
-	import type { CodeQualityDoc } from '$lib/code-quality'
+	import type { CodeQualityDoc } from '$lib/code-quality.ts'
 	import Textarea from '$components/css-form/Textarea.svelte'
 
 	type Props = {

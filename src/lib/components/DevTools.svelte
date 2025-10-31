@@ -3,8 +3,8 @@
 	import { innerHeight } from 'svelte/reactivity/window'
 	import { createTabs, melt } from '@melt-ui/svelte'
 	import Icon from '$lib/components/Icon.svelte'
-	import { resize } from '$lib/components/use-resize'
-	import type { DevtoolsTab, TabId } from '$components/devtools/tabs'
+	import { resize } from '$lib/components/use-resize.ts'
+	import type { DevtoolsTab, TabId } from '$components/devtools/tabs.ts'
 	import { get_css_state } from '$lib/css-state.svelte'
 
 	let css_state = get_css_state()

@@ -5,13 +5,13 @@ type ServerError = {
 	statusCode: number
 }
 
-export class CssFetchNetworkError extends Error { }
+class CssFetchNetworkError extends Error {}
 
-export class CssFetchApiError extends Error { }
+class CssFetchApiError extends Error {}
 
-export class CssFetchRemoteError extends Error { }
+class CssFetchRemoteError extends Error {}
 
-class UrlNotFoundError extends Error { }
+class UrlNotFoundError extends Error {}
 
 export async function get_css(url: string | FormDataEntryValue): Promise<CSSOrigin[]> {
 	let response: Response

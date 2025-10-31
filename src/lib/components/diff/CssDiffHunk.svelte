@@ -1,7 +1,7 @@
 <script module lang="ts">
-	export const supports_highlights = typeof window !== 'undefined' && 'highlights' in window.CSS
+	const supports_highlights = typeof window !== 'undefined' && 'highlights' in window.CSS
 
-	export const token_types = ['AtruleName', 'Selector', 'Property', 'Value']
+	const token_types = ['AtruleName', 'Selector', 'Property', 'Value']
 
 	if (supports_highlights) {
 		for (let type of token_types) {

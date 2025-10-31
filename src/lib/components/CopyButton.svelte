@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte'
-	import Button from './Button.svelte'
-	import type { Variant } from './Button'
+	import Button, { type Variant } from './Button.svelte'
 
 	interface Props {
 		text: string

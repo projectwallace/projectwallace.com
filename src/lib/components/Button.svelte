@@ -1,6 +1,9 @@
+<script module lang="ts">
+	export type Variant = 'primary' | 'secondary' | 'minimal'
+</script>
+
 <script lang="ts">
 	import type { HTMLButtonAttributes, HTMLAnchorAttributes } from 'svelte/elements'
-	import type { Variant } from './Button'
 	import type { IconName } from './Icon.svelte'
 	import Icon from './Icon.svelte'
 

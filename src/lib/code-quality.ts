@@ -28,30 +28,31 @@ type MdsvexDocument = {
 
 export function getDocs() {
 	let files = import.meta.glob('/content/docs/code-quality/*.md', { eager: true }) as Record<string, MdsvexDocument>
-	let docs = Object.entries(files).map(
-		([filePath, doc]) => {
-			let id = basename(filePath, '.md')
-				.split('-')
-				.map((part: string) => capitalize(part))
-				.join('')
-			let MdsvexComponent = doc.default as unknown as Component
-			let html = render(MdsvexComponent, { props: {} }).body
-			let { title, summary, unit, format, category, ...meta } = doc.metadata
+	let docs = Object.entries(files).map(([filePath, doc]) => {
+		let id = basename(filePath, '.md')
+			.split('-')
+			.map((part: string) => capitalize(part))
+			.join('')
+		let MdsvexComponent = doc.default as unknown as Component
+		let html = render(MdsvexComponent, { props: {} }).body
+		let { title, summary, unit, format, category, ...meta } = doc.metadata
 
-			return {
-				id,
-				title,
-				html,
-				summary,
-				unit,
-				format,
-				category,
-				meta
-			} as CodeQualityDoc
-		}
+		return {
+			id,
+			title,
+			html,
+			summary,
+			unit,
+			format,
+			category,
+			meta
+		} as CodeQualityDoc
+	})
+	return docs.reduce(
+		(acc, curr) => {
+			acc[curr.id] = curr
+			return acc
+		},
+		Object.create(null) as Record<string, CodeQualityDoc>
 	)
-	return docs.reduce((acc, curr) => {
-		acc[curr.id] = curr
-		return acc
-	}, Object.create(null) as Record<string, CodeQualityDoc>)
 }

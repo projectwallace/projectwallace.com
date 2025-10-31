@@ -1,7 +1,16 @@
+<script module lang="ts">
+	import type { CSSOrigin } from '$lib/css-origins'
+
+	export type FormSuccessEvent = {
+		origins: CSSOrigin[]
+		prettify: boolean
+		submit_type: 'raw' | 'url' | 'file'
+	}
+</script>
+
 <script lang="ts">
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
-	import type { FormSuccessEvent } from './types'
 	import FormGroup from '$components/FormGroup.svelte'
 	import Label from '$components/Label.svelte'
 	import Button from '$components/Button.svelte'
@@ -203,7 +212,9 @@
 				</Button>
 			</div>
 			{#if !is_online.current}
-				<p class="error-msg" data-testid="offline-message">You are offline. Analyzing a URL will not work, but you can still analyze files or input directly.</p>
+				<p class="error-msg" data-testid="offline-message">
+					You are offline. Analyzing a URL will not work, but you can still analyze files or input directly.
+				</p>
 			{/if}
 		</form>
 	{/snippet}
