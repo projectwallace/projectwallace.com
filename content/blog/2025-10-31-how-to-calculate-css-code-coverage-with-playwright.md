@@ -1,5 +1,6 @@
 ---
 title: How to calculate CSS code coverage with @playwright/test
+excerpt: Collect and analyze CSS coverage using Playwright tests to detect and prevent unused CSS in production.
 ---
 
 <script>
