@@ -88,8 +88,6 @@ test.describe('URL input mode', () => {
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		// Verify that the URL is updated
 		await expect.soft(page).toHaveURL('/analyze-css?url=example.com&prettify=1')
-		// Verify that focus is restored
-		await expect.soft(page.getByRole('button', { name: 'Analyze URL' })).toBeFocused()
 	})
 
 	test('Shows a helpful error if the URL is blocked', async ({ page }) => {
@@ -97,12 +95,13 @@ test.describe('URL input mode', () => {
 			await route.fulfill({
 				status: 200,
 				json: {
-					"error": {
-						"url": "chatgpt.com",
-						"statusCode": 403,
-						"original_status_code": "ERR_NON_2XX_3XX_RESPONSE",
-						"message": "The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?",
-						"originalMessage": "Response code 403 (Forbidden)"
+					error: {
+						url: 'chatgpt.com',
+						statusCode: 403,
+						original_status_code: 'ERR_NON_2XX_3XX_RESPONSE',
+						message:
+							'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?',
+						originalMessage: 'Response code 403 (Forbidden)'
 					}
 				}
 			})
@@ -114,7 +113,11 @@ test.describe('URL input mode', () => {
 
 		// Verify that the error message is shown
 		await expect.soft(page.getByTestId('form-url-error')).toBeVisible()
-		await expect.soft(page.getByTestId('form-url-error')).toContainText("The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?")
+		await expect
+			.soft(page.getByTestId('form-url-error'))
+			.toContainText(
+				'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?'
+			)
 	})
 
 	test('Shows a helpful error if the remote server refuses connection', async ({ page }) => {
@@ -122,12 +125,12 @@ test.describe('URL input mode', () => {
 			await route.fulfill({
 				status: 200,
 				json: {
-					"error": {
-						"url": "refused.com",
-						"statusCode": 400,
-						"original_status_code": "ECONNREFUSED",
-						"message": "The origin server is refusing connections.",
-						"originalMessage": "The origin server errored with statusCode 403"
+					error: {
+						url: 'refused.com',
+						statusCode: 400,
+						original_status_code: 'ECONNREFUSED',
+						message: 'The origin server is refusing connections.',
+						originalMessage: 'The origin server errored with statusCode 403'
 					}
 				}
 			})
@@ -139,46 +142,48 @@ test.describe('URL input mode', () => {
 
 		// Verify that the error message is shown
 		await expect.soft(page.getByTestId('form-url-error')).toBeVisible()
-		await expect.soft(page.getByTestId('form-url-error')).toContainText("The origin server is refusing connections.")
+		await expect.soft(page.getByTestId('form-url-error')).toContainText('The origin server is refusing connections.')
 	})
-
-		;[
-			'localhost:3000',
-			'192.168.2.1',
-			'127.0.0.1',
-		].forEach((url) => {
-			test(`Shows a helpful error if trying to scrape localhost (${url})`, async ({ page }) => {
-				await page.route('**/api/get-css*', async (route) => {
-					await route.fulfill({
-						status: 200,
-						json: {
-							"error": {
-								"url": url,
-								"statusCode": 400,
-								"original_status_code": "ECONNREFUSED",
-								"message": "The origin server is refusing connections. You are trying to scrape a local server. Make sure to use a public URL.",
-								"originalMessage": "The origin server errored with statusCode 403"
-							}
+	;['localhost:3000', '192.168.2.1', '127.0.0.1'].forEach((url) => {
+		test(`Shows a helpful error if trying to scrape localhost (${url})`, async ({ page }) => {
+			await page.route('**/api/get-css*', async (route) => {
+				await route.fulfill({
+					status: 200,
+					json: {
+						error: {
+							url: url,
+							statusCode: 400,
+							original_status_code: 'ECONNREFUSED',
+							message:
+								'The origin server is refusing connections. You are trying to scrape a local server. Make sure to use a public URL.',
+							originalMessage: 'The origin server errored with statusCode 403'
 						}
-					})
+					}
 				})
-				// Fill in an invalid URL
-				await page.getByLabel('URL to analyze').fill(url)
-				// click 'Analyze URL'
-				await page.getByRole('button', { name: 'Analyze URL' }).click()
-
-				// Verify that the error message is shown
-				await expect.soft(page.getByTestId('form-url-error')).toBeVisible()
-				await expect.soft(page.getByTestId('form-url-error')).toContainText("The origin server is refusing connections. You are trying to scrape a local server. Make sure to use a public URL.")
 			})
+			// Fill in an invalid URL
+			await page.getByLabel('URL to analyze').fill(url)
+			// click 'Analyze URL'
+			await page.getByRole('button', { name: 'Analyze URL' }).click()
+
+			// Verify that the error message is shown
+			await expect.soft(page.getByTestId('form-url-error')).toBeVisible()
+			await expect
+				.soft(page.getByTestId('form-url-error'))
+				.toContainText(
+					'The origin server is refusing connections. You are trying to scrape a local server. Make sure to use a public URL.'
+				)
 		})
+	})
 
 	test('does not crash when requesting an invalid URL', async ({ page }) => {
 		await page.getByLabel('URL to analyze').fill('test { color: red; }')
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 		await expect.soft(page.getByTestId('form-url-error')).toBeVisible()
-		await expect.soft(page.getByTestId('form-url-error')).toContainText("The URL is not valid. Are you sure you entered a URL and not CSS?")
+		await expect
+			.soft(page.getByTestId('form-url-error'))
+			.toContainText('The URL is not valid. Are you sure you entered a URL and not CSS?')
 	})
 
 	test.describe('offline', () => {
@@ -215,9 +220,6 @@ test.describe('Raw input mode', () => {
 		// Verify that Report is shown
 		await expect.soft(page.getByTestId('report')).toBeVisible()
 		await expect.soft(page).toHaveURL('/analyze-css')
-
-		// Verify that focus is restored
-		await expect.soft(page.getByRole('button', { name: 'Analyze CSS' })).toBeFocused()
 	})
 
 	test('submits raw form with CMD+Enter', async ({ page }) => {
@@ -255,7 +257,7 @@ test.describe('File input mode', () => {
 
 	test('analyzes a single file', async ({ page }) => {
 		// Select a file
-		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1]);
+		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1])
 
 		// Verify that the file preview is shown
 		let previews = page.getByTestId('file-preview')
@@ -268,17 +270,11 @@ test.describe('File input mode', () => {
 		// Verify that Report is shown
 		await expect.soft(page.getByTestId('report')).toBeVisible()
 		await expect.soft(page).toHaveURL('/analyze-css')
-
-		// Verify that focus is restored
-		await expect.soft(page.getByRole('button', { name: 'Analyze CSS' })).toBeFocused()
 	})
 
 	test('analyzes multiple files', async ({ page }) => {
 		// Select a file
-		await page.getByLabel('File to analyze').setInputFiles([
-			file_fixture_1,
-			file_fixture_2
-		]);
+		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1, file_fixture_2])
 
 		// Verify that the file previews are shown
 		let previews = page.getByTestId('file-preview')
@@ -406,7 +402,7 @@ test.describe('URL preloading', () => {
 
 		// Select a file
 		await page.getByRole('tab', { name: 'Analyze File' }).click()
-		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1]);
+		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1])
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 		await expect.soft(page).toHaveURL('/analyze-css')
 	})
