@@ -14,14 +14,13 @@ function should_allow_analytics({
 }): boolean {
 	if (dev) return false
 
-	if (deploy_context !== 'production') return false
-
 	if (user_agent) {
 		user_agent = user_agent.toLowerCase()
 
 		if (user_agent.includes('playwright')) return false
 		if (user_agent.includes('sentry')) return false
 		if (user_agent.includes('bot')) return false
+		if (user_agent.includes('spider')) return false
 		if (user_agent.includes('headless')) return false
 	}
 
@@ -29,9 +28,16 @@ function should_allow_analytics({
 }
 
 export function load({ locals, request }) {
+	let deploy_context =
+		env.CONTEXT ||
+		env.DEPLOY_CONTEXT ||
+		request.headers.get('x-nf-deploy-context') ||
+		request.headers.get('x-nf-site-id') ||
+		'unknown'
+
 	let allow_analytics = should_allow_analytics({
 		dev,
-		deploy_context: env.CONTEXT,
+		deploy_context,
 		user_agent: request.headers.get('user-agent')
 	})
 

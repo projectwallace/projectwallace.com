@@ -80,14 +80,8 @@ const log_request_details: Handle = async function ({ event, resolve }) {
 	let ua = headers.get('user-agent')
 	let ip = headers.get('x-nf-client-connection-ip')
 	let path = event.url.pathname
-	let context =
-		process.env.CONTEXT ||
-		process.env.DEPLOY_CONTEXT ||
-		headers.get('x-nf-deploy-context') ||
-		headers.get('x-nf-site-id') ||
-		'unknown' // e.g. 'production', 'deploy-preview'
 
-	console.log('request-details', JSON.stringify({ context, ip, path, ua }))
+	console.log('request-details', JSON.stringify({ ip, path, ua }))
 
 	let response = await resolve(event)
 	return response
