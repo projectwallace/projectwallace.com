@@ -14,6 +14,8 @@ function should_allow_analytics({
 }): boolean {
 	if (dev) return false
 
+	if (deploy_context !== 'production') return false
+
 	if (user_agent) {
 		user_agent = user_agent.toLowerCase()
 
