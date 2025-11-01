@@ -2,15 +2,24 @@ function clamp(value: number, min: number, max: number) {
 	return Math.min(max, Math.max(min, value))
 }
 
+function is_in_bottom_screen_half(node: HTMLElement) {
+	let rect = node.getBoundingClientRect()
+	return rect.bottom > window.innerHeight / 2
+}
+
+function scroll_into_view_if_necessary(node: HTMLElement, scroll_options: ScrollIntoViewOptions) {
+	if (is_in_bottom_screen_half(node)) {
+		node.scrollIntoView(scroll_options)
+	}
+}
+
 type ItemElement = HTMLElement
 
-export type OnChange = ({ value, active_index }: { value: string, active_index: number }) => void
+export type OnChange = ({ value, active_index }: { value: string; active_index: number }) => void
 
-function noop() { }
+function noop() {}
 
-export function create_keyboard_list({
-	enabled = true
-}: { enabled?: boolean } = {}) {
+export function create_keyboard_list({ enabled = true }: { enabled?: boolean } = {}) {
 	if (!enabled) {
 		return {
 			elements: { root: noop, item: noop }
@@ -29,11 +38,12 @@ export function create_keyboard_list({
 		// Enter or Space: select the focused option
 		if (event.key === 'Enter' || event.key === ' ') {
 			event.preventDefault()
-			let item = root.querySelector('[tabindex="0"]') as HTMLElement | null
-			if (item !== null) {
-				item.tabIndex = 0
-				item.focus()
-				onchange_handler({ value: item.dataset.value!, active_index })
+			let node = root.querySelector('[tabindex="0"]') as HTMLElement | null
+			if (node !== null) {
+				node.tabIndex = 0
+				node.focus()
+				scroll_into_view_if_necessary(node, { block: 'center' })
+				onchange_handler({ value: node.dataset.value!, active_index })
 			}
 			return
 		}
@@ -79,6 +89,7 @@ export function create_keyboard_list({
 			if (node) {
 				node.tabIndex = 0
 				node.focus()
+				scroll_into_view_if_necessary(node, { block: 'center' })
 			}
 		}
 	}
@@ -93,24 +104,28 @@ export function create_keyboard_list({
 
 		let old_node = root.childNodes[active_index]
 		if (active_index !== -1 && old_node) {
-			(old_node as HTMLElement).tabIndex = -1
+			;(old_node as HTMLElement).tabIndex = -1
 		}
 		active_index = index
 		let node = root.childNodes[active_index] as HTMLElement
 		if (node) {
 			node.tabIndex = 0
 			node.focus()
+			scroll_into_view_if_necessary(node, { block: 'center' })
 			onchange_handler({ value: node.dataset.value!, active_index })
 		}
 	}
 
 	return {
 		elements: {
-			item: function (node: ItemElement, {
-				value
-			}: {
-				value: string
-			}) {
+			item: function (
+				node: ItemElement,
+				{
+					value
+				}: {
+					value: string
+				}
+			) {
 				node.dataset.value = value
 
 				if (node.getAttribute('aria-selected') === 'true' || active_index === -1) {
@@ -123,7 +138,7 @@ export function create_keyboard_list({
 
 				function on_item_click() {
 					if (active_index !== -1) {
-						(root.childNodes[active_index] as HTMLElement).tabIndex = -1
+						;(root.childNodes[active_index] as HTMLElement).tabIndex = -1
 					}
 					let i = 0
 					for (let item of root.childNodes) {
@@ -135,6 +150,7 @@ export function create_keyboard_list({
 					}
 					node.tabIndex = 0
 					node.focus()
+					scroll_into_view_if_necessary(node, { block: 'center' })
 					onchange_handler({ value, active_index })
 				}
 
@@ -151,11 +167,14 @@ export function create_keyboard_list({
 					}
 				}
 			},
-			root: function (node: HTMLElement, {
-				onchange
-			}: {
-				onchange: OnChange
-			}) {
+			root: function (
+				node: HTMLElement,
+				{
+					onchange
+				}: {
+					onchange: OnChange
+				}
+			) {
 				root = node
 				root.tabIndex = -1
 				onchange_handler = onchange

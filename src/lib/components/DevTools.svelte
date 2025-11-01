@@ -39,7 +39,7 @@
 	let max_height = $state(0)
 
 	onMount(function () {
-		max_height = (innerHeight.current || 100) * 0.875
+		max_height = (innerHeight.current || 100) * 0.5
 	})
 
 	$effect(() => {
@@ -202,7 +202,7 @@
 		background-color: var(--bg-100);
 		height: calc(20rem + var(--panel-offset, 0));
 		min-height: 1rem;
-		max-height: 90vh;
+		max-height: calc(50vh - var(--space-16));
 		width: 100%;
 		overflow-y: auto;
 		contain: strict;
