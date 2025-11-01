@@ -144,12 +144,14 @@
 	} = ctx
 
 	let selected_item = $derived.by(() => {
-		if ($selectedItem) {
+		if ($selectedItem !== null) {
 			const data = JSON.parse($selectedItem.dataset.item as string)
-			let locations = result.all.get(data.title)!
-			return {
-				location: data.type === 'property' ? locations.at(0) : data.location,
-				locations
+			let locations = result.all.get(data.title)
+			if (locations !== undefined) {
+				return {
+					location: data.type === 'property' ? locations.at(0) : data.location,
+					locations
+				}
 			}
 		}
 	})
@@ -202,7 +204,8 @@
 					<button type="submit" class="sr-only" tabindex="-1">Search</button>
 					{#if filtered_results !== undefined && filtered_results.size > 0 && search_query.trim().length > 0}
 						<p class="search-info" data-testid="search-info">
-							{filtered_results.size} {filtered_results.size === 1 ? 'property' : 'properties'} shown,
+							{filtered_results.size}
+							{filtered_results.size === 1 ? 'property' : 'properties'} shown,
 							{result.all.size - filtered_results.size} hidden by search
 						</p>
 						<button type="reset">Clear search</button>
@@ -215,7 +218,13 @@
 				<div class="empty-wrapper">
 					<Empty>
 						No properties matching the search or filters.
-						<button class="clear-search" onclick={() => { search_query = ''; reset_filters();}}>Clear all</button>?
+						<button
+							class="clear-search"
+							onclick={() => {
+								search_query = ''
+								reset_filters()
+							}}>Clear all</button
+						>?
 					</Empty>
 				</div>
 			{:else}
@@ -367,7 +376,7 @@
 			display: inline;
 		}
 
-		button[type="reset"] {
+		button[type='reset'] {
 			text-decoration: underline;
 		}
 	}
