@@ -12,6 +12,14 @@ function should_allow_analytics({
 	deploy_context?: string
 	user_agent: string | null
 }): boolean {
+	console.log(
+		JSON.stringify({
+			dev,
+			deploy_context,
+			user_agent
+		})
+	)
+
 	if (dev) return false
 
 	if (deploy_context !== 'production') return false

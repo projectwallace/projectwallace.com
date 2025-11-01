@@ -22,7 +22,7 @@ export const handle_redirects: Handle = async function ({ event, resolve }) {
 		{ source: '/css-analysis', destination: '/analyze-css' },
 		{ source: '/register', destination: '/' },
 		{ source: '/dashboard', destination: '/' },
-		{ source: '/projects-coming-soon', destination: '/' },
+		{ source: '/projects-coming-soon', destination: '/' }
 	]
 
 	// Redirect old /~username to the home page
@@ -75,8 +75,15 @@ const set_theme: Handle = async function ({ event, resolve }) {
 	return response
 }
 
-export const handle: Handle = sequence(
-	set_theme,
-	handle_redirects,
-	apply_security_headers
-)
+const log_request_details: Handle = async function ({ event, resolve }) {
+	let ua = event.request.headers.get('user-agent')
+	let ip = event.request.headers.get('x-nf-client-connection-ip')
+	let context = process.env.CONTEXT || 'unknown' // e.g. 'production', 'deploy-preview'
+
+	console.log('request-details', JSON.stringify({ context, ip, ua }))
+
+	let response = await resolve(event)
+	return response
+}
+
+export const handle: Handle = sequence(set_theme, handle_redirects, apply_security_headers, log_request_details)
