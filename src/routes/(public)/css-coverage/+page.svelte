@@ -8,8 +8,10 @@
 	import Markdown from '$components/Markdown.svelte'
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
+	import { onMount } from 'svelte'
 
 	let data: Coverage[] = $state([])
+	let input: HTMLInputElement
 
 	async function onchange(event: Event) {
 		let files = (event.target as HTMLInputElement)?.files
@@ -37,6 +39,23 @@
 		let { default: example_data } = await import('./example-coverage.json?raw')
 		data = parse_coverage(example_data)
 	}
+
+	function on_keydown(event: KeyboardEvent) {
+		if (!event.repeat && (event.metaKey || event.ctrlKey) && event.key === 'o') {
+			// Prevent the default browser dialog to open a regular file from opening
+			event.preventDefault()
+			// Trigger our file input element to trigger it's dialog
+			input.click()
+		}
+	}
+
+	onMount(() => {
+		window.addEventListener('keydown', on_keydown)
+
+		return () => {
+			window.removeEventListener('keydown', on_keydown)
+		}
+	})
 </script>
 
 <Seo
@@ -54,6 +73,7 @@
 			accept=".json"
 			multiple
 			{onchange}
+			bind:this={input}
 			ondragenter={() => (drag_state = 'dragging')}
 			ondragleave={() => (drag_state = 'idle')}
 			ondragend={() => (drag_state = 'idle')}

@@ -11,7 +11,9 @@
 	let css_state = get_css_state()
 	let {
 		elements: { root, item }
-	} = create_keyboard_list()
+	} = create_keyboard_list({
+		scroll_selected_item_into_view: false
+	})
 
 	$effect(() => {
 		if (css_state.selected_item !== undefined && table_scroller !== undefined) {
@@ -88,6 +90,7 @@
 		height: 100%;
 		overflow: auto;
 		contain: strict;
+		overscroll-behavior-block: contain;
 	}
 
 	.empty {

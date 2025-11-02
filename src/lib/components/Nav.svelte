@@ -37,8 +37,8 @@
 			let url = new URL(item.url, page.url.origin)
 			if (css_state.url !== undefined) {
 				url.searchParams.set('url', css_state.url)
+				url.searchParams.set('prettify', css_state.should_prettify ? '1' : '0')
 			}
-			url.searchParams.set('prettify', css_state.should_prettify ? '1' : '0')
 			return {
 				...item,
 				url: url.pathname + url.search + url.hash,

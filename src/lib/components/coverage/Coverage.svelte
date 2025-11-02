@@ -23,9 +23,10 @@
 	let selected_index = $state(0)
 	let calculated: CoverageResult | undefined = $state(undefined)
 
-	// @ts-expect-error This is very unconventional, maybe fix later with async svelte support
-	$effect(async () => {
-		calculated = await calculate_coverage(browser_coverage)
+	// TODO: this should be a $derived() but apparently the library isn't side-effect free
+	// https://github.com/projectwallace/css-code-coverage/issues/28
+	$effect(() => {
+		calculated = calculate_coverage(browser_coverage)
 	})
 
 	let max_lines = $derived.by(() => {

@@ -34,13 +34,6 @@
 		css_state.prettify(prettify)
 	})
 
-	function refocus(form: HTMLFormElement) {
-		let button = form.querySelector('button[type=submit]') as HTMLElement | null
-		if (button !== null) {
-			button.focus()
-		}
-	}
-
 	async function on_submit_raw(event: SubmitEvent) {
 		event.preventDefault()
 		let form_data = new FormData(event.target as HTMLFormElement)
@@ -62,7 +55,6 @@
 			submit_type: 'raw',
 			prettify
 		})
-		refocus(event.target as HTMLFormElement)
 		css_state.set_origins([{ css: val, type: 'raw' }])
 		css_state.url = undefined
 	}
@@ -101,7 +93,6 @@
 			error = err as CssFetchNetworkError | CssFetchApiError | CssFetchRemoteError
 			on_error(error)
 		}
-		refocus(event.target as HTMLFormElement)
 	}
 
 	async function on_submit_file(event: SubmitEvent) {
@@ -136,7 +127,6 @@
 		})
 		css_state.set_origins(origins)
 		css_state.url = undefined
-		refocus(event.target as HTMLFormElement)
 	}
 
 	$effect(() => {
@@ -203,7 +193,9 @@
 				</Button>
 			</div>
 			{#if !is_online.current}
-				<p class="error-msg" data-testid="offline-message">You are offline. Analyzing a URL will not work, but you can still analyze files or input directly.</p>
+				<p class="error-msg" data-testid="offline-message">
+					You are offline. Analyzing a URL will not work, but you can still analyze files or input directly.
+				</p>
 			{/if}
 		</form>
 	{/snippet}

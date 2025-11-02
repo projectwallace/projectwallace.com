@@ -120,9 +120,6 @@ test.describe('URL input mode', () => {
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		// Verify that the URL is updated
 		await expect.soft(page).toHaveURL('/design-tokens?url=example.com&prettify=1')
-
-		// Verify that focus is restored
-		await expect.soft(page.getByRole('button', { name: 'Analyze URL' })).toBeFocused()
 	})
 })
 
