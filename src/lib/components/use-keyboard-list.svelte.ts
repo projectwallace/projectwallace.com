@@ -7,19 +7,16 @@ function is_in_bottom_screen_half(node: HTMLElement) {
 	return rect.bottom > window.innerHeight / 2
 }
 
-function scroll_into_view_if_necessary(node: HTMLElement, scroll_options: ScrollIntoViewOptions) {
-	if (is_in_bottom_screen_half(node)) {
-		node.scrollIntoView(scroll_options)
-	}
-}
-
 type ItemElement = HTMLElement
 
 export type OnChange = ({ value, active_index }: { value: string; active_index: number }) => void
 
 function noop() {}
 
-export function create_keyboard_list({ enabled = true }: { enabled?: boolean } = {}) {
+export function create_keyboard_list({
+	enabled = true,
+	scroll_selected_item_into_view = true
+}: { enabled?: boolean; scroll_selected_item_into_view?: boolean } = {}) {
 	if (!enabled) {
 		return {
 			elements: { root: noop, item: noop }
@@ -30,6 +27,13 @@ export function create_keyboard_list({ enabled = true }: { enabled?: boolean } =
 	let child_count = 0
 	let active_index = -1
 	let onchange_handler: OnChange = noop
+
+	function scroll_into_view_if_necessary(node: HTMLElement, scroll_options: ScrollIntoViewOptions) {
+		if (!scroll_selected_item_into_view) return
+		if (is_in_bottom_screen_half(node)) {
+			node.scrollIntoView(scroll_options)
+		}
+	}
 
 	function on_root_keydown(event: KeyboardEvent) {
 		// important: selection does not follow focus
