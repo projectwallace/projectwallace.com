@@ -23,7 +23,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           TITLE: Write monthly changelog - $(date +'%B %Y')
           ASSIGNEES: bartveneman
-          LABELS: blog,changelog
+          LABELS: "'page: blog','changelog"
           BODY: Future you will thank you
 
   create_monthly_dependency_update_issue:
@@ -34,6 +34,7 @@ jobs:
     steps:
       - name: Create issue
         run: |
+          TITLE="Update dependencies - $(date +'%B %Y')"
           new_issue_url=$(gh issue create \
             --title "$TITLE" \
             --assignee "$ASSIGNEES" \
@@ -42,7 +43,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          TITLE: Update dependencies - $(date +'%B %Y')
           ASSIGNEES: bartveneman
           LABELS: dependencies
           BODY: Run `npx out`
