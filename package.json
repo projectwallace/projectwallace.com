@@ -50,7 +50,7 @@
 	"devDependencies": {
 		"@playwright/test": "^1.55.0",
 		"@sveltejs/adapter-netlify": "^5.2.3",
-		"@types/css-tree": "^2.3.10",
+		"@types/css-tree": "^2.3.11",
 		"@types/node": "^22.15.29",
 		"oxlint": "^1.14.0",
 		"postcss-html": "^1.8.0",
