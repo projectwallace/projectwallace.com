@@ -25,7 +25,7 @@
 		"@projectwallace/css-analyzer": "^7.6.0",
 		"@projectwallace/css-code-coverage": "^0.7.0",
 		"@projectwallace/css-code-quality": "^3.0.2",
-		"@projectwallace/css-design-tokens": "^0.6.0",
+		"@projectwallace/css-design-tokens": "^0.10.0",
 		"@projectwallace/css-layer-tree": "^2.0.0",
 		"@projectwallace/format-css": "^2.1.1",
 		"@sveltejs/enhanced-img": "0.4.4",
