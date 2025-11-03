@@ -52,7 +52,7 @@
 		// The first node that doesn't have the same top position as the previous one
 		// is the first node that's wrapped on a new line
 		let first_top = nodes[0].getBoundingClientRect().top
-		let last_top = nodes.at(-1).getBoundingClientRect().top
+		let last_top = nodes[nodes.length - 1].getBoundingClientRect().top
 		if (last_top === first_top) {
 			is_overflowing = false
 			overflow_index = -1
