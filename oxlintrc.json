@@ -51,7 +51,8 @@
 		"no-bitwise": "off",
 		"default-case": "off",
 		"no-rest-spread-properties": "off",
-		"require-await": "warn"
+		"require-await": "warn",
+		"no-warning-comments": "warn"
 	},
 	"overrides": [
 		{
