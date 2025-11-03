@@ -16,10 +16,10 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           cache: 'npm'
 
@@ -33,7 +33,7 @@ jobs:
         run: npx playwright test --forbid-only
 
       - name: Store Playwright test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: css-coverage
           path: css-coverage/*.json
@@ -45,10 +45,10 @@ jobs:
     needs: test
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           cache: 'npm'
           node-version: '>=22.18.0'
@@ -57,7 +57,7 @@ jobs:
         run: npm install --no-fund --no-audit --ignore-scripts
 
       - name: Download artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: css-coverage
           path: ./css-coverage
