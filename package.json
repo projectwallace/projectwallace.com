@@ -15,7 +15,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"lint": "oxlint --config oxlintrc.json",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore",
-		"css-coverage": "css-coverage --coverage-dir=./css-coverage --min-coverage=.8  --min-file-coverage=.62 --show-uncovered=all"
+		"css-coverage": "css-coverage --coverage-dir=./css-coverage --min-coverage=.8  --min-file-coverage=.66 --show-uncovered=all"
 	},
 	"dependencies": {
 		"@bramus/specificity": "^2.4.2",
