@@ -6,7 +6,7 @@
 	import Panel from '$components/Panel.svelte'
 	import Meter from '$components/Meter.svelte'
 	import Pre from '$components/Pre.svelte'
-	import { calculate_coverage, type Coverage, type CoverageResult } from '@projectwallace/css-code-coverage'
+	import { calculate_coverage, type Coverage } from '@projectwallace/css-code-coverage'
 	import Empty from '$components/Empty.svelte'
 	import Table from '$components/Table.svelte'
 	import { string_sort } from '$lib/string-sort'
@@ -21,13 +21,8 @@
 		elements: { root, item }
 	} = create_keyboard_list()
 	let selected_index = $state(0)
-	let calculated: CoverageResult | undefined = $state(undefined)
-
-	// TODO: this should be a $derived() but apparently the library isn't side-effect free
-	// https://github.com/projectwallace/css-code-coverage/issues/28
-	$effect(() => {
-		calculated = calculate_coverage(browser_coverage)
-	})
+	// $state.snapshot() necessary to avoid "unsafe state mutation" errors
+	let calculated = $derived(calculate_coverage($state.snapshot(browser_coverage)))
 
 	let max_lines = $derived.by(() => {
 		if (!calculated) return 0

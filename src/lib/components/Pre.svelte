@@ -328,7 +328,6 @@
 		overflow: auto hidden;
 		max-height: 100%;
 		height: 100%;
-		scroll-margin: var(--space-4);
 		color: var(--fg-200);
 
 		/* Regular outline not visible because of scroll containers */
