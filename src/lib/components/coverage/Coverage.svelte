@@ -21,13 +21,7 @@
 		elements: { root, item }
 	} = create_keyboard_list()
 	let selected_index = $state(0)
-	let calculated: CoverageResult | undefined = $state(undefined)
-
-	// TODO: this should be a $derived() but apparently the library isn't side-effect free
-	// https://github.com/projectwallace/css-code-coverage/issues/28
-	$effect(() => {
-		calculated = calculate_coverage(browser_coverage)
-	})
+	let calculated = $derived(calculate_coverage($state.snapshot(browser_coverage)))
 
 	let max_lines = $derived.by(() => {
 		if (!calculated) return 0
