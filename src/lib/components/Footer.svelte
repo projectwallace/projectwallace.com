@@ -42,8 +42,13 @@
 				{ title: 'Open Source Software', href: '/oss' },
 				{ href: '/about/terms-of-service', title: 'Terms of Service' },
 				{ href: '/about/privacy-policy', title: 'Privacy Policy' },
-				{ title: 'Bluesky', href: 'https://bsky.app/profile/projectwallace.com' },
-				{ title: 'GitHub', href: 'https://github.com/projectwallace' }
+				{
+					title: 'Code of Conduct',
+					href: 'https://github.com/projectwallace/projectwallace.com/blob/main/CODE_OF_CONDUCT.md',
+					rel: 'external'
+				},
+				{ title: 'Bluesky', href: 'https://bsky.app/profile/projectwallace.com', rel: 'external' },
+				{ title: 'GitHub', href: 'https://github.com/projectwallace', rel: 'external' }
 			]
 		}
 	]
@@ -54,14 +59,16 @@
 		<div class="section">
 			<div class="footer-title">{title}</div>
 			<ul class="footer-list" role="list">
-				{#each items as { title, href }}
+				{#each items as { title, href, rel }}
 					<li>
-						<a class="footer-link" {href}>{title}</a>
+						<a class="footer-link" {href} {rel}>{title}</a>
 					</li>
 				{/each}
 			</ul>
 		</div>
 	{/each}
+
+	<p>This site is powered by <a href="https://www.netlify.com/" rel="external">Netlify</a></p>
 </footer>
 
 <style>
@@ -73,6 +80,7 @@
 		padding-block: var(--space-8);
 		padding-inline: var(--space-3);
 		border-top: 1px solid var(--fg-600);
+		color: var(--fg-300);
 
 		@media (min-width: 66rem) {
 			gap: var(--space-12);
@@ -102,7 +110,18 @@
 
 	.footer-link {
 		display: block;
-		color: var(--fg-300);
 		padding-block: var(--space-1);
+	}
+
+	p {
+		grid-column: 1 / -1;
+		padding-block: var(--space-4);
+		text-align: center;
+
+		& a {
+			--netlify: #32e6e2;
+			text-decoration: underline;
+			text-decoration-color: var(--netlify);
+		}
 	}
 </style>
