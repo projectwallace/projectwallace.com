@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { compareSpecificity } from '@projectwallace/css-analyzer'
+	import { compareSpecificity, type Specificity } from '@projectwallace/css-analyzer'
 	import type { CssAnalysis } from '$lib/analyze-css'
 	import type { CssLocation } from '$lib/css-location'
 	import { format_number } from '$lib/format-number'
@@ -13,8 +13,6 @@
 	import DefinitionList from '$lib/components/stats/DefinitionList.svelte'
 	import { StatsList, Item } from '$lib/components/stats-list/index'
 	import { string_sort } from '$lib/string-sort'
-
-	type Specificity = [number, number, number]
 
 	interface Props {
 		selectors?: CssAnalysis['selectors']
