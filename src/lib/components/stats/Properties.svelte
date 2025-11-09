@@ -49,16 +49,16 @@
 	let filtered = $derived.by(() => {
 		switch (visibility_filter) {
 			case show_hacks:
-				return Object.entries(browserhacks[LOCATIONS_PROP_NAME]!)
+				return Object.entries(browserhacks[LOCATIONS_PROP_NAME])
 			case show_custom:
-				return Object.entries(custom[LOCATIONS_PROP_NAME]!)
+				return Object.entries(custom[LOCATIONS_PROP_NAME])
 			case show_prefixed:
-				return Object.entries(prefixed[LOCATIONS_PROP_NAME]!)
+				return Object.entries(prefixed[LOCATIONS_PROP_NAME])
 			case show_shorthands:
 				return shorthand_properties
 		}
 		return Object.entries(uniqueWithLocations)
-	})
+	}) as [string, CssLocation[]][]
 </script>
 
 <div id="properties">

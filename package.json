@@ -22,7 +22,7 @@
 		"@melt-ui/pp": "^0.3.2",
 		"@melt-ui/svelte": "^0.86.6",
 		"@oddbird/popover-polyfill": "^0.6.1",
-		"@projectwallace/css-analyzer": "^7.6.0",
+		"@projectwallace/css-analyzer": "^7.6.3",
 		"@projectwallace/css-code-coverage": "^0.8.2",
 		"@projectwallace/css-code-quality": "^3.0.2",
 		"@projectwallace/css-design-tokens": "^0.10.0",
@@ -63,6 +63,7 @@
 		"vitest": "^4.0.6"
 	},
 	"overrides": {
+		"@projectwallace/css-analyzer": "$@projectwallace/css-analyzer",
 		"runed": "$runed"
 	}
 }

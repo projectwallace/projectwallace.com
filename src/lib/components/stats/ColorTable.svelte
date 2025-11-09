@@ -6,6 +6,7 @@
 	import type { NormalizedColorWithAuthored } from 'color-sorter'
 	import type { CssLocation } from '$lib/css-location'
 	import ShowMore from '$components/ShowMore.svelte'
+	import type { UniqueWithLocations } from '@projectwallace/css-analyzer'
 
 	let {
 		items = Object.create(null),
@@ -19,7 +20,7 @@
 		unique: { converted: NormalizedColorWithAuthored; locations: CssLocation[] }[]
 		total: number
 		totalUnique: number
-		uniqueWithLocations: Record<string, CssLocation[]>
+		uniqueWithLocations: UniqueWithLocations
 	}
 
 	let max_colors = $derived.by(() => {
@@ -50,13 +51,12 @@
 	>(
 		Object.entries(items)
 			.sort((a, b) => b[1].total - a[1].total)
-			// @ts-expect-error We _know_ that the value is an Item
 			.map(([property, item]: [string, Item]) => {
 				let unique = [] as { converted: { authored: string }; locations: ArrayLike<unknown> }[]
 				for (let [value, locations] of Object.entries(item.uniqueWithLocations)) {
 					unique.push({
 						converted: { authored: value },
-						locations: new Uint8Array(locations.length)
+						locations: new Uint8Array((locations as {}[]).length)
 					})
 				}
 				return [

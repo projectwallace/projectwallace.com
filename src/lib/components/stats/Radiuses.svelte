@@ -25,7 +25,6 @@
 	let { itemsPerContext } = $derived(items)
 	let flattened = $derived(
 		Object.entries(itemsPerContext).flatMap(([property, data]) => {
-			// @ts-expect-error Incorrect type from analyze-css
 			let uniqueWithLocations = data.uniqueWithLocations as Record<string, CssLocation[]>
 			return Object.entries(uniqueWithLocations).map(([value, locations]) => {
 				return {
