@@ -10,6 +10,7 @@
 	import { get_css_state } from '$lib/css-state.svelte'
 	import { hash } from '$lib/hash'
 	import { string_sort } from '$lib/string-sort'
+	import type { Location } from '@projectwallace/css-analyzer'
 
 	let css_state = get_css_state()
 	let selected_item = $derived(css_state.selected_item)
@@ -112,7 +113,7 @@
 				type: 'font-face',
 				node_type: 'atrule',
 				value,
-				locations: item[1]
+				locations: item[1] as Location[]
 			})
 		}
 	}
