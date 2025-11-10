@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as csstree from 'css-tree'
+	import { walk, parse, type CssNode } from 'css-tree'
 	import { PersistedState } from 'runed'
 	import CssTree from './CssTree.svelte'
 	import { format } from '@projectwallace/format-css'
@@ -10,7 +10,7 @@
 	}
 
 	let { css_tree_version }: Props = $props()
-	let highlighted_node: csstree.CssNode | undefined = $state.raw(undefined)
+	let highlighted_node: CssNode | undefined = $state.raw(undefined)
 	let show_locations = new PersistedState('ast-show-locations', false)
 	let autofocus = new PersistedState('ast-autofocus-node', true)
 
@@ -28,7 +28,7 @@
 	)
 	let ast = $derived.by(() => {
 		try {
-			return csstree.parse(css.current, {
+			return parse(css.current, {
 				positions: true,
 				parseValue: true,
 				parseCustomProperty: true,
@@ -46,10 +46,10 @@
 		}
 	}
 
-	function find_node_at_cursor(start: number, end: number): csstree.CssNode | undefined {
+	function find_node_at_cursor(start: number, end: number): CssNode | undefined {
 		if (!ast) return
 		let found = undefined
-		csstree.walk(ast, (node) => {
+		walk(ast, (node) => {
 			if (node.loc && node.loc.start.offset <= start && node.loc.end.offset >= end) {
 				found = node
 			}
