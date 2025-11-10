@@ -63,3 +63,5 @@ jobs:
 
       - name: Analyze CSS Code Coverage
         run: npm run css-coverage
+        env:
+          FORCE_COLOR: '3'
