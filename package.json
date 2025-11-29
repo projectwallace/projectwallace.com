@@ -29,7 +29,7 @@
 		"@projectwallace/css-layer-tree": "^2.0.2",
 		"@projectwallace/format-css": "^2.1.1",
 		"@sveltejs/enhanced-img": "0.4.4",
-		"@sveltejs/kit": "^2.48.4",
+		"@sveltejs/kit": "^2.49.0",
 		"@sveltejs/pancake": "^0.0.18",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"color-sorter": "^7.0.0",
