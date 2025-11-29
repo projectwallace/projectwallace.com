@@ -52,7 +52,7 @@
 		"@sveltejs/adapter-netlify": "^5.2.3",
 		"@types/css-tree": "^2.3.11",
 		"@types/node": "^24.10.0",
-		"oxlint": "^1.28.0",
+		"oxlint": "^1.30.0",
 		"postcss-html": "^1.8.0",
 		"prettier": "^3.6.2",
 		"prettier-plugin-svelte": "^3.4.0",
