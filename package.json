@@ -48,7 +48,7 @@
 		"vite": "npm:rolldown-vite@7.2.2"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.55.0",
+		"@playwright/test": "^1.57.0",
 		"@sveltejs/adapter-netlify": "^5.2.3",
 		"@types/css-tree": "^2.3.11",
 		"@types/node": "^24.10.0",
