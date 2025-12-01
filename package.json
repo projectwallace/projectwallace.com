@@ -41,7 +41,7 @@
 		"paneforge": "^1.0.2",
 		"rehype-autolink-headings": "^7.1.0",
 		"rehype-slug": "^6.0.0",
-		"runed": "^0.36.0",
+		"runed": "^0.37.0",
 		"svelte": "^5.43.14",
 		"typescript": "^5.9.3",
 		"valibot": "^1.1.0",
