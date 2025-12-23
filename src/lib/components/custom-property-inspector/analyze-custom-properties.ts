@@ -1,68 +1,66 @@
-import walk from 'css-tree/walker'
-import parse from 'css-tree/parser'
-import type { CssNode, CssLocation as CssTreeLocation } from 'css-tree'
+import { parse, walk, DECLARATION, FUNCTION, AT_RULE, IDENTIFIER } from '@projectwallace/css-parser'
+import type { CSSNode } from '@projectwallace/css-parser'
 import type { CssLocation } from '$lib/css-location'
 
-function to_loc(loc: CssTreeLocation): CssLocation {
+function to_loc(node: CSSNode): CssLocation {
 	return {
-		line: loc.start.line,
-		column: loc.start.column,
-		offset: loc.start.offset,
-		length: loc.end.offset - loc.start.offset
+		line: node.line,
+		column: node.column,
+		offset: node.start,
+		length: node.length
 	}
 }
 
 export function analyze(css: string) {
-	let ast = parse(css, {
-		positions: true,
-		parseCustomProperty: true,
-		parseRulePrelude: false,
-	})
+	let ast = parse(css)
 	let declared_properties = new Set<string>()
 	let used_properties = new Set<string>()
 	let all_properties = new Map<string, CssLocation[]>()
 	let declared_with_fallback = new Set<string>()
 
-	walk(ast, function (node: CssNode) {
-		if (node.type === 'Declaration') {
-			if (node.property.startsWith('--')) {
-				let loc = to_loc(node.loc!)
-				let name = node.property
-				declared_properties.add(name)
-				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
-			}
-		} else if (node.type === 'Function' && node.name === 'var') {
-			let first_child = node.children.first
-			if (
-				first_child !== null &&
-				first_child.type === 'Identifier' &&
-				first_child.name.startsWith('--')
-			) {
-				let node_loc = first_child.loc!
-				if (this.declaration !== null) {
-					node_loc = this.declaration.loc!
-				}
-				let loc = to_loc(node_loc)
+	// Helper to recursively walk values and find all var() functions
+	function walk_values(value_node: CSSNode, declaration_node: CSSNode) {
+		if (value_node.type === FUNCTION && value_node.name === 'var') {
+			let first_child = value_node.first_child
+			if (first_child !== null && first_child.type === IDENTIFIER && first_child.name.startsWith('--')) {
+				let loc = to_loc(declaration_node)
 				let name = first_child.name
 				used_properties.add(name)
 				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
 
 				// check if it has a fallback value that is a custom property
-				let second_child = node.children.toArray()[1]
-				if (second_child !== undefined && !(second_child.type === 'Function' && second_child.name === 'var')) {
+				let children = value_node.children
+				let second_child = children[1]
+				if (second_child !== undefined && !(second_child.type === FUNCTION && second_child.name === 'var')) {
 					declared_with_fallback.add(name)
 				}
 			}
-		} else if (
-			node.type === 'Atrule' &&
-			node.name === 'property' &&
-			node.prelude !== null &&
-			node.prelude.type === 'AtrulePrelude'
-		) {
-			let first_child = node.prelude.children.first
-			if (first_child !== null && first_child.type === 'Identifier') {
-				let name = first_child.name
-				let loc = to_loc(node.loc!)
+		}
+
+		// Recursively walk children to find nested var() calls
+		for (let child of value_node.children) {
+			walk_values(child, declaration_node)
+		}
+	}
+
+	walk(ast, (node: CSSNode) => {
+		if (node.type === DECLARATION) {
+			if (node.property.startsWith('--')) {
+				let loc = to_loc(node)
+				let name = node.property
+				declared_properties.add(name)
+				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
+			}
+
+			// Check for var() usage in declaration values (recursively)
+			for (let value of node.values) {
+				walk_values(value, node)
+			}
+		} else if (node.type === AT_RULE && node.name === 'property') {
+			let first_child = node.first_child
+			if (first_child !== null && first_child.type === IDENTIFIER) {
+				let name = first_child.text // Use .text instead of .name
+				let loc = to_loc(node)
 				declared_properties.add(name)
 				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
 			}
