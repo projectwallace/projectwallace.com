@@ -27,6 +27,7 @@
 		"@projectwallace/css-code-quality": "^3.0.2",
 		"@projectwallace/css-design-tokens": "^0.10.0",
 		"@projectwallace/css-layer-tree": "^2.0.2",
+		"@projectwallace/css-parser": "^0.8.1",
 		"@projectwallace/format-css": "^2.1.1",
 		"@sveltejs/enhanced-img": "0.4.4",
 		"@sveltejs/kit": "^2.49.0",
