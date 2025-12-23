@@ -1,5 +1,5 @@
-import { test, expect } from 'vitest';
-import { analyze } from './analyze-custom-properties';
+import { test, expect } from 'vitest'
+import { analyze } from './analyze-custom-properties'
 
 test('unused property', () => {
 	let actual = analyze(`
@@ -22,9 +22,7 @@ test('undeclared property', () => {
 	expect(actual.undeclared_with_fallback.size).toBe(0)
 	expect(actual.unused.size).toBe(0)
 	expect(actual.all.size).toBe(1)
-	expect(actual.all.get('--undeclared')).toEqual([
-		{ column: 3, length: 24, line: 3, offset: 8 }
-	])
+	expect(actual.all.get('--undeclared')).toEqual([{ column: 10, length: 17, line: 3, offset: 15 }])
 })
 
 test('undeclared property with fallback', () => {
@@ -36,9 +34,7 @@ test('undeclared property with fallback', () => {
 	expect(actual.undeclared.size).toBe(0)
 	expect(actual.unused.size).toBe(0)
 	expect(actual.all.size).toBe(1)
-	expect(actual.all.get('--undeclared')).toEqual([
-		{ column: 3, length: 29, line: 3, offset: 8 }
-	])
+	expect(actual.all.get('--undeclared')).toEqual([{ column: 10, length: 22, line: 3, offset: 15 }])
 })
 
 test('undeclared property with undefined custom property as fallback', () => {
@@ -50,9 +46,8 @@ test('undeclared property with undefined custom property as fallback', () => {
 	expect(actual.undeclared.size).toBe(1)
 	expect(actual.unused.size).toBe(0)
 	expect(actual.all.size).toBe(2)
-	expect(actual.all.get('--undeclared')).toEqual([
-		{ column: 3, length: 45, line: 3, offset: 8 }
-	])
+	expect(actual.all.get('--undeclared')).toEqual([{ column: 10, length: 38, line: 3, offset: 15 }])
+	expect(actual.all.get('--undeclared-2')).toEqual([{ column: 28, length: 19, line: 3, offset: 33 }])
 })
 
 test('undeclared property with defined custom property as fallback', () => {
@@ -65,9 +60,7 @@ test('undeclared property with defined custom property as fallback', () => {
 	expect(actual.undeclared.size).toBe(0)
 	expect(actual.unused.size).toBe(0)
 	expect(actual.all.size).toBe(2)
-	expect(actual.all.get('--undeclared')).toEqual([
-		{ column: 3, length: 41, line: 4, offset: 25 }
-	])
+	expect(actual.all.get('--undeclared')).toEqual([{ column: 10, length: 34, line: 4, offset: 32 }])
 })
 
 test('undeclared property with empty fallback', () => {
@@ -79,9 +72,7 @@ test('undeclared property with empty fallback', () => {
 	expect(actual.undeclared.size).toBe(0)
 	expect(actual.unused.size).toBe(0)
 	expect(actual.all.size).toBe(1)
-	expect(actual.all.get('--undeclared')).toEqual([
-		{ column: 3, length: 26, line: 3, offset: 8 }
-	])
+	expect(actual.all.get('--undeclared')).toEqual([{ column: 10, length: 19, line: 3, offset: 15 }])
 })
 
 test('unused @property', () => {
@@ -94,9 +85,7 @@ test('unused @property', () => {
 	expect(actual.undeclared.size).toBe(0)
 	expect(actual.undeclared_with_fallback.size).toBe(0)
 	expect(actual.all.size).toBe(1)
-	expect(actual.all.get('--unused')).toEqual([
-		{ column: 2, length: 66, line: 2, offset: 2 }
-	])
+	expect(actual.all.get('--unused')).toEqual([{ column: 2, length: 66, line: 2, offset: 2 }])
 })
 
 test('used @property', () => {
@@ -114,6 +103,6 @@ test('used @property', () => {
 	expect(actual.all.size).toBe(1)
 	expect(actual.all.get('--used')).toEqual([
 		{ column: 2, length: 64, line: 2, offset: 2 },
-		{ column: 3, length: 14, line: 7, offset: 74 }
+		{ column: 6, length: 11, line: 7, offset: 77 }
 	])
 })
