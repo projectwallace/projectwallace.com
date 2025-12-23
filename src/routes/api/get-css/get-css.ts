@@ -1,5 +1,5 @@
 import { parseHTML } from 'linkedom'
-import { parse, walk } from 'css-tree'
+import { parse, walk } from '@projectwallace/css-parser'
 import { resolve_url } from '../../../lib/resolve-url.js'
 
 export const USER_AGENT = 'Project Wallace CSS Scraper/1.1 (+https://www.projectwallace.com/docs/css-scraper)'
@@ -8,19 +8,22 @@ function is_wayback_url(url: string) {
 	return /^(?:(?:https:)?\/\/)?web\.archive\.org\/web\/\d{14}\/.+/.test(url)
 }
 
-function get_import_urls(css: string) {
-	let ast = parse(css, {
-		parseAtrulePrelude: false,
-		parseRulePrelude: false,
-		parseValue: false,
-		parseCustomProperty: false
-	})
-	let urls: string[] = []
+function unquote(str: string): string {
+	return str.replaceAll(/(^['"])(['"]$)/g, '')
+}
 
-	walk(ast, function (node) {
-		// Can not be a URL inside something else because otherwise this.atrule could never be an import
-		if (node.type === 'Url' && this.atrule?.name === 'import') {
-			urls.push(node.value)
+function get_import_urls(css: string) {
+	let urls: string[] = []
+	let ast = parse(css, {
+		parse_selectors: false,
+		parse_values: false
+	})
+	walk(ast, (node) => {
+		if (node.type_name === 'Atrule' && node.name === 'import') {
+			let url = node.children.find((child) => child.type_name === 'Url')
+			if (url) {
+				urls.push(unquote(url.value as string))
+			}
 		}
 	})
 	return urls
@@ -31,17 +34,17 @@ async function get_css_file(url: string | URL, abort_signal: AbortSignal) {
 		let response = await fetch(url, {
 			headers: {
 				'User-Agent': USER_AGENT,
-				'Accept': 'text/css,*/*;q=0.1'
+				Accept: 'text/css,*/*;q=0.1'
 			},
 			// If aborted early try to return an empty string so we can continue with just the content we have
-			signal: abort_signal,
+			signal: abort_signal
 		})
 
 		if (!response.ok) {
 			throw new Error(response.statusText)
 		}
 		return response.text()
-	} catch (error: unknown) {
+	} catch {
 		return ''
 	}
 }
@@ -66,7 +69,7 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string) {
 			items.push({
 				type: 'style',
 				css,
-				url: base_url,
+				url: base_url
 			})
 		} else if (node.hasAttribute('style')) {
 			let declarations = (node.getAttribute('style') || '').trim()
@@ -84,7 +87,7 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string) {
 				class_name += '.'
 				class_name += class_attr
 					.split(/\s+/g)
-					.filter(s => {
+					.filter((s) => {
 						if (s.length === 0) return false
 						if (s.length === 1) {
 							let code = s.charCodeAt(0)
@@ -92,7 +95,7 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string) {
 						}
 						return true
 					})
-					.map(s => s.replaceAll(/(\[|\]|:|\.|\/)/g, '\\$1'))
+					.map((s) => s.replaceAll(/(\[|\]|:|\.|\/)/g, '\\$1'))
 					.join('.')
 			}
 			let node_name = node.nodeName.toLocaleLowerCase()
@@ -115,9 +118,7 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string) {
 	return items
 }
 
-export async function get_css(url: string, {
-	timeout = 10000,
-} = {}) {
+export async function get_css(url: string, { timeout = 10000 } = {}) {
 	let resolved_url = resolve_url(url)
 
 	if (resolved_url === undefined) {
@@ -140,7 +141,7 @@ export async function get_css(url: string, {
 			signal: abort_controller.signal,
 			headers: {
 				'User-Agent': USER_AGENT,
-				'Accept': 'text/html,*/*;q=0.1'
+				Accept: 'text/html,*/*;q=0.1'
 			}
 		})
 
@@ -160,23 +161,24 @@ export async function get_css(url: string, {
 					error: {
 						url,
 						statusCode: 403,
-						message: "The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?"
+						message:
+							'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?'
 					}
 				}
 			}
 
 			// Examples: localhost, sduhsdf.test
 			if (error.message === 'fetch failed') {
-				let message = "The origin server is refusing connections."
+				let message = 'The origin server is refusing connections.'
 				if (url.includes('localhost') || url.includes('192.168') || url.includes('127.0.0.1')) {
-					message += " You are trying to scrape a local server. Make sure to use a public URL."
+					message += ' You are trying to scrape a local server. Make sure to use a public URL.'
 				}
 
 				return {
 					error: {
 						url,
 						statusCode: 400,
-						message,
+						message
 					}
 				}
 			}
@@ -187,7 +189,7 @@ export async function get_css(url: string, {
 					error: {
 						url,
 						statusCode: 404,
-						message: "The origin server responded with a 404 Not Found status code."
+						message: 'The origin server responded with a 404 Not Found status code.'
 					}
 				}
 			}
@@ -198,7 +200,7 @@ export async function get_css(url: string, {
 			error: {
 				url,
 				statusCode: 500,
-				message: 'something went wrong',
+				message: 'something went wrong'
 			}
 		}
 	}
@@ -238,7 +240,8 @@ export async function get_css(url: string, {
 
 	let nodes = document.querySelectorAll('link[rel*="stylesheet"][href], style, [style]')
 	let baseElement = document.querySelector('base[href]')
-	let baseUrl = (baseElement !== null && baseElement.hasAttribute('href')) ? baseElement.getAttribute('href') : resolved_url
+	let baseUrl =
+		baseElement !== null && baseElement.hasAttribute('href') ? baseElement.getAttribute('href') : resolved_url
 	let items = get_styles(nodes, baseUrl?.toString() || '') || []
 	let result = []
 
@@ -271,7 +274,9 @@ export async function get_css(url: string, {
 			// And c'mon, don't @import inside your @import.
 			let importUrls = get_import_urls(item.css)
 			if (importUrls.length > 0) {
-				let cssRequests = importUrls.map((importUrl) => get_css_file(resolve_url(importUrl, url)!, abort_controller.signal))
+				let cssRequests = importUrls.map((importUrl) =>
+					get_css_file(resolve_url(importUrl, url)!, abort_controller.signal)
+				)
 				let importedFiles = await Promise.all(cssRequests)
 				importedFiles.forEach((css, index) => {
 					result.push({
@@ -283,7 +288,6 @@ export async function get_css(url: string, {
 			}
 		}
 	}
-
 
 	clearTimeout(timeout_id)
 
