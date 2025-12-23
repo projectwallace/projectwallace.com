@@ -57,13 +57,10 @@ export function analyze(css: string) {
 				walk_values(value, node)
 			}
 		} else if (node.type === AT_RULE && node.name === 'property') {
-			let first_child = node.first_child
-			if (first_child !== null && first_child.type === IDENTIFIER) {
-				let name = first_child.text // Use .text instead of .name
-				let loc = to_loc(node)
-				declared_properties.add(name)
-				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
-			}
+			let name = node.prelude!
+			let loc = to_loc(node)
+			declared_properties.add(name)
+			all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
 		}
 	})
 
