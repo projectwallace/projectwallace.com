@@ -12,7 +12,9 @@ function to_loc(node: CSSNode): CssLocation {
 }
 
 export function analyze(css: string) {
-	let ast = parse(css)
+	let ast = parse(css, {
+		parse_selectors: false
+	})
 	let declared_properties = new Set<string>()
 	let used_properties = new Set<string>()
 	let all_properties = new Map<string, CssLocation[]>()
