@@ -34,8 +34,6 @@ const token_types = [
 	'Important'
 ]
 
-// NodeType removed - @projectwallace/css-parser always parses as stylesheet
-
 const HIGHLIGHT_LEVEL_FULL = 1
 const HIGHLIGHT_LEVEL_PARTIAL = 2
 const HIGHLIGHT_LEVEL_MINIMAL = 3
