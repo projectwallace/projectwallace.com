@@ -33,7 +33,7 @@ jobs:
         run: npx playwright test --forbid-only
 
       - name: Store Playwright test results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: css-coverage
           path: css-coverage/*.json
