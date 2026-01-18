@@ -8,7 +8,7 @@ function is_wayback_url(url: string) {
 	return /^(?:(?:https:)?\/\/)?web\.archive\.org\/web\/\d{14}\/.+/.test(url)
 }
 
-function unquote(str: string): string {
+function unquote(str: string = ''): string {
 	return str.replaceAll(/(^['"])(['"]$)/g, '')
 }
 
@@ -21,8 +21,8 @@ function get_import_urls(css: string) {
 	walk(ast, (node) => {
 		if (node.type_name === 'Atrule' && node.name === 'import') {
 			let url = node.children.find((child) => child.type_name === 'Url')
-			if (url) {
-				urls.push(unquote(url.value as string))
+			if (url && typeof url.value === 'string') {
+				urls.push(unquote(url.value))
 			}
 		}
 	})
