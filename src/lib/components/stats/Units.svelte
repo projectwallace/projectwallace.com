@@ -24,7 +24,7 @@
 
 	let warnings = $derived(
 		sorted_units.reduce((acc, { value }) => {
-			if (!valid_units.includes(value.toLowerCase())) {
+			if (!valid_units.includes(value.toLowerCase()) && value !== '%') {
 				acc.push(value)
 			}
 			return acc
