@@ -28,18 +28,22 @@
 			let specificities = calculateSpecificity(ast)
 			let calculated: typeof result = []
 
-			for (let i = 0; i < specificities.length; i++) {
-				let specificity = specificities[i]
-				let selector = ast.children[i]
-				if (selector?.type_name === 'Selector' && specificity) {
-					calculated.push({ selector: selector.text, specificity })
+			if (ast.has_children) {
+				for (let i = 0; i < specificities.length; i++) {
+					let specificity = specificities[i]
+					let selector = ast.children[i]
+					if (selector?.type_name === 'Selector' && specificity) {
+						calculated.push({ selector: selector.text, specificity })
+					}
 				}
-			}
 
-			// Only re-assign when the calculation was successful,
-			// to avoid empty screens in between valid results
-			result = calculated
-			has_error = false
+				// Only re-assign when the calculation was successful,
+				// to avoid empty screens in between valid results
+				result = calculated
+				has_error = false
+			} else {
+				has_error = true
+			}
 		} catch (error) {
 			// fail silently, we expect errors on incomplete/incorrect selectors
 			has_error = true

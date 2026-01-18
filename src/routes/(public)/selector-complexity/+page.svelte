@@ -41,6 +41,8 @@
 					}
 				}
 				has_error = false
+			} else {
+				has_error = true
 			}
 		} catch (error) {
 			// fail silently, we expect errors on incomplete/incorrect selectors
