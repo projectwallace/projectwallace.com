@@ -34,8 +34,6 @@ const token_types = [
 	'Important'
 ]
 
-// NodeType removed - @projectwallace/css-parser always parses as stylesheet
-
 const HIGHLIGHT_LEVEL_FULL = 1
 const HIGHLIGHT_LEVEL_PARTIAL = 2
 const HIGHLIGHT_LEVEL_MINIMAL = 3
@@ -142,10 +140,10 @@ export function highlight_css(
 					} else if (node.type === AT_RULE) {
 						add_range('AtruleName', start, start + node.name.length + 1)
 
-						if (node.prelude !== null) {
+						if (node.prelude) {
 							// The prelude starts after @name and any whitespace
 							let prelude_start = start + node.name.length + 1
-							add_range('AtrulePrelude', prelude_start, prelude_start + node.prelude.length + 1)
+							add_range('AtrulePrelude', prelude_start, prelude_start + node.prelude.text.length + 1)
 						}
 					} else if (
 						node.type === SELECTOR_LIST &&

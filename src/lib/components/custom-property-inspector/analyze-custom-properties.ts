@@ -42,8 +42,8 @@ export function analyze(css: string) {
 					declared_with_fallback.add(name)
 				}
 			}
-		} else if (node.type === AT_RULE && node.name === 'property') {
-			let name = node.prelude!
+		} else if (node.type === AT_RULE && node.name === 'property' && node.prelude) {
+			let name = node.prelude.text
 			let loc = to_loc(node)
 			declared_properties.add(name)
 			all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))

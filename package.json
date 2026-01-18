@@ -26,11 +26,11 @@
 		"@projectwallace/css-code-coverage": "^0.8.2",
 		"@projectwallace/css-code-quality": "^3.0.2",
 		"@projectwallace/css-design-tokens": "^0.10.0",
-		"@projectwallace/css-layer-tree": "^2.0.2",
-		"@projectwallace/css-parser": "^0.8.4",
+		"@projectwallace/css-layer-tree": "^2.1.1",
+		"@projectwallace/css-parser": "^0.12.2",
 		"@projectwallace/format-css": "^2.1.1",
 		"@sveltejs/enhanced-img": "0.4.4",
-		"@sveltejs/kit": "^2.49.0",
+		"@sveltejs/kit": "^2.50.0",
 		"@sveltejs/pancake": "^0.0.18",
 		"@sveltejs/vite-plugin-svelte": "^6.2.1",
 		"color-sorter": "^7.0.0",
@@ -65,6 +65,7 @@
 	},
 	"overrides": {
 		"@projectwallace/css-analyzer": "$@projectwallace/css-analyzer",
+		"@projectwallace/css-parser": "$@projectwallace/css-parser",
 		"runed": "$runed",
 		"vite": "$vite"
 	}
