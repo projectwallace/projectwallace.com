@@ -28,7 +28,7 @@
 		"@projectwallace/css-design-tokens": "^0.10.0",
 		"@projectwallace/css-layer-tree": "^2.1.1",
 		"@projectwallace/css-parser": "^0.12.2",
-		"@projectwallace/format-css": "^2.1.1",
+		"@projectwallace/format-css": "^2.2.0",
 		"@sveltejs/enhanced-img": "0.4.4",
 		"@sveltejs/kit": "^2.50.0",
 		"@sveltejs/pancake": "^0.0.18",
@@ -66,6 +66,7 @@
 	"overrides": {
 		"@projectwallace/css-analyzer": "$@projectwallace/css-analyzer",
 		"@projectwallace/css-parser": "$@projectwallace/css-parser",
+		"@projectwallace/format-css": "$@projectwallace/format-css",
 		"runed": "$runed",
 		"vite": "$vite"
 	}

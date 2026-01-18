@@ -55,7 +55,7 @@ test.describe('loading example file', () => {
 		await expect
 			.soft(first_row.getByRole('cell').nth(0))
 			.toHaveAccessibleName('https://www.projectwallace.com/_app/immutable/assets/0.BBE7cspC.css')
-		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('37.5 kB')
+		await expect.soft(first_row.getByRole('cell').nth(1)).toHaveAccessibleName('37.6 kB')
 		await expect.soft(first_row.getByRole('cell').nth(2)).toHaveAccessibleName('2,619')
 		await expect.soft(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('75.37%')
 
