@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
-	import parse from 'css-tree/parser'
+	import { parse_selector } from '@projectwallace/css-parser'
 	import { selectorComplexity } from '@projectwallace/css-analyzer'
 	import Seo from '$components/Seo.svelte'
 	import Panel from '$components/Panel.svelte'
@@ -10,7 +10,6 @@
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
 	import { page } from '$app/state'
-	import type { SelectorList } from 'css-tree'
 
 	let result: { value: string; complexity: number }[] | undefined = $state()
 	let input_ref: HTMLInputElement
@@ -27,24 +26,23 @@
 		}
 
 		try {
-			let ast = parse(value, {
-				context: 'selectorList',
-				positions: true
-			}) as SelectorList
+			let ast = parse_selector(value)
 
-			if (ast.children?.size > 0) {
+			if (ast.has_children) {
 				result = []
 
 				for (let node of ast.children) {
-					if (node.type === 'Selector') {
+					if (node.type_name === 'Selector') {
 						let complexity = selectorComplexity(node)
 						result.push({
-							value: value.substring(node.loc!.start.offset, node.loc!.end.offset),
+							value: node.text,
 							complexity: complexity
 						})
 					}
 				}
 				has_error = false
+			} else {
+				has_error = true
 			}
 		} catch (error) {
 			// fail silently, we expect errors on incomplete/incorrect selectors

@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
-	import Specificity from '@bramus/specificity'
+	import { page } from '$app/state'
+	import { parse_selector } from '@projectwallace/css-parser'
+	import { calculateSpecificity, type Specificity } from '@projectwallace/css-analyzer'
 	import Seo from '$components/Seo.svelte'
 	import Panel from '$components/Panel.svelte'
 	import Label from '$components/Label.svelte'
@@ -12,22 +14,36 @@
 	import SpecificityItem from './SpecificityItem.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
-	import { page } from '$app/state'
 
-	let result: Specificity[] | undefined = $state()
 	let input_ref: HTMLInputElement
 	let has_error = $state(false)
+	let result: { selector: string; specificity: Specificity }[] | undefined = $state()
 
 	const DEFAULT_INPUT = '.kid :has(.friend) ~ :where(.treehouse) :is(#gross)'
 	const PARAM = 'selectors'
 
 	function calculate(value: string) {
 		try {
-			let specificities = Specificity.calculate(value)
-			// Only re-assign when the calculation was successful,
-			// to avoid empty screens in between valid results
-			result = specificities
-			has_error = false
+			let ast = parse_selector(value)
+			let specificities = calculateSpecificity(ast)
+			let calculated: typeof result = []
+
+			if (ast.has_children) {
+				for (let i = 0; i < specificities.length; i++) {
+					let specificity = specificities[i]
+					let selector = ast.children[i]
+					if (selector?.type_name === 'Selector' && specificity) {
+						calculated.push({ selector: selector.text, specificity })
+					}
+				}
+
+				// Only re-assign when the calculation was successful,
+				// to avoid empty screens in between valid results
+				result = calculated
+				has_error = false
+			} else {
+				has_error = true
+			}
 		} catch (error) {
 			// fail silently, we expect errors on incomplete/incorrect selectors
 			has_error = true
@@ -124,8 +140,8 @@
 			<ol>
 				{#each result as item}
 					<Panel element="li">
-						<SpecificityItem specificity={item.toArray()} />
-						<code class="language-css selector-string">{item.selectorString()}</code>
+						<SpecificityItem specificity={item.specificity} />
+						<code class="language-css selector-string">{item.selector}</code>
 					</Panel>
 				{/each}
 			</ol>
