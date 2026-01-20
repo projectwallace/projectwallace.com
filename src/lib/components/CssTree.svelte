@@ -72,21 +72,11 @@
 	<div class="name">{node.type_name}</div>
 	<ol role="group">
 		{#if show_locations}
-			<li>
-				<span class="property">line</span>: <span class="number">{node.line}</span>
-			</li>
-			<li>
-				<span class="property">column</span>: <span class="number">{node.column}</span>
-			</li>
-			<li>
-				<span class="property">start</span>: <span class="number">{node.start}</span>
-			</li>
-			<li>
-				<span class="property">end</span>: <span class="number">{node.end}</span>
-			</li>
-			<li>
-				<span class="property">length</span>: <span class="number">{node.length}</span>
-			</li>
+			{#each ['line', 'column', 'start', 'end', 'length'] as prop}
+				<li>
+					<span class="property">{prop}</span>: <span class="number">{node[prop]}</span>
+				</li>
+			{/each}
 		{/if}
 		{#each filter_properties(plain_node) as key}
 			{@const value = plain_node[key]}
