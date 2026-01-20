@@ -1,18 +1,20 @@
 <script lang="ts">
-	import { walk, parse, type CssNode } from 'css-tree'
+	import { walk, parse, type CSSNode, BREAK, type PlainCSSNode } from '@projectwallace/css-parser'
 	import { PersistedState } from 'runed'
 	import CssTree from './CssTree.svelte'
 	import { format } from '@projectwallace/format-css'
 	import HighlightedTextarea from './HighlightedTextarea.svelte'
 
 	type Props = {
-		css_tree_version: string
+		parser_version: string
+		parser_homepage: string
 	}
 
-	let { css_tree_version }: Props = $props()
-	let highlighted_node: CssNode | undefined = $state.raw(undefined)
+	let { parser_version, parser_homepage }: Props = $props()
+	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined)
 	let show_locations = new PersistedState('ast-show-locations', false)
 	let autofocus = new PersistedState('ast-autofocus-node', true)
+	let scroll_container: HTMLElement | undefined = $state(undefined)
 
 	$effect(() => {
 		if (!autofocus.current) {
@@ -28,13 +30,7 @@
 	)
 	let ast = $derived.by(() => {
 		try {
-			return parse(css.current, {
-				positions: true,
-				parseValue: true,
-				parseCustomProperty: true,
-				parseAtrulePrelude: true,
-				parseRulePrelude: true
-			})
+			return parse(css.current)
 		} catch (error) {
 			return undefined
 		}
@@ -42,15 +38,20 @@
 
 	function on_cursor_move({ start, end }: { start: number; end: number }) {
 		if (autofocus.current) {
-			highlighted_node = find_node_at_cursor(start, end)
+			let node = find_node_at_cursor(start, end)
+			if (node === undefined) {
+				highlighted_node = undefined
+			} else {
+				highlighted_node = node.clone({ deep: false, locations: true })
+			}
 		}
 	}
 
-	function find_node_at_cursor(start: number, end: number): CssNode | undefined {
+	function find_node_at_cursor(start: number, end: number): CSSNode | undefined {
 		if (!ast) return
 		let found = undefined
 		walk(ast, (node) => {
-			if (node.loc && node.loc.start.offset <= start && node.loc.end.offset >= end) {
+			if (node.start <= start && node.end >= end) {
 				found = node
 			}
 		})
@@ -60,8 +61,8 @@
 
 <header class="header">
 	<h1 class="title">CSS AST Explorer</h1>
-	<a href="https://github.com/csstree/csstree" target="_blank" rel="external">
-		CSSTree: {css_tree_version}
+	<a href={parser_homepage} target="_blank" rel="external">
+		CSS Parser: {parser_version}
 	</a>
 	<div>
 		<label for="show-locations">Show location data</label>
@@ -79,8 +80,8 @@
 		<HighlightedTextarea id="input-css" name="input-css" bind:value={css.current} {on_cursor_move} />
 	</div>
 	{#if ast !== undefined}
-		<ol class="pane scroll-container" role="tree">
-			<CssTree node={ast} {highlighted_node} show_locations={show_locations.current} />
+		<ol bind:this={scroll_container} class="pane scroll-container" role="tree">
+			<CssTree node={ast} {highlighted_node} show_locations={show_locations.current} {scroll_container} />
 		</ol>
 	{/if}
 </div>
@@ -99,7 +100,7 @@
 		margin-right: auto;
 	}
 
-	ol {
+	.scroll-container {
 		max-height: 100%;
 		overflow: auto;
 		overscroll-behavior: contain;

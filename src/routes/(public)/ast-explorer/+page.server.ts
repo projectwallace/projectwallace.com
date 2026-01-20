@@ -1,6 +1,9 @@
+import { read } from '$app/server'
+
 export async function load() {
-	let pkg = await import('css-tree/package.json', { with: { type: 'json' } })
+	let pkg = await read('/node_modules/@projectwallace/css-parser/package.json').json()
 	return {
-		css_tree_version: pkg.version
+		parser_version: pkg.version,
+		parser_homepage: pkg.homepage
 	}
 }

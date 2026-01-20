@@ -4,11 +4,11 @@
 	import Container from '$components/Container.svelte'
 
 	let { data } = $props()
-	let { css_tree_version } = $derived(data)
+	let { parser_version, parser_homepage } = $derived(data)
 </script>
 
 <Seo title="CSS AST Explorer" description="Explore the AST of your CSS using CSSTree" robots="noindex,follow" />
 
 <Container>
-	<AstExplorer {css_tree_version} />
+	<AstExplorer {parser_version} {parser_homepage} />
 </Container>
