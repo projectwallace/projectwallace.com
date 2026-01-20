@@ -16,9 +16,9 @@ test.describe('initial state', () => {
 	})
 
 	test('shows a link a to CSSTree documentation', async ({ page }) => {
-		let link = page.getByRole('link', { name: /CSSTree/i })
+		let link = page.getByRole('link', { name: /CSS Parser/i })
 		expect(link).not.toBeNull()
-		await expect(link).toHaveAttribute('href', /github\.com\/csstree\/csstree/)
+		await expect(link).toHaveAttribute('href', /github\.com\/@projectwallace\/css-parser/)
 	})
 
 	test('show location data is turned off by default', async ({ page }) => {

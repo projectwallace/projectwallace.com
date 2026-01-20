@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { walk, parse, type CSSNode, BREAK, type PlainCSSNode } from '@projectwallace/css-parser'
+	import { walk, parse, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
 	import { PersistedState } from 'runed'
 	import CssTree from './CssTree.svelte'
 	import { format } from '@projectwallace/format-css'
