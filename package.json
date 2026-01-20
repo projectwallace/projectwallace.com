@@ -24,7 +24,7 @@
 		"@projectwallace/css-analyzer": "^8.0.2",
 		"@projectwallace/css-code-coverage": "^0.9.0",
 		"@projectwallace/css-code-quality": "^3.1.0",
-		"@projectwallace/css-design-tokens": "^0.10.0",
+		"@projectwallace/css-design-tokens": "^0.11.0",
 		"@projectwallace/css-layer-tree": "^2.1.1",
 		"@projectwallace/css-parser": "^0.12.4",
 		"@projectwallace/format-css": "^2.2.1",
