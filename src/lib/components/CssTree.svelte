@@ -73,7 +73,7 @@
 	<ol role="group">
 		{#if show_locations}
 			{#each ['line', 'column', 'start', 'end', 'length'] as prop}
-				<li>
+				<li data-testid="location">
 					<span class="property">{prop}</span>: <span class="number">{node[prop]}</span>
 				</li>
 			{/each}

@@ -15,7 +15,7 @@ test.describe('initial state', () => {
 		await expect(tree).toBeVisible()
 	})
 
-	test('shows a link a to CSSTree documentation', async ({ page }) => {
+	test('shows a link a to documentation', async ({ page }) => {
 		let link = page.getByRole('link', { name: /CSS Parser/i })
 		expect(link).not.toBeNull()
 		await expect(link).toHaveAttribute('href', /github\.com\/projectwallace\/css-parser/)
@@ -32,17 +32,18 @@ test.describe('initial state', () => {
 	})
 
 	test('location data is not visible', async ({ page }) => {
-		let locations = page.getByRole('group', { name: 'locations' })
-		await expect(locations).not.toBeVisible()
+		let locations = page.getByTestId('location')
+		await expect(locations).toHaveCount(0)
 	})
 })
 
 test('location data is visible when the checkbox is checked', async ({ page }) => {
 	let input = page.getByLabel('Show location data')
 	await input.check()
-	let locations = page.getByRole('group', { name: 'locations' })
-	expect.soft(await locations.count()).toBeGreaterThan(1)
-	await expect.soft(locations.first()).toBeVisible()
+	let locations = page.getByTestId('location')
+	// Wait for location data to appear in the DOM after checking the checkbox
+	await expect(locations.first()).toBeVisible()
+	await expect(locations).not.toHaveCount(0)
 })
 
 test('auto scrolls to the selected node', async ({ page }) => {
@@ -51,10 +52,12 @@ test('auto scrolls to the selected node', async ({ page }) => {
 	for (let i = 0; i < 11; i++) {
 		await input.press('ArrowDown')
 	}
+	// Wait for the selection to update and element to exist
 	let treeitem = page.getByRole('treeitem', {
 		selected: true
 	})
-	expect.soft(treeitem).toHaveCount(1)
-	await expect.soft(treeitem).toBeVisible()
-	await expect.soft(treeitem).toBeInViewport()
+	await expect(treeitem).toHaveCount(1)
+	await expect(treeitem).toBeVisible()
+	// Wait for scroll animation to complete before checking viewport
+	await expect(treeitem).toBeInViewport()
 })
