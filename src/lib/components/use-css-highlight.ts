@@ -218,6 +218,9 @@ export function highlight_css(
 				clearTimeout(timer)
 			}
 
+			// Clean up old ranges before applying new highlights
+			cleanup()
+
 			timer =
 				'requestIdleCallback' in window
 					? requestIdleCallback(() => do_highlight(updated_css, updated_node_type))

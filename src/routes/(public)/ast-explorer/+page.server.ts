@@ -1,6 +1,9 @@
+import pkg from '@projectwallace/css-parser/package.json' with { type: 'json' }
+
 export async function load() {
-	let pkg = await import('css-tree/package.json', { with: { type: 'json' } })
 	return {
-		css_tree_version: pkg.version
+		parser_version: pkg.version,
+		parser_homepage: pkg.homepage,
+		parser_name: pkg.name
 	}
 }
