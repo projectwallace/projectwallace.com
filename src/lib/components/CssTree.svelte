@@ -1,9 +1,9 @@
 <script module lang="ts">
-	const IGNORED_KEYS = new Set(['type_name', 'children', 'text', 'start', 'end', 'line', 'column', 'length'])
+	const IGNORED_KEYS = new Set(['type', 'type_name', 'children', 'text', 'start', 'end', 'line', 'column', 'length'])
 </script>
 
 <script lang="ts">
-	import type { CSSNode, PlainCSSNode } from '@projectwallace/css-parser'
+	import { DECLARATION, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
 	import { MediaQuery } from 'svelte/reactivity'
 
 	// Brute force type definition for CssNode so we can iterate over its keys
@@ -17,11 +17,19 @@
 		node: Node
 		depth?: number
 		show_locations: boolean
+		show_types: boolean
 		highlighted_node?: PlainCSSNode
 		scroll_container?: HTMLElement
 	}
 
-	let { node, depth = 0, show_locations = false, highlighted_node, scroll_container }: Props = $props()
+	let {
+		node,
+		depth = 0,
+		show_locations = false,
+		show_types = false,
+		highlighted_node,
+		scroll_container
+	}: Props = $props()
 
 	// Convert the node to a plain object for easier iteration
 	let plain_node = $derived(node.clone({ locations: true, deep: false }) as Node)
@@ -69,8 +77,21 @@
 </script>
 
 <li bind:this={node_element} role="treeitem" aria-selected={compare_nodes(node, highlighted_node) ? 'true' : 'false'}>
-	<div class="name">{node.type_name}</div>
+	<div class="name">
+		{node.type_name}
+		{#if !show_types}
+			<span class="comment">({node.type})</span>
+		{/if}
+	</div>
 	<ol role="group">
+		{#if show_types}
+			<li>
+				<span class="property">type</span>: <span class="number">{node.type}</span>
+			</li>
+			<li>
+				<span class="property">type_name</span>: <span class="string">{JSON.stringify(node.type_name)}</span>
+			</li>
+		{/if}
 		{#if show_locations}
 			{#each ['line', 'column', 'start', 'end', 'length'] as prop}
 				<li data-testid="location">
@@ -85,7 +106,14 @@
 				<span class="property">{key}</span>:
 				{#if expandable}
 					<ol role="group">
-						<CssTree node={value} depth={depth + 1} {show_locations} {highlighted_node} {scroll_container} />
+						<CssTree
+							node={value}
+							depth={depth + 1}
+							{show_locations}
+							{show_types}
+							{highlighted_node}
+							{scroll_container}
+						/>
 					</ol>
 				{:else if Number.isFinite(value)}
 					<span class="number">{value}</span>
@@ -94,12 +122,19 @@
 				{/if}
 			</li>
 		{/each}
-		{#if node.children && node.children.length > 0}
+		{#if node.children && node.children.length > 0 && node.type !== DECLARATION}
 			<li>
 				<span class="property">children</span>:
 				<ol role="group">
 					{#each node.children as child}
-						<CssTree node={child} depth={depth + 1} {show_locations} {highlighted_node} {scroll_container} />
+						<CssTree
+							node={child}
+							depth={depth + 1}
+							{show_locations}
+							{show_types}
+							{highlighted_node}
+							{scroll_container}
+						/>
 					{/each}
 				</ol>
 			</li>
@@ -133,5 +168,9 @@
 
 	.string {
 		color: var(--highlight-string);
+	}
+
+	.comment {
+		color: var(--highlight-comment);
 	}
 </style>
