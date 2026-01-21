@@ -22,8 +22,9 @@ export function analyze(css: string) {
 
 	walk(ast, (node: CSSNode) => {
 		if (node.type === DECLARATION) {
-			if (node.property.startsWith('--')) {
-				let name = node.property
+			let property = node.property!
+			if (property.startsWith('--')) {
+				let name = property
 				let loc = to_loc(node)
 				declared_properties.add(name)
 				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
@@ -31,7 +32,7 @@ export function analyze(css: string) {
 		} else if (node.type === FUNCTION && node.name === 'var') {
 			let [first_child, second_child] = node.children
 
-			if (first_child?.type === IDENTIFIER && first_child.name.startsWith('--')) {
+			if (first_child?.type === IDENTIFIER && first_child.name?.startsWith('--')) {
 				let loc = to_loc(node)
 				let name = first_child.name
 				used_properties.add(name)

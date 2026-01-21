@@ -138,11 +138,12 @@ export function highlight_css(
 						// https://github.com/projectwallace/css-parser/issues/22
 						add_range('Comment', start, end)
 					} else if (node.type === AT_RULE) {
-						add_range('AtruleName', start, start + node.name.length + 1)
+						let name = node.name!
+						add_range('AtruleName', start, start + name.length + 1)
 
 						if (node.prelude) {
 							// The prelude starts after @name and any whitespace
-							let prelude_start = start + node.name.length + 1
+							let prelude_start = start + name.length + 1
 							add_range('AtrulePrelude', prelude_start, prelude_start + node.prelude.text.length + 1)
 						}
 					} else if (
@@ -157,7 +158,7 @@ export function highlight_css(
 						node.type === DECLARATION &&
 						(highlight_level === HIGHLIGHT_LEVEL_PARTIAL || highlight_level === HIGHLIGHT_LEVEL_FULL)
 					) {
-						add_range('Property', start, start + node.property.length)
+						add_range('Property', start, start + node.property!.length)
 
 						if (node.is_important) {
 							add_range('Important', end - 10, end)
@@ -177,7 +178,7 @@ export function highlight_css(
 							add_range('Unit', end - unit.length, end)
 						}
 					} else if (node.type === FUNCTION && highlight_level === HIGHLIGHT_LEVEL_FULL) {
-						add_range('Function', start, start + node.name.length)
+						add_range('Function', start, start + node.name!.length)
 					} else if (node.type === STRING && highlight_level === HIGHLIGHT_LEVEL_FULL) {
 						add_range('String', start, end)
 					} else if (node.type === URL && highlight_level === HIGHLIGHT_LEVEL_FULL) {

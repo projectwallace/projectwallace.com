@@ -14,6 +14,7 @@
 	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined)
 	let show_locations = new PersistedState('ast-show-locations', false)
 	let autofocus = new PersistedState('ast-autofocus-node', true)
+	let show_types = new PersistedState('ast-show-types', false)
 	let scroll_container: HTMLElement | undefined = $state(undefined)
 
 	$effect(() => {
@@ -69,6 +70,10 @@
 		<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
 	</div>
 	<div>
+		<label for="show-types">Show types</label>
+		<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
+	</div>
+	<div>
 		<label for="autofocus-node">Autofocus</label>
 		<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
 	</div>
@@ -81,7 +86,13 @@
 	</div>
 	{#if ast !== undefined}
 		<ol bind:this={scroll_container} class="pane scroll-container" role="tree">
-			<CssTree node={ast} {highlighted_node} show_locations={show_locations.current} {scroll_container} />
+			<CssTree
+				node={ast}
+				{highlighted_node}
+				show_locations={show_locations.current}
+				show_types={show_types.current}
+				{scroll_container}
+			/>
 		</ol>
 	{/if}
 </div>
