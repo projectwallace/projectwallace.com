@@ -50,7 +50,8 @@
 				border-inline-start: 1px solid var(--fg-450);
 			}
 
-			th {
+			th,
+			td:first-child {
 				white-space: nowrap;
 			}
 

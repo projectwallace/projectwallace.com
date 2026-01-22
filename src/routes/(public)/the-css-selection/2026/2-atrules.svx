@@ -1,0 +1,156 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+</script>
+
+## Atrules
+
+### Totals
+
+Let's start by looking at how many atrules we're shipping. Not looking at which ones specifically, just count how many there are in total.
+
+<BarChart
+title="Distribution of percentiles of total CSS atrules per website"
+data={{
+  "p10": 8,
+  "p25": 58,
+  "p50": 173,
+  "p75": 394,
+  "p90": 740,
+}}
+/>
+
+Looks like most websites have that atrules well under control. With modern CSS there's a lot to control with atrules, like containers, media, keyframes, supports. You need a bunch of them to get a properly functioning website!
+
+<Award size={format_number(150825)}>
+  Someone is getting their webmaster license revoked! Having {format_number(150825)} atrules on a single page is just&hellip; wild!
+</Award>
+
+### @media
+
+Our versatile friend the media query. Always there to help with that responsive design, making that page print-ready or adjust the layout for the folks who love that extra dash of contrast. So many possibilities!
+
+Let's start by looking at how many of them are on the page at all:
+
+<BarChart
+title="Distribution of percentiles of total CSS @media atrules per website"
+data={{
+  "p10": 3,
+  "p25": 33,
+  "p50": 116,
+  "p75": 285,
+  "p90": 577,
+}}
+/>
+
+Looking at the difference between this graph and the one above with atrule totals I think it's safe to say that the largest amount of atrules on a page would be `@media`. And that would make a ton of sense if you look at the versatility of it. So, what do we use it for actually?
+
+<Bar
+items={[
+["max-width", 88.29081020555066],
+["min-width", 86.45025193953451],
+["prefers-reduced-motion", 44.146404862832924],
+["orientation", 25.063984643685515],
+["hover", 23.789290570263137],
+["max-height", 23.23342397824522],
+["-webkit-min-device-pixel-ratio", 22.60257538190834],
+["min-resolution", 20.318123650323923],
+["-ms-high-contrast", 15.65324322162681],
+["max-device-width", 13.316803967047907],
+["forced-colors", 8.58793889466528],
+["pointer", 7.538190834199791],
+["min-device-pixel-ratio", 6.347476605614652],
+["-webkit-transform-3d", 6.0665440294329365],
+["transform-3d", 5.9355754618891465],
+["min--moz-device-pixel-ratio", 5.754618891466048],
+["min-device-width", 5.6616412061105335],
+["min-height", 5.523674318163641],
+["prefers-color-scheme", 5.1117731744381345]
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Feature', 'Adoption %']}
+/>
+
+The `max-width` and `min-width` features are quite unexpectedly used on most websites (88% and 86%). I did not expect `prefers-reduced-motion` to have such a great adoption rate even though it's almost half of that of the top two. There are some other surpises here, like `forced-colors` being used a bunch more than `prefers-color-scheme`.
+
+### @font-face
+
+It's hard to imagine these days that we had to embed images or use Flash to make our typograhpy look great. Luckily `@font-face` has made our lives a lot easier. How much do we use it?
+
+<BarChart
+title="Distribution of percentiles of total CSS @font-face atrules per website"
+data={{
+  "p10": 0,
+  "p25": 3,
+  "p50": 8,
+  "p75": 19,
+  "p90": 48,
+}}
+/>
+
+Given the fact that you need multiple `@font-face` rules for every weight and italics it makes sense that the numbers here are like this. I had actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)? 😉
+
+### @keyframes
+
+Continuing the making-our-website-pretty theme with a look at `@keyframes`. Every website has at least one spinner nowadays, right?
+
+<BarChart
+title="Distribution of percentiles of total CSS @keyframes atrules per website"
+data={{
+  "p10": 0,
+  "p25": 2,
+  "p50": 9,
+  "p75": 26,
+  "p90": 93,
+}}
+/>
+
+Okay, maybe not every website then. 10% of them are as static as can be!
+
+### @supports
+
+This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we firt only could check if a certain declaration was supported we now also can check for the support of selectors, font-tech and font-format!
+
+<BarChart
+title="Distribution of percentiles of total CSS @keyframes atrules per website"
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 3,
+  "p90": 6,
+}}
+/>
+
+Uh-oh, not quite what I expected. Either everyone's progressive enhancement game is top notch or we're missing out big time on some quality of life improvements. I really wonder why the adoption rate of `@supports` is this low. An underrated tool, it seems.
+
+<Award size={format_number(4858)}>
+  At least someone is cramming {format_number(4858)} supports rules into their website. Go champ!
+</Award>
+
+### @import
+
+If our previous atrule was used so little, let's hope this one is too! Using `@import` _usually_ is an anti-pattern unless you know what you're doing.
+
+<BarChart
+title="Distribution of percentiles of total CSS @import atrules per website"
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 0,
+  "p90": 1,
+}}
+/>
+
+Wow, job well done internet! At least 75% of websites don't use `@import` at all and even the top 90% has 1 `@import` at most.
+
+<Award size={format_number(176)}>
+  There's always that one friend at the party taking it too far. Looking at you, web dev who included {format_number(176)} @import rules into their website.
+</Award>

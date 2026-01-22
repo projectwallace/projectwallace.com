@@ -1,0 +1,127 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+</script>
+
+## Stylesheet composition
+
+To get a global idea of what we're looking at it's good to take a look at some numbers from a bird's eye view. What is our CSS made up of?
+
+### CSS Size
+
+How much CSS does a website ship to their users? For this we simply look at how large the string of CSS is.
+
+<BarChart
+title="Stylesheet size distribution"
+data={{
+"p10": 32559,
+"p25": 130357,
+"p50": 308892,
+"p75": 618503,
+"p90": 1118137,
+}}
+formatter={format_filesize}
+/>
+
+<Award size={format_filesize(130536139)}>
+	The website with the biggest CSS of all shipped a whopping {format_filesize(130536139)}! Imagine being on a train or in a country where internet is very expensive and going to this specific website. Yikes!
+</Award>
+
+### Lines of code
+
+Because most (?) websites minify their CSS it's also relevant to look at the lines of code. In more traditional programming languages this is a common metric to get a sense of the magnitude of a program. For CSS [I've determined](/blog/counting-lines-of-code-in-css#source-lines-of-code-for-css) that:
+
+<math>
+	<mi>source lines of code</mi>
+	<mo>=</mo>
+	<mi># of rules</mi>
+	<mo>+</mo>
+	<mi># of atrules</mi>
+	<mo>+</mo>
+	<mi># of declarations</mi>
+</math>
+
+With that established, let's look at the numbers:
+
+<BarChart
+title="Stylesheet Source Lines of Code distribution"
+data={{
+	"p10": 1029,
+	"p25": 4551,
+	"p50": 10677,
+	"p75": 20013,
+	"p90": 33457,
+}}
+/>
+
+It looks like most websites manage to stay below or around 10,000 lines of code. That's still a lot of CSS but looking at any regulary-sized website tells you that declaring your design system with a bunch of custom properties and loading some third-party tools quickly ramps up the numbers.
+
+Further analysis of atrules/rules/selectors/declarations per page is in their respective chapters.
+
+<!-- <Award size={format_number(638214)}>
+Imagine being that one site with {format_number(638214)} Source Lines of Code.
+</Award> -->
+
+### Complexity
+
+One of my favorite metrics is [complexity](/blog/css-complexity). Using it besides the Source Lines of Code and file size gives a quick impression, even more when comparing the number between websites. Or different versions of the same website, like a staging environment and a production environment. This chart shows the total complexity of all the CSS on a page including that for complex selectors, property browserhacks, use of vendor prefixes and much more.
+
+<BarChart
+title="Stylesheet Source Lines of Code distribution"
+data={{
+  "p10": 2978,
+  "p25": 13743,
+  "p50": 33188,
+  "p75": 65140,
+  "p90": 114893,
+}}
+/>
+
+The distribution across percentiles here is pretty much the same as for lines of code.
+
+### Embedded content
+
+One contributer to file size is embedded content. A good portion of websites embed various types on content in their CSS, like encoded images or sometimes even entire WOFF2 files.
+
+<BarChart
+title="Embedded content sizes per percentile"
+data={{
+	"p10": 0,
+	"p25": 0,
+	"p50": 2225,
+	"p75": 8233,
+	"p90": 36632
+}}
+formatter={format_filesize}
+/>
+
+This is an interesting distribution because we can see both the 10th and 25th percentile don't embed any content at all. Only from the 50th perentile onwards we see a little bit of embedding, with the chart steeply rising from the 90th percentile.
+
+<Award size={format_filesize(16186887)}>
+  The award for the biggest amount of embedded content to a website with a whopping {format_filesize(16186887)} of embedded content!
+</Award>
+
+### Comments
+
+Another contributer to file size can be the presence of comments. Minifiers usually strip most comments but some remain, like copyright notices.
+
+<BarChart
+title="Stylesheet comment sizes per percentile"
+data={{
+  "p10": 0,
+  "p25": 72,
+  "p50": 729,
+  "p75": 3837,
+  "p90": 11378,
+}}
+formatter={format_filesize}
+/>
+
+It's encouraging that, like the embedded content, the amount of comments in shipped CSS is pretty low.
+
+<Award size={format_filesize(7999677)}>
+  There's always an outlier: one website managed to send {format_filesize(7999677)} of comments to their users&hellip;
+</Award>
