@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-
 	type NavItem = {
 		id: string
 		title: string
@@ -18,8 +16,8 @@
 
 	let activeIds = $state<Set<string>>(new Set())
 
-	onMount(() => {
-		if (!scroll_spy) return
+	$effect(() => {
+		if (!scroll_spy || nav.length === 0) return
 
 		// Get all section IDs from nav
 		const sectionIds = new Set<string>()
@@ -77,7 +75,7 @@
 </script>
 
 <nav aria-labelledby="report-nav-title">
-	<h2 id="report-nav-title" class="title">Navigate this page</h2>
+	<div id="report-nav-title" class="title">Navigate this page</div>
 
 	<div class="compact">
 		<label for="report-nav" aria-labelledby="report-nav-title"></label>
@@ -158,37 +156,36 @@
 		display: block;
 		position: relative;
 		line-height: var(--leading-base);
-	}
 
-	.parent::after,
-	.child::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		border: 1px dotted var(--accent-400);
-		opacity: 0;
-	}
-
-	.parent:hover::after,
-	.child:hover::after {
-		opacity: 1;
-	}
-
-	.parent[aria-current='true'],
-	.child[aria-current='true'] {
-		&::before {
-			width: 3px;
-			background-color: var(--bg-700);
-		}
+		&::after,
 		&::after {
-			border-color: var(--accent-400);
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			border: 1px dotted var(--accent-400);
+			opacity: 0;
 		}
 
-		color: var(--accent-400);
-		font-weight: var(--font-medium);
+		&:hover::after,
+		&:hover::after {
+			opacity: 1;
+		}
+
+		&[aria-current='true'],
+		&[aria-current='true'] {
+			&::before {
+				width: 3px;
+				background-color: var(--bg-700);
+			}
+			&::after {
+				border-color: var(--accent-400);
+			}
+
+			color: var(--accent-400);
+		}
 	}
 
 	.parent {
@@ -198,15 +195,15 @@
 
 	.child {
 		padding: var(--py) var(--px) var(--py) var(--space-7);
-	}
 
-	.child::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: var(--px);
-		background-color: var(--fg-450);
-		width: 1px;
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: var(--px);
+			background-color: var(--fg-450);
+			width: 1px;
+		}
 	}
 </style>

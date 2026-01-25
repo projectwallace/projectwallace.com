@@ -21,6 +21,10 @@
 	// Calculate scales - derived from data
 	const maxValue = $derived(Math.max(...Object.values(data)))
 	const yMax = $derived.by(() => {
+		// Handle case when all values are 0
+		if (maxValue === 0) {
+			return 1 // Use a default scale
+		}
 		// Determine rounding magnitude based on max value
 		if (maxValue < 1) {
 			return Math.ceil(maxValue * 10) / 10 // Round to nearest 0.1

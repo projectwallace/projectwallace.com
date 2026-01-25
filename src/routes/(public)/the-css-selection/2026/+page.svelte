@@ -19,7 +19,7 @@
 	let nav: NavItem[] = $state([])
 
 	onMount(() => {
-		const headings = document.querySelectorAll('.the-css-selection :is(h2, h3):not(#report-nav-title)')
+		const headings = document.querySelectorAll('.the-css-selection :is(h2, h3)')
 		const navItems: NavItem[] = []
 		let currentH2: NavItem | null = null
 
@@ -45,7 +45,7 @@
 	robots="noindex,nofollow"
 />
 
-<Container size="2xl">
+<Container size="3xl">
 	<!-- Table of Contents -->
 	<!-- Disclaimer: data does not match Web Almanac because of different analyzer -->
 	<!-- AI disclaimer: no AI used for writing, only for generating SQL queries -->
@@ -75,24 +75,28 @@
 
 <style>
 	.the-css-selection {
-		font-size: 120%;
+		font-size: 100%;
 		display: grid;
-		grid-template-columns: 1fr max-content;
 		column-gap: var(--space-24);
-		position: relative;
 
-		> header {
-			grid-column: 1 / -1;
-		}
+		@media (min-width: 44em) {
+			font-size: 120%;
+			grid-template-columns: 1fr max-content;
+			position: relative;
 
-		.nav {
-			grid-column: 2;
-			grid-row: 2;
-		}
+			> header {
+				grid-column: 1 / -1;
+			}
 
-		.content {
-			grid-row: 2;
-			grid-column: 1;
+			.nav {
+				grid-column: 2;
+				grid-row: 2;
+			}
+
+			.content {
+				grid-row: 2;
+				grid-column: 1;
+			}
 		}
 	}
 
@@ -113,5 +117,15 @@
 		align-self: start;
 		max-height: 100vh;
 		overflow-y: auto;
+	}
+
+	:global(.markdown h2) {
+		margin-block-start: var(--space-24);
+		font-size: var(--size-4xl);
+	}
+
+	:global(.markdown h3) {
+		margin-block-start: var(--space-16);
+		font-size: var(--size-2xl);
 	}
 </style>

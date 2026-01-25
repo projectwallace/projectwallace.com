@@ -1,7 +1,7 @@
 <script>
 import BarChart from '$components/BarChart.svelte'
 import { format_filesize } from '$lib/format-filesize'
-import { format_number } from '$lib/format-number'
+import { format_number, format_percentage } from '$lib/format-number'
 import Award from '$components/Award.svelte'
 import Formula from '$components/Formula.svelte'
 import Bar from '$components/stats/BarChart.svelte'
@@ -154,3 +154,134 @@ Wow, job well done internet! At least 75% of websites don't use `@import` at all
 <Award size={format_number(176)}>
   There's always that one friend at the party taking it too far. Looking at you, web dev who included {format_number(176)} @import rules into their website.
 </Award>
+
+For next year I'd be curious about the usage of layers, supports queries and media queries inside `@import` rules. This atrule is a [pretty versatile beast](https://www.projectwallace.com/blog/css-imports-are-awesome) and I wonder if we're takin full advantage of it when we use it.
+
+### @layer
+
+<BarChart
+title=""
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 1,
+  "p90": 2,
+}}
+/>
+
+From the latest additions to modern CSS `@layers` seems to gain the most adoption. It has been baseline supported since March 2022. It's use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouring patterns of developers using `@layer`. Especially `@legacy` seems like a trick that developers are using to incrementally modernize their codebase.
+
+<Bar
+items={[
+["base", 1.8505558665920179],
+["utilities", 1.7995681036551228],
+["components", 1.762576981524434],
+["theme", 1.6446052947292649],
+["properties", 1.476645605054787],
+["reset", 0.2909301767575782],
+["legacy", 0.1589618491562025],
+["component", 0.1309685675437895],
+["global", 0.09797648564344556],
+["tokens", 0.09797648564344556],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@layer name', 'Adoption %']}
+/>
+
+### @charset
+
+<BarChart
+title=""
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 1,
+  "p90": 2,
+}}
+/>
+
+Almost 40% of websites are using `@charset` and an overwhelming majority uses UTF-8 encoding. But what's interesting is that there's a pretty clear group using Chinese (`gb2312`), Japanese (`shift_jis`) and cyrillic (`windows-1251`) encodings. This proves that there's a real use-case for `@charset` even though most of us don't use it that often.
+
+<Bar
+items={[
+["utf-8", 39.458529952811325],
+["iso-8859-1", 0.026993521554826844],
+["gb2312", 0.02499400143965448],
+["shift_jis", 0.022994481324482126],
+["windows-1251", 0.019995201151723586],
+["euc-jp", 0.01699592097896505],
+["euc-kr", 0.007998080460689434],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Charset', 'Adoption %']}
+/>
+
+### @container
+
+<BarChart
+title=""
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 0,
+  "p90": 0,
+}}
+/>
+
+<Award size={format_percentage(0.0961)}>
+	Just out of reach of appearing in the p90: <code>@container</code> is used on {format_percentage(0.0961)} of websites. Quite the adoption!
+</Award>
+
+Almost 10% of websites using `@container` already (well, it has been Baseline since February 2023) is a pretty good number. Looking at the names that are used there's no real pattern apart from the list of 8 hash-like gibberish names that appear in {format_percentage(0.0016)} of websites. Names like `wrapper`, `card` and `welcome-panel` speak more to the imagination.
+
+<Bar
+items={[
+["wrapper", 3.3761897144685276],
+["welcome-panel", 0.34691673998240424],
+["welcome-panel-media", 0.34691673998240424],
+["dfposts", 0.25893785491482046],
+["card", 0.1889546508837879],
+["wpforms-field-row-responsive", 0.17595777013516756],
+["column", 0.17395825001999518],
+["[hash] like \_1f7pmjs0 (7 rows omitted for brevity)", 0.16695992961689193],
+["wpforms-field-row-responsive-name-field", 0.14696472846516836],
+["wpforms-field-2-columns-responsive", 0.13196832760137567],
+["wpforms-field-3-columns-responsive", 0.1299688074862033],
+["media", 0.12397024714068625],
+["horizontal-product-card", 0.11897144685275535],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Container name', 'Adoption %']}
+/>
+
+I wonder if the `media` container has anything to do with [the OG CSS Media Object](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/). 🥰
+
+### @property
+
+<BarChart
+title=""
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 0,
+  "p90": 0,
+}}
+/>
+
+`@property` is Baseline Newly Available since July 2024 to it makes sense that most websites havne't picked up on it yet. In that regard the current adoption ratio is already encouraging.
+
+<Award size={format_percentage(0.0267)}>
+	Only {format_percentage(0.0267)} of websites use <code>@property</code> which is not enough to make them show up in the percentiles chart. Maybe next year?
+</Award>
+
+After analyzing the most common `@property` names I found that by far the most popular were TailwindCSS property names like `--tw-border-style`, `--tw-font-weight` etc. with most of them having an adoption rate between 1.63% and 0.12%. After that is a huge list of `--x-[hash]` properties which seem to be entirely computer-generated. It doesn't really make sense to show the full chart here but it's an interesting observation. My conclusion is that the most common usage of `@property` seems to be tied to some kind of (CSS) framework.
