@@ -32,6 +32,9 @@ Looks like most websites have that atrules well under control. With modern CSS t
 
 ### @media
 
+Adoption rate: {format_percentage(0.93061)}
+Baseline since: July 2015
+
 Our versatile friend the media query. Always there to help with that responsive design, making that page print-ready or adjust the layout for the folks who love that extra dash of contrast. So many possibilities!
 
 Let's start by looking at how many of them are on the page at all:
@@ -81,6 +84,9 @@ The `max-width` and `min-width` features are quite unexpectedly used on most web
 
 ### @font-face
 
+Adoption rate: {format_percentage(0.85615)}
+Baseline since: July 2015
+
 It's hard to imagine these days that we had to embed images or use Flash to make our typograhpy look great. Luckily `@font-face` has made our lives a lot easier. How much do we use it?
 
 <BarChart
@@ -98,6 +104,9 @@ Given the fact that you need multiple `@font-face` rules for every weight and it
 
 ### @keyframes
 
+Adoption rate: {format_percentage(0.83898)}
+Baseline since: September 2015
+
 Continuing the making-our-website-pretty theme with a look at `@keyframes`. Every website has at least one spinner nowadays, right?
 
 <BarChart
@@ -113,9 +122,36 @@ data={{
 
 Okay, maybe not every website then. 10% of them are as static as can be!
 
+<Bar
+items={[
+["fa-spin", 25.679836839158604],
+["spin", 23.896264896424857],
+["progress-bar-stripes", 21.440854194993204],
+["fadeIn", 18.525553867071903],
+["pulse", 15.783212029113013],
+["fadeOut", 15.07238262816924],
+["swiper-preloader-spin", 14.505518675517875],
+["bounce", 11.282292249860033],
+["turn-off-visibility", 10.94537311045349],
+["lightbox-zoom-out", 10.944373350395905],
+["lightbox-zoom-in", 10.93837479005039],
+["turn-on-visibility", 10.93837479005039],
+["fadeInUp", 10.616452051507638],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@keyframes name', 'Adoption %']}
+/>
+
+It looks like `@keyframes` do make things go spin round. `fa-spin` is a clear sign of [FontAwesome](https://github.com/FortAwesome/Font-Awesome/blob/16ac6af0d816e1b132bb2e3f06aa59a1bc5c6d23/css/fontawesome.css#L356-L363) being present. The `turn-off-visibilty` seems to come from the [WordPress Gutenber editor](https://github.com/WordPress/gutenberg/blob/07a15b4fc745d747435328bad84f0f4b74dfb489/packages/block-library/src/image/style.scss#L358) as well as the two `lightbox-zoom-*` keyframes.
+
 ### @supports
 
-This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we firt only could check if a certain declaration was supported we now also can check for the support of selectors, font-tech and font-format!
+Adoption rate: {format_percentage(0.4457)}
+Baseline since: September 2015
+
+This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we first only could check if a certain declaration was supported we now also can check for the support of selectors, font-tech and font-format!
 
 <BarChart
 title="Distribution of percentiles of total CSS @keyframes atrules per website"
@@ -135,6 +171,9 @@ Uh-oh, not quite what I expected. Either everyone's progressive enhancement game
 </Award>
 
 ### @import
+
+Adoption rate: {format_percentage(0.1804)}
+Baseline since: July 2015
 
 If our previous atrule was used so little, let's hope this one is too! Using `@import` _usually_ is an anti-pattern unless you know what you're doing.
 
@@ -159,18 +198,25 @@ For next year I'd be curious about the usage of layers, supports queries and med
 
 ### @layer
 
+Adoption rate: {format_percentage(0.0271)}
+Baseline since: March 2022
+
 <BarChart
 title=""
 data={{
   "p10": 0,
   "p25": 0,
   "p50": 0,
-  "p75": 1,
-  "p90": 2,
+  "p75": 0,
+  "p90": 0,
 }}
 />
 
-From the latest additions to modern CSS `@layers` seems to gain the most adoption. It has been baseline supported since March 2022. It's use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouring patterns of developers using `@layer`. Especially `@legacy` seems like a trick that developers are using to incrementally modernize their codebase.
+<Award size={format_percentage(0.0271)}>
+	{format_percentage(0.0271)} of analyzed websites are using <code>@layer</code>.
+</Award>
+
+`@layer` has been baseline supported since March 2022. It's use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouring patterns of developers using `@layer`. Especially `@legacy` seems like a trick that developers are using to incrementally modernize their codebase.
 
 <Bar
 items={[
@@ -192,6 +238,9 @@ column_headers={['@layer name', 'Adoption %']}
 />
 
 ### @charset
+
+Adoption rate: {format_percentage(0.3957)}
+Baseline since: July 2015
 
 <BarChart
 title=""
@@ -223,6 +272,9 @@ column_headers={['Charset', 'Adoption %']}
 />
 
 ### @container
+
+Adoption rate: {format_percentage(0.0961)}
+Baseline since: February 2023
 
 <BarChart
 title=""
@@ -267,6 +319,9 @@ I wonder if the `media` container has anything to do with [the OG CSS Media Obje
 
 ### @property
 
+Adoption rate {format_percentage(0.0267)}
+Baseline since: July 2024
+
 <BarChart
 title=""
 data={{
@@ -278,7 +333,7 @@ data={{
 }}
 />
 
-`@property` is Baseline Newly Available since July 2024 to it makes sense that most websites havne't picked up on it yet. In that regard the current adoption ratio is already encouraging.
+`@property` is Baseline Newly Available since July 2024 so it makes sense that most websites haven't picked it up yet. In that regard the current adoption ratio is already encouraging.
 
 <Award size={format_percentage(0.0267)}>
 	Only {format_percentage(0.0267)} of websites use <code>@property</code> which is not enough to make them show up in the percentiles chart. Maybe next year?

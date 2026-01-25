@@ -47,7 +47,7 @@
 			},
 			{
 				rootMargin: '50px 0px 50px 0px',
-				threshold: 0.15
+				threshold: 0.05
 			}
 		)
 

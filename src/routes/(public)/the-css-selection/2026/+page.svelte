@@ -9,6 +9,7 @@
 	import Heading from '$components/Heading.svelte'
 	import Nav from '$components/stats/Nav.svelte'
 	import { onMount } from 'svelte'
+	import avatar from '$lib/img/bartveneman.png'
 
 	type NavItem = {
 		id: string
@@ -54,6 +55,10 @@
 		<header>
 			<Heading element="h1" size={0}>The CSS Selection</Heading>
 			<p class="subtitle">The state of real-world CSS usage, 2026 edition.</p>
+			<p class="author">
+				<img class="author-avatar" src={avatar} alt="User avatar for Bart Veneman" width="25" height="25" />
+				Bart Veneman
+			</p>
 		</header>
 
 		<div class="nav">
@@ -101,8 +106,12 @@
 	}
 
 	header {
-		text-align: center;
-		margin-block: var(--space-16);
+		margin-block: var(--space-24);
+	}
+
+	.author {
+		display: flex;
+		gap: var(--space-4);
 	}
 
 	.subtitle {
@@ -127,5 +136,9 @@
 	:global(.markdown h3) {
 		margin-block-start: var(--space-16);
 		font-size: var(--size-2xl);
+	}
+
+	:global(.markdown > :is(p, #ID-HACK)) {
+		margin-top: var(--space-12);
 	}
 </style>
