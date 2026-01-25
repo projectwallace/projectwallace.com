@@ -57,7 +57,7 @@
 		</header>
 
 		<div class="nav">
-			<Nav {nav} />
+			<Nav {nav} scroll_spy />
 		</div>
 
 		<div class="content">

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
+
 	type NavItem = {
 		id: string
 		title: string
@@ -9,9 +11,60 @@
 
 	interface Props {
 		nav?: NavItem[]
+		scroll_spy?: boolean
 	}
 
-	let { nav = defaultNav }: Props = $props()
+	let { nav = defaultNav, scroll_spy = false }: Props = $props()
+
+	let activeIds = $state<Set<string>>(new Set())
+
+	onMount(() => {
+		if (!scroll_spy) return
+
+		// Get all section IDs from nav
+		const sectionIds = new Set<string>()
+		nav.forEach((item) => {
+			sectionIds.add(item.id)
+			if (item.items) {
+				item.items.forEach((subItem) => sectionIds.add(subItem.id))
+			}
+		})
+
+		// Track which sections are currently intersecting
+		const intersectingIds = new Set<string>()
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					const id = entry.target.id
+					if (entry.isIntersecting) {
+						intersectingIds.add(id)
+					} else {
+						intersectingIds.delete(id)
+					}
+				})
+
+				// Update active IDs (the topmost intersecting section)
+				activeIds = new Set(intersectingIds)
+			},
+			{
+				rootMargin: '50px 0px 50px 0px',
+				threshold: 0.15
+			}
+		)
+
+		// Observe all sections
+		sectionIds.forEach((id) => {
+			const element = document.getElementById(id)
+			if (element) {
+				observer.observe(element)
+			}
+		})
+
+		return () => {
+			observer.disconnect()
+		}
+	})
 
 	function on_select(event: Event) {
 		let select = event.target as HTMLOptionElement
@@ -45,12 +98,12 @@
 
 	<div class="loose" aria-labelledby="report-nav-title">
 		{#each nav as { id, title, items }}
-			<a href="#{id}" class="parent">
+			<a href="#{id}" class="parent" aria-current={activeIds.has(id) ? 'true' : undefined}>
 				{title}
 			</a>
 			{#if items}
 				{#each items as item}
-					<a href="#{item.id}" class="child">
+					<a href="#{item.id}" class="child" aria-current={activeIds.has(item.id) ? 'true' : undefined}>
 						{item.title}
 					</a>
 				{/each}
@@ -122,6 +175,20 @@
 	.parent:hover::after,
 	.child:hover::after {
 		opacity: 1;
+	}
+
+	.parent[aria-current='true'],
+	.child[aria-current='true'] {
+		&::before {
+			width: 3px;
+			background-color: var(--bg-700);
+		}
+		&::after {
+			border-color: var(--accent-400);
+		}
+
+		color: var(--accent-400);
+		font-weight: var(--font-medium);
 	}
 
 	.parent {
