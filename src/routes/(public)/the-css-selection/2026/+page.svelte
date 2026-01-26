@@ -65,7 +65,7 @@
 			</p>
 		</header>
 
-		<div class="nav">
+		<div class="nav scroll-container">
 			<Nav {nav} scroll_spy />
 		</div>
 
