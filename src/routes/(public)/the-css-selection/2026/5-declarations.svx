@@ -1,0 +1,106 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+</script>
+
+## Declarations
+
+### !important usage
+
+<BarChart
+title="Distribution of percentiles of total !importants per website"
+data={{
+  "p10": 1,
+  "p25": 36,
+  "p50": 154,
+  "p75": 628,
+  "p90": 1514,
+}}
+/>
+
+Max is 249021
+
+<BarChart
+title="Distribution of percentiles of total !importants per website"
+data={{
+  "p10": 0,
+  "p25": 0.01,
+  "p50": 0.02,
+  "p75": 0.06,
+  "p90": 0.13,
+}}
+formatter={format_percentage}
+/>
+
+### Custom properties
+
+<BarChart
+title="Distribution of percentiles of total CSS custom properties per website"
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 68,
+  "p75": 339,
+  "p90": 1161,
+}}
+/>
+
+<BarChart
+title="Distribution of percentiles of custom properties ratio"
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0.01,
+  "p75": 0.05,
+  "p90": 0.14,
+}}
+formatter={format_percentage}
+/>
+
+### Property browserhacks
+
+<!-- TODO: fix y-axis showing only "0%"  as labels -->
+
+<BarChart
+title="Distribution of percentiles of total CSS atrules per website"
+data={{
+  "*property": 18.75149964008638 / 100,
+  "_property": 3.5211549228185235 / 100,
+  "/property": 1.165720227145485 / 100,
+  "#property": 0.3129248980244741 / 100,
+  "+property": 0.0289930416699992 / 100,
+  "$property": 0.02499400143965448 / 100,
+}}
+formatter={format_percentage}
+/>
+
+<!-- TODO: explain what each one is for (browserhacks.com) -->
+
+### Vendor prefixed properties
+
+<BarChart
+title="Distribution of percentiles of total CSS custom properties per website"
+data={{
+  "p10": 6,
+  "p25": 40,
+  "p50": 140,
+  "p75": 504,
+  "p90": 1274,
+}}
+/>
+
+<BarChart
+title="Distribution of percentiles of custom properties ratio"
+data={{
+  "p10": 0,
+  "p25": 0.01,
+  "p50": 0.02,
+  "p75": 0.06,
+  "p90": 0.11,
+}}
+formatter={format_percentage}
+/>

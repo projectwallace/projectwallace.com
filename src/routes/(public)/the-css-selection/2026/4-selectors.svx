@@ -1,0 +1,167 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+</script>
+
+## Selectors
+
+### Totals
+
+<BarChart
+title="Distribution of percentiles of total CSS selectors per website"
+data={{
+  "p10": 272,
+  "p25": 1391,
+  "p50": 3660,
+  "p75": 7335,
+  "p90": 12607,
+}}
+/>
+
+### Pseudo classes
+
+<Bar
+items={[
+["hover", 95.24414140606254],
+["where", 90.56326481644406],
+["focus", 88.56574422138686],
+["before", 87.58397984483723],
+["after", 86.99112213068864],
+["not", 86.39226585619451],
+["last-child", 85.96236903143244],
+["first-child", 85.7644165400304],
+["active", 83.93485563464769],
+["root", 79.13600735823402],
+["nth-child", 76.8155642645765],
+["disabled", 58.83487962888907],
+["empty", 58.765896184915626],
+["checked", 58.53695113172839],
+["last-of-type", 57.3212429017036],
+["visited", 54.645884987602976],
+["nth-of-type", 53.18523554346957],
+["first-of-type", 52.96928737103095],
+["focus-visible", 48.19943213628729],
+["-ms-input-placeholder", 44.095417099896025],
+["has", 41.29908821882748],
+["focus-within", 41.023154442933695],
+["only-child", 36.971126929536915],
+["is", 36.310285531472445],
+["nth-last-child", 34.47372630568664],
+["-moz-focusring", 32.99408142045909],
+["-moz-placeholder", 25.675837798928256],
+["link", 25.636847156682396],
+["first-letter", 22.689554506918338],
+["invalid", 21.419859233783892],
+["host", 19.002439414540508],
+["indeterminate", 18.312604974806046],
+["-webkit-autofill", 17.039910421498842],
+["valid", 16.495041190114375],
+["placeholder-shown", 13.633727905302727],
+["lang", 11.203311205310726],
+["-moz-ui-invalid", 9.309765656242503],
+["target", 6.109533711909141],
+["-moz-placeholder-shown", 5.917579780852596],
+["nth-last-of-type", 4.414940414300568],
+["-webkit-full-screen", 3.7730944573302407],
+["enabled", 3.602135487483004],
+["fullscreen", 3.589138606734384],
+["required", 2.788330800607854],
+["read-only", 2.531392465808206],
+["only-of-type", 2.5003999040230345],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Pseudo class', 'Adoption %']}
+/>
+
+### Accessibility
+
+<BarChart
+title="Distribution of accessibility selectors per website"
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 1,
+  "p75": 6,
+  "p90": 21,
+}}
+/>
+
+<Award size={format_number(16675)}>
+</Award>
+
+Ratio is 0 across all percentiles.
+
+### Vendor prefixes
+
+<BarChart
+title="Distribution of total prefixed selectors per website"
+data={{
+  "p10": 0,
+  "p25": 7,
+  "p50": 21,
+  "p75": 47,
+  "p90": 84,
+}}
+/>
+
+<Award size={format_number(23836)}>
+</Award>
+
+Ratio is 0.02 at 90th.
+
+### Specificity
+
+TODO
+
+### Selector complexity
+
+Most common selector complexity per website:
+
+<BarChart
+title="Distribution of percentiles of most common CSS selector complexity per website"
+data={{
+  "p10": 1,
+  "p25": 1,
+  "p50": 1,
+  "p75": 2,
+  "p90": 3,
+}}
+/>
+
+Most selectors on most sites are simple selectors: only 1 or 2 parts to them. But what about the most complex selectors on any site?
+
+<BarChart
+title="Distribution of percentiles of maximum CSS selector complexity per website"
+data={{
+  "p10": 8,
+  "p25": 12,
+  "p50": 16,
+  "p75": 22,
+  "p90": 29,
+}}
+/>
+
+A different picture. Even simple websites sometimes need more complex selectors to express more complex state.
+
+<Award size={format_number(8804)}>
+	If we would display this selector with {format_number(8804)} complexity this page would probably crash. So let's not do that. But beware of this beast in the wild.
+</Award>
+
+### Combinators
+
+<BarChart
+title="Distribution of percentiles of total CSS atrules per website"
+data={{
+  "(descendant)": 96.19591298088459 / 100,
+  "> (child)": 90.23134447732544 / 100,
+  "+ (adjecent sibling)": 81.9373350395905 / 100,
+  "~ (general sibling)": 67.68475565864193 / 100,
+}}
+formatter={format_percentage}
+/>

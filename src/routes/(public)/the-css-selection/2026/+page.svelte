@@ -5,6 +5,10 @@
 	import Markdown from '$components/Markdown.svelte'
 	import Composition from './1-composition.svx'
 	import Atrules from './2-atrules.svx'
+	import Rules from './3-rules.svx'
+	import Selectors from './4-selectors.svx'
+	import Declarations from './5-declarations.svx'
+	import Values from './6-values.svx'
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
 	import Nav from '$components/stats/Nav.svelte'
@@ -71,6 +75,10 @@
 
 				<Composition />
 				<Atrules />
+				<Rules />
+				<Selectors />
+				<Declarations />
+				<Values />
 
 				<Accountability />
 			</Markdown>

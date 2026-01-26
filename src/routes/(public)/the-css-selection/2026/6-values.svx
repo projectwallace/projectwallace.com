@@ -1,0 +1,259 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+</script>
+
+## Values
+
+### Colors
+
+<BarChart
+title="Distribution of percentiles of total unique colors per website"
+data={{
+  "p10": 26,
+  "p25": 77,
+  "p50": 164,
+  "p75": 278,
+  "p90": 408,
+}}
+/>
+
+Award: 16172 unique colors. Design system hell.
+
+<Bar
+items={[
+["hex6", 97.09669679276973],
+["hex3", 94.936215308326],
+["transparent", 90.65124370151165],
+["rgba", 90.4372950491882],
+["named", 79.23798288410782],
+["currentcolor", 59.287770934975605],
+["rgb", 55.2587379029033],
+["hex8", 42.323842277853316],
+["hex4", 33.85587459009838],
+["hsla", 32.07730144765256],
+["system", 23.08445972966488],
+["hsl", 6.200511877149484],
+["oklch", 1.8895465088378791],
+["color", 0.5568663520755018],
+["oklab", 0.5378709109813645],
+["lab", 0.24094217387826922],
+["lch", 0.046988722706550426],
+["hwb", 0.0289930416699992],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Color format', 'Adoption %']}
+/>
+
+### Font-families
+
+<BarChart
+title="Distribution of percentiles of total unique font-families per website"
+data={{
+  "p10": 3,
+  "p25": 6,
+  "p50": 12,
+  "p75": 20,
+  "p90": 33,
+}}
+/>
+
+### Font-sizes
+
+<BarChart
+title="Distribution of percentiles of total unique font-sizes per website"
+data={{
+  "p10": 12,
+  "p25": 26,
+  "p50": 47,
+  "p75": 73,
+  "p90": 99,
+}}
+/>
+
+### Line-heights
+
+<BarChart
+title="Distribution of percentiles of total unique line-heights per website"
+data={{
+  "p10": 5,
+  "p25": 15,
+  "p50": 28,
+  "p75": 46,
+  "p90": 66,
+}}
+/>
+
+### Border-radiuses
+
+<BarChart
+title="Distribution of percentiles of total unique border-radiuses per website"
+data={{
+  "p10": 3,
+  "p25": 10,
+  "p50": 19,
+  "p75": 31,
+  "p90": 46,
+}}
+/>
+
+Max. 2285
+
+### Box-shadows
+
+<BarChart
+title="Distribution of percentiles of total unique box-shadows per website"
+data={{
+  "p10": 1,
+  "p25": 5,
+  "p50": 17,
+  "p75": 34,
+  "p90": 60,
+}}
+/>
+
+Max. 2285
+
+### Text-shadows
+
+<BarChart
+title="Distribution of percentiles of total unique text-shadows per website"
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 1,
+  "p75": 3,
+  "p90": 7,
+}}
+/>
+
+### Z-indexes
+
+<BarChart
+title="Distribution of percentiles of total unique z-indexes per website"
+data={{
+  "p10": 2,
+  "p25": 10,
+  "p50": 18,
+  "p75": 28,
+  "p90": 38,
+}}
+/>
+
+### Animation durations
+
+<BarChart
+title="Distribution of percentiles of total unique animation durations per website"
+data={{
+  "p10": 1,
+  "p25": 6,
+  "p50": 12,
+  "p75": 19,
+  "p90": 29,
+}}
+/>
+
+### Animation timing functions
+
+<BarChart
+title="Distribution of percentiles of total unique timing functions per website"
+data={{
+  "p10": 1,
+  "p25": 3,
+  "p50": 6,
+  "p75": 10,
+  "p90": 16,
+}}
+/>
+
+### Vendor previxed values
+
+<BarChart
+title="Distribution of percentiles of total unique line-heights per website"
+data={{
+  "p10": 0,
+  "p25": 4,
+  "p50": 20,
+  "p75": 76,
+  "p90": 199,
+}}
+/>
+
+### Value resets
+
+Credits to Ana.
+
+<BarChart
+title="Distribution of percentiles of total unique line-heights per website"
+data={{
+  "p10": 14,
+  "p25": 71,
+  "p50": 200,
+  "p75": 385,
+  "p90": 664,
+}}
+/>
+
+### Units
+
+<BarChart
+title="Distribution of percentiles of total unique units per website"
+data={{
+  "p10": 4,
+  "p25": 7,
+  "p50": 9,
+  "p75": 11,
+  "p90": 12,
+}}
+/>
+
+<Bar
+items={[
+["px", 98.27641366072143],
+["em", 91.71798768295609],
+["s", 91.50303927057506],
+["deg", 89.30456690394305],
+["rem", 80.150763816684],
+["vh", 76.03675117971687],
+["vw", 72.33663920659042],
+["fr", 60.230544669279375],
+["ms", 56.701391666000156],
+["turn", 35.636447252659366],
+["ch", 23.064464528513156],
+["pt", 15.504278973046468],
+["dvh", 10.319523314404542],
+["ex", 7.824122210669439],
+["cm", 7.186275293929458],
+["svh", 3.9790450291929935],
+["lh", 2.799328161241302],
+["x", 2.7513396784771658],
+["dvw", 2.296448852275454],
+["vmax", 1.6915940174358153],
+["vmin", 1.521634807646165],
+["cqw", 1.476645605054787],
+["pc", 1.29268975445893],
+["mm", 1.181716388066864],
+["in", 1.0777413420779014],
+["lvh", 0.9457730144765256],
+["svw", 0.5528673118451571],
+["cqi", 0.5488682716148124],
+["cqh", 0.32092297848516355],
+["cap", 0.1499640086379269],
+["vi", 0.14596496840758216],
+["lvw", 0.1409661681196513],
+["dppx", 0.12696952731344477],
+["m", 0.10697432616172117],
+["rad", 0.08397984483723907],
+["cqmin", 0.06898344397344637],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Unit', 'Adoption %']}
+/>

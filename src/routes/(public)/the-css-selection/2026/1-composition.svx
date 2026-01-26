@@ -65,7 +65,7 @@ Further analysis of atrules/rules/selectors/declarations per page is in their re
 Imagine being that one site with {format_number(638214)} Source Lines of Code.
 </Award> -->
 
-### Complexity
+### Stylesheet complexity
 
 One of my favorite metrics is [complexity](/blog/css-complexity). Using it besides the Source Lines of Code and file size gives a quick impression, even more when comparing the number between websites. Or different versions of the same website, like a staging environment and a production environment. This chart shows the total complexity of all the CSS on a page including that for complex selectors, property browserhacks, use of vendor prefixes and much more.
 

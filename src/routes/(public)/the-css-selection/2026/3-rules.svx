@@ -1,0 +1,42 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+</script>
+
+## Rulesets
+
+### Rules per page
+
+### Selectors per rule
+
+(Most common)
+award for max
+
+### Declarations per rule
+
+(Most common)
+Award for max
+
+### Total rule size
+
+When you add up selectors and declarations you get the rule size.
+
+<math>
+	<mi>rule size</mi>
+	<mo>=</mo>
+	<mi># of rule selectors</mi>
+	<mo>+</mo>
+	<mi># of rule declarations</mi>
+</math>
+
+most common
+award for max
+
+### Rule nesting depth
+
+most common is probably 1
+award for max nesting
