@@ -11,6 +11,8 @@ import Bar from '$components/stats/BarChart.svelte'
 
 ### Totals
 
+Looking at the number of selectors in a stylesheet gives us a quick look into the magnitude of things.
+
 <BarChart
 title="Distribution of percentiles of total CSS selectors per website"
 data={{
@@ -22,7 +24,11 @@ data={{
 }}
 />
 
+From my experience analyzing websites I expected the p90 and p75 to be a lot higher. I'm actually quite pleased with this distribution. Also, the top 10% of websites apparently have only 272 selectors or less which is also surprising. This seems like a really low number to me.
+
 ### Pseudo classes
+
+One concept that I blatantly stole from the Web Almanac is their overview of popular pseudo classes. It offers an interesting look into adopoption of newer pseudo classes and proportional use between classes.
 
 <Bar
 items={[
@@ -79,7 +85,17 @@ node_type="rule"
 column_headers={['Pseudo class', 'Adoption %']}
 />
 
+The 2022 Almanac listed `:hover`, `:focus` and `:active` as their top 3 but look at this: `:where` made it into the top 3! It has been Baseline available since January 2021 but this would be a good time to give yourself a pat on the back if you are a spec writer or part of the CSS Working Group. And while you're patting: `:has` is used on 41% percent of websites (Baseline December 2023). That's even higher than `:is` clocking in at 36% (also baseline January 2021). It would be interesting to see if the use of `:matches` and `:any` will go down as we use `:is` more. Regardless, these look like rock solid adoption rates if you ask me. We know that adoption of CSS features usually takes a bit and seeing these new-ish ones up there makes you proud of the language.
+
+Looking further down the list we see `:empty` being used on 58% of websites. I find that surprising because I found it useful only on a handful of occasions.
+
+<aside>
+<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo classes even though they're actually pseudo elements. For backwards compatibility resons browsers allow you to write them with a single colon instead of two and most CSS minifiers omit the optional colon.</p>
+</aside>
+
 ### Accessibility
+
+Accessibility selectors are attribute selectors that check for the presence of `[aria-*]` and `[role=*]`. These are interesting because they tell a little bit about how accessibility is baked into the CSS. It's never the complete story but it's interesting nonetheless.
 
 <BarChart
 title="Distribution of accessibility selectors per website"
@@ -92,12 +108,13 @@ data={{
 }}
 />
 
-<Award size={format_number(16675)}>
-</Award>
+Based on my own experience I find this number quite low. Most projects I've worked on have many more accessibility-focused selectors than this. Either everyone is setting their styles via regular class names (very valid) or we're not focusing on accessibility that much.
 
-Ratio is 0 across all percentiles.
+<!-- Ratio is 0 across all percentiles. -->
 
 ### Vendor prefixes
+
+Vendor prefixed selectors are usually taken care of by CSS toolchains where they take your modern authored CSS and add some prefixes where necessary based on the required browser support.
 
 <BarChart
 title="Distribution of total prefixed selectors per website"
@@ -110,10 +127,7 @@ data={{
 }}
 />
 
-<Award size={format_number(23836)}>
-</Award>
-
-Ratio is 0.02 at 90th.
+Data shows that there's not that many vendor prefixed selectors per website and I'm curious to see if that number will go down in coming years as some of them will become obsolete. But on the other hand, some browser makers are shipping _new_ vendor prefixed selectors so we might be seeing these for years and years to come.
 
 ### Specificity
 
@@ -155,6 +169,8 @@ A different picture. Even simple websites sometimes need more complex selectors 
 
 ### Combinators
 
+Selector combinators let you define relationships between your selectors. We often use the descendant combinator without thinking about it, but what about the others?
+
 <BarChart
 title="Distribution of percentiles of total CSS atrules per website"
 data={{
@@ -165,3 +181,5 @@ data={{
 }}
 formatter={format_percentage}
 />
+
+As expected the descendant combinator takes the top spot but the child combinator (`>`) is a close second. The other two are a bit below that and for me that makes sense. That seems to align with how I write CSS myself.
