@@ -9,6 +9,8 @@ import Bar from '$components/stats/BarChart.svelte'
 
 ## Values
 
+Let me start with a rather disappointing note about this chapter. Because analyzing values is one of the areas where Project Wallace shines but I made a bad decision early on in the scraping process. After an initial crawl started to fill my laptop's drive rather quickly I decided to cut out some 'non-important' metrics to save some disk space and speed up analysis. Boy, do I regret that. This decision means that I've analyzed and then **thrown away** all analysis about popular colors, font-sizes, shadows, everything. All I have at this point is aggregates percentiles. So. This is not the values chapter I was hoping for but it's the best I can do for this year.
+
 ### Colors
 
 Unique colors are analyzed by looking at their string representation so `Red` is a different value than `red` and `#f00`. This is what is counted when we look at the metric like that:

@@ -90,7 +90,7 @@ The 2022 Almanac listed `:hover`, `:focus` and `:active` as their top 3 but look
 Looking further down the list we see `:empty` being used on 58% of websites. I find that surprising because I found it useful only on a handful of occasions.
 
 <aside>
-<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo classes even though they're actually pseudo elements. For backwards compatibility resons browsers allow you to write them with a single colon instead of two and most CSS minifiers omit the optional colon.</p>
+<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo classes even though they're actually pseudo elements. For backwards compatibility resons browsers allow you to write them with a single colon instead of two and most CSS minifiers omit the optional colon. I kept them in this overview to see how often they're used.</p>
 </aside>
 
 ### Accessibility
@@ -131,7 +131,65 @@ Data shows that there's not that many vendor prefixed selectors per website and 
 
 ### Specificity
 
-TODO
+Our beloved metric: specificity. It's a shame Wes Bos isn't [butchering](https://syntax.fm/816?t=0:14:26) the pronunciation of this as much as he did before. Jokes aside, specificity is one of the most misunderstood concepts in CSS which is also a reason that so many people blogged about it and why online tools like [Polypane's Specificity Calculator](https://polypane.app/css-specificity-calculator/) exist. Some CSS analyzers get analysis wrong for specificity but luckily we don't so we can show cool stuff like this:
+
+<BarChart
+title="Distribution of percentiles of total unique CSS selector specificities per website"
+data={{
+  "p10": 12,
+  "p25": 22,
+  "p50": 39,
+  "p75": 58,
+  "p90": 83,
+}}
+/>
+
+The chart shows that 50% of websites have up to 39 unique specificities on their pages which is a higher number than I had expected. Thinking about this a bit more actually leads me to think that this might be because CSS is such an expressive, capable language: there are so many ways to express [selector intent](https://csswizardry.com/2012/07/shoot-to-kill-css-selector-intent/) and increasingly more with new selectors like `:has()` and `:where()`.
+
+Now let's looks at the most commonly used specificities:
+
+<Bar
+items={[
+["0,1,0", 97.05770615052387],
+["0,0,1", 96.2099096216908],
+["0,1,1", 96.1439254578901],
+["0,0,0", 95.83899864032632],
+["0,2,0", 94.57130288730706],
+["0,2,1", 93.70451091737982],
+["0,3,0", 90.99616092137886],
+["0,1,2", 90.31732384227786],
+["0,3,1", 88.95765016396065],
+["0,2,2", 87.93089658481964],
+["0,4,0", 85.64944413340798],
+["0,0,2", 85.2505398704311],
+["0,3,2", 81.94033431976325],
+["0,4,1", 81.79137007118291],
+["1,0,0", 79.28297208669919],
+["0,5,0", 77.20747020715028],
+["0,1,3", 76.62461009357754],
+["0,2,3", 75.32892105894585],
+["1,1,0", 72.62956890346317],
+["0,5,1", 69.84423738302807],
+["0,4,2", 69.5023194433336],
+["0,6,0", 67.87171078941054],
+["0,3,3", 66.31608413980643],
+["1,0,1", 65.09437734943614],
+["1,1,1", 64.68947452611373],
+["1,2,0", 63.34479724866032],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Specificity', 'Adoption %']}
+/>
+
+There's absolutely nothing notable about this adoption rate chart. This is to be expected. The fun part is at the bottom (the list has {format_number(2876)} unique entries) where things definitely got out of hand.
+
+TODO: insert link to source data
+
+<Award size="146,1546,159">
+There's one website shipping several <em>insane</em> selectors, up to 146,1546,159 in specificity. Bramus van Damme taught us that <a href="https://www.bram.us/2023/02/21/255255255-is-the-highest-specificity/">specificity only goes up to 255,255,255</a> but apart from that, the fact that this exists is completely bonkers.
+</Award>
 
 ### Selector complexity
 
