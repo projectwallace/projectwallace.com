@@ -9,9 +9,60 @@
 
 	interface Props {
 		nav?: NavItem[]
+		scroll_spy?: boolean
 	}
 
-	let { nav = defaultNav }: Props = $props()
+	let { nav = defaultNav, scroll_spy = false }: Props = $props()
+
+	let activeIds = $state<Set<string>>(new Set())
+
+	$effect(() => {
+		if (!scroll_spy || nav.length === 0) return
+
+		// Get all section IDs from nav
+		const sectionIds = new Set<string>()
+		nav.forEach((item) => {
+			sectionIds.add(item.id)
+			if (item.items) {
+				item.items.forEach((subItem) => sectionIds.add(subItem.id))
+			}
+		})
+
+		// Track which sections are currently intersecting
+		const intersectingIds = new Set<string>()
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					const id = entry.target.id
+					if (entry.isIntersecting) {
+						intersectingIds.add(id)
+					} else {
+						intersectingIds.delete(id)
+					}
+				})
+
+				// Update active IDs (the topmost intersecting section)
+				activeIds = new Set(intersectingIds)
+			},
+			{
+				rootMargin: '50px 0px 50px 0px',
+				threshold: 0.05
+			}
+		)
+
+		// Observe all sections
+		sectionIds.forEach((id) => {
+			const element = document.getElementById(id)
+			if (element) {
+				observer.observe(element)
+			}
+		})
+
+		return () => {
+			observer.disconnect()
+		}
+	})
 
 	function on_select(event: Event) {
 		let select = event.target as HTMLOptionElement
@@ -24,7 +75,7 @@
 </script>
 
 <nav aria-labelledby="report-nav-title">
-	<h2 id="report-nav-title" class="title">Navigate this page</h2>
+	<div id="report-nav-title" class="title">Navigate this page</div>
 
 	<div class="compact">
 		<label for="report-nav" aria-labelledby="report-nav-title"></label>
@@ -45,12 +96,12 @@
 
 	<div class="loose" aria-labelledby="report-nav-title">
 		{#each nav as { id, title, items }}
-			<a href="#{id}" class="parent">
+			<a href="#{id}" class="parent" aria-current={activeIds.has(id) ? 'true' : undefined}>
 				{title}
 			</a>
 			{#if items}
 				{#each items as item}
-					<a href="#{item.id}" class="child">
+					<a href="#{item.id}" class="child" aria-current={activeIds.has(item.id) ? 'true' : undefined}>
 						{item.title}
 					</a>
 				{/each}
@@ -75,6 +126,7 @@
 
 	.loose {
 		display: none;
+		max-height: 90vb;
 	}
 
 	@media (min-width: 44rem) {
@@ -105,23 +157,36 @@
 		display: block;
 		position: relative;
 		line-height: var(--leading-base);
-	}
 
-	.parent::after,
-	.child::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		border: 1px dotted var(--accent-400);
-		opacity: 0;
-	}
+		&::after,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			border: 1px dotted var(--accent-400);
+			opacity: 0;
+		}
 
-	.parent:hover::after,
-	.child:hover::after {
-		opacity: 1;
+		&:hover::after,
+		&:hover::after {
+			opacity: 1;
+		}
+
+		&[aria-current='true'],
+		&[aria-current='true'] {
+			&::before {
+				width: 3px;
+				background-color: var(--bg-700);
+			}
+			&::after {
+				border-color: var(--accent-400);
+			}
+
+			color: var(--accent-400);
+		}
 	}
 
 	.parent {
@@ -131,15 +196,15 @@
 
 	.child {
 		padding: var(--py) var(--px) var(--py) var(--space-7);
-	}
 
-	.child::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: var(--px);
-		background-color: var(--fg-450);
-		width: 1px;
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: var(--px);
+			background-color: var(--fg-450);
+			width: 1px;
+		}
 	}
 </style>

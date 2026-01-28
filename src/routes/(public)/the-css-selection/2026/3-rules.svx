@@ -1,0 +1,99 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+</script>
+
+## Rulesets
+
+### Rules per page
+
+<BarChart
+title="Distribution of percentiles of total CSS rules per website"
+data={{
+  "p10": 224,
+  "p25": 1119,
+  "p50": 2802,
+  "p75": 5420,
+  "p90": 9118,
+}}
+/>
+
+Max: 210695
+
+### Selectors per rule
+
+<BarChart
+title="Distribution of percentiles of maximum CSS selectors per rule per website"
+data={{
+  "p10": 6,
+  "p25": 13,
+  "p50": 32,
+  "p75": 70,
+  "p90": 90,
+}}
+/>
+
+(Most common = 1)
+award for max: 128528
+
+### Declarations per rule
+
+<BarChart
+title="Distribution of percentiles of maximum CSS selectors per rule per website"
+data={{
+  "p10": 17,
+  "p25": 28,
+  "p50": 50,
+  "p75": 117,
+  "p90": 279,
+}}
+/>
+
+(Most common = 1)
+Award for max: 41620
+
+### Total rule size
+
+When you add up selectors and declarations you get the rule size.
+
+<math>
+	<mi>rule size</mi>
+	<mo>=</mo>
+	<mi># of rule selectors</mi>
+	<mo>+</mo>
+	<mi># of rule declarations</mi>
+</math>
+
+most common: 2
+award for max: 128529
+
+<BarChart
+title="Distribution of percentiles of maximum CSS selectors per rule per website"
+data={{
+  "p10": 21,
+  "p25": 48,
+  "p50": 74,
+  "p75": 137,
+  "p90": 352,
+}}
+/>
+
+### Rule nesting depth
+
+most common: 1
+award for max nesting: 37
+
+<BarChart
+title="Distribution of percentiles of maximum CSS selectors per rule per website"
+data={{
+  "p10": 1,
+  "p25": 1,
+  "p50": 1,
+  "p75": 2,
+  "p90": 2,
+}}
+/>

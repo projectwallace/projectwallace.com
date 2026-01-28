@@ -58,6 +58,16 @@
 		max-width: 60ch;
 	}
 
+	:global(.markdown svg[role='img']) {
+		max-width: 80ch;
+	}
+
+	:global(.markdown math) {
+		font-size: var(--size-2xl);
+		display: block;
+		text-align: center;
+	}
+
 	:global(.markdown strong) {
 		font-style: normal;
 		font-weight: var(--font-bold);
@@ -68,7 +78,7 @@
 		font-style: italic;
 	}
 
-	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe)) {
+	:global(.markdown :is(p, pre, img, svg[role='img'], table, ol, ul, blockquote, figure, iframe, math)) {
 		margin-top: var(--space-6);
 	}
 
@@ -189,9 +199,12 @@
 	}
 
 	:global(.markdown aside) {
+		margin: var(--space-16) 0;
+	}
+
+	:global(.markdown aside):not([class]) {
 		border: 2px solid var(--accent);
 		padding: var(--space-6) var(--space-5);
-		margin: var(--space-16) 0;
 	}
 
 	:global(.markdown :is(aside, blockquote) > :first-child) {
