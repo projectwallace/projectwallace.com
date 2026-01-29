@@ -9,7 +9,7 @@ import Bar from '$components/stats/BarChart.svelte'
 
 ## Atrules
 
-### Totals
+### Atrule totals
 
 Let's start by looking at how many atrules we're shipping. Not looking at which ones specifically, just count how many there are in total.
 

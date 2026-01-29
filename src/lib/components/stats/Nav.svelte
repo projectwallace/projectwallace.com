@@ -19,48 +19,37 @@
 	$effect(() => {
 		if (!scroll_spy || nav.length === 0) return
 
-		// Get all section IDs from nav
-		const sectionIds = new Set<string>()
+		// Collect all section IDs from nav in order
+		const sectionIds: string[] = []
 		nav.forEach((item) => {
-			sectionIds.add(item.id)
+			sectionIds.push(item.id)
 			if (item.items) {
-				item.items.forEach((subItem) => sectionIds.add(subItem.id))
+				item.items.forEach((subItem) => sectionIds.push(subItem.id))
 			}
 		})
 
-		// Track which sections are currently intersecting
-		const intersectingIds = new Set<string>()
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					const id = entry.target.id
-					if (entry.isIntersecting) {
-						intersectingIds.add(id)
-					} else {
-						intersectingIds.delete(id)
-					}
-				})
-
-				// Update active IDs (the topmost intersecting section)
-				activeIds = new Set(intersectingIds)
-			},
-			{
-				rootMargin: '50px 0px 50px 0px',
-				threshold: 0.05
+		function update() {
+			// Find the last heading that has scrolled past the top of the viewport
+			let currentId: string | null = null
+			for (const id of sectionIds) {
+				const el = document.getElementById(id)
+				if (el && el.getBoundingClientRect().top <= 100) {
+					currentId = id
+				}
 			}
-		)
 
-		// Observe all sections
-		sectionIds.forEach((id) => {
-			const element = document.getElementById(id)
-			if (element) {
-				observer.observe(element)
+			const next = new Set<string>()
+			if (currentId) {
+				next.add(currentId)
 			}
-		})
+			activeIds = next
+		}
+
+		window.addEventListener('scroll', update, { passive: true })
+		update()
 
 		return () => {
-			observer.disconnect()
+			window.removeEventListener('scroll', update)
 		}
 	})
 

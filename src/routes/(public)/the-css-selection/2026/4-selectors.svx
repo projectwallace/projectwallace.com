@@ -11,7 +11,7 @@ import Bar from '$components/stats/BarChart.svelte'
 
 Love them or hate them, you need selectors to target the elements you want to change whether it be for that fancy P3 color or that 90's grunge background-image.
 
-### Totals
+### Selector totals
 
 Looking at the number of selectors in a stylesheet gives us a quick look into the magnitude of things.
 
