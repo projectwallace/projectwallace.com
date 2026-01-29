@@ -126,7 +126,6 @@
 
 	.loose {
 		display: none;
-		max-height: 90vb;
 	}
 
 	@media (min-width: 44rem) {
@@ -136,6 +135,7 @@
 
 		.loose {
 			display: block;
+			max-height: calc(95vb - var(--py));
 		}
 	}
 

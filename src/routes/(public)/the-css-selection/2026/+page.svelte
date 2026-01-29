@@ -12,36 +12,10 @@
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
 	import Nav from '$components/stats/Nav.svelte'
-	import { onMount } from 'svelte'
 	import avatar from '$lib/img/bartveneman.png'
 
-	type NavItem = {
-		id: string
-		title: string
-		items?: NavItem[]
-	}
-
-	let nav: NavItem[] = $state([])
-
-	onMount(() => {
-		const headings = document.querySelectorAll('.the-css-selection :is(h2, h3)')
-		const navItems: NavItem[] = []
-		let currentH2: NavItem | null = null
-
-		headings.forEach((heading) => {
-			const id = heading.id
-			const title = heading.textContent || ''
-
-			if (heading.tagName === 'H2') {
-				currentH2 = { id, title, items: [] }
-				navItems.push(currentH2)
-			} else if (heading.tagName === 'H3' && currentH2) {
-				currentH2.items!.push({ id, title })
-			}
-		})
-
-		nav = navItems
-	})
+	let { data } = $props()
+	let nav = data.nav
 </script>
 
 <SEO
@@ -51,7 +25,6 @@
 />
 
 <Container size="3xl">
-	<!-- Table of Contents -->
 	<!-- Disclaimer: data does not match Web Almanac because of different analyzer -->
 	<!-- AI disclaimer: no AI used for writing, only for generating SQL queries -->
 
@@ -132,7 +105,6 @@
 		position: sticky;
 		top: var(--space-4);
 		align-self: start;
-		max-height: 100vh;
 		overflow-y: auto;
 	}
 
