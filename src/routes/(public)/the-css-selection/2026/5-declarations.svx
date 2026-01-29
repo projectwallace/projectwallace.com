@@ -120,11 +120,11 @@ A quick explainer using data from [browserhacks.com](http://browserhacks.com/):
 - `+property`: IE 6/7
 - `$property`: IE 6/7
 
-This was going to be an uplifting article about the new era of CSS and great adoption rates of shiny new features but look a this monstrosity. Let's move on before it affects our mood.
+This was going to be an uplifting article about the new era of CSS and great adoption rates of shiny new features but look at this monstrosity. Let's move on before it affects our mood.
 
 ### Vendor prefixed properties
 
-Slighty less disturbing than browser hacks but still a sign of the times and sometimes browser quirks: prefixes. A slightly more readable way of targeting specific browsers or rendering engines. Hopefully you don't author them by hand because tools like LightningCSS and PostCSS can handle these things for you.
+Slightly less disturbing than browser hacks but still a sign of the times and sometimes browser quirks: prefixes. A slightly more readable way of targeting specific browsers or rendering engines. Hopefully you don't author them by hand because tools like LightningCSS and PostCSS can handle these things for you.
 
 <BarChart
 title="Distribution of percentiles of total CSS custom properties per website"

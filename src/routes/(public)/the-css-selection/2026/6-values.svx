@@ -61,7 +61,7 @@ node_type="rule"
 column_headers={['Color format', 'Adoption %']}
 />
 
-The top 7 is very much as expected bt I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev because apparently this and 4-character hex codes are baseline widely available since January 2020&hellip;
+The top 7 is very much as expected but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev because apparently this and 4-character hex codes are baseline widely available since January 2020&hellip;
 
 Further down the list we still HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
 
@@ -97,11 +97,11 @@ data={{
 }}
 />
 
-This table matches my expectations quite well but I'm always slightly surprised how we end up with so many unique font-sizes on our websites. There are countless articles out their explaining how to create a font scale and use that but I guess reality comes at us quickly when it comes to CSS.
+This table matches my expectations quite well but I'm always slightly surprised how we end up with so many unique font-sizes on our websites. There are countless articles out there explaining how to create a font scale and use that but I guess reality comes at us quickly when it comes to CSS.
 
 ### Line-heights
 
-Line-heights are often, but not always set in combination with font-size and/or font-family so it is no surprise that this graph is similar in shape to the one of them but just lower in numbers.
+Line-heights are often but not always set in combination with font-size and/or font-family so it is no surprise that this graph is similar in shape to the one of them but just lower in numbers.
 
 <BarChart
 title="Distribution of percentiles of total unique line-heights per website"
@@ -116,7 +116,7 @@ data={{
 
 ### Box-shadows
 
-One metric that is under-analyzed but often used in design systems is the humble box-shadow. Not contibuting to the box model, but it does play a role in branding and UX.
+One metric that is under-analyzed but often used in design systems is the humble box-shadow. Not contributing to the box model, but it does play a role in branding and UX.
 
 <BarChart
 title="Distribution of percentiles of total unique box-shadows per website"
@@ -191,7 +191,7 @@ data={{
 }}
 />
 
-### Vendor previxed values
+### Vendor prefixed values
 
 <BarChart
 title="Distribution of percentiles of total unique line-heights per website"

@@ -91,7 +91,7 @@ data={{
 
 The most common size is 2, which makes sense if you look at the data for common selectors and declarations per rule. Also like the chart for declarations per rule the 90th percentile for this metric is quite a bit higher than the rest.
 
-The maximum ruleset size our our dataset was {format_number(128529)}.
+The maximum ruleset size in our dataset was {format_number(128529)}.
 
 ### Rule nesting depth
 

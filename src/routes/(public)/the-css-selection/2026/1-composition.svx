@@ -57,7 +57,7 @@ data={{
 }}
 />
 
-It looks like most websites manage to stay below or around 10,000 lines of code. That's still a lot of CSS but looking at any regulary-sized website tells you that declaring your design system with a bunch of custom properties and loading some third-party tools quickly ramps up the numbers.
+It looks like most websites manage to stay below or around 10,000 lines of code. That's still a lot of CSS but looking at any regularly-sized website tells you that declaring your design system with a bunch of custom properties and loading some third-party tools quickly ramps up the numbers.
 
 Further analysis of atrules/rules/selectors/declarations per page is in their respective chapters.
 
@@ -84,7 +84,7 @@ The distribution across percentiles here is pretty much the same as for lines of
 
 ### Embedded content
 
-One contributer to file size is embedded content. A good portion of websites embed various types on content in their CSS, like encoded images or sometimes even entire WOFF2 files.
+One contributor to file size is embedded content. A good portion of websites embed various types on content in their CSS, like encoded images or sometimes even entire WOFF2 files.
 
 <BarChart
 title="Embedded content sizes per percentile"
@@ -98,7 +98,7 @@ data={{
 formatter={format_filesize}
 />
 
-This is an interesting distribution because we can see both the 10th and 25th percentile don't embed any content at all. Only from the 50th perentile onwards we see a little bit of embedding, with the chart steeply rising from the 90th percentile.
+This is an interesting distribution because we can see both the 10th and 25th percentile don't embed any content at all. Only from the 50th percentile onwards we see a little bit of embedding, with the chart steeply rising from the 90th percentile.
 
 <Award size={format_filesize(16186887)}>
   The award for the biggest amount of embedded content to a website with a whopping {format_filesize(16186887)} of embedded content!
@@ -106,7 +106,7 @@ This is an interesting distribution because we can see both the 10th and 25th pe
 
 ### Comments
 
-Another contributer to file size can be the presence of comments. Minifiers usually strip most comments but some remain, like copyright notices.
+Another contributor to file size can be the presence of comments. Minifiers usually strip most comments but some remain, like copyright notices.
 
 <BarChart
 title="Stylesheet comment sizes per percentile"

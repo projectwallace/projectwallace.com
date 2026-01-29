@@ -30,7 +30,7 @@ From my experience analyzing websites I expected the p90 and p75 to be a lot hig
 
 ### Pseudo classes
 
-One concept that I blatantly stole from the Web Almanac is their overview of popular pseudo classes. It offers an interesting look into adopoption of newer pseudo classes and proportional use between classes.
+One concept that I blatantly stole from the Web Almanac is their overview of popular pseudo classes. It offers an interesting look into adoption of newer pseudo classes and proportional use between classes.
 
 <Bar
 items={[
@@ -92,7 +92,7 @@ The 2022 Almanac listed `:hover`, `:focus` and `:active` as their top 3 but look
 Looking further down the list we see `:empty` being used on 58% of websites. I find that surprising because I found it useful only on a handful of occasions.
 
 <aside>
-<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo classes even though they're actually pseudo elements. For backwards compatibility resons browsers allow you to write them with a single colon instead of two and most CSS minifiers omit the optional colon. I kept them in this overview to see how often they're used.</p>
+<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo classes even though they're actually pseudo elements. For backwards compatibility reasons browsers allow you to write them with a single colon instead of two and most CSS minifiers omit the optional colon. I kept them in this overview to see how often they're used.</p>
 </aside>
 
 ### Accessibility
@@ -148,7 +148,7 @@ data={{
 
 The chart shows that 50% of websites have up to 39 unique specificities on their pages which is a higher number than I had expected. Thinking about this a bit more actually leads me to think that this might be because CSS is such an expressive, capable language: there are so many ways to express [selector intent](https://csswizardry.com/2012/07/shoot-to-kill-css-selector-intent/) and increasingly more with new selectors like `:has()` and `:where()`.
 
-Now let's looks at the most commonly used specificities:
+Now let's look at the most commonly used specificities:
 
 <Bar
 items={[
@@ -236,7 +236,7 @@ title="Distribution of percentiles of total CSS atrules per website"
 data={{
   "(descendant)": 96.19591298088459 / 100,
   "> (child)": 90.23134447732544 / 100,
-  "+ (adjecent sibling)": 81.9373350395905 / 100,
+  "+ (adjacent sibling)": 81.9373350395905 / 100,
   "~ (general sibling)": 67.68475565864193 / 100,
 }}
 formatter={format_percentage}
