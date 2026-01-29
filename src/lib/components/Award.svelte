@@ -11,21 +11,27 @@
 
 <style>
 	.award {
-		display: grid;
-		grid-template-columns: max-content auto;
-		align-items: start;
-		gap: var(--space-6);
-		margin-block: var(--space-8);
+		margin-block: var(--space-12) var(--space-20);
 		margin-inline: var(--space-8);
-		max-width: min(calc(100% - var(--space-16)), 33rem);
+		width: fit-content;
+		max-width: clamp(calc(100% - var(--space-16)), fit-content, 33rem);
 		position: relative;
+		display: flow-root;
 
-		&::before {
+		&::after {
 			content: '';
 			position: absolute;
 			z-index: -1;
 			inset: 1rem -1rem -1rem 1rem;
 			background-color: var(--bg-200);
+		}
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 2rem -2rem -2rem 2rem;
+			z-index: -1;
+			border: 2px solid var(--bg-300);
 		}
 	}
 
@@ -35,12 +41,17 @@
 		border: 4px solid var(--gray-400);
 		padding-block: var(--space-6);
 		padding-inline: var(--space-4);
+		float: left;
+		margin-inline-end: var(--space-8);
+		margin-block-end: var(--space-3);
 	}
 
 	.content {
-		padding-top: var(--space-6);
+		padding-block-start: var(--space-8);
+		padding-inline-start: var(--space-8);
 		font-style: italic;
 		margin: 0 !important; /* reset markdown margin */
 		font-size: var(--size-base);
+		text-wrap: balance;
 	}
 </style>

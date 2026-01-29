@@ -9,6 +9,8 @@ import Bar from '$components/stats/BarChart.svelte'
 
 ## Selectors
 
+Love them or hate them, you need selectors to target the elements you want to change whether it be for that fancy P3 color or that 90's grunge background-image.
+
 ### Totals
 
 Looking at the number of selectors in a stylesheet gives us a quick look into the magnitude of things.
@@ -183,7 +185,7 @@ node_type="rule"
 column_headers={['Specificity', 'Adoption %']}
 />
 
-There's absolutely nothing notable about this adoption rate chart. This is to be expected. The fun part is at the bottom (the list has {format_number(2876)} unique entries) where things definitely got out of hand.
+There's absolutely nothing notable about this adoption rate chart. This is to be expected. One item I want to highlight is the no. 4 position of `0,0,0`. This means that the high usage of `:where()` seems to translate to this chart as well, as well as it being very likely that most websites use the universal selector (`*`). The fun part is at the bottom (the list has {format_number(2876)} unique entries) where things definitely got out of hand.
 
 TODO: insert link to source data
 

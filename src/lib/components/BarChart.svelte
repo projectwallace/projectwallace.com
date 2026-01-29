@@ -117,8 +117,8 @@
 
 		<!-- Bars -->
 		{#each bars as bar}
-			<rect x={bar.x} y={bar.y} width={bar.width} height={bar.height} fill="#29c87d" />
-			<text x={bar.centerX} y={bar.y - 10} text-anchor="middle" class="bar-label">
+			<rect x={bar.x} y={bar.y} width={bar.width} height={bar.height} fill="currentColor" class="bar" />
+			<text x={bar.centerX} y={bar.y - 10} text-anchor="middle" fill="currentColor" class="bar-label">
 				{formatter(bar.value)}
 			</text>
 		{/each}
@@ -129,11 +129,19 @@
 	.axis-label {
 		font-size: 1rem;
 	}
+
+	.bar {
+		fill: steelblue;
+		fill: var(--accent-400, steelblue);
+	}
+
 	.bar-label {
 		font-size: 1rem;
+		fill: var(--fg-200, white);
 	}
 
 	text {
 		fill: currentColor;
+		color: var(--fg-200);
 	}
 </style>
