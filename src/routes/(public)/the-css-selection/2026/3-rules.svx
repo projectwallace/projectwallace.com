@@ -13,6 +13,8 @@ Each stylesheet consists of one or more rulesets or rules unless you only ship s
 
 ### Rules per page
 
+Starting off with a simple but relevant metric: how many CSS rulesets are there per website analyzed?
+
 <BarChart
 title="Distribution of percentiles of total CSS rules per website"
 data={{
@@ -24,9 +26,11 @@ data={{
 }}
 />
 
-Max: 210695
+The maximum I could find was {format_number(210695)} rules on a single page.
 
 ### Selectors per rule
+
+The most common amount of selectors on a rule is 1. For this metric we look at the maximum number of selectors found on a single rule.
 
 <BarChart
 title="Distribution of percentiles of maximum CSS selectors per rule per website"
@@ -39,10 +43,11 @@ data={{
 }}
 />
 
-(Most common = 1)
-award for max: 128528
+The maximum number I could find was {format_number(128528)} selectors on a single rule. Most of the cases where there's so many selectors are caused by [Sass's `@extend` feature](https://sass-lang.com/documentation/at-rules/extend/) being used outrageously.
 
 ### Declarations per rule
+
+The most common amount of declarations is 1, but for this metric we'll look at the maximum amount of declarations in a single rule.
 
 <BarChart
 title="Distribution of percentiles of maximum CSS selectors per rule per website"
@@ -55,8 +60,9 @@ data={{
 }}
 />
 
-(Most common = 1)
-Award for max: 41620
+These numbers are quite a bit higher than the ones above for maximum selectors per ruleset. My guess is that this is because we tend to author more rules with many declarations versus many rules with few selectors and declarations that tools like Tailwind generate. They show up as most common, but the human authored outliers show up in this graph. Notice that the 90th percentile for this metric is a lot higher compared to that for selectors per rule.
+
+The largest amount of declarations in a single rule in our data set was {format_number(41620)}.
 
 ### Total rule size
 
@@ -70,8 +76,7 @@ When you add up selectors and declarations you get the rule size.
 	<mi># of rule declarations</mi>
 </math>
 
-most common: 2
-award for max: 128529
+This metric helps draw attention to those rules that don't stand out for having many selectors or declarations but having a large total.
 
 <BarChart
 title="Distribution of percentiles of maximum CSS selectors per rule per website"
@@ -84,13 +89,19 @@ data={{
 }}
 />
 
+The most common size is 2, which makes sense if you look at the data for common selectors and declarations per rule. Also like the chart for declarations per rule the 90th percentile for this metric is quite a bit higher than the rest.
+
+The maximum ruleset size our our dataset was {format_number(128529)}.
+
 ### Rule nesting depth
 
 most common: 1
 award for max nesting: 37
 
+Developers love to nest CSS. For years we only had the option to nest media queries and some other atrules but with CSS Nesting entering in 2023 we can go _deep_. But do we? Is it still only territory for preprocessors/postprocessors? Or do we avoid it?
+
 <BarChart
-title="Distribution of percentiles of maximum CSS selectors per rule per website"
+title="Distribution of percentiles of maximum CSS rule nesting per website"
 data={{
   "p10": 1,
   "p25": 1,
@@ -99,3 +110,9 @@ data={{
   "p90": 2,
 }}
 />
+
+That looks a bit underwhelming but I think that's a good sign. We're not going overboard with this new feature yet.
+
+<Award size={37}>
+There is one website where nesting levels went up to 37 levels deep. This particular site uses WordPress with a <code>&lt;style id="wp-custom-css"&gt;</code> block and in that block they use 37 @media queries and for every single one of them they forgot to close the block with a <code>}</code>.
+</Award>
