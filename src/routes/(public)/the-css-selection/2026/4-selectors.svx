@@ -116,7 +116,7 @@ Based on my own experience I find this number quite low. Most projects I've work
 
 ### Vendor prefixes
 
-Vendor prefixed selectors are usually taken care of by CSS toolchains where they take your modern authored CSS and add some prefixes where necessary based on the required browser support.
+Sometimes we need to use non-standard selectors to select that one pesky thing in that one single browser. Think of `:-moz-focusring`, `::-webkit-scrollbar` or `::-webkit-file-upload-button`. Vendor prefixed selectors are usually taken care of by CSS toolchains where they take your modern authored CSS and add some prefixes where necessary based on the required browser support.
 
 <BarChart
 title="Distribution of total prefixed selectors per website"

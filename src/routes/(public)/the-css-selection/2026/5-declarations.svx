@@ -9,7 +9,28 @@ import Bar from '$components/stats/BarChart.svelte'
 
 ## Declarations
 
+Declarations are where we start to apply actual styles. So far we've only been selecting the conditions: the device properties, media types, support levels, container requirements. Now it's finally time to paint the pixels.
+
+### Declaration totals
+
+We'll start by looking at how many declarations websites are shipping in total.
+
+<BarChart
+title="Distribution of percentiles of total declarations per website"
+data={{
+  "p10": 700,
+  "p25": 2926,
+  "p50": 6573,
+  "p75": 12163,
+  "p90": 19914,
+}}
+/>
+
+The highest number of declarations in a single website found in our data set is {format_number(346750)}.
+
 ### !important usage
+
+When cascade layers and specificity are not enough there's always the trusty `!important`.
 
 <BarChart
 title="Distribution of percentiles of total !importants per website"
@@ -22,10 +43,10 @@ data={{
 }}
 />
 
-Max is 249021
+Compared to the totals in the section above I'm quite pleased that the majority of websites only use a respectable _number_ of importants. But what do the _ratios_ of important look like? What percentage of our declarations is marked as `!important`?
 
 <BarChart
-title="Distribution of percentiles of total !importants per website"
+title="Distribution of percentiles of total !important ratios per website"
 data={{
   "p10": 0,
   "p25": 0.01,
@@ -36,7 +57,13 @@ data={{
 formatter={format_percentage}
 />
 
+I can honestly still say I'm pleased with that because I had expected a much worse data set.
+
+The maximum of `!important` found on a single website is {format_number(249021)}.
+
 ### Custom properties
+
+One of the great power-ups of CSS in the last decade was the addition of custom properties.
 
 <BarChart
 title="Distribution of percentiles of total CSS custom properties per website"
@@ -48,6 +75,8 @@ data={{
   "p90": 1161,
 }}
 />
+
+It's slightly surprising that up to the 50th percentile custom properties aren't used at all. Looking at adoption rates of far newer functionalities I'd expect custom properties to have a higher adoption ratio. But once websites use them they use them _good_.
 
 <BarChart
 title="Distribution of percentiles of custom properties ratio"
@@ -61,9 +90,13 @@ data={{
 formatter={format_percentage}
 />
 
+In terms of custom property ratios compared to the total amount of properties we see a similar picture.
+
 ### Property browserhacks
 
 <!-- TODO: fix y-axis showing only "0%"  as labels -->
+
+A recent addition to our collective toolboxes has been [ReliCSS](https://www.alwaystwisted.com/relicss/). It detects a ton of questionable CSS hacks including property hacks. These hacks were used in earlier times to target specific browsers and versions. For example, you could target IE6-7 specifically by writing `*font-size: 10px` or `_width: 100px` for IE 6 specifically. Are these property hacks still used in the wild?
 
 <BarChart
 title="Distribution of percentiles of total CSS atrules per website"
@@ -78,9 +111,20 @@ data={{
 formatter={format_percentage}
 />
 
-<!-- TODO: explain what each one is for (browserhacks.com) -->
+A quick explainer using data from [browserhacks.com](http://browserhacks.com/):
+
+- `*property`: IE 6/7
+- `_property`: IE 6
+- `/property`: IE 6/7
+- `#property`: IE 6/7
+- `+property`: IE 6/7
+- `$property`: IE 6/7
+
+This was going to be an uplifting article about the new era of CSS and great adoption rates of shiny new features but look a this monstrosity. Let's move on before it affects our mood.
 
 ### Vendor prefixed properties
+
+Slighty less disturbing than browser hacks but still a sign of the times and sometimes browser quirks: prefixes. A slightly more readable way of targeting specific browsers or rendering engines. Hopefully you don't author them by hand because tools like LightningCSS and PostCSS can handle these things for you.
 
 <BarChart
 title="Distribution of percentiles of total CSS custom properties per website"
@@ -93,6 +137,8 @@ data={{
 }}
 />
 
+The use of vendor prefixes for properties is not surprising. Many reset stylesheets include properties like `-webkit-text-size-adjust`, including the modern ones that everyone is posting on their blogs in 2026.
+
 <BarChart
 title="Distribution of percentiles of custom properties ratio"
 data={{
@@ -104,3 +150,5 @@ data={{
 }}
 formatter={format_percentage}
 />
+
+A closer look at what percentage of all properties is vendor prefixed tells a slightly reassuring story. Not many properties are prefixed.
