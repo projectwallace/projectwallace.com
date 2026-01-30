@@ -1,14 +1,15 @@
 <script lang="ts">
 	import SEO from '$components/Seo.svelte'
-	import Intro from './intro.svx'
-	import Accountability from './accountability.svx'
 	import Markdown from '$components/Markdown.svelte'
+	import Intro from './0-intro.md'
 	import Composition from './1-composition.svx'
 	import Atrules from './2-atrules.svx'
 	import Rules from './3-rules.svx'
 	import Selectors from './4-selectors.svx'
 	import Declarations from './5-declarations.svx'
 	import Values from './6-values.svx'
+	import Conclusion from './7-conclusion.md'
+	import Accountability from './8-accountability.md'
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
 	import Nav from '$components/stats/Nav.svelte'
@@ -26,7 +27,6 @@
 
 <Container size="3xl">
 	<!-- Disclaimer: data does not match Web Almanac because of different analyzer -->
-	<!-- AI disclaimer: no AI used for writing, only for generating SQL queries -->
 
 	<div class="the-css-selection">
 		<header>
@@ -53,6 +53,7 @@
 				<Declarations />
 				<Values />
 
+				<Conclusion />
 				<Accountability />
 			</Markdown>
 		</div>

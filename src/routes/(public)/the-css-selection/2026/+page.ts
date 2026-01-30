@@ -1,6 +1,6 @@
 import GithubSlugger from 'github-slugger'
 
-const svxModules = import.meta.glob('./*.svx', { query: '?raw', import: 'default', eager: true }) as Record<
+const svxModules = import.meta.glob('./*.{svx,md}', { query: '?raw', import: 'default', eager: true }) as Record<
 	string,
 	string
 >

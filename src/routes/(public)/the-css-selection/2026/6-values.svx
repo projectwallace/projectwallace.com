@@ -206,7 +206,7 @@ data={{
 
 ### Value resets
 
-Credits to Ana.
+Value resets are measured as declarations where any level of marging or padding is being set to `0`, with or without units. Resets are usually a code smell because you're overriding a value previously set and now it's 'in the way' and you need to do double work. That's a sign that something is wrong with your CSS composition or cascade setup.
 
 <BarChart
 title="Distribution of percentiles of total unique line-heights per website"
@@ -219,7 +219,11 @@ data={{
 }}
 />
 
+Luckily there's a small group of websites that seem to use the bare minimum but looking further down the graph we can see CSS resets quickly ramping up.
+
 ### Units
+
+Looking at how many unique CSS units are used is useful because you probably don't want to mix too many sorts of units to stay consistent. But there are also good reasons to not use the same unit for every single property so it's tradeoffs all the way down. How many units do websites actually use?
 
 <BarChart
 title="Distribution of percentiles of total unique units per website"
@@ -231,6 +235,8 @@ data={{
   "p90": 12,
 }}
 />
+
+This might be one of the least eventful graphs in the entire report. Not a lot of diversity of CSS units across the biggest percentiles. Things get more interesting when we look at adoption rates of specific units:
 
 <Bar
 items={[
@@ -276,3 +282,9 @@ enable_keyboard_navigation={false}
 node_type="rule"
 column_headers={['Unit', 'Adoption %']}
 />
+
+`px` remains ruler with some distance over `em` and `s` although I'm surprised `s` is actually that high on the list. It's even well above `rem`! Looking down the list we can see that `deg` is more used than `turn` (89.3% vs. 35.6%); `s` more than `ms` (91.5% vs. 56.7%); `cm` more than `mm` and `in` (7.19% vs. 1.18% vs. 1.08%). The list also shows that we've started using viewport and container units.
+
+<aside>
+<p>If you think that the list of units is incomplete: you're right. But since you're such an expert why don't you show off your units knowledge in our <a href="/css-units-game">CSS Units memory game</a>?</p>
+</aside>

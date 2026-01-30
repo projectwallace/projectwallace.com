@@ -12,7 +12,7 @@ To get a global idea of what we're looking at it's good to take a look at some n
 
 ### CSS Size
 
-How much CSS does a website ship to their users? For this we simply look at how large the string of CSS is.
+How much CSS does a website ship to their users? For this we simply look at how large the string of CSS is if we put it in one single blurb.
 
 <BarChart
 title="Stylesheet size distribution"

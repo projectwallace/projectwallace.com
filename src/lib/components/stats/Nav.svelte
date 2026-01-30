@@ -170,10 +170,10 @@
 				width: 3px;
 				background-color: var(--bg-700);
 			}
+
 			&::after {
 				border-color: var(--accent-400);
 			}
-
 			color: var(--accent-400);
 		}
 	}
