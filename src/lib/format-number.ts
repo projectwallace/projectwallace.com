@@ -11,5 +11,6 @@ export function format_number(number: number | string, { decimals = 3 } = {}) {
 }
 
 export function format_percentage(ratio: number, { decimals = 2 } = {}): string {
-	return `${format_number(ratio * 100, { decimals })}%`
+	const value = Math.round(ratio * 100 * Math.pow(10, decimals)) / Math.pow(10, decimals)
+	return `${format_number(value, { decimals })}%`
 }

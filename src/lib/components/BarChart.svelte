@@ -12,7 +12,7 @@
 	// Chart dimensions
 	const width = 928
 	const height = 384
-	const margin = { top: 30, right: 60, bottom: 60, left: 60 }
+	const margin = { top: 30, right: 60, bottom: 60, left: 70 }
 	const chartWidth = width - margin.left - margin.right
 	const chartHeight = height - margin.top - margin.bottom
 	const barWidth = 39.5
@@ -21,12 +21,10 @@
 	// Calculate scales - derived from data
 	const maxValue = $derived(Math.max(...Object.values(data)))
 	const yMax = $derived.by(() => {
-		// Handle case when all values are 0
-		if (maxValue === 0) {
-			return 1 // Use a default scale
-		}
 		// Determine rounding magnitude based on max value
-		if (maxValue < 1) {
+		if (maxValue === 0) {
+			return 1
+		} else if (maxValue < 1) {
 			return Math.ceil(maxValue * 10) / 10 // Round to nearest 0.1
 		} else if (maxValue <= 100) {
 			return Math.ceil(maxValue / 10) * 10 // Round to nearest 10
@@ -39,6 +37,11 @@
 
 	// Generate y-axis ticks with nice round numbers
 	const yTicks = $derived.by(() => {
+		// When all values are 0, only show a 0 tick
+		if (maxValue === 0) {
+			return [{ value: 0, y: chartHeight }]
+		}
+
 		// Calculate ideal step size
 		const idealStep = yMax / (numYTicks - 1)
 
@@ -52,7 +55,7 @@
 		const ticks = []
 		for (let value = 0; value <= yMax; value += step) {
 			const y = chartHeight - value * yScale
-			ticks.push({ value: Math.round(value), y })
+			ticks.push({ value, y })
 		}
 		return ticks
 	})
