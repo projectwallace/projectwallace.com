@@ -73,6 +73,30 @@
 
 			> header {
 				grid-column: 1 / -1;
+				position: relative;
+
+				@media (min-width: 66rem) {
+					&::before,
+					&::after {
+						content: '';
+						position: absolute;
+						aspect-ratio: 1;
+					}
+
+					&::after {
+						width: 6rem;
+						border: 4px solid var(--accent-700);
+						top: 1rem;
+						right: 17rem;
+					}
+
+					&::before {
+						top: 0;
+						right: 10rem;
+						width: 10rem;
+						border: 4px solid var(--bg-400);
+					}
+				}
 			}
 
 			.nav {
@@ -97,7 +121,7 @@
 	}
 
 	.subtitle {
-		color: var(--gray-300);
+		color: var(--fg-300);
 		font-size: var(--size-2xl);
 		margin-block: var(--space-6);
 	}

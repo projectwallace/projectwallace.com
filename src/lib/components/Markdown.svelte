@@ -205,7 +205,7 @@
 	}
 
 	:global(.markdown aside):not([class]) {
-		border: 2px solid var(--accent);
+		border: 2px solid var(--accent-800);
 		padding: var(--space-6) var(--space-5);
 	}
 
