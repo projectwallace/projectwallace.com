@@ -61,7 +61,7 @@ node_type="rule"
 column_headers={['Color format', 'Adoption %']}
 />
 
-[Raw data](/data/the-css-selection/2026/values.colors.formats.unique.stats.json)
+[Source data](/data/the-css-selection/2026/values.colors.formats.unique.stats.json)
 
 The top 7 is very much as expected but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev because apparently this and 4-character hex codes are baseline widely available since January 2020&hellip;
 
@@ -206,6 +206,15 @@ data={{
 }}
 />
 
+### Value browserhacks
+
+Unfortunately I have not broken down usage of value hacks properly but based on [the source data](/data/the-css-selection/2026/values.browserhacks.unique.stats.json) I can tell that two main types of value hacks are still commonly used in at least 5% of websites:
+
+1. `\9` is used to target IE 6-8
+2. `!ie` is used to target IE &lt;= 7 and acts as `!important` where the string after `!` can be anything
+
+Source: [browserhacks.com](http://browserhacks.com/#ie)
+
 ### Value resets
 
 Value resets are measured as declarations where any level of marging or padding is being set to `0`, with or without units. Resets are usually a code smell because you're overriding a value previously set and now it's 'in the way' and you need to do double work. That's a sign that something is wrong with your CSS composition or cascade setup.
@@ -285,7 +294,7 @@ node_type="rule"
 column_headers={['Unit', 'Adoption %']}
 />
 
-[Raw data](/data/the-css-selection/2026/values.units.unique.stats.json)
+[Source data](/data/the-css-selection/2026/values.units.unique.stats.json)
 
 `px` remains ruler with some distance over `em` and `s` although I'm surprised `s` is actually that high on the list. It's even well above `rem`! Looking down the list we can see that `deg` is more used than `turn` (89.3% vs. 35.6%); `s` more than `ms` (91.5% vs. 56.7%); `cm` more than `mm` and `in` (7.19% vs. 1.18% vs. 1.08%). The list also shows that we've started using viewport and container units.
 
