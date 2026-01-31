@@ -148,6 +148,12 @@
 		font-size: var(--size-2xl);
 	}
 
+	:global(.markdown h4) {
+		margin-block-start: var(--space-8);
+		font-size: var(--size-xl);
+		font-weight: var(--font-bold);
+	}
+
 	:global(.markdown > :is(p, #ID-HACK)) {
 		margin-top: var(--space-12);
 	}

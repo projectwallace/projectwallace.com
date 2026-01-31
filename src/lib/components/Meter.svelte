@@ -15,6 +15,7 @@
 		background: var(--_meter-bg);
 		height: var(--_meter-height);
 		vertical-align: middle;
+		min-inline-size: 1rem;
 	}
 
 	meter::-webkit-meter-bar {

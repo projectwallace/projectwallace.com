@@ -184,10 +184,69 @@ Uh-oh, not quite what I expected. Either everyone's progressive enhancement game
   At least someone is cramming {format_number(4858)} supports rules into their website. Go champ!
 </Award>
 
-### @import
+#### Unique @supports queries
 
-Adoption rate: {format_percentage(0.1804)}
-Baseline since: July 2015
+Even though we don't have a ton of `@supports` usage it's still fun to look at which unique queries are used most often. Note that this is not a normalized list of features, just unique values.
+
+<Bar
+items={[
+["(-webkit-mask-image:none) or (mask-image:none)) or (-webkit-mask-image:none)", 11.95813004878829],
+["(position:sticky)", 11.913140846196912],
+["(-webkit-touch-callout:inherit)", 9.88562744941214],
+["(position:-webkit-sticky) or (position:sticky)", 4.592897704550908],
+["not (container-type: inline-size)) or (not (selector(:has(*))", 3.356194513316804],
+["(-webkit-appearance:none)", 3.029272974486123],
+["(display:grid)", 2.519395345117172],
+["(-ms-ime-align:auto)", 2.209469727265456],
+["(-webkit-touch-callout:none)", 2.1174918019675277],
+["(-webkit-overflow-scrolling:touch)", 1.896544829240982],
+["(display: grid)", 1.4916420059185795],
+["(position: sticky)", 1.3956650403903064],
+["(padding:max(0px))", 1.3896664800447893],
+["(outline-offset:-3px)", 1.23770295129169],
+["(-webkit-touch-callout: none)", 1.2027113492761736],
+["(color:color-mix(in lab,red,red))", 1.0907382228265217],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@supports query', 'Adoption %']}
+/>
+
+[Raw data](/data/the-css-selection/2026/atrules.supports.unique.stats.json)
+
+#### @supports browserhacks
+
+Another creative use of `@supports`is to use it to target specific browsers. Again a table of non-normalized data, but look at what people are doing to be very specific. There are some really nasty ones in this list and I sure hope you're not actively taking part in this.
+
+<Bar
+items={[
+["(-webkit-appearance:none)", 3.029272974486123],
+["(-webkit-appearance:none) and (stroke-color:transparent)", 0.4998800287930896],
+["(-webkit-appearance: none)", 0.2889306566424058],
+["(-moz-appearance: meterbar)", 0.1789570503079261],
+["(font: -apple-system-body) and (-webkit-appearance: none) and (-webkit-hyphens: none)", 0.15196352875309926],
+["(hanging-punctuation:first) and (font:-apple-system-body) and (-webkit-appearance:none)", 0.09597696552827321],
+["(-moz-appearance:meterbar)", 0.08597936495241143],
+["(-webkit-appearance: none) and (stroke-color: transparent)", 0.0769815244341358],
+[
+"(-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)) or ((-moz-appearance:none) and (mask-type:alpha)",
+0.07398224426137727
+],
+["(-webkit-appearance: none) or (-moz-appearance: none)", 0.07198272414620491],
+["(-webkit-appearance:none) or (-moz-appearance:none)", 0.06098536351275694],
+["(font:-apple-system-body) and (-webkit-appearance:none)", 0.05698632328241222],
+["(hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none)", 0.04398944253379189]
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@supports query', 'Adoption %']}
+/>
+
+[Raw data](/data/the-css-selection/2026/atrules.supports.unique.stats.json)
+
+### @import
 
 If our previous atrule was used so little, let's hope this one is too! Using `@import` _usually_ is an anti-pattern unless you know what you're doing.
 

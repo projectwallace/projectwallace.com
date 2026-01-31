@@ -12,7 +12,8 @@
 <style>
 	.award {
 		margin-block: var(--space-12) var(--space-20);
-		width: fit-content;
+		width: auto;
+		max-width: min(36rem, 90%);
 		position: relative;
 		display: flow-root;
 
