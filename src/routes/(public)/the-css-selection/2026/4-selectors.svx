@@ -87,6 +87,8 @@ node_type="rule"
 column_headers={['Pseudo class', 'Adoption %']}
 />
 
+[Raw data](/data/the-css-selection/2026/selectors.pseudoClasses.unique.stats.json)
+
 The 2022 Almanac listed `:hover`, `:focus` and `:active` as their top 3 but look at this: `:where` made it into the top 3! It has been Baseline available since January 2021 but this would be a good time to give yourself a pat on the back if you are a spec writer or part of the CSS Working Group. And while you're patting: `:has` is used on 41% percent of websites (Baseline December 2023). That's even higher than `:is` clocking in at 36% (also baseline January 2021). It would be interesting to see if the use of `:matches` and `:any` will go down as we use `:is` more. Regardless, these look like rock solid adoption rates if you ask me. We know that adoption of CSS features usually takes a bit and seeing these new-ish ones up there makes you proud of the language.
 
 Looking further down the list we see `:empty` being used on 58% of websites. I find that surprising because I found it useful only on a handful of occasions.
@@ -111,8 +113,6 @@ data={{
 />
 
 Based on my own experience I find this number quite low. Most projects I've worked on have many more accessibility-focused selectors than this. Either everyone is setting their styles via regular class names (very valid) or we're not focusing on accessibility that much.
-
-<!-- Ratio is 0 across all percentiles. -->
 
 ### Vendor prefixes
 
@@ -184,6 +184,8 @@ enable_keyboard_navigation={false}
 node_type="rule"
 column_headers={['Specificity', 'Adoption %']}
 />
+
+[Raw data](/data/the-css-selection/2026/selectors.specificity.unique.stats.json)
 
 There's absolutely nothing notable about this adoption rate chart. This is to be expected. One item I want to highlight is the no. 4 position of `0,0,0`. This means that the high usage of `:where()` seems to translate to this chart as well, as well as it being very likely that most websites use the universal selector (`*`). The fun part is at the bottom (the list has {format_number(2876)} unique entries) where things definitely got out of hand.
 

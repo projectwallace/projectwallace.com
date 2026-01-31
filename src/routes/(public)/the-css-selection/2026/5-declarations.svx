@@ -59,11 +59,25 @@ formatter={format_percentage}
 
 I can honestly still say I'm pleased with that because I had expected a much worse data set.
 
-The maximum of `!important` found on a single website is {format_number(249021)}.
+The maximum of `!important` found on a single website is {format_number(249021)}. A small side note on the use of different notations of importants just because I found some of them hilarious:
+
+- `Important`
+- `!IMPORTANT`
+- `!impotant`
+- `!imporStant`
+- `!i`
+- `!imporatnt`
+- `!imPORTANT`
+- `!importan`
+- `!importantl`
+- `!imporant`
+- `!importnat`
+- `!imortant`
+- `!imprtant`
 
 ### Custom properties
 
-One of the great power-ups of CSS in the last decade was the addition of custom properties.
+One of the great power-ups of CSS in the last decade was the addition of custom properties. Finally we have our variables!
 
 <BarChart
 title="Distribution of percentiles of total CSS custom properties per website"
@@ -79,7 +93,7 @@ data={{
 It's slightly surprising that up to the 50th percentile custom properties aren't used at all. Looking at adoption rates of far newer functionalities I'd expect custom properties to have a higher adoption ratio. But once websites use them they use them _good_.
 
 <BarChart
-title="Distribution of percentiles of custom properties ratio"
+title="Distribution of percentiles of percentage of properties being custom properties"
 data={{
   "p10": 0,
   "p25": 0,
@@ -97,7 +111,7 @@ In terms of custom property ratios compared to the total amount of properties we
 A recent addition to our collective toolboxes has been [ReliCSS](https://www.alwaystwisted.com/relicss/). It detects a ton of questionable CSS hacks including property hacks. These hacks were used in earlier times to target specific browsers and versions. For example, you could target IE6-7 specifically by writing `*font-size: 10px` or `_width: 100px` for IE 6 specifically. Are these property hacks still used in the wild?
 
 <BarChart
-title="Distribution of percentiles of total CSS atrules per website"
+title="Distribution of percentiles of total property browserhacks per website"
 data={{
   "*property": 18.75149964008638 / 100,
   "_property": 3.5211549228185235 / 100,
@@ -125,7 +139,7 @@ This was going to be an uplifting article about the new era of CSS and great ado
 Slightly less disturbing than browser hacks but still a sign of the times and sometimes browser quirks: prefixes. A slightly more readable way of targeting specific browsers or rendering engines. Hopefully you don't author them by hand because tools like LightningCSS and PostCSS can handle these things for you.
 
 <BarChart
-title="Distribution of percentiles of total CSS custom properties per website"
+title="Distribution of percentiles of total vendor prefixed properties per website"
 data={{
   "p10": 6,
   "p25": 40,
@@ -138,7 +152,7 @@ data={{
 The use of vendor prefixes for properties is not surprising. Many reset stylesheets include properties like `-webkit-text-size-adjust`, including the modern ones that everyone is posting on their blogs in 2026.
 
 <BarChart
-title="Distribution of percentiles of custom properties ratio"
+title="Distribution of percentiles of percentage of properties having a prefix"
 data={{
   "p10": 0,
   "p25": 0.01,
@@ -149,4 +163,4 @@ data={{
 formatter={format_percentage}
 />
 
-A closer look at what percentage of all properties is vendor prefixed tells a slightly reassuring story. Not many properties are prefixed.
+A closer look at what percentage of all properties is vendor prefixed tells a slightly reassuring story. Not that many properties are prefixed.

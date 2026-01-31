@@ -95,9 +95,6 @@ The maximum ruleset size in our dataset was {format_number(128529)}.
 
 ### Rule nesting depth
 
-most common: 1
-award for max nesting: 37
-
 Developers love to nest CSS. For years we only had the option to nest media queries and some other atrules but with CSS Nesting entering in 2023 we can go _deep_. But do we? Is it still only territory for preprocessors/postprocessors? Or do we avoid it?
 
 <BarChart

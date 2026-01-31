@@ -61,6 +61,8 @@ node_type="rule"
 column_headers={['Color format', 'Adoption %']}
 />
 
+[Raw data](/data/the-css-selection/2026/values.colors.formats.unique.stats.json)
+
 The top 7 is very much as expected but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev because apparently this and 4-character hex codes are baseline widely available since January 2020&hellip;
 
 Further down the list we still HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
@@ -282,6 +284,8 @@ enable_keyboard_navigation={false}
 node_type="rule"
 column_headers={['Unit', 'Adoption %']}
 />
+
+[Raw data](/data/the-css-selection/2026/values.units.unique.stats.json)
 
 `px` remains ruler with some distance over `em` and `s` although I'm surprised `s` is actually that high on the list. It's even well above `rem`! Looking down the list we can see that `deg` is more used than `turn` (89.3% vs. 35.6%); `s` more than `ms` (91.5% vs. 56.7%); `cm` more than `mm` and `in` (7.19% vs. 1.18% vs. 1.08%). The list also shows that we've started using viewport and container units.
 

@@ -112,7 +112,8 @@
 	}
 
 	header {
-		margin-block: var(--space-24);
+		margin-block-start: var(--space-24);
+		margin-block-end: var(--space-36);
 	}
 
 	.author {
@@ -128,7 +129,7 @@
 
 	.nav {
 		position: sticky;
-		top: var(--space-4);
+		top: 0;
 		align-self: start;
 		overflow-y: auto;
 	}
@@ -138,6 +139,10 @@
 		font-size: var(--size-4xl);
 	}
 
+	:global(.markdown h2:first-of-type) {
+		margin-block-start: 0;
+	}
+
 	:global(.markdown h3) {
 		margin-block-start: var(--space-16);
 		font-size: var(--size-2xl);
@@ -145,5 +150,16 @@
 
 	:global(.markdown > :is(p, #ID-HACK)) {
 		margin-top: var(--space-12);
+	}
+
+	:global(.markdown :is(.scroller:has(table) + p:has(> a[href]), #ID-HACK)) {
+		max-width: none;
+		text-align: end;
+		margin-block-start: var(--space-2);
+		font-size: var(--size-base);
+
+		& a {
+			color: var(--fg-300);
+		}
 	}
 </style>
