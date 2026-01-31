@@ -2,7 +2,7 @@
 
 This article used the following methodology:
 
-- Use the [Majestic Million list](https://majestic.com/reports/majestic-million) to get the top ~100,000 website domains to scrape
+- Use the [Majestic Million list](https://majestic.com/reports/majestic-million) to get the top ~100,000 website domains to scrape although in practice it turned out to be more than 200,000 websites because a lot of them errored or blocked the scraper
 - Run a [CSS Scraper](https://github.com/nl-design-system/theme-wizard/tree/main/packages/css-scraper) [(v1.0.2)](https://github.com/nl-design-system/theme-wizard/releases/tag/%40nl-design-system-community%2Fcss-scraper%401.0.2) to get the CSS for the homepage of each of those domains
 - Use [@projectwallace/css-analyzer](https://github.com/projectwallace/css-analyzer) ([v7.6.3](https://github.com/projectwallace/css-analyzer/releases/tag/v7.6.3)) to analyze the CSS
 - Analysis is stored in a local SQLite database and SQL queries are used to gather unique values, medians, percentiles, min, max etc.
