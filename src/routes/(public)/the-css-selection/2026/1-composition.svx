@@ -15,7 +15,8 @@ To get a global idea of what we're looking at it's good to take a look at some n
 How much CSS does a website ship to their users? For this we simply look at how large the string of CSS is if we put it in one single blurb.
 
 <BarChart
-title="Stylesheet size distribution"
+title="Stylesheet size distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts of small at 32.6 kB. 25th percentile: 130 kB; 50th percentile: 309 kB; 75th percentile: 619 kB; 90th percentile: 1.12 MB."
 data={{
 "p10": 32559,
 "p25": 130357,
@@ -47,7 +48,8 @@ Because most (?) websites minify their CSS it's also relevant to look at the lin
 With that established, let's look at the numbers:
 
 <BarChart
-title="Stylesheet Source Lines of Code distribution"
+title="Source Lines of Code distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1,029. 25th percentile: 4,551; 50th percentile: 10,677; 75th percentile: 20,013; 90th percentile: 33,457."
 data={{
 	"p10": 1029,
 	"p25": 4551,
@@ -70,7 +72,8 @@ Imagine being that one site with {format_number(638214)} Source Lines of Code.
 One of my favorite metrics is [complexity](/blog/css-complexity). Using it besides the Source Lines of Code and file size gives a quick impression, even more when comparing the number between websites. Or different versions of the same website, like a staging environment and a production environment. This chart shows the total complexity of all the CSS on a page including that for complex selectors, property browserhacks, use of vendor prefixes and much more.
 
 <BarChart
-title="Stylesheet Source Lines of Code distribution"
+title="Stylesheet complexity distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 2,978. 25th percentile: 13,743; 50th percentile: 33,188; 75th percentile: 65,140; 90th percentile: 114,893."
 data={{
   "p10": 2978,
   "p25": 13743,
@@ -87,7 +90,8 @@ The distribution across percentiles here is pretty much the same as for lines of
 One contributor to file size is embedded content. A good portion of websites embed various types on content in their CSS, like encoded images or sometimes even entire WOFF2 files.
 
 <BarChart
-title="Embedded content sizes per percentile"
+title="Embedded content size distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th and 25th percentiles are both 0 bytes. 50th percentile: 2.23 kB; 75th percentile: 8.23 kB; 90th percentile: 36.6 kB."
 data={{
 	"p10": 0,
 	"p25": 0,
@@ -109,7 +113,8 @@ This is an interesting distribution because we can see both the 10th and 25th pe
 Another contributor to file size can be the presence of comments. Minifiers usually strip most comments but some remain, like copyright notices.
 
 <BarChart
-title="Stylesheet comment sizes per percentile"
+title="Comment size distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0 bytes. 25th percentile: 72 bytes; 50th percentile: 729 bytes; 75th percentile: 3.84 kB; 90th percentile: 11.4 kB."
 data={{
   "p10": 0,
   "p25": 72,

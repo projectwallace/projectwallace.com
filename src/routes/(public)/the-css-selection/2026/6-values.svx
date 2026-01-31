@@ -16,7 +16,8 @@ Let me start with a rather disappointing note about this chapter. Because analyz
 Unique colors are analyzed by looking at their string representation so `Red` is a different value than `red` and `#f00`. This is what is counted when we look at the metric like that:
 
 <BarChart
-title="Distribution of percentiles of total unique colors per website"
+title="Unique colors per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 26. 25th percentile: 77; 50th percentile: 164; 75th percentile: 278; 90th percentile: 408."
 data={{
   "p10": 26,
   "p25": 77,
@@ -72,7 +73,8 @@ Further down the list we still HSL(A) still beating OKLCH by some margin despite
 Apart from declaring custom `@font-face` families there's also the point of using actual families for your styling. How many unique families do websites use in their CSS?
 
 <BarChart
-title="Distribution of percentiles of total unique font-families per website"
+title="Unique font-families per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 3. 25th percentile: 6; 50th percentile: 12; 75th percentile: 20; 90th percentile: 33."
 data={{
   "p10": 3,
   "p25": 6,
@@ -89,7 +91,8 @@ This data actually overlaps quite well the use of [`@font-face`](#font-face) wit
 Similar to the color analysis we only compare font-sizes by their string representation so `1.2em` is not the same as `120%` in our analysis even though the browser will render them the same.
 
 <BarChart
-title="Distribution of percentiles of total unique font-sizes per website"
+title="Unique font-sizes per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 12. 25th percentile: 26; 50th percentile: 47; 75th percentile: 73; 90th percentile: 99."
 data={{
   "p10": 12,
   "p25": 26,
@@ -106,7 +109,8 @@ This table matches my expectations quite well but I'm always slightly surprised 
 Line-heights are often but not always set in combination with font-size and/or font-family so it is no surprise that this graph is similar in shape to the one of them but just lower in numbers.
 
 <BarChart
-title="Distribution of percentiles of total unique line-heights per website"
+title="Unique line-heights per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 5. 25th percentile: 15; 50th percentile: 28; 75th percentile: 46; 90th percentile: 66."
 data={{
   "p10": 5,
   "p25": 15,
@@ -121,7 +125,8 @@ data={{
 One metric that is under-analyzed but often used in design systems is the humble box-shadow. Not contributing to the box model, but it does play a role in branding and UX.
 
 <BarChart
-title="Distribution of percentiles of total unique box-shadows per website"
+title="Unique box-shadows per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1. 25th percentile: 5; 50th percentile: 17; 75th percentile: 34; 90th percentile: 60."
 data={{
   "p10": 1,
   "p25": 5,
@@ -136,7 +141,8 @@ data={{
 Like box-shadows, text-shadows can help with creative effects or even help [improve readability of text on top of images](https://css-tricks.com/design-considerations-text-images/#aa-floor-fade) (wow, that CSS-Tricks article is from 2014!).
 
 <BarChart
-title="Distribution of percentiles of total unique text-shadows per website"
+title="Unique text-shadows per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th and 25th percentiles are both 0. 50th percentile: 1; 75th percentile: 3; 90th percentile: 7."
 data={{
   "p10": 0,
   "p25": 0,
@@ -151,7 +157,8 @@ The use of text-shadows appears to be very limited. It makes me wonder why that 
 ### Z-indexes
 
 <BarChart
-title="Distribution of percentiles of total unique z-indexes per website"
+title="Unique z-indexes per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 2. 25th percentile: 10; 50th percentile: 18; 75th percentile: 28; 90th percentile: 38."
 data={{
   "p10": 2,
   "p25": 10,
@@ -166,7 +173,8 @@ data={{
 Oh, I wish that I could look into the actual values used for `animation-duration`. It would be very interesting to see what durations are used most so we could spark [a healthy debate](https://bsky.app/profile/vale.rocks/post/3mb6m6ggaos2l) on social media as to why everyone is wrong.
 
 <BarChart
-title="Distribution of percentiles of total unique animation durations per website"
+title="Unique animation durations per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1. 25th percentile: 6; 50th percentile: 12; 75th percentile: 19; 90th percentile: 29."
 data={{
   "p10": 1,
   "p25": 6,
@@ -183,7 +191,8 @@ At least we know that most websites don't use a lot of unique durations. Again, 
 Are `timing-function`s debated as heavily as durations? At least there are fewer unique values per website so perhaps this is less of an 'issue'?
 
 <BarChart
-title="Distribution of percentiles of total unique timing functions per website"
+title="Unique timing functions per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1. 25th percentile: 3; 50th percentile: 6; 75th percentile: 10; 90th percentile: 16."
 data={{
   "p10": 1,
   "p25": 3,
@@ -196,7 +205,8 @@ data={{
 ### Vendor prefixed values
 
 <BarChart
-title="Distribution of percentiles of total unique line-heights per website"
+title="Vendor prefixed values per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 4; 50th percentile: 20; 75th percentile: 76; 90th percentile: 199."
 data={{
   "p10": 0,
   "p25": 4,
@@ -220,7 +230,8 @@ Source: [browserhacks.com](http://browserhacks.com/#ie)
 Value resets are measured as declarations where any level of marging or padding is being set to `0`, with or without units. Resets are usually a code smell because you're overriding a value previously set and now it's 'in the way' and you need to do double work. That's a sign that something is wrong with your CSS composition or cascade setup.
 
 <BarChart
-title="Distribution of percentiles of total unique line-heights per website"
+title="Value resets per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 14. 25th percentile: 71; 50th percentile: 200; 75th percentile: 385; 90th percentile: 664."
 data={{
   "p10": 14,
   "p25": 71,
@@ -237,7 +248,8 @@ Luckily there's a small group of websites that seem to use the bare minimum but 
 Looking at how many unique CSS units are used is useful because you probably don't want to mix too many sorts of units to stay consistent. But there are also good reasons to not use the same unit for every single property so it's tradeoffs all the way down. How many units do websites actually use?
 
 <BarChart
-title="Distribution of percentiles of total unique units per website"
+title="Unique units per website distribution in percentiles"
+alt="A bar chart with 5 bars in a gentle upward trend. The 10th percentile starts at 4. 25th percentile: 7; 50th percentile: 9; 75th percentile: 11; 90th percentile: 12."
 data={{
   "p10": 4,
   "p25": 7,
@@ -299,5 +311,5 @@ column_headers={['Unit', 'Adoption %']}
 `px` remains ruler with some distance over `em` and `s` although I'm surprised `s` is actually that high on the list. It's even well above `rem`! Looking down the list we can see that `deg` is more used than `turn` (89.3% vs. 35.6%); `s` more than `ms` (91.5% vs. 56.7%); `cm` more than `mm` and `in` (7.19% vs. 1.18% vs. 1.08%). The list also shows that we've started using viewport and container units.
 
 <aside>
-<p>If you think that the list of units is incomplete: you're right. But since you're such an expert why don't you show off your units knowledge in our <a href="/css-units-game">CSS Units memory game</a>?</p>
+<p>If you think that this list of units is incomplete: you're right. But since you're such an expert why don't you show off your units knowledge in our <a href="/css-units-game">CSS Units memory game</a>?</p>
 </aside>

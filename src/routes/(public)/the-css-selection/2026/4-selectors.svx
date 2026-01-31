@@ -16,7 +16,8 @@ Love them or hate them, you need selectors to target the elements you want to ch
 Looking at the number of selectors in a stylesheet gives us a quick look into the magnitude of things.
 
 <BarChart
-title="Distribution of percentiles of total CSS selectors per website"
+title="Total selectors per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 272. 25th percentile: 1,391; 50th percentile: 3,660; 75th percentile: 7,335; 90th percentile: 12,607."
 data={{
   "p10": 272,
   "p25": 1391,
@@ -102,7 +103,8 @@ Looking further down the list we see `:empty` being used on 58% of websites. I f
 Accessibility selectors are attribute selectors that check for the presence of `[aria-*]` and `[role=*]`. These are interesting because they tell a little bit about how accessibility is baked into the CSS. It's never the complete story but it's interesting nonetheless.
 
 <BarChart
-title="Distribution of accessibility selectors per website"
+title="Accessibility selectors per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th and 25th percentiles are both 0. 50th percentile: 1; 75th percentile: 6; 90th percentile: 21."
 data={{
   "p10": 0,
   "p25": 0,
@@ -119,7 +121,8 @@ Based on my own experience I find this number quite low. Most projects I've work
 Sometimes we need to use non-standard selectors to select that one pesky thing in that one single browser. Think of `:-moz-focusring`, `::-webkit-scrollbar` or `::-webkit-file-upload-button`. Vendor prefixed selectors are usually taken care of by CSS toolchains where they take your modern authored CSS and add some prefixes where necessary based on the required browser support.
 
 <BarChart
-title="Distribution of total prefixed selectors per website"
+title="Vendor prefixed selectors per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 7; 50th percentile: 21; 75th percentile: 47; 90th percentile: 84."
 data={{
   "p10": 0,
   "p25": 7,
@@ -136,7 +139,8 @@ Data shows that there's not that many vendor prefixed selectors per website and 
 Our beloved metric: specificity. It's a shame Wes Bos isn't [butchering](https://syntax.fm/816?t=0:14:26) the pronunciation of this as much as he did before. Jokes aside, specificity is one of the most misunderstood concepts in CSS which is also a reason that so many people blogged about it and why online tools like [Polypane's Specificity Calculator](https://polypane.app/css-specificity-calculator/) exist. Some CSS analyzers get analysis wrong for specificity but luckily we don't so we can show cool stuff like this:
 
 <BarChart
-title="Distribution of percentiles of total unique CSS selector specificities per website"
+title="Unique selector specificities per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 12. 25th percentile: 22; 50th percentile: 39; 75th percentile: 58; 90th percentile: 83."
 data={{
   "p10": 12,
   "p25": 22,
@@ -200,7 +204,8 @@ There's one website shipping several <em>insane</em> selectors, up to 146,1546,1
 Most common selector complexity per website:
 
 <BarChart
-title="Distribution of percentiles of most common CSS selector complexity per website"
+title="Most common selector complexity per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 1. 75th percentile: 2; 90th percentile: 3."
 data={{
   "p10": 1,
   "p25": 1,
@@ -213,7 +218,8 @@ data={{
 Most selectors on most sites are simple selectors: only 1 or 2 parts to them. But what about the most complex selectors on any site?
 
 <BarChart
-title="Distribution of percentiles of maximum CSS selector complexity per website"
+title="Maximum selector complexity per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 8. 25th percentile: 12; 50th percentile: 16; 75th percentile: 22; 90th percentile: 29."
 data={{
   "p10": 8,
   "p25": 12,
@@ -234,7 +240,8 @@ A different picture. Even simple websites sometimes need more complex selectors 
 Selector combinators let you define relationships between your selectors. We often use the descendant combinator without thinking about it, but what about the others?
 
 <BarChart
-title="Distribution of percentiles of total CSS atrules per website"
+title="Combinator adoption rates"
+alt="A bar chart with 4 bars. Descendant combinator: 96.2%; child combinator: 90.2%; adjacent sibling combinator: 81.9%; general sibling combinator: 67.7%."
 data={{
   "(descendant)": 96.19591298088459 / 100,
   "> (child)": 90.23134447732544 / 100,

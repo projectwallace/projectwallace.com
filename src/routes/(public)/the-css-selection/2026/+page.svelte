@@ -26,8 +26,6 @@
 />
 
 <Container size="3xl">
-	<!-- Disclaimer: data does not match Web Almanac because of different analyzer -->
-
 	<div class="the-css-selection">
 		<header>
 			<Heading element="h1" size={0}>The CSS Selection</Heading>

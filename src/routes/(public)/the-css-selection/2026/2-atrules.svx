@@ -14,7 +14,8 @@ import Bar from '$components/stats/BarChart.svelte'
 Let's start by looking at how many atrules we're shipping. Not looking at which ones specifically, just count how many there are in total.
 
 <BarChart
-title="Distribution of percentiles of total CSS atrules per website"
+title="Total atrules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 8. 25th percentile: 58; 50th percentile: 173; 75th percentile: 394; 90th percentile: 740."
 data={{
   "p10": 8,
   "p25": 58,
@@ -59,7 +60,8 @@ Our versatile friend the media query. Always there to help with that responsive 
 Let's start by looking at how many of them are on the page at all:
 
 <BarChart
-title="Distribution of percentiles of total CSS @media atrules per website"
+title="@media atrules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 3. 25th percentile: 33; 50th percentile: 116; 75th percentile: 285; 90th percentile: 577."
 data={{
   "p10": 3,
   "p25": 33,
@@ -108,7 +110,8 @@ The `max-width` and `min-width` features are quite unexpectedly used on most web
 Baseline widely available since July 2015 it's hard to imagine these days that we had to embed images or use Flash to make our typography look great. Luckily `@font-face` has made our lives a lot easier. How much do we use it?
 
 <BarChart
-title="Distribution of percentiles of total CSS @font-face atrules per website"
+title="@font-face atrules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 3; 50th percentile: 8; 75th percentile: 19; 90th percentile: 48."
 data={{
   "p10": 0,
   "p25": 3,
@@ -125,7 +128,8 @@ Given the fact that you need multiple `@font-face` rules for every weight and it
 Continuing the making-our-website-pretty theme with a look at `@keyframes`. It's hard to imagine a wbsite withou tany kind of animation and `@keyframes` has been a cross-browser help with that since September 2015. Every website has at least one spinner nowadays, right?
 
 <BarChart
-title="Distribution of percentiles of total CSS @keyframes atrules per website"
+title="@keyframes atrules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 2; 50th percentile: 9; 75th percentile: 26; 90th percentile: 93."
 data={{
   "p10": 0,
   "p25": 2,
@@ -168,7 +172,8 @@ It looks like `@keyframes` do make things go spin round. `fa-spin` is a clear si
 This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we first only could check if a certain declaration was supported we now also can check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
 
 <BarChart
-title="Distribution of percentiles of total CSS @keyframes atrules per website"
+title="@supports atrules per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 0. 75th percentile: 3; 90th percentile: 6."
 data={{
   "p10": 0,
   "p25": 0,
@@ -251,7 +256,8 @@ column_headers={['@supports query', 'Adoption %']}
 If our previous atrule was used so little, let's hope this one is too! Using `@import` _usually_ is an anti-pattern unless you know what you're doing.
 
 <BarChart
-title="Distribution of percentiles of total CSS @import atrules per website"
+title="@import atrules per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th, 50th and 75th percentiles are all 0. 90th percentile: 1."
 data={{
   "p10": 0,
   "p25": 0,
@@ -304,7 +310,8 @@ column_headers={['@layer name', 'Adoption %']}
 ### @charset
 
 <BarChart
-title=""
+title="@charset atrules per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 0. 75th percentile: 1; 90th percentile: 2."
 data={{
   "p10": 0,
   "p25": 0,

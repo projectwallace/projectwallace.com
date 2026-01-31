@@ -5,9 +5,10 @@
 		data: Record<string, number>
 		formatter?: (value: number) => string
 		title: string
+		alt: string
 	}
 
-	let { data, formatter = format_number, title }: Props = $props()
+	let { data, formatter = format_number, title, alt }: Props = $props()
 
 	// Chart dimensions
 	const width = 928
@@ -78,12 +79,23 @@
 	)
 
 	let uid = $props.id()
+	let title_id = `${uid}-title`
+	let description_id = `${uid}-description`
 </script>
 
 <div class="bar-chart">
-	<div id={uid} class="chart-title">{title}</div>
+	<!-- Accessible title is in the SVG itself as title -->
+	<div id={title_id} class="chart-title" aria-hidden="true">{title}</div>
 
-	<svg xmlns="http://www.w3.org/2000/svg" class="chart" role="img" aria-labelledby={uid} viewBox="0 0 {width} {height}">
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		class="chart"
+		role="img"
+		aria-labelledby={`${title_id} ${description_id}`}
+		viewBox="0 0 {width} {height}"
+	>
+		<title id={title_id}>{title}</title>
+		<desc id={description_id}>{alt}</desc>
 		<g transform="translate({margin.left},{margin.top})">
 			<!-- Grid lines -->
 			<g class="grid" style="stroke: currentcolor; opacity: 0.2;" fill="none" text-anchor="end">

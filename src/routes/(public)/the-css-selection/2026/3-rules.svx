@@ -16,7 +16,8 @@ Each stylesheet consists of one or more rulesets or rules unless you only ship s
 Starting off with a simple but relevant metric: how many CSS rulesets are there per website analyzed?
 
 <BarChart
-title="Distribution of percentiles of total CSS rules per website"
+title="Total CSS rules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 224. 25th percentile: 1,119; 50th percentile: 2,802; 75th percentile: 5,420; 90th percentile: 9,118."
 data={{
   "p10": 224,
   "p25": 1119,
@@ -33,7 +34,8 @@ The maximum I could find was {format_number(210695)} rules on a single page.
 The most common amount of selectors on a rule is 1. For this metric we look at the maximum number of selectors found on a single rule.
 
 <BarChart
-title="Distribution of percentiles of maximum CSS selectors per rule per website"
+title="Maximum selectors per rule distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 6. 25th percentile: 13; 50th percentile: 32; 75th percentile: 70; 90th percentile: 90."
 data={{
   "p10": 6,
   "p25": 13,
@@ -50,7 +52,8 @@ The maximum number I could find was {format_number(128528)} selectors on a singl
 The most common amount of declarations is 1, but for this metric we'll look at the maximum amount of declarations in a single rule.
 
 <BarChart
-title="Distribution of percentiles of maximum CSS selectors per rule per website"
+title="Maximum declarations per rule distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 17. 25th percentile: 28; 50th percentile: 50; 75th percentile: 117; 90th percentile: 279."
 data={{
   "p10": 17,
   "p25": 28,
@@ -79,7 +82,8 @@ When you add up selectors and declarations you get the rule size.
 This metric helps draw attention to those rules that don't stand out for having many selectors or declarations but having a large total.
 
 <BarChart
-title="Distribution of percentiles of maximum CSS selectors per rule per website"
+title="Maximum rule size distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 21. 25th percentile: 48; 50th percentile: 74; 75th percentile: 137; 90th percentile: 352."
 data={{
   "p10": 21,
   "p25": 48,
@@ -98,7 +102,8 @@ The maximum ruleset size in our dataset was {format_number(128529)}.
 Developers love to nest CSS. For years we only had the option to nest media queries and some other atrules but with CSS Nesting entering in 2023 we can go _deep_. But do we? Is it still only territory for preprocessors/postprocessors? Or do we avoid it?
 
 <BarChart
-title="Distribution of percentiles of maximum CSS rule nesting per website"
+title="Maximum rule nesting depth distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 1. 75th and 90th percentile: 2."
 data={{
   "p10": 1,
   "p25": 1,
