@@ -24,16 +24,35 @@ data={{
 }}
 />
 
-Looks like most websites have that atrules well under control. With modern CSS there's a lot to control with atrules, like containers, media, keyframes, supports. You need a bunch of them to get a properly functioning website!
+Looks like most websites have that atrules well under control. With modern CSS there's a lot to control with atrules, like containers, media, keyframes, supports. You need a bunch of them to get a properly functioning website so let's dive into how we actually use the various atrules.
 
 <Award size={format_number(150825)}>
   Someone is getting their webmaster license revoked! Having {format_number(150825)} atrules on a single page is just&hellip; wild!
 </Award>
 
-### @media
+A quick look at the adoption rates of the various atrules that we will further analyze in this chapter.
 
-Adoption rate: {format_percentage(0.93061)}
-Baseline since: July 2015
+<Bar
+items={[
+['@media', 0.93061],
+['@font-face', 0.8562],
+['@keyframes', 0.8390],
+['@supports', 0.4457],
+['@charset', 0.3957],
+['@import', 0.1804],
+['@container', 0.0961],
+['@layer', 0.0271],
+['@property', 0.0267],
+].map(([value, count]) => ({value, count}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Atrule', 'Adoption %']}
+/>
+
+`@media` is the undisputed king of atrules (93%), closely followed by `@font-face` (85%) and `@keyframes` (83%). This seems like a very reasonable list of adoption rates. Let's look at the atrules in more detail.
+
+### @media
 
 Our versatile friend the media query. Always there to help with that responsive design, making that page print-ready or adjust the layout for the folks who love that extra dash of contrast. So many possibilities!
 
@@ -84,10 +103,7 @@ The `max-width` and `min-width` features are quite unexpectedly used on most web
 
 ### @font-face
 
-Adoption rate: {format_percentage(0.85615)}
-Baseline since: July 2015
-
-It's hard to imagine these days that we had to embed images or use Flash to make our typography look great. Luckily `@font-face` has made our lives a lot easier. How much do we use it?
+Baseline widely available since July 2015 it's hard to imagine these days that we had to embed images or use Flash to make our typography look great. Luckily `@font-face` has made our lives a lot easier. How much do we use it?
 
 <BarChart
 title="Distribution of percentiles of total CSS @font-face atrules per website"
@@ -100,14 +116,11 @@ data={{
 }}
 />
 
-Given the fact that you need multiple `@font-face` rules for every weight and italics it makes sense that the numbers here are like this. I had actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)? 😉
+Given the fact that you need multiple `@font-face` rules for every weight and italics it makes sense that the numbers here are as they are. I actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)? 😉
 
 ### @keyframes
 
-Adoption rate: {format_percentage(0.83898)}
-Baseline since: September 2015
-
-Continuing the making-our-website-pretty theme with a look at `@keyframes`. Every website has at least one spinner nowadays, right?
+Continuing the making-our-website-pretty theme with a look at `@keyframes`. It's hard to imagine a wbsite withou tany kind of animation and `@keyframes` has been a cross-browser help with that since September 2015. Every website has at least one spinner nowadays, right?
 
 <BarChart
 title="Distribution of percentiles of total CSS @keyframes atrules per website"
@@ -148,10 +161,7 @@ It looks like `@keyframes` do make things go spin round. `fa-spin` is a clear si
 
 ### @supports
 
-Adoption rate: {format_percentage(0.4457)}
-Baseline since: September 2015
-
-This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we first only could check if a certain declaration was supported we now also can check for the support of selectors, font-tech and font-format!
+This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we first only could check if a certain declaration was supported we now also can check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
 
 <BarChart
 title="Distribution of percentiles of total CSS @keyframes atrules per website"
@@ -188,18 +198,17 @@ data={{
 }}
 />
 
-Wow, job well done internet! At least 75% of websites don't use `@import` at all and even the top 90% has 1 `@import` at most.
+Wow, job well done internet! Only 18.04% of websites analyzed use `@import`. The 90th percentile only has 1 `@import` at most.
 
 <Award size={format_number(176)}>
-  There's always that one friend at the party taking it too far. Looking at you, web dev who included {format_number(176)} @import rules into their website.
+  There's always that one friend at the party taking it too far. Looking at you, web dev who included {format_number(176)} @import rules into their website. Let's get you into rehab, buddy. Party's over.
 </Award>
 
 For next year I'd be curious about the usage of layers, supports queries and media queries inside `@import` rules. This atrule is a [pretty versatile beast](https://www.projectwallace.com/blog/css-imports-are-awesome) and I wonder if we're taking full advantage of it when we use it.
 
 ### @layer
 
-Adoption rate: {format_percentage(0.0271)}
-Baseline since: March 2022
+Baseline widely available since March 2022 we can control our specificity and cascade more with `@layer`.
 
 <BarChart
 title=""
@@ -212,11 +221,13 @@ data={{
 }}
 />
 
+Compared to other charts this is a pretty bleak picture. But at least we found one website with&hellip; checks notes&hellip; {format_number(1100)} `@layer` atrules. A good that thing we're not tracking averages.
+
 <Award size={format_percentage(0.0271)}>
-	{format_percentage(0.0271)} of analyzed websites are using <code>@layer</code>.
+	{format_percentage(0.0271)} of analyzed websites use <code>@layer</code>.
 </Award>
 
-`@layer` has been baseline supported since March 2022. It's use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouraging patterns of developers using `@layer`. Especially `@legacy` seems like a trick that developers are using to incrementally modernize their codebase.
+`@layer` use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouraging patterns of developers using `@layer`. Especially `@layer legacy` seems like a trick that developers use to incrementally modernize their codebase. I've skipped some named layers at the bottom of the chart to I could include `<anonymous>`.
 
 <Bar
 items={[
@@ -230,6 +241,7 @@ items={[
 ["component", 0.1309685675437895],
 ["global", 0.09797648564344556],
 ["tokens", 0.09797648564344556],
+["<anonymous>", 0.04498920259137807],
 ].map(([value, count]) => ({value, count: count / 100}))}
 context="Atrule",
 enable_keyboard_navigation={false}
@@ -238,9 +250,6 @@ column_headers={['@layer name', 'Adoption %']}
 />
 
 ### @charset
-
-Adoption rate: {format_percentage(0.3957)}
-Baseline since: July 2015
 
 <BarChart
 title=""
@@ -253,7 +262,7 @@ data={{
 }}
 />
 
-Almost 40% of websites are using `@charset` and an overwhelming majority uses UTF-8 encoding. But what's interesting is that there's a pretty clear group using Chinese (`gb2312`), Japanese (`shift_jis`) and cyrillic (`windows-1251`) encodings. This proves that there's a real use-case for `@charset` even though most of us don't use it that often.
+Almost 40% of websites use `@charset` and an overwhelming majority uses UTF-8 encoding. It is interesting to see that there is a distinct group using Chinese (`gb2312`), Japanese (`shift_jis`) and Cyrillic (`windows-1251`) encodings. This proves that there is a real use-case for `@charset` even though most of us don't use it that often.
 
 <Bar
 items={[
@@ -273,8 +282,7 @@ column_headers={['Charset', 'Adoption %']}
 
 ### @container
 
-Adoption rate: {format_percentage(0.0961)}
-Baseline since: February 2023
+Almost 10% of websites using `@container` already (well, it has been Baseline since February 2023) is a pretty good number.
 
 <BarChart
 title=""
@@ -291,7 +299,7 @@ data={{
 	Just out of reach of appearing in the p90: <code>@container</code> is used on {format_percentage(0.0961)} of websites. Quite the adoption!
 </Award>
 
-Almost 10% of websites using `@container` already (well, it has been Baseline since February 2023) is a pretty good number. Looking at the names that are used there's no real pattern apart from the list of 8 hash-like gibberish names that appear in {format_percentage(0.0016)} of websites. Names like `wrapper`, `card` and `welcome-panel` speak more to the imagination.
+Looking at the names that are used there's no real pattern apart from the list of 8 hash-like gibberish names that appear in {format_percentage(0.0016)} of websites. Names like `wrapper`, `card` and `welcome-panel` speak more to the imagination.
 
 <Bar
 items={[
@@ -319,24 +327,30 @@ I wonder if the `media` container has anything to do with [the OG CSS Media Obje
 
 ### @property
 
-Adoption rate {format_percentage(0.0267)}
-Baseline since: July 2024
-
-<BarChart
-title=""
-data={{
-  "p10": 0,
-  "p25": 0,
-  "p50": 0,
-  "p75": 0,
-  "p90": 0,
-}}
-/>
-
 `@property` is Baseline Newly Available since July 2024 so it makes sense that most websites haven't picked it up yet. In that regard the current adoption ratio is already encouraging.
 
 <Award size={format_percentage(0.0267)}>
 	Only {format_percentage(0.0267)} of websites use <code>@property</code> which is not enough to make them show up in the percentiles chart. Maybe next year?
 </Award>
 
+<Bar
+items={[
+["--tw-border-style", 1.6286091338078863],
+["--tw-font-weight", 1.610613452771335],
+["--tw-leading", 1.532632168279613],
+["--tw-inset-ring-shadow", 1.5316324082220267],
+["--tw-inset-shadow", 1.5316324082220267],
+["--tw-ring-offset-color", 1.5316324082220267],
+["--tw-ring-offset-shadow", 1.5316324082220267],
+["--tw-ring-offset-width", 1.5316324082220267],
+["--tw-ring-shadow", 1.5316324082220267],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Property name', 'Adoption %']}
+/>
+
 After analyzing the most common `@property` names I found that by far the most popular were TailwindCSS property names like `--tw-border-style`, `--tw-font-weight` etc. with most of them having an adoption rate between 1.63% and 0.12%. After that is a huge list of `--x-[hash]` properties which seem to be entirely computer-generated. It doesn't really make sense to show the full chart here but it's an interesting observation. My conclusion is that the most common usage of `@property` seems to be tied to some kind of (CSS) framework.
+
+TODO: insert link to raw data

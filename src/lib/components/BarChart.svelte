@@ -80,81 +80,81 @@
 	let uid = $props.id()
 </script>
 
-<div id={uid} class="chart-title">{title}</div>
+<div class="bar-chart">
+	<div id={uid} class="chart-title">{title}</div>
 
-<svg xmlns="http://www.w3.org/2000/svg" class="chart" role="img" aria-labelledby={uid} viewBox="0 0 {width} {height}">
-	<g transform="translate({margin.left},{margin.top})">
-		<!-- Grid lines -->
-		<g class="grid" style="stroke: currentcolor; opacity: 0.2;" fill="none" text-anchor="end">
-			<path class="domain" stroke="currentColor" d="M{chart_width},{chart_height}H0V0H{chart_width}" />
-			{#each y_ticks as tick}
-				<g class="tick" opacity="1" transform="translate(0,{tick.y})">
-					<line stroke="currentColor" x2={chart_width} />
-				</g>
-			{/each}
-		</g>
+	<svg xmlns="http://www.w3.org/2000/svg" class="chart" role="img" aria-labelledby={uid} viewBox="0 0 {width} {height}">
+		<g transform="translate({margin.left},{margin.top})">
+			<!-- Grid lines -->
+			<g class="grid" style="stroke: currentcolor; opacity: 0.2;" fill="none" text-anchor="end">
+				<path class="domain" stroke="currentColor" d="M{chart_width},{chart_height}H0V0H{chart_width}" />
+				{#each y_ticks as tick}
+					<g class="tick" opacity="1" transform="translate(0,{tick.y})">
+						<line stroke="currentColor" x2={chart_width} />
+					</g>
+				{/each}
+			</g>
 
-		<!-- Y-axis -->
-		<g fill="none" text-anchor="end">
-			<path stroke="currentColor" d="M-6,{chart_height}H0V0H-6" />
-			{#each y_ticks as tick}
-				<g class="tick" opacity="1" transform="translate(0,{tick.y})">
-					<line stroke="currentColor" x2="-6" />
-					<text fill="currentColor" x="-9" dy="0.32em" class="axis-label">
-						{formatter(tick.value)}
-					</text>
-				</g>
-			{/each}
-		</g>
+			<!-- Y-axis -->
+			<g fill="none" text-anchor="end">
+				<path stroke="currentColor" d="M-6,{chart_height}H0V0H-6" />
+				{#each y_ticks as tick}
+					<g class="tick" opacity="1" transform="translate(0,{tick.y})">
+						<line stroke="currentColor" x2="-6" />
+						<text fill="currentColor" x="-9" dy="0.32em" class="axis-label">
+							{formatter(tick.value)}
+						</text>
+					</g>
+				{/each}
+			</g>
 
-		<!-- X-axis -->
-		<g transform="translate(0,{chart_height})" fill="none" text-anchor="middle">
-			<path stroke="currentColor" d="M0,6V0H{chart_width}V6" />
+			<!-- X-axis -->
+			<g transform="translate(0,{chart_height})" fill="none" text-anchor="middle">
+				<path stroke="currentColor" d="M0,6V0H{chart_width}V6" />
+				{#each bars as bar}
+					<g class="tick" opacity="1" transform="translate({bar.center_x},0)">
+						<line stroke="currentColor" y2="6" />
+						<text fill="currentColor" y="9" dy="0.7em" text-anchor="middle" class="axis-label">
+							{bar.label}
+						</text>
+					</g>
+				{/each}
+			</g>
+
+			<!-- Bars -->
 			{#each bars as bar}
-				<g class="tick" opacity="1" transform="translate({bar.center_x},0)">
-					<line stroke="currentColor" y2="6" />
-					<text fill="currentColor" y="9" dy="0.7em" text-anchor="middle" class="axis-label">
-						{bar.label}
-					</text>
-				</g>
+				<rect x={bar.x} y={bar.y} width={bar.width} height={bar.height} fill="currentColor" class="bar" />
+				<text x={bar.center_x} y={bar.y - 10} text-anchor="middle" fill="currentColor" class="bar-label">
+					{formatter(bar.value)}
+				</text>
 			{/each}
 		</g>
+	</svg>
 
-		<!-- Bars -->
-		{#each bars as bar}
-			<rect x={bar.x} y={bar.y} width={bar.width} height={bar.height} fill="currentColor" class="bar" />
-			<text x={bar.center_x} y={bar.y - 10} text-anchor="middle" fill="currentColor" class="bar-label">
-				{formatter(bar.value)}
-			</text>
-		{/each}
-	</g>
-</svg>
-
-<details>
-	<summary>View chart as table</summary>
-	<table>
-		<caption>{title}</caption>
-		<thead>
-			<tr>
-				<th scope="col">Percentile</th>
-				<th scope="col">Value</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each bars as bar}
+	<details>
+		<summary>View chart as table</summary>
+		<table>
+			<caption>{title}</caption>
+			<thead>
 				<tr>
-					<th scope="row">{bar.label}</th>
-					<td>{formatter(bar.value)}</td>
+					<th scope="col">Percentile</th>
+					<th scope="col">Value</th>
 				</tr>
-			{/each}
-		</tbody>
-	</table>
-</details>
+			</thead>
+			<tbody>
+				{#each bars as bar}
+					<tr>
+						<th scope="row">{bar.label}</th>
+						<td>{formatter(bar.value)}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</details>
+</div>
 
 <style>
 	.chart-title {
-		margin-block-start: var(--space-6);
-		margin-block-end: calc(var(--space-6) * -1);
 		text-transform: uppercase;
 		font-size: var(--size-sm);
 		font-weight: var(--font-bold);
