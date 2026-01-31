@@ -1,0 +1,226 @@
+[
+	["(-webkit-appearance:none)", 3.029272974486123],
+	["(-webkit-appearance:none) and (stroke-color:transparent)", 0.4998800287930896],
+	["(-webkit-appearance: none)", 0.2889306566424058],
+	["(-moz-appearance: meterbar)", 0.1789570503079261],
+	["(font: -apple-system-body) and (-webkit-appearance: none) and (-webkit-hyphens: none)", 0.15196352875309926],
+	["(hanging-punctuation:first) and (font:-apple-system-body) and (-webkit-appearance:none)", 0.09597696552827321],
+	["(-moz-appearance:meterbar)", 0.08597936495241143],
+	["(-webkit-appearance: none) and (stroke-color: transparent)", 0.0769815244341358],
+	[
+		"(-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)) or ((-moz-appearance:none) and (mask-type:alpha)",
+		0.07398224426137727
+	],
+	["(-webkit-appearance: none) or (-moz-appearance: none)", 0.07198272414620491],
+	["(-webkit-appearance:none) or (-moz-appearance:none)", 0.06098536351275694],
+	["(font:-apple-system-body) and (-webkit-appearance:none)", 0.05698632328241222],
+	["(hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none)", 0.04398944253379189],
+	[
+		"(-webkit-appearance:none) or (appearance:none)) or ((-moz-appearance:none) and (mask-type:alpha)",
+		0.02999280172758538
+	],
+	["(font: -apple-system-body) and (-webkit-appearance: none)", 0.02999280172758538],
+	["(-moz-appearance:meterbar) and (background-blend-mode:difference,normal)", 0.0289930416699992],
+	["(-webkit-appearance:none) and (not (stroke-color:transparent)", 0.025993761497240662],
+	["(-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)", 0.022994481324482126],
+	[
+		"(-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none)) or ((-moz-appearance: none) and (mask-type: alpha)",
+		0.012996880748620331
+	],
+	["(-webkit-appearance:none) and (display:flow-root)", 0.011997120691034152],
+	["(hanging-punctuation:first) and (-webkit-appearance:none)", 0.011997120691034152],
+	["(-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none)", 0.009997600575861793],
+	["(-webkit-appearance:none) and (not (-moz-appearance:none)", 0.009997600575861793],
+	[
+		"(-webkit-appearance:none) or (appearance:none) or ((-moz-appearance:none) and (mask-type:alpha)",
+		0.009997600575861793
+	],
+	["(-webkit-appearance:none)) and (stroke-color:transparent)", 0.009997600575861793],
+	[
+		"(-webkit-appearance:none) and (not (overflow:-webkit-marquee)) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)",
+		0.008997840518275613
+	],
+	["(-webkit-appearance:none) and (not(stroke-color:transparent)", 0.008997840518275613],
+	["(-webkit-appearance:none) and (stroke-color:transparent) and (not (anchor-name:--x)", 0.007998080460689434],
+	["(font:-apple-system-body) and (-webkit-appearance:none) and (-webkit-hyphens:none)", 0.005998560345517076],
+	["(-moz-appearance: meterbar) and (background-blend-mode: difference, normal)", 0.004998800287930896],
+	["(-webkit-appearance: none) and (not (stroke-color: transparent)", 0.004998800287930896],
+	[
+		"(-webkit-appearance: none) or (appearance: none) or ((-moz-appearance: none) and (mask-type: alpha)",
+		0.004998800287930896
+	],
+	["(-webkit-appearance:none) and (min-height:-webkit-fill-available)", 0.004998800287930896],
+	["(appearance: none) or (-webkit-appearance: none)", 0.004998800287930896],
+	[
+		"(-webkit-appearance: none) or (appearance: none)) or ((-moz-appearance: none) and (mask-type: alpha)",
+		0.003999040230344717
+	],
+	["(appearance: none) or (-webkit-appearance: none) or (-moz-appearance: none)", 0.003999040230344717],
+	["(hanging-punctuation: first) and (-webkit-appearance: none)", 0.003999040230344717],
+	[
+		"(pointer-events:none) and ((-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)",
+		0.003999040230344717
+	],
+	["(-webkit-appearance: none) and (shape-outside: none)", 0.002999280172758538],
+	[
+		"(-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none) or ((-moz-appearance: none) and (mask-type: alpha)",
+		0.002999280172758538
+	],
+	[
+		"(-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)) or (-moz-appearance:none)",
+		0.002999280172758538
+	],
+	["(-webkit-appearance:none)and(display:flow-root)", 0.002999280172758538],
+	["(-webkit-appearance:none)and(stroke-color:transparent)", 0.002999280172758538],
+	["(appearance: none) or (-moz-appearance: none) or (-webkit-appearance: none)", 0.002999280172758538],
+	[
+		"(font:-apple-system-body) and ((-webkit-appearance:none) or (-moz-appearance:none) or (-ms-appearance:none) or (appearance:none)",
+		0.002999280172758538
+	],
+	["not ((-webkit-appearance: none) or (appearance: none)", 0.002999280172758538],
+	[
+		"not ((hanging-punctuation:first) and (font:-apple-system-body) and (-webkit-appearance:none)",
+		0.002999280172758538
+	],
+	["not (-webkit-appearance:none)", 0.002999280172758538],
+	[
+		"(-moz-appearance: none) or ((-webkit-appearance: none) and (not (-moz-appearance: none)) and (not (text-size-adjust: none)",
+		0.0019995201151723585
+	],
+	["(-webkit-appearance: none) and (display: flow-root)", 0.0019995201151723585],
+	["(-webkit-appearance: none) and (not (-moz-appearance: none)", 0.0019995201151723585],
+	[
+		"(-webkit-appearance: none) and (not (-moz-appearance: none)) and (not (text-size-adjust: none)",
+		0.0019995201151723585
+	],
+	["(-webkit-appearance: none) and (not (-moz-appearance: none)) and (text-size-adjust: none)", 0.0019995201151723585],
+	["(-webkit-appearance: none) and (not (display: flex; gap: 1em)", 0.0019995201151723585],
+	[
+		"(-webkit-appearance: none) and (not (overflow: -webkit-marquee)) and (not (-ms-ime-align: auto)) and (not (-moz-appearance: none)",
+		0.0019995201151723585
+	],
+	[
+		"(-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none)) or (-webkit-appearance: none)",
+		0.0019995201151723585
+	],
+	[
+		"(-webkit-appearance:none) and (font-variant-caps:normal) and (not (-ms-accelerator:true)) and (not (overflow:-webkit-marquee)) and (not (-moz-appearance:none)) and (not (-webkit-tap-highlight-color:currentcolor)",
+		0.0019995201151723585
+	],
+	["(-webkit-appearance:none) and (not (--a:0)", 0.0019995201151723585],
+	[
+		"(-webkit-appearance:none) and (not (overflow:-webkit-marquee))\n    and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)",
+		0.0019995201151723585
+	],
+	["(-webkit-appearance:none) and (shape-outside:none)", 0.0019995201151723585],
+	[
+		"(-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)) or (-webkit-appearance:none)",
+		0.0019995201151723585
+	],
+	["(-webkit-appearance:none) or(-moz-appearance:none)", 0.0019995201151723585],
+	["(-webkit-appearance:none) or(-moz-appearance:none) or(appearance:none)", 0.0019995201151723585],
+	["(-webkit-hyphens:none) and (-webkit-appearance:none)", 0.0019995201151723585],
+	["(display:grid) and (-webkit-appearance:none)", 0.0019995201151723585],
+	[
+		"(pointer-events: none) and ((-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none)",
+		0.0019995201151723585
+	],
+	["not (-ms-ime-align:auto)) and (-webkit-appearance:none)", 0.0019995201151723585],
+	[
+		"not (-webkit-hyphens:none)) and (hanging-punctuation:first) and (font:-apple-system-body) and (-webkit-appearance:none)",
+		0.0019995201151723585
+	],
+	["(-moz-appearance:meterbar) and (display:flex)", 0.0009997600575861792],
+	["(-webkit-appearance: none) and (min-width: 992px)", 0.0009997600575861792],
+	["(-webkit-appearance: none) and (not (-webkit-touch-callout: none)", 0.0009997600575861792],
+	["(-webkit-appearance: none) and (not (display: grid)", 0.0009997600575861792],
+	["(-webkit-appearance: none) and (not (font: -apple-system-body)", 0.0009997600575861792],
+	[
+		"(-webkit-appearance: none) and (not (overflow: -webkit-marquee)) and (not (-ms-accelerator: true)) and (not (-moz-appearance: none)",
+		0.0009997600575861792
+	],
+	[
+		"(-webkit-appearance: none) and (not (overflow:-webkit-marquee)) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)",
+		0.0009997600575861792
+	],
+	["(-webkit-appearance: none) and (not (translate: none)", 0.0009997600575861792],
+	[
+		"(-webkit-appearance: none) and (not (translate: none)) and (-webkit-backdrop-filter: none) and (not (-moz-user-select: none)",
+		0.0009997600575861792
+	],
+	[
+		"(-webkit-appearance: none) or (-moz-appearance: none) or (appearance: none)) or (-moz-appearance: none)",
+		0.0009997600575861792
+	],
+	["(-webkit-appearance: none) or (-moz-appearance:none)", 0.0009997600575861792],
+	[
+		"(-webkit-appearance: none) or (appearance: none)) or ((-moz-appearance:none) and (mask-type:alpha)",
+		0.0009997600575861792
+	],
+	["(-webkit-appearance:none )", 0.0009997600575861792],
+	["(-webkit-appearance:none ) or (-moz-appearance:none ) or (appearance:none)", 0.0009997600575861792],
+	["(-webkit-appearance:none) and ((-webkit-shape-outside:none) or(shape-outside:none)", 0.0009997600575861792],
+	["(-webkit-appearance:none) and (font-stretch:normal) and (not (-ms-accelerator:true)", 0.0009997600575861792],
+	[
+		"(-webkit-appearance:none) and (font-variant-caps:normal) and (not (-ms-accelerator:true)) and (not (overflow:-webkit-marquee)) and (not (-moz-appearance:none)",
+		0.0009997600575861792
+	],
+	["(-webkit-appearance:none) and (not (appearance:none)", 0.0009997600575861792],
+	["(-webkit-appearance:none) and (not (overflow:-webkit-marquee)", 0.0009997600575861792],
+	[
+		"(-webkit-appearance:none) and (not (overflow:-webkit-marquee))\r\n\tand (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)",
+		0.0009997600575861792
+	],
+	[
+		"(-webkit-appearance:none) and (not (overflow:-webkit-marquee))\r\nand (not (-ms-accelerator:true)",
+		0.0009997600575861792
+	],
+	[
+		"(-webkit-appearance:none) and (not (overflow:-webkit-marquee)) and (not (-ms-ime-align:auto)) and (not (-moz-appearance:none)) and (not (background: -webkit-named-image(i))",
+		0.0009997600575861792
+	],
+	[
+		"(-webkit-appearance:none) and (not(overflow:-webkit-marquee)) and (not(-ms-ime-align:auto)) and (not(-moz-appearance:none)",
+		0.0009997600575861792
+	],
+	["(-webkit-appearance:none) and (padding-right:0px)", 0.0009997600575861792],
+	["(-webkit-appearance:none) and (stroke-color: transparent)", 0.0009997600575861792],
+	["(-webkit-appearance:none) and (stroke-color:transparent) and (-webkit-hyphens:none)", 0.0009997600575861792],
+	[
+		"(-webkit-appearance:none) or (-moz-appearance:none) or (-ms-appearance:none) or (appearance:none)",
+		0.0009997600575861792
+	],
+	["(-webkit-appearance:none) or (-webkit-touch-callout:none)", 0.0009997600575861792],
+	["(-webkit-appearance:none) or (appearance:none)) or (-moz-appearance:none)", 0.0009997600575861792],
+	[
+		"(-webkit-appearance:none) or(-moz-appearance:none) or(appearance:none)) or((-moz-appearance:none) and (mask-type:alpha))",
+		0.0009997600575861792
+	],
+	["(-webkit-touch-callout: none) and (-webkit-appearance: none)", 0.0009997600575861792],
+	["(-webkit-touch-callout: none) and (not (-webkit-appearance: none)", 0.0009997600575861792],
+	["(appearance:none) or (-moz-appearance:none) or (-webkit-appearance:none)", 0.0009997600575861792],
+	[
+		"(content-visibility:visible) and (hanging-punctuation:first) and (font:-apple-system-body) and (-webkit-appearance:none)",
+		0.0009997600575861792
+	],
+	["(flex-basis:max-content) and (-moz-appearance:meterbar)", 0.0009997600575861792],
+	["(font: -apple-system-body) and (-webkit-appearance: none)) or (-moz-appearance: none)", 0.0009997600575861792],
+	[
+		"(font:-apple-system-body) and ((-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)",
+		0.0009997600575861792
+	],
+	["(font:-apple-system-body) and ((-webkit-appearance:none) or (appearance:none)", 0.0009997600575861792],
+	[
+		"(hanging-punctuation:first) and (font:-apple-system-body) and (-webkit-appearance:none) and (max-width:767px)",
+		0.0009997600575861792
+	],
+	["(overflow-y:overlay) and (-webkit-appearance:none)", 0.0009997600575861792],
+	["(overflow: clip) or (-webkit-appearance: none)", 0.0009997600575861792],
+	["(position:sticky) and (display:grid) and (-webkit-appearance:none)", 0.0009997600575861792],
+	[
+		"not ((hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none)",
+		0.0009997600575861792
+	],
+	["not (-moz-appearance:button)) and (contain:paint) and (-webkit-appearance:none)", 0.0009997600575861792],
+	["not (-webkit-appearance: none)", 0.0009997600575861792]
+]

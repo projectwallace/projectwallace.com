@@ -330,7 +330,7 @@ I wonder if the `media` container has anything to do with [the OG CSS Media Obje
 `@property` is Baseline Newly Available since July 2024 so it makes sense that most websites haven't picked it up yet. In that regard the current adoption ratio is already encouraging.
 
 <Award size={format_percentage(0.0267)}>
-	Only {format_percentage(0.0267)} of websites use <code>@property</code> which is not enough to make them show up in the percentiles chart. Maybe next year?
+	Only {format_percentage(0.0267)} of websites use <code>@property</code> which is not enough to make them show up in a percentiles chart. Maybe next year?
 </Award>
 
 <Bar
