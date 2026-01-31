@@ -94,8 +94,6 @@ In terms of custom property ratios compared to the total amount of properties we
 
 ### Property browserhacks
 
-<!-- TODO: fix y-axis showing only "0%"  as labels -->
-
 A recent addition to our collective toolboxes has been [ReliCSS](https://www.alwaystwisted.com/relicss/). It detects a ton of questionable CSS hacks including property hacks. These hacks were used in earlier times to target specific browsers and versions. For example, you could target IE6-7 specifically by writing `*font-size: 10px` or `_width: 100px` for IE 6 specifically. Are these property hacks still used in the wild?
 
 <BarChart

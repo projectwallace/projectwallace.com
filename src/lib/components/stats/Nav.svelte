@@ -166,6 +166,8 @@
 
 		&[aria-current='true'],
 		&[aria-current='true'] {
+			color: light-dark(var(--accent-700), var(--accent-500));
+
 			&::before {
 				width: 3px;
 				background-color: var(--bg-700);
@@ -174,7 +176,6 @@
 			&::after {
 				border-color: var(--accent-400);
 			}
-			color: var(--accent-400);
 		}
 	}
 

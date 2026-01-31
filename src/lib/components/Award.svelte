@@ -12,9 +12,7 @@
 <style>
 	.award {
 		margin-block: var(--space-12) var(--space-20);
-		margin-inline: var(--space-8);
 		width: fit-content;
-		max-width: clamp(calc(100% - var(--space-16)), fit-content, 33rem);
 		position: relative;
 		display: flow-root;
 
@@ -38,12 +36,14 @@
 	.size {
 		font-size: var(--size-3xl);
 		font-weight: var(--font-ultrabold);
-		border: 4px solid var(--gray-400);
+		border: 4px solid var(--bg-500);
 		padding-block: var(--space-6);
 		padding-inline: var(--space-4);
 		float: left;
 		margin-inline-end: var(--space-8);
-		margin-block-end: var(--space-3);
+		margin-block-end: var(--space-1);
+		background-color: var(--bg-300);
+		position: relative;
 	}
 
 	.content {
