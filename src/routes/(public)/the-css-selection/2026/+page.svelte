@@ -14,6 +14,8 @@
 	import Heading from '$components/Heading.svelte'
 	import Nav from '$components/stats/Nav.svelte'
 	import avatar from '$lib/img/bartveneman.png'
+	// @ts-expect-error No type definitions for importing images
+	import Image from './og-image-the-css-selection-2026.png?w=1200'
 
 	let { data } = $props()
 	let nav = data.nav
@@ -23,6 +25,7 @@
 	title="The CSS Selection - 2026 Edition"
 	description="The CSS Selection shows real-world CSS usage from over 100,000 websites and looks at the most important metrics."
 	robots="noindex,nofollow"
+	image={Image}
 />
 
 <Container size="3xl">
@@ -117,6 +120,11 @@
 	.author {
 		display: flex;
 		gap: var(--space-4);
+	}
+
+	.author-avatar {
+		width: 25px;
+		height: 25px;
 	}
 
 	.subtitle {
