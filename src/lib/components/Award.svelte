@@ -43,7 +43,7 @@
 		float: left;
 		margin-inline-end: var(--space-8);
 		margin-block-end: var(--space-1);
-		background-color: var(--bg-300);
+		background-color: light-dark(var(--bg-200), var(--bg-300));
 		position: relative;
 	}
 

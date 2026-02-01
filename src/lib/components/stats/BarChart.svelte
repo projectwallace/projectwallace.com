@@ -140,6 +140,10 @@
 			background-color: var(--uneven-tr-bg);
 		}
 
+		&:nth-child(2n + 1) {
+			background-color: transparent;
+		}
+
 		&.clickable {
 			cursor: pointer;
 

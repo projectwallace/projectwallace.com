@@ -64,6 +64,15 @@
 		align-content: start;
 		gap: var(--space-6);
 
+		:global([data-theme='light']) & {
+			background-image: radial-gradient(circle at top, var(--teal-200), transparent 80%);
+
+			&:hover,
+			&:focus-within {
+				background-image: radial-gradient(circle at top, var(--teal-200), transparent 100%);
+			}
+		}
+
 		&:hover,
 		&:focus-within {
 			background-image: radial-gradient(circle at top, var(--teal-900), transparent 100%);

@@ -39,7 +39,11 @@
 	.heading-size-0 {
 		color: light-dark(var(--black), var(--white));
 		font-weight: var(--font-ultrabold);
-		font-size: var(--size-7xl);
+		font-size: var(--size-5xl);
+
+		@container (width > 44rem) {
+			font-size: var(--size-7xl);
+		}
 	}
 
 	h1,

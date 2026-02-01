@@ -25,13 +25,14 @@
 		},
 		{
 			title: 'CSS Games',
-			items: [{ title: 'CSS Units memory game', href: '/css-units-game' }]
+			items: [{ title: 'CSS Units memory', href: '/css-units-game' }]
 		},
 		{
 			title: 'Documentation',
 			items: [
 				{ href: '/docs', title: 'Docs' },
-				{ href: '/blog', title: 'Blog' }
+				{ href: '/blog', title: 'Blog' },
+				{ href: '/the-css-selection', title: 'The CSS Selection' }
 			]
 		},
 		{

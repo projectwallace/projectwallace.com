@@ -31,7 +31,9 @@
 <Container size="3xl">
 	<div class="the-css-selection">
 		<header>
-			<Heading element="h1" size={0}>The CSS Selection</Heading>
+			<div class="title">
+				<Heading element="h1" size={0}>The CSS Selection</Heading>
+			</div>
 			<p class="subtitle">The state of real-world CSS usage, 2026 edition.</p>
 			<p class="author">
 				<img class="author-avatar" src={avatar} alt="User avatar for Bart Veneman" width="25" height="25" />
@@ -64,7 +66,15 @@
 <style>
 	.the-css-selection {
 		display: grid;
-		column-gap: var(--space-24);
+		column-gap: var(--space-12);
+
+		@media (min-height: 33rem) {
+			column-gap: var(--space-16);
+		}
+
+		@media (min-height: 66rem) {
+			column-gap: var(--space-24);
+		}
 
 		@media (min-width: 44em) {
 			grid-template-columns: 1fr max-content;
@@ -112,8 +122,13 @@
 	}
 
 	header {
-		margin-block-start: var(--space-24);
-		margin-block-end: var(--space-36);
+		margin-block-start: var(--space-12);
+		margin-block-end: var(--space-20);
+
+		@media (min-height: 33rem) {
+			margin-block-start: var(--space-24);
+			margin-block-end: var(--space-36);
+		}
 	}
 
 	.author {
@@ -133,10 +148,12 @@
 	}
 
 	.nav {
-		position: sticky;
-		top: 0;
-		align-self: start;
-		overflow-y: auto;
+		@media (min-height: 33rem) {
+			position: sticky;
+			top: 0;
+			align-self: start;
+			overflow-y: auto;
+		}
 	}
 
 	:global(.markdown h2) {
