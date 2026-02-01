@@ -204,6 +204,8 @@ data={{
 
 ### Vendor prefixed values
 
+Sometimes even values have vendor prefixes, like selectors and properties do. Think of `background-image: -webkit-linear-gradient()` or `display: -ms-flexbox`.
+
 <BarChart
 title="Vendor prefixed values per website distribution in percentiles"
 alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 4; 50th percentile: 20; 75th percentile: 76; 90th percentile: 199."
