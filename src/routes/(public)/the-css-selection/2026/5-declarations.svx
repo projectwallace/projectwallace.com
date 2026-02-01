@@ -9,7 +9,7 @@ import Bar from '$components/stats/BarChart.svelte'
 
 ## Declarations
 
-Declarations are where we start to apply actual styles. So far we've only been selecting the conditions: the device properties, media types, support levels, container requirements. Now it's finally time to paint the pixels.
+Declarations are where we start to apply actual styles. So far we've only selected the conditions: the device properties, media types, support levels, container requirements. Now it's finally time to paint the pixels.
 
 ### Declaration totals
 
@@ -45,7 +45,7 @@ data={{
 }}
 />
 
-Compared to the totals in the section above I'm quite pleased that the majority of websites only use a respectable _number_ of importants. But what do the _ratios_ of important look like? What percentage of our declarations is marked as `!important`?
+Compared to the totals in the section above I'm happy to see that the majority of websites only use a respectable _number_ of importants. But what do the _ratios_ of important look like? What percentage of our declarations is marked as `!important`?
 
 <BarChart
 title="!important ratio per website distribution in percentiles"
@@ -59,8 +59,6 @@ data={{
 }}
 formatter={format_percentage}
 />
-
-I can honestly still say I'm pleased with that because I had expected a much worse data set.
 
 The maximum of `!important` found on a single website is {format_number(249021)}. A small side note on the use of different notations of importants just because I found some of them hilarious:
 
@@ -117,14 +115,14 @@ A recent addition to our collective toolboxes has been [ReliCSS](https://www.alw
 
 <BarChart
 title="Property browserhack adoption rates"
-alt="A bar chart with 6 bars. *property: 18.8%; _property: 3.5%; /property: 1.2%; #property: 0.3%; +property and $property are both near 0%."
+alt="A bar chart with 6 bars. *property: 18.8%; \_property: 3.5%; /property: 1.2%; #property: 0.3%; +property and $property are both near 0%."
 data={{
-  "*property": 18.75149964008638 / 100,
-  "_property": 3.5211549228185235 / 100,
-  "/property": 1.165720227145485 / 100,
-  "#property": 0.3129248980244741 / 100,
-  "+property": 0.0289930416699992 / 100,
-  "$property": 0.02499400143965448 / 100,
+"*property": 18.75149964008638 / 100,
+"\_property": 3.5211549228185235 / 100,
+"/property": 1.165720227145485 / 100,
+"#property": 0.3129248980244741 / 100,
+"+property": 0.0289930416699992 / 100,
+"$property": 0.02499400143965448 / 100,
 }}
 formatter={format_percentage}
 />
@@ -156,7 +154,7 @@ data={{
 }}
 />
 
-The use of vendor prefixes for properties is not surprising. Many reset stylesheets include properties like `-webkit-text-size-adjust`, including the modern ones that everyone is posting on their blogs in 2026.
+The use of vendor prefixes for properties is not surprising. Many reset stylesheets include properties like `-webkit-text-size-adjust`, including the modern ones that everyone is blogging about in 2026.
 
 <BarChart
 title="Vendor prefixed property ratio per website distribution in percentiles"

@@ -31,7 +31,7 @@ From my experience analyzing websites I expected the p90 and p75 to be a lot hig
 
 ### Pseudo classes
 
-One concept that I blatantly stole from the Web Almanac is their overview of popular pseudo classes. It offers an interesting look into adoption of newer pseudo classes and proportional use between classes.
+One concept I copied from the Web Almanac is their overview of popular pseudo classes. It offers an interesting look into adoption of newer pseudo classes and proportional use between classes.
 
 <Bar
 items={[
@@ -193,15 +193,13 @@ column_headers={['Specificity', 'Adoption %']}
 
 There's absolutely nothing notable about this adoption rate chart. This is to be expected. One item I want to highlight is the no. 4 position of `0,0,0`. This means that the high usage of `:where()` seems to translate to this chart as well, as well as it being very likely that most websites use the universal selector (`*`). The fun part is at the bottom (the list has {format_number(2876)} unique entries) where things definitely got out of hand.
 
-TODO: insert link to source data
-
 <Award size="146,1546,159">
 There's one website shipping several <em>insane</em> selectors, up to 146,1546,159 in specificity. Bramus van Damme taught us that <a href="https://www.bram.us/2023/02/21/255255255-is-the-highest-specificity/">specificity only goes up to 255,255,255</a> but apart from that, the fact that this exists is completely bonkers.
 </Award>
 
 ### Selector complexity
 
-Most common selector complexity per website:
+Selector complexity is an important metric next to measuring specificity. With the addition of `:where()` and `:is()` we can (no longer) rely on counting the individual parts of the specificity because these new pseudo classes nullify them. Therefore we look at how many parts the selector is made up of. Example: `:where(#reset-theme > *)` has a [specificity of `0,0,0`](</specificity-calculator?selectors=%3Awhere(%23reset-theme+%3E+*)>) it has a [complexity of 4](</selector-complexity?selector=%3Awhere(%23reset-theme+%3E+*)>).
 
 <BarChart
 title="Most common selector complexity per website distribution in percentiles"

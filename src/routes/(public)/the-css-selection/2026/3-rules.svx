@@ -9,7 +9,7 @@ import Bar from '$components/stats/BarChart.svelte'
 
 ## Rulesets
 
-Each stylesheet consists of one or more rulesets or rules unless you only ship some atrules, like the Google Font API does. They are the corner stone of how CSS works: one or more selectors and some declarations and you have yourself a ruleset. With that in mind let's see how most rulesets are constructed and used.
+Each stylesheet consists of one or more rulesets or rules unless you only ship some at-rules, like the Google Font API does. They are the cornerstone of how CSS works: one or more selectors and some declarations and you have yourself a ruleset. With that in mind let's see how most rulesets are constructed and used.
 
 ### Rules per page
 
@@ -99,7 +99,7 @@ The maximum ruleset size in our dataset was {format_number(128529)}.
 
 ### Rule nesting depth
 
-Developers love to nest CSS. For years we only had the option to nest media queries and some other atrules but with CSS Nesting entering in 2023 we can go _deep_. But do we? Is it still only territory for preprocessors/postprocessors? Or do we avoid it?
+Developers love to nest CSS. For years we only had the option to nest media queries and some other at-rules but with CSS Nesting entering in 2023 we can go _deep_. But do we? Is it still only territory for preprocessors/postprocessors? Or do we avoid it?
 
 <BarChart
 title="Maximum rule nesting depth distribution in percentiles"

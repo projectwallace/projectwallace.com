@@ -7,14 +7,14 @@ import Formula from '$components/Formula.svelte'
 import Bar from '$components/stats/BarChart.svelte'
 </script>
 
-## Atrules
+## At-rules
 
-### Atrule totals
+### At-rule totals
 
-Let's start by looking at how many atrules we're shipping. Not looking at which ones specifically, just count how many there are in total.
+Let's start by looking at how many at-rules we're shipping. Not looking at which ones specifically, just count how many there are in total.
 
 <BarChart
-title="Total atrules per website distribution in percentiles"
+title="Total at-rules per website distribution in percentiles"
 alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 8. 25th percentile: 58; 50th percentile: 173; 75th percentile: 394; 90th percentile: 740."
 data={{
   "p10": 8,
@@ -25,13 +25,13 @@ data={{
 }}
 />
 
-Looks like most websites have that atrules well under control. With modern CSS there's a lot to control with atrules, like containers, media, keyframes, supports. You need a bunch of them to get a properly functioning website so let's dive into how we actually use the various atrules.
+Looks like most websites have that at-rules well under control. With modern CSS there's a lot to control with at-rules, like containers, media, keyframes, supports. You need a bunch of them to get a properly functioning website so let's dive into how we actually use the various at-rules.
 
 <Award size={format_number(150825)}>
-  Someone is getting their webmaster license revoked! Having {format_number(150825)} atrules on a single page is just&hellip; wild!
+  Someone is getting their webmaster license revoked! Having {format_number(150825)} at-rules on a single page is just&hellip; wild!
 </Award>
 
-A quick look at the adoption rates of the various atrules that we will further analyze in this chapter.
+A quick look at the adoption rates of the various at-rules that we will further analyze in this chapter.
 
 <Bar
 items={[
@@ -51,7 +51,7 @@ node_type="rule"
 column_headers={['Atrule', 'Adoption %']}
 />
 
-`@media` is the undisputed king of atrules (93%), closely followed by `@font-face` (85%) and `@keyframes` (83%). This seems like a very reasonable list of adoption rates. Let's look at the atrules in more detail.
+`@media` is the undisputed king of at-rules (93%), closely followed by `@font-face` (85%) and `@keyframes` (83%). This seems like a very reasonable list of adoption rates. Let's look at the at-rules in more detail.
 
 ### @media
 
@@ -60,7 +60,7 @@ Our versatile friend the media query. Always there to help with that responsive 
 Let's start by looking at how many of them are on the page at all:
 
 <BarChart
-title="@media atrules per website distribution in percentiles"
+title="@media at-rules per website distribution in percentiles"
 alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 3. 25th percentile: 33; 50th percentile: 116; 75th percentile: 285; 90th percentile: 577."
 data={{
   "p10": 3,
@@ -71,7 +71,7 @@ data={{
 }}
 />
 
-Looking at the difference between this graph and the one above with atrule totals I think it's safe to say that the largest amount of atrules on a page would be `@media`. And that would make a ton of sense if you look at the versatility of it. So, what do we use it for actually?
+Looking at the difference between this graph and the one above with atrule totals I think it's safe to say that the largest amount of at-rules on a page would be `@media`. And that would make a ton of sense if you look at the versatility of it. So, what do we use it for actually?
 
 <Bar
 items={[
@@ -101,7 +101,7 @@ node_type="rule"
 column_headers={['Feature', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/atrules.media.features.unique.stats.json)
+[Source data](/data/the-css-selection/2026/at-rules.media.features.unique.stats.json)
 
 The `max-width` and `min-width` features are quite unexpectedly used on most websites (88% and 86%). I did not expect `prefers-reduced-motion` to have such a great adoption rate even though it's almost half of that of the top two. There are some other surprises here, like `forced-colors` being used a bunch more than `prefers-color-scheme`.
 
@@ -110,7 +110,7 @@ The `max-width` and `min-width` features are quite unexpectedly used on most web
 Baseline widely available since July 2015 it's hard to imagine these days that we had to embed images or use Flash to make our typography look great. Luckily `@font-face` has made our lives a lot easier. How much do we use it?
 
 <BarChart
-title="@font-face atrules per website distribution in percentiles"
+title="@font-face at-rules per website distribution in percentiles"
 alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 3; 50th percentile: 8; 75th percentile: 19; 90th percentile: 48."
 data={{
   "p10": 0,
@@ -121,14 +121,14 @@ data={{
 }}
 />
 
-Given the fact that you need multiple `@font-face` rules for every weight and italics it makes sense that the numbers here are as they are. I actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)? 😉
+Given the fact that you need multiple `@font-face` rules for every weight and italics it makes sense that the numbers here are as they are. I actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)?
 
 ### @keyframes
 
-Continuing the making-our-website-pretty theme with a look at `@keyframes`. It's hard to imagine a wbsite withou tany kind of animation and `@keyframes` has been a cross-browser help with that since September 2015. Every website has at least one spinner nowadays, right?
+Continuing the making-our-website-pretty theme with a look at `@keyframes`. It's hard to imagine a website without any kind of animation and `@keyframes` has been a cross-browser help with that since September 2015. Every website has at least one spinner nowadays, right?
 
 <BarChart
-title="@keyframes atrules per website distribution in percentiles"
+title="@keyframes at-rules per website distribution in percentiles"
 alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 2; 50th percentile: 9; 75th percentile: 26; 90th percentile: 93."
 data={{
   "p10": 0,
@@ -163,7 +163,7 @@ node_type="rule"
 column_headers={['@keyframes name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/atrules.keyframes.unique.stats.json)
+[Source data](/data/the-css-selection/2026/at-rules.keyframes.unique.stats.json)
 
 It looks like `@keyframes` do make things go spin round. `fa-spin` is a clear sign of [FontAwesome](https://github.com/FortAwesome/Font-Awesome/blob/16ac6af0d816e1b132bb2e3f06aa59a1bc5c6d23/css/fontawesome.css#L356-L363) being present. The `turn-off-visibility` seems to come from the [WordPress Gutenberg editor](https://github.com/WordPress/gutenberg/blob/07a15b4fc745d747435328bad84f0f4b74dfb489/packages/block-library/src/image/style.scss#L358) as well as the two `lightbox-zoom-*` keyframes.
 
@@ -172,7 +172,7 @@ It looks like `@keyframes` do make things go spin round. `fa-spin` is a clear si
 This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we first only could check if a certain declaration was supported we now also can check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
 
 <BarChart
-title="@supports atrules per website distribution in percentiles"
+title="@supports at-rules per website distribution in percentiles"
 alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 0. 75th percentile: 3; 90th percentile: 6."
 data={{
   "p10": 0,
@@ -218,11 +218,11 @@ node_type="rule"
 column_headers={['@supports query', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/atrules.supports.unique.stats.json)
+[Source data](/data/the-css-selection/2026/at-rules.supports.unique.stats.json)
 
 #### @supports browserhacks
 
-Another creative use of `@supports`is to use it to target specific browsers. Again a table of non-normalized data, but look at what people are doing to be very specific. There are some really nasty ones in this list and I sure hope you're not actively taking part in this.
+Another creative use of `@supports` is to use it to target specific browsers. Again a table of non-normalized data, but look at what people are doing to be very specific. There are some really nasty ones in this list and I sure hope you're not actively taking part in this.
 
 <Bar
 items={[
@@ -249,14 +249,14 @@ node_type="rule"
 column_headers={['@supports query', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/atrules.supports.unique.stats.json)
+[Source data](/data/the-css-selection/2026/at-rules.supports.unique.stats.json)
 
 ### @import
 
 If our previous atrule was used so little, let's hope this one is too! Using `@import` _usually_ is an anti-pattern unless you know what you're doing.
 
 <BarChart
-title="@import atrules per website distribution in percentiles"
+title="@import at-rules per website distribution in percentiles"
 alt="A bar chart with 5 bars. The 10th, 25th, 50th and 75th percentiles are all 0. 90th percentile: 1."
 data={{
   "p10": 0,
@@ -277,13 +277,13 @@ For next year I'd be curious about the usage of layers, supports queries and med
 
 ### @layer
 
-Baseline widely available since March 2022 we can control our specificity and cascade more with `@layer`.Compared to other atrules the adoption rate is quite low so it shows nothing on our percentiles chart. At least I found one website with&hellip; checks notes&hellip; {format_number(1100)} `@layer` atrules. A good that thing we're not tracking averages.
+Baseline widely available since March 2022 we can control our specificity and cascade more with `@layer`. Compared to other at-rules the adoption rate is quite low so it shows nothing on our percentiles chart. At least I found one website with&hellip; checks notes&hellip; {format_number(1100)} `@layer` at-rules. A good thing that we're not tracking averages.
 
 <Award size={format_percentage(0.0271)}>
 	{format_percentage(0.0271)} of analyzed websites use <code>@layer</code>.
 </Award>
 
-`@layer` use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouraging patterns of developers using `@layer`. Especially `@layer legacy` seems like a trick that developers use to incrementally modernize their codebase. I've skipped some named layers at the bottom of the chart to I could include `<anonymous>`.
+`@layer` use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouraging patterns of developers using `@layer`. Especially `@layer legacy` seems like a trick that developers use to incrementally modernize their codebase. I've skipped some named layers at the bottom of the chart so I could include `<anonymous>`.
 
 <Bar
 items={[
@@ -305,12 +305,12 @@ node_type="rule"
 column_headers={['@layer name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/atrules.layer.unique.stats.json)
+[Source data](/data/the-css-selection/2026/at-rules.layer.unique.stats.json)
 
 ### @charset
 
 <BarChart
-title="@charset atrules per website distribution in percentiles"
+title="@charset at-rules per website distribution in percentiles"
 alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 0. 75th percentile: 1; 90th percentile: 2."
 data={{
   "p10": 0,
@@ -339,7 +339,7 @@ node_type="rule"
 column_headers={['Charset', 'Adoption %']}
 />
 
-[Source data](static/data/the-css-selection/2026/atrules.charset.unique.stats.json)
+[Source data](static/data/the-css-selection/2026/at-rules.charset.unique.stats.json)
 
 ### @container
 
@@ -373,9 +373,9 @@ node_type="rule"
 column_headers={['Container name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/atrules.container.names.unique.stats.json)
+[Source data](/data/the-css-selection/2026/at-rules.container.names.unique.stats.json)
 
-I wonder if the `media` container has anything to do with [the OG CSS Media Object](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/). 🥰
+I wonder if the `media` container has anything to do with [the OG CSS Media Object](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/).
 
 ### @property
 
@@ -403,6 +403,6 @@ node_type="rule"
 column_headers={['Property name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/atrules.property.unique.stats.json)
+[Source data](/data/the-css-selection/2026/at-rules.property.unique.stats.json)
 
 After analyzing the most common `@property` names I found that by far the most popular were TailwindCSS property names like `--tw-border-style`, `--tw-font-weight` etc. with most of them having an adoption rate between 1.63% and 0.12%. After that is a huge list of `--x-[hash]` properties which seem to be entirely computer-generated. It doesn't really make sense to show the full chart here but it's an interesting observation. My conclusion is that the most common usage of `@property` seems to be tied to some kind of (CSS) framework.

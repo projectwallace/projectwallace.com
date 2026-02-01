@@ -227,7 +227,7 @@ Source: [browserhacks.com](http://browserhacks.com/#ie)
 
 ### Value resets
 
-Value resets are measured as declarations where any level of marging or padding is being set to `0`, with or without units. Resets are usually a code smell because you're overriding a value previously set and now it's 'in the way' and you need to do double work. That's a sign that something is wrong with your CSS composition or cascade setup.
+Value resets are measured as declarations where any level of margin or padding is set to `0` with or without units. Resets are usually a code smell because you're overriding a value previously set and now it's 'in the way' and you need to do double work. That's a sign that something is wrong with your CSS composition or cascade setup.
 
 <BarChart
 title="Value resets per website distribution in percentiles"
