@@ -154,7 +154,7 @@ data={{
 }}
 />
 
-The use of vendor prefixes for properties is not surprising. Many reset stylesheets include properties like `-webkit-text-size-adjust`, including the modern ones that everyone is blogging about in 2026.
+The use of vendor prefixes for properties is not surprising. Many reset stylesheets include properties like `-webkit-text-size-adjust`, including the [modern ones](https://vale.rocks/posts/css-reset) that [everyone](https://fokus.dev/tools/uaplus/) is blogging about in 2026.
 
 <BarChart
 title="Vendor prefixed property ratio per website distribution in percentiles"
