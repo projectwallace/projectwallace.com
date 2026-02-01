@@ -88,12 +88,12 @@
 						width: 6rem;
 						border: 4px solid var(--accent-700);
 						top: 1rem;
-						right: 17rem;
+						right: 7rem;
 					}
 
 					&::before {
 						top: 0;
-						right: 10rem;
+						right: 0rem;
 						width: 10rem;
 						border: 4px solid var(--bg-400);
 					}

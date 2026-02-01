@@ -30,7 +30,7 @@
 
 		function update() {
 			// Find the last heading that has scrolled past the top of the viewport
-			let currentId: string | null = null
+			let currentId: string | undefined
 			for (const id of sectionIds) {
 				const el = document.getElementById(id)
 				if (el && el.getBoundingClientRect().top <= 100) {

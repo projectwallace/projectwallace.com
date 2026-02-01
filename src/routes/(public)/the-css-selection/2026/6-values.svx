@@ -13,7 +13,7 @@ Let me start with a rather disappointing note about this chapter. Because analyz
 
 ### Colors
 
-Unique colors are analyzed by looking at their string representation so `Red` is a different value than `red` and `#f00`. This is what is counted when we look at the metric like that:
+Unique colors are analyzed by looking at their string representation so `Red` is a different value than `red` and `#f00`. From a design systems perspective counting like this makes sense because you want all your colors to be uniform and coming from the same, single source of truth. This is what is counted when we look at the metric like that:
 
 <BarChart
 title="Unique colors per website distribution in percentiles"

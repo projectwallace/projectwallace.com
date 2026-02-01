@@ -14,7 +14,7 @@ type NavItem = {
 export function load() {
 	const slugger = new GithubSlugger()
 	const nav: NavItem[] = []
-	let currentH2: NavItem | null = null
+	let currentH2: NavItem | undefined = undefined
 
 	// Sort files to match the import order in +page.svelte
 	const sortedFiles = Object.keys(svxModules).sort()
