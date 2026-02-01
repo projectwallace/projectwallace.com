@@ -147,7 +147,7 @@
 
 	:global(.markdown :where(:any-link)),
 	:global(.markdown :where(:any-link code)) {
-		color: light-dark(var(--accent-700), var(--accent-300));
+		color: light-dark(var(--accent-800), var(--accent-300));
 		text-decoration: underline;
 		text-decoration-color: light-dark(var(--accent-700), var(--accent-300));
 		font-size: 1em;

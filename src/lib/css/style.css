@@ -397,7 +397,7 @@
 			display: inline-block;
 			margin-right: 1ch;
 			margin-left: 1ch;
-			color: light-dark(var(--accent-700), var(--accent-300));
+			color: light-dark(var(--accent-800), var(--accent-300));
 			padding-inline: .5ch;
 		}
 
@@ -430,7 +430,7 @@
 				--highlight-property: light-dark(var(--blue-400), var(--blue-100));
 				--highlight-number: light-dark(var(--blue-300), var(--blue-200));
 				--highlight-string: light-dark(var(--orange-400), var(--orange-300));
-				--highlight-name: light-dark(var(--purple-500), var(--purple-200));
+				--highlight-name: light-dark(var(--purple-600), var(--purple-200));
 				--highlight-selector: light-dark(var(--green-500), var(--teal-400));
 				--highlight-comment: var(--fg-400);
 				--highlight-value: var(--fg-200);

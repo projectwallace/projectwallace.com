@@ -165,7 +165,7 @@
 	.announcement {
 		background-color: var(--bg-100);
 		font-family: var(--font-body);
-		background-image: radial-gradient(circle at top, var(--teal-900), transparent 80%);
+		background-image: radial-gradient(circle at top, light-dark(var(--teal-200), var(--teal-900)), transparent 80%);
 		background-repeat: no-repeat;
 		border: 0.2rem solid var(--accent-400);
 		padding-block: var(--space-8);
