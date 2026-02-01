@@ -1,7 +1,16 @@
 <script>
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
+	import SEO from '$components/Seo.svelte'
+	import Image from './2026/og-image-the-css-selection-2026.png'
 </script>
+
+<SEO
+	title="The CSS Selection"
+	description="The CSS Selection shows real-world CSS usage from over 100,000 websites and looks at the most important metrics."
+	robots="noindex,nofollow"
+	image={Image}
+/>
 
 <Container size="xl">
 	<header>
@@ -72,10 +81,10 @@
 	}
 
 	.card-year {
-		font-size: var(--size-7xl);
+		font-size: var(--size-8xl);
 		font-family: var(--font-display);
 		font-weight: 500;
-		margin-block-start: var(--space-4);
+		margin-block-start: var(--space-6);
 	}
 
 	.card-title {
@@ -95,13 +104,6 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-	}
-
-	.card-subtitle {
-		font-weight: var(--font-medium);
-		font-size: var(--size-2xl);
-		color: var(--fg-300);
-		margin: 0;
 	}
 
 	.card-stats {

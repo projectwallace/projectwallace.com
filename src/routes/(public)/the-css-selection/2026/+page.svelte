@@ -63,12 +63,10 @@
 
 <style>
 	.the-css-selection {
-		font-size: 100%;
 		display: grid;
 		column-gap: var(--space-24);
 
 		@media (min-width: 44em) {
-			font-size: 120%;
 			grid-template-columns: 1fr max-content;
 			position: relative;
 
@@ -108,6 +106,7 @@
 			.content {
 				grid-row: 2;
 				grid-column: 1;
+				font-size: 120%;
 			}
 		}
 	}
