@@ -25,7 +25,7 @@ data={{
 }}
 />
 
-Looks like most websites have that at-rules well under control. With modern CSS there's a lot to control with at-rules, like containers, media, keyframes, supports. You need a bunch of them to get a properly functioning website so let's dive into how we actually use the various at-rules.
+Looks like most websites have their at-rules well under control. With modern CSS there's a lot to control with at-rules, like containers, media, keyframes and supports. You need a bunch of them to get a properly functioning website, so let's dive into how we actually use the various at-rules.
 
 <Award size={format_number(150825)}>
   Someone is getting their webmaster license revoked! Having {format_number(150825)} at-rules on a single page is just&hellip; wild!
@@ -55,7 +55,7 @@ column_headers={['Atrule', 'Adoption %']}
 
 ### @media
 
-Our versatile friend the media query. Always there to help with that responsive design, making that page print-ready or adjust the layout for the folks who love that extra dash of contrast. So many possibilities!
+Our versatile friend the media query: always there to help with that responsive design, making that page print-ready or adjusting the layout for the folks who love that extra dash of contrast. So many possibilities!
 
 Let's start by looking at how many of them are on the page at all:
 
@@ -71,7 +71,7 @@ data={{
 }}
 />
 
-Looking at the difference between this graph and the one above with atrule totals I think it's safe to say that the largest amount of at-rules on a page would be `@media`. And that would make a ton of sense if you look at the versatility of it. So, what do we use it for actually?
+Looking at the difference between this graph and the one above with at-rule totals, I think it's safe to say that the largest amount of at-rules on a page would be `@media`. And that would make a ton of sense if you look at the versatility of it. So, what do we use it for actually?
 
 <Bar
 items={[
@@ -107,7 +107,7 @@ The `max-width` and `min-width` features are quite unexpectedly used on most web
 
 ### @font-face
 
-Baseline widely available since July 2015 it's hard to imagine these days that we had to embed images or use Flash to make our typography look great. Luckily `@font-face` has made our lives a lot easier. How much do we use it?
+With font-face Baseline widely available since July 2015, it's hard to imagine the days that we had to embed images or use Flash to make our typography look great. Luckily, `@font-face` has made our lives a lot easier. How much do we use it?
 
 <BarChart
 title="@font-face at-rules per website distribution in percentiles"
@@ -121,7 +121,7 @@ data={{
 }}
 />
 
-Given the fact that you need multiple `@font-face` rules for every weight and italics it makes sense that the numbers here are as they are. I actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)?
+Given the fact that you need multiple `@font-face` rules for every weight and italics, it makes sense that the numbers here are as they are. I actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)?
 
 ### @keyframes
 
@@ -165,11 +165,11 @@ column_headers={['@keyframes name', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/at-rules.keyframes.unique.stats.json)
 
-It looks like `@keyframes` do make things go spin round. `fa-spin` is a clear sign of [FontAwesome](https://github.com/FortAwesome/Font-Awesome/blob/16ac6af0d816e1b132bb2e3f06aa59a1bc5c6d23/css/fontawesome.css#L356-L363) being present. The `turn-off-visibility` seems to come from the [WordPress Gutenberg editor](https://github.com/WordPress/gutenberg/blob/07a15b4fc745d747435328bad84f0f4b74dfb489/packages/block-library/src/image/style.scss#L358) as well as the two `lightbox-zoom-*` keyframes.
+It looks like `@keyframes` do make things spin around. `fa-spin` is a clear sign of [FontAwesome](https://github.com/FortAwesome/Font-Awesome/blob/16ac6af0d816e1b132bb2e3f06aa59a1bc5c6d23/css/fontawesome.css#L356-L363) being present. The `turn-off-visibility` seems to come from the [WordPress Gutenberg editor](https://github.com/WordPress/gutenberg/blob/07a15b4fc745d747435328bad84f0f4b74dfb489/packages/block-library/src/image/style.scss#L358) as well as the two `lightbox-zoom-*` keyframes.
 
 ### @supports
 
-This atrule is still evolving into something better even though it has been in our toolbox for quite a while now (baseline since September 2015!). Where we first only could check if a certain declaration was supported we now also can check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
+This at-rule is still evolving into something better even though it has been in our toolbox for quite a while now (Baseline since September 2015!). Where we first only could check if a certain declaration was supported, we now also can check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
 
 <BarChart
 title="@supports at-rules per website distribution in percentiles"
@@ -183,7 +183,7 @@ data={{
 }}
 />
 
-Uh-oh, not quite what I expected. Either everyone's progressive enhancement game is top notch or we're missing out big time on some quality of life improvements. I really wonder why the adoption rate of `@supports` is this low. An underrated tool, it seems.
+Uh-oh, not quite what I expected. Either everyone's progressive enhancement game is top-notch or we're missing out big time on some quality of life improvements. I really wonder why the adoption rate of `@supports` is this low. An underrated tool, it seems.
 
 <Award size={format_number(4858)}>
   At least someone is cramming {format_number(4858)} supports rules into their website. Go champ!
@@ -191,7 +191,7 @@ Uh-oh, not quite what I expected. Either everyone's progressive enhancement game
 
 #### Unique @supports queries
 
-Even though we don't have a ton of `@supports` usage it's still fun to look at which unique queries are used most often. Note that this is not a normalized list of features, just unique values.
+Even though we don't have a ton of `@supports` usage, it's still fun to look at which unique queries are used most often. Note that this is not a normalized list of features, just unique values.
 
 <Bar
 items={[
@@ -222,7 +222,7 @@ column_headers={['@supports query', 'Adoption %']}
 
 #### @supports browserhacks
 
-Another creative use of `@supports` is to use it to target specific browsers. Again a table of non-normalized data, but look at what people are doing to be very specific. There are some really nasty ones in this list and I sure hope you're not actively taking part in this.
+Another creative use of `@supports` is to use it to target specific browsers. Again, a table of non-normalized data, but look at what people are doing to be very specific. There are some really nasty ones in this list, and I sure hope you're not actively taking part in this.
 
 <Bar
 items={[
@@ -253,7 +253,7 @@ column_headers={['@supports query', 'Adoption %']}
 
 ### @import
 
-If our previous atrule was used so little, let's hope this one is too! Using `@import` _usually_ is an anti-pattern unless you know what you're doing.
+If our previous at-rule was used so little, let's hope this one is too! Using `@import` is _usually_ an anti-pattern unless you know what you're doing.
 
 <BarChart
 title="@import at-rules per website distribution in percentiles"
@@ -273,7 +273,7 @@ Wow, job well done internet! Only 18.04% of websites analyzed use `@import`. The
   There's always that one friend at the party taking it too far. Looking at you, web dev who included {format_number(176)} @import rules into their website. Let's get you into rehab, buddy. Party's over.
 </Award>
 
-For next year I'd be curious about the usage of layers, supports queries and media queries inside `@import` rules. This atrule is a [pretty versatile beast](https://www.projectwallace.com/blog/css-imports-are-awesome) and I wonder if we're taking full advantage of it when we use it.
+For next year I'd be curious about the usage of layers, supports queries and media queries inside `@import` rules. This at-rule is a [pretty versatile beast](https://www.projectwallace.com/blog/css-imports-are-awesome), and I wonder if we're taking full advantage of it when we use it.
 
 ### @layer
 

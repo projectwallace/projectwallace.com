@@ -14,13 +14,8 @@ After spending dozens of hours analyzing and writing these chapters I found that
 
 ### Acknowledgements
 
-This articlee would not have existed without the prior work of all those who contributed to the Web Almanac CSS chapter over the years. Your work is invaluable and let's hope we will get an updated CSS chapter this year.
+This article would not have existed without the prior work of all those who contributed to the Web Almanac CSS chapter over the years. Your work is invaluable and let's hope we will get an updated CSS chapter this year.
 
-TODO: proofreaders
+[Declan Chidlow (vale.rocks)](https://vale.rocks) helped out by meticulously reviewing this article and schooling me in how to write properly. Thank you for that. Go check out that blog, it's awesome.
 
-Go check out their blogs, they're awesome.
-
-TODO: A big thanks to our sponsors who have made this first edition possible:
-
-1. TODO: Numero uno
-2. TODO: Numero dos
+A tremendous word of thanks to [Kilian](https://kilianvalkhof.com/) from [Polypane](https://polypane.app/) for sponsoring this inaugural edition of The CSS Selection. Your support means the world to me personally, because it encourages me to write about CSS more and to make better tools, like you do yourself. Folks, seriously, if you are not using Polypane yet, you're missing out.
