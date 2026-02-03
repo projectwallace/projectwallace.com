@@ -30,9 +30,9 @@ data={{
 
 From my experience analyzing websites, I expected the p90 and p75 to be a lot higher. I'm actually quite pleased with this distribution. Also, the top 10% of websites apparently have only 272 selectors or less, which is also surprising. This seems like a really low number to me.
 
-### Pseudo classes
+### Pseudo-classes
 
-One concept I copied from the Web Almanac is their overview of popular pseudo classes. It offers an interesting look into adoption of newer pseudo classes and proportional use between classes.
+One concept I copied from the Web Almanac is their overview of popular pseudo-classes. It offers an interesting look into adoption of newer pseudo-classes and proportional use between classes.
 
 <Bar
 items={[
@@ -86,17 +86,17 @@ items={[
 context="",
 enable_keyboard_navigation={false}
 node_type="rule"
-column_headers={['Pseudo class', 'Adoption %']}
+column_headers={['Pseudo-class', 'Adoption %']}
 />
 
 [Source data](/data/the-css-selection/2026/selectors.pseudoClasses.unique.stats.json)
 
-The 2022 Almanac listed `:hover`, `:focus` and `:active` as their top 3 but look at this: `:where` made it into the top 3! It has been Baseline available since January 2021, but this would be a good time to give yourself a pat on the back if you are a spec writer or part of the CSS Working Group. And while you're patting: `:has` is used on 41% percent of websites (Baseline December 2023). That's even higher than `:is`, clocking in at 36% (also Baseline January 2021). It would be interesting to see if the use of `:matches` and `:any` will go down as we use `:is` more. Regardless, these look like rock solid adoption rates if you ask me. We know that adoption of CSS features usually takes a bit and seeing these new-ish ones up there makes you proud of the language.
+The 2022 Almanac listed `:hover`, `:focus` and `:active` as their top 3, but look at this: `:where` made it into the top 3! It has been Baseline widely available since January 2021, but this would be a good time to give yourself a pat on the back if you are a spec writer, or part of the CSS Working Group. And while you're patting: `:has` is used on 41% percent of websites (Baseline newly available December 2023). That's even higher than `:is`, clocking in at 36% (also Baseline widely available January 2021). It would be interesting to see if the use of `:matches` and `:any` will go down, as we use `:is` more. Regardless, these look like rock-solid adoption rates, if you ask me. We know that adoption of CSS features usually takes a bit, and seeing these newish ones up there makes you proud of the language.
 
-Looking further down the list we see `:empty` being used on 58% of websites. I find that surprising because I found it useful only on a handful of occasions.
+Looking further down the list, we see `:empty` being used on 58% of websites. I find that surprising because I found it useful only on a handful of occasions.
 
 <aside>
-<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo classes even though they're actually pseudo elements. For backwards compatibility reasons, browsers allow you to write them with a single colon instead of two, and most CSS minifiers omit the optional colon. I kept them in this overview to see how often they are used.</p>
+<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo-classes even though they're actually pseudo-elements. For backwards compatibility reasons, browsers allow you to write them with a single colon instead of two, and most CSS minifiers omit the optional colon. I kept them in this overview to see how often they are used.</p>
 </aside>
 
 ### Accessibility
@@ -115,14 +115,14 @@ data={{
 }}
 />
 
-Based on my own experience I find this number quite low. Most projects I've worked on have many more accessibility-focused selectors than this. Either everyone is setting their styles via regular class names (very valid), or we're not focusing on accessibility that much.
+Based on my own experience, I find this number quite low. Most projects I've worked on have many more accessibility-focused selectors than this. Either everyone is setting their styles via regular class names (very valid), or we're not focusing on accessibility that much.
 
 ### Vendor prefixes
 
-Sometimes we need to use non-standard selectors to select that one pesky thing in that one single browser. Think of `:-moz-focusring`, `::-webkit-scrollbar` or `::-webkit-file-upload-button`. Vendor prefixed selectors are usually taken care of by CSS toolchains, where they take your modern authored CSS and add some prefixes where necessary, based on the required browser support.
+Sometimes we need to use non-standard selectors to select that one pesky thing in that one single browser. Think of `:-moz-focusring`, `::-webkit-scrollbar` or `::-webkit-file-upload-button`. Vendor-prefixed selectors are usually taken care of by CSS toolchains, where they take your modern authored CSS and add some prefixes where necessary, based on the required browser support.
 
 <BarChart
-title="Vendor prefixed selectors per website distribution in percentiles"
+title="Vendor-prefixed selectors per website distribution in percentiles"
 alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 7; 50th percentile: 21; 75th percentile: 47; 90th percentile: 84."
 data={{
   "p10": 0,
@@ -133,11 +133,11 @@ data={{
 }}
 />
 
-Data shows that there are not that many vendor prefixed selectors per website, and I'm curious to see if that number will go down in coming years as some of them will become obsolete. But on the other hand, some browser makers are shipping _new_ vendor prefixed selectors, so we might be seeing these for years and years to come.
+Data shows that there are not that many vendor-prefixed selectors per website, and I'm curious to see if that number will go down in coming years as some of them will become obsolete. But on the other hand, some browser makers are shipping _new_ vendor-prefixed selectors, so we might be seeing these for years and years to come.
 
 ### Specificity
 
-Our beloved metric: specificity. It's a shame Wes Bos isn't [butchering](https://syntax.fm/816?t=0:14:26) the pronunciation of this as much as he did before. Jokes aside, specificity is one of the most misunderstood concepts in CSS, which is also a reason that so many people blogged about it and why online tools like [Polypane's Specificity Calculator](https://polypane.app/css-specificity-calculator/) exist. Some CSS analyzers get analysis wrong for specificity, but luckily we don't so we can show cool stuff like this:
+Our beloved metric: specificity. It's a shame Wes Bos isn't [butchering](https://syntax.fm/816?t=0:14:26) the pronunciation of this as much as he did before. Jokes aside, specificity is one of the most misunderstood concepts in CSS, which is also a reason that so many people blogged about it and why online tools like [Polypane's Specificity Calculator](https://polypane.app/css-specificity-calculator/) exist. Some CSS analyzers get analysis wrong for specificity, but luckily we don't, so we can show cool stuff like this:
 
 <BarChart
 title="Unique selector specificities per website distribution in percentiles"
@@ -192,7 +192,7 @@ column_headers={['Specificity', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/selectors.specificity.unique.stats.json)
 
-There's absolutely nothing notable about this adoption rate chart. This is to be expected. One item I want to highlight is the no. 4 position of `0,0,0`. This means that the high usage of `:where()` seems to translate into this chart, as well as it being very likely that most websites use the universal selector (`*`). The fun part is at the bottom (the list has {format_number(2876)} unique entries) where things definitely got out of hand.
+There's absolutely nothing notable about this adoption rate chart. This is to be expected. One item I want to highlight is the no. 4 position of `0,0,0`. This means that the high usage of `:where()` seems to translate into this chart, as well as it being very likely that most websites use the universal selector (`*`). The fun part is at the bottom (the list has {format_number(2876)} unique entries), where things definitely got out of hand.
 
 <Award size="146,1546,159">
 There is one website shipping several <em>insane</em> selectors, up to 146,1546,159 in specificity. Bramus van Damme taught us that <a href="https://www.bram.us/2023/02/21/255255255-is-the-highest-specificity/">specificity only goes up to 255,255,255</a> but, apart from that, the fact that this exists is completely bonkers.
@@ -202,7 +202,7 @@ There is one website shipping several <em>insane</em> selectors, up to 146,1546,
 
 ### Selector complexity
 
-Selector complexity is an important metric next to measuring specificity. With the addition of `:where()` and `:is()` we can not rely on counting the individual parts of the specificity, because these new pseudo classes nullify them. Therefore we look at how many parts the selector is made up of. Example: `:where(#reset-theme > *)` has a [specificity of `0,0,0`](</specificity-calculator?selectors=%3Awhere(%23reset-theme+%3E+*)>) it has a [complexity of 4](</selector-complexity?selector=%3Awhere(%23reset-theme+%3E+*)>).
+Selector complexity is an important metric next to measuring specificity. With the addition of `:where()` and `:is()`, we can not rely on counting the individual parts of the specificity, because these new pseudo classes nullify them. Therefore, we look at how many parts the selector is made up of. Example: `:where(#reset-theme > *)` has a [specificity of `0,0,0`](</specificity-calculator?selectors=%3Awhere(%23reset-theme+%3E+*)>) it has a [complexity of 4](</selector-complexity?selector=%3Awhere(%23reset-theme+%3E+*)>).
 
 <BarChart
 title="Most common selector complexity per website distribution in percentiles"
@@ -233,7 +233,7 @@ data={{
 This shows a different picture. Even simple websites sometimes need more complex selectors to express more complex state.
 
 <Award size={format_number(8804)}>
-	If we would display this selector with {format_number(8804)} complexity this page would probably crash. So let's not do that. But beware of this beast in the wild.
+	If we were to display this selector with {format_number(8804)} complexity, this page would probably crash. So let's not do that. But beware of this beast in the wild.
 </Award>
 
 ### Combinators
@@ -252,4 +252,4 @@ data={{
 formatter={format_percentage}
 />
 
-As expected the descendant combinator takes the top spot but the child combinator (`>`) is a close second. The other two are a bit below that and for me that makes sense. That seems to align with how I write CSS myself.
+As expected, the descendant combinator takes the top spot, but the child combinator (`>`) is a close second. The other two are a bit below that and for me that makes sense. That seems to align with how I write CSS myself.

@@ -280,7 +280,7 @@ For next year I'd be curious about the usage of layers, supports queries and med
 
 ### @layer
 
-Baseline widely available since March 2022 we can control our specificity and cascade more with `@layer`. Compared to other at-rules the adoption rate is quite low so it shows nothing on our percentiles chart. At least I found one website with&hellip; checks notes&hellip; {format_number(1100)} `@layer` at-rules. A good thing that we're not tracking averages.
+Baseline widely available since March 2022, we can control our specificity and cascade more with `@layer`. Compared to other at-rules, the adoption rate is quite low, so it shows nothing on our percentiles chart. At least I found one website with&hellip; checks notes&hellip; {format_number(1100)} `@layer` at-rules. It's a good thing that we're not tracking averages.
 
 <Award size={format_percentage(0.0271)}>
 	{format_percentage(0.0271)} of analyzed websites use <code>@layer</code>.
@@ -326,7 +326,7 @@ data={{
 }}
 />
 
-Almost 40% of websites use `@charset` and an overwhelming majority uses UTF-8 encoding. It is interesting to see that there is a distinct group using Chinese (`gb2312`), Japanese (`shift_jis`) and Cyrillic (`windows-1251`) encodings. This proves that there is a real use-case for `@charset` even though most of us don't use it that often.
+Almost 40% of websites use `@charset`, and an overwhelming majority use UTF-8 encoding. It is interesting to see that there is a distinct group using Chinese (`gb2312`), Japanese (`shift_jis`) and Cyrillic (`windows-1251`) encodings. This proves that there is a real use case for `@charset` even though most of us don't use it that often.
 
 <Bar
 items={[
@@ -354,7 +354,7 @@ Almost 10% of websites using `@container` already (well, it has been Baseline si
 	Just out of reach of appearing in the p10: <code>@container</code> is used on {format_percentage(0.0961)} of websites. Still quite the adoption!
 </Award>
 
-Looking at the names that are used there's no real pattern apart from the list of 8 hash-like gibberish names that appear in {format_percentage(0.0016)} of websites. Names like `wrapper`, `card` and `welcome-panel` speak more to the imagination.
+Looking at the names that are used, there is no real pattern apart from the list of 8 hash-like gibberish names that appear in {format_percentage(0.0016)} of websites. Names like `wrapper`, `card` and `welcome-panel` speak more to the imagination.
 
 <Bar
 items={[
@@ -380,14 +380,14 @@ column_headers={['Container name', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/at-rules.container.names.unique.stats.json)
 
-I wonder if the `media` container has anything to do with [the OG CSS Media Object](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/).
+I wonder if the `media` container has anything to do with [the 'OG' CSS media object](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/).
 
 ### @property
 
-`@property` is Baseline Newly Available since July 2024 so it makes sense that most websites haven't picked it up yet. In that regard the current adoption ratio of 2.67% is already encouraging.
+`@property` is Baseline newly available since July 2024, so it makes sense that most websites haven't picked it up yet. In that regard, the current adoption ratio of 2.67% is already encouraging.
 
 <Award size={format_percentage(0.0267)}>
-	{format_percentage(0.0267)} of websites use <code>@property</code> which is not enough to make them show up in a percentiles chart. Maybe next year?
+	{format_percentage(0.0267)} of websites use <code>@property</code>, which is not enough to make them show up in a percentiles chart. Maybe next year?
 </Award>
 
 <Bar
@@ -410,4 +410,4 @@ column_headers={['Property name', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/at-rules.property.unique.stats.json)
 
-After analyzing the most common `@property` names I found that by far the most popular were TailwindCSS property names like `--tw-border-style`, `--tw-font-weight` etc. with most of them having an adoption rate between 1.63% and 0.12%. After that is a huge list of `--x-[hash]` properties which seem to be entirely computer-generated. It doesn't really make sense to show the full chart here but it's an interesting observation. My conclusion is that the most common usage of `@property` seems to be tied to some kind of (CSS) framework.
+After analyzing the most common `@property` names, I found that by far the most popular were TailwindCSS property names like `--tw-border-style`, `--tw-font-weight` etc. with most of them having an adoption rate between 1.63% and 0.12%. After that is a huge list of `--x-[hash]`, properties which seem to be entirely computer-generated. It doesn't really make sense to show the full chart here, but it's an interesting observation. My conclusion is that the most common usage of `@property` seems to be tied to some kind of (CSS) framework.

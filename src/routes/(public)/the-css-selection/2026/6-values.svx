@@ -10,11 +10,11 @@ import PolypaneCallout from './PolypaneCallout.svelte'
 
 ## Values
 
-Let me start with a rather disappointing note about this chapter. Because analyzing values is one of the areas where Project Wallace shines but I made a bad decision early on in the scraping process. After an initial crawl started to fill my laptop's drive rather quickly I decided to cut out some 'non-important' metrics to save some disk space and speed up analysis. Boy, do I regret that. This decision means that I've analyzed and then **thrown away** all analysis about popular colors, font-sizes, shadows, everything. All I have at this point is aggregates percentiles. So. This is not the values chapter I was hoping for but it's the best I can do for this year.
+Let me start with a rather disappointing note about this chapter. Because analyzing values is one of the areas where Project Wallace shines, but I made a bad decision early on in the scraping process. After an initial crawl started to fill my laptop's drive rather quickly, I decided to cut out some 'non-important' metrics to save some disk space and speed up analysis. Boy, do I regret that. This decision means that I've analyzed and then **thrown away** all analysis about popular colors, font sizes, shadows, everything. All I have at this point are aggregate percentiles. So. This is not the values chapter I was hoping for but it's the best I can do for this year.
 
 ### Colors
 
-Unique colors are analyzed by looking at their string representation, so `Red` is a different value than `red` and `#f00`. From a design systems perspective counting like this makes sense, because you want all your colors to be uniform and coming from the same, single source of truth. This is what is counted when we look at the metric like that:
+Unique colors are analyzed by looking at their string representation, so `Red` is a different value than `red` and `#f00`. From a design systems perspective, counting like this makes sense, because you want all your colors to be uniform and coming from the same, single source of truth. This is what is counted when we look at the metric like that:
 
 <BarChart
 title="Unique colors per website distribution in percentiles"
@@ -65,13 +65,13 @@ column_headers={['Color format', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/values.colors.formats.unique.stats.json)
 
-The top 7 is very much as expected but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev because apparently this and 4-character hex codes are baseline widely available since January 2020&hellip;
+The top 7 are very much as expected, but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev, because apparently this and 4-character hex codes have been Baseline widely available since January 2020&hellip;
 
-Further down the list we still HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
+Further down the list we still have HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
 
 ### Font families
 
-Apart from declaring custom `@font-face` families there's also the point of using actual families for your styling. How many unique families do websites use in their CSS?
+Apart from declaring custom `@font-face` families, there's also the point of using actual families for your styling. How many unique families do websites use in their CSS?
 
 <BarChart
 title="Unique font families per website distribution in percentiles"
@@ -85,11 +85,11 @@ data={{
 }}
 />
 
-This data actually overlaps quite well the use of [`@font-face`](#font-face) with the amount of families used always being slightly higher than the amount of custom families declared.
+This data actually overlaps quite well with the use of [`@font-face`](#font-face), with the number of families used always being slightly higher than the number of custom families declared.
 
 ### Font sizes
 
-Similar to the color analysis we only compare font sizes by their string representation, so `1.2em` is not the same as `120%` in our analysis, even though the browser will render them the same.
+Similar to the color analysis, we only compare font sizes by their string representation, so `1.2em` is not the same as `120%` in our analysis, even though the browser will render them the same.
 
 <BarChart
 title="Unique font sizes per website distribution in percentiles"
