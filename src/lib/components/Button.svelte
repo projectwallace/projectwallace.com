@@ -39,10 +39,10 @@
 <!-- We know this is either a <a> or a <button> -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <svelte:element this={element} onclick={on_click} class="btn {variant} {size} {classname}" {...rest}>
+	{@render children?.()}
 	{#if icon}
 		<Icon name={icon} size={14} />
 	{/if}
-	{@render children?.()}
 </svelte:element>
 
 <style>
