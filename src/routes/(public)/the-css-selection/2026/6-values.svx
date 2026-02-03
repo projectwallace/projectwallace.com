@@ -5,6 +5,7 @@ import { format_number, format_percentage } from '$lib/format-number'
 import Award from '$components/Award.svelte'
 import Formula from '$components/Formula.svelte'
 import Bar from '$components/stats/BarChart.svelte'
+import PolypaneCallout from './PolypaneCallout.svelte'
 </script>
 
 ## Values
@@ -156,6 +157,8 @@ The use of text-shadows appears to be very limited. It makes me wonder why that 
 
 ### Z-indexes
 
+The seemingly never-ending battle of putting things over other things. Modern CSS gives us [modern ways to create stacking contexts](https://polypane.app/blog/offset-parent-and-stacking-context-positioning-elements-in-all-three-dimensions/#creating-a-stacking-context), like `isolation: isolate`. So once you have that stacking context, what number do you put on it?
+
 <BarChart
 title="Unique z-indexes per website distribution in percentiles"
 alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 2. 25th percentile: 10; 50th percentile: 18; 75th percentile: 28; 90th percentile: 38."
@@ -167,6 +170,10 @@ data={{
   "p90": 38,
 }}
 />
+
+It seems that we are a creative bunch when it comes to thinking of numbers. Given the wide range of unique `z-index` values it's probably time for a word from our sponsor, Polypane. They honestly know their stuff and if you need help debugging your stacking contexts, just use Polypane!
+
+<PolypaneCallout href="https://polypane.app/blog/offset-parent-and-stacking-context-positioning-elements-in-all-three-dimensions/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=z-indexes">Polypane tells you everything about stacking contexts</PolypaneCallout>
 
 ### Animation durations
 
