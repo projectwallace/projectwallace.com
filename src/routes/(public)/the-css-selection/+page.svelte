@@ -8,7 +8,6 @@
 <SEO
 	title="The CSS Selection"
 	description="The CSS Selection shows real-world CSS usage from over 100,000 websites and looks at the most important metrics."
-	robots="noindex,nofollow"
 	image={Image}
 />
 
