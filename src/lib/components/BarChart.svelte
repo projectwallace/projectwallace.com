@@ -11,12 +11,12 @@
 	let { data, formatter = format_number, title, alt }: Props = $props()
 
 	// Chart dimensions
-	const width = 928
-	const height = 384
-	const margin = { top: 30, right: 60, bottom: 40, left: 70 }
+	const width = 500
+	const height = 200
+	const margin = { top: 20, right: 30, bottom: 25, left: 60 }
 	const chart_width = width - margin.left - margin.right
 	const chart_height = height - margin.top - margin.bottom
-	const bar_width = 39.5
+	const bar_width = 20
 	const num_y_ticks = 10
 
 	// Calculate scales - derived from data
@@ -85,7 +85,7 @@
 
 <div class="bar-chart">
 	<!-- Accessible title is in the SVG itself as title -->
-	<div id={title_id} class="chart-title" aria-hidden="true">{title}</div>
+	<div id={title_id} class="[ title ] chart-title" aria-hidden="true">{title}</div>
 
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -167,14 +167,13 @@
 
 <style>
 	.chart-title {
-		text-transform: uppercase;
 		font-size: var(--size-sm);
-		font-weight: var(--font-bold);
 		text-align: center;
 	}
 
+	.bar-label,
 	.axis-label {
-		font-size: 1rem;
+		font-size: 0.7rem;
 	}
 
 	.bar {
@@ -182,8 +181,11 @@
 	}
 
 	.bar-label {
-		font-size: 1rem;
 		fill: var(--fg-200);
+	}
+
+	svg {
+		color: var(--fg-300);
 	}
 
 	text {
