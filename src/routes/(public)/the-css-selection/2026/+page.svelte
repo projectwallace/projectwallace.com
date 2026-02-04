@@ -148,11 +148,14 @@
 	}
 
 	.nav {
+		margin-block-end: var(--space-6);
+
 		@media (min-width: 44rem) {
 			position: sticky;
 			top: 0;
 			align-self: start;
 			overflow-y: auto;
+			margin-block-end: 0;
 		}
 	}
 

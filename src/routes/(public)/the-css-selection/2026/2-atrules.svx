@@ -348,7 +348,7 @@ column_headers={['Charset', 'Adoption %']}
 
 ### @container
 
-Almost 10% of websites using `@container` already (well, it has been Baseline since February 2023) is a pretty good number. It's not enough to show anything on our percentiles chart so we're omitting that.
+Almost 10% of websites using `@container` already (well, it has been Baseline widely available since February 2023) is a pretty good number. It's not enough to show anything on our percentiles chart so we're omitting that.
 
 <Award size={format_percentage(0.0961)}>
 	Just out of reach of appearing in the p10: <code>@container</code> is used on {format_percentage(0.0961)} of websites. Still quite the adoption!
