@@ -28,7 +28,7 @@ data={{
 }}
 />
 
-From my experience analyzing websites, I expected the p90 and p75 to be a lot higher. I'm actually quite pleased with this distribution. Also, the top 10% of websites apparently have only 272 selectors or less, which is also surprising. This seems like a really low number to me.
+From my experience analyzing websites, I expected the p90 and p75 to be a lot higher. I'm actually quite pleased with this distribution. Also, the top 10% of websites apparently have only 272 selectors or fewer, which is also surprising. This seems like a really low number to me.
 
 ### Pseudo-classes
 
@@ -139,7 +139,7 @@ Data shows that there are not that many vendor-prefixed selectors per website, a
 
 ### Specificity
 
-Our beloved metric: specificity. It's a shame Wes Bos isn't [butchering](https://syntax.fm/816?t=0:14:26) the pronunciation of this as much as he did before. Jokes aside, specificity is one of the most misunderstood concepts in CSS, which is also a reason that so many people blogged about it and why online tools like [Polypane's Specificity Calculator](https://polypane.app/css-specificity-calculator/) exist. Some CSS analyzers get analysis wrong for specificity, but luckily we don't, so we can show cool stuff like this:
+Our beloved metric: specificity. It's a shame Wes Bos isn't [butchering](https://syntax.fm/816?t=0:14:26) the pronunciation of this as much as he did before. Jokes aside, specificity is one of the most misunderstood concepts in CSS, which is also a reason that so many people blogged about it and why online tools like [Polypane's Specificity Calculator](https://polypane.app/css-specificity-calculator/) exist. Some CSS analyzers get specificity wrong, but luckily we don't, so we can show cool stuff like this:
 
 <BarChart
 title="Unique selector specificities per website distribution in percentiles"

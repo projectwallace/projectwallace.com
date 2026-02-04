@@ -12,14 +12,14 @@ Looking at the bigger picture, I expected the overall state of global CSS usage 
 
 ### Analytical gaps
 
-After spending dozens of hours analyzing and writing these chapters, I found that there are some flaws in my overall analysis that I plan to improve in next editions:
+After spending dozens of hours analyzing and writing these chapters, I found that there are some flaws in my overall analysis that I plan to improve in future editions:
 
-- Do deeper analysis on comparing string-based values: `red` and `Red` should be marked as the same values for colors, so do `(position: sticky)` and `(position:sticky)` for `@supports` queries.
+- Do deeper analysis on comparing string-based values: `red` and `Red` should be marked as the same values for colors, as should `(position: sticky)` and `(position:sticky)` for `@supports` queries.
 - There is no correlation analysis: does having lots of embedded content always mean having a bigger file size than usual? Do websites with a large `!important` ratio also have different specificity metrics? This is worth exploring next time.
 
 ### Next editions
 
-- Because this is the first edition, I haven't done comparisons to other years yet. This is 'the big plan' for upcoming editions. To have a look at how CSS usage evolves as we drop legacy browser support and adopt more modern features.
+- Because this is the first edition, I haven't done comparisons to other years yet. This is 'the big plan' for future editions: to have a look at how CSS usage evolves as we drop legacy browser support and adopt more modern features.
 - For the next edition I'll use a more realistic scraper, probably based on a headless browser. Our current scraper fetches static HTML, parses it to get CSS resources and downloads each of them. A headless browser would yield more realistic results, because it is able to see the actual network requests, even the ones initiated by JavaScript.
 - Continuing on the last point: if we're going to use a headless browser, then we can also look at [CSS coverage analysis](https://www.projectwallace.com/css-coverage).
 - Multiple suggestions came in through the review process, some of which we might incorporate into upcoming editions: comparing usage of `grid` and `flex`; analyzing `@scope` and `:scope`; analyzing adoption ratios of pseudo-elements and attribute selectors; looking for adoption ratio of the PostCSS `@layer` polyfill; Web component selectors: the list goes on and on!

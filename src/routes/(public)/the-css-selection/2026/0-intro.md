@@ -10,4 +10,4 @@ This article exists for several reasons, but the [Web Almanac](https://almanac.h
 
 <PolypaneBanner></PolypaneBanner>
 
-CSS has taken flight in recent years with many new features, properties, values, atrules and so much more. With power shifting to CSS, it's interesting to look at the use of these new features as well as to keep an eye on global metrics like file size, units used etc. We'll work our way down from the top, so we'll start by looking at stylesheet composition, followed by at-rule analysis, then rules, selectors, declarations, and lastly, values and units.
+CSS has taken flight in recent years with many new features, properties, values, at-rules and so much more. With power shifting to CSS, it's interesting to look at the use of these new features as well as to keep an eye on global metrics like file size, units used etc. We'll work our way down from the top, so we'll start by looking at stylesheet composition, followed by at-rule analysis, then rules, selectors, declarations, and lastly, values and units.

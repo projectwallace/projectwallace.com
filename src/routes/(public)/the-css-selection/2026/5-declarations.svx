@@ -60,7 +60,7 @@ data={{
 formatter={format_percentage}
 />
 
-The maximum of `!important` found on a single website is {format_number(249021)}. A small side note on the use of different notations of importants just because I found some of them hilarious:
+The maximum of `!important` found on a single website is {format_number(249021)}. A small side note on the use of different `!important` notation just because I found some of them hilarious:
 
 - `Important`
 - `!IMPORTANT`

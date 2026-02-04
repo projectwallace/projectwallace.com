@@ -67,7 +67,7 @@ column_headers={['Color format', 'Adoption %']}
 
 The top 7 are very much as expected, but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev, because apparently this and 4-character hex codes have been Baseline widely available since January 2020&hellip;
 
-Further down the list we still have HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
+Further down the list we have HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
 
 ### Font families
 
@@ -171,7 +171,7 @@ data={{
 }}
 />
 
-It seems that we are a creative bunch when it comes to thinking of numbers. Given the wide range of unique `z-index` values it's probably time for a word from our sponsor, Polypane. Because, if you can master the concept of stacking contexts, you will not need so many z-indexes anymore. Kilian knows his stuff and if you need help debugging your stacking contexts, just use Polypane!
+It seems that we are a creative bunch when it comes to thinking of numbers. Given the wide range of unique `z-index` values it's probably time for a word from our sponsor, Polypane. If you can master the concept of stacking contexts, you will not need so many z-indexes anymore. Kilian knows his stuff and if you need help debugging your stacking contexts, just use Polypane!
 
 <PolypaneCallout cta="Read article" href="https://polypane.app/blog/offset-parent-and-stacking-context-positioning-elements-in-all-three-dimensions/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=z-indexes">Learn everything there is to know about stacking contexts</PolypaneCallout>
 
@@ -195,7 +195,7 @@ At least we know that most websites don't use a lot of unique durations. Again, 
 
 ### Animation timing functions
 
-Are `timing-function`s debated as heavily as durations? At least there are fewer unique values per website, so perhaps this is less of an 'issue'?
+Are timing functions debated as heavily as durations? At least there are fewer unique values per website, so perhaps this is less of an issue?
 
 <BarChart
 title="Unique timing functions per website distribution in percentiles"
@@ -317,7 +317,7 @@ column_headers={['Unit', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/values.units.unique.stats.json)
 
-`px` remains the ruler with some distance over `em` and `s` although I'm surprised `s` is actually that high on the list. It's even well above `rem`! Looking down the list we can see that `deg` is more used than `turn` (89.3% vs. 35.6%); `s` more than `ms` (91.5% vs. 56.7%); `cm` more than `mm` and `in` (7.19% vs. 1.18% vs. 1.08%). The list also shows that we've started using viewport and container units.
+`px` remains the ruler with some distance over `em` and `s` although I'm surprised `s` is actually that high on the list. It's even well above `rem`! Looking down the list we can see that `deg` is used more than `turn` (89.3% vs. 35.6%); `s` more than `ms` (91.5% vs. 56.7%); `cm` more than `mm` and `in` (7.19% vs. 1.18% vs. 1.08%). The list also shows that we've started using viewport and container units.
 
 <aside>
 <p>If you think that this list of units is incomplete, you're right. But since you're such an expert, why don't you show off your units knowledge in our <a href="/css-units-game">CSS Units memory game</a>?</p>

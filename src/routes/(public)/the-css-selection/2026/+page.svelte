@@ -30,9 +30,7 @@
 <Container size="3xl">
 	<div class="the-css-selection">
 		<header>
-			<div class="title">
-				<Heading element="h1" size={0}>The CSS Selection</Heading>
-			</div>
+			<Heading element="h1" size={0}>The CSS Selection</Heading>
 			<p class="subtitle">The state of real-world CSS usage, 2026 edition.</p>
 			<p class="author">
 				<img class="author-avatar" src={avatar} alt="User avatar for Bart Veneman" width="25" height="25" />

@@ -110,7 +110,7 @@ The `max-width` and `min-width` features are quite unexpectedly used on most web
 
 ### @font-face
 
-With font-face Baseline widely available since July 2015, it's hard to imagine the days that we had to embed images or use Flash to make our typography look great. Luckily, `@font-face` has made our lives a lot easier. How much do we use it?
+With `@font-face` Baseline widely available since July 2015, it's hard to imagine the days that we had to embed images or use Flash to make our typography look great. Luckily, `@font-face` has made our lives a lot easier. How much do we use it?
 
 <BarChart
 title="@font-face at-rules per website distribution in percentiles"
@@ -172,7 +172,7 @@ It looks like `@keyframes` do make things spin around. `fa-spin` is a clear sign
 
 ### @supports
 
-This at-rule is still evolving into something better even though it has been in our toolbox for quite a while now (Baseline since September 2015!). Where we first only could check if a certain declaration was supported, we now also can check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
+This at-rule is still evolving into something better even though it has been in our toolbox for quite a while now (Baseline since September 2015!). Where we first only could check if a certain declaration was supported, we can now also check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
 
 <BarChart
 title="@supports at-rules per website distribution in percentiles"
@@ -348,7 +348,7 @@ column_headers={['Charset', 'Adoption %']}
 
 ### @container
 
-Almost 10% of websites using `@container` already (well, it has been Baseline widely available since February 2023) is a pretty good number. It's not enough to show anything on our percentiles chart so we're omitting that.
+Almost 10% of websites use `@container` already (well, it has been Baseline widely available since February 2023) is a pretty good number. It's not enough to show anything on our percentiles chart so we're omitting that.
 
 <Award size={format_percentage(0.0961)}>
 	Just out of reach of appearing in the p10: <code>@container</code> is used on {format_percentage(0.0961)} of websites. Still quite the adoption!

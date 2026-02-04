@@ -8,4 +8,4 @@ This article used the following methodology:
 - Analysis is stored in a local SQLite database and SQL queries are used to gather unique values, medians, percentiles, min, max etc.
 - No AI was used to write this content. If you think it's slop, it's simply because I'm a lousy writer. Some AI was used to generate the SQL queries to generate the data but they were all checked by my human eyes.
 
-All conclusions and opinions are mine, a mere mortal with an above-average interest in looking at CSS in a different way than most people do. You may not agree and, that's fine.
+All conclusions and opinions are mine, a mere mortal with an above-average interest in looking at CSS in a different way than most people do. You may not agree, and that's fine.
