@@ -16,6 +16,7 @@ After spending dozens of hours analyzing and writing these chapters, I found tha
 - Because this is the first edition, I haven't done comparisons to other years yet. This is 'the big plan' for upcoming editions. To have a look at how CSS usage evolves as we drop legacy browser support and adopt more modern features.
 - For the next edition I'll use a more realistic scraper, probably based on a headless browser. Our current scraper fetches static HTML, parses it to get CSS resources and downloads each of them. A headless browser would yield more realistic results, because it is able to see the actual network requests, even the ones initiated by JavaScript.
 - Continuing on the last point: if we're going to use a headless browser, then we can also look at [CSS coverage analysis](https://www.projectwallace.com/css-coverage).
+- Multiple suggestions came in through the review process, some of which we might incorporate into upcoming editions: comparing usage of `grid` and `flex`; analyzing `@scope` and `:scope`; analyzing adoption ratios of pseudo-elements and attribute selectors; looking for adoption ratio of the PostCSS `@layer` polyfill; Web component selectors: the list goes on and on!
 
 ### Acknowledgements
 
@@ -23,4 +24,4 @@ This article would not have existed without the prior work of all those who cont
 
 [Declan Chidlow (vale.rocks)](https://vale.rocks) helped out by meticulously reviewing this article and schooling me in how to write properly. Thank you for that. Go check out that blog, it's awesome.
 
-A tremendous word of thanks to [Kilian](https://kilianvalkhof.com/) from [Polypane](https://polypane.app/) for sponsoring this inaugural edition of The CSS Selection. Your support means the world to me personally, because it encourages me to write about CSS more and to make better tools, like you do yourself. Folks, seriously, if you are not using Polypane yet, you're missing out.
+A tremendous word of thanks to [Kilian](https://kilianvalkhof.com/) from [Polypane](https://polypane.app/) for sponsoring (and reviewing) this inaugural edition of The CSS Selection. Your support means the world to me personally, because it encourages me to write about CSS more and to make better tools, like you do yourself. Folks, seriously, if you are not using Polypane yet, you're missing out.

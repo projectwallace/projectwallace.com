@@ -84,7 +84,7 @@
 				grid-column: 1 / -1;
 				position: relative;
 
-				@media (min-width: 66rem) {
+				@media (min-width: 55rem) {
 					&::before,
 					&::after {
 						content: '';
@@ -125,7 +125,7 @@
 		margin-block-start: var(--space-8);
 		margin-block-end: var(--space-12);
 
-		@media (min-height: 33rem) {
+		@media (min-width: 44rem) {
 			margin-block-start: var(--space-24);
 			margin-block-end: var(--space-36);
 		}
