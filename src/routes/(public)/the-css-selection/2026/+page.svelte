@@ -42,7 +42,7 @@
 		</header>
 
 		<div class="nav scroll-container">
-			<Nav {nav} scroll_spy />
+			<Nav {nav} scroll_spy sticky={false} />
 		</div>
 
 		<div class="content">
@@ -148,7 +148,7 @@
 	}
 
 	.nav {
-		@media (min-height: 33rem) {
+		@media (min-width: 44rem) {
 			position: sticky;
 			top: 0;
 			align-self: start;
