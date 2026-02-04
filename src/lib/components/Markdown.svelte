@@ -63,11 +63,11 @@
 	}
 
 	:global(.markdown math) {
-		font-size: var(--size-3xl);
 		display: block;
-		text-align: center;
-		color: var(--fg-100);
 		overflow-x: auto;
+		text-align: center;
+		font-size: var(--size-3xl);
+		color: var(--fg-100);
 	}
 
 	:global(.markdown strong) {

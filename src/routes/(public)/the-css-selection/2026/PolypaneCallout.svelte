@@ -66,8 +66,8 @@
 		position: relative;
 		text-align: center;
 		line-height: 1.5;
+		border-radius: 20px;
 		color: #fff;
-		border-radius: 40px;
 		box-shadow:
 			rgba(0, 0, 0, 0.025) 0 0 0 1px,
 			rgba(0, 0, 0, 0.05) 0px 1px 0px,
@@ -75,7 +75,7 @@
 			rgba(0, 0, 0, 0.1) 0px 20px 30px;
 		text-align: left;
 		background: #4ca2cd linear-gradient(135deg, #4ca2cd, #67b26f);
-		padding: 1rem 1rem 1rem 2rem;
+		padding: 1rem;
 
 		&:hover,
 		&:focus-within {
@@ -98,8 +98,10 @@
 			}
 		}
 
-		@container (min-inline-size: 33rem) {
+		@container (min-inline-size: 56rem) {
+			border-radius: 40px;
 			grid-template-columns: 1fr auto;
+			padding-inline: 2rem;
 		}
 
 		@media (forced-colors: active) {
