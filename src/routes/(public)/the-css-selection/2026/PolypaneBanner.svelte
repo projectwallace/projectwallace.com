@@ -8,7 +8,7 @@
 	<!-- Ignore explicit label becase the alt provides that title -->
 	<!-- svelte-ignore a11y_consider_explicit_label -->
 	<a
-		href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=banner-image"
+		href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=banner-image"
 		target="_blank"
 	>
 		<enhanced:img src="./polypane-banner.png?w=760" alt="Polypane: The missing half of your development environment" />
@@ -16,7 +16,7 @@
 
 	<p>See every breakpoint. Catch every accessibility issue. Make your site work for everyone.</p>
 	<p>
-		<a href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=banner-text">
+		<a href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=banner-text">
 			Polypane
 		</a> is a development browser that shows your site in multiple viewports at once, with built-in tools to test accessibility
 		(WCAG violations, color contrast, DOM structure), performance metrics, layout debugging, and meta tag validation.
@@ -31,7 +31,7 @@
 			element="a"
 			icon="external"
 			size="lg"
-			href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=banner-button"
+			href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=banner-button"
 		>
 			Start your free trial
 		</Button>

@@ -198,7 +198,7 @@ There's absolutely nothing notable about this adoption rate chart. This is to be
 There is one website shipping several <em>insane</em> selectors, up to 146,1546,159 in specificity. Bramus van Damme taught us that <a href="https://www.bram.us/2023/02/21/255255255-is-the-highest-specificity/">specificity only goes up to 255,255,255</a> but, apart from that, the fact that this exists is completely bonkers.
 </Award>
 
-<PolypaneCallout href="https://polypane.app/css-specificity-calculator/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=selector-specificity">Polypane teaches you how to calculate selector specificity</PolypaneCallout>
+<PolypaneCallout href="https://polypane.app/css-specificity-calculator/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=selector-specificity">Polypane teaches you how to calculate selector specificity</PolypaneCallout>
 
 ### Selector complexity
 
