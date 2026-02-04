@@ -35,18 +35,11 @@ pre[class*='language-'] {
 
 /*	tokens --------------------------------- */
 
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
+.token.comment {
 	color: var(--highlight-comment);
 }
 
-.token.property,
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted {
+.token.property {
 	color: var(--highlight-property);
 }
 
@@ -62,14 +55,11 @@ pre[class*='language-'] {
 }
 
 .token.selector,
-.token.char,
-.token.builtin,
-.token.inserted {
+.token.char {
 	color: var(--highlight-selector);
 }
 
 .token.operator,
-.token.entity,
 .token.url,
 .token.variable {
 	color: var(--base);
@@ -83,15 +73,7 @@ pre[class*='language-'] {
 	color: var(--highlight-name);
 }
 
-.token.important,
-.token.bold {
+.token.important {
 	color: var(--highlight-important);
 }
 
-.token.italic {
-	font-style: italic;
-}
-
-.token.entity {
-	cursor: help;
-}

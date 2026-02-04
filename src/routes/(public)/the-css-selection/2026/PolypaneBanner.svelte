@@ -1,7 +1,3 @@
-<script>
-	import Button from '$components/Button.svelte'
-</script>
-
 <div class="polypane-banner">
 	<small>(sponsored)</small>
 
