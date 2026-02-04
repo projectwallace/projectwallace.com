@@ -107,7 +107,7 @@ This table matches my expectations quite well, but I'm always slightly surprised
 
 ### Line heights
 
-Line heights are often, but not always, set in combination with `font-size` and/or `font-family` so it is no surprise that this graph is similar in shape to the the `font-size` and `font-family` charts, but just lower in numbers.
+Line heights are often, but not always, set in combination with `font-size` and/or `font-family`, often in the `font` shorthand. So it is no surprise that this graph is similar in shape to the the `font-size` and `font-family` charts, but just lower in numbers.
 
 <BarChart
 title="Unique line heights per website distribution in percentiles"
@@ -171,7 +171,7 @@ data={{
 }}
 />
 
-It seems that we are a creative bunch when it comes to thinking of numbers. Given the wide range of unique `z-index` values it's probably time for a word from our sponsor, Polypane. They honestly know their stuff and if you need help debugging your stacking contexts, just use Polypane!
+It seems that we are a creative bunch when it comes to thinking of numbers. Given the wide range of unique `z-index` values it's probably time for a word from our sponsor, Polypane. Because, if you can master the concept of stacking contexts, you will not need so many z-indexes anymore. Kilian knows his stuff and if you need help debugging your stacking contexts, just use Polypane!
 
 <PolypaneCallout href="https://polypane.app/blog/offset-parent-and-stacking-context-positioning-elements-in-all-three-dimensions/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=z-indexes">Polypane tells you everything about stacking contexts</PolypaneCallout>
 

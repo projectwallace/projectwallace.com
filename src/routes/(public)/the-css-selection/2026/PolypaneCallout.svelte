@@ -13,7 +13,7 @@
 	</p>
 
 	<div class="polypane-callout [ coverable ]">
-		<a class="coverable-link" {href}>
+		<a class="coverable-link" {href} target="_blank">
 			{@render children?.()}
 		</a>
 		<div class="polypane-button">

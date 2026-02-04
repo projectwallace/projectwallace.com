@@ -7,7 +7,10 @@
 
 	<!-- Ignore explicit label becase the alt provides that title -->
 	<!-- svelte-ignore a11y_consider_explicit_label -->
-	<a href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=banner-image">
+	<a
+		href="https://polypane.app/?utm_source=projectwallace&utm_medium=the-css-selection&utm_content=banner-image"
+		target="_blank"
+	>
 		<enhanced:img src="./polypane-banner.png?w=760" alt="Polypane: The missing half of your development environment" />
 	</a>
 
