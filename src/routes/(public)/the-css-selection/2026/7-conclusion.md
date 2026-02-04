@@ -1,8 +1,10 @@
 ## Conclusion
 
-That was a wild ride along some of the most-used but also most obscure pieces of CSS usage around the world. The goal of this first edition of Project Wallace's CSS Selection was to have a look at how CSS is being used in the real world, and I'm pleased to say that this article has shown us some real eye-openers as well as opportunities for mad respect and deep regret.
+That was a wild ride along some of the most-used but also most obscure pieces of CSS usage around the world. The goal of this first edition of Project Wallace's CSS Selection was to have a look at how CSS is being used in the real world, and I am pleased to say that this article has shown us some real eye-openers as well as opportunities for mad respect and deep regret.
 
-TODO: finalize + draw actual conclusions.
+What stands out most to me is the adoption rate of various newish features in CSS, like `@container`, `:where` and `:has`. On the other hand, adoption of great features, like `@supports` and `@layer`, seems to lag behind. Perhaps this is my bias towards my own authoring style, but I expected the balance to be more in favor of the old-but-good.
+
+Looking at the bigger picture, I expected the overall state of global CSS usage to be a lot worse than it is. Perhaps that stems from the fact that people send me their worst websites to analyze, and that causes my bias to shift towards a negative outlook. On the other hand, there is still a lot of improvents that could be easily made, if people would just look at the CSS they send to their customers' browsers. I am tooting my own horn here, obviously, but if you occasionally analyze your website using Project Wallace, you'll always find a couple of spots that could be improved.
 
 ### Analytical gaps
 

@@ -66,8 +66,9 @@
 		display: block;
 		overflow-x: auto;
 		text-align: center;
-		font-size: var(--size-3xl);
+		font-size: var(--size-lg);
 		color: var(--fg-100);
+		font-family: 'Cantata One';
 	}
 
 	:global(.markdown strong) {

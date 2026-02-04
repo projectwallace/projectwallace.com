@@ -283,7 +283,7 @@ For next year I'd be curious about the usage of layers, supports queries and med
 Baseline widely available since March 2022, we can control our specificity and cascade more with `@layer`. Compared to other at-rules, the adoption rate is quite low, so it shows nothing on our percentiles chart. At least I found one website with&hellip; checks notes&hellip; {format_number(1100)} `@layer` at-rules. It's a good thing that we're not tracking averages.
 
 <Award size={format_percentage(0.0271)}>
-	{format_percentage(0.0271)} of analyzed websites use <code>@layer</code>.
+	{format_percentage(0.0271)} of analyzed websites use <code>@layer</code>. Not a high number considering its usefulness and availability.
 </Award>
 
 `@layer` use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouraging patterns of developers using `@layer`. Especially `@layer legacy` seems like a trick that developers use to incrementally modernize their codebase. I've skipped some named layers at the bottom of the chart so I could include `<anonymous>`.

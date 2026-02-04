@@ -279,6 +279,14 @@
 		line-gap-override: normal;
 	}
 
+	@font-face {
+		font-display: swap;
+		font-family: 'Cantata One';
+		font-weight: 400;
+		font-style: normal;
+		src: local('Cantata One'), local('Cantata-One'), url('../../../cantata-one-regular-2026-02-04.woff2') format('woff2');
+	}
+
 	@layer elements {
 		html {
 			/* Accent colors */
