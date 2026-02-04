@@ -42,7 +42,7 @@
 		</header>
 
 		<div class="nav scroll-container">
-			<Nav {nav} scroll_spy sticky={false} />
+			<Nav {nav} scroll_spy />
 		</div>
 
 		<div class="content">

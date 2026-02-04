@@ -10,10 +10,9 @@
 	interface Props {
 		nav?: NavItem[]
 		scroll_spy?: boolean
-		sticky?: boolean
 	}
 
-	let { nav = defaultNav, scroll_spy = false, sticky = true }: Props = $props()
+	let { nav = defaultNav, scroll_spy = false }: Props = $props()
 
 	let activeIds = $state<Set<string>>(new Set())
 
@@ -67,7 +66,7 @@
 <nav aria-labelledby="report-nav-title">
 	<div id="report-nav-title" class="title">Navigate this page</div>
 
-	<div class={['compact', { sticky }]}>
+	<div class="compact">
 		<label for="report-nav" aria-labelledby="report-nav-title"></label>
 		<select name="report-nav" id="report-nav" onchange={on_select}>
 			{#each nav as { title, items }}
@@ -108,13 +107,6 @@
 
 	.compact {
 		padding: var(--py) var(--px);
-
-		&.sticky {
-			position: sticky;
-			top: 0;
-			right: 0;
-			left: 0;
-		}
 	}
 
 	.loose {
