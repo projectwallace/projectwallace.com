@@ -17,10 +17,12 @@ export const test = base_test.extend<Fixtures>({
 			let coverage = await page.coverage.stopCSSCoverage()
 			// build unique human-readable file name
 			// titlePath gives [file, describe, test]
-			let parts = testInfo.titlePath.map(s =>
-				s.replaceAll(/\s+|\/|\./g, '-')        // spaces or / → -
-					.replaceAll(/[^a-zA-Z0-9-_]/g, '') // remove other invalid chars
-					.toLowerCase()               // lowercase
+			let parts = testInfo.titlePath.map(
+				(s) =>
+					s
+						.replaceAll(/\s+|\/|\./g, '-') // spaces or / → -
+						.replaceAll(/[^a-zA-Z0-9-_]/g, '') // remove other invalid chars
+						.toLowerCase() // lowercase
 			)
 			let file_name = parts.join('-') + '.json'
 
@@ -42,23 +44,22 @@ export const test = base_test.extend<Fixtures>({
 
 export const expect = base_expect.extend({
 	async toBeHydrated(page: Page) {
-		const meta = page.locator('meta[name="hydration-status"][content="true"]');
-		await meta.waitFor({ state: 'attached' });
-		const count = await meta.count();
+		const meta = page.locator('meta[name="hydration-status"][content="true"]')
+		await meta.waitFor({ state: 'attached' })
+		const count = await meta.count()
 
 		if (count !== 1) {
 			return {
 				pass: false,
-				message: () => 'Hydration meta tag not found',
-			};
+				message: () => 'Hydration meta tag not found'
+			}
 		}
 
 		return {
 			pass: true,
-			message: () => 'success',
-		};
+			message: () => 'success'
+		}
 	},
-
 
 	async toHaveH1(page: Page) {
 		let h1 = await page.getByRole('heading', { level: 1 }).all()
@@ -91,8 +92,7 @@ export const expect = base_expect.extend({
 		if (titles.length !== 1) {
 			return {
 				pass: false,
-				message: () =>
-					`There are ${titles.length} <title> elements on the page. There should be exactly 1`
+				message: () => `There are ${titles.length} <title> elements on the page. There should be exactly 1`
 			}
 		}
 
@@ -134,9 +134,7 @@ export const expect = base_expect.extend({
 		if (href.endsWith('/') !== trailing_slash) {
 			return {
 				pass: false,
-				message: () =>
-					`canonical href must ${trailing_slash ? '' : 'not'
-					} have a traling slash; received "${href}"`
+				message: () => `canonical href must ${trailing_slash ? '' : 'not'} have a traling slash; received "${href}"`
 			}
 		}
 
@@ -163,6 +161,32 @@ export const expect = base_expect.extend({
 			return {
 				pass: false,
 				message: () => 'canonical href has no content'
+			}
+		}
+
+		return {
+			pass: true,
+			message: () => 'success'
+		}
+	},
+
+	async toHaveOpenGraphImage(page) {
+		let images = await page.locator('head meta[property="og:image"]').all()
+
+		if (images.length !== 1) {
+			return {
+				pass: false,
+				message: () =>
+					`There are ${images.length} <meta property="og:image"> elements on the page. There should be exactly 1`
+			}
+		}
+
+		let content = await images.at(0).getAttribute('content')
+
+		if (content.length === 0) {
+			return {
+				pass: false,
+				message: () => 'og:image has no content'
 			}
 		}
 
