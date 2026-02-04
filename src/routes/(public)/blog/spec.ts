@@ -25,6 +25,6 @@ test('has links to some blog posts', async ({ page }) => {
 	expect.soft(await posts.count()).toBeGreaterThan(1)
 
 	// Clicking an entry makes us go to the blog post page
-	await posts.first().click()
+	await posts.nth(2).click()
 	await page.waitForURL('**/blog/*')
 })
