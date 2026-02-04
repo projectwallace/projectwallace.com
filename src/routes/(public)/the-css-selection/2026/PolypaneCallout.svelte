@@ -128,6 +128,7 @@
 		color: inherit;
 		text-decoration: none;
 		text-shadow: 1px 1px 2px #194961;
+		text-wrap: balance;
 
 		&::after {
 			z-index: 1;

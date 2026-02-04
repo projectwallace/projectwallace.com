@@ -64,11 +64,11 @@
 
 	:global(.markdown math) {
 		display: block;
-		overflow-x: auto;
 		text-align: center;
 		font-size: var(--size-lg);
 		color: var(--fg-100);
 		font-family: 'Cantata One';
+		line-height: var(--leading-relaxed);
 	}
 
 	:global(.markdown strong) {
