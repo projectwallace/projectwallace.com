@@ -3,7 +3,8 @@ import type { Locator } from '@playwright/test'
 
 let input: Locator
 
-const ERROR_MESSAGE = 'Your selector specificity cannot be calculated. Please check your selector carefully for mistakes.'
+const ERROR_MESSAGE =
+	'Your selector specificity cannot be calculated. Please check your selector carefully for mistakes.'
 
 test.describe('without preloading', () => {
 	test.beforeEach(async ({ page }) => {
@@ -18,7 +19,7 @@ test.describe('without preloading', () => {
 		await expect.soft(page).toHaveH1()
 	})
 
-	test('auto focuses the input', async ({ page }) => {
+	test('auto focuses the input', async () => {
 		await expect.soft(input).toBeFocused()
 	})
 
