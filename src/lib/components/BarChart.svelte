@@ -174,6 +174,10 @@
 	.bar-label,
 	.axis-label {
 		font-size: 0.7rem;
+
+		@media (min-width: 60rem) {
+			font-size: 0.55rem;
+		}
 	}
 
 	.bar {

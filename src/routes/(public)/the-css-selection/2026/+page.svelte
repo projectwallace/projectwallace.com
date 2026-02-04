@@ -122,8 +122,8 @@
 	}
 
 	header {
-		margin-block-start: var(--space-12);
-		margin-block-end: var(--space-20);
+		margin-block-start: var(--space-8);
+		margin-block-end: var(--space-12);
 
 		@media (min-height: 33rem) {
 			margin-block-start: var(--space-24);
