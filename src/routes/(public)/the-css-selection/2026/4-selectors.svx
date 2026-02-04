@@ -117,6 +117,8 @@ data={{
 
 Based on my own experience, I find this number quite low. Most projects I've worked on have many more accessibility-focused selectors than this. Either everyone is setting their styles via regular class names (very valid), or we're not focusing on accessibility that much.
 
+<PolypaneCallout cta="Learn more" href="https://polypane.app/blog/find-and-fix-accessibility-issues-with-polypane/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=layers">Find and fix accessibility issues easily with Polypane</PolypaneCallout>
+
 ### Vendor prefixes
 
 Sometimes we need to use non-standard selectors to select that one pesky thing in that one single browser. Think of `:-moz-focusring`, `::-webkit-scrollbar` or `::-webkit-file-upload-button`. Vendor-prefixed selectors are usually taken care of by CSS toolchains, where they take your modern authored CSS and add some prefixes where necessary, based on the required browser support.
@@ -198,7 +200,7 @@ There's absolutely nothing notable about this adoption rate chart. This is to be
 There is one website shipping several <em>insane</em> selectors, up to 146,1546,159 in specificity. Bramus van Damme taught us that <a href="https://www.bram.us/2023/02/21/255255255-is-the-highest-specificity/">specificity only goes up to 255,255,255</a> but, apart from that, the fact that this exists is completely bonkers.
 </Award>
 
-<PolypaneCallout href="https://polypane.app/css-specificity-calculator/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=selector-specificity">Polypane teaches you how to calculate selector specificity</PolypaneCallout>
+<PolypaneCallout cta="Inspect selectors" href="https://polypane.app/css-specificity-calculator/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=selector-specificity">Inspect your selector specificity with Polypane's calculator</PolypaneCallout>
 
 ### Selector complexity
 

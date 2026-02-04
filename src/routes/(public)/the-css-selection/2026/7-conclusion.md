@@ -1,3 +1,7 @@
+<script>
+import PolypaneBanner from './PolypaneBanner.svelte'
+</script>
+
 ## Conclusion
 
 That was a wild ride along some of the most-used but also most obscure pieces of CSS usage around the world. The goal of this first edition of Project Wallace's CSS Selection was to have a look at how CSS is being used in the real world, and I am pleased to say that this article has shown us some real eye-openers as well as opportunities for mad respect and deep regret.
@@ -27,3 +31,5 @@ This article would not have existed without the prior work of all those who cont
 [Declan Chidlow (vale.rocks)](https://vale.rocks) helped out by meticulously reviewing this article and schooling me in how to write properly. Thank you for that. Go check out that blog, it's awesome.
 
 A tremendous word of thanks to [Kilian](https://kilianvalkhof.com/) from [Polypane](https://polypane.app/) for sponsoring (and reviewing) this inaugural edition of The CSS Selection. Your support means the world to me personally, because it encourages me to write about CSS more and to make better tools, like you do yourself. Folks, seriously, if you are not using Polypane yet, you're missing out.
+
+<PolypaneBanner></PolypaneBanner>

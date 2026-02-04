@@ -106,7 +106,7 @@ column_headers={['Feature', 'Adoption %']}
 
 The `max-width` and `min-width` features are quite unexpectedly used on most websites (88% and 86%). I did not expect `prefers-reduced-motion` to have such a great adoption rate even though it's almost half of that of the top two. There are some other surprises here, like `forced-colors` being used a bunch more than `prefers-color-scheme`.
 
-<PolypaneCallout href="https://polypane.app/blog/the-complete-guide-to-css-media-queries/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=media-queries">Polypane has the complete guide to media queries</PolypaneCallout>
+<PolypaneCallout cta="Read it here" href="https://polypane.app/blog/the-complete-guide-to-css-media-queries/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=media-queries">Polypane wrote the complete guide to media queries</PolypaneCallout>
 
 ### @font-face
 
@@ -310,7 +310,7 @@ column_headers={['@layer name', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/at-rules.layer.unique.stats.json)
 
-<PolypaneCallout href="https://polypane.app/docs/elements-panel/#cascade-layer-overview?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=layers">Polypane has best devtools for debugging cascade layers</PolypaneCallout>
+<PolypaneCallout cta="Start Your Free Trial" show_creditcard href="https://polypane.app?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=layers">Polypane has the best devtools to debug cascade layers</PolypaneCallout>
 
 ### @charset
 
