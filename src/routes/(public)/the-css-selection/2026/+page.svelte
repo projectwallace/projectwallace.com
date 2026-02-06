@@ -73,7 +73,7 @@
 			column-gap: var(--space-24);
 		}
 
-		@media (min-width: 44em) {
+		@media (min-width: 48rem) {
 			grid-template-columns: 1fr max-content;
 			position: relative;
 

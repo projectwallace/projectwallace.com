@@ -113,7 +113,7 @@
 		display: none;
 	}
 
-	@media (min-width: 44rem) {
+	@media (min-width: 48rem) {
 		.compact {
 			display: none;
 		}
