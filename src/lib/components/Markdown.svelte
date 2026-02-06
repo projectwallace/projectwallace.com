@@ -58,6 +58,19 @@
 		max-width: 60ch;
 	}
 
+	:global(.markdown svg[role='img']) {
+		max-width: 80ch;
+	}
+
+	:global(.markdown math) {
+		display: block;
+		text-align: center;
+		font-size: var(--size-lg);
+		color: var(--fg-100);
+		font-family: 'Cantata One';
+		line-height: var(--leading-relaxed);
+	}
+
 	:global(.markdown strong) {
 		font-style: normal;
 		font-weight: var(--font-bold);
@@ -68,8 +81,12 @@
 		font-style: italic;
 	}
 
-	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe)) {
-		margin-top: var(--space-6);
+	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe, math, .bar-chart)) {
+		margin-block-start: var(--space-6);
+
+		@media (height > 44rem) {
+			margin-block-start: var(--space-12);
+		}
 	}
 
 	:global(.markdown pre) {
@@ -131,7 +148,7 @@
 
 	:global(.markdown :where(:any-link)),
 	:global(.markdown :where(:any-link code)) {
-		color: light-dark(var(--accent-700), var(--accent-300));
+		color: light-dark(var(--accent-800), var(--accent-300));
 		text-decoration: underline;
 		text-decoration-color: light-dark(var(--accent-700), var(--accent-300));
 		font-size: 1em;
@@ -189,9 +206,12 @@
 	}
 
 	:global(.markdown aside) {
-		border: 2px solid var(--accent);
-		padding: var(--space-6) var(--space-5);
 		margin: var(--space-16) 0;
+	}
+
+	:global(.markdown aside):not([class]) {
+		border: 2px solid var(--accent-800);
+		padding: var(--space-6) var(--space-5);
 	}
 
 	:global(.markdown :is(aside, blockquote) > :first-child) {

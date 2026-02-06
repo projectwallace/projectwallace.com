@@ -9,9 +9,49 @@
 
 	interface Props {
 		nav?: NavItem[]
+		scroll_spy?: boolean
 	}
 
-	let { nav = defaultNav }: Props = $props()
+	let { nav = defaultNav, scroll_spy = false }: Props = $props()
+
+	let activeIds = $state<Set<string>>(new Set())
+
+	$effect(() => {
+		if (!scroll_spy || nav.length === 0) return
+
+		// Collect all section IDs from nav in order
+		const sectionIds: string[] = []
+		nav.forEach((item) => {
+			sectionIds.push(item.id)
+			if (item.items) {
+				item.items.forEach((subItem) => sectionIds.push(subItem.id))
+			}
+		})
+
+		function update() {
+			// Find the last heading that has scrolled past the top of the viewport
+			let currentId: string | undefined
+			for (const id of sectionIds) {
+				const el = document.getElementById(id)
+				if (el && el.getBoundingClientRect().top <= 100) {
+					currentId = id
+				}
+			}
+
+			const next = new Set<string>()
+			if (currentId) {
+				next.add(currentId)
+			}
+			activeIds = next
+		}
+
+		window.addEventListener('scroll', update, { passive: true })
+		update()
+
+		return () => {
+			window.removeEventListener('scroll', update)
+		}
+	})
 
 	function on_select(event: Event) {
 		let select = event.target as HTMLOptionElement
@@ -24,7 +64,7 @@
 </script>
 
 <nav aria-labelledby="report-nav-title">
-	<h2 id="report-nav-title" class="title">Navigate this page</h2>
+	<div id="report-nav-title" class="title">Navigate this page</div>
 
 	<div class="compact">
 		<label for="report-nav" aria-labelledby="report-nav-title"></label>
@@ -45,12 +85,12 @@
 
 	<div class="loose" aria-labelledby="report-nav-title">
 		{#each nav as { id, title, items }}
-			<a href="#{id}" class="parent">
+			<a href="#{id}" class="parent" aria-current={activeIds.has(id) ? 'true' : undefined}>
 				{title}
 			</a>
 			{#if items}
 				{#each items as item}
-					<a href="#{item.id}" class="child">
+					<a href="#{item.id}" class="child" aria-current={activeIds.has(item.id) ? 'true' : undefined}>
 						{item.title}
 					</a>
 				{/each}
@@ -67,10 +107,6 @@
 
 	.compact {
 		padding: var(--py) var(--px);
-		position: sticky;
-		top: 0;
-		right: 0;
-		left: 0;
 	}
 
 	.loose {
@@ -84,6 +120,7 @@
 
 		.loose {
 			display: block;
+			max-height: calc(95vb - var(--py));
 		}
 	}
 
@@ -105,23 +142,37 @@
 		display: block;
 		position: relative;
 		line-height: var(--leading-base);
-	}
 
-	.parent::after,
-	.child::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		border: 1px dotted var(--accent-400);
-		opacity: 0;
-	}
+		&::after,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			border: 1px dotted var(--accent-400);
+			opacity: 0;
+		}
 
-	.parent:hover::after,
-	.child:hover::after {
-		opacity: 1;
+		&:hover::after,
+		&:hover::after {
+			opacity: 1;
+		}
+
+		&[aria-current='true'],
+		&[aria-current='true'] {
+			color: light-dark(var(--accent-700), var(--accent-500));
+
+			&::before {
+				width: 3px;
+				background-color: var(--bg-700);
+			}
+
+			&::after {
+				border-color: var(--accent-400);
+			}
+		}
 	}
 
 	.parent {
@@ -131,15 +182,15 @@
 
 	.child {
 		padding: var(--py) var(--px) var(--py) var(--space-7);
-	}
 
-	.child::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: var(--px);
-		background-color: var(--fg-450);
-		width: 1px;
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: var(--px);
+			background-color: var(--fg-450);
+			width: 1px;
+		}
 	}
 </style>

@@ -1,0 +1,413 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+import PolypaneCallout from './PolypaneCallout.svelte'
+</script>
+
+## At-rules
+
+### At-rule totals
+
+Let's start by looking at how many at-rules we're shipping. Not looking at which ones specifically, just count how many there are in total.
+
+<BarChart
+title="Total at-rules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 8. 25th percentile: 58; 50th percentile: 173; 75th percentile: 394; 90th percentile: 740."
+data={{
+  "p10": 8,
+  "p25": 58,
+  "p50": 173,
+  "p75": 394,
+  "p90": 740,
+}}
+/>
+
+Looks like most websites have their at-rules well under control. With modern CSS there's a lot to control with at-rules, like containers, media, keyframes and supports. You need a bunch of them to get a properly functioning website, so let's dive into how we actually use the various at-rules.
+
+<Award size={format_number(150825)}>
+  Someone is getting their webmaster license revoked! Having {format_number(150825)} at-rules on a single page is just&hellip; wild!
+</Award>
+
+A quick look at the adoption rates of the various at-rules that we will further analyze in this chapter.
+
+<Bar
+items={[
+['@media', 0.93061],
+['@font-face', 0.8562],
+['@keyframes', 0.8390],
+['@supports', 0.4457],
+['@charset', 0.3957],
+['@import', 0.1804],
+['@container', 0.0961],
+['@layer', 0.0271],
+['@property', 0.0267],
+].map(([value, count]) => ({value, count}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Atrule', 'Adoption %']}
+/>
+
+`@media` is the undisputed king of at-rules (93%), closely followed by `@font-face` (85%) and `@keyframes` (83%). This seems like a very reasonable list of adoption rates. Let's look at the at-rules in more detail.
+
+### @media
+
+Our versatile friend the media query: always there to help with that responsive design, making that page print-ready or adjusting the layout for the folks who love that extra dash of contrast. So many possibilities!
+
+Let's start by looking at how many of them are on the page at all:
+
+<BarChart
+title="@media at-rules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 3. 25th percentile: 33; 50th percentile: 116; 75th percentile: 285; 90th percentile: 577."
+data={{
+  "p10": 3,
+  "p25": 33,
+  "p50": 116,
+  "p75": 285,
+  "p90": 577,
+}}
+/>
+
+Looking at the difference between this graph and the one above with at-rule totals, I think it's safe to say that the largest amount of at-rules on a page would be `@media`. And that would make a ton of sense if you look at the versatility of it. So, what do we use it for actually?
+
+<Bar
+items={[
+["max-width", 88.29081020555066],
+["min-width", 86.45025193953451],
+["prefers-reduced-motion", 44.146404862832924],
+["orientation", 25.063984643685515],
+["hover", 23.789290570263137],
+["max-height", 23.23342397824522],
+["-webkit-min-device-pixel-ratio", 22.60257538190834],
+["min-resolution", 20.318123650323923],
+["-ms-high-contrast", 15.65324322162681],
+["max-device-width", 13.316803967047907],
+["forced-colors", 8.58793889466528],
+["pointer", 7.538190834199791],
+["min-device-pixel-ratio", 6.347476605614652],
+["-webkit-transform-3d", 6.0665440294329365],
+["transform-3d", 5.9355754618891465],
+["min--moz-device-pixel-ratio", 5.754618891466048],
+["min-device-width", 5.6616412061105335],
+["min-height", 5.523674318163641],
+["prefers-color-scheme", 5.1117731744381345]
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Feature', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/at-rules.media.features.unique.stats.json)
+
+The `max-width` and `min-width` features are quite unexpectedly used on most websites (88% and 86%). I did not expect `prefers-reduced-motion` to have such a great adoption rate even though it's almost half of that of the top two. There are some other surprises here, like `forced-colors` being used a bunch more than `prefers-color-scheme`.
+
+<PolypaneCallout cta="Read it here" href="https://polypane.app/blog/the-complete-guide-to-css-media-queries/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=media-queries">Polypane wrote the complete guide to media queries</PolypaneCallout>
+
+### @font-face
+
+With `@font-face` Baseline widely available since July 2015, it's hard to imagine the days that we had to embed images or use Flash to make our typography look great. Luckily, `@font-face` has made our lives a lot easier. How much do we use it?
+
+<BarChart
+title="@font-face at-rules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 3; 50th percentile: 8; 75th percentile: 19; 90th percentile: 48."
+data={{
+  "p10": 0,
+  "p25": 3,
+  "p50": 8,
+  "p75": 19,
+  "p90": 48,
+}}
+/>
+
+Given the fact that you need multiple `@font-face` rules for every weight and italics, it makes sense that the numbers here are as they are. I actually expected the numbers to be a bit higher. Maybe some of you are experiencing some [_faux-bolds_](https://fonts.google.com/knowledge/glossary/faux_fake_pseudo_synthesized)?
+
+### @keyframes
+
+Continuing the making-our-website-pretty theme with a look at `@keyframes`. It's hard to imagine a website without any kind of animation and `@keyframes` has been a cross-browser help with that since September 2015. Every website has at least one spinner nowadays, right?
+
+<BarChart
+title="@keyframes at-rules per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 2; 50th percentile: 9; 75th percentile: 26; 90th percentile: 93."
+data={{
+  "p10": 0,
+  "p25": 2,
+  "p50": 9,
+  "p75": 26,
+  "p90": 93,
+}}
+/>
+
+Okay, maybe not every website then. 10% of them are as static as can be!
+
+<Bar
+items={[
+["fa-spin", 25.679836839158604],
+["spin", 23.896264896424857],
+["progress-bar-stripes", 21.440854194993204],
+["fadeIn", 18.525553867071903],
+["pulse", 15.783212029113013],
+["fadeOut", 15.07238262816924],
+["swiper-preloader-spin", 14.505518675517875],
+["bounce", 11.282292249860033],
+["turn-off-visibility", 10.94537311045349],
+["lightbox-zoom-out", 10.944373350395905],
+["lightbox-zoom-in", 10.93837479005039],
+["turn-on-visibility", 10.93837479005039],
+["fadeInUp", 10.616452051507638],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@keyframes name', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/at-rules.keyframes.unique.stats.json)
+
+It looks like `@keyframes` do make things spin around. `fa-spin` is a clear sign of [FontAwesome](https://github.com/FortAwesome/Font-Awesome/blob/16ac6af0d816e1b132bb2e3f06aa59a1bc5c6d23/css/fontawesome.css#L356-L363) being present. The `turn-off-visibility` seems to come from the [WordPress Gutenberg editor](https://github.com/WordPress/gutenberg/blob/07a15b4fc745d747435328bad84f0f4b74dfb489/packages/block-library/src/image/style.scss#L358) as well as the two `lightbox-zoom-*` keyframes.
+
+### @supports
+
+This at-rule is still evolving into something better even though it has been in our toolbox for quite a while now (Baseline since September 2015!). Where we first only could check if a certain declaration was supported, we can now also check for the support of [selectors, font-tech and font-format](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@supports#function_syntax)!
+
+<BarChart
+title="@supports at-rules per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 0. 75th percentile: 3; 90th percentile: 6."
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 3,
+  "p90": 6,
+}}
+/>
+
+Uh-oh, not quite what I expected. Either everyone's progressive enhancement game is top-notch or we're missing out big time on some quality of life improvements. I really wonder why the adoption rate of `@supports` is this low. An underrated tool, it seems.
+
+<Award size={format_number(4858)}>
+  At least someone is cramming {format_number(4858)} supports rules into their website. Go champ!
+</Award>
+
+#### Unique @supports queries
+
+Even though we don't have a ton of `@supports` usage, it's still fun to look at which unique queries are used most often. Note that this is not a normalized list of features, just unique values.
+
+<Bar
+items={[
+["(-webkit-mask-image:none) or (mask-image:none)) or (-webkit-mask-image:none)", 11.95813004878829],
+["(position:sticky)", 11.913140846196912],
+["(-webkit-touch-callout:inherit)", 9.88562744941214],
+["(position:-webkit-sticky) or (position:sticky)", 4.592897704550908],
+["not (container-type: inline-size)) or (not (selector(:has(*))", 3.356194513316804],
+["(-webkit-appearance:none)", 3.029272974486123],
+["(display:grid)", 2.519395345117172],
+["(-ms-ime-align:auto)", 2.209469727265456],
+["(-webkit-touch-callout:none)", 2.1174918019675277],
+["(-webkit-overflow-scrolling:touch)", 1.896544829240982],
+["(display: grid)", 1.4916420059185795],
+["(position: sticky)", 1.3956650403903064],
+["(padding:max(0px))", 1.3896664800447893],
+["(outline-offset:-3px)", 1.23770295129169],
+["(-webkit-touch-callout: none)", 1.2027113492761736],
+["(color:color-mix(in lab,red,red))", 1.0907382228265217],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@supports query', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/at-rules.supports.unique.stats.json)
+
+#### @supports browserhacks
+
+Another creative use of `@supports` is to use it to target specific browsers. Again, a table of non-normalized data, but look at what people are doing to be very specific. There are some really nasty ones in this list, and I sure hope you're not actively taking part in this.
+
+<Bar
+items={[
+["(-webkit-appearance:none)", 3.029272974486123],
+["(-webkit-appearance:none) and (stroke-color:transparent)", 0.4998800287930896],
+["(-webkit-appearance: none)", 0.2889306566424058],
+["(-moz-appearance: meterbar)", 0.1789570503079261],
+["(font: -apple-system-body) and (-webkit-appearance: none) and (-webkit-hyphens: none)", 0.15196352875309926],
+["(hanging-punctuation:first) and (font:-apple-system-body) and (-webkit-appearance:none)", 0.09597696552827321],
+["(-moz-appearance:meterbar)", 0.08597936495241143],
+["(-webkit-appearance: none) and (stroke-color: transparent)", 0.0769815244341358],
+[
+"(-webkit-appearance:none) or (-moz-appearance:none) or (appearance:none)) or ((-moz-appearance:none) and (mask-type:alpha)",
+0.07398224426137727
+],
+["(-webkit-appearance: none) or (-moz-appearance: none)", 0.07198272414620491],
+["(-webkit-appearance:none) or (-moz-appearance:none)", 0.06098536351275694],
+["(font:-apple-system-body) and (-webkit-appearance:none)", 0.05698632328241222],
+["(hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none)", 0.04398944253379189]
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@supports query', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/at-rules.supports.unique.stats.json)
+
+### @import
+
+If our previous at-rule was used so little, let's hope this one is too! Using `@import` is _usually_ an anti-pattern unless you know what you're doing.
+
+<BarChart
+title="@import at-rules per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th, 50th and 75th percentiles are all 0. 90th percentile: 1."
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 0,
+  "p90": 1,
+}}
+/>
+
+Wow, job well done internet! Only 18.04% of websites analyzed use `@import`. The 90th percentile only has 1 `@import` at most.
+
+<Award size={format_number(176)}>
+  There's always that one friend at the party taking it too far. Looking at you, web dev who included {format_number(176)} @import rules into their website. Let's get you into rehab, buddy. Party's over.
+</Award>
+
+For next year I'd be curious about the usage of layers, supports queries and media queries inside `@import` rules. This at-rule is a [pretty versatile beast](https://www.projectwallace.com/blog/css-imports-are-awesome), and I wonder if we're taking full advantage of it when we use it.
+
+### @layer
+
+Baseline widely available since March 2022, we can control our specificity and cascade more with `@layer`. Compared to other at-rules, the adoption rate is quite low, so it shows nothing on our percentiles chart. At least I found one website with&hellip; checks notes&hellip; {format_number(1100)} `@layer` at-rules. It's a good thing that we're not tracking averages.
+
+<Award size={format_percentage(0.0271)}>
+	{format_percentage(0.0271)} of analyzed websites use <code>@layer</code>. Not a high number considering its usefulness and availability.
+</Award>
+
+`@layer` use seems mostly powered by the use of TailwindCSS but also the use of layers like `legacy` and `global` seem encouraging patterns of developers using `@layer`. Especially `@layer legacy` seems like a trick that developers use to incrementally modernize their codebase. I've skipped some named layers at the bottom of the chart so I could include `<anonymous>`.
+
+<Bar
+items={[
+["base", 1.8505558665920179],
+["utilities", 1.7995681036551228],
+["components", 1.762576981524434],
+["theme", 1.6446052947292649],
+["properties", 1.476645605054787],
+["reset", 0.2909301767575782],
+["legacy", 0.1589618491562025],
+["component", 0.1309685675437895],
+["global", 0.09797648564344556],
+["tokens", 0.09797648564344556],
+["<anonymous>", 0.04498920259137807],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="Atrule",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['@layer name', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/at-rules.layer.unique.stats.json)
+
+<PolypaneCallout cta="Start Your Free Trial" show_creditcard href="https://polypane.app?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=layers">Polypane has the best devtools to debug cascade layers</PolypaneCallout>
+
+### @charset
+
+<BarChart
+title="@charset at-rules per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 0. 75th percentile: 1; 90th percentile: 2."
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0,
+  "p75": 1,
+  "p90": 2,
+}}
+/>
+
+Almost 40% of websites use `@charset`, and an overwhelming majority use UTF-8 encoding. It is interesting to see that there is a distinct group using Chinese (`gb2312`), Japanese (`shift_jis`) and Cyrillic (`windows-1251`) encodings. This proves that there is a real use case for `@charset` even though most of us don't use it that often.
+
+<Bar
+items={[
+["utf-8", 39.458529952811325],
+["iso-8859-1", 0.026993521554826844],
+["gb2312", 0.02499400143965448],
+["shift_jis", 0.022994481324482126],
+["windows-1251", 0.019995201151723586],
+["euc-jp", 0.01699592097896505],
+["euc-kr", 0.007998080460689434],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Charset', 'Adoption %']}
+/>
+
+[Source data](static/data/the-css-selection/2026/at-rules.charset.unique.stats.json)
+
+### @container
+
+Almost 10% of websites use `@container` already (well, it has been Baseline widely available since February 2023) is a pretty good number. It's not enough to show anything on our percentiles chart so we're omitting that.
+
+<Award size={format_percentage(0.0961)}>
+	Just out of reach of appearing in the p10: <code>@container</code> is used on {format_percentage(0.0961)} of websites. Still quite the adoption!
+</Award>
+
+Looking at the names that are used, there is no real pattern apart from the list of 8 hash-like gibberish names that appear in {format_percentage(0.0016)} of websites. Names like `wrapper`, `card` and `welcome-panel` speak more to the imagination.
+
+<Bar
+items={[
+["wrapper", 3.3761897144685276],
+["welcome-panel", 0.34691673998240424],
+["welcome-panel-media", 0.34691673998240424],
+["dfposts", 0.25893785491482046],
+["card", 0.1889546508837879],
+["wpforms-field-row-responsive", 0.17595777013516756],
+["column", 0.17395825001999518],
+["[hash] like \_1f7pmjs0 (7 rows omitted for brevity)", 0.16695992961689193],
+["wpforms-field-row-responsive-name-field", 0.14696472846516836],
+["wpforms-field-2-columns-responsive", 0.13196832760137567],
+["wpforms-field-3-columns-responsive", 0.1299688074862033],
+["media", 0.12397024714068625],
+["horizontal-product-card", 0.11897144685275535],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Container name', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/at-rules.container.names.unique.stats.json)
+
+I wonder if the `media` container has anything to do with [the 'OG' CSS media object](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/).
+
+### @property
+
+`@property` is Baseline newly available since July 2024, so it makes sense that most websites haven't picked it up yet. In that regard, the current adoption ratio of 2.67% is already encouraging.
+
+<Award size={format_percentage(0.0267)}>
+	{format_percentage(0.0267)} of websites use <code>@property</code>, which is not enough to make them show up in a percentiles chart. Maybe next year?
+</Award>
+
+<Bar
+items={[
+["--tw-border-style", 1.6286091338078863],
+["--tw-font-weight", 1.610613452771335],
+["--tw-leading", 1.532632168279613],
+["--tw-inset-ring-shadow", 1.5316324082220267],
+["--tw-inset-shadow", 1.5316324082220267],
+["--tw-ring-offset-color", 1.5316324082220267],
+["--tw-ring-offset-shadow", 1.5316324082220267],
+["--tw-ring-offset-width", 1.5316324082220267],
+["--tw-ring-shadow", 1.5316324082220267],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Property name', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/at-rules.property.unique.stats.json)
+
+After analyzing the most common `@property` names, I found that by far the most popular were TailwindCSS property names like `--tw-border-style`, `--tw-font-weight` etc. with most of them having an adoption rate between 1.63% and 0.12%. After that is a huge list of `--x-[hash]`, properties which seem to be entirely computer-generated. It doesn't really make sense to show the full chart here, but it's an interesting observation. My conclusion is that the most common usage of `@property` seems to be tied to some kind of (CSS) framework.

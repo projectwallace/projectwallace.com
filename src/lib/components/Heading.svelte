@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { SvelteHTMLElements } from 'svelte/elements'
 	type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'span' | 'div'
-	type HeadingSize = undefined | 1 | 2 | 3 | 4 | 5 | 6
+	type HeadingSize = undefined | 1 | 2 | 3 | 4 | 5 | 6 | 0
 
 	const SIZE_MAP = {
 		['h1' as HeadingElement]: 1,
@@ -19,7 +19,7 @@
 
 	let { element, size, children, class: className, ...rest }: SvelteHTMLElements['div'] & Props = $props()
 
-	let calculated_size = $derived(size || SIZE_MAP[element])
+	let calculated_size = $derived(size ?? SIZE_MAP[element])
 </script>
 
 <svelte:element this={element} class={[`heading heading-size-${calculated_size}`, className]} {...rest}>
@@ -34,6 +34,16 @@
 		/* stylelint-disable-next-line declaration-block-no-duplicate-properties */
 		text-wrap: balance;
 		text-wrap: pretty;
+	}
+
+	.heading-size-0 {
+		color: light-dark(var(--black), var(--white));
+		font-weight: var(--font-ultrabold);
+		font-size: var(--size-5xl);
+
+		@container (width > 44rem) {
+			font-size: var(--size-7xl);
+		}
 	}
 
 	h1,

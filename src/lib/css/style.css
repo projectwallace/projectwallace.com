@@ -9,6 +9,7 @@
 			--teal-600: hsl(152deg 68.6% 36%);
 			--teal-700: hsl(152deg 72% 33%);
 			--teal-800: hsl(152deg 80% 25%);
+			--teal-900: hsl(152deg 70% 12.5%);
 			--blue-100: hsl(215.9deg 90% 85%);
 			--blue-200: hsl(215.9deg 90% 70%);
 			--blue-300: hsl(215.9deg 90% 60%);
@@ -100,6 +101,7 @@
 			/* 60px */
 			--size-7xl: 4.5rem;
 			/* 72px */
+			--size-8xl: 6rem;
 			--size-specimen: 0.825rem;
 
 			/* LINE-HEIGHTS */
@@ -277,6 +279,14 @@
 		line-gap-override: normal;
 	}
 
+	@font-face {
+		font-display: swap;
+		font-family: 'Cantata One';
+		font-weight: 400;
+		font-style: normal;
+		src: local('Cantata One'), local('Cantata-One'), url('../../../cantata-one-regular-2026-02-04.woff2') format('woff2');
+	}
+
 	@layer elements {
 		html {
 			/* Accent colors */
@@ -395,7 +405,7 @@
 			display: inline-block;
 			margin-right: 1ch;
 			margin-left: 1ch;
-			color: light-dark(var(--accent-700), var(--accent-300));
+			color: light-dark(var(--accent-800), var(--accent-300));
 			padding-inline: .5ch;
 		}
 
@@ -428,7 +438,7 @@
 				--highlight-property: light-dark(var(--blue-400), var(--blue-100));
 				--highlight-number: light-dark(var(--blue-300), var(--blue-200));
 				--highlight-string: light-dark(var(--orange-400), var(--orange-300));
-				--highlight-name: light-dark(var(--purple-500), var(--purple-200));
+				--highlight-name: light-dark(var(--purple-600), var(--purple-200));
 				--highlight-selector: light-dark(var(--green-500), var(--teal-400));
 				--highlight-comment: var(--fg-400);
 				--highlight-value: var(--fg-200);

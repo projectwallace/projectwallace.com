@@ -1,0 +1,324 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+import PolypaneCallout from './PolypaneCallout.svelte'
+</script>
+
+## Values
+
+Let me start with a rather disappointing note about this chapter. Because analyzing values is one of the areas where Project Wallace shines, but I made a bad decision early on in the scraping process. After an initial crawl started to fill my laptop's drive rather quickly, I decided to cut out some 'non-important' metrics to save some disk space and speed up analysis. Boy, do I regret that. This decision means that I've analyzed and then **thrown away** all analysis about popular colors, font sizes, shadows, everything. All I have at this point are aggregate percentiles. So. This is not the values chapter I was hoping for but it's the best I can do for this year.
+
+### Colors
+
+Unique colors are analyzed by looking at their string representation, so `Red` is a different value than `red` and `#f00`. From a design systems perspective, counting like this makes sense, because you want all your colors to be uniform and coming from the same, single source of truth. This is what is counted when we look at the metric like that:
+
+<BarChart
+title="Unique colors per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 26. 25th percentile: 77; 50th percentile: 164; 75th percentile: 278; 90th percentile: 408."
+data={{
+  "p10": 26,
+  "p25": 77,
+  "p50": 164,
+  "p75": 278,
+  "p90": 408,
+}}
+/>
+
+<Award size={format_number(16172)}>
+Whoever ships {format_number(16172)} unique colors to their users: your Design System team is very cross with you &hellip;
+</Award>
+
+It would be very interesting to compare colors value-wise, so that is on my list for next year.
+
+Then on to color formats. This table highlights what the most used color formats are across all websites analyzed.
+
+<Bar
+items={[
+["hex6", 97.09669679276973],
+["hex3", 94.936215308326],
+["transparent", 90.65124370151165],
+["rgba", 90.4372950491882],
+["named", 79.23798288410782],
+["currentcolor", 59.287770934975605],
+["rgb", 55.2587379029033],
+["hex8", 42.323842277853316],
+["hex4", 33.85587459009838],
+["hsla", 32.07730144765256],
+["system", 23.08445972966488],
+["hsl", 6.200511877149484],
+["oklch", 1.8895465088378791],
+["color", 0.5568663520755018],
+["oklab", 0.5378709109813645],
+["lab", 0.24094217387826922],
+["lch", 0.046988722706550426],
+["hwb", 0.0289930416699992],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Color format', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/values.colors.formats.unique.stats.json)
+
+The top 7 are very much as expected, but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev, because apparently this and 4-character hex codes have been Baseline widely available since January 2020&hellip;
+
+Further down the list we have HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
+
+### Font families
+
+Apart from declaring custom `@font-face` families, there's also the point of using actual families for your styling. How many unique families do websites use in their CSS?
+
+<BarChart
+title="Unique font families per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 3. 25th percentile: 6; 50th percentile: 12; 75th percentile: 20; 90th percentile: 33."
+data={{
+  "p10": 3,
+  "p25": 6,
+  "p50": 12,
+  "p75": 20,
+  "p90": 33,
+}}
+/>
+
+This data actually overlaps quite well with the use of [`@font-face`](#font-face), with the number of families used always being slightly higher than the number of custom families declared.
+
+### Font sizes
+
+Similar to the color analysis, we only compare font sizes by their string representation, so `1.2em` is not the same as `120%` in our analysis, even though the browser will render them the same.
+
+<BarChart
+title="Unique font sizes per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 12. 25th percentile: 26; 50th percentile: 47; 75th percentile: 73; 90th percentile: 99."
+data={{
+  "p10": 12,
+  "p25": 26,
+  "p50": 47,
+  "p75": 73,
+  "p90": 99,
+}}
+/>
+
+This table matches my expectations quite well, but I'm always slightly surprised how we end up with so many unique font sizes on our websites. There are countless articles out there explaining how to create a font scale and use that but I guess reality comes at us quickly when it comes to CSS.
+
+### Line heights
+
+Line heights are often, but not always, set in combination with `font-size` and/or `font-family`, often in the `font` shorthand. So it is no surprise that this graph is similar in shape to the the `font-size` and `font-family` charts, but just lower in numbers.
+
+<BarChart
+title="Unique line heights per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 5. 25th percentile: 15; 50th percentile: 28; 75th percentile: 46; 90th percentile: 66."
+data={{
+  "p10": 5,
+  "p25": 15,
+  "p50": 28,
+  "p75": 46,
+  "p90": 66,
+}}
+/>
+
+### Box shadows
+
+One metric that is under-analyzed but often used in design systems is the humble box shadow. Not contributing to the box model, but it does play a role in branding and UX.
+
+<BarChart
+title="Unique box shadows per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1. 25th percentile: 5; 50th percentile: 17; 75th percentile: 34; 90th percentile: 60."
+data={{
+  "p10": 1,
+  "p25": 5,
+  "p50": 17,
+  "p75": 34,
+  "p90": 60,
+}}
+/>
+
+### Text shadows
+
+Like box shadows, text shadows can help with creative effects or even help [improve readability of text on top of images](https://css-tricks.com/design-considerations-text-images/#aa-floor-fade) (wow, that CSS-Tricks article is from 2014!).
+
+<BarChart
+title="Unique text shadows per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th and 25th percentiles are both 0. 50th percentile: 1; 75th percentile: 3; 90th percentile: 7."
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 1,
+  "p75": 3,
+  "p90": 7,
+}}
+/>
+
+The use of text-shadows appears to be very limited. It makes me wonder why that is. Don't we see the value in it? Is it too distracting?
+
+### Z-indexes
+
+The seemingly never-ending battle of putting things over other things. Modern CSS gives us [modern ways to create stacking contexts](https://polypane.app/blog/offset-parent-and-stacking-context-positioning-elements-in-all-three-dimensions/#creating-a-stacking-context), like `isolation: isolate`. So once you have that stacking context, what number do you put on it?
+
+<BarChart
+title="Unique z-indexes per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 2. 25th percentile: 10; 50th percentile: 18; 75th percentile: 28; 90th percentile: 38."
+data={{
+  "p10": 2,
+  "p25": 10,
+  "p50": 18,
+  "p75": 28,
+  "p90": 38,
+}}
+/>
+
+It seems that we are a creative bunch when it comes to thinking of numbers. Given the wide range of unique `z-index` values it's probably time for a word from our sponsor, Polypane. If you can master the concept of stacking contexts, you will not need so many z-indexes anymore. Kilian knows his stuff and if you need help debugging your stacking contexts, just use Polypane!
+
+<PolypaneCallout cta="Read article" href="https://polypane.app/blog/offset-parent-and-stacking-context-positioning-elements-in-all-three-dimensions/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=z-indexes">Learn everything there is to know about stacking contexts</PolypaneCallout>
+
+### Animation durations
+
+Oh, I wish that I could look into the actual values used for `animation-duration`. It would be very interesting to see what durations are used most so we could spark [a healthy debate](https://bsky.app/profile/vale.rocks/post/3mb6m6ggaos2l) on social media as to why everyone is wrong.
+
+<BarChart
+title="Unique animation durations per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1. 25th percentile: 6; 50th percentile: 12; 75th percentile: 19; 90th percentile: 29."
+data={{
+  "p10": 1,
+  "p25": 6,
+  "p50": 12,
+  "p75": 19,
+  "p90": 29,
+}}
+/>
+
+At least we know that most websites don't use a lot of unique durations. Again, these are compared string-wise, so `200ms` is different from `0.2s` and `.2s`. Now fight.
+
+### Animation timing functions
+
+Are timing functions debated as heavily as durations? At least there are fewer unique values per website, so perhaps this is less of an issue?
+
+<BarChart
+title="Unique timing functions per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1. 25th percentile: 3; 50th percentile: 6; 75th percentile: 10; 90th percentile: 16."
+data={{
+  "p10": 1,
+  "p25": 3,
+  "p50": 6,
+  "p75": 10,
+  "p90": 16,
+}}
+/>
+
+### Vendor prefixed values
+
+Sometimes even values have vendor prefixes, like selectors and properties do. Think of `background-image: -webkit-linear-gradient()` or `display: -ms-flexbox`.
+
+<BarChart
+title="Vendor prefixed values per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 4; 50th percentile: 20; 75th percentile: 76; 90th percentile: 199."
+data={{
+  "p10": 0,
+  "p25": 4,
+  "p50": 20,
+  "p75": 76,
+  "p90": 199,
+}}
+/>
+
+### Value browserhacks
+
+Unfortunately I have not broken down usage of value hacks properly but based on [the source data](/data/the-css-selection/2026/values.browserhacks.unique.stats.json) I can tell that two main types of value hacks are still commonly used in at least 5% of websites:
+
+1. `\9` is used to target IE 6-8
+2. `!ie` is used to target IE &lt;= 7 and acts as `!important` where the string after `!` can be anything
+
+Source: [browserhacks.com](http://browserhacks.com/#ie)
+
+### Value resets
+
+Value resets are measured as declarations where any level of margin or padding is set to `0` with or without units. Resets are usually a code smell because you're overriding a value previously set, and now it's 'in the way', and you need to do double work. That's a sign that something is wrong with your CSS composition or cascade setup.
+
+<BarChart
+title="Value resets per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 14. 25th percentile: 71; 50th percentile: 200; 75th percentile: 385; 90th percentile: 664."
+data={{
+  "p10": 14,
+  "p25": 71,
+  "p50": 200,
+  "p75": 385,
+  "p90": 664,
+}}
+/>
+
+Luckily there's a small group of websites that seem to use the bare minimum, but looking further down the graph, we can see CSS resets quickly ramping up.
+
+### Units
+
+Looking at how many unique CSS units are used is useful because you probably don't want to mix too many sorts of units to stay consistent. But there are also good reasons to not use the same unit for every single property, so it's tradeoffs all the way down. How many units do websites actually use?
+
+<BarChart
+title="Unique units per website distribution in percentiles"
+alt="A bar chart with 5 bars in a gentle upward trend. The 10th percentile starts at 4. 25th percentile: 7; 50th percentile: 9; 75th percentile: 11; 90th percentile: 12."
+data={{
+  "p10": 4,
+  "p25": 7,
+  "p50": 9,
+  "p75": 11,
+  "p90": 12,
+}}
+/>
+
+This might be one of the least eventful graphs in the entire report. Not a lot of diversity of CSS units across the biggest percentiles. Things get more interesting when we look at adoption rates of specific units:
+
+<Bar
+items={[
+["px", 98.27641366072143],
+["em", 91.71798768295609],
+["s", 91.50303927057506],
+["deg", 89.30456690394305],
+["rem", 80.150763816684],
+["vh", 76.03675117971687],
+["vw", 72.33663920659042],
+["fr", 60.230544669279375],
+["ms", 56.701391666000156],
+["turn", 35.636447252659366],
+["ch", 23.064464528513156],
+["pt", 15.504278973046468],
+["dvh", 10.319523314404542],
+["ex", 7.824122210669439],
+["cm", 7.186275293929458],
+["svh", 3.9790450291929935],
+["lh", 2.799328161241302],
+["x", 2.7513396784771658],
+["dvw", 2.296448852275454],
+["vmax", 1.6915940174358153],
+["vmin", 1.521634807646165],
+["cqw", 1.476645605054787],
+["pc", 1.29268975445893],
+["mm", 1.181716388066864],
+["in", 1.0777413420779014],
+["lvh", 0.9457730144765256],
+["svw", 0.5528673118451571],
+["cqi", 0.5488682716148124],
+["cqh", 0.32092297848516355],
+["cap", 0.1499640086379269],
+["vi", 0.14596496840758216],
+["lvw", 0.1409661681196513],
+["dppx", 0.12696952731344477],
+["m", 0.10697432616172117],
+["rad", 0.08397984483723907],
+["cqmin", 0.06898344397344637],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Unit', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/values.units.unique.stats.json)
+
+`px` remains the ruler with some distance over `em` and `s` although I'm surprised `s` is actually that high on the list. It's even well above `rem`! Looking down the list we can see that `deg` is used more than `turn` (89.3% vs. 35.6%); `s` more than `ms` (91.5% vs. 56.7%); `cm` more than `mm` and `in` (7.19% vs. 1.18% vs. 1.08%). The list also shows that we've started using viewport and container units.
+
+<aside>
+<p>If you think that this list of units is incomplete, you're right. But since you're such an expert, why don't you show off your units knowledge in our <a href="/css-units-game">CSS Units memory game</a>?</p>
+</aside>

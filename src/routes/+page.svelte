@@ -14,6 +14,11 @@
 />
 
 <Container>
+	<div class="announcement">
+		<p>The CSS Selection: the state of real-world CSS usage.</p>
+		<Button size="lg" element="a" variant="primary" href="/the-css-selection/2026" class="button">Read now</Button>
+	</div>
+
 	<div class="wrapper">
 		<section class="hero-section">
 			<div>
@@ -157,6 +162,38 @@
 </Container>
 
 <style>
+	.announcement {
+		background-color: var(--bg-100);
+		font-family: var(--font-body);
+		background-image: radial-gradient(circle at top, light-dark(var(--teal-200), var(--teal-900)), transparent 80%);
+		background-repeat: no-repeat;
+		border: 0.2rem solid var(--accent-400);
+		padding-block: var(--space-8);
+		padding-inline: var(--space-12);
+		display: grid;
+		grid-template-columns: 1fr min-content;
+		align-items: center;
+		gap: var(--space-4);
+		margin-block-end: var(--space-8);
+		position: relative;
+
+		&:focus-within {
+			outline: 0.2rem solid var(--fg-100);
+		}
+
+		p {
+			font-size: var(--size-xl);
+			font-weight: var(--font-bold);
+			color: var(--fg-100);
+		}
+
+		:global(a::after) {
+			content: '';
+			position: absolute;
+			inset: 0;
+		}
+	}
+
 	.wrapper {
 		display: grid;
 		gap: var(--space-16);

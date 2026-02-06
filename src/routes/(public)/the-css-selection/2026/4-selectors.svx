@@ -1,0 +1,257 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+import PolypaneCallout from './PolypaneCallout.svelte'
+</script>
+
+## Selectors
+
+Love them or hate them, you need selectors to target the elements you want to change, whether it be for that fancy P3 color, or that 90's grunge background-image.
+
+### Selector totals
+
+Looking at the number of selectors in a stylesheet gives us a quick look into the magnitude of things.
+
+<BarChart
+title="Total selectors per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 272. 25th percentile: 1,391; 50th percentile: 3,660; 75th percentile: 7,335; 90th percentile: 12,607."
+data={{
+  "p10": 272,
+  "p25": 1391,
+  "p50": 3660,
+  "p75": 7335,
+  "p90": 12607,
+}}
+/>
+
+From my experience analyzing websites, I expected the p90 and p75 to be a lot higher. I'm actually quite pleased with this distribution. Also, the top 10% of websites apparently have only 272 selectors or fewer, which is also surprising. This seems like a really low number to me.
+
+### Pseudo-classes
+
+One concept I copied from the Web Almanac is their overview of popular pseudo-classes. It offers an interesting look into adoption of newer pseudo-classes and proportional use between classes.
+
+<Bar
+items={[
+["hover", 95.24414140606254],
+["where", 90.56326481644406],
+["focus", 88.56574422138686],
+["before", 87.58397984483723],
+["after", 86.99112213068864],
+["not", 86.39226585619451],
+["last-child", 85.96236903143244],
+["first-child", 85.7644165400304],
+["active", 83.93485563464769],
+["root", 79.13600735823402],
+["nth-child", 76.8155642645765],
+["disabled", 58.83487962888907],
+["empty", 58.765896184915626],
+["checked", 58.53695113172839],
+["last-of-type", 57.3212429017036],
+["visited", 54.645884987602976],
+["nth-of-type", 53.18523554346957],
+["first-of-type", 52.96928737103095],
+["focus-visible", 48.19943213628729],
+["-ms-input-placeholder", 44.095417099896025],
+["has", 41.29908821882748],
+["focus-within", 41.023154442933695],
+["only-child", 36.971126929536915],
+["is", 36.310285531472445],
+["nth-last-child", 34.47372630568664],
+["-moz-focusring", 32.99408142045909],
+["-moz-placeholder", 25.675837798928256],
+["link", 25.636847156682396],
+["first-letter", 22.689554506918338],
+["invalid", 21.419859233783892],
+["host", 19.002439414540508],
+["indeterminate", 18.312604974806046],
+["-webkit-autofill", 17.039910421498842],
+["valid", 16.495041190114375],
+["placeholder-shown", 13.633727905302727],
+["lang", 11.203311205310726],
+["-moz-ui-invalid", 9.309765656242503],
+["target", 6.109533711909141],
+["-moz-placeholder-shown", 5.917579780852596],
+["nth-last-of-type", 4.414940414300568],
+["-webkit-full-screen", 3.7730944573302407],
+["enabled", 3.602135487483004],
+["fullscreen", 3.589138606734384],
+["required", 2.788330800607854],
+["read-only", 2.531392465808206],
+["only-of-type", 2.5003999040230345],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Pseudo-class', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/selectors.pseudoClasses.unique.stats.json)
+
+The 2022 Almanac listed `:hover`, `:focus` and `:active` as their top 3, but look at this: `:where` made it into the top 3! It has been Baseline widely available since January 2021, but this would be a good time to give yourself a pat on the back if you are a spec writer, or part of the CSS Working Group. And while you're patting: `:has` is used on 41% of websites (Baseline newly available December 2023). That's even higher than `:is`, clocking in at 36% (also Baseline widely available January 2021). It would be interesting to see if the use of `:matches` and `:any` will go down, as we use `:is` more. Regardless, these look like rock-solid adoption rates, if you ask me. We know that adoption of CSS features usually takes a bit, and seeing these newish ones up there makes you proud of the language.
+
+Looking further down the list, we see `:empty` being used on 58% of websites. I find that surprising because I found it useful only on a handful of occasions.
+
+<aside>
+<p>Don't mind the <code>:before</code> and <code>:after</code> in this list. They get marked as pseudo-classes even though they're actually pseudo-elements. For backwards compatibility reasons, browsers allow you to write them with a single colon instead of two, and most CSS minifiers omit the optional colon. I kept them in this overview to see how often they are used.</p>
+</aside>
+
+### Accessibility
+
+Accessibility selectors are attribute selectors that check for the presence of `[aria-]` and `[role=]`. These are interesting because they tell a little bit about how accessibility is baked into the CSS. It's never the complete story but it's interesting nonetheless.
+
+<BarChart
+title="Accessibility selectors per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th and 25th percentiles are both 0. 50th percentile: 1; 75th percentile: 6; 90th percentile: 21."
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 1,
+  "p75": 6,
+  "p90": 21,
+}}
+/>
+
+Based on my own experience, I find this number quite low. Most projects I've worked on have many more accessibility-focused selectors than this. Either everyone is setting their styles via regular class names (very valid), or we're not focusing on accessibility that much.
+
+<PolypaneCallout cta="Learn more" href="https://polypane.app/blog/find-and-fix-accessibility-issues-with-polypane/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=layers">Find and fix accessibility issues easily with Polypane</PolypaneCallout>
+
+### Vendor prefixes
+
+Sometimes we need to use non-standard selectors to select that one pesky thing in that one single browser. Think of `:-moz-focusring`, `::-webkit-scrollbar` or `::-webkit-file-upload-button`. Vendor-prefixed selectors are usually taken care of by CSS toolchains, where they take your modern authored CSS and add some prefixes where necessary, based on the required browser support.
+
+<BarChart
+title="Vendor-prefixed selectors per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0. 25th percentile: 7; 50th percentile: 21; 75th percentile: 47; 90th percentile: 84."
+data={{
+  "p10": 0,
+  "p25": 7,
+  "p50": 21,
+  "p75": 47,
+  "p90": 84,
+}}
+/>
+
+Data shows that there are not that many vendor-prefixed selectors per website, and I'm curious to see if that number will go down in coming years as some of them will become obsolete. But on the other hand, some browser makers are shipping _new_ vendor-prefixed selectors, so we might be seeing these for years and years to come.
+
+### Specificity
+
+Our beloved metric: specificity. It's a shame Wes Bos isn't [butchering](https://syntax.fm/816?t=0:14:26) the pronunciation of this as much as he did before. Jokes aside, specificity is one of the most misunderstood concepts in CSS, which is also a reason that so many people blogged about it and why online tools like [Polypane's Specificity Calculator](https://polypane.app/css-specificity-calculator/) exist. Some CSS analyzers get specificity wrong, but luckily we don't, so we can show cool stuff like this:
+
+<BarChart
+title="Unique selector specificities per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 12. 25th percentile: 22; 50th percentile: 39; 75th percentile: 58; 90th percentile: 83."
+data={{
+  "p10": 12,
+  "p25": 22,
+  "p50": 39,
+  "p75": 58,
+  "p90": 83,
+}}
+/>
+
+The chart shows that 50% of websites have up to 39 unique specificities on their pages, which is a higher number than I had expected. Thinking about this a bit more actually leads me to think that this might be because CSS is such an expressive, capable language: there are so many ways to express [selector intent](https://csswizardry.com/2012/07/shoot-to-kill-css-selector-intent/), and increasingly more so with new selectors like `:has()` and `:where()`.
+
+Now let's look at the most commonly used specificities:
+
+<Bar
+items={[
+["0,1,0", 97.05770615052387],
+["0,0,1", 96.2099096216908],
+["0,1,1", 96.1439254578901],
+["0,0,0", 95.83899864032632],
+["0,2,0", 94.57130288730706],
+["0,2,1", 93.70451091737982],
+["0,3,0", 90.99616092137886],
+["0,1,2", 90.31732384227786],
+["0,3,1", 88.95765016396065],
+["0,2,2", 87.93089658481964],
+["0,4,0", 85.64944413340798],
+["0,0,2", 85.2505398704311],
+["0,3,2", 81.94033431976325],
+["0,4,1", 81.79137007118291],
+["1,0,0", 79.28297208669919],
+["0,5,0", 77.20747020715028],
+["0,1,3", 76.62461009357754],
+["0,2,3", 75.32892105894585],
+["1,1,0", 72.62956890346317],
+["0,5,1", 69.84423738302807],
+["0,4,2", 69.5023194433336],
+["0,6,0", 67.87171078941054],
+["0,3,3", 66.31608413980643],
+["1,0,1", 65.09437734943614],
+["1,1,1", 64.68947452611373],
+["1,2,0", 63.34479724866032],
+].map(([value, count]) => ({value, count: count / 100}))}
+context="",
+enable_keyboard_navigation={false}
+node_type="rule"
+column_headers={['Specificity', 'Adoption %']}
+/>
+
+[Source data](/data/the-css-selection/2026/selectors.specificity.unique.stats.json)
+
+There's absolutely nothing notable about this adoption rate chart. This is to be expected. One item I want to highlight is the no. 4 position of `0,0,0`. This means that the high usage of `:where()` seems to translate into this chart, as well as it being very likely that most websites use the universal selector (`*`). The fun part is at the bottom (the list has {format_number(2876)} unique entries), where things definitely got out of hand.
+
+<Award size="146,1546,159">
+There is one website shipping several <em>insane</em> selectors, up to 146,1546,159 in specificity. Bramus van Damme taught us that <a href="https://www.bram.us/2023/02/21/255255255-is-the-highest-specificity/">specificity only goes up to 255,255,255</a> but, apart from that, the fact that this exists is completely bonkers.
+</Award>
+
+<PolypaneCallout cta="Inspect selectors" href="https://polypane.app/css-specificity-calculator/?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=selector-specificity">Inspect your selector specificity with Polypane's calculator</PolypaneCallout>
+
+### Selector complexity
+
+Selector complexity is an important metric next to measuring specificity. With the addition of `:where()` and `:is()`, we can not rely on counting the individual parts of the specificity, because these new pseudo classes nullify them. Therefore, we look at how many parts the selector is made up of. Example: `:where(#reset-theme > *)` has a [specificity of `0,0,0`](</specificity-calculator?selectors=%3Awhere(%23reset-theme+%3E+*)>) it has a [complexity of 4](</selector-complexity?selector=%3Awhere(%23reset-theme+%3E+*)>).
+
+<BarChart
+title="Most common selector complexity per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th, 25th and 50th percentiles are all 1. 75th percentile: 2; 90th percentile: 3."
+data={{
+  "p10": 1,
+  "p25": 1,
+  "p50": 1,
+  "p75": 2,
+  "p90": 3,
+}}
+/>
+
+Most selectors on most sites are simple selectors: they have only 1 or 2 parts to them. But what about the most complex selectors on any site?
+
+<BarChart
+title="Maximum selector complexity per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 8. 25th percentile: 12; 50th percentile: 16; 75th percentile: 22; 90th percentile: 29."
+data={{
+  "p10": 8,
+  "p25": 12,
+  "p50": 16,
+  "p75": 22,
+  "p90": 29,
+}}
+/>
+
+This shows a different picture. Even simple websites sometimes need more complex selectors to express more complex state.
+
+<Award size={format_number(8804)}>
+	If we were to display this selector with {format_number(8804)} complexity, this page would probably crash. So let's not do that. But beware of this beast in the wild.
+</Award>
+
+### Combinators
+
+Selector combinators let you define relationships between your selectors. We often use the descendant combinator without thinking about it, but what about the others?
+
+<BarChart
+title="Combinator adoption rates"
+alt="A bar chart with 4 bars. Descendant combinator: 96.2%; child combinator: 90.2%; adjacent sibling combinator: 81.9%; general sibling combinator: 67.7%."
+data={{
+  "(descendant)": 96.19591298088459 / 100,
+  "> (child)": 90.23134447732544 / 100,
+  "+ (adjacent sibling)": 81.9373350395905 / 100,
+  "~ (general sibling)": 67.68475565864193 / 100,
+}}
+formatter={format_percentage}
+/>
+
+As expected, the descendant combinator takes the top spot, but the child combinator (`>`) is a close second. The other two are a bit below that and for me that makes sense. That seems to align with how I write CSS myself.

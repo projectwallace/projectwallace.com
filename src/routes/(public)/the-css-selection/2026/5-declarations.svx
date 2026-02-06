@@ -1,0 +1,172 @@
+<script>
+import BarChart from '$components/BarChart.svelte'
+import { format_filesize } from '$lib/format-filesize'
+import { format_number, format_percentage } from '$lib/format-number'
+import Award from '$components/Award.svelte'
+import Formula from '$components/Formula.svelte'
+import Bar from '$components/stats/BarChart.svelte'
+</script>
+
+## Declarations
+
+Declarations are where we start to apply actual styles. So far we've only selected the conditions: the device properties, media types, support levels, container requirements. Now it's finally time to paint the pixels.
+
+### Declaration totals
+
+We'll start by looking at how many declarations websites are shipping in total.
+
+<BarChart
+title="Total declarations per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 700. 25th percentile: 2,926; 50th percentile: 6,573; 75th percentile: 12,163; 90th percentile: 19,914."
+data={{
+  "p10": 700,
+  "p25": 2926,
+  "p50": 6573,
+  "p75": 12163,
+  "p90": 19914,
+}}
+/>
+
+The highest number of declarations in a single website found in our data set is {format_number(346750)}.
+
+### !important usage
+
+When cascade layers and specificity are not enough, there's always the trusty `!important`.
+
+<BarChart
+title="Total !important declarations per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 1. 25th percentile: 36; 50th percentile: 154; 75th percentile: 628; 90th percentile: 1,514."
+data={{
+  "p10": 1,
+  "p25": 36,
+  "p50": 154,
+  "p75": 628,
+  "p90": 1514,
+}}
+/>
+
+Compared to the totals in the section above, I'm happy to see that the majority of websites only use a respectable _number_ of importants. But what do the _ratios_ of `!important` look like? What _percentage_ of our declarations is marked as `!important`?
+
+<BarChart
+title="!important ratio per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0%. 25th percentile: 1%; 50th percentile: 2%; 75th percentile: 6%; 90th percentile: 13%."
+data={{
+  "p10": 0,
+  "p25": 0.01,
+  "p50": 0.02,
+  "p75": 0.06,
+  "p90": 0.13,
+}}
+formatter={format_percentage}
+/>
+
+The maximum of `!important` found on a single website is {format_number(249021)}. A small side note on the use of different `!important` notation just because I found some of them hilarious:
+
+- `Important`
+- `!IMPORTANT`
+- `!impotant`
+- `!imporStant`
+- `!i`
+- `!imporatnt`
+- `!imPORTANT`
+- `!importan`
+- `!importantl`
+- `!imporant`
+- `!importnat`
+- `!imortant`
+- `!imprtant`
+
+### Custom properties
+
+One of the great power-ups of CSS in the last decade was the addition of custom properties. Finally we have our variables!
+
+<BarChart
+title="Total custom properties per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th and 25th percentiles are both 0. 50th percentile: 68; 75th percentile: 339; 90th percentile: 1,161."
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 68,
+  "p75": 339,
+  "p90": 1161,
+}}
+/>
+
+It's slightly surprising that up to the 50th percentile custom properties aren't used at all. Looking at adoption rates of far newer functionalities, I'd expect custom properties to have a higher adoption ratio. But once websites use them, they use them _good_.
+
+<BarChart
+title="Custom property ratio per website distribution in percentiles"
+alt="A bar chart with 5 bars. The 10th and 25th percentiles are both 0%. 50th percentile: 1%; 75th percentile: 5%; 90th percentile: 14%."
+data={{
+  "p10": 0,
+  "p25": 0,
+  "p50": 0.01,
+  "p75": 0.05,
+  "p90": 0.14,
+}}
+formatter={format_percentage}
+/>
+
+In terms of custom property ratios compared to the total amount of properties, we see a similar picture.
+
+### Property browserhacks
+
+A recent addition to our collective toolboxes has been [ReliCSS](https://www.alwaystwisted.com/relicss/). It detects a ton of questionable CSS hacks, including property hacks. These hacks were used in earlier times to target specific browsers and versions. For example, you could target IE6-7 specifically by writing `*font-size: 10px` or `_width: 100px` for IE 6 specifically. Are these property hacks still used in the wild?
+
+<BarChart
+title="Property browserhack adoption rates"
+alt="A bar chart with 6 bars. *property: 18.8%; \_property: 3.5%; /property: 1.2%; #property: 0.3%; +property and $property are both near 0%."
+data={{
+"*property": 18.75149964008638 / 100,
+"\_property": 3.5211549228185235 / 100,
+"/property": 1.165720227145485 / 100,
+"#property": 0.3129248980244741 / 100,
+"+property": 0.0289930416699992 / 100,
+"$property": 0.02499400143965448 / 100,
+}}
+formatter={format_percentage}
+/>
+
+A quick explainer using data from [browserhacks.com](http://browserhacks.com/):
+
+- `*property`: IE 6/7
+- `_property`: IE 6
+- `/property`: IE 6/7
+- `#property`: IE 6/7
+- `+property`: IE 6/7
+- `$property`: IE 6/7
+
+This was going to be an uplifting article about the new era of CSS and great adoption rates of shiny new features, but look at this monstrosity. Let's move on before it affects our mood.
+
+### Vendor-prefixed properties
+
+Slightly less disturbing than browser hacks but still a sign of the times and sometimes browser quirks: prefixes. A slightly more readable way of targeting specific browsers or rendering engines. Hopefully you don't author them by hand because tools like LightningCSS and PostCSS can handle these things for you.
+
+<BarChart
+title="Vendor-prefixed properties per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile starts at 6. 25th percentile: 40; 50th percentile: 140; 75th percentile: 504; 90th percentile: 1,274."
+data={{
+  "p10": 6,
+  "p25": 40,
+  "p50": 140,
+  "p75": 504,
+  "p90": 1274,
+}}
+/>
+
+The use of vendor-prefixes for properties is not surprising. Many reset stylesheets include properties like `-webkit-text-size-adjust`, including the [modern ones](https://vale.rocks/posts/css-reset) that [everyone](https://fokus.dev/tools/uaplus/) is blogging about in 2026.
+
+<BarChart
+title="Vendor-prefixed property ratio per website distribution in percentiles"
+alt="A bar chart with 5 bars in an upward trend. The 10th percentile is 0%. 25th percentile: 1%; 50th percentile: 2%; 75th percentile: 6%; 90th percentile: 11%."
+data={{
+  "p10": 0,
+  "p25": 0.01,
+  "p50": 0.02,
+  "p75": 0.06,
+  "p90": 0.11,
+}}
+formatter={format_percentage}
+/>
+
+A closer look at what percentage of all properties is vendor-prefixed tells a slightly reassuring story. Not that many properties are prefixed.

@@ -1,11 +1,11 @@
 type Shortcut = {
-	title: string;
-	href: `/${string}`;
-	keywords?: string;
+	title: string
+	href: `/${string}`
+	keywords?: string
 }
 
 type ShortcutsSection = {
-	title: string;
+	title: string
 	items: Shortcut[]
 }
 
@@ -40,6 +40,7 @@ export const shortcuts: Shortcuts = [
 		items: [
 			{ title: 'Blog', href: '/blog' },
 			{ title: 'Docs', href: '/docs' },
+			{ title: 'The CSS Selection', href: '/the-css-selection' }
 		]
 	}
 ]
