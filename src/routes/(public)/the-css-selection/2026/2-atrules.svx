@@ -102,7 +102,7 @@ node_type="rule"
 column_headers={['Feature', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/at-rules.media.features.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.media.features.unique.stats.json)
 
 The `max-width` and `min-width` features are quite unexpectedly used on most websites (88% and 86%). I did not expect `prefers-reduced-motion` to have such a great adoption rate even though it's almost half of that of the top two. There are some other surprises here, like `forced-colors` being used a bunch more than `prefers-color-scheme`.
 
@@ -166,7 +166,7 @@ node_type="rule"
 column_headers={['@keyframes name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/at-rules.keyframes.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.keyframes.unique.stats.json)
 
 It looks like `@keyframes` do make things spin around. `fa-spin` is a clear sign of [FontAwesome](https://github.com/FortAwesome/Font-Awesome/blob/16ac6af0d816e1b132bb2e3f06aa59a1bc5c6d23/css/fontawesome.css#L356-L363) being present. The `turn-off-visibility` seems to come from the [WordPress Gutenberg editor](https://github.com/WordPress/gutenberg/blob/07a15b4fc745d747435328bad84f0f4b74dfb489/packages/block-library/src/image/style.scss#L358) as well as the two `lightbox-zoom-*` keyframes.
 
@@ -221,7 +221,7 @@ node_type="rule"
 column_headers={['@supports query', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/at-rules.supports.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.supports.unique.stats.json)
 
 #### @supports browserhacks
 
@@ -252,7 +252,7 @@ node_type="rule"
 column_headers={['@supports query', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/at-rules.supports.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.supports.unique.stats.json)
 
 ### @import
 
@@ -308,7 +308,7 @@ node_type="rule"
 column_headers={['@layer name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/at-rules.layer.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.layer.unique.stats.json)
 
 <PolypaneCallout cta="Start Your Free Trial" show_creditcard href="https://polypane.app?utm_source=projectwallace&utm_medium=the-css-selection-2026&utm_content=layers">Polypane has the best devtools to debug cascade layers</PolypaneCallout>
 
@@ -344,7 +344,7 @@ node_type="rule"
 column_headers={['Charset', 'Adoption %']}
 />
 
-[Source data](static/data/the-css-selection/2026/at-rules.charset.unique.stats.json)
+[Source data](static/data/the-css-selection/2026/atrules.charset.unique.stats.json)
 
 ### @container
 
@@ -378,7 +378,7 @@ node_type="rule"
 column_headers={['Container name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/at-rules.container.names.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.container.names.unique.stats.json)
 
 I wonder if the `media` container has anything to do with [the 'OG' CSS media object](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/).
 
@@ -408,6 +408,6 @@ node_type="rule"
 column_headers={['Property name', 'Adoption %']}
 />
 
-[Source data](/data/the-css-selection/2026/at-rules.property.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.property.unique.stats.json)
 
 After analyzing the most common `@property` names, I found that by far the most popular were TailwindCSS property names like `--tw-border-style`, `--tw-font-weight` etc. with most of them having an adoption rate between 1.63% and 0.12%. After that is a huge list of `--x-[hash]`, properties which seem to be entirely computer-generated. It doesn't really make sense to show the full chart here, but it's an interesting observation. My conclusion is that the most common usage of `@property` seems to be tied to some kind of (CSS) framework.
