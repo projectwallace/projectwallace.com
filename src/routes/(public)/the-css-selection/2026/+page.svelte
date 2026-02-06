@@ -122,7 +122,7 @@
 		margin-block-start: var(--space-8);
 		margin-block-end: var(--space-12);
 
-		@media (min-width: 44rem) {
+		@media (min-width: 48rem) {
 			margin-block-start: var(--space-24);
 			margin-block-end: var(--space-36);
 		}
@@ -147,7 +147,7 @@
 	.nav {
 		margin-block-end: var(--space-6);
 
-		@media (min-width: 44rem) {
+		@media (min-width: 48rem) {
 			position: sticky;
 			top: 0;
 			align-self: start;
