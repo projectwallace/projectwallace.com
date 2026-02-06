@@ -35,15 +35,7 @@ formatter={format_filesize}
 
 Because most (?) websites minify their CSS it's also relevant to look at the lines of code. In more traditional programming languages this is a common metric to get a sense of the magnitude of a program. For CSS, [I've determined](/blog/counting-lines-of-code-in-css#source-lines-of-code-for-css) that:
 
-<math>
-	<mi>source lines of code</mi>
-	<mo>=</mo>
-	<mi># of rules</mi>
-	<mo>+</mo>
-	<mi># of at-rules</mi>
-	<mo>+</mo>
-	<mi># of declarations</mi>
-</math>
+**source lines of code = # of rules + # of at-rules + # of declarations**
 
 With that established, let's look at the numbers:
 

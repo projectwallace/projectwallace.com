@@ -71,13 +71,7 @@ The largest number of declarations in a single rule in our data set was {format_
 
 When you add up selectors and declarations, you get the rule size.
 
-<math>
-	<mi>rule size</mi>
-	<mo>=</mo>
-	<mi># of rule selectors</mi>
-	<mo>+</mo>
-	<mi># of rule declarations</mi>
-</math>
+**rule size = # of rule selectors + # of rule declarations**
 
 This metric helps draw attention to those rules that don't stand out for having many selectors or declarations but have a large total.
 
