@@ -33,7 +33,7 @@ formatter={format_filesize}
 
 <aside>
   <h4>Correction</h4>
-  <p>The initial release of this article mentioned the maximum CSS size being {format_filesize(130536139)} but this was incorrect. A well-hidden bug in the CSS scraper (see [Research method](#research-method)) caused incorrect CSS sizes for some websites. After re-checking the data it seems that the percentiles data still holds up, but the award for largest site needs to be updated from 131 MB to 52 MB.</p>
+  <p>The initial release of this article mentioned the maximum CSS size being {format_filesize(130536139)} but this was incorrect. A well-hidden bug in the CSS scraper (see [Research method](#research-method)) caused incorrect CSS sizes for some websites. After re-checking the data it seems that the percentiles data still holds up, as well as all the other metrics, but the award for largest site needs updating from 131 MB to 52 MB.</p>
 </aside>
 
 ### Lines of code
