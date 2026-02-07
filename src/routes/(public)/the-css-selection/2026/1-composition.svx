@@ -12,7 +12,7 @@ To get a global idea of what we're looking at, it's good to take a look at some 
 
 ### CSS Size
 
-How much CSS does a website ship to their users? For this we simply look at how large the string of CSS is if we put it in one single, continuous string.
+How much CSS does a website ship to their users? For this we simply look at how large the string of CSS is if we put it in one single, continuous, uncompressed string.
 
 <BarChart
 title="Stylesheet size distribution in percentiles"
@@ -27,9 +27,14 @@ data={{
 formatter={format_filesize}
 />
 
-<Award size={format_filesize(130536139)}>
-	The website with the biggest CSS of all shipped a whopping {format_filesize(130536139)}! Imagine being on a train or in a country where internet is very expensive and going to this specific website. Yikes!
+<Award size={format_filesize(52520139)}>
+	The website with the biggest CSS of all shipped a whopping {format_filesize(52520139)}! Imagine being on a train or in a country where internet is very expensive and going to this specific website. Yikes! Luckily for them the CSS compressed down to 2.89 MB to transfer over the network, but still!
 </Award>
+
+<aside>
+  <h4>Correction</h4>
+  <p>The initial release of this article mentioned the maximum CSS size being {format_filesize(130536139)} but this was incorrect. A well-hidden bug in the CSS scraper (see [Research method](#research-method)) caused incorrect CSS sizes for some websites. After re-checking the data it seems that the percentiles data still holds up, as well as all the other metrics, but the award for largest site needs updating from 131 MB to 52 MB.</p>
+</aside>
 
 ### Lines of code
 
@@ -54,10 +59,6 @@ data={{
 It looks like most websites manage to stay below or around 10,000 lines of code. That's still a lot of CSS, but looking at any regularly sized website tells you that declaring your design system with a bunch of custom properties and loading some third-party tools quickly ramps up the numbers.
 
 Further analysis of at-rules/rules/selectors/declarations per page is in their respective chapters.
-
-<!-- <Award size={format_number(638214)}>
-Imagine being that one site with {format_number(638214)} Source Lines of Code.
-</Award> -->
 
 ### Stylesheet complexity
 
