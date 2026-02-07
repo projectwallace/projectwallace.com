@@ -29,12 +29,40 @@ function get_import_urls(css: string) {
 	return urls
 }
 
+const HTML_REGEX = /<\/?(html|body|head|div|span|script|style)/i
+
+function is_html_like(text: string): boolean {
+	text = text.substring(0, 3000) // prevent unbound regex
+	return HTML_REGEX.test(text)
+}
+
+// Matches: element selectors, class/id selectors, attribute selectors, @rules
+const SELECTOR_REGEX = /(@[a-z-]+|\[[^\]]+\]|[a-z_#.-][a-z0-9_-]*)\s*\{/i
+// Check for CSS properties (property: value pattern)
+const DECLARATION_REGEX = /^\s*[a-z-]+\s*:\s*.+;?\s*$/im
+
+function is_css_like(text: string): boolean {
+	text = text.substring(0, 3000) // prevent unbound regex
+	return SELECTOR_REGEX.test(text) || DECLARATION_REGEX.test(text)
+}
+
+function is_js_like(text: string): boolean {
+	try {
+		// Only parses the input, does not execute it.
+		// NEVER EXECUTE THIS UNTRUSTED CODE!!!
+		new Function(text)
+		return true
+	} catch {
+		return false
+	}
+}
+
 async function get_css_file(url: string | URL, abort_signal: AbortSignal) {
 	try {
 		let response = await fetch(url, {
 			headers: {
 				'User-Agent': USER_AGENT,
-				Accept: 'text/css,*/*;q=0.1'
+				Accept: 'text/css'
 			},
 			// If aborted early try to return an empty string so we can continue with just the content we have
 			signal: abort_signal
@@ -43,7 +71,18 @@ async function get_css_file(url: string | URL, abort_signal: AbortSignal) {
 		if (!response.ok) {
 			throw new Error(response.statusText)
 		}
-		return response.text()
+
+		if (response.headers.get('content-type')?.includes('css')) {
+			return response.text()
+		}
+
+		let text = await response.text()
+
+		if (is_css_like(text) && !is_html_like(text) && !is_js_like(text)) {
+			return text
+		}
+
+		return ''
 	} catch {
 		return ''
 	}
@@ -291,5 +330,5 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 
 	clearTimeout(timeout_id)
 
-	return result
+	return result.filter(({ css }) => css.length > 0)
 }
