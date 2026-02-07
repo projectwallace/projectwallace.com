@@ -330,5 +330,5 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 
 	clearTimeout(timeout_id)
 
-	return result.filter(({ css }) => css.length !== 0)
+	return result.filter(({ css }) => css.length > 0)
 }
