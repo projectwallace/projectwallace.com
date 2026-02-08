@@ -35,7 +35,15 @@
 		return index >= -2147483648 && index <= 2147483647
 	}
 
-	let { units, zindexes, prefixes, browserhacks, resets } = $derived(values)
+	let alphabetical_sorting = {
+		label: 'Sort A-Z',
+		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
+			return string_sort(a[0], b[0])
+		},
+		id: 'alphabetical'
+	}
+
+	let { units, zindexes, prefixes, browserhacks, resets, displays } = $derived(values)
 	let zindex_locations = $derived(zindexes.uniqueWithLocations) as Record<string, CssLocation[]>
 	let z_index_warnings = $derived(Object.keys(zindex_locations).filter((zindex) => !is_valid_z_index(zindex)))
 </script>
@@ -68,9 +76,34 @@
 			/>
 		</Header>
 		{#if resets.total > 0}
-			<ValueCountList id="resets-list" unique={resets.uniqueWithLocations} />
+			<ValueCountList
+				id="resets-list"
+				unique={resets.uniqueWithLocations}
+				extra_sort_options={[alphabetical_sorting]}
+			/>
 		{:else}
 			<Empty>No spacing resets found.</Empty>
+		{/if}
+	</Panel>
+
+	<Panel id="displays">
+		<Header>
+			<Heading element="h3">Display values</Heading>
+			<DefinitionList
+				stats={[
+					{ name: 'Total', value: displays.total },
+					{ name: 'Unique', value: displays.totalUnique }
+				]}
+			/>
+		</Header>
+		{#if displays.total > 0}
+			<ValueCountList
+				id="displays-list"
+				unique={displays.uniqueWithLocations}
+				extra_sort_options={[alphabetical_sorting]}
+			/>
+		{:else}
+			<Empty>No spacing displays found.</Empty>
 		{/if}
 	</Panel>
 
@@ -136,15 +169,7 @@
 			<ValueCountList
 				id="prefixed-values-list"
 				unique={prefixes.uniqueWithLocations}
-				extra_sort_options={[
-					{
-						label: 'Sort A-Z',
-						fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
-							return string_sort(a[0], b[0])
-						},
-						id: 'alphabetical'
-					}
-				]}
+				extra_sort_options={[alphabetical_sorting]}
 			/>
 		{:else}
 			<Empty>No vendor prefixed values found.</Empty>
@@ -170,6 +195,7 @@
 				id="value-hacks-list"
 				unique={browserhacks.uniqueWithLocations}
 				warnings={Object.keys(browserhacks.unique)}
+				extra_sort_options={[alphabetical_sorting]}
 			/>
 		{:else}
 			<Empty>No value browserhacks found.</Empty>
