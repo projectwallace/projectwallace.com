@@ -46,6 +46,7 @@ export const nav = [
 			{ id: 'container', title: '@container' },
 			{ id: 'layer', title: '@layer' },
 			{ id: 'property', title: '@property' },
+			{ id: 'scope', title: '@scope' },
 			{ id: 'import', title: '@import' }
 		]
 	},
@@ -63,6 +64,7 @@ export const nav = [
 		items: [
 			{ id: 'units', title: 'Units' },
 			{ id: 'resets', title: 'Spacing resets' },
+			{ id: 'displays', title: 'Display values' },
 			{ id: 'z-indexes', title: 'Z-indexes' },
 			{ id: 'prefixed-values', title: 'Vendor prefixed' },
 			{ id: 'value-browserhacks', title: 'Browserhacks' }

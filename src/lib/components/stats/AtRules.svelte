@@ -17,7 +17,7 @@
 
 	let { atrules = Object.create(null) }: Props = $props()
 
-	let { media, fontface, import: imports, supports, container, keyframes, layer, property } = $derived(atrules)
+	let { media, fontface, import: imports, supports, container, keyframes, layer, property, scope } = $derived(atrules)
 	let css_state = get_css_state()
 
 	let tree = $derived(layer_tree(css_state.css))
@@ -82,6 +82,7 @@
 			{/if}
 		</Panel>
 		<AtRule {...property} title="@property" id="property" />
+		<AtRule {...scope} title="@scope" id="scope" />
 		<AtRule {...imports} title="@import" id="import" />
 	</div>
 </section>
