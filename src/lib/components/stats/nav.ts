@@ -6,7 +6,7 @@ export const nav = [
 			{ id: 'stylesheet-composition', title: 'Composition' },
 			{ id: 'stylesheet-complexity', title: 'Complexity' },
 			{ id: 'stylesheet-embedded-content', title: 'Embedded content' },
-			{ id: 'stylesheet-comments', title: 'Comments' },
+			{ id: 'stylesheet-comments', title: 'Comments' }
 		]
 	},
 	{
@@ -16,7 +16,7 @@ export const nav = [
 			{ id: 'rulesets', title: 'Selectors per RuleSet' },
 			{ id: 'rulesets', title: 'Declarations per RuleSet' },
 			{ id: 'rulesets', title: 'RuleSet sizes' },
-			{ id: 'nesting', title: 'Nesting' },
+			{ id: 'nesting', title: 'Nesting' }
 		]
 	},
 	{
@@ -26,10 +26,12 @@ export const nav = [
 			{ id: 'specificity', title: 'Specificity' },
 			{ id: 'complexity', title: 'Complexity' },
 			{ id: 'pseudo-classes', title: 'Pseudo classes' },
+			{ id: 'pseudo-elements', title: 'Pseudo elements' },
 			{ id: 'selector-combinators', title: 'Combinators' },
 			{ id: 'prefixed-selectors', title: 'Vendor Prefixed' },
+			{ id: 'attribute-selectors', title: 'Attributes' },
 			{ id: 'accessibility-selectors', title: 'Accessibility' },
-			{ id: 'keyframes-selectors', title: 'Keyframes' },
+			{ id: 'keyframes-selectors', title: 'Keyframes' }
 		]
 	},
 	{
@@ -44,7 +46,7 @@ export const nav = [
 			{ id: 'container', title: '@container' },
 			{ id: 'layer', title: '@layer' },
 			{ id: 'property', title: '@property' },
-			{ id: 'import', title: '@import' },
+			{ id: 'import', title: '@import' }
 		]
 	},
 	{

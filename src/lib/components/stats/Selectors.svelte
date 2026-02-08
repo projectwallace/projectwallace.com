@@ -20,7 +20,17 @@
 
 	let { selectors = Object.create(null) }: Props = $props()
 
-	let { specificity, complexity, accessibility, prefixed, keyframes, combinators, pseudoClasses } = $derived(selectors)
+	let {
+		specificity,
+		complexity,
+		accessibility,
+		prefixed,
+		keyframes,
+		combinators,
+		pseudoClasses,
+		pseudoElements,
+		attributes
+	} = $derived(selectors)
 
 	let alphabetical_sorting = {
 		label: 'Sort A-Z',
@@ -196,6 +206,28 @@
 			{/if}
 		</Panel>
 
+		<Panel id="pseudo-elements">
+			<Header>
+				<Heading element="h3">Pseudo elements</Heading>
+				<DefinitionList
+					stats={[
+						{ name: 'Total', value: pseudoElements.total },
+						{ name: 'Unique', value: pseudoElements.totalUnique, ratio: pseudoElements.uniquenessRatio }
+					]}
+				/>
+			</Header>
+			{#if pseudoElements.total > 0}
+				<ValueCountList
+					id="pseudo-elements-list"
+					unique={pseudoElements.uniqueWithLocations}
+					extra_sort_options={[alphabetical_sorting]}
+					node_type="selector"
+				/>
+			{:else}
+				<Empty element="p">No pseudo elements found.</Empty>
+			{/if}
+		</Panel>
+
 		<Panel id="selector-combinators">
 			<Header>
 				<Heading element="h3">Selector Combinators</Heading>
@@ -237,6 +269,32 @@
 				/>
 			{:else}
 				<Empty element="p">No vendor prefixed selectors found.</Empty>
+			{/if}
+		</Panel>
+
+		<Panel id="attribute-selectors">
+			<Header>
+				<Heading element="h3">Attribute selectors</Heading>
+				<DefinitionList
+					stats={[
+						{ name: 'Total', value: attributes.total },
+						{
+							name: 'Unique',
+							value: attributes.totalUnique,
+							ratio: attributes.uniquenessRatio
+						}
+					]}
+				/>
+			</Header>
+			{#if attributes.total > 0}
+				<ValueCountList
+					id="attribute-selectors-list"
+					unique={attributes.uniqueWithLocations}
+					extra_sort_options={[alphabetical_sorting]}
+					node_type="selector"
+				/>
+			{:else}
+				<Empty element="p">No attribute selectors found.</Empty>
 			{/if}
 		</Panel>
 
