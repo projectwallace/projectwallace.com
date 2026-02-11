@@ -2,7 +2,7 @@ import { Context } from '@netlify/edge-functions'
 
 // Configuration
 const CONFIG = {
-	blockedCountries: ['CN', 'RU'], // ISO 3166-1 alpha-2 country codes
+	blockedCountries: ['SG'], // ISO 3166-1 alpha-2 country codes
 	minChromeVersion: 60
 }
 
