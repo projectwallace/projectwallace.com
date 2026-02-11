@@ -58,7 +58,7 @@
 		"stylelint-config-standard": "^39.0.1",
 		"stylelint-value-no-unknown-custom-properties": "^6.1.1",
 		"svelte-check": "^4.3.5",
-		"vitest": "^4.0.14"
+		"vitest": "^4.0.18"
 	},
 	"overrides": {
 		"@projectwallace/css-analyzer": "$@projectwallace/css-analyzer",
