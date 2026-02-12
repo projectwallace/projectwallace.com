@@ -2,7 +2,7 @@ import { Context } from '@netlify/edge-functions'
 
 // Configuration
 const CONFIG = {
-	blockedCountries: ['SG'], // ISO 3166-1 alpha-2 country codes
+	blockedCountries: new Set<string>([]), // ISO 3166-1 alpha-2 country codes
 	minChromeVersion: 60
 }
 
@@ -17,10 +17,10 @@ export default (request: Request, context: Context) => {
 	const chromeVersion = chromeMatch ? parseInt(chromeMatch[1], 10) : undefined
 
 	// Check if all blocking predicates match
-	const matchesCountryPredicate = countryCode && CONFIG.blockedCountries.includes(countryCode)
+	const matchesCountryPredicate = countryCode && CONFIG.blockedCountries.has(countryCode)
 	const matchesBrowserPredicate = chromeVersion && chromeVersion < CONFIG.minChromeVersion
 
-	const shouldBlock = matchesCountryPredicate && matchesBrowserPredicate
+	const shouldBlock = matchesCountryPredicate || matchesBrowserPredicate
 
 	if (!shouldBlock) {
 		// Pass through to SvelteKit
