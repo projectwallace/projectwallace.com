@@ -37,14 +37,12 @@ export default (request: Request, context: Context) => {
 			name: countryName
 		},
 		chrome: {
-			version: chromeVersion,
-			belowMinimum: chromeVersion && chromeVersion < CONFIG.minChromeVersion
+			version: chromeVersion
 		},
 		predicates: {
 			matchesCountry: matchesCountryPredicate,
 			matchesBrowser: matchesBrowserPredicate
-		},
-		blocked: shouldBlock
+		}
 	}
 
 	console.log(JSON.stringify(log, undefined, 2))
