@@ -5,4 +5,4 @@
 [[edge_functions]]
   function = "access-control"
   path = "/*"
-  exclude = ["/_app/*", "/_svelte/*"]
+  excludedPath = ["/_app/*", "/_svelte/*"]
