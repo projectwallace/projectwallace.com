@@ -237,7 +237,6 @@ test.describe('URL with layers', () => {
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 	})
 
-
 	test('analyzes a URL with layers', async ({ page }) => {
 		await expect.soft(page).toHaveURL('/css-layers-visualizer?url=example.com&prettify=1')
 		await expect.soft(page.getByTestId('layer-tree')).toBeVisible()
@@ -274,6 +273,20 @@ test.describe('URL with layers', () => {
 })
 
 test('analyzes a URL without layers', async ({ page }) => {
+	await page.route('/api/get-css*', async (route) => {
+		await route.fulfill({
+			json: [
+				{
+					type: 'link',
+					media: undefined,
+					href: 'https://example.com/fixture.css',
+					url: 'https://example.com/fixture.css',
+					rel: 'stylesheet',
+					css: `test{}`
+				}
+			] satisfies CSSOrigin[]
+		})
+	})
 	await expect(page).toBeHydrated()
 	await page.getByLabel('URL to analyze').fill('example.com')
 	await page.getByRole('button', { name: 'Analyze URL' }).click()
