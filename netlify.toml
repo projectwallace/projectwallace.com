@@ -1,8 +1,3 @@
 [build]
 	command = "npm run build"
 	publish = "build"
-
-[[edge_functions]]
-  function = "access-control"
-  path = "/*"
-  excludedPath = ["/_app/*", "/_svelte/*"]
