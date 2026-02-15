@@ -61,3 +61,52 @@ test('auto scrolls to the selected node', async ({ page }) => {
 	// Wait for scroll animation to complete before checking viewport
 	await expect(treeitem).toBeInViewport()
 })
+
+test.describe('URL hash state', () => {
+	/** Encode a value to base64 JSON for use in the URL hash (mirrors encodeHashState) */
+	function encodeHash(value: unknown): string {
+		return btoa(encodeURIComponent(JSON.stringify(value)))
+	}
+
+	test('no hash shows default CSS input', async ({ page }) => {
+		await page.goto('/ast-explorer', { waitUntil: 'domcontentloaded' })
+		// Page has default CSS, not empty
+		let input = page.getByLabel('CSS to analyze')
+		await expect(input).not.toHaveValue('')
+	})
+
+	test('changing input updates hash', async ({ page }) => {
+		await page.goto('/ast-explorer', { waitUntil: 'domcontentloaded' })
+		let input = page.getByLabel('CSS to analyze')
+		let css = 'test { color: red; }'
+		await input.fill(css)
+		let expected_url = `/ast-explorer#${encodeHash(css)}`
+		await page.waitForURL(expected_url)
+		await expect(page).toHaveURL(expected_url)
+	})
+
+	test('opening page with hash shows prefilled input and AST output', async ({ page }) => {
+		let css = 'custom { display: block; }'
+		let hash = encodeHash(css)
+		await page.goto(`/ast-explorer#${hash}`, { waitUntil: 'domcontentloaded' })
+
+		let input = page.getByLabel('CSS to analyze')
+		await expect(input).toHaveValue(css)
+
+		// AST should be visible
+		let tree = page.getByRole('tree')
+		await expect(tree).toBeVisible()
+	})
+
+	test('corrupted hash shows page in default state', async ({ page }) => {
+		await page.goto('/ast-explorer#invalid-base64-!!!', { waitUntil: 'domcontentloaded' })
+
+		// Should fall back to default CSS
+		let input = page.getByLabel('CSS to analyze')
+		await expect(input).not.toHaveValue('')
+
+		// AST should still be visible
+		let tree = page.getByRole('tree')
+		await expect(tree).toBeVisible()
+	})
+})
