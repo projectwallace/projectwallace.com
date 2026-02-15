@@ -75,16 +75,4 @@ const set_theme: Handle = async function ({ event, resolve }) {
 	return response
 }
 
-const log_request_details: Handle = async function ({ event, resolve }) {
-	let headers = event.request.headers
-	let ua = headers.get('user-agent')
-	let ip = headers.get('x-nf-client-connection-ip')
-	let path = event.url.pathname
-
-	console.log('request-details', JSON.stringify({ ip, path, ua }))
-
-	let response = await resolve(event)
-	return response
-}
-
-export const handle: Handle = sequence(set_theme, handle_redirects, apply_security_headers, log_request_details)
+export const handle: Handle = sequence(set_theme, handle_redirects, apply_security_headers)
