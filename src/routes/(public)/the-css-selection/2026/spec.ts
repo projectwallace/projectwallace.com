@@ -16,7 +16,9 @@ test('should show navigation', async ({ page }) => {
 	await expect(page.getByRole('navigation', { name: 'Navigate this page' })).toBeVisible()
 })
 
-test('content contains no dead links', async ({ page, request }) => {
+// Skipping this because we're hammering other people's websites for no good reason. This ran fine
+// just after release of the initial article, so safe to skip now.
+test.skip('content contains no dead links', async ({ page, request }) => {
 	// Requesting all these URLs is slow, so make sure Playwright doesn't timeout
 	test.slow()
 
