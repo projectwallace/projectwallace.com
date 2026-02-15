@@ -6,8 +6,10 @@
 	import { format_filesize } from '$lib/format-filesize'
 	import { minify } from '@projectwallace/format-css'
 	import { highlight_css } from '$components/use-css-highlight'
+	import { HashState } from '$lib/url-hash-state.svelte'
 
-	let css = $state('')
+	let state = new HashState<string>('')
+	let css = $derived(state.current)
 	let result = $derived(minify(css))
 	let filesize_diff = $derived(format_filesize(result.length - css.length))
 </script>
@@ -21,7 +23,7 @@
 				<span class="ml-2">{format_filesize(css.length)}</span>
 			{/if}
 		</div>
-		<Textarea name="css-input" id="css-input" bind:value={css} required />
+		<Textarea name="css-input" id="css-input" bind:value={state.current} required />
 		<Button size="lg">Minify CSS</Button>
 	</form>
 
