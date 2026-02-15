@@ -36,6 +36,7 @@
 		old_css: PLACEHOLDER_OLD,
 		new_css: PLACEHOLDER_NEW
 	})
+	let { old_css, new_css } = $derived(css_state.current)
 
 	function swap() {
 		css_state.current = {
@@ -61,13 +62,25 @@
 		<div class="before">
 			<FormGroup>
 				<Label for="old_css">CSS Before</Label>
-				<Textarea resize="none" name="old_css" id="old_css" bind:value={css_state.current.old_css} />
+				<Textarea
+					resize="none"
+					name="old_css"
+					id="old_css"
+					bind:value={css_state.current.old_css}
+					placeholder={PLACEHOLDER_OLD}
+				/>
 			</FormGroup>
 		</div>
 		<div class="after">
 			<FormGroup>
 				<Label for="new_css">CSS After</Label>
-				<Textarea resize="none" name="new_css" id="new_css" bind:value={css_state.current.new_css} />
+				<Textarea
+					resize="none"
+					name="new_css"
+					id="new_css"
+					bind:value={css_state.current.new_css}
+					placeholder={PLACEHOLDER_NEW}
+				/>
 			</FormGroup>
 		</div>
 		<div class="swap">
@@ -77,8 +90,8 @@
 			</Button>
 		</div>
 		<output>
-			{#if css_state.current.old_css.length > 0 && css_state.current.new_css.length > 0}
-				<Diff old_css={css_state.current.old_css} new_css={css_state.current.new_css} />
+			{#if old_css.length > 0 && new_css.length > 0}
+				<Diff {old_css} {new_css} />
 			{:else}
 				<div data-testid="empty-diff">
 					<Empty>Fill in before and after CSS to view the diff</Empty>
