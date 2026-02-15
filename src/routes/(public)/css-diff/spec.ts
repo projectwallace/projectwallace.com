@@ -100,12 +100,10 @@ test.describe('URL hash state', () => {
 		let old_css = 'old { color: red; }'
 		let new_css = 'new { color: blue; }'
 		let hash = encodeHash({ old_css, new_css })
-		await page.goto(`/css-diff#${hash}`, { waitUntil: 'domcontentloaded' })
+		await page.goto(`/css-diff#${hash}`, { waitUntil: 'load' })
 
-		let before_input = page.getByLabel('CSS Before')
-		let after_input = page.getByLabel('CSS After')
-		await expect.soft(before_input).toHaveValue(old_css)
-		await expect.soft(after_input).toHaveValue(new_css)
+		await expect.soft(page.getByLabel('CSS Before')).toHaveValue(old_css)
+		await expect.soft(page.getByLabel('CSS After')).toHaveValue(new_css)
 
 		// Diff should be visible
 		await expect.soft(page.getByTestId('diffstat')).toBeVisible()
