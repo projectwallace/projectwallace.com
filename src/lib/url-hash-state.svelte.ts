@@ -1,6 +1,5 @@
 import { goto } from '$app/navigation'
-import { page } from '$app/state'
-import { onMount } from 'svelte'
+import { browser } from '$app/environment'
 
 /**
  * Utilities for storing state in the URL hash using base64 encoding.
@@ -52,20 +51,23 @@ export class HashState<T> {
 	#debounceMs: number
 
 	constructor(defaultValue: T, debounceMs = 300) {
-		this.#value = defaultValue
 		this.#debounceMs = debounceMs
 
-		onMount(() => {
-			const decoded = decodeHashState<T>(page.url.hash)
-			if (decoded) {
-				this.#value = decoded
-			}
-		})
+		// Read hash synchronously to avoid flash of default content
+		if (browser) {
+			const decoded = decodeHashState<T>(window.location.hash)
+			this.#value = decoded ?? defaultValue
+		} else {
+			this.#value = defaultValue
+		}
 
 		$effect(() => {
-			const value = this.#value
+			if (!browser) return
+
+			// JSON.stringify forces deep tracking of all nested properties
+			const serialized = JSON.stringify(this.#value)
 			const timeout = setTimeout(() => {
-				goto(`#${encodeHashState(value)}`, { replaceState: true, noScroll: true, keepFocus: true })
+				goto(`#${btoa(encodeURIComponent(serialized))}`, { replaceState: true, noScroll: true, keepFocus: true })
 			}, this.#debounceMs)
 			return () => clearTimeout(timeout)
 		})
