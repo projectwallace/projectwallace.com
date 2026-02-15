@@ -1,16 +1,12 @@
 <script lang="ts">
 	import { walk, parse, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
+	import pkg from '@projectwallace/css-parser/package.json' with { type: 'json' }
 	import { PersistedState } from 'runed'
 	import CssTree from './CssTree.svelte'
 	import { format } from '@projectwallace/format-css'
 	import HighlightedTextarea from './HighlightedTextarea.svelte'
+	import { HashState } from '$lib/url-hash-state.svelte'
 
-	type Props = {
-		parser_version: string
-		parser_homepage: string
-	}
-
-	let { parser_version, parser_homepage }: Props = $props()
 	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined)
 	let show_locations = new PersistedState('ast-show-locations', false)
 	let autofocus = new PersistedState('ast-autofocus-node', true)
@@ -23,12 +19,12 @@
 		}
 	})
 
-	let css = new PersistedState(
-		'ast-css',
-		format(
-			'a { color: red; background: blue !important; #test-nested { color: green; } } c + b[aria-selected^="true" i] { border: 3px solid rgb(0 30% 0 / 50%) } @media (min-width: 600px) or print { test { color: blue !ie; } }'
-		)
+	const DEFAULT_CSS = format(
+		'a { color: red; background: blue !important; #test-nested { color: green; } } c + b[aria-selected^="true" i] { border: 3px solid rgb(0 30% 0 / 50%) } @media (min-width: 600px) or print { test { color: blue !ie; } }'
 	)
+
+	let css = new HashState<string>(DEFAULT_CSS)
+
 	let ast = $derived.by(() => {
 		try {
 			return parse(css.current)
@@ -62,8 +58,8 @@
 
 <header class="header">
 	<h1 class="title">CSS AST Explorer</h1>
-	<a href={parser_homepage} target="_blank" rel="external">
-		CSS Parser: {parser_version}
+	<a href={pkg.homepage} target="_blank" rel="external">
+		CSS Parser: {pkg.version}
 	</a>
 	<div>
 		<label for="show-locations">Show location data</label>

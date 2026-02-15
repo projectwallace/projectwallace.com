@@ -299,19 +299,24 @@ test.describe('File input mode', () => {
 })
 
 test('does not have horizontal scrollbars', async ({ page }) => {
-	await page.route('/api/get-css*', async (route) => {
-		await route.fulfill({
-			json: [
-				{
-					type: 'link',
-					href: 'https://example.com/test.css',
-					url: 'https://example.com/test.css',
-					media: undefined,
-					rel: 'stylesheet',
-					css: 'test-link-element {}'
-				}
-			] satisfies CSSOrigin[]
-		})
+	await page.route('**/*', async (route) => {
+		if (route.request().url().includes('/api/get-css')) {
+			await route.fulfill({
+				status: 200,
+				json: [
+					{
+						type: 'link',
+						href: 'https://example.com/test.css',
+						url: 'https://example.com/test.css',
+						media: undefined,
+						rel: 'stylesheet',
+						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); }`
+					}
+				] satisfies CSSOrigin[]
+			})
+		} else {
+			await route.continue()
+		}
 	})
 
 	await page.setViewportSize({
@@ -323,7 +328,7 @@ test('does not have horizontal scrollbars', async ({ page }) => {
 	await expect(page).toBeHydrated()
 
 	// Fill in a URL
-	await page.getByLabel('URL to analyze').fill(`https://example.com/`)
+	await page.getByLabel('URL to analyze').fill(`example.com/`)
 
 	// click 'Analyze URL'
 	await page.getByRole('button', { name: 'Analyze URL' }).click()

@@ -6,14 +6,17 @@
 	import { format_filesize } from '$lib/format-filesize'
 	import { format } from '@projectwallace/format-css'
 	import Pre from '$components/Pre.svelte'
-	import { PersistedState } from 'runed'
+	import { HashState } from '$lib/url-hash-state.svelte'
 
-	let css = $state('')
-	let use_spaces = new PersistedState('prettify-css:use-spaces', false)
-	let indent_size = new PersistedState('prettify-css:indent-size', 2)
+	let state = new HashState<{ css: string; use_spaces: boolean; indent_size: number }>({
+		css: '',
+		use_spaces: false,
+		indent_size: 2
+	})
+	let { css, use_spaces } = $derived(state.current)
 	let result = $derived(
 		format(css, {
-			tab_size: use_spaces.current ? indent_size.current || 2 : undefined
+			tab_size: use_spaces ? 2 : undefined
 		})
 	)
 	let filesize_diff = $derived(format_filesize(result.length - css.length))
@@ -31,7 +34,7 @@
 		<Textarea
 			name="css-input"
 			id="css-input"
-			bind:value={css}
+			bind:value={state.current.css}
 			required
 			wrap_lines
 			auto_grow
@@ -41,18 +44,18 @@
 
 		<div class="indent-size">
 			<div class="indent-size-toggle">
-				<input type="checkbox" id="use-spaces" bind:checked={use_spaces.current} />
+				<input type="checkbox" id="use-spaces" bind:checked={state.current.use_spaces} />
 				<label for="use-spaces">Use spaces for indentation</label>
 			</div>
 
 			<div class="indent-size-input">
 				<label for="indent-size">Indent size</label>
 				<input
-					disabled={!use_spaces.current}
+					disabled={!use_spaces}
 					class="input"
 					type="number"
 					id="indent-size"
-					bind:value={indent_size.current}
+					bind:value={state.current.indent_size}
 					min="1"
 				/>
 			</div>

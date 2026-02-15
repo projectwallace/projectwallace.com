@@ -11,6 +11,7 @@
 	import Button from '$components/Button.svelte'
 	import Icon from '$components/Icon.svelte'
 	import { format } from '@projectwallace/format-css'
+	import { HashState } from '$lib/url-hash-state.svelte'
 
 	const PLACEHOLDER_OLD = format(`
 		first {
@@ -31,11 +32,17 @@
 		}
 	`)
 
-	let old_css = $state(PLACEHOLDER_OLD)
-	let new_css = $state(PLACEHOLDER_NEW)
+	let css_state = new HashState<{ old_css: string; new_css: string }>({
+		old_css: PLACEHOLDER_OLD,
+		new_css: PLACEHOLDER_NEW
+	})
+	let { old_css, new_css } = $derived(css_state.current)
 
 	function swap() {
-		;[old_css, new_css] = [new_css, old_css]
+		css_state.current = {
+			old_css: css_state.current.new_css,
+			new_css: css_state.current.old_css
+		}
 	}
 </script>
 
@@ -55,13 +62,25 @@
 		<div class="before">
 			<FormGroup>
 				<Label for="old_css">CSS Before</Label>
-				<Textarea resize="none" name="old_css" id="old_css" bind:value={old_css} />
+				<Textarea
+					resize="none"
+					name="old_css"
+					id="old_css"
+					bind:value={css_state.current.old_css}
+					placeholder={PLACEHOLDER_OLD}
+				/>
 			</FormGroup>
 		</div>
 		<div class="after">
 			<FormGroup>
 				<Label for="new_css">CSS After</Label>
-				<Textarea resize="none" name="new_css" id="new_css" bind:value={new_css} />
+				<Textarea
+					resize="none"
+					name="new_css"
+					id="new_css"
+					bind:value={css_state.current.new_css}
+					placeholder={PLACEHOLDER_NEW}
+				/>
 			</FormGroup>
 		</div>
 		<div class="swap">

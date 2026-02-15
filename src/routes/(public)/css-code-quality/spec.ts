@@ -1,3 +1,4 @@
+import type { CSSOrigin } from '$lib/css-origins'
 import { test, expect } from '../../../../tests/fixtures'
 
 test.beforeEach(async ({ page }) => {
@@ -13,6 +14,20 @@ test('does SEO well', async ({ page }) => {
 
 test.describe('interaction', () => {
 	test.beforeEach(async ({ page }) => {
+		await page.route('/api/get-css*', async (route) => {
+			await route.fulfill({
+				json: [
+					{
+						type: 'link',
+						media: undefined,
+						href: 'https://example.com/fixture.css',
+						url: 'https://example.com/fixture.css',
+						rel: 'stylesheet',
+						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); }`
+					}
+				] satisfies CSSOrigin[]
+			})
+		})
 		await expect(page).toBeHydrated()
 	})
 
