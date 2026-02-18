@@ -195,6 +195,12 @@
 		font-family: var(--font-mono);
 		font-weight: var(--font-normal);
 		hyphens: none;
+
+		@media print {
+			color: inherit;
+			font-size: var(--size-xs);
+			line-height: 1.5;
+		}
 	}
 
 	pre {
@@ -206,17 +212,8 @@
 		hyphens: none;
 		overflow: auto;
 		max-width: none;
-	}
 
-	@media print {
-		pre,
-		code {
-			color: inherit;
-			font-size: var(--size-xs);
-			line-height: 1.5;
-		}
-
-		pre {
+		@media print {
 			white-space: pre-wrap;
 		}
 	}
@@ -399,6 +396,21 @@
 			color: var(--fg);
 			font-size: var(--size-base);
 			line-height: calc(var(--leading-base) * 1rem);
+		}
+
+		::selection {
+			background-color: var(--purple-200);
+			color: var(--black);
+		}
+
+		::search-text {
+			background: var(--yellow-400);
+			color: var(--black);
+		}
+
+		::search-text:current {
+			background-color: var(--orange-400);
+			color: var(--black);
 		}
 
 		:is(p, li) code {
