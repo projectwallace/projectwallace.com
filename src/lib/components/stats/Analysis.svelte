@@ -100,7 +100,7 @@
 		left: 0;
 	}
 
-	@media (min-width: 44rem) {
+	@media (min-width: 48rem) {
 		.analysis {
 			grid-template-rows: 1fr auto;
 			column-gap: var(--space-8);
