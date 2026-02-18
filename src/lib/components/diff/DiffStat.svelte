@@ -24,7 +24,7 @@
 					}
 				]}
 			>
-				<!-- Some sensible content in case CSS doesn't work -->
+				<!-- Some sensible content in case CSS doesn't work. Hiding it with `font-size: 0;` -->
 				{#if square === ADDED}
 					🟩
 				{:else if square === DELETED}
@@ -52,8 +52,8 @@
 
 	.square {
 		display: inline-block;
-		width: var(--space-3);
-		height: var(--space-3);
+		inline-size: var(--space-3);
+		block-size: var(--space-3);
 		font-size: 0;
 
 		&.added {
@@ -65,7 +65,7 @@
 		}
 
 		&.empty {
-			background-color: var(--gray-450);
+			background-color: var(--bg-400);
 		}
 	}
 </style>
