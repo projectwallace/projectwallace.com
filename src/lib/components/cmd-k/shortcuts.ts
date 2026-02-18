@@ -28,8 +28,8 @@ export const shortcuts: Shortcuts = [
 		items: [
 			{ title: 'CSS Specificity Calculator', href: '/specificity-calculator', keywords: 'selector' },
 			{ title: 'CSS Selector Complexity Calculator', href: '/selector-complexity', keywords: 'cyclomatic' },
-			{ title: 'CSS Prettifier', href: '/prettify-css', keywords: 'prettier format beautify print' },
-			{ title: 'CSS Minifier', href: '/minify-css', keywords: 'compress optimize' },
+			{ title: 'CSS Prettifier', href: '/prettify-css', keywords: 'prettier format beautify print prettify' },
+			{ title: 'CSS Minifier', href: '/minify-css', keywords: 'compress optimize minify nano' },
 			{ title: 'CSS Diff viewer', href: '/css-diff', keywords: 'git' },
 			{ title: 'CSS Coverage inspector', href: '/css-coverage', keywords: 'code coverage' },
 			{ title: 'CSS AST Explorer', href: '/ast-explorer', keywords: 'csstree' }
