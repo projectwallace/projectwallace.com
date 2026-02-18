@@ -71,26 +71,33 @@ test('shows the network panel', async ({ page }) => {
 	// Totals are shown
 	await expect.soft(page.getByTestId('network-origins-count')).toHaveText(fixture.length.toString())
 	await expect.soft(page.getByTestId('network-total-filesize')).not.toBeEmpty()
+	await expect(page.locator('.network-totals')).not.toContainText('hidden by filter')
 })
 
 test.describe('Unchecking a single origin', () => {
 	let total: Locator
 	let first_checkbox: Locator
+	let footer: Locator
 
 	test.beforeEach(async ({ page }) => {
+		footer = page.locator('.network-totals')
 		total = page.getByTestId('network-origins-count')
 		first_checkbox = page.locator('.network-body tbody').getByRole('row').first().getByRole('checkbox')
 		// Uncheck an item
 		await first_checkbox.click()
 	})
 
-	test('updates the footer totals', async ({ page }) => {
+	test('updates the footer totals', async () => {
 		// Check that the totals were updated
 		await expect(total).toHaveText((fixture.length - 1).toString())
 		// Turn the origin back on
 		await first_checkbox.click()
 		// Check that the totals were updated again
 		await expect(total).toHaveText(fixture.length.toString())
+	})
+
+	test('shows X files are hidden in footer', async () => {
+		await expect(footer).toContainText('1 hidden by filter')
 	})
 
 	test('Marks the "select all" checkbox as indeterminate', async ({ page }) => {
@@ -112,6 +119,7 @@ test('Toggle-all-checkbox updates footer and checks or unchecks all origins', as
 	await check_all.click()
 	// Check that the total is 0
 	await expect(total).toHaveText('0')
+	await expect(page.locator('.network-totals')).toContainText(`(${fixture.length} hidden by filter)`)
 	// Enable all items
 	await check_all.click()
 	// Check that the total is correct
@@ -139,7 +147,7 @@ test.describe('Inspecting an origin', () => {
 		css_slide = page.getByTestId('css-slide')
 	})
 
-	test('Clicking an origin opens the CSS view and highlights the active origin', async ({ page }) => {
+	test('Clicking an origin opens the CSS view and highlights the active origin', async () => {
 		// Open the CSS Slide
 		await first_origin.click()
 		await expect.soft(css_slide).toBeVisible()
@@ -152,7 +160,7 @@ test.describe('Inspecting an origin', () => {
 		await expect.soft(first_origin).toHaveAttribute('aria-selected', 'true')
 	})
 
-	test('Shift+clicking an origin opens the HTML/CSS in a new tab', async ({ page, context }) => {
+	test('Shift+clicking an origin opens the HTML/CSS in a new tab', async ({ context }) => {
 		let new_page_promise: Promise<Page> = new Promise((resolve) => context.once('page', resolve))
 
 		// Shift+click the origin
@@ -199,9 +207,7 @@ test.describe('Inspecting an origin', () => {
 		expect(clipboard_text).toBe('test-link-element {}')
 	})
 
-	test('Closing the origin detail view hides the CSS view and un-highlights the selected origin', async ({
-		page
-	}) => {
+	test('Closing the origin detail view hides the CSS view and un-highlights the selected origin', async ({ page }) => {
 		// Open the CSS Slide
 		await first_origin.click()
 
