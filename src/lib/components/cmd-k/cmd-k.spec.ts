@@ -100,14 +100,14 @@ test.describe('CMD+K', () => {
 	})
 
 	test.describe('filtering', () => {
-		test('searching for a term filters the links', async ({ page }) => {
+		test('searching for a term filters the links', async () => {
 			await search_field.fill('analyze')
 			await expect.soft(links).toHaveCount(1)
 			await expect.soft(links.first()).toHaveText('CSS Analyzer')
 			await expect.soft(dialog.getByTestId('empty')).not.toBeVisible()
 		})
 
-		test('searching for a term that does not match any link shows the no results state', async ({ page }) => {
+		test('searching for a term that does not match any link shows the no results state', async () => {
 			await search_field.fill('foobar')
 			await expect.soft(links).toHaveCount(0)
 			await expect.soft(dialog.getByTestId('empty')).toBeVisible()
@@ -117,6 +117,30 @@ test.describe('CMD+K', () => {
 			await search_field.fill('compress')
 			await expect.soft(links).toHaveCount(1)
 			await expect.soft(dialog.getByTestId('empty')).not.toBeVisible()
+		})
+	})
+
+	test.describe('opening dialog multiple times', () => {
+		test('the search field is cleared when opening the dialog again after navigating', async ({ page }) => {
+			// enter search query and go to result
+			await search_field.fill('minify')
+			await links.nth(0).click()
+			await page.waitForURL('**/minify-css')
+
+			// dialog is now hidden, so trigger again
+			await page.getByRole('main').press('Meta+KeyK')
+
+			await expect(search_field).toHaveValue('')
+		})
+
+		test('the search field is not cleared when opening the dialog twice', async ({ page }) => {
+			// enter search query and go to result
+			await search_field.fill('minify')
+			await page.getByRole('main').press('Escape')
+
+			await page.getByRole('main').press('Meta+KeyK')
+			await expect(dialog).toBeVisible()
+			await expect(search_field).toHaveValue('minify')
 		})
 	})
 })

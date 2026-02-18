@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { afterNavigate } from '$app/navigation'
 	import Empty from '$components/Empty.svelte'
 	import Icon from '$components/Icon.svelte'
 	import { focusable_children, trap } from './actions.focus'
@@ -49,6 +50,10 @@
 			}
 		}
 	}
+
+	afterNavigate(() => {
+		search_query = ''
+	})
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
