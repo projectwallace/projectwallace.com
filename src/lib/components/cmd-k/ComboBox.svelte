@@ -15,19 +15,20 @@
 		let new_results = structuredClone(shortcuts)
 		new_results.forEach((section) => {
 			section.items = section.items.filter((item) => {
-				return item.title.toLowerCase().includes(normalized_search_query)
-					|| item.keywords?.includes(normalized_search_query)
+				return (
+					item.title.toLowerCase().includes(normalized_search_query) || item.keywords?.includes(normalized_search_query)
+				)
 			})
 		})
 		return new_results
 	})
 	let no_results = $derived(results.every((section) => section.items.length === 0))
 
-	function onkeydown(event: KeyboardEvent) {
+	function onkeydown(event: KeyboardEvent & { currentTarget: HTMLElement }) {
 		if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
 			event.preventDefault()
 
-			let listbox = event.currentTarget as HTMLElement
+			let listbox = event.currentTarget
 			const group = focusable_children(listbox)
 
 			// when using arrow keys (as opposed to tab), don't focus buttons
@@ -108,7 +109,6 @@
 
 <style>
 	header {
-		margin-inline: var(--space-3);
 		margin: var(--space-3);
 	}
 
