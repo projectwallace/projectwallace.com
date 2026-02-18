@@ -19,6 +19,10 @@
 		indeterminate: enabled_origins.length > 0 && enabled_origins.length < css_state.origins.length
 	})
 
+	$effect(() => {
+		css_state.enable_origins_at(enabled_origins)
+	})
+
 	let sorted = $derived.by(() => {
 		let items = Uint8Array.from({ length: css_state.origins.length }, (_, index) => index)
 		return items.sort((_a, _b) => {
@@ -78,10 +82,9 @@
 		let input = event.target as HTMLInputElement
 
 		if (input.checked) {
-			css_state.enable_all_origins()
 			enabled_origins = css_state.origins.map((_, index) => index)
 		} else {
-			css_state.disable_all_origins()
+			css_state.unselect_origin()
 			enabled_origins = []
 		}
 	}
