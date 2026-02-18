@@ -577,6 +577,8 @@
 
 		.report-section {
 			display: grid;
+			/* Expensive elements to render, so enable content-visibility */
+			content-visibility: auto;
 
 			/* Making this larger than 24rem will cause horizontal overflows */
 			grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));

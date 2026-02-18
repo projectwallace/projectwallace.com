@@ -21,6 +21,8 @@
 		border-width: 1px;
 		border-style: solid;
 		border-color: light-dark(var(--fg-800), transparent);
+		/* Usually contains expensive elements to render, so content-visibility:auto makes sense */
+		content-visibility: auto;
 
 		@media (min-width: 44rem) {
 			padding-right: var(--space-4);
