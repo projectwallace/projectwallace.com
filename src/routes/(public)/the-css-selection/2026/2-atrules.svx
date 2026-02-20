@@ -344,7 +344,7 @@ node_type="rule"
 column_headers={['Charset', 'Adoption %']}
 />
 
-[Source data](/static/data/the-css-selection/2026/atrules.charset.unique.stats.json)
+[Source data](/data/the-css-selection/2026/atrules.charset.unique.stats.json)
 
 ### @container
 
