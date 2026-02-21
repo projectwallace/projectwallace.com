@@ -48,7 +48,8 @@
 									use:highlight_css={{
 										css,
 										node_type: css_state.selected_item_node_type,
-										enabled: css_state.selected_item_node_type !== undefined
+										// disabled for performance reasons
+										enabled: false
 									}}
 								>
 									<!-- Technically this should contain a <code> with the specimen, but the amount of DOM nodes is too damn high -->
@@ -115,6 +116,7 @@
 
 	tbody tr {
 		cursor: pointer;
+		content-visibility: auto;
 
 		&:nth-child(even) {
 			background-color: var(--uneven-tr-bg);

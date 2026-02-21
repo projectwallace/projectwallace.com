@@ -7,6 +7,7 @@
 	import Declarations from '$components/stats/Declarations.svelte'
 	import Values from '$components/stats/Values.svelte'
 	import type { CssAnalysis } from '$lib/analyze-css'
+	import { Deferred } from '$lib/deferred.svelte'
 
 	interface Props {
 		result?: CssAnalysis
@@ -15,16 +16,20 @@
 	let { result = Object.create(null) }: Props = $props()
 
 	let { rules, selectors, declarations, atrules, properties, values } = $derived(result)
+
+	let deferred = new Deferred()
 </script>
 
 <div class="group">
 	<Stylesheet {result} />
 	<Rulesets {rules} {atrules} {selectors} {declarations} />
-	<Selectors {selectors} />
-	<AtRules {atrules} />
-	<Declarations {declarations} />
-	<Properties {properties} />
-	<Values {values} />
+	{#if deferred.ready}
+		<Selectors {selectors} />
+		<AtRules {atrules} />
+		<Declarations {declarations} />
+		<Properties {properties} />
+		<Values {values} />
+	{/if}
 </div>
 
 <style>

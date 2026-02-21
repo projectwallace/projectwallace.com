@@ -115,7 +115,7 @@
 		cleaned_url.searchParams.delete('url')
 		cleaned_url.searchParams.delete('prettify')
 		cleaned_url.hash = ''
-		await goto(cleaned_url, { replaceState: true })
+		await goto(cleaned_url, { replaceState: true, noScroll: true })
 
 		status = 'idle'
 
@@ -125,7 +125,7 @@
 			submit_type: 'file',
 			prettify
 		})
-		css_state.set_origins(origins)
+		await css_state.set_origins(origins)
 		css_state.url = undefined
 	}
 

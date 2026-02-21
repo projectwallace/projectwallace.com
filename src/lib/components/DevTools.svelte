@@ -179,6 +179,7 @@
 		border-style: solid;
 		border-color: transparent;
 		font-size: var(--size-sm);
+		/* TODO: contain layout/style? */
 
 		@media (min-width: 33rem) {
 			gap: var(--space-2);

@@ -65,7 +65,7 @@
 
 		try {
 			let result = await get_css(value)
-			css_state.set_origins(result)
+			await css_state.set_origins(result)
 			css_state.url = value
 			status = STATUS.DONE
 		} catch (err: unknown) {

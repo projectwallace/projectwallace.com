@@ -34,6 +34,10 @@
 		id,
 		warnings = []
 	}: Props = $props()
+
+	function sort_alphabetical(a: [string, CssLocation[]], b: [string, CssLocation[]]) {
+		return string_sort(a[0], b[0])
+	}
 </script>
 
 <Panel {id}>
@@ -56,9 +60,7 @@
 			extra_sort_options={[
 				{
 					label: 'Sort A-Z',
-					fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
-						return string_sort(a[0], b[0])
-					},
+					fn: sort_alphabetical,
 					id: 'alphabetical'
 				}
 			]}

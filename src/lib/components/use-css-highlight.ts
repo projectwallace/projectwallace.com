@@ -43,9 +43,9 @@ const TIME_TO_WAIT = 50
 function get_highlight_level(css_size: number, user_agent: string): number {
 	let level = HIGHLIGHT_LEVEL_FULL
 
-	if (css_size > 2_000_000) {
+	if (css_size > 500_000) {
 		level = HIGHLIGHT_LEVEL_MINIMAL
-	} else if (css_size > 1_000_000) {
+	} else if (css_size > 250_000) {
 		level = HIGHLIGHT_LEVEL_PARTIAL
 	} else {
 		level = HIGHLIGHT_LEVEL_FULL

@@ -1,5 +1,11 @@
 declare class Highlight extends Set<Range | StaticRange> {}
 
+interface Scheduler {
+	yield: () => Promise<void>
+}
+
+declare var scheduler: Scheduler
+
 interface Window {
 	CSS: {
 		highlights: Map<string, Highlight>
