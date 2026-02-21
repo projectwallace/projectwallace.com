@@ -5,14 +5,13 @@
 	import Devtools from '$components/DevTools.svelte'
 	import type { CSSOrigin } from '$lib/css-origins'
 	import type { CssAnalysis } from '$lib/analyze-css'
-	import NetworkPanel from '$components/NetworkPanel.svelte'
-	import ItemUsage from '$components/ItemUsage.svelte'
 	import JsonPanel from '$components/devtools/JsonPanel.svelte'
 	import CssPanel from '$components/devtools/CssPanel.svelte'
 	import { analyzer_tabs, type TabId } from '$components/devtools/tabs'
 	import { get_css_state } from '$lib/css-state.svelte'
 	import { PersistedState } from 'runed'
 	import AnalyzerWorker from '$lib/css-analyzer.worker?worker'
+	import { Deferred } from '$lib/deferred.svelte'
 
 	interface Props {
 		prettify_css_before_analyze?: boolean
@@ -26,6 +25,7 @@
 	let css_state = get_css_state()
 	let analysis: CssAnalysis | undefined = $state(undefined)
 	let nav_visible = new PersistedState<boolean>('analyzer-nav-visible', true)
+	let deferred = new Deferred()
 
 	const worker = new AnalyzerWorker()
 	worker.onmessage = (event: MessageEvent<{ css: string; analysis: CssAnalysis }>) => {
@@ -68,25 +68,31 @@
 				<Report result={analysis} />
 			{/if}
 		</div>
-		<div class="devtools print:hidden">
-			{#if devtools}
-				{@render devtools({ analysis, css: css_state.css })}
-			{:else}
-				<Devtools tabs={analyzer_tabs}>
-					{#snippet children({ tab_id }: { tab_id: TabId })}
-						{#if tab_id === 'network'}
-							<NetworkPanel />
-						{:else if tab_id === 'inspector'}
-							<ItemUsage />
-						{:else if tab_id === 'report'}
-							<JsonPanel json={analysis} />
-						{:else if tab_id === 'css'}
-							<CssPanel css={css_state.css} />
-						{/if}
-					{/snippet}
-				</Devtools>
-			{/if}
-		</div>
+		{#if deferred.ready}
+			<div class="devtools print:hidden">
+				{#if devtools}
+					{@render devtools({ analysis, css: css_state.css })}
+				{:else}
+					<Devtools tabs={analyzer_tabs}>
+						{#snippet children({ tab_id }: { tab_id: TabId })}
+							{#if tab_id === 'network'}
+								{#await import('$components/NetworkPanel.svelte') then { default: NetworkPanel }}
+									<NetworkPanel />
+								{/await}
+							{:else if tab_id === 'inspector'}
+								{#await import('$components/ItemUsage.svelte') then { default: ItemUsage }}
+									<ItemUsage />
+								{/await}
+							{:else if tab_id === 'report'}
+								<JsonPanel json={analysis} />
+							{:else if tab_id === 'css'}
+								<CssPanel css={css_state.css} />
+							{/if}
+						{/snippet}
+					</Devtools>
+				{/if}
+			</div>
+		{/if}
 	</div>
 {/if}
 
@@ -105,11 +111,13 @@
 	.report {
 		grid-area: report;
 		padding: var(--space-2);
+		contain: layout style paint;
 	}
 
 	.report :global(section) {
 		content-visibility: auto;
 		contain-intrinsic-size: auto 500px;
+		contain: layout style;
 	}
 
 	.devtools {
@@ -124,6 +132,9 @@
 		.analysis {
 			grid-template-rows: 1fr auto;
 			column-gap: var(--space-8);
+			/* Set explicit min-height to avoid layout shift */
+			min-height: 100vh;
+			min-height: 100dvh;
 
 			&[data-nav-visible='true'] {
 				grid-template-columns: minmax(0, 1fr) clamp(12rem, 20%, 18rem);

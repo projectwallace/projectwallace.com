@@ -38,7 +38,6 @@
 	let supports_highlights = $state(false)
 	let lines: Highlight | undefined
 	// body element is used to scroll to the highlighted location
-	// svelte-ignore non_reactive_update
 	let body: HTMLElement | undefined
 	// code_node is used to highlight the code (highlighting only works on TextNodes)
 	// svelte-ignore non_reactive_update

@@ -162,7 +162,7 @@
 					universal selectors and combinators.
 				</p>
 
-				{#if complexity && complexity.max}
+				{#if complexity?.max}
 					<figure>
 						<ScatterPlot max={complexity.max} items={complexity.items} />
 						<figcaption>
