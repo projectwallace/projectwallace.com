@@ -16,6 +16,7 @@ class CssState {
 	should_prettify = $state<boolean>(true)
 	enabled_origins = new Set<number>()
 	origins: CSSOrigin[] = $state([])
+	raw_css = $state<string>('')
 	css = $state<string>('')
 	selected_origin = $state<number | undefined>()
 	selected_item = $state<Selectable | undefined>()
@@ -35,52 +36,42 @@ class CssState {
 		for (let i of this.enabled_origins) {
 			blob += this.origins[i].css
 		}
-		return this.should_prettify ? format(blob) : blob
+		return blob
 	}
 
-	async set_origins(origins: CSSOrigin[]) {
+	set_origins(origins: CSSOrigin[]) {
 		this.origins = origins
 		this.enabled_origins = new SvelteSet(origins.map((_, i) => i))
-
-		// Yield to let browser handle pending work
-		await scheduler.yield()
-
-		// Expensive task!
-		this.css = this.#join_origins()
-
-		queueMicrotask(() => {
-			this.selected_item = undefined
-			this.selected_location = undefined
-			this.selected_origin = undefined
-		})
+		this.raw_css = this.#join_origins()
+		this.selected_item = undefined
+		this.selected_location = undefined
+		this.selected_origin = undefined
 		this.run_id = crypto.randomUUID()
 	}
 
 	disable_origin_at(index: number) {
 		this.enabled_origins.delete(index)
-		this.css = this.#join_origins()
+		this.raw_css = this.#join_origins()
 	}
 
 	enable_origin_at(index: number) {
 		this.enabled_origins.add(index)
-		this.css = this.#join_origins()
+		this.raw_css = this.#join_origins()
 	}
 
 	enable_origins_at(indices: number[]) {
 		this.enabled_origins = new Set(indices)
-		this.css = this.#join_origins()
+		this.raw_css = this.#join_origins()
 	}
 
 	prettify(enabled = true) {
 		this.should_prettify = enabled
-		this.css = this.#join_origins()
 		this.unselect_item()
 		this.unselect_location()
 	}
 
 	uglify() {
 		this.should_prettify = false
-		this.css = this.#join_origins()
 		this.unselect_item()
 		this.unselect_location()
 	}
@@ -95,11 +86,12 @@ class CssState {
 
 	enable_all_origins() {
 		this.enabled_origins = new SvelteSet(this.origins.map((_, i) => i))
-		this.css = this.#join_origins()
+		this.raw_css = this.#join_origins()
 	}
 
 	disable_all_origins() {
 		this.enabled_origins.clear()
+		this.raw_css = ''
 		this.css = ''
 		this.unselect_item()
 	}

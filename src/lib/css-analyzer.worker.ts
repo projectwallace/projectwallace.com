@@ -1,6 +1,14 @@
 import { analyze } from '@projectwallace/css-analyzer'
+import { format } from '@projectwallace/format-css'
 
-self.onmessage = (event: MessageEvent<string>) => {
-	const result = analyze(event.data, { useLocations: true })
-	self.postMessage(result)
+type WorkerInput = {
+	css: string
+	prettify: boolean
+}
+
+self.onmessage = (event: MessageEvent<WorkerInput>) => {
+	const { css: raw_css, prettify } = event.data
+	const css = prettify ? format(raw_css) : raw_css
+	const analysis = analyze(css, { useLocations: true })
+	self.postMessage({ css, analysis })
 }

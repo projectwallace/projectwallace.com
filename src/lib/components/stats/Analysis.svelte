@@ -28,13 +28,14 @@
 	let nav_visible = new PersistedState<boolean>('analyzer-nav-visible', true)
 
 	const worker = new AnalyzerWorker()
-	worker.onmessage = (event: MessageEvent<CssAnalysis>) => {
-		requestIdleCallback(() => (analysis = event.data), { timeout: 50 })
+	worker.onmessage = (event: MessageEvent<{ css: string; analysis: CssAnalysis }>) => {
+		css_state.css = event.data.css
+		analysis = event.data.analysis
 	}
 
 	$effect(() => {
-		if (css_state.css) {
-			worker.postMessage(css_state.css)
+		if (css_state.raw_css) {
+			worker.postMessage({ css: css_state.raw_css, prettify: css_state.should_prettify })
 		}
 	})
 
