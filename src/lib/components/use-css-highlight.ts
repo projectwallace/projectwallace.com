@@ -8,61 +8,10 @@ import {
 	type CSSNode,
 	AT_RULE,
 	SELECTOR_LIST,
-	SELECTOR,
-	DECLARATION,
-	NUMBER,
-	DIMENSION,
-	FUNCTION,
-	STRING,
-	URL,
-	COMMENT
+	DECLARATION
 } from '@projectwallace/css-parser'
 
-const token_types = [
-	'AtruleName',
-	'AtrulePrelude',
-	'SelectorList',
-	'Selector',
-	'Property',
-	'Value',
-	'Number',
-	'Unit',
-	'Percentage',
-	'Function',
-	'String',
-	'Comment',
-	'Important'
-]
-
-const HIGHLIGHT_LEVEL_FULL = 1
-const HIGHLIGHT_LEVEL_PARTIAL = 2
-const HIGHLIGHT_LEVEL_MINIMAL = 3
-
-const TIME_TO_WAIT = 50
-
-function get_highlight_level(css_size: number, user_agent: string): number {
-	let level = HIGHLIGHT_LEVEL_FULL
-
-	if (css_size > 2_000_000) {
-		level = HIGHLIGHT_LEVEL_MINIMAL
-	} else if (css_size > 1_000_000) {
-		level = HIGHLIGHT_LEVEL_PARTIAL
-	} else {
-		level = HIGHLIGHT_LEVEL_FULL
-	}
-
-	let is_chrome = /chrome|chromium/i.test(user_agent) || /edg/i.test(user_agent)
-
-	if (is_chrome) {
-		if (level === HIGHLIGHT_LEVEL_FULL) {
-			level = HIGHLIGHT_LEVEL_PARTIAL
-		} else if (level === HIGHLIGHT_LEVEL_PARTIAL) {
-			level = HIGHLIGHT_LEVEL_MINIMAL
-		}
-	}
-
-	return level
-}
+const token_types = ['AtruleName', 'SelectorList', 'Property', 'Comment', 'Important']
 
 export type NodeType = 'selector' | 'declaration' | 'selectorList' | 'atrule' | 'value' | 'rule'
 
@@ -79,8 +28,10 @@ export function highlight_css(
 		return
 	}
 
-	let user_agent = navigator.userAgent
-	let highlight_level = get_highlight_level(css.length, user_agent)
+	if (node_type === 'selector' || node_type === 'selectorList' || node_type === 'value') {
+		// Skip highlighting for some type
+		return
+	}
 
 	let highlights = window.CSS.highlights
 	let text_node = node.firstChild!
@@ -97,7 +48,7 @@ export function highlight_css(
 
 		// Keep track of all ranges within scope to remove them later to prevent memory leaks
 		ranges.add(range)
-		highlights.get(token_type)?.add(range)
+		window.CSS.highlights.get(token_type)?.add(range)
 	}
 
 	function do_highlight(css: string, node_type?: string) {
@@ -114,9 +65,12 @@ export function highlight_css(
 			} else {
 				// Default: parse as full stylesheet
 				ast = parse(css, {
-					parse_atrule_preludes: highlight_level !== HIGHLIGHT_LEVEL_MINIMAL,
-					parse_values: highlight_level === HIGHLIGHT_LEVEL_FULL,
-					parse_selectors: highlight_level === HIGHLIGHT_LEVEL_FULL
+					parse_atrule_preludes: false,
+					parse_values: false,
+					parse_selectors: false,
+					on_comment: (comment) => {
+						add_range('Comment', comment.start, comment.end)
+					}
 				})
 			}
 
@@ -127,66 +81,26 @@ export function highlight_css(
 			}
 
 			// Walk handles both single nodes and arrays
-			let nodes_to_walk = Array.isArray(ast) ? ast : [ast]
-			for (let root of nodes_to_walk) {
-				walk(root, (node: CSSNode) => {
-					let start = node.start
-					let end = node.end
+			walk(ast, (node: CSSNode) => {
+				let start = node.start
+				let end = node.end
 
-					if (node.type === COMMENT) {
-						// TODO: @projectwallace/css-parser currently doesn't support comments yet
-						// https://github.com/projectwallace/css-parser/issues/22
-						add_range('Comment', start, end)
-					} else if (node.type === AT_RULE) {
-						let name = node.name!
-						add_range('AtruleName', start, start + name.length + 1)
+				if (node.type === AT_RULE) {
+					let name = node.name!
+					add_range('AtruleName', start, start + name.length + 1)
+				} else if (node.type === SELECTOR_LIST) {
+					add_range('SelectorList', start, end)
+					return SKIP
+				} else if (node.type === DECLARATION) {
+					add_range('Property', start, start + node.property!.length)
 
-						if (node.prelude) {
-							// The prelude starts after @name and any whitespace
-							let prelude_start = start + name.length + 1
-							add_range('AtrulePrelude', prelude_start, prelude_start + node.prelude.text.length + 1)
-						}
-					} else if (
-						node.type === SELECTOR_LIST &&
-						(highlight_level === HIGHLIGHT_LEVEL_PARTIAL || highlight_level === HIGHLIGHT_LEVEL_MINIMAL)
-					) {
-						add_range('SelectorList', start, end)
-						return SKIP
-					} else if (node.type === SELECTOR && highlight_level === HIGHLIGHT_LEVEL_FULL) {
-						add_range('Selector', start, end)
-					} else if (
-						node.type === DECLARATION &&
-						(highlight_level === HIGHLIGHT_LEVEL_PARTIAL || highlight_level === HIGHLIGHT_LEVEL_FULL)
-					) {
-						add_range('Property', start, start + node.property!.length)
-
-						if (node.is_important) {
-							add_range('Important', end - 10, end)
-						}
-
-						if (highlight_level === HIGHLIGHT_LEVEL_PARTIAL) {
-							return SKIP
-						}
-					} else if (node.type === NUMBER && highlight_level === HIGHLIGHT_LEVEL_FULL) {
-						add_range('Number', start, end)
-					} else if (node.type === DIMENSION && highlight_level === HIGHLIGHT_LEVEL_FULL) {
-						let unit = node.unit || ''
-						if (unit === '%') {
-							add_range('Number', start, end - 1)
-						} else {
-							add_range('Number', start, end - unit.length)
-							add_range('Unit', end - unit.length, end)
-						}
-					} else if (node.type === FUNCTION && highlight_level === HIGHLIGHT_LEVEL_FULL) {
-						add_range('Function', start, start + node.name!.length)
-					} else if (node.type === STRING && highlight_level === HIGHLIGHT_LEVEL_FULL) {
-						add_range('String', start, end)
-					} else if (node.type === URL && highlight_level === HIGHLIGHT_LEVEL_FULL) {
-						add_range('Function', start, start + 3)
-						add_range('String', start + 4, end - 1)
+					if (node.is_important) {
+						add_range('Important', end - 11, end - 1)
 					}
-				})
-			}
+
+					return SKIP
+				}
+			})
 		} catch {
 			// noop
 		}
@@ -208,36 +122,17 @@ export function highlight_css(
 		ranges.clear()
 	}
 
-	let timer =
-		'requestIdleCallback' in window
-			? requestIdleCallback(() => do_highlight(css, node_type))
-			: setTimeout(() => do_highlight(css, node_type), TIME_TO_WAIT)
+	requestIdleCallback(() => do_highlight(css, node_type))
 
 	return {
 		update({ css: updated_css, node_type: updated_node_type }: { css: string; node_type?: string }) {
-			if (timer) {
-				clearTimeout(timer)
-			}
-
 			// Clean up old ranges before applying new highlights
-			cleanup()
-
-			timer =
-				'requestIdleCallback' in window
-					? requestIdleCallback(() => do_highlight(updated_css, updated_node_type))
-					: setTimeout(() => do_highlight(updated_css, updated_node_type), TIME_TO_WAIT)
+			requestIdleCallback(cleanup)
+			// Then apply the new ones
+			requestIdleCallback(() => do_highlight(updated_css, updated_node_type))
 		},
 		destroy: () => {
-			// Clear the timer to prevent memory leaks
-			if (timer) {
-				clearTimeout(timer)
-			}
-
-			if ('requestIdleCallback' in window) {
-				requestIdleCallback(cleanup)
-			} else {
-				cleanup()
-			}
+			requestIdleCallback(cleanup)
 		}
 	}
 }
