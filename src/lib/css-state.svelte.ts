@@ -1,9 +1,9 @@
-import { onDestroy, setContext, getContext } from "svelte"
-import { format } from "@projectwallace/format-css"
-import type { CSSOrigin } from "./css-origins"
-import { SvelteSet } from "svelte/reactivity"
-import type { CssLocation } from "./css-location"
-import { type NodeType } from "$components/use-css-highlight"
+import { onDestroy, setContext, getContext } from 'svelte'
+import { format } from '@projectwallace/format-css'
+import type { CSSOrigin } from './css-origins'
+import { SvelteSet } from 'svelte/reactivity'
+import type { CssLocation } from './css-location'
+import { type NodeType } from '$components/use-css-highlight'
 
 type Selectable = {
 	type: string
@@ -38,13 +38,21 @@ class CssState {
 		return this.should_prettify ? format(blob) : blob
 	}
 
-	set_origins(origins: CSSOrigin[]) {
+	async set_origins(origins: CSSOrigin[]) {
 		this.origins = origins
 		this.enabled_origins = new SvelteSet(origins.map((_, i) => i))
+
+		// Yield to let browser handle pending work
+		await scheduler.yield()
+
+		// Expensive task!
 		this.css = this.#join_origins()
-		this.selected_item = undefined
-		this.selected_location = undefined
-		this.selected_origin = undefined
+
+		queueMicrotask(() => {
+			this.selected_item = undefined
+			this.selected_location = undefined
+			this.selected_origin = undefined
+		})
 		this.run_id = crypto.randomUUID()
 	}
 

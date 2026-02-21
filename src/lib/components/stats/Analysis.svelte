@@ -29,7 +29,7 @@
 
 	const worker = new AnalyzerWorker()
 	worker.onmessage = (event: MessageEvent<CssAnalysis>) => {
-		analysis = event.data
+		requestIdleCallback(() => (analysis = event.data), { timeout: 50 })
 	}
 
 	$effect(() => {
@@ -94,6 +94,7 @@
 		display: grid;
 		grid-template-areas: 'nav' 'report' 'devtools';
 		position: relative;
+		contain: layout style;
 	}
 
 	.nav {
@@ -103,6 +104,11 @@
 	.report {
 		grid-area: report;
 		padding: var(--space-2);
+	}
+
+	.report :global(section) {
+		content-visibility: auto;
+		contain-intrinsic-size: auto 500px;
 	}
 
 	.devtools {
