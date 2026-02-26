@@ -5,9 +5,8 @@ test.beforeEach(async ({ page }) => {
 })
 
 test.describe('initial state', () => {
-	test('shows the CSS input', ({ page }) => {
-		let input = page.getByLabel('CSS to analyze').inputValue
-		expect(input).not.toBe('')
+	test('shows the CSS input', async ({ page }) => {
+		await expect(page.getByLabel('CSS to analyze')).not.toHaveValue(``)
 	})
 
 	test('shows the AST output', async ({ page }) => {
@@ -60,6 +59,12 @@ test('auto scrolls to the selected node', async ({ page }) => {
 	await expect(treeitem).toBeVisible()
 	// Wait for scroll animation to complete before checking viewport
 	await expect(treeitem).toBeInViewport()
+})
+
+test('prettifies the CSS when button is clicked', async ({ page }) => {
+	await page.getByLabel('CSS to analyze').fill('a{color:blue}')
+	await page.getByRole('button', { name: 'Prettify CSS' }).click()
+	await expect(page.getByLabel('CSS to analyze')).toHaveValue(`a {\n\tcolor: blue;\n}`)
 })
 
 test.describe('URL hash state', () => {
