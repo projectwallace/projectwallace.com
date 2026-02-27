@@ -18,6 +18,15 @@
 		selectors?: CssAnalysis['selectors']
 	}
 
+	interface ValueCountPanelProps {
+		panel_id: string
+		title: string
+		data: { total: number; totalUnique: number; uniquenessRatio: number; uniqueWithLocations: Record<string, CssLocation[]> }
+		list_id: string
+		empty_message: string
+		sort_options?: (typeof alphabetical_sorting)[]
+	}
+
 	let { selectors = Object.create(null) }: Props = $props()
 
 	let {
@@ -29,7 +38,8 @@
 		combinators,
 		pseudoClasses,
 		pseudoElements,
-		attributes
+		attributes,
+		customElements
 	} = $derived(selectors)
 
 	let alphabetical_sorting = {
@@ -92,6 +102,30 @@
 		return sort_keyframes_selectors(a[0], b[0])
 	}
 </script>
+
+{#snippet value_count_panel({ panel_id, title, data, list_id, empty_message, sort_options = [alphabetical_sorting] }: ValueCountPanelProps)}
+	<Panel id={panel_id}>
+		<Header>
+			<Heading element="h3">{title}</Heading>
+			<DefinitionList
+				stats={[
+					{ name: 'Total', value: data.total },
+					{ name: 'Unique', value: data.totalUnique, ratio: data.uniquenessRatio }
+				]}
+			/>
+		</Header>
+		{#if data.total > 0}
+			<ValueCountList
+				id={list_id}
+				unique={data.uniqueWithLocations}
+				extra_sort_options={sort_options}
+				node_type="selector"
+			/>
+		{:else}
+			<Empty element="p">{empty_message}</Empty>
+		{/if}
+	</Panel>
+{/snippet}
 
 <div id="selectors">
 	<Heading element="h2">Selectors</Heading>
@@ -184,49 +218,20 @@
 			{/if}
 		</Panel>
 
-		<Panel id="pseudo-classes">
-			<Header>
-				<Heading element="h3">Pseudo classes</Heading>
-				<DefinitionList
-					stats={[
-						{ name: 'Total', value: pseudoClasses.total },
-						{ name: 'Unique', value: pseudoClasses.totalUnique, ratio: pseudoClasses.uniquenessRatio }
-					]}
-				/>
-			</Header>
-			{#if pseudoClasses.total > 0}
-				<ValueCountList
-					id="pseudo-classes-list"
-					unique={pseudoClasses.uniqueWithLocations}
-					extra_sort_options={[alphabetical_sorting]}
-					node_type="selector"
-				/>
-			{:else}
-				<Empty element="p">No pseudo classes found.</Empty>
-			{/if}
-		</Panel>
-
-		<Panel id="pseudo-elements">
-			<Header>
-				<Heading element="h3">Pseudo elements</Heading>
-				<DefinitionList
-					stats={[
-						{ name: 'Total', value: pseudoElements.total },
-						{ name: 'Unique', value: pseudoElements.totalUnique, ratio: pseudoElements.uniquenessRatio }
-					]}
-				/>
-			</Header>
-			{#if pseudoElements.total > 0}
-				<ValueCountList
-					id="pseudo-elements-list"
-					unique={pseudoElements.uniqueWithLocations}
-					extra_sort_options={[alphabetical_sorting]}
-					node_type="selector"
-				/>
-			{:else}
-				<Empty element="p">No pseudo elements found.</Empty>
-			{/if}
-		</Panel>
+		{@render value_count_panel({
+			panel_id: 'pseudo-classes',
+			title: 'Pseudo classes',
+			data: pseudoClasses,
+			list_id: 'pseudo-classes-list',
+			empty_message: 'No pseudo classes found.'
+		})}
+		{@render value_count_panel({
+			panel_id: 'pseudo-elements',
+			title: 'Pseudo elements',
+			data: pseudoElements,
+			list_id: 'pseudo-elements-list',
+			empty_message: 'No pseudo elements found.'
+		})}
 
 		<Panel id="selector-combinators">
 			<Header>
@@ -250,107 +255,42 @@
 			{/if}
 		</Panel>
 
-		<Panel id="prefixed-selectors">
-			<Header>
-				<Heading element="h3">Vendor-prefixed selectors</Heading>
-				<DefinitionList
-					stats={[
-						{ name: 'Total', value: prefixed.total },
-						{ name: 'Unique', value: prefixed.totalUnique, ratio: prefixed.uniquenessRatio }
-					]}
-				/>
-			</Header>
-			{#if prefixed.total > 0}
-				<ValueCountList
-					id="prefixed-selectors-list"
-					unique={prefixed.uniqueWithLocations}
-					extra_sort_options={[alphabetical_sorting]}
-					node_type="selector"
-				/>
-			{:else}
-				<Empty element="p">No vendor prefixed selectors found.</Empty>
-			{/if}
-		</Panel>
-
-		<Panel id="attribute-selectors">
-			<Header>
-				<Heading element="h3">Attribute selectors</Heading>
-				<DefinitionList
-					stats={[
-						{ name: 'Total', value: attributes.total },
-						{
-							name: 'Unique',
-							value: attributes.totalUnique,
-							ratio: attributes.uniquenessRatio
-						}
-					]}
-				/>
-			</Header>
-			{#if attributes.total > 0}
-				<ValueCountList
-					id="attribute-selectors-list"
-					unique={attributes.uniqueWithLocations}
-					extra_sort_options={[alphabetical_sorting]}
-					node_type="selector"
-				/>
-			{:else}
-				<Empty element="p">No attribute selectors found.</Empty>
-			{/if}
-		</Panel>
-
-		<Panel id="accessibility-selectors">
-			<Header>
-				<Heading element="h3">Accessibility selectors</Heading>
-				<DefinitionList
-					stats={[
-						{ name: 'Total', value: accessibility.total },
-						{
-							name: 'Unique',
-							value: accessibility.totalUnique,
-							ratio: accessibility.uniquenessRatio
-						}
-					]}
-				/>
-			</Header>
-			{#if accessibility.total > 0}
-				<ValueCountList
-					id="accessibility-selectors-list"
-					unique={accessibility.uniqueWithLocations}
-					extra_sort_options={[alphabetical_sorting]}
-					node_type="selector"
-				/>
-			{:else}
-				<Empty element="p">No accessibility selectors found.</Empty>
-			{/if}
-		</Panel>
-
-		<Panel id="keyframes-selectors">
-			<Header>
-				<Heading element="h3">Keyframes selectors</Heading>
-				<DefinitionList
-					stats={[
-						{ name: 'Total', value: keyframes.total },
-						{ name: 'Unique', value: keyframes.totalUnique, ratio: keyframes.uniquenessRatio }
-					]}
-				/>
-			</Header>
-			{#if keyframes.total > 0}
-				<ValueCountList
-					id="keyframes-selectors-list"
-					unique={keyframes.uniqueWithLocations}
-					node_type="selector"
-					extra_sort_options={[
-						{
-							label: 'Sort by %',
-							fn: sort_keyframes,
-							id: 'keyframes-selectors'
-						}
-					]}
-				/>
-			{:else}
-				<Empty element="p">No keyframe selectors found.</Empty>
-			{/if}
-		</Panel>
+		{@render value_count_panel({
+			panel_id: 'attribute-selectors',
+			title: 'Attribute selectors',
+			data: attributes,
+			list_id: 'attribute-selectors-list',
+			empty_message: 'No attribute selectors found.'
+		})}
+		{@render value_count_panel({
+			panel_id: 'accessibility-selectors',
+			title: 'Accessibility selectors',
+			data: accessibility,
+			list_id: 'accessibility-selectors-list',
+			empty_message: 'No accessibility selectors found.'
+		})}
+		{@render value_count_panel({
+			panel_id: 'keyframes-selectors',
+			title: 'Keyframes selectors',
+			data: keyframes,
+			list_id: 'keyframes-selectors-list',
+			empty_message: 'No keyframe selectors found.',
+			sort_options: [{ label: 'Sort by %', fn: sort_keyframes, id: 'keyframes-selectors' }]
+		})}
+		{@render value_count_panel({
+			panel_id: 'custom-element-selectors',
+			title: 'Custom element selectors',
+			data: customElements,
+			list_id: 'custom-element-selectors-list',
+			empty_message: 'No custom element selectors found.'
+		})}
+		{@render value_count_panel({
+			panel_id: 'prefixed-selectors',
+			title: 'Vendor-prefixed selectors',
+			data: prefixed,
+			list_id: 'prefixed-selectors-list',
+			empty_message: 'No vendor prefixed selectors found.'
+		})}
 	</div>
 </div>
 

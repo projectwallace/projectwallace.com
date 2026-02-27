@@ -28,10 +28,11 @@ export const nav = [
 			{ id: 'pseudo-classes', title: 'Pseudo classes' },
 			{ id: 'pseudo-elements', title: 'Pseudo elements' },
 			{ id: 'selector-combinators', title: 'Combinators' },
-			{ id: 'prefixed-selectors', title: 'Vendor Prefixed' },
 			{ id: 'attribute-selectors', title: 'Attributes' },
 			{ id: 'accessibility-selectors', title: 'Accessibility' },
-			{ id: 'keyframes-selectors', title: 'Keyframes' }
+			{ id: 'keyframes-selectors', title: 'Keyframes' },
+			{ id: 'custom-element-selectors', title: 'Custom elements' },
+			{ id: 'prefixed-selectors', title: 'Vendor Prefixed' }
 		]
 	},
 	{
