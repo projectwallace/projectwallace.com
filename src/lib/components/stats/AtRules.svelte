@@ -30,26 +30,32 @@
 		<Panel id="atrules-composition" class="report-section-full-width">
 			<Header>
 				<Heading element="h3">Composition</Heading>
-				<DefinitionList stats={[{ name: 'Atrule names', value: atrules.totalUnique }]} />
+				{#if atrules.total > 0}
+					<DefinitionList stats={[{ name: 'Atrule names', value: atrules.totalUnique }]} />
+				{/if}
 			</Header>
-			<BarChart
-				context="atrules-composition"
-				class="mt-4"
-				items={Object.entries(
-					atrules.uniqueWithLocations as Record<
-						string,
-						{ line: number; column: number; offset: number; length: number }[]
-					>
-				)
-					.map(([atrule_name, locations]) => ({
-						value: `@${atrule_name}`,
-						count: locations.length,
-						locations
-					}))
-					.sort((a, b) => b.count - a.count)}
-				column_headers={['Atrule name', 'Count']}
-				node_type="atrule"
-			/>
+			{#if atrules.total > 0}
+				<BarChart
+					context="atrules-composition"
+					class="mt-4"
+					items={Object.entries(
+						atrules.uniqueWithLocations as Record<
+							string,
+							{ line: number; column: number; offset: number; length: number }[]
+						>
+					)
+						.map(([atrule_name, locations]) => ({
+							value: `@${atrule_name}`,
+							count: locations.length,
+							locations
+						}))
+						.sort((a, b) => b.count - a.count)}
+					column_headers={['Atrule name', 'Count']}
+					node_type="atrule"
+				/>
+			{:else}
+				<Empty>No atrules found</Empty>
+			{/if}
 		</Panel>
 
 		<FontFaces {...fontface} />
