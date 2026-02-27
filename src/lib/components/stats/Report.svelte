@@ -31,6 +31,7 @@
 	.group {
 		display: grid;
 		gap: var(--space-8);
+		container-type: inline-size;
 
 		@media (min-width: 66rem) {
 			gap: var(--space-16);

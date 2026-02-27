@@ -6,6 +6,7 @@
 	import { format } from '@projectwallace/format-css'
 	import HighlightedTextarea from './HighlightedTextarea.svelte'
 	import { HashState } from '$lib/url-hash-state.svelte'
+	import Button from './Button.svelte'
 
 	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined)
 	let show_locations = new PersistedState('ast-show-locations', false)
@@ -54,10 +55,16 @@
 		})
 		return found
 	}
+
+	function prettify() {
+		css.current = format(css.current)
+	}
 </script>
 
 <header class="header">
 	<h1 class="title">CSS AST Explorer</h1>
+	<Button size="sm" variant="secondary" icon="brush" onclick={prettify}>Prettify CSS</Button>
+
 	<a href={pkg.homepage} target="_blank" rel="external">
 		CSS Parser: {pkg.version}
 	</a>
@@ -96,15 +103,19 @@
 <style>
 	.header {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-6);
 		padding-block: var(--space-2);
+
+		a[rel='external' i] {
+			margin-inline-start: auto;
+		}
 	}
 
 	.title {
 		font-weight: var(--font-bold);
-		margin-right: auto;
 	}
 
 	.scroll-container {

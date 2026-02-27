@@ -33,8 +33,8 @@
 			--green-500: hsl(121.9deg 70% 31%);
 			--green-600: hsl(121.9deg 35% 23%);
 			--green-700: hsl(166deg 25% 17%);
-			--red-100: hsl(4deg 26% 91%);
-			--red-200: hsl(4deg 46% 71%);
+			--red-100: hsl(4deg 26% 85%);
+			--red-200: hsl(4deg 46% 66%);
 			--red-300: hsl(4deg 66% 51%);
 			--red-400: hsl(0deg 70% 42%);
 			--red-600: hsl(0deg 70% 16%);
@@ -195,6 +195,12 @@
 		font-family: var(--font-mono);
 		font-weight: var(--font-normal);
 		hyphens: none;
+
+		@media print {
+			color: inherit;
+			font-size: var(--size-xs);
+			line-height: 1.5;
+		}
 	}
 
 	pre {
@@ -206,17 +212,8 @@
 		hyphens: none;
 		overflow: auto;
 		max-width: none;
-	}
 
-	@media print {
-		pre,
-		code {
-			color: inherit;
-			font-size: var(--size-xs);
-			line-height: 1.5;
-		}
-
-		pre {
+		@media print {
 			white-space: pre-wrap;
 		}
 	}
@@ -401,6 +398,21 @@
 			line-height: calc(var(--leading-base) * 1rem);
 		}
 
+		::selection {
+			background-color: var(--purple-200);
+			color: var(--black);
+		}
+
+		::search-text {
+			background: var(--yellow-400);
+			color: var(--black);
+		}
+
+		::search-text:current {
+			background-color: var(--orange-400);
+			color: var(--black);
+		}
+
 		:is(p, li) code {
 			display: inline-block;
 			margin-right: 1ch;
@@ -566,11 +578,51 @@
 		.report-section {
 			display: grid;
 
+			/* Only apply when no target inside, otherwise :target styles get clipped */
+			&:not(:has(:target)) {
+				/* Expensive elements to render, so enable content-visibility */
+				content-visibility: auto;
+			}
+
 			/* Making this larger than 24rem will cause horizontal overflows */
 			grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 			gap: var(--space-4);
 			align-items: start;
 			margin-top: var(--space-4);
+
+			@container (min-width: 33rem) {
+				gap: var(--space-6);
+			}
+
+			@container (min-width: 55rem) {
+				gap: var(--space-8);
+			}
+
+			/* Use as progressive enhancement until we have grid-lanes */
+			@supports (grid-template-rows: masonry) and (not (display: grid-lanes))  {
+				grid-template-rows: masonry;
+			}
+
+			@supports (display: grid-lanes) {
+				display: grid-lanes;
+			}
+
+			& :target {
+				scroll-margin: var(--space-8);
+				outline: 4px dashed var(--fg-400);
+				outline-offset: 4px;
+				animation-delay: 1s;
+				animation-fill-mode: forwards;
+				animation-duration: 2s;
+				animation-name: target-highlight;
+				animation-timing-function: ease-in-out;
+			}
+		}
+
+		@keyframes target-highlight {
+			to {
+				outline-color: transparent;
+			}
 		}
 
 		.report-section-full-width {

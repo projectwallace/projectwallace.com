@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
 	import ComboBox from './ComboBox.svelte'
 	import { afterNavigate } from '$app/navigation'
 
 	let open = $state(false)
-	let active_index = $state(0)
-	let popover: HTMLElement | undefined = undefined
+	let popover = $state<HTMLElement | undefined>(undefined)
 
 	function hide_popover() {
 		if (open) {
@@ -14,12 +12,10 @@
 	}
 
 	function reset() {
-		active_index = 0
 		hide_popover()
 	}
 
 	function start() {
-		active_index = 0
 		popover?.showPopover()
 	}
 
@@ -39,14 +35,6 @@
 		}
 	}
 
-	onMount(function () {
-		window.addEventListener('keydown', on_window_keydown)
-
-		return () => {
-			window.removeEventListener('keydown', on_window_keydown)
-		}
-	})
-
 	function ontoggle(event: ToggleEvent) {
 		open = event.newState === 'open'
 
@@ -60,10 +48,12 @@
 	afterNavigate(() => reset())
 </script>
 
+<svelte:window onkeydown={on_window_keydown} />
+
 <button
 	aria-haspopup="true"
 	aria-controls="cmdk-popover"
-	aria-expanded={open ? 'true' : undefined}
+	aria-expanded={open}
 	popovertarget="cmdk-popover"
 	id="cmdk-trigger"
 	class="cmd-k"
