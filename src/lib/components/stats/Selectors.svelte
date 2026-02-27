@@ -21,7 +21,12 @@
 	interface ValueCountPanelProps {
 		panel_id: string
 		title: string
-		data: { total: number; totalUnique: number; uniquenessRatio: number; uniqueWithLocations: Record<string, CssLocation[]> }
+		data: {
+			total: number
+			totalUnique: number
+			uniquenessRatio: number
+			uniqueWithLocations: Record<string, CssLocation[]>
+		}
 		list_id: string
 		empty_message: string
 		sort_options?: (typeof alphabetical_sorting)[]
@@ -103,7 +108,14 @@
 	}
 </script>
 
-{#snippet value_count_panel({ panel_id, title, data, list_id, empty_message, sort_options = [alphabetical_sorting] }: ValueCountPanelProps)}
+{#snippet value_count_panel({
+	panel_id,
+	title,
+	data,
+	list_id,
+	empty_message,
+	sort_options = [alphabetical_sorting]
+}: ValueCountPanelProps)}
 	<Panel id={panel_id}>
 		<Header>
 			<Heading element="h3">{title}</Heading>

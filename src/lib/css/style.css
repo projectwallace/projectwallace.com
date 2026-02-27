@@ -577,14 +577,52 @@
 
 		.report-section {
 			display: grid;
-			/* Expensive elements to render, so enable content-visibility */
-			content-visibility: auto;
+
+			/* Only apply when no target inside, otherwise :target styles get clipped */
+			&:not(:has(:target)) {
+				/* Expensive elements to render, so enable content-visibility */
+				content-visibility: auto;
+			}
 
 			/* Making this larger than 24rem will cause horizontal overflows */
 			grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 			gap: var(--space-4);
 			align-items: start;
 			margin-top: var(--space-4);
+
+			@container (min-width: 33rem) {
+				gap: var(--space-6);
+			}
+
+			@container (min-width: 55rem) {
+				gap: var(--space-8);
+			}
+
+			/* Use as progressive enhancement until we have grid-lanes */
+			@supports (grid-template-rows: masonry) and (not (display: grid-lanes))  {
+				grid-template-rows: masonry;
+			}
+
+			@supports (display: grid-lanes) {
+				display: grid-lanes;
+			}
+
+			& :target {
+				scroll-margin: var(--space-8);
+				outline: 4px dashed var(--fg-400);
+				outline-offset: 4px;
+				animation-delay: 1s;
+				animation-fill-mode: forwards;
+				animation-duration: 2s;
+				animation-name: target-highlight;
+				animation-timing-function: ease-in-out;
+			}
+		}
+
+		@keyframes target-highlight {
+			to {
+				outline-color: transparent;
+			}
 		}
 
 		.report-section-full-width {
