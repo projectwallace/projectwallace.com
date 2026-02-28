@@ -41,7 +41,7 @@
 <svelte:element this={element} onclick={on_click} class="btn {variant} {size} {classname}" {...rest}>
 	{@render children?.()}
 	{#if icon}
-		<Icon name={icon} size={14} />
+		<Icon name={icon} size={size === 'lg' ? 20 : 14} />
 	{/if}
 </svelte:element>
 
@@ -64,10 +64,6 @@
 
 		@media print {
 			border: var(--space-1) solid;
-		}
-
-		:is(&:hover, &:focus) :global(.icon) {
-			opacity: 1;
 		}
 	}
 
@@ -130,5 +126,10 @@
 	.lg {
 		padding: 0.9em var(--space-5);
 		font-size: var(--size-lg);
+
+		& :global(.icon) {
+			margin-block-start: -0.2em;
+			zoom: 1.2;
+		}
 	}
 </style>

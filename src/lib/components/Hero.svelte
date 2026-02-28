@@ -14,19 +14,12 @@
 
 <header class="hero">
 	<Container>
-		<h1
-			class={[
-				'font-heading',
-				{
-					'has-github-link': github_link
-				}
-			]}
-		>
+		<h1 class={[{ 'has-github-link': github_link }]}>
 			{title}
 		</h1>
 		{#if github_link}
 			<a href={github_link} rel="external" class="github-link">
-				<Icon name="github" size={40} color="text-gray-300" />
+				<Icon name="github" size={40} />
 				<span class="sr-only">View repository on GitHub</span>
 			</a>
 		{/if}
@@ -38,10 +31,9 @@
 
 <style>
 	.hero {
-		background-color: var(--bg-0);
-		margin-bottom: var(--space-8);
+		/* background-color: var(--bg-0); */
+		/* margin-bottom: var(--space-8); */
 		padding-block: var(--space-8);
-		text-align: center;
 	}
 
 	h1 {
@@ -51,9 +43,12 @@
 		vertical-align: middle;
 		text-wrap: balance;
 
-		@media (min-width: 44rem) {
-			font-size: var(--size-7xl);
-		}
+		font-family: var(--font-serif);
+		font-weight: var(--font-normal);
+		line-height: var(--leading-none);
+		text-wrap: balance;
+		text-align: center;
+		font-weight: var(--font-normal);
 	}
 
 	.github-link {

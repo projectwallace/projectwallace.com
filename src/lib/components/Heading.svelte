@@ -63,7 +63,7 @@
 	h3,
 	.heading-size-3 {
 		color: var(--fg);
-		font-weight: var(--font-medium);
+		font-weight: var(--font-bold);
 		font-size: var(--size-xl);
 	}
 
