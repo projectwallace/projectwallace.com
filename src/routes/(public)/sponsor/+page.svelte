@@ -13,7 +13,8 @@
 	description="Project Wallace can not exist without your support!"
 />
 
-<Hero title="Sponsor Project Wallace">
+<Hero>
+	<h1 class="font-heading">Sponsor Project Wallace</h1>
 	<p class="leading-snug">
 		Maintaining a project the size of Wallace takes a lot of time and effort. There are many repositories to keep
 		up-to-date, documentation to write, and blogs to post. With your help, Project Wallace can keep on going!

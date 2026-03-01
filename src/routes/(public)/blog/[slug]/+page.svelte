@@ -13,7 +13,8 @@
 
 <Seo title="{data.post.title} - Blog" description={data.post.excerpt} />
 
-<Hero title={data.post.title}>
+<Hero>
+	<h1 class="font-heading">{data.post.title}</h1>
 	<FormattedDate date={data.post.date} />
 	<div class="author">
 		<img class="author-avatar" src={avatar} alt="User avatar for Bart Veneman" width="25" height="25" />

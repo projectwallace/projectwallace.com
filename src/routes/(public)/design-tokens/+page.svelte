@@ -56,10 +56,12 @@
 	description="Grab all Design Tokens from a page using it's CSS. Enter a URL of paste in your raw CSS and get instant analysis."
 />
 
-<Hero title="CSS Design Tokens" github_link="https://github.com/projectwallace/css-design-tokens">
-	<Container size="xl">
-		<Form />
-	</Container>
+<Hero>
+	<Form>
+		{#snippet title()}
+			<h1 class="font-heading">CSS Design Tokens</h1>
+		{/snippet}
+	</Form>
 </Hero>
 
 {#if css_state.origins.length > 0}

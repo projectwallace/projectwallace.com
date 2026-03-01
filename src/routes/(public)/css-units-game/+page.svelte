@@ -46,11 +46,11 @@
 
 <Seo title="CSS Units memory game" description="Test how many CSS units you can remember." image={Image} />
 
-<Hero title="CSS Units">
-	<Container size="xl">
-		<p>Which CSS units can you remember?</p>
+<Hero>
+	<h1 class="font-heading">CSS Units</h1>
+	<p>Which CSS units can you remember?</p>
 
-		<form action="" method="GET" onsubmit={checkGuess} class="form">
+	<form action="" method="GET" onsubmit={checkGuess} class="form">
 			<FormGroup>
 				<Label for="guess-input">Unit</Label>
 				<input
@@ -65,8 +65,7 @@
 				/>
 			</FormGroup>
 			<Button size="lg">Guess</Button>
-		</form>
-	</Container>
+	</form>
 </Hero>
 
 <Container>

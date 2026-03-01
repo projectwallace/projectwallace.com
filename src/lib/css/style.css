@@ -63,7 +63,7 @@
 
 			--white: hsl(0deg 0% 100%);
 			--gray-100: hsl(198deg 5% 97.3%);
-			--gray-200: hsl(198deg 10% 86%);
+			--gray-200: hsl(198deg 10% 90%);
 			--gray-300: hsl(198deg 12% 66%);
 			--gray-400: hsl(198deg 12% 52%);
 			--gray-450: hsl(198.6deg 19.6% 28%);
@@ -343,8 +343,8 @@
 			--accent: light-dark(var(--teal-300), var(--teal-400));
 			--accent-100: var(--teal-100);
 			--accent-200: var(--teal-200);
-			--accent-300: var(--teal-300);
-			--accent-400: var(--teal-400);
+			--accent-300: light-dark(var(--teal-500), var(--teal-300));
+			--accent-400: light-dark(var(--teal-600), var(--teal-400));
 			--accent-500: var(--teal-500);
 			--accent-600: var(--teal-600);
 			--accent-700: var(--teal-700);
@@ -570,6 +570,7 @@
 			font-family: var(--font-serif);
 			font-weight: var(--font-medium);
 			line-height: var(--leading-none);
+			text-box-trim: trim-both;
 		}
 
 		p.lead {

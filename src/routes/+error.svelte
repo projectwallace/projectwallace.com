@@ -10,7 +10,8 @@
 	<title>{page.status}</title>
 </svelte:head>
 
-<Hero title={page.status.toString()}>
+<Hero>
+	<h1 class="font-heading">{page.status}</h1>
 	<p>{page.error?.message}</p>
 </Hero>
 

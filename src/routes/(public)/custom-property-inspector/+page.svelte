@@ -13,10 +13,12 @@
 	description="Detect potential bugs or find opportunities to lower your total CSS footprint."
 />
 
-<Hero title="Custom Properties">
-	<Container size="xl">
-		<Form />
-	</Container>
+<Hero>
+	<Form>
+		{#snippet title()}
+			<h1 class="font-heading">Custom Properties</h1>
+		{/snippet}
+	</Form>
 </Hero>
 
 <Container>

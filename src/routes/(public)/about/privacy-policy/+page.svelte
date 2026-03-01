@@ -7,7 +7,8 @@
 
 <Seo title="Privacy Policy" description="TLDR; No trackers, no selling of personal information." />
 
-<Hero title="Privacy Policy">
+<Hero>
+	<h1 class="font-heading">Privacy Policy</h1>
 	<p>TLDR; No trackers, no selling of personal information.</p>
 </Hero>
 

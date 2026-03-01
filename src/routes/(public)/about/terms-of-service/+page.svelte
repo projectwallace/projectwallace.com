@@ -7,7 +7,8 @@
 
 <Seo title="Terms of Service" />
 
-<Hero title="Terms of Service">
+<Hero>
+	<h1 class="font-heading">Terms of Service</h1>
 	<p>Tiny letters.</p>
 </Hero>
 

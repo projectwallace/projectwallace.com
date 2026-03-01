@@ -83,9 +83,9 @@
 
 <Seo title="Scrape CSS" description="Online CSS scraper that also shows all the types of CSS and their origins." />
 
-<Hero title="CSS Scraper">
-	<Container size="xl">
-		<form onsubmit={on_submit} class="form">
+<Hero>
+	<h1 class="font-heading">CSS Scraper</h1>
+	<form onsubmit={on_submit} class="form">
 			<FormGroup>
 				<Label for="url-input">URL to crawl</Label>
 				<UrlInput name="url" id="url-input" bind:url={value} />
@@ -115,8 +115,7 @@
 			{#if !is_online.current}
 				<p class="error-msg" data-testid="offline-message">You are offline.</p>
 			{/if}
-		</form>
-	</Container>
+	</form>
 </Hero>
 
 <Container>

@@ -40,8 +40,8 @@
 	}
 
 	.info {
-		background-color: var(--blue-200);
-		color: var(--blue-800);
+		background-color: light-dark(var(--blue-200), var(--blue-700));
+		color: light-dark(var(--blue-800), var(--blue-100));
 	}
 
 	.warning {
@@ -51,7 +51,7 @@
 
 	.error {
 		background-color: light-dark(var(--red-200), var(--red-700));
-		color: light-dark(var(--red-800), var(--red-400));
+		color: light-dark(var(--red-600), var(--red-100));
 	}
 
 	.secondary {

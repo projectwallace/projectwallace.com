@@ -13,7 +13,8 @@
   Questions."
 />
 
-<Hero title="Project Wallace">
+<Hero>
+	<h1 class="font-heading">Project Wallace</h1>
 	<p>It's analytics for CSS.</p>
 	<p>
 		Project Wallace is a project aimed at gaining insights in your CSS over a longer period of time. It started a couple

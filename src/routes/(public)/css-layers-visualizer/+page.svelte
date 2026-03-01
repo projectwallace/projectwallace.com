@@ -13,10 +13,12 @@
 
 <Seo title="CSS Cascade Layers Visualizer" description="See how your Cascade Layers are composed." />
 
-<Hero title="CSS @layer Visualizer" github_link="https://github.com/projectwallace/css-layer-tree">
-	<Container size="xl">
-		<Form />
-	</Container>
+<Hero>
+	<Form>
+		{#snippet title()}
+			<h1 class="font-heading">CSS @layer Visualizer</h1>
+		{/snippet}
+	</Form>
 </Hero>
 
 <LayersVisualizer origins={css_state.origins} prettify_css_before_analyze={css_state.should_prettify} />
