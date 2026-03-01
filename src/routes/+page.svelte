@@ -191,6 +191,7 @@
 <style>
 	header {
 		padding-block: min(20rem, 16cqb);
+		padding-inline: var(--space-2);
 		text-align: center;
 		display: grid;
 		gap: var(--space-8);

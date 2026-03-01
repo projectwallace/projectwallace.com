@@ -534,6 +534,7 @@
 			font: inherit;
 			font-size: var(--size-base);
 			flex-grow: 1;
+			min-width: 0%;
 
 			&:disabled {
 				background-color: var(--bg-200);
