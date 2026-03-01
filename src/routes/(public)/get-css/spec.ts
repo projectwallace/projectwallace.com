@@ -75,9 +75,9 @@ test('pre-fills the page when coming from another page', async ({ page }) => {
 	})
 
 	// Now navigate to the get-css page
-	await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'CSS Scraper' }).click()
-	await expect.soft(page).toHaveURL('/get-css?url=example.com&prettify=1')
-	await expect.soft(page.getByLabel('URL to crawl')).toHaveValue('example.com')
+	await page.getByRole('contentinfo').getByRole('link', { name: 'CSS Scraper' }).click()
+	await expect.soft(page).toHaveURL('/get-css')
+	await expect.soft(page.getByLabel('URL to crawl')).toHaveValue('') // no URL in query params
 	await expect.soft(page.getByTestId('pre-css')).toHaveText(css_fixture)
 	await expect.soft(page.getByTestId('network-panel')).toBeVisible()
 	await expect.soft(page.getByRole('button', { name: 'Copy CSS' })).toBeVisible()

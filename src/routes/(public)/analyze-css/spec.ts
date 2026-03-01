@@ -42,7 +42,7 @@ test.describe('navigation', () => {
 		await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		// Fill in a valid URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 	})
@@ -83,7 +83,7 @@ test.describe('URL input mode', () => {
 
 	test('analyzes a valid URL', async ({ page }) => {
 		// Fill in a valid URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		// Verify that the URL is updated
@@ -107,7 +107,7 @@ test.describe('URL input mode', () => {
 			})
 		})
 		// Fill in an invalid URL
-		await page.getByLabel('URL to analyze').fill(`chatgpt.com`)
+		await page.getByLabel('Website URL').fill(`chatgpt.com`)
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
@@ -136,7 +136,7 @@ test.describe('URL input mode', () => {
 			})
 		})
 		// Fill in an invalid URL
-		await page.getByLabel('URL to analyze').fill(`refused.com`)
+		await page.getByLabel('Website URL').fill(`refused.com`)
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
@@ -162,7 +162,7 @@ test.describe('URL input mode', () => {
 				})
 			})
 			// Fill in an invalid URL
-			await page.getByLabel('URL to analyze').fill(url)
+			await page.getByLabel('Website URL').fill(url)
 			// click 'Analyze URL'
 			await page.getByRole('button', { name: 'Analyze URL' }).click()
 
@@ -177,7 +177,7 @@ test.describe('URL input mode', () => {
 	})
 
 	test('does not crash when requesting an invalid URL', async ({ page }) => {
-		await page.getByLabel('URL to analyze').fill('test { color: red; }')
+		await page.getByLabel('Website URL').fill('test { color: red; }')
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 		await expect.soft(page.getByTestId('form-url-error')).toBeVisible()
@@ -207,7 +207,7 @@ test.describe('Raw input mode', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 	})
 
 	test('analyzes raw input', async ({ page }) => {
@@ -237,7 +237,7 @@ test.describe('Raw input mode', () => {
 		await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 
 		let textarea = page.getByLabel('CSS to analyze')
 		await textarea.press('Meta+Enter')
@@ -252,7 +252,7 @@ test.describe('File input mode', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
-		await page.getByRole('tab', { name: 'Analyze File' }).click()
+		await page.getByRole('tab', { name: 'File(s)' }).click()
 	})
 
 	test('analyzes a single file', async ({ page }) => {
@@ -328,7 +328,7 @@ test('does not have horizontal scrollbars', async ({ page }) => {
 	await expect(page).toBeHydrated()
 
 	// Fill in a URL
-	await page.getByLabel('URL to analyze').fill(`example.com/`)
+	await page.getByLabel('Website URL').fill(`example.com/`)
 
 	// click 'Analyze URL'
 	await page.getByRole('button', { name: 'Analyze URL' }).click()
@@ -348,7 +348,7 @@ test.describe('URL preloading', () => {
 		await expect(page).toBeHydrated()
 
 		// 1. URL input is prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('example.com')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('example.com')
 		// 2. prettify is checked by default
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).toBeChecked()
 	})
@@ -357,7 +357,7 @@ test.describe('URL preloading', () => {
 		await page.goto('/analyze-css?url=example.com&prettify=1', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		// 1. URL input is prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('example.com')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('example.com')
 		// 2. prettify is checked by default
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).toBeChecked()
 	})
@@ -366,7 +366,7 @@ test.describe('URL preloading', () => {
 		await page.goto('/analyze-css?url=example.com&prettify=0', { waitUntil: 'domcontentloaded' })
 
 		// 1. URL input is prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('example.com')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('example.com')
 		// 2. Prettify is NOT checked
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).not.toBeChecked()
 	})
@@ -375,7 +375,7 @@ test.describe('URL preloading', () => {
 		await page.goto('/analyze-css?prettify=0', { waitUntil: 'domcontentloaded' })
 
 		// 1. URL input is NOT prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('')
 		// 2. Prettify is NOT checked
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).not.toBeChecked()
 	})
@@ -385,12 +385,12 @@ test.describe('URL preloading', () => {
 		await expect(page).toBeHydrated()
 
 		// Analyze URL first
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		await expect.soft(page).toHaveURL('/analyze-css?url=example.com&prettify=1')
 
 		// Fill in Raw CSS
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 		await page.getByLabel('CSS to analyze').fill(`h1{color:red;font-size:1em;}`)
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 		await expect.soft(page).toHaveURL('/analyze-css')
@@ -401,12 +401,12 @@ test.describe('URL preloading', () => {
 		await expect(page).toBeHydrated()
 
 		// Analyze URL first
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		await expect.soft(page).toHaveURL('/analyze-css?url=example.com&prettify=1')
 
 		// Select a file
-		await page.getByRole('tab', { name: 'Analyze File' }).click()
+		await page.getByRole('tab', { name: 'File(s)' }).click()
 		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1])
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 		await expect.soft(page).toHaveURL('/analyze-css')

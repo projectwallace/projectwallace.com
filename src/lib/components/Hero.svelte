@@ -14,7 +14,7 @@
 	<Container size="xl">
 		{#if title}
 			<div class="title">
-				<div class="font-heading">{title}</div>
+				<h1 class="font-heading">{title}</h1>
 			</div>
 		{/if}
 		{@render children?.()}

@@ -69,7 +69,7 @@ test.describe('navigation', () => {
 		await page.goto('/design-tokens', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		// Fill in a valid URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 	})
@@ -115,7 +115,7 @@ test.describe('URL input mode', () => {
 
 	test('analyzes a valid URL', async ({ page }) => {
 		// Fill in a valid URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		// Verify that the URL is updated
@@ -129,7 +129,7 @@ test.describe('URL preloading', () => {
 		await expect(page).toBeHydrated()
 
 		// 1. URL input is prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('example.com')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('example.com')
 		// 2. prettify is checked by default
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).toBeChecked()
 	})
@@ -138,7 +138,7 @@ test.describe('URL preloading', () => {
 		await page.goto('/design-tokens?url=example.com&prettify=1', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		// 1. URL input is prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('example.com')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('example.com')
 		// 2. prettify is checked by default
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).toBeChecked()
 	})
@@ -147,7 +147,7 @@ test.describe('URL preloading', () => {
 		await page.goto('/design-tokens?url=example.com&prettify=0', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		// 1. URL input is prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('example.com')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('example.com')
 		// 2. Prettify is NOT checked
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).not.toBeChecked()
 	})
@@ -156,7 +156,7 @@ test.describe('URL preloading', () => {
 		await page.goto('/design-tokens?prettify=0', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		// 1. URL input is NOT prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('')
 		// 2. Prettify is NOT checked
 		await expect.soft(page.getByLabel('Prettify CSS?').first()).not.toBeChecked()
 	})
@@ -166,12 +166,12 @@ test.describe('URL preloading', () => {
 		await expect(page).toBeHydrated()
 
 		// Analyze URL first
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		await expect.soft(page).toHaveURL('/design-tokens?url=example.com&prettify=1')
 
 		// Fill in Raw CSS
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 		await page.getByLabel('CSS to analyze').fill(`h1{color:red;font-size:1em;}`)
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 		await expect.soft(page).toHaveURL('/design-tokens')
@@ -182,12 +182,12 @@ test.describe('URL preloading', () => {
 		await expect(page).toBeHydrated()
 
 		// Analyze URL first
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		await expect.soft(page).toHaveURL('/design-tokens?url=example.com&prettify=1')
 
 		// Select a file
-		await page.getByRole('tab', { name: 'Analyze File' }).click()
+		await page.getByRole('tab', { name: 'File(s)' }).click()
 		await page.getByLabel('File to analyze').setInputFiles([file_fixture_1])
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 		await expect.soft(page).toHaveURL('/design-tokens')
@@ -217,7 +217,7 @@ test.describe('Design Tokens panel', () => {
 		await expect(page).toBeHydrated()
 
 		// Fill in a URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()

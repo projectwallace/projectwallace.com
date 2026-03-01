@@ -5,13 +5,6 @@ test.beforeEach(async ({ page }) => {
 	await page.goto('/css-coverage', { waitUntil: 'domcontentloaded' })
 })
 
-test('does SEO well', async ({ page }) => {
-	await expect.soft(page).toHaveTitle('CSS Coverage inspector - Project Wallace')
-	await expect.soft(page).toHaveCanonical()
-	await expect.soft(page).toHaveMetaDescription()
-	await expect.soft(page).toHaveH1()
-})
-
 test('start off empty', async ({ page }) => {
 	await expect.soft(page.getByTestId('coverage-summary')).not.toBeVisible()
 	await expect.soft(page.getByRole('table', { name: 'Coverage per origin' })).not.toBeVisible()

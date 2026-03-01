@@ -33,7 +33,7 @@ test.describe('interaction', () => {
 
 	test('analyzes a URL', async ({ page }) => {
 		// Fill in a URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 		// Verify that Report is shown
@@ -47,7 +47,7 @@ test.describe('interaction', () => {
 	})
 
 	test('analyzes raw input', async ({ page }) => {
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 
 		// Construct some big gnarly CSS so we trip some rules
 		const MOCK_CSS = `
@@ -83,7 +83,7 @@ test.describe('interaction', () => {
 	})
 
 	test('filters by selected category', async ({ page }) => {
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 
 		// Fill in some CSS
 		await page.getByLabel('CSS to analyze').fill(`h1{color:red;font-size:1em;}`)
@@ -117,19 +117,19 @@ test.describe('URL preloading', () => {
 		await expect(page).toBeHydrated()
 
 		// 1. URL input is prefilled
-		await expect.soft(page.getByLabel('URL to analyze')).toHaveValue('example.com')
+		await expect.soft(page.getByLabel('Website URL')).toHaveValue('example.com')
 	})
 
 	test('Raw: unsets URL param', async ({ page }) => {
 		await expect(page).toBeHydrated()
 
 		// Analyze URL first
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		await expect.soft(page).toHaveURL('/css-code-quality?url=example.com&prettify=1')
 
 		// Fill in Raw CSS
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 		await page.getByLabel('CSS to analyze').fill(`h1{color:red;font-size:1em;}`)
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 

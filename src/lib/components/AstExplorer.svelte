@@ -62,7 +62,7 @@
 </script>
 
 <header class="header">
-	<h1 class="title">CSS AST Explorer</h1>
+	<strong class="title">CSS AST Explorer</strong>
 	<Button size="sm" variant="secondary" icon="brush" onclick={prettify}>Prettify CSS</Button>
 
 	<a href={pkg.homepage} target="_blank" rel="external">

@@ -196,7 +196,7 @@ test('does SEO well', async ({ page }) => {
 
 test('analyzes direct CSS input without @layers', async ({ page }) => {
 	await expect(page).toBeHydrated()
-	await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+	await page.getByRole('tab', { name: 'Paste CSS' }).click()
 	await page.getByLabel('CSS to analyze').fill('a {}')
 	await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
@@ -207,7 +207,7 @@ test('analyzes direct CSS input without @layers', async ({ page }) => {
 
 test('analyzes direct CSS input with @layers', async ({ page }) => {
 	await expect(page).toBeHydrated()
-	await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+	await page.getByRole('tab', { name: 'Paste CSS' }).click()
 	await page.getByLabel('CSS to analyze').fill('@layer test {}')
 	await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
@@ -233,7 +233,7 @@ test.describe('URL with layers', () => {
 			})
 		})
 		await expect(page).toBeHydrated()
-		await page.getByLabel('URL to analyze').fill('example.com')
+		await page.getByLabel('Website URL').fill('example.com')
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 	})
 
@@ -288,7 +288,7 @@ test('analyzes a URL without layers', async ({ page }) => {
 		})
 	})
 	await expect(page).toBeHydrated()
-	await page.getByLabel('URL to analyze').fill('example.com')
+	await page.getByLabel('Website URL').fill('example.com')
 	await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 	await expect.soft(page).toHaveURL('/css-layers-visualizer?url=example.com&prettify=1')

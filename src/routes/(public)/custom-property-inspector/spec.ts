@@ -27,7 +27,7 @@ test('does SEO well', async ({ page }) => {
 test('CSS without custom properties', async ({ page }) => {
 	await page.goto('/custom-property-inspector')
 	await expect(page).toBeHydrated()
-	await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+	await page.getByRole('tab', { name: 'Paste CSS' }).click()
 	await page.getByLabel('CSS to analyze').fill(`a { color: red; }`)
 	await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
@@ -44,7 +44,7 @@ test.describe('with css', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/custom-property-inspector')
 		await expect(page).toBeHydrated()
-		await page.getByRole('tab', { name: 'Analyze CSS input' }).click()
+		await page.getByRole('tab', { name: 'Paste CSS' }).click()
 		await page.getByLabel('CSS to analyze').fill(mock_css)
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
@@ -206,7 +206,7 @@ test.describe('with css', () => {
 			await expect(search_input).toHaveValue('')
 		})
 
-		test('shows empty state if the search query doesn\'t match any property', async ({ page }) => {
+		test("shows empty state if the search query doesn't match any property", async ({ page }) => {
 			// Search for a property that doesn't exist
 			await search_input.fill('nonexistent')
 
