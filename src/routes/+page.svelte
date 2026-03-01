@@ -32,7 +32,7 @@
 	</p>
 
 	<div class="button-group">
-		<Button size="lg" icon="arrow-right">Analyze your CSS</Button>
+		<Button size="lg" icon="arrow-right" element="a" href="/analyze-css">Analyze your CSS</Button>
 	</div>
 </header>
 
