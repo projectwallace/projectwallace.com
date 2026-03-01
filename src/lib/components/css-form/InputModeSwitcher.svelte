@@ -20,9 +20,9 @@
 <div class="input-mode-switcher">
 	<div use:melt={$root}>
 		<div use:melt={$list}>
-			<button use:melt={$trigger('url')}>Analyze URL</button>
-			<button use:melt={$trigger('file')}>Analyze File</button>
-			<button use:melt={$trigger('raw')}>Analyze CSS input</button>
+			<button use:melt={$trigger('url')}>URL</button>
+			<button use:melt={$trigger('file')}>File(s)</button>
+			<button use:melt={$trigger('raw')}>Paste CSS</button>
 		</div>
 	</div>
 

@@ -14,7 +14,7 @@
 
 <style>
 	.label {
-		color: var(--fg-100);
+		color: var(--fg-200);
 		font-weight: var(--font-bold);
 		width: 100%; /* For use in Flex containers */
 	}

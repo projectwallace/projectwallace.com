@@ -37,9 +37,7 @@
 />
 
 <Hero title="Analyze CSS" github_link="https://github.com/projectwallace/css-analyzer">
-	<Container size="xl">
-		<Form {on_success} {on_error} />
-	</Container>
+	<Form {on_success} {on_error} />
 </Hero>
 
 {#if status === 'done' && css_state.origins.length > 0}

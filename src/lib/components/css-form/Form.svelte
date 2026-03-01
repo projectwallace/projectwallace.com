@@ -150,11 +150,26 @@
 	}
 </script>
 
+{#snippet prettify_option()}
+	<div class="option">
+		<input
+			type="checkbox"
+			name="prettify"
+			id="prettify-raw"
+			value="1"
+			onchange={on_prettify_change}
+			checked={prettify}
+		/>
+		<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
+		<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
+	</div>
+{/snippet}
+
 <InputModeSwitcher>
 	{#snippet url_tab()}
 		<form method="GET" class="form url-form" onsubmit={on_submit_url}>
 			<FormGroup>
-				<Label for="url">URL to analyze</Label>
+				<Label for="url">Website URL</Label>
 				<UrlInput
 					name="url"
 					id="url"
@@ -171,18 +186,7 @@
 			{#if status === 'error' && error}
 				<p data-testid="form-url-error" id="invalid-url-error-msg" class="error-msg">{error.message}</p>
 			{/if}
-			<div class="option">
-				<input
-					type="checkbox"
-					name="prettify"
-					id="prettify-raw"
-					value="1"
-					onchange={on_prettify_change}
-					checked={prettify}
-				/>
-				<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
-				<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
-			</div>
+			{@render prettify_option()}
 			<div class="submit">
 				<Button type="submit" size="lg">
 					{#if status === 'fetching'}
@@ -206,19 +210,10 @@
 				<Label for="file-css">File to analyze</Label>
 				<FileInput name="file-css" id="file-css" />
 			</FormGroup>
-			<div class="option">
-				<input
-					type="checkbox"
-					name="prettify"
-					id="prettify-raw"
-					value="1"
-					onchange={on_prettify_change}
-					checked={prettify}
-				/>
-				<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
-				<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
+			{@render prettify_option()}
+			<div class="submit">
+				<Button type="submit" size="lg">Analyze CSS</Button>
 			</div>
-			<Button type="submit" size="lg">Analyze CSS</Button>
 		</form>
 	{/snippet}
 
@@ -228,19 +223,10 @@
 				<Label for="raw-css">CSS to analyze</Label>
 				<Textarea name="raw-css" id="raw-css" wrap_lines required />
 			</FormGroup>
-			<div class="option">
-				<input
-					type="checkbox"
-					name="prettify"
-					id="prettify-raw"
-					value="1"
-					onchange={on_prettify_change}
-					checked={prettify}
-				/>
-				<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
-				<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
+			{@render prettify_option()}
+			<div class="submit">
+				<Button type="submit" size="lg">Analyze CSS</Button>
 			</div>
-			<Button type="submit" size="lg">Analyze CSS</Button>
 		</form>
 	{/snippet}
 </InputModeSwitcher>
@@ -283,5 +269,21 @@
 		bottom: -0.75rem; /* Arbitrary length that just looks good */
 		left: 0px; /* Accomodate for 1px border of the input */
 		right: 0px;
+	}
+
+	.option {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		column-gap: var(--space-2);
+
+		p {
+			grid-column: 2;
+			color: var(--fg-300);
+			font-size: var(--size-sm);
+		}
+	}
+
+	.submit {
+		justify-self: end;
 	}
 </style>

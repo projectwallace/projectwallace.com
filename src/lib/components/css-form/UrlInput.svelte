@@ -15,7 +15,7 @@
 	{name}
 	{id}
 	inputmode="url"
-	placeholder="projectwallace.com"
+	placeholder="example.com"
 	required
 	class="input"
 	autocapitalize="off"
