@@ -14,13 +14,12 @@
 
 <style>
 	.label {
-		color: var(--fg-100);
 		font-weight: var(--font-bold);
-		width: 100%; /* For use in Flex containers */
+		justify-self: start;
 	}
 
 	.md {
-		font-size: var(--size-lg);
+		font-size: var(--size-base);
 	}
 
 	.sm {

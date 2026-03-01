@@ -30,7 +30,7 @@ const config = {
 				'img-src': ['self'],
 				'frame-src': ['codepen.io'],
 				'worker-src': ['self', 'blob:'],
-				'font-src': ['self', 'https://www.projectwallace.com'],
+				'font-src': ['self', 'https://www.projectwallace.com', 'https://cdn.jsdelivr.net'],
 				'default-src': ['self']
 			}
 		}

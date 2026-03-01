@@ -13,15 +13,17 @@
 	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '$lib/get-css'
 	import { get_css_state } from '$lib/css-state.svelte'
 	import { IsOnline } from '$lib/is-online.svelte'
+	import type { Snippet } from 'svelte'
 
 	interface Props {
 		on_success?: (result: FormSuccessEvent) => void
 		on_error?: (error: Error) => void
+		title?: Snippet
 	}
 
 	function noop() {}
 
-	let { on_success = noop, on_error = noop }: Props = $props()
+	let { on_success = noop, on_error = noop, title }: Props = $props()
 
 	let status: 'idle' | 'fetching' | 'error' = $state('idle')
 	let error: Error | undefined = $state()
@@ -150,11 +152,30 @@
 	}
 </script>
 
+{#snippet prettify_option()}
+	<div class="option">
+		<input
+			type="checkbox"
+			name="prettify"
+			id="prettify-raw"
+			value="1"
+			onchange={on_prettify_change}
+			checked={prettify}
+		/>
+		<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
+		<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
+	</div>
+{/snippet}
+
 <InputModeSwitcher>
+	{#snippet title()}
+		{@render title()}
+	{/snippet}
+
 	{#snippet url_tab()}
 		<form method="GET" class="form url-form" onsubmit={on_submit_url}>
 			<FormGroup>
-				<Label for="url">URL to analyze</Label>
+				<Label for="url">Website URL</Label>
 				<UrlInput
 					name="url"
 					id="url"
@@ -171,18 +192,7 @@
 			{#if status === 'error' && error}
 				<p data-testid="form-url-error" id="invalid-url-error-msg" class="error-msg">{error.message}</p>
 			{/if}
-			<div class="option">
-				<input
-					type="checkbox"
-					name="prettify"
-					id="prettify-raw"
-					value="1"
-					onchange={on_prettify_change}
-					checked={prettify}
-				/>
-				<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
-				<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
-			</div>
+			{@render prettify_option()}
 			<div class="submit">
 				<Button type="submit" size="lg">
 					{#if status === 'fetching'}
@@ -206,19 +216,10 @@
 				<Label for="file-css">File to analyze</Label>
 				<FileInput name="file-css" id="file-css" />
 			</FormGroup>
-			<div class="option">
-				<input
-					type="checkbox"
-					name="prettify"
-					id="prettify-raw"
-					value="1"
-					onchange={on_prettify_change}
-					checked={prettify}
-				/>
-				<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
-				<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
+			{@render prettify_option()}
+			<div class="submit">
+				<Button type="submit" size="lg">Analyze CSS</Button>
 			</div>
-			<Button type="submit" size="lg">Analyze CSS</Button>
 		</form>
 	{/snippet}
 
@@ -228,19 +229,10 @@
 				<Label for="raw-css">CSS to analyze</Label>
 				<Textarea name="raw-css" id="raw-css" wrap_lines required />
 			</FormGroup>
-			<div class="option">
-				<input
-					type="checkbox"
-					name="prettify"
-					id="prettify-raw"
-					value="1"
-					onchange={on_prettify_change}
-					checked={prettify}
-				/>
-				<Label for="prettify-raw" size="sm">Prettify CSS?</Label>
-				<p>Prettifying makes inspecting the CSS easier, but very slighty changes the numbers.</p>
+			{@render prettify_option()}
+			<div class="submit">
+				<Button type="submit" size="lg">Analyze CSS</Button>
 			</div>
-			<Button type="submit" size="lg">Analyze CSS</Button>
 		</form>
 	{/snippet}
 </InputModeSwitcher>
@@ -248,13 +240,13 @@
 <style>
 	form {
 		display: grid;
-		gap: var(--space-4);
+		gap: var(--space-3);
 		font-size: var(--size-base);
 	}
 
 	.form {
 		display: grid;
-		gap: var(--space-4);
+		gap: var(--space-3);
 	}
 
 	.url-form {
@@ -283,5 +275,21 @@
 		bottom: -0.75rem; /* Arbitrary length that just looks good */
 		left: 0px; /* Accomodate for 1px border of the input */
 		right: 0px;
+	}
+
+	.option {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		column-gap: var(--space-2);
+
+		p {
+			grid-column: 2;
+			color: var(--fg-300);
+			font-size: var(--size-sm);
+		}
+	}
+
+	.submit {
+		justify-self: end;
 	}
 </style>

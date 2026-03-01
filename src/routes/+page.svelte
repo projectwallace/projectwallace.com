@@ -5,6 +5,17 @@
 	import Heading from '$lib/components/Heading.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './(public)/analyze-css/og-image.png?w=1200'
+
+	const tools: Record<string, string> = {
+		'CSS prettifier': '/prettify-css',
+		'CSS Minifier': '/minify-css',
+		'CSS diff viewer': '/css-diff',
+		'Coverage inspector': '/css-coverage-inspector',
+		'Specificity calculator': '/specificity-calculator',
+		'Selector complexity': '/selector-complexity'
+	}
+	import StatusBadge from '$components/StatusBadge.svelte'
+	import Icon from '$components/Icon.svelte'
 </script>
 
 <Seo
@@ -13,321 +24,392 @@
 	image={Image}
 />
 
-<Container>
-	<div class="announcement">
-		<p>The CSS Selection: the state of real-world CSS usage.</p>
-		<Button size="lg" element="a" variant="primary" href="/the-css-selection/2026" class="button">Read now</Button>
+<header>
+	<h1>
+		Your CSS tells a story.
+		<br />
+		Do you know <em>what it says</em><i>?</i>
+	</h1>
+	<p class="lead">
+		47 shades of gray in your design tokens. Specificity wars you didn't know existed. 12 competing font stacks across
+		your codebase. Project Wallace reveals the big picture from every angle.
+	</p>
+
+	<div class="button-group">
+		<Button size="lg" icon="arrow-right">Analyze your CSS</Button>
+		<Button size="lg" variant="secondary">See what it finds</Button>
 	</div>
+</header>
 
-	<div class="wrapper">
-		<section class="hero-section">
-			<div>
-				<Heading element="h1">
-					The best <em class="prevent-orphan">CSS analyzer</em> out there.
-				</Heading>
+<section>
+	<h2 class="section-heading">The blind spot</h2>
+	<p class="faux-heading">
+		CSS grows in every direction.
+		<br />
+		The big picture becomes invisible.
+	</p>
+	<p class="lead">
+		Every team reviews components. Nobody reviews all stylesheets. Over time, small inconsistencies compound into
+		systemic problems that hide in plain sight.
+	</p>
+
+	<Container size="3xl">
+		<ul class="panel-grid">
+			<li>
+				<Icon name="brush" />
+				<Heading element="h3">Colors multiply quietly</Heading>
 				<p>
-					Project Wallace is a set of CSS analyzers that check your complexity, specificity, performance, Design Tokens
-					and much more. And all of that in a single web app.
+					What started as a clean palette becomes 140+ unique values. Off-brand grays, duplicate blues in different
+					formats, opacity hacks nobody remembers.
 				</p>
-
-				<Button element="a" href="/analyze-css" size="lg">Analyze CSS now!</Button>
-			</div>
-
-			<enhanced:img
-				loading="eager"
-				fetchpriority="high"
-				alt="Example output of Project Wallace's CSS Analyzer"
-				src="$lib/img/analyzer-units.png?w=640;320;190"
-			/>
-		</section>
-
-		<blockquote>
-			<Container>
-				<p class="title">
-					<q>
-						If you need to get a handle on your CSS,
-						<br />
-						<em>you need Project Wallace</em>.
-					</q>
-				</p>
-				<cite>
-					Harry Roberts (<a href="https://csswizardry.com/" rel="external">csswizardry.com</a>)
-				</cite>
-			</Container>
-		</blockquote>
-
-		<Container size="3xl">
-			<section class="feature-list">
-				<Heading element="h2" size={1}>Audit your CSS like a Pro</Heading>
+				<StatusBadge status="warning">invisible drift</StatusBadge>
+			</li>
+			<li>
+				<Icon name="code" />
+				<Heading element="h3">Specificity creeps upward</Heading>
 				<p>
-					See every color, check every single media query, inspect the format of your colors. Everything is made visible
-					in our CSS Analyzer.
+					Every quick fix adds another layer. Before you know it, selectors are fighting each other and overrides are
+					the norm instead of the exception.
 				</p>
-				<ol>
-					<li>
-						<Heading element="h3">Dive deep into your CSS</Heading>
-						<p>
-							See every color, check every single media query, inspect the format of your colors. Everything is made
-							visible in our CSS Analyzer.
-						</p>
-						<Button element="a" href="/analyze-css">Analyze css</Button>
-					</li>
-					<li>
-						<Heading element="h3">Code Quality check</Heading>
-						<p>
-							Need a quick check-up on your CSS without all the details from the analyzer? Do a CSS code quality check.
-						</p>
-						<Button element="a" href="/css-code-quality" variant="secondary">Check code quality</Button>
-					</li>
-					<li>
-						<Heading element="h3">Specificity what?</Heading>
-						<p>
-							Very few tools get this right, but we&rsquo;ve got your back: our specificity analyzer supports all the
-							latest specs.
-						</p>
-						<Button element="a" href="/specificity-calculator" variant="secondary">Calculate specificity</Button>
-					</li>
-					<li>
-						<Heading element="h3">Want to play a game?</Heading>
-						<p>
-							Are you in the mood for a game? Let&rsquo;s see how many CSS units you have remembered over the years!
-						</p>
-						<Button href="/css-units-game" element="a" variant="secondary">Play the CSS Units game</Button>
-					</li>
-				</ol>
-			</section>
-		</Container>
-
-		<section class="marketing-section">
-			<Heading element="h2" size={4}>Audit your Design System</Heading>
-			<p class="title h2-title">Your Design System team will love it</p>
-			<p>
-				Wallace encourages you to reduce the amount of colors, shadows and typography choices. Consistency is key for
-				well-engineered Design Systems.
-			</p>
-
-			<div class="hero-section">
-				<ol>
-					<li>
-						<Heading element="h3" size={2}>
-							<span aria-hidden="true">#</span>
-							Colors
-						</Heading>
-						<p>
-							Keep your colors in check. Get rid of that <i>slightly off</i> brand color.
-						</p>
-					</li>
-					<li>
-						<Heading element="h3" size={2}>
-							<span aria-hidden="true"> 1 </span>
-							Font-sizes
-						</Heading>
-						<p>Make typography consistent by spotting all unnecessary font-sizes.</p>
-					</li>
-					<li>
-						<Heading element="h3" size={2}>
-							<span aria-hidden="true">@</span>Animations
-						</Heading>
-						<p>Animations are cool, but make sure your timing functions are all approved!</p>
-					</li>
-					<li>
-						<Heading element="h3" size={2}>
-							<span aria-hidden="true">f</span>Typefaces
-						</Heading>
-						<p>That paragraph in the footer looks odd. Wallace tells you why.</p>
-					</li>
-				</ol>
-				<enhanced:img
-					src="$lib/img/project-colors.png?w=640;320;190"
-					alt="Example project color tokens"
-					loading="lazy"
-					fetchpriority="low"
-				/>
-			</div>
-		</section>
-
-		<Container>
-			<blockquote>
-				<p class="title">
-					<q>
-						I&rsquo;ve been using @projectwallace with my client and it is a
-						<strong>fantastic</strong>
-						dashboard to keep an eye on your CSS.
-					</q>
+				<StatusBadge status="error">growing complexity</StatusBadge>
+			</li>
+			<li>
+				<Icon name="layers" />
+				<Heading element="h3">Design systems drift silently</Heading>
+				<p>
+					Tokens get duplicated. Custom properties multiply. Font stacks diverge. Nobody notices until the bundle is
+					300kb and the design review falls apart.
 				</p>
-				<cite>Stuart Robson (<a href="https://www.alwaystwisted.com/" rel="external">alwaystwisted.com</a>)</cite>
-			</blockquote>
-		</Container>
-	</div>
-</Container>
+				<StatusBadge status="info">system-level debt</StatusBadge>
+			</li>
+		</ul>
+	</Container>
+</section>
+
+<section>
+	<h2 class="section-heading">The missing view</h2>
+	<p class="faux-heading">
+		Project Wallace gives you the <em>aerial view</em>
+		<br />
+		of your entire CSS codebase.
+	</p>
+	<p class="lead">
+		Paste a URL or your raw CSS. Get a complete x-ray of your stylesheets: from colors and typography to specificity and
+		cascade layers, in seconds.
+	</p>
+
+	<Container size="3xl">
+		<ul class="panel-grid feature-grid">
+			<li>
+				<StatusBadge status="success">Core analyzer</StatusBadge>
+				<Heading element="h3">Full CSS analysis</Heading>
+				<p>
+					Every selector, every media query, every property — surfaced, counted, and visualized. Understand the true
+					structure and complexity of your stylesheets.
+				</p>
+				<a href="/analyze-css">Analyze CSS →</a>
+			</li>
+			<li>
+				<StatusBadge status="warning">Code quality</StatusBadge>
+				<Heading element="h3">Opinionated quality score</Heading>
+				<p>
+					Get a single, actionable score for your CSS health. Based on specificity distribution, redundancy, selector
+					complexity, and proven best practices.
+				</p>
+				<a href="/css-code-quality">Check code quality →</a>
+			</li>
+			<li>
+				<StatusBadge status="secondary">Design tokens</StatusBadge>
+				<Heading element="h3">Design token audit</Heading>
+				<p>
+					Every color, font-size, shadow, and spacing value extracted and grouped. See where your design system is
+					consistent and where it's quietly drifting.
+				</p>
+				<a href="/css-code-quality">Check code quality →</a>
+			</li>
+			<li>
+				<StatusBadge status="info">Custom properties</StatusBadge>
+				<Heading element="h3">Custom property inspector</Heading>
+				<p>
+					Trace every CSS custom property. See which are declared, which are used, and which are quietly orphaned across
+					your stylesheets.
+				</p>
+				<a href="/custom-property-inspector">Inspect properties →</a>
+			</li>
+			<li>
+				<StatusBadge status="neutral">Cascade layers</StatusBadge>
+				<Heading element="h3">@layer visualizer</Heading>
+				<p>
+					Visualize your cascade layer structure. Understand the order, nesting, and specificity implications of your
+					@layer declarations.
+				</p>
+				<a href="/custom-property-inspector">View layers →</a>
+			</li>
+		</ul>
+	</Container>
+</section>
+
+<section>
+	<h2 class="section-heading">Standalone tools</h2>
+	<p class="faux-heading">One-off tools for everyday CSS work</p>
+	<p class="lead">No signup. No paywall. Just paste your CSS and get your job done.</p>
+
+	<Container size="3xl">
+		<ul class="tools-list">
+			{#each Object.entries(tools) as [label, href]}
+				<li>
+					<a {href}>{label} <span aria-hidden="true">→</span></a>
+				</li>
+			{/each}
+		</ul>
+	</Container>
+</section>
+
+<section>
+	<Container size="2xl">
+		<ul class="testimonials">
+			<li class="testimonial">
+				<blockquote>
+					<p><q>If you need to get a handle on your CSS, <em>you need Project Wallace</em>.</q></p>
+				</blockquote>
+				<div class="author">Harry Roberts <span class="website">csswizardry.com</span></div>
+			</li>
+			<li class="testimonial">
+				<blockquote>
+					<p>
+						<q
+							>I&rsquo;ve been using Wallace with my client and it is a <em>fantastic dashboard</em> to keep an eye on your
+							CSS.</q
+						>
+					</p>
+				</blockquote>
+				<div class="author">Stuart Robson <span class="website">alwaystwisted.com</span></div>
+			</li>
+		</ul>
+	</Container>
+</section>
 
 <style>
-	.announcement {
-		background-color: var(--bg-100);
-		font-family: var(--font-body);
-		background-image: radial-gradient(circle at top, light-dark(var(--teal-200), var(--teal-900)), transparent 80%);
-		background-repeat: no-repeat;
-		border: 0.2rem solid var(--accent-400);
-		padding-block: var(--space-8);
-		padding-inline: var(--space-12);
+	header {
+		padding-block: min(20rem, 16cqb);
+		text-align: center;
 		display: grid;
-		grid-template-columns: 1fr min-content;
-		align-items: center;
-		gap: var(--space-4);
-		margin-block-end: var(--space-8);
-		position: relative;
-
-		&:focus-within {
-			outline: 0.2rem solid var(--fg-100);
-		}
-
-		p {
-			font-size: var(--size-xl);
-			font-weight: var(--font-bold);
-			color: var(--fg-100);
-		}
-
-		:global(a::after) {
-			content: '';
-			position: absolute;
-			inset: 0;
-		}
-	}
-
-	.wrapper {
-		display: grid;
-		gap: var(--space-16);
-
-		@media (min-width: 33rem) {
-			gap: var(--space-32);
-		}
-
-		@media (min-width: 44rem) {
-			gap: var(--space-48);
-		}
-	}
-
-	:global(img) {
-		width: 100%;
-		box-shadow: var(--shadow-2xl);
-	}
-
-	.hero-section {
-		display: grid;
-		grid-template-columns: 1fr;
 		gap: var(--space-8);
-		align-items: center;
+		justify-content: center;
+		overflow: clip;
 
-		@media (min-width: 44rem) {
-			grid-template-columns: 1fr 1fr;
-			gap: var(--space-24);
+		background-image: radial-gradient(
+			circle at top center,
+			rgb(from var(--accent-400) r g b / 0.1) 0%,
+			transparent 70%
+		);
+	}
+
+	.section-heading {
+		text-transform: uppercase;
+		font-family: var(--font-mono);
+		font-size: var(--size-base);
+		color: var(--fg-300);
+	}
+
+	h1 {
+		font-family: var(--font-serif);
+		font-weight: var(--font-normal);
+		font-size: var(--size-7xl);
+		line-height: var(--leading-none);
+		text-wrap: balance;
+		text-align: center;
+		font-weight: var(--font-normal);
+		color: var(--fg-100);
+
+		em {
+			color: var(--accent-300);
+			font-style: italic;
+		}
+	}
+
+	.faux-heading {
+		font-family: var(--font-serif);
+		font-weight: var(--font-normal);
+		font-size: var(--size-4xl);
+		line-height: var(--leading-snug);
+		text-wrap: balance;
+		text-align: center;
+		font-weight: var(--font-normal);
+		color: var(--fg-100);
+
+		em {
+			color: var(--accent-300);
+			font-style: italic;
+		}
+	}
+
+	p.lead {
+		font-size: var(--size-xl);
+		max-width: 66ch;
+		text-wrap: balance;
+		line-height: var(--leading-relaxed);
+	}
+
+	.button-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-4);
+		margin-inline: auto;
+	}
+
+	section {
+		container-type: inline-size;
+		padding-block: min(var(--space-16), 18cqb);
+		display: grid;
+		gap: var(--space-8);
+		place-content: center;
+		border-block-start: 1px solid var(--fg-500);
+	}
+
+	:global(section h2),
+	section p.lead {
+		text-align: center;
+		margin-inline: auto;
+	}
+
+	.panel-grid {
+		display: grid;
+		gap: var(--space-px);
+		background-color: var(--bg-300);
+
+		li {
+			background-color: var(--bg-200);
+			display: grid;
+			place-content: start;
+			gap: var(--space-4);
+			padding-inline: var(--space-4);
 			padding-block: var(--space-8);
 		}
 
-		p {
-			margin-block: var(--space-8);
-			font-size: var(--size-2xl);
-			line-height: var(--leading-base);
+		@container (min-width: 44rem) {
+			grid-template-columns: repeat(6, 1fr);
+
+			& li {
+				grid-column: span 2;
+				padding-inline: var(--space-12);
+				padding-block: var(--space-16);
+			}
 		}
 
-		& [aria-hidden='true'] {
-			display: inline-block;
-			width: 1.5em;
-			line-height: var(--leading-base);
-			text-align: center;
-			color: var(--black);
-			background-color: var(--teal-400);
-			margin-inline-end: var(--space-4);
+		section & {
+			margin-block-start: var(--space-8);
 		}
 	}
 
-	blockquote {
-		background-color: var(--teal-400);
-		color: var(--black);
-		padding: var(--space-4);
-		text-align: center;
-		font-size: var(--size-4xl);
-		line-height: var(--leading-none);
-
-		@media (min-width: 44rem) {
-			padding: var(--space-8);
-			font-size: var(--size-5xl);
-		}
-
-		@media (min-width: 66rem) {
-			padding: var(--space-16);
-		}
-
-		cite {
-			display: block;
-			margin-top: var(--space-8);
-			color: var(--gray-800);
-			font-size: var(--size-xl);
-
-			a {
-				text-decoration: underline;
+	.feature-grid {
+		@container (min-width: 44rem) {
+			& li:nth-child(-n + 2) {
+				grid-column: span 3;
 			}
 		}
 	}
 
-	.feature-list {
+	:where(section) a:last-child {
+		color: var(--accent-400);
+		font-weight: var(--font-medium);
+		justify-self: start;
+
+		&:hover {
+			color: var(--accent-300);
+		}
+	}
+
+	.tools-list {
 		display: grid;
-		gap: var(--space-12);
-		text-align: center;
+		gap: var(--space-3);
 
-		& > p {
-			text-align: center;
-			max-width: 44rem;
-			margin-inline: auto;
-			font-size: var(--size-lg);
-
-			@media (min-width: 33rem) {
-				font-size: var(--size-2xl);
-			}
+		@container (min-width: 33rem) {
+			grid-template-columns: repeat(2, 1fr);
 		}
 
-		& ol {
-			display: grid;
-			grid-template-columns: 1fr;
-			gap: var(--space-8);
-			text-align: start;
-
-			@media (min-width: 44rem) {
-				grid-template-columns: repeat(2, 1fr);
-			}
+		@container (min-width: 44rem) {
+			grid-template-columns: repeat(3, 1fr);
 		}
 
-		& li {
+		a {
+			display: flex;
+			width: 100%;
+			gap: var(--space-2);
+			justify-content: space-between;
 			background-color: var(--bg-200);
-			padding-block: var(--space-5);
-			padding-inline: var(--space-4);
-			box-shadow: var(--shadow-lg);
+			padding-block: var(--space-4);
+			padding-inline: var(--space-6);
+			color: inherit;
+			transition: color 0.1s ease-out;
+
+			[aria-hidden] {
+				opacity: 0;
+				translate: -5px 0;
+				transition:
+					translate 0.1s ease-out,
+					opacity 0.1s ease-out;
+			}
+
+			&:hover,
+			&:focus {
+				[aria-hidden] {
+					translate: 0;
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	.testimonials {
+		display: grid;
+		gap: var(--space-4);
+
+		li {
+			background-color: var(--bg-200);
 			display: grid;
 			gap: var(--space-4);
+			padding-inline: var(--space-4);
+			padding-block: var(--space-8);
+		}
 
-			@media (min-width: 44rem) {
-				padding-block: var(--space-6);
-				padding-inline: var(--space-8);
-			}
+		@container (min-width: 44rem) {
+			grid-template-columns: repeat(2, 1fr);
 
-			& p {
-				font-size: var(--size-lg);
-			}
-
-			:global(.btn) {
-				justify-self: end;
+			& li {
+				padding-inline: var(--space-12);
+				padding-block: var(--space-16);
 			}
 		}
-	}
 
-	.h2-title {
-		font-size: var(--size-5xl);
-		margin-block: var(--space-8);
-
-		& + p {
+		& blockquote {
+			font-family: var(--font-serif);
+			font-weight: var(--font-normal);
 			font-size: var(--size-2xl);
-			max-width: 66ch;
-			line-height: var(--leading-base);
+			line-height: var(--leading-snug);
+			/* text-wrap: balance; */
+			font-weight: var(--font-normal);
+			color: var(--fg-100);
+			font-style: italic;
+
+			em {
+				color: var(--accent-300);
+				font-style: italic;
+			}
+		}
+
+		.author {
+			font-weight: var(--font-bold);
+		}
+
+		.website {
+			font-weight: var(--font-normal);
+			color: var(--fg-300);
+
+			&::before {
+				content: '—';
+				margin-inline: 1ch;
+			}
 		}
 	}
 </style>
