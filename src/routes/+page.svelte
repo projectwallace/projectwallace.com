@@ -3,6 +3,8 @@
 	import Seo from '$lib/components/Seo.svelte'
 	import Button from '$lib/components/Button.svelte'
 	import Heading from '$lib/components/Heading.svelte'
+	import StatusBadge from '$components/StatusBadge.svelte'
+	import Icon from '$components/Icon.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './(public)/analyze-css/og-image.png?w=1200'
 
@@ -14,8 +16,6 @@
 		'Specificity calculator': '/specificity-calculator',
 		'Selector complexity': '/selector-complexity'
 	}
-	import StatusBadge from '$components/StatusBadge.svelte'
-	import Icon from '$components/Icon.svelte'
 </script>
 
 <Seo
