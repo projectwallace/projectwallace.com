@@ -13,16 +13,20 @@
 		url_tab: Snippet
 		file_tab: Snippet
 		raw_tab: Snippet
+		title: Snippet
 	}
-	let { url_tab, file_tab, raw_tab }: Props = $props()
+	let { url_tab, file_tab, raw_tab, title }: Props = $props()
 </script>
 
 <div class="input-mode-switcher">
 	<div use:melt={$root}>
-		<div use:melt={$list}>
-			<button use:melt={$trigger('url')}>URL</button>
-			<button use:melt={$trigger('file')}>File(s)</button>
-			<button use:melt={$trigger('raw')}>Paste CSS</button>
+		<div class="bar">
+			{@render title()}
+			<div use:melt={$list}>
+				<button use:melt={$trigger('url')}>URL</button>
+				<button use:melt={$trigger('file')}>File(s)</button>
+				<button use:melt={$trigger('raw')}>Paste CSS</button>
+			</div>
 		</div>
 	</div>
 
@@ -52,11 +56,19 @@
 		--_input-mode-switcher-spacing: 0.25rem;
 	}
 
+	.bar {
+		display: flex;
+		gap: var(--space-4);
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+	}
+
 	[role='tablist'] {
 		display: flex;
 		gap: var(--_input-mode-switcher-spacing);
 		border: 1px solid var(--fg-600);
-		margin-inline: auto;
+		justify-content: end;
 		padding: var(--_input-mode-switcher-spacing);
 		max-width: max-content;
 	}

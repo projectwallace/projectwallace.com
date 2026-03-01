@@ -36,8 +36,12 @@
 	image={Image}
 />
 
-<Hero title="Analyze CSS" github_link="https://github.com/projectwallace/css-analyzer">
-	<Form {on_success} {on_error} />
+<Hero>
+	<Form {on_success} {on_error}>
+		{#snippet title()}
+			<h1 class="font-heading">Analyze CSS</h1>
+		{/snippet}
+	</Form>
 </Hero>
 
 {#if status === 'done' && css_state.origins.length > 0}
@@ -77,13 +81,10 @@
 				<li>How many Source Lines of Code is my CSS?</li>
 				<li>What is the average Rule size of my CSS?</li>
 				<li>How many selectors are there in my largest Rule?</li>
-				<li>What is the highest selector specificity in my CSS?</li>
+				<li>What is the highest or most common selector specificity in my CSS?</li>
 				<li>How high is my total selector complexity?</li>
 				<li>Which CSS units are used?</li>
-				<li>What color formats are used the most?</li>
-				<li>How many unique colors are there in my CSS?</li>
-				<li>How many unique font-sizes are there in my CSS?</li>
-				<li>How many unique font-families are there in my CSS?</li>
+				<li>How many @media query are used?</li>
 			</ul>
 		</Markdown>
 	</Container>
@@ -108,5 +109,9 @@
 		display: grid;
 		gap: var(--space-8);
 		margin-block: var(--space-16);
+	}
+
+	.font-heading {
+		font-size: var(--size-5xl);
 	}
 </style>

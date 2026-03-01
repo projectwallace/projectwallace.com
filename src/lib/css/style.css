@@ -566,6 +566,12 @@
 			line-height: var(--leading-none);
 		}
 
+		.serif {
+			font-family: var(--font-serif);
+			font-weight: var(--font-medium);
+			line-height: var(--leading-none);
+		}
+
 		p.lead {
 			font-size: var(--size-xl);
 			max-width: 66ch;

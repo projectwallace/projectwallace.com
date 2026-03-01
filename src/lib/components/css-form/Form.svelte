@@ -13,15 +13,17 @@
 	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '$lib/get-css'
 	import { get_css_state } from '$lib/css-state.svelte'
 	import { IsOnline } from '$lib/is-online.svelte'
+	import type { Snippet } from 'svelte'
 
 	interface Props {
 		on_success?: (result: FormSuccessEvent) => void
 		on_error?: (error: Error) => void
+		title?: Snippet
 	}
 
 	function noop() {}
 
-	let { on_success = noop, on_error = noop }: Props = $props()
+	let { on_success = noop, on_error = noop, title }: Props = $props()
 
 	let status: 'idle' | 'fetching' | 'error' = $state('idle')
 	let error: Error | undefined = $state()
@@ -166,6 +168,10 @@
 {/snippet}
 
 <InputModeSwitcher>
+	{#snippet title()}
+		{@render title()}
+	{/snippet}
+
 	{#snippet url_tab()}
 		<form method="GET" class="form url-form" onsubmit={on_submit_url}>
 			<FormGroup>
@@ -234,13 +240,13 @@
 <style>
 	form {
 		display: grid;
-		gap: var(--space-4);
+		gap: var(--space-3);
 		font-size: var(--size-base);
 	}
 
 	.form {
 		display: grid;
-		gap: var(--space-4);
+		gap: var(--space-3);
 	}
 
 	.url-form {
