@@ -33,7 +33,6 @@
 
 	<div class="button-group">
 		<Button size="lg" icon="arrow-right">Analyze your CSS</Button>
-		<Button size="lg" icon="arrow-right" variant="secondary">Analyze your CSS</Button>
 	</div>
 </header>
 
@@ -264,10 +263,10 @@
 	.panel-grid {
 		display: grid;
 		gap: var(--space-px);
-		background-color: var(--bg-300);
+		background-color: light-dark(var(--bg-200), var(--bg-300));
 
 		li {
-			background-color: var(--bg-200);
+			background-color: light-dark(var(--bg-100), var(--bg-200));
 			display: grid;
 			place-content: start;
 			gap: var(--space-4);

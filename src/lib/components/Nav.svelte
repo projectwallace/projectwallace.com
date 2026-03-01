@@ -154,7 +154,7 @@
 		--item-block-padding: var(--space-2);
 		--item-inline-padding: var(--space-1);
 		border-top: var(--space-1) solid var(--accent);
-		background-color: var(--bg-0);
+		background-color: var(--bg-100);
 		border-bottom: 1px solid var(--fg-800);
 
 		@media (min-width: 44rem) {
@@ -231,8 +231,8 @@
 
 	.nav-popover-trigger {
 		display: block;
-		padding: var(--space-1) var(--space-3);
-		border: 1px solid var(--fg-700);
+		padding: 0.2em var(--space-3);
+		border: 1px solid var(--fg-500);
 		anchor-name: --nav-popover-trigger;
 
 		&[aria-expanded='true'] {

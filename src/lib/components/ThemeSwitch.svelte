@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, untrack } from 'svelte'
+	import { onMount } from 'svelte'
 	import type { Theme } from '$lib/theme'
 	import Icon from '$components/Icon.svelte'
 	import ThemePreview from './ThemePreview.svelte'
@@ -10,7 +10,7 @@
 	}
 
 	let { initial_theme }: Props = $props()
-	let theme = $state<Theme | undefined>(untrack(() => initial_theme))
+	let theme = $state<Theme | undefined>(initial_theme)
 	let prefers_light = new MediaQuery('(prefers-color-scheme: light)', false)
 	let popover_open = $state(false)
 	let popover: HTMLElement | undefined = undefined
@@ -139,7 +139,7 @@
 <style>
 	.theme-popover-trigger {
 		padding: var(--space-1) var(--space-2);
-		border: 1px solid var(--fg-700);
+		border: 1px solid var(--fg-500);
 		color: var(--fg-300);
 		font-size: var(--size-sm);
 		display: block;
