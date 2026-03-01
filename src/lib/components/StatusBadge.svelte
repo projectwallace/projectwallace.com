@@ -1,15 +1,14 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte'
+	import type { SvelteHTMLElements } from 'svelte/elements'
 
-	type Props = {
-		children?: Snippet
+	type Props = SvelteHTMLElements['span'] & {
 		status?: 'neutral' | 'success' | 'warning' | 'error' | 'info' | 'secondary'
 	}
 
-	let { children, status = 'neutral' }: Props = $props()
+	let { children, status = 'neutral', ...rest }: Props = $props()
 </script>
 
-<span class={['status-badge', status]}>
+<span {...rest} class={['status-badge', status]}>
 	{@render children?.()}
 </span>
 

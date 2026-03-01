@@ -28,8 +28,8 @@
 		border-block-end: var(--space-px) solid var(--bg-300);
 		margin-block-end: var(--space-8);
 		background-image:
-			radial-gradient(circle at top right, rgb(from var(--accent-400) r g b / 0.05) 0%, transparent 90%),
-			radial-gradient(circle at top left, rgb(from var(--purple-400) r g b / 0.05) 0%, transparent 70%);
+			radial-gradient(circle at top right, rgb(from var(--accent-400) r g b / 0.07) 0%, transparent 90%),
+			radial-gradient(circle at top left, rgb(from var(--purple-300) r g b / 0.06) 0%, transparent 70%);
 
 		@media (min-height: 33rem) {
 			padding-block-start: var(--space-16);

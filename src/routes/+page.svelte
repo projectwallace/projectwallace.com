@@ -10,7 +10,7 @@
 		'CSS prettifier': '/prettify-css',
 		'CSS Minifier': '/minify-css',
 		'CSS diff viewer': '/css-diff',
-		'Coverage inspector': '/css-coverage-inspector',
+		'Coverage inspector': '/css-coverage',
 		'Specificity calculator': '/specificity-calculator',
 		'Selector complexity': '/selector-complexity'
 	}
@@ -57,7 +57,7 @@
 					What started as a clean palette becomes 140+ unique values. Off-brand grays, duplicate blues in different
 					formats, opacity hacks nobody remembers.
 				</p>
-				<StatusBadge status="warning">invisible drift</StatusBadge>
+				<StatusBadge status="warning" aria-hidden="true">invisible drift</StatusBadge>
 			</li>
 			<li>
 				<Icon name="code" />
@@ -66,7 +66,7 @@
 					Every quick fix adds another layer. Before you know it, selectors are fighting each other and overrides are
 					the norm instead of the exception.
 				</p>
-				<StatusBadge status="error">growing complexity</StatusBadge>
+				<StatusBadge status="error" aria-hidden="true">growing complexity</StatusBadge>
 			</li>
 			<li>
 				<Icon name="layers" />
@@ -75,7 +75,7 @@
 					Tokens get duplicated. Custom properties multiply. Font stacks diverge. Nobody notices until the bundle is
 					300kb and the design review falls apart.
 				</p>
-				<StatusBadge status="info">system-level debt</StatusBadge>
+				<StatusBadge status="info" aria-hidden="true">system-level debt</StatusBadge>
 			</li>
 		</ul>
 	</Container>
@@ -161,21 +161,25 @@
 </section>
 
 <section>
+	<h2 class="section-heading">Trusted by the pros</h2>
+	<p class="lead">Don't take our word for it. These people <i>actually</i> know what they are talking about.</p>
 	<Container size="2xl">
 		<ul class="testimonials">
 			<li class="testimonial">
 				<blockquote>
-					<p><q>If you need to get a handle on your CSS, <em>you need Project Wallace</em>.</q></p>
+					<p>
+						<q>If you need to get a handle on your CSS, <em>you need Project Wallace</em>.</q>
+					</p>
 				</blockquote>
 				<div class="author">Harry Roberts <span class="website">csswizardry.com</span></div>
 			</li>
 			<li class="testimonial">
 				<blockquote>
 					<p>
-						<q
-							>I&rsquo;ve been using Wallace with my client and it is a <em>fantastic dashboard</em> to keep an eye on your
-							CSS.</q
-						>
+						<q>
+							I&rsquo;ve been using Wallace with my client and it is a <em>fantastic dashboard</em> to keep an eye on your
+							CSS.
+						</q>
 					</p>
 				</blockquote>
 				<div class="author">Stuart Robson <span class="website">alwaystwisted.com</span></div>

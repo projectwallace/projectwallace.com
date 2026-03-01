@@ -15,9 +15,8 @@
 	image="https://www.projectwallace.com/img/opengraph/og-oss.png"
 />
 
-<Hero>
-	<h1 class="font-heading">Open Source Software</h1>
-	<p>Project Wallace's goal is to create software to make maintaining CSS easier.</p>
+<Hero title="Open Source Software">
+	<p class="lead">Project Wallace's goal is to create software to make maintaining CSS easier.</p>
 </Hero>
 
 <Container>

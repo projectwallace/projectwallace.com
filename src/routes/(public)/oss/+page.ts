@@ -94,19 +94,7 @@ let projects = [
 				<rect fill="#29c87d" width="9" height="1" y="11" x="3"></rect>
 			</svg>
 		`
-	},
-	{
-		title: 'Constyble',
-		description: 'CSS complexity linter',
-		url: 'https://github.com/projectwallace/constyble',
-		repository: 'projectwallace/constyble',
-		icon: `
-			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-				<title>Constyble</title>
-				<path fill="#29c87d" d="M4 3h2v2H4zM9 3h2v2H9zM5 7h6v4H5z"></path>
-			</svg>
-		`
-	},
+	}
 ]
 
 export function load() {
