@@ -4,4 +4,4 @@ export const theme_schema = v.union([v.literal('dark'), v.literal('light'), v.li
 
 export type Theme = v.InferOutput<typeof theme_schema>
 
-export const DEFAULT_THEME: Theme = 'dark'
+export const DEFAULT_THEME: Theme = 'system'

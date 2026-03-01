@@ -6,8 +6,16 @@
 	let { json }: { json: unknown } = $props()
 
 	function replacer(key: string, value: unknown): unknown {
-		// Stringification is super slow with this, so skip it
-		if (key === 'uniqueWithLocations') return undefined
+		// Replace 'unique' with the data from 'uniqueWithLocations' but only their counts
+		if (typeof value === 'object' && value !== null && 'uniqueWithLocations' in value) {
+			const { uniqueWithLocations, ...rest } = value as Record<string, unknown>
+			return {
+				...rest,
+				unique: Object.fromEntries(
+					Object.entries(uniqueWithLocations as Record<string, unknown[]>).map(([k, v]) => [k, v.length])
+				)
+			}
+		}
 		return value
 	}
 

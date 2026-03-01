@@ -56,7 +56,7 @@
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
-		border: 0 solid transparent;
+		border: 1px solid transparent;
 		transition:
 			color 0.1s ease-out,
 			background-color 0.1s ease-out,
@@ -71,11 +71,12 @@
 		font-family: var(--font-display);
 		font-weight: var(--font-medium);
 		letter-spacing: var(--tracking-wider);
-		line-height: var(--leading-tight);
+		line-height: var(--leading-none);
 		font-style: normal;
 		text-transform: uppercase;
 		background-color: var(--accent);
 		color: var(--gray-800);
+		border: 1px solid var(--accent);
 
 		&:focus,
 		&:hover {
@@ -124,7 +125,7 @@
 	}
 
 	.lg {
-		padding: 0.9em var(--space-5);
+		padding: 0.8em var(--space-5);
 		font-size: var(--size-lg);
 
 		& :global(.icon) {

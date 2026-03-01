@@ -33,6 +33,7 @@
 
 	<div class="button-group">
 		<Button size="lg" icon="arrow-right">Analyze your CSS</Button>
+		<Button size="lg" icon="arrow-right" variant="secondary">Analyze your CSS</Button>
 	</div>
 </header>
 
@@ -206,8 +207,6 @@
 	}
 
 	h1 {
-		/* font-family: var(--font-serif);
-		font-weight: var(--font-normal); */
 		font-size: var(--size-7xl);
 		line-height: var(--leading-none);
 		text-wrap: balance;
@@ -216,23 +215,20 @@
 
 		em {
 			color: var(--accent-300);
-			/* font-style: italic; */
+			font-style: normal;
 		}
 	}
 
 	.faux-heading {
-		/* font-family: var(--font-serif);
-		font-weight: var(--font-normal); */
 		font-size: var(--size-4xl);
 		line-height: var(--leading-snug);
 		text-wrap: balance;
 		text-align: center;
-		/* font-weight: var(--font-normal); */
 		color: var(--fg-100);
 
 		em {
 			color: var(--accent-300);
-			font-style: italic;
+			font-style: normal;
 		}
 	}
 
@@ -375,18 +371,15 @@
 		}
 
 		& blockquote {
-			font-family: var(--font-serif);
-			font-weight: var(--font-normal);
 			font-size: var(--size-2xl);
 			line-height: var(--leading-snug);
-			/* text-wrap: balance; */
-			font-weight: var(--font-normal);
 			color: var(--fg-100);
 			font-style: italic;
 
 			em {
 				color: var(--accent-300);
 				font-style: italic;
+				text-decoration: underline;
 			}
 		}
 

@@ -62,15 +62,6 @@
 		max-width: 80ch;
 	}
 
-	:global(.markdown math) {
-		display: block;
-		text-align: center;
-		font-size: var(--size-lg);
-		color: var(--fg-100);
-		font-family: 'Cantata One';
-		line-height: var(--leading-relaxed);
-	}
-
 	:global(.markdown strong) {
 		font-style: normal;
 		font-weight: var(--font-bold);
