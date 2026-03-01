@@ -51,20 +51,20 @@
 	<p>Which CSS units can you remember?</p>
 
 	<form action="" method="GET" onsubmit={checkGuess} class="form">
-			<FormGroup>
-				<Label for="guess-input">Unit</Label>
-				<input
-					type="text"
-					name="guess-input"
-					id="guess-input"
-					autocomplete="off"
-					placeholder="px"
-					required
-					class="input"
-					bind:value={currentGuess}
-				/>
-			</FormGroup>
-			<Button size="lg">Guess</Button>
+		<FormGroup>
+			<Label for="guess-input">Unit</Label>
+			<input
+				type="text"
+				name="guess-input"
+				id="guess-input"
+				autocomplete="off"
+				placeholder="px"
+				required
+				class="input"
+				bind:value={currentGuess}
+			/>
+		</FormGroup>
+		<Button size="lg">Guess</Button>
 	</form>
 </Hero>
 
@@ -208,5 +208,9 @@
 		a {
 			text-decoration: underline;
 		}
+	}
+
+	.font-heading {
+		font-size: var(--size-5xl);
 	}
 </style>

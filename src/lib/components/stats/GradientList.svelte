@@ -112,6 +112,7 @@
 		left: 0;
 		z-index: -1;
 		background-image: var(--gradient, linear-gradient(0deg, transparent, transparent));
+		background-repeat: repeat;
 	}
 
 	@media print {

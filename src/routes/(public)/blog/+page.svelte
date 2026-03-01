@@ -14,8 +14,7 @@
 	description="You want to learn more about the workings of Wallace? You’ve come to the right place! Product updates, in depth analysis and more."
 />
 
-<Hero>
-	<h1 class="font-heading">Blog</h1>
+<Hero title="Blog">
 	<p class="lead">
 		You want to learn more about the workings of Wallace? You’ve come to the right place! Product updates, in depth
 		analysis and more.

@@ -16,7 +16,7 @@
 <Hero>
 	<Form>
 		{#snippet title()}
-			<h1 class="font-heading">CSS @layer Visualizer</h1>
+			<h1 class="font-heading">@layer Visualizer</h1>
 		{/snippet}
 	</Form>
 </Hero>
@@ -28,3 +28,9 @@
 		<Content />
 	</Markdown>
 </Container>
+
+<style>
+	.font-heading {
+		font-size: var(--size-5xl);
+	}
+</style>

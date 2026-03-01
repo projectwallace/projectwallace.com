@@ -30,3 +30,9 @@
 		<Content />
 	</Markdown>
 </Container>
+
+<style>
+	.font-heading {
+		font-size: var(--size-5xl);
+	}
+</style>

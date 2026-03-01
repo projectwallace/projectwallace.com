@@ -94,4 +94,8 @@
 			text-decoration: underline;
 		}
 	}
+
+	.font-heading {
+		font-size: var(--size-5xl);
+	}
 </style>

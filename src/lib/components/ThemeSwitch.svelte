@@ -1,17 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import type { Theme } from '$lib/theme'
+	import { onMount, untrack } from 'svelte'
+	import { type Theme, DEFAULT_THEME } from '$lib/theme'
 	import Icon from '$components/Icon.svelte'
 	import ThemePreview from './ThemePreview.svelte'
-	import { MediaQuery } from 'svelte/reactivity'
 
 	type Props = {
 		initial_theme?: Theme
 	}
 
 	let { initial_theme }: Props = $props()
-	let theme = $state<Theme | undefined>(initial_theme)
-	let prefers_light = new MediaQuery('(prefers-color-scheme: light)', false)
+	let theme = $state<Theme | undefined>(untrack(() => initial_theme))
 	let popover_open = $state(false)
 	let popover: HTMLElement | undefined = undefined
 
@@ -21,12 +19,7 @@
 
 	onMount(() => {
 		if (!initial_theme) {
-			// If no initial theme is provided, we need to check the system preference
-			if (prefers_light.current) {
-				theme = 'light'
-			} else {
-				theme = 'dark'
-			}
+			theme = DEFAULT_THEME
 			set_theme(theme)
 		}
 
@@ -60,11 +53,7 @@
 			case 'light':
 				return 'sun'
 			case 'dark':
-				return 'moon'
 			default: {
-				if (prefers_light.current) {
-					return 'sun'
-				}
 				return 'moon'
 			}
 		}

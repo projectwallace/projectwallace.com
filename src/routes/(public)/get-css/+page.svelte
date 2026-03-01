@@ -83,38 +83,37 @@
 
 <Seo title="Scrape CSS" description="Online CSS scraper that also shows all the types of CSS and their origins." />
 
-<Hero>
-	<h1 class="font-heading">CSS Scraper</h1>
+<Hero title="CSS Scraper">
 	<form onsubmit={on_submit} class="form">
-			<FormGroup>
-				<Label for="url-input">URL to crawl</Label>
-				<UrlInput name="url" id="url-input" bind:url={value} />
-			</FormGroup>
+		<FormGroup>
+			<Label for="url-input">URL to crawl</Label>
+			<UrlInput name="url" id="url-input" bind:url={value} />
+		</FormGroup>
 
-			<div class="option">
-				<input
-					type="checkbox"
-					name="prettify"
-					id="prettify-url"
-					value="1"
-					onchange={on_prettify_change}
-					checked={css_state.should_prettify}
-				/>
-				<Label for="prettify-url" size="sm">Prettify CSS?</Label>
-				<p>Prettifying makes inspecting the CSS easier.</p>
-			</div>
+		<div class="option">
+			<input
+				type="checkbox"
+				name="prettify"
+				id="prettify-url"
+				value="1"
+				onchange={on_prettify_change}
+				checked={css_state.should_prettify}
+			/>
+			<Label for="prettify-url" size="sm">Prettify CSS?</Label>
+			<p>Prettifying makes inspecting the CSS easier.</p>
+		</div>
 
-			<Button size="lg">
-				{#if status === STATUS.PENDING}
-					Fetching&hellip;
-				{:else}
-					Crawl URL
-				{/if}
-			</Button>
-
-			{#if !is_online.current}
-				<p class="error-msg" data-testid="offline-message">You are offline.</p>
+		<Button size="lg">
+			{#if status === STATUS.PENDING}
+				Fetching&hellip;
+			{:else}
+				Crawl URL
 			{/if}
+		</Button>
+
+		{#if !is_online.current}
+			<p class="error-msg" data-testid="offline-message">You are offline.</p>
+		{/if}
 	</form>
 </Hero>
 
@@ -194,10 +193,10 @@
 		grid-template-columns: 1fr max-content;
 		grid-template-rows: repeat(2, auto);
 		gap: var(--space-2) var(--space-3);
-		margin-left: auto;
-		margin-right: auto;
+		margin-inline: auto;
 		width: 100%;
 		text-align: left;
+		margin-block-start: var(--space-3);
 	}
 
 	.form :global(button) {
@@ -210,6 +209,15 @@
 		grid-row: 2;
 		grid-column: 1 / -1;
 		font-size: var(--size-base);
+		display: grid;
+		grid-template-columns: auto 1fr;
+		column-gap: var(--space-2);
+
+		& p {
+			grid-column: 2;
+			font-size: var(--size-sm);
+			color: var(--fg-300);
+		}
 	}
 
 	.error-msg {

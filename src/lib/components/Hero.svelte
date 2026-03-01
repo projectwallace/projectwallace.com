@@ -4,13 +4,19 @@
 
 	interface Props {
 		children?: Snippet
+		title?: string
 	}
 
-	let { children }: Props = $props()
+	let { children, title }: Props = $props()
 </script>
 
 <header class="hero">
 	<Container size="xl">
+		{#if title}
+			<div class="title">
+				<div class="font-heading">{title}</div>
+			</div>
+		{/if}
 		{@render children?.()}
 	</Container>
 </header>
@@ -28,6 +34,14 @@
 		@media (min-height: 33rem) {
 			padding-block-start: var(--space-16);
 			padding-block-end: var(--space-12);
+		}
+	}
+
+	.title {
+		font-size: var(--size-4xl);
+
+		@media (min-width: 66rem) {
+			font-size: var(--size-5xl);
 		}
 	}
 </style>

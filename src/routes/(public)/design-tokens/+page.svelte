@@ -370,4 +370,8 @@
 			gap: var(--space-16);
 		}
 	}
+
+	.font-heading {
+		font-size: var(--size-5xl);
+	}
 </style>

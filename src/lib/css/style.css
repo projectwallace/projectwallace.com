@@ -43,7 +43,7 @@
 			--green-600: hsl(121.9deg 35% 23%);
 			--green-700: hsl(166deg 25% 17%);
 
-			--red-100: hsl(4deg 26% 85%);
+			--red-100: hsl(4deg 36% 85%);
 			--red-200: hsl(4deg 46% 66%);
 			--red-300: hsl(4deg 66% 51%);
 			--red-400: hsl(0deg 70% 42%);
@@ -412,6 +412,7 @@
 				transition-duration: .1s;
 				transition-property: color, background-color, border-color;
 				transition-timing-function: ease-out;
+				background-repeat: no-repeat;
 			}
 
 			&[data-theme="dark"] {
@@ -717,6 +718,7 @@
 			background-position: 0px 0px,
 				calc(var(--color-example-pattern-size) / 2) calc(var(--color-example-pattern-size) / 2);
 			background-size: var(--color-example-pattern-size) var(--color-example-pattern-size);
+			background-repeat: repeat;
 		}
 	}
 }

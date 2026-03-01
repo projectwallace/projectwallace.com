@@ -25,14 +25,10 @@
 />
 
 <header>
-	<h1>
-		Your CSS tells a story.
-		<br />
-		Do you know <em>what it says</em><i>?</i>
-	</h1>
+	<h1 class="font-heading">Your CSS has dirty secrets <br />and <em>Wallace knows them</em>.</h1>
 	<p class="lead">
 		47 shades of gray in your design tokens. Specificity wars you didn't know existed. 12 competing font stacks across
-		your codebase. Project Wallace reveals the big picture from every angle.
+		your codebase. 2MB of embedded images. Project Wallace reveals the big picture from every angle.
 	</p>
 
 	<div class="button-group">
@@ -41,8 +37,8 @@
 </header>
 
 <section>
-	<h2 class="section-heading">The blind spot</h2>
-	<p class="faux-heading">
+	<h2 class="section-heading">You have a blind spot</h2>
+	<p class="faux-heading font-heading">
 		CSS grows in every direction.
 		<br />
 		The big picture becomes invisible.
@@ -87,7 +83,7 @@
 
 <section>
 	<h2 class="section-heading">The missing view</h2>
-	<p class="faux-heading">
+	<p class="faux-heading font-heading">
 		Project Wallace gives you the <em>aerial view</em>
 		<br />
 		of your entire CSS codebase.
@@ -150,7 +146,7 @@
 
 <section>
 	<h2 class="section-heading">Standalone tools</h2>
-	<p class="faux-heading">One-off tools for everyday CSS work</p>
+	<p class="faux-heading font-heading">One-off tools for everyday CSS work</p>
 	<p class="lead">No signup. No paywall. Just paste your CSS and get your job done.</p>
 
 	<Container size="3xl">
@@ -210,29 +206,28 @@
 	}
 
 	h1 {
-		font-family: var(--font-serif);
-		font-weight: var(--font-normal);
+		/* font-family: var(--font-serif);
+		font-weight: var(--font-normal); */
 		font-size: var(--size-7xl);
 		line-height: var(--leading-none);
 		text-wrap: balance;
 		text-align: center;
-		font-weight: var(--font-normal);
 		color: var(--fg-100);
 
 		em {
 			color: var(--accent-300);
-			font-style: italic;
+			/* font-style: italic; */
 		}
 	}
 
 	.faux-heading {
-		font-family: var(--font-serif);
-		font-weight: var(--font-normal);
+		/* font-family: var(--font-serif);
+		font-weight: var(--font-normal); */
 		font-size: var(--size-4xl);
 		line-height: var(--leading-snug);
 		text-wrap: balance;
 		text-align: center;
-		font-weight: var(--font-normal);
+		/* font-weight: var(--font-normal); */
 		color: var(--fg-100);
 
 		em {
