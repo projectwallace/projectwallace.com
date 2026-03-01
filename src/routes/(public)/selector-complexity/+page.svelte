@@ -10,6 +10,7 @@
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
 	import { page } from '$app/state'
+	import Hero from '$components/Hero.svelte'
 
 	let result: { value: string; complexity: number }[] | undefined = $state()
 	let input_ref: HTMLInputElement
@@ -96,40 +97,38 @@
 	description="Quickly calculate the complexity of your selectors, including :where(), :has(), :is() and friends!"
 />
 
-<header>
-	<Heading element="h1">CSS <em>Complexity</em> Calculator</Heading>
-</header>
+<Hero title="Complexity calculator">
+	<form onsubmit={(event) => event.preventDefault()}>
+		<FormGroup>
+			<Label for="selector-input">Selector to analyze</Label>
+			<!-- This is actually a good use case for autofocus -->
+			<!-- svelte-ignore a11y_autofocus -->
+			<input
+				type="text"
+				name="selectors"
+				id="selector-input"
+				placeholder=".my-selector"
+				required
+				class="input"
+				autofocus
+				oninput={on_input}
+				bind:this={input_ref}
+				defaultValue={DEFAULT_INPUT}
+				aria-invalid={has_error ? 'true' : undefined}
+				aria-errormessage="complexity-error"
+			/>
+		</FormGroup>
+	</form>
 
-<Container size="2xl">
+	{#if has_error}
+		<p class="error" id="complexity-error" aria-live="assertive">
+			Your selector complexity cannot be calculated. Please check your selector carefully for mistakes.
+		</p>
+	{/if}
+</Hero>
+
+<Container size="xl">
 	<div class="content">
-		<form onsubmit={(event) => event.preventDefault()}>
-			<FormGroup>
-				<Label for="selector-input">Selector to analyze</Label>
-				<!-- This is actually a good use case for autofocus -->
-				<!-- svelte-ignore a11y_autofocus -->
-				<input
-					type="text"
-					name="selectors"
-					id="selector-input"
-					placeholder=".my-selector"
-					required
-					class="input"
-					autofocus
-					oninput={on_input}
-					bind:this={input_ref}
-					defaultValue={DEFAULT_INPUT}
-					aria-invalid={has_error ? 'true' : undefined}
-					aria-errormessage="complexity-error"
-				/>
-			</FormGroup>
-		</form>
-
-		{#if has_error}
-			<p class="error" id="complexity-error" aria-live="assertive">
-				Your selector complexity cannot be calculated. Please check your selector carefully for mistakes.
-			</p>
-		{/if}
-
 		{#if !has_error && result}
 			<ol>
 				{#each result as { value, complexity }}
@@ -148,9 +147,8 @@
 </Container>
 
 <style>
-	header {
-		margin-block: var(--space-8);
-		text-align: center;
+	form {
+		margin-block-start: var(--space-4);
 	}
 
 	.content {

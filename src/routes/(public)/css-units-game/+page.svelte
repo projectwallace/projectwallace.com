@@ -46,27 +46,26 @@
 
 <Seo title="CSS Units memory game" description="Test how many CSS units you can remember." image={Image} />
 
-<Hero title="CSS Units">
-	<Container size="xl">
-		<p>Which CSS units can you remember?</p>
+<Hero>
+	<h1 class="font-heading">CSS Units</h1>
+	<p>Which CSS units can you remember?</p>
 
-		<form action="" method="GET" onsubmit={checkGuess} class="form">
-			<FormGroup>
-				<Label for="guess-input">Unit</Label>
-				<input
-					type="text"
-					name="guess-input"
-					id="guess-input"
-					autocomplete="off"
-					placeholder="px"
-					required
-					class="input"
-					bind:value={currentGuess}
-				/>
-			</FormGroup>
-			<Button size="lg">Guess</Button>
-		</form>
-	</Container>
+	<form action="" method="GET" onsubmit={checkGuess} class="form">
+		<FormGroup>
+			<Label for="guess-input">Unit</Label>
+			<input
+				type="text"
+				name="guess-input"
+				id="guess-input"
+				autocomplete="off"
+				placeholder="px"
+				required
+				class="input"
+				bind:value={currentGuess}
+			/>
+		</FormGroup>
+		<Button size="lg">Guess</Button>
+	</form>
 </Hero>
 
 <Container>
@@ -209,5 +208,9 @@
 		a {
 			text-decoration: underline;
 		}
+	}
+
+	.font-heading {
+		font-size: var(--size-5xl);
 	}
 </style>

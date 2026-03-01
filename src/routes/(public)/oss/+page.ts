@@ -1,9 +1,15 @@
+type Project = {
+	title: string
+	description: string
+	url: string | URL
+	icon?: string
+}
+
 let projects = [
 	{
 		title: 'CSS Analyzer',
 		description: 'Analytics for CSS.',
 		url: 'https://github.com/projectwallace/css-analyzer',
-		repository: '@projectwallace/css-analyzer',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
 				<title>CSS Analyzer</title>
@@ -19,7 +25,6 @@ let projects = [
 		title: 'CSS Code Quality analyzer',
 		description: 'Calculate the Code Quality score of your CSS based on a range of different quality guards.',
 		url: 'https://github.com/projectwallace/css-code-quality',
-		repository: 'projectwallace/css-code-quality',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
 				<title>Github Diff Action</title>
@@ -37,7 +42,6 @@ let projects = [
 		title: 'Wallace CLI',
 		description: 'Pretty CSS analytics on the CLI',
 		url: 'https://github.com/projectwallace/wallace-cli',
-		repository: 'projectwallace/wallace-cli',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
 				<title>Wallace CLI</title>
@@ -53,7 +57,6 @@ let projects = [
 		title: 'Color Sorter',
 		description: 'Sort CSS colors by hue, then by saturation.',
 		url: 'https://github.com/projectwallace/color-sorter',
-		repository: 'projectwallace/color-sorter',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
 				<title>Color sorter</title>
@@ -68,7 +71,6 @@ let projects = [
 		title: 'Format CSS',
 		description: 'Fast, small, zero-config library to format (or minify) CSS using basic rules',
 		url: 'https://github.com/projectwallace/format-css',
-		repository: 'projectwallace/format-css',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
 				<title>CSS Analyzer</title>
@@ -78,12 +80,21 @@ let projects = [
 			</svg>
 		`
 	},
-
+	{
+		title: 'CSS Design Tokens',
+		description:
+			'Create Design Tokens by going through CSS to find colors, font-sizes, gradients etcetera and turn them into a Design Tokens spec-compliant token format.',
+		url: 'https://github.com/projectwallace/css-design-tokens'
+	},
+	{
+		title: 'CSS Code Coverage',
+		description: ' Generate useful CSS Code Coverage report from browser/Playwright/Puppeteer-reported coverage',
+		url: 'https://github.com/projectwallace/css-code-coverage'
+	},
 	{
 		title: 'CSS time sort',
 		description: 'Sort an array of CSS <time> values',
 		url: 'https://github.com/projectwallace/css-time-sort',
-		repository: 'projectwallace/css-time-sort',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
 				<title>CSS Analyzer</title>
@@ -96,18 +107,16 @@ let projects = [
 		`
 	},
 	{
-		title: 'Constyble',
-		description: 'CSS complexity linter',
-		url: 'https://github.com/projectwallace/constyble',
-		repository: 'projectwallace/constyble',
-		icon: `
-			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-				<title>Constyble</title>
-				<path fill="#29c87d" d="M4 3h2v2H4zM9 3h2v2H9zM5 7h6v4H5z"></path>
-			</svg>
-		`
+		title: 'CSS @layer tree',
+		description: 'Discover the composition of your CSS @layers',
+		url: 'https://github.com/projectwallace/css-layer-tree'
 	},
-]
+	{
+		title: 'CSS Parser',
+		description: 'High-performance CSS parser optimized for static analysis and formatting ',
+		url: 'https://github.com/projectwallace/css-parser'
+	}
+] satisfies Project[]
 
 export function load() {
 	return { projects }

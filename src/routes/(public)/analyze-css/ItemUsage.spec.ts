@@ -36,17 +36,11 @@ test.describe('DevTools: ItemUsage Panel', () => {
 		// Wait for hydration
 		await expect(page).toBeHydrated()
 		// Fill in a URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 		// Open the ItemUsage panel by clicking the first link in the Properties Panel
-		await page
-			.locator('#properties')
-			.getByRole('table')
-			.locator('tbody')
-			.getByRole('row')
-			.nth(1)
-			.click()
+		await page.locator('#properties').getByRole('table').locator('tbody').getByRole('row').nth(1).click()
 
 		devtools = page.getByTestId('devtools')
 		inspector = devtools.getByTestId('inspector')
@@ -85,8 +79,8 @@ test.describe('DevTools: ItemUsage Panel', () => {
 			await panel.getByRole('button', { name: 'Copy selection' }).click()
 
 			let clipboard_text = await page.evaluate(async () => {
-				return await navigator.clipboard.readText();
-			});
+				return await navigator.clipboard.readText()
+			})
 			expect(clipboard_text).toBe('font-size')
 		})
 	})

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte'
+	import { onDestroy, type Snippet } from 'svelte'
 	import Button from './Button.svelte'
 	import type { Variant } from './Button'
 
 	interface Props {
 		text: string
 		variant?: Variant
-		children?: import('svelte').Snippet
+		children?: Snippet
 	}
 
 	let { text, variant = 'secondary', children }: Props = $props()
@@ -33,20 +33,21 @@
 
 <span class="copy-button">
 	<Button size="sm" {variant} type="button" onclick={copyToClipBoard} icon="copy">
-		<span class:see-through={timer_id}>
-			{@render children?.()}
-		</span>
-		{#if timer_id}
-			<span class="confirmation-message">Copied!</span>
-		{/if}
+		<div class="inner">
+			<span class:see-through={timer_id}>
+				{@render children?.()}
+			</span>
+			{#if timer_id}
+				<span class="confirmation-message">Copied!</span>
+			{/if}
+		</div>
 	</Button>
 </span>
 
 <style>
-	/* A bit hacky, but good for now */
-	.copy-button :global(button) {
-		position: relative;
+	.inner {
 		white-space: nowrap;
+		position: relative;
 	}
 
 	.see-through {
@@ -55,10 +56,7 @@
 
 	.confirmation-message {
 		position: absolute;
-		top: 0.3em;
-		left: var(--space-2); /* Make it look centered with the icon on the left */
-		right: 0;
-		width: 100%;
-		text-align: center;
+		top: 0;
+		left: 0;
 	}
 </style>

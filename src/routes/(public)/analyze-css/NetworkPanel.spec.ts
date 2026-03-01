@@ -44,7 +44,7 @@ test.beforeEach(async ({ page }) => {
 	await expect(page).toBeHydrated()
 
 	// Fill in a URL
-	await page.getByLabel('URL to analyze').fill(`example.com`)
+	await page.getByLabel('Website URL').fill(`example.com`)
 
 	// click 'Analyze URL'
 	await page.getByRole('button', { name: 'Analyze URL' }).click()

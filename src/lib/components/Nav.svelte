@@ -148,23 +148,19 @@
 <style>
 	.nav {
 		--nav-border-height: 0.25rem;
-		--nav-gap: var(--space-2);
+		--nav-gap: var(--space-1);
 		--nav-others-gap: var(--space-2);
 		--nav-font-size: var(--size-sm);
 		--item-block-padding: var(--space-2);
-		--item-inline-padding: var(--space-1);
+		--item-inline-padding: var(--space-2);
 		border-top: var(--space-1) solid var(--accent);
-		background-color: var(--bg-0);
+		background-color: var(--bg-100);
 		border-bottom: 1px solid var(--fg-800);
 
 		@media (min-width: 44rem) {
-			--nav-gap: var(--space-3);
+			--nav-gap: var(--space-2);
 			--nav-font-size: var(--size-base);
 			--item-block-padding: var(--space-4);
-		}
-
-		@media (min-width: 66rem) {
-			--nav-gap: var(--space-4);
 		}
 	}
 
@@ -231,8 +227,8 @@
 
 	.nav-popover-trigger {
 		display: block;
-		padding: var(--space-1) var(--space-3);
-		border: 1px solid var(--fg-700);
+		padding: 0.2em var(--space-3);
+		border: 1px solid var(--fg-500);
 		anchor-name: --nav-popover-trigger;
 
 		&[aria-expanded='true'] {

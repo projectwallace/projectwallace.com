@@ -9,6 +9,7 @@
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
 	import { onMount } from 'svelte'
+	import Hero from '$components/Hero.svelte'
 
 	let data: Coverage[] = $state([])
 	let input: HTMLInputElement
@@ -63,6 +64,10 @@
 	description="View CSS Coverage with prettified CSS, highlighting of uncovered lines, combining multiple files"
 />
 
+<Hero title="Code Coverage">
+	<p class="lead">View CSS Code coverage per file, prettified and marked which lines are covered.</p>
+</Hero>
+
 <div class="app">
 	<form method="POST" onsubmit={(e) => e.preventDefault()}>
 		<Label for="coverage-file">Browser coverage export</Label>
@@ -101,9 +106,6 @@
 		</Markdown>
 	</Container>
 
-	<Container size="2xl" class="text-center">
-		<Heading element="h1">CSS Code Coverage inspector</Heading>
-	</Container>
 	<Container size="md">
 		<Markdown>
 			<Content />

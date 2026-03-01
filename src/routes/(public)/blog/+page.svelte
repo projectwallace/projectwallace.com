@@ -15,17 +15,15 @@
 />
 
 <Hero title="Blog">
-	<Container size="xl">
-		<p>
-			You want to learn more about the workings of Wallace? You’ve come to the right place! Product updates, in depth
-			analysis and more.
-		</p>
+	<p class="lead">
+		You want to learn more about the workings of Wallace? You’ve come to the right place! Product updates, in depth
+		analysis and more.
+	</p>
 
-		<a data-testid="rss-link" class="link-to-rss" href="/blog/feed.xml">
-			<Icon name="rss" size={14} />
-			<span>Subscribe to the RSS feed</span>
-		</a>
-	</Container>
+	<a data-testid="rss-link" class="link-to-rss" href="/blog/feed.xml">
+		<Icon name="rss" size={14} />
+		<span>Subscribe to the RSS feed</span>
+	</a>
 </Hero>
 
 <Container size="xl">
@@ -56,7 +54,6 @@
 	.link-to-rss {
 		display: flex;
 		align-items: baseline;
-		justify-content: center;
 		margin-top: 1.5rem;
 		gap: var(--space-2);
 

@@ -7,15 +7,10 @@
 	let { data } = $props()
 </script>
 
-<Seo
-	title="About"
-	description="A little bit of history and a couple of Frequently Asked
-  Questions."
-/>
+<Seo title="About" description="A little bit of history and a couple of Frequently Asked Questions." />
 
 <Hero title="Project Wallace">
-	<p>It's analytics for CSS.</p>
-	<p>
+	<p class="lead">
 		Project Wallace is a project aimed at gaining insights in your CSS over a longer period of time. It started a couple
 		of years ago as a frustration with existing CSS analyzers that only do a one-time only analysis. Now Wallace is the
 		place to go for developers who want to know if their complexicity has increased or for a designer who wants to know
@@ -47,9 +42,5 @@
 		align-items: start;
 		gap: 1.5rem;
 		grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
-	}
-
-	p {
-		margin: 1rem;
 	}
 </style>

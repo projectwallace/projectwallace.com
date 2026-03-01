@@ -55,7 +55,6 @@
 		color: var(--fg-200);
 		font-family: var(--font-body);
 		background-image: radial-gradient(circle at top, var(--teal-900), transparent 80%);
-		background-repeat: no-repeat;
 		border: 0.3rem solid var(--accent-400);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-12);

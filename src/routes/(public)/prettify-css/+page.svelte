@@ -4,15 +4,16 @@
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
 	import PrettifyCss from './PrettifyCss.svelte'
+	import Hero from '$components/Hero.svelte'
 </script>
 
 <Seo title="Online CSS Prettifier" description="Convert minified CSS into readable CSS online" />
 
-<Container>
-	<header>
-		<Heading element="h1" size={1}>Prettify <em>CSS</em></Heading>
-	</header>
+<Hero title="Prettify CSS">
+	<p class="lead">First it was mangled and minified. And then it wasn't.</p>
+</Hero>
 
+<Container>
 	<PrettifyCss />
 </Container>
 
@@ -49,11 +50,6 @@
 </Container>
 
 <style>
-	header {
-		text-align: center;
-		margin-block: var(--space-8);
-	}
-
 	.link-to-minifier {
 		display: block;
 		text-align: center;

@@ -2,17 +2,17 @@
 	import Seo from '$components/Seo.svelte'
 	import Container from '$components/Container.svelte'
 	import Markdown from '$components/Markdown.svelte'
-	import Heading from '$components/Heading.svelte'
 	import MinifyCss from './MinifyCss.svelte'
+	import Hero from '$components/Hero.svelte'
 </script>
 
 <Seo title="Online CSS Minifier" description="Minify your CSS online" />
 
-<Container>
-	<header>
-		<Heading element="h1" size={1}>Minify <em>CSS</em></Heading>
-	</header>
+<Hero title="Minify CSS">
+	<p class="lead">Sometimes size does matter.</p>
+</Hero>
 
+<Container>
 	<MinifyCss />
 </Container>
 
@@ -46,11 +46,6 @@
 </div>
 
 <style>
-	header {
-		text-align: center;
-		margin-block: var(--space-8);
-	}
-
 	.content {
 		margin-block: var(--space-24);
 	}

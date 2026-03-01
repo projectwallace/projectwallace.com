@@ -1,5 +1,6 @@
 <script module lang="ts">
 	export type IconName =
+		| 'arrow-right'
 		| 'brush'
 		| 'bullhorn'
 		| 'chevron-down'
@@ -24,22 +25,21 @@
 		| 'swap'
 		| 'target'
 		| 'tools'
-		| 'twitter' // TODO: remove
 		| 'warning'
 </script>
 
 <script lang="ts">
-	interface Props {
+	type Props = {
 		size?: number
 		color?: string
 		name: IconName
 		class?: string
 	}
 
-	let { size = 24, color = '', name, class: classname }: Props = $props()
+	let { size = 24, color = '', name, class: classname, ...rest }: Props = $props()
 </script>
 
-<svg width={size} height={size} class={[color, 'icon', classname]} aria-hidden="true" fill-rule="evenodd">
+<svg {...rest} width={size} height={size} class={[color, 'icon', classname]} aria-hidden="true" fill-rule="evenodd">
 	<use href="#svg--{name}" />
 </svg>
 

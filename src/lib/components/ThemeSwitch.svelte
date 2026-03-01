@@ -139,7 +139,7 @@
 <style>
 	.theme-popover-trigger {
 		padding: var(--space-1) var(--space-2);
-		border: 1px solid var(--fg-700);
+		border: 1px solid var(--fg-500);
 		color: var(--fg-300);
 		font-size: var(--size-sm);
 		display: block;

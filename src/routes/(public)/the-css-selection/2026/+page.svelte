@@ -18,7 +18,7 @@
 	import Image from './og-image-the-css-selection-2026.png?w=1200'
 
 	let { data } = $props()
-	let nav = data.nav
+	let nav = $derived(data.nav)
 </script>
 
 <SEO

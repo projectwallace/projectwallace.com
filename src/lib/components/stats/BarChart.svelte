@@ -65,9 +65,9 @@
 <Table class={className}>
 	<thead>
 		<tr>
-			<th scope="col">{column_headers[0] || 'Value'}</th>
+			<th scope="col">{column_headers[0] ?? 'Value'}</th>
 			<th scope="col">
-				{column_headers[1] || 'Count'}
+				{column_headers[1] ?? 'Count'}
 			</th>
 			<th scope="col">
 				<span class="sr-only">Relative count</span>

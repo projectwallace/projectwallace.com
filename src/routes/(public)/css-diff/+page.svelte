@@ -12,6 +12,7 @@
 	import Icon from '$components/Icon.svelte'
 	import { format } from '@projectwallace/format-css'
 	import { HashState } from '$lib/url-hash-state.svelte'
+	import Hero from '$components/Hero.svelte'
 
 	const PLACEHOLDER_OLD = format(`
 		first {
@@ -51,13 +52,11 @@
 	description="Quickly compare two CSS files and see the line-by-line differences between them"
 />
 
-<Container>
-	<header>
-		<Heading element="h1">
-			<em>CSS</em> Diff
-		</Heading>
-	</header>
+<Hero title="CSS Diff">
+	<p class="lead">Compare two sets of CSS.</p>
+</Hero>
 
+<Container>
 	<form action="" onsubmit={(event) => event.preventDefault()}>
 		<div class="before">
 			<FormGroup>

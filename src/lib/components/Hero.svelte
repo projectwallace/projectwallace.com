@@ -1,84 +1,47 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
 	import Container from '$lib/components/Container.svelte'
-	import Icon from '$lib/components/Icon.svelte'
 
 	interface Props {
-		title: string
-		github_link?: string
 		children?: Snippet
+		title?: string
 	}
 
-	let { title, children, github_link }: Props = $props()
+	let { children, title }: Props = $props()
 </script>
 
 <header class="hero">
-	<Container>
-		<h1
-			class={[
-				'font-heading',
-				{
-					'has-github-link': github_link
-				}
-			]}
-		>
-			{title}
-		</h1>
-		{#if github_link}
-			<a href={github_link} rel="external" class="github-link">
-				<Icon name="github" size={40} color="text-gray-300" />
-				<span class="sr-only">View repository on GitHub</span>
-			</a>
+	<Container size="xl">
+		{#if title}
+			<div class="title">
+				<h1 class="font-heading">{title}</h1>
+			</div>
 		{/if}
-		<div class="hero-text">
-			{@render children?.()}
-		</div>
+		{@render children?.()}
 	</Container>
 </header>
 
 <style>
 	.hero {
-		background-color: var(--bg-0);
-		margin-bottom: var(--space-8);
-		padding-block: var(--space-8);
-		text-align: center;
-	}
+		padding-block-start: var(--space-8);
+		padding-block-end: var(--space-6);
+		border-block-end: var(--space-px) solid var(--bg-300);
+		margin-block-end: var(--space-8);
+		background-image:
+			radial-gradient(circle at top right, rgb(from var(--accent-400) r g b / 0.07) 0%, transparent 90%),
+			radial-gradient(circle at top left, rgb(from var(--purple-300) r g b / 0.1) 0%, transparent 70%);
 
-	h1 {
-		font-size: var(--size-6xl);
-		color: var(--fg-0);
-		display: inline;
-		vertical-align: middle;
-		text-wrap: balance;
-
-		@media (min-width: 44rem) {
-			font-size: var(--size-7xl);
+		@media (min-height: 33rem) {
+			padding-block-start: var(--space-16);
+			padding-block-end: var(--space-12);
 		}
 	}
 
-	.github-link {
-		display: inline-block;
-		margin-inline-start: var(--space-4);
-		color: var(--fg-300);
-	}
+	.title {
+		font-size: var(--size-4xl);
 
-	.hero-text {
-		font-weight: var(--font-normal);
-		font-size: var(--size-lg);
-		margin-block: var(--space-4);
-		margin-inline: auto;
-
-		@media (min-width: 44rem) {
-			font-size: var(--size-xl);
+		@media (min-width: 66rem) {
+			font-size: var(--size-5xl);
 		}
-	}
-
-	.hero-text :global(a:not(.button)) {
-		color: var(--fg-100);
-	}
-
-	.hero-text :global(> p:first-of-type) {
-		font-size: 1.875rem;
-		color: var(--fg-300);
 	}
 </style>

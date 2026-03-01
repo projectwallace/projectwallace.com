@@ -14,6 +14,7 @@
 	import SpecificityItem from './SpecificityItem.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
+	import Hero from '$components/Hero.svelte'
 
 	let input_ref: HTMLInputElement
 	let has_error = $state(false)
@@ -97,45 +98,43 @@
 	image={Image}
 />
 
-<header>
-	<Heading element="h1">CSS <em>Specificity</em> Calculator</Heading>
-</header>
-
-<Container size="2xl">
-	<div class="content">
-		<form onsubmit={(event) => event.preventDefault()}>
-			<FormGroup>
-				<Label for="selector-input">Selectors to analyze</Label>
-				<!-- This is actually a good use case for autofocus -->
-				<!-- svelte-ignore a11y_autofocus -->
-				<input
-					type="text"
-					name="selectors"
-					id="selector-input"
-					placeholder=".my-selector, #another"
-					required
-					class="input"
-					autofocus
-					aria-describedby="specificity-explainer"
-					oninput={on_input}
-					bind:this={input_ref}
-					defaultValue={DEFAULT_INPUT}
-					aria-invalid={has_error ? 'true' : undefined}
-					aria-errormessage="specificity-error"
-				/>
-				<p id="specificity-explainer">
-					Use a comma to separate multiple selectors:
-					<code>#selector1, .selector2</code>
-				</p>
-			</FormGroup>
-		</form>
-
-		{#if has_error}
-			<p class="error" id="specificity-error" aria-live="assertive">
-				Your selector specificity cannot be calculated. Please check your selector carefully for mistakes.
+<Hero title="Specificity calculator">
+	<form onsubmit={(event) => event.preventDefault()}>
+		<FormGroup>
+			<Label for="selector-input">Selectors to analyze</Label>
+			<!-- This is actually a good use case for autofocus -->
+			<!-- svelte-ignore a11y_autofocus -->
+			<input
+				type="text"
+				name="selectors"
+				id="selector-input"
+				placeholder=".my-selector, #another"
+				required
+				class="input"
+				autofocus
+				aria-describedby="specificity-explainer"
+				oninput={on_input}
+				bind:this={input_ref}
+				defaultValue={DEFAULT_INPUT}
+				aria-invalid={has_error ? 'true' : undefined}
+				aria-errormessage="specificity-error"
+			/>
+			<p id="specificity-explainer">
+				Use a comma to separate multiple selectors:
+				<code>#selector1, .selector2</code>
 			</p>
-		{/if}
+		</FormGroup>
+	</form>
 
+	{#if has_error}
+		<p class="error" id="specificity-error" aria-live="assertive">
+			Your selector specificity cannot be calculated. Please check your selector carefully for mistakes.
+		</p>
+	{/if}
+</Hero>
+
+<Container size="xl">
+	<div class="content">
 		{#if result}
 			<ol>
 				{#each result as item}
@@ -145,8 +144,6 @@
 					</Panel>
 				{/each}
 			</ol>
-
-			<hr />
 		{/if}
 
 		<Container size="xl">
@@ -154,10 +151,7 @@
 				<p>
 					This analyzer is powered by <a rel="external" href="https://github.com/bramus/specificity"
 						>@bramus/specificity</a
-					>.
-				</p>
-				<p>
-					There are other specificity calculators available that offer explanations, like
+					>. There are other specificity calculators available that offer explanations, like
 					<a href="https://polypane.app/css-specificity-calculator/" rel="external">the one from Polypane</a>. You
 					should use that one if you want to know more about <em>how</em> specificity is calculated.
 				</p>
@@ -167,9 +161,8 @@
 </Container>
 
 <style>
-	header {
-		margin-block: var(--space-8);
-		text-align: center;
+	form {
+		margin-block-start: var(--space-4);
 	}
 
 	.content {
@@ -200,9 +193,5 @@
 		background-color: var(--bg-400);
 		margin-top: var(--space-4);
 		line-height: var(--leading-none);
-	}
-
-	hr {
-		border-top: 1px solid var(--gray-600);
 	}
 </style>

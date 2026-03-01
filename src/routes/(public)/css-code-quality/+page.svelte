@@ -35,10 +35,12 @@
 	image={Image}
 />
 
-<Hero title="CSS Code Quality" github_link="https://github.com/projectwallace/css-code-quality">
-	<Container size="xl">
-		<Form {on_success} {on_error} />
-	</Container>
+<Hero>
+	<Form {on_success} {on_error}>
+		{#snippet title()}
+			<h1 class="font-heading">CSS Code Quality</h1>
+		{/snippet}
+	</Form>
 </Hero>
 
 {#if css_state.origins.length > 0 && status !== 'error'}
@@ -91,5 +93,9 @@
 		& a {
 			text-decoration: underline;
 		}
+	}
+
+	.font-heading {
+		font-size: var(--size-5xl);
 	}
 </style>

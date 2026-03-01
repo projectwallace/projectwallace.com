@@ -22,7 +22,7 @@ test.describe('DevTools Panel', () => {
 		await expect(page).toBeHydrated()
 
 		// Fill in a URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 
 		// click 'Analyze URL'
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
@@ -137,7 +137,7 @@ test.describe('DevTools Panel', () => {
 		})
 
 		// Analyze a new URL
-		await page.getByLabel('URL to analyze').fill(`example.com`)
+		await page.getByLabel('Website URL').fill(`example.com`)
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 		await expect.soft(panels).toHaveCount(0)
