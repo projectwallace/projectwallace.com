@@ -199,7 +199,7 @@
 
 		background-image:
 			radial-gradient(circle at top right, rgb(from var(--accent-400) r g b / 0.1) 0%, transparent 80%),
-			radial-gradient(circle at top left, rgb(from var(--purple-400) r g b / 0.05) 0%, transparent 70%);
+			radial-gradient(circle at center left, rgb(from var(--purple-500) r g b / 0.12) 0%, transparent 70%);
 	}
 
 	.section-heading {

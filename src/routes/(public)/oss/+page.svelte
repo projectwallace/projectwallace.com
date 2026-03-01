@@ -40,7 +40,7 @@
 						<p>{project.description}</p>
 						<div class="github-link">
 							<Icon name="github" size={16} />
-							{project.repository}
+							{project.url.slice('https://github.com/'.length)}
 						</div>
 					</div>
 				</article>
@@ -59,7 +59,7 @@
 	.project {
 		background-color: var(--bg-200);
 		box-shadow: var(--shadow);
-		border-top: 2px solid var(--accent-400);
+		border-top: 2px solid var(--fg-700);
 		position: relative;
 	}
 
@@ -71,7 +71,7 @@
 	}
 
 	.content {
-		padding: var(--space-4);
+		padding: var(--space-6);
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
