@@ -63,44 +63,79 @@
 
 <header class="header">
 	<strong class="title">CSS AST Explorer</strong>
-	<Button size="sm" variant="secondary" icon="brush" onclick={prettify}>Prettify CSS</Button>
-
 	<a href={pkg.homepage} target="_blank" rel="external">
 		CSS Parser: {pkg.version}
 	</a>
-	<div>
-		<label for="show-locations">Show location data</label>
-		<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
-	</div>
-	<div>
-		<label for="show-types">Show types</label>
-		<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
-	</div>
-	<div>
-		<label for="autofocus-node">Autofocus</label>
-		<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
-	</div>
 </header>
 
-<div class="panes">
-	<div class="pane">
-		<label for="input-css" class="sr-only">CSS to analyze</label>
-		<HighlightedTextarea id="input-css" name="input-css" bind:value={css.current} {on_cursor_move} />
+<div class="ast-explorer">
+	<div class="panes">
+		<div class="pane">
+			<div class="pane-header">
+				<label for="input-css">CSS input</label>
+				<Button size="sm" variant="secondary" icon="brush" onclick={prettify}>Prettify CSS</Button>
+			</div>
+			<div class="pane-content">
+				<HighlightedTextarea id="input-css" name="input-css" bind:value={css.current} {on_cursor_move} />
+			</div>
+		</div>
+		<div class="pane">
+			<div class="pane-header">
+				<label for="ast-output">AST output</label>
+				<div class="split"></div>
+				<div>
+					<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
+					<label for="show-locations">
+						<span class="sr-only">Show locations</span>
+						<span aria-hidden="true">Locations</span>
+					</label>
+				</div>
+				<div>
+					<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
+					<label for="show-types">
+						<span class="sr-only">Show types</span>
+						<span aria-hidden="true">Types</span>
+					</label>
+				</div>
+				<div>
+					<label for="autofocus-node">
+						<div class="sr-only">Autofocus selected node</div>
+						<span aria-hidden="true">Autofocus</span>
+					</label>
+					<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
+				</div>
+			</div>
+			<div class="pane-content">
+				{#if ast !== undefined}
+					<output id="ast-output">
+						<ol bind:this={scroll_container} class="pane scroller scroll-container" role="tree">
+							<CssTree
+								node={ast}
+								{highlighted_node}
+								show_locations={show_locations.current}
+								show_types={show_types.current}
+								{scroll_container}
+							/>
+						</ol>
+					</output>
+				{/if}
+			</div>
+		</div>
 	</div>
-	{#if ast !== undefined}
-		<ol bind:this={scroll_container} class="pane scroll-container" role="tree">
-			<CssTree
-				node={ast}
-				{highlighted_node}
-				show_locations={show_locations.current}
-				show_types={show_types.current}
-				{scroll_container}
-			/>
-		</ol>
-	{/if}
 </div>
 
 <style>
+	.ast-explorer {
+		--wallace-ast-explorer-border-color: var(--bg-300);
+		--wallace-ast-explorer-border-width: var(--space-px);
+		--wallace-ast-explorer-pane-block-size: calc(100vh - 16rem);
+
+		container-type: inline-size;
+		container-name: --ast-explorer;
+		border-width: var(--wallace-ast-explorer-border-width);
+		border-color: var(--wallace-ast-explorer-border-color);
+	}
+
 	.header {
 		display: flex;
 		flex-wrap: wrap;
@@ -118,25 +153,56 @@
 		font-weight: var(--font-bold);
 	}
 
-	.scroll-container {
-		max-height: 100%;
-		overflow: auto;
-		overscroll-behavior: contain;
-	}
-
 	.panes {
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
 		align-items: stretch;
-		height: calc(100vh - 12rem);
+
+		@container --ast-explorer (min-width: 33rem) {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
 	}
 
 	.pane {
-		border: 1px solid var(--fg-600);
-		background-color: var(--bg-0);
-		font-size: var(--size-specimen);
+		background-color: light-dark(transparent, var(--bg-200));
 		line-height: 2;
-		padding: var(--space-2) var(--space-3);
-		height: 100%;
+		block-size: 100%;
+		display: grid;
+		grid-template-rows: auto 1fr;
+		row-gap: var(--space-2);
+
+		&:not(:first-child) {
+			border-inline-start-width: var(--wallace-ast-explorer-border-width);
+			border-inline-start-color: var(--wallace-ast-explorer-border-color);
+		}
+	}
+
+	.pane.scroller {
+		overflow: auto;
+	}
+
+	.pane-header,
+	.pane-content {
+		padding-block: var(--space-2);
+		padding-inline: var(--space-3);
+	}
+
+	.pane-header {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--space-3);
+		row-gap: var(--space-2);
+		justify-content: space-between;
+		border-block-end-width: var(--wallace-ast-explorer-border-width);
+		border-block-end-color: var(--wallace-ast-explorer-border-color);
+
+		& .split {
+			margin-inline-start: auto;
+		}
+	}
+
+	.pane-content {
+		block-size: var(--wallace-ast-explorer-pane-block-size);
+		font-size: var(--size-specimen);
+		overflow-x: auto;
 	}
 </style>

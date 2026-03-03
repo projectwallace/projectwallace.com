@@ -401,6 +401,12 @@
 			line-height: calc(var(--leading-base) * 1rem);
 		}
 
+		*,
+		*::before,
+		*::after {
+			border-style: solid;
+		}
+
 		::selection {
 			background-color: var(--purple-200);
 			color: var(--black);
