@@ -1,12 +1,12 @@
 import { test, expect } from '../../../tests/fixtures'
 
 test.beforeEach(async ({ page }) => {
-	await page.goto('/ast-explorer', { waitUntil: 'domcontentloaded' })
+	await page.goto('/ast-explorer')
 })
 
 test.describe('initial state', () => {
 	test('shows the CSS input', async ({ page }) => {
-		await expect(page.getByLabel('CSS to analyze')).not.toHaveValue(``)
+		await expect(page.getByLabel('CSS input')).not.toHaveValue(``)
 	})
 
 	test('shows the AST output', async ({ page }) => {
@@ -21,12 +21,12 @@ test.describe('initial state', () => {
 	})
 
 	test('show location data is turned off by default', async ({ page }) => {
-		let input = page.getByLabel('Show location data')
+		let input = page.getByLabel('Show locations')
 		await expect(input).not.toBeChecked()
 	})
 
 	test('Autofocus is turned on by default', async ({ page }) => {
-		let input = page.getByLabel('Autofocus')
+		let input = page.getByLabel('Autofocus selected node')
 		await expect(input).toBeChecked()
 	})
 
@@ -37,7 +37,7 @@ test.describe('initial state', () => {
 })
 
 test('location data is visible when the checkbox is checked', async ({ page }) => {
-	let input = page.getByLabel('Show location data')
+	let input = page.getByLabel('Show locations')
 	await input.check()
 	let locations = page.getByTestId('location')
 	// Wait for location data to appear in the DOM after checking the checkbox
@@ -46,7 +46,7 @@ test('location data is visible when the checkbox is checked', async ({ page }) =
 })
 
 test('auto scrolls to the selected node', async ({ page }) => {
-	let input = page.getByLabel('CSS to analyze')
+	let input = page.getByLabel('CSS input')
 	await input.focus()
 	for (let i = 0; i < 11; i++) {
 		await input.press('ArrowDown')
@@ -62,9 +62,9 @@ test('auto scrolls to the selected node', async ({ page }) => {
 })
 
 test('prettifies the CSS when button is clicked', async ({ page }) => {
-	await page.getByLabel('CSS to analyze').fill('a{color:blue}')
+	await page.getByLabel('CSS input').fill('a{color:blue}')
 	await page.getByRole('button', { name: 'Prettify CSS' }).click()
-	await expect(page.getByLabel('CSS to analyze')).toHaveValue(`a {\n\tcolor: blue;\n}`)
+	await expect(page.getByLabel('CSS input')).toHaveValue(`a {\n\tcolor: blue;\n}`)
 })
 
 test.describe('URL hash state', () => {
@@ -76,13 +76,13 @@ test.describe('URL hash state', () => {
 	test('no hash shows default CSS input', async ({ page }) => {
 		await page.goto('/ast-explorer', { waitUntil: 'domcontentloaded' })
 		// Page has default CSS, not empty
-		let input = page.getByLabel('CSS to analyze')
+		let input = page.getByLabel('CSS input')
 		await expect(input).not.toHaveValue('')
 	})
 
 	test('changing input updates hash', async ({ page }) => {
 		await page.goto('/ast-explorer', { waitUntil: 'domcontentloaded' })
-		let input = page.getByLabel('CSS to analyze')
+		let input = page.getByLabel('CSS input')
 		let css = 'test { color: red; }'
 		await input.fill(css)
 		let expected_url = `/ast-explorer#${encodeHash(css)}`
@@ -95,7 +95,7 @@ test.describe('URL hash state', () => {
 		let hash = encodeHash(css)
 		await page.goto(`/ast-explorer#${hash}`, { waitUntil: 'domcontentloaded' })
 
-		let input = page.getByLabel('CSS to analyze')
+		let input = page.getByLabel('CSS input')
 		await expect(input).toHaveValue(css)
 
 		// AST should be visible
@@ -107,7 +107,7 @@ test.describe('URL hash state', () => {
 		await page.goto('/ast-explorer#invalid-base64-!!!', { waitUntil: 'domcontentloaded' })
 
 		// Should fall back to default CSS
-		let input = page.getByLabel('CSS to analyze')
+		let input = page.getByLabel('CSS input')
 		await expect(input).not.toHaveValue('')
 
 		// AST should still be visible
