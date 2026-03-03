@@ -3,7 +3,6 @@ import BarChart from '$components/BarChart.svelte'
 import { format_filesize } from '$lib/format-filesize'
 import { format_number } from '$lib/format-number'
 import Award from '$components/Award.svelte'
-import Formula from '$components/Formula.svelte'
 </script>
 
 ## Stylesheet composition
