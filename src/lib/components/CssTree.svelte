@@ -149,7 +149,7 @@
 		scroll-margin: var(--space-12);
 
 		&[aria-selected='true'] {
-			background-color: var(--bg-100);
+			background-color: rgb(from var(--accent-400) r g b / 0.05);
 		}
 	}
 

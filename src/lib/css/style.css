@@ -23,7 +23,7 @@
 			--yellow-400: hsl(60deg 80% 50%);
 			--yellow-500: hsl(60deg 80% 42%);
 			--yellow-600: hsl(60deg 90% 35%);
-			--yellow-600: hsl(60deg 90% 18%);
+			--yellow-700: hsl(60deg 90% 18%);
 			--yellow-800: hsl(60deg 90% 12%);
 			--yellow-900: hsl(60deg 97% 8%);
 
@@ -57,7 +57,7 @@
 			--purple-400: hsl(271.7deg 66% 47.3%);
 			--purple-500: hsl(271.7deg 65.7% 42.4%);
 			--purple-600: hsl(272.4deg 66.7% 29.4%);
-			--purple-700: hsl(271.9deg 66.3% 37.3%);
+			/* --purple-700: hsl(271.9deg 66.3% 37.3%); */
 			--purple-800: hsl(271.7deg 66.4% 25.7%);
 			--purple-900: hsl(272.2deg 67.5% 15.7%);
 
@@ -125,8 +125,6 @@
 
 			/* LETTER-SPACING */
 			--tracking-tight: -0.025em;
-			--tracking-normal: 0;
-			--tracking-wide: 0.025em;
 			--tracking-wider: 0.04em;
 		}
 	}
@@ -401,6 +399,12 @@
 			color: var(--fg);
 			font-size: var(--size-base);
 			line-height: calc(var(--leading-base) * 1rem);
+		}
+
+		*,
+		*::before,
+		*::after {
+			border-style: solid;
 		}
 
 		::selection {
@@ -710,10 +714,6 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-	}
-
-	.prevent-orphan {
-		text-wrap: nowrap;
 	}
 
 	.scroll-container {
