@@ -92,21 +92,20 @@
 		<hr />
 	{/if}
 
-	<Container size="2xl">
+	<Container size="lg">
 		<Markdown>
 			<p>
-				How to
+				Learn how to
 				<a href="https://developer.chrome.com/docs/devtools/coverage/" rel="noreferrer external" target="_blank">
 					record CSS coverage
 				</a>
-				<Icon name="external" size={16} /> in your browser. After that, export the data as JSON and select or drop the file
-				here. Or
+				<Icon name="external" size={16} /> in your browser, or
+				<a href="/blog/how-to-calculate-css-code-coverage-with-playwright">let your Playwright tests do it</a>! After
+				that, export the data as JSON and select or drop the file here. Or
 				<button type="button" class="example" onclick={load_example}>load an example file</button>.
 			</p>
 		</Markdown>
-	</Container>
 
-	<Container size="md">
 		<Markdown>
 			<Content />
 		</Markdown>
@@ -123,12 +122,6 @@
 	form {
 		display: grid;
 		gap: var(--space-3);
-	}
-
-	p {
-		text-wrap: balance;
-		max-width: none;
-		text-align: center;
 	}
 
 	input[type='file'] {

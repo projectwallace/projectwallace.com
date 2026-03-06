@@ -2,7 +2,7 @@
 	import { createTreeView } from '@melt-ui/svelte'
 	import { setContext } from 'svelte'
 	import Tree from './Tree.svelte'
-	import type { TreeItem } from './types'
+	import { USED, UNUSED, UNDECLARED, UNDECLARED_WITH_FALLBACK, type TreeItem } from './types'
 	import Icon from '$components/Icon.svelte'
 	import CopyButton from '$components/CopyButton.svelte'
 	import Pre from '$components/Pre.svelte'
@@ -67,13 +67,13 @@
 	let tree_items = $derived.by<TreeItem[]>(() => {
 		if (!filtered_results) return []
 		return Array.from(filtered_results, ([property_name, locations]) => {
-			let level = 0
+			let level: TreeItem['level'] = USED
 			if (result.undeclared.has(property_name)) {
-				level = 2
+				level = UNDECLARED
 			} else if (result.unused.has(property_name)) {
-				level = 1
+				level = UNUSED
 			} else if (result.undeclared_with_fallback.has(property_name)) {
-				level = 3
+				level = UNDECLARED_WITH_FALLBACK
 			}
 			return {
 				title: property_name,
@@ -297,10 +297,15 @@
 
 <style>
 	.wrapper {
-		--custom-property-inspector-bg: var(--bg-0);
+		--wallace-custom-property-inspector-bg-color: light-dark(transparent, var(--bg-200));
+		--wallace-custom-property-inspector-border-color: var(--fg-600);
+		--wallace-custom-property-inspector-error-color: var(--red-400);
+		--wallace-custom-property-inspector-warning-color: var(--orange-400);
+		--wallace-custom-property-inspector-suggestion-color: light-dark(var(--yellow-600), var(--yellow-400));
+
 		width: 100%;
-		border: 1px solid var(--fg-450);
-		background-color: var(--custom-property-inspector-bg);
+		border: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
+		background-color: var(--wallace-custom-property-inspector-bg-color);
 		scroll-margin-block-start: var(--space-4);
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(16rem, 25%);
@@ -310,13 +315,13 @@
 		& :is(.list, .editor) {
 			position: relative;
 			overflow: hidden;
-			height: 80vh;
+			block-size: 80vh;
 		}
 	}
 
 	.editor {
 		grid-template-rows: auto minmax(0, 1fr);
-		border-right: 1px solid var(--fg-450);
+		border-inline-end: 1px solid var(--wallace-custom-property-inspector-border-color);
 		grid-area: editor;
 	}
 
@@ -337,16 +342,18 @@
 
 	header {
 		position: sticky;
-		top: 0;
-		left: 0;
-		right: 0;
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		inset-inline-end: 0;
 		display: grid;
 		justify-content: space-between;
 		grid-template-columns: 1fr auto;
 		align-items: center;
-		padding: var(--space-1) var(--space-2);
-		background-color: var(--custom-property-inspector-bg);
+		padding-block: var(--space-2);
+		padding-inline: var(--space-2);
+		background-color: var(--wallace-custom-property-inspector-bg-color);
 		font-size: var(--size-sm);
+		border-block-end: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
 
 		& h2 {
 			text-transform: uppercase;
@@ -356,7 +363,12 @@
 		}
 
 		& search {
+			margin-block-start: var(--space-2);
+			padding-block-start: var(--space-2);
+			margin-inline: calc(-1 * var(--space-2));
+			padding-inline: var(--space-2);
 			grid-column: 1 / -1;
+			border-block-start: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
 		}
 
 		& input {
@@ -386,7 +398,7 @@
 		padding-inline: var(--space-1);
 
 		&:hover {
-			background-color: var(--bg-200);
+			background-color: var(--bg-300);
 		}
 	}
 
@@ -400,18 +412,18 @@
 
 	.summary {
 		grid-area: summary;
-		border-top: 1px solid var(--fg-450);
-		padding: 0 var(--space-2);
+		border-block-start: 1px solid var(--wallace-custom-property-inspector-border-color);
+		padding-inline: var(--space-2);
 		font-size: var(--size-sm);
 		color: var(--fg-200);
 		display: flex;
 		justify-content: space-between;
-		background-color: var(--custom-property-inspector-bg);
+		background-color: var(--wallace-custom-property-inspector-bg-color);
 
 		.filters {
 			display: flex;
 			justify-content: flex-end;
-			margin-left: auto;
+			margin-inline-start: auto;
 			gap: var(--space-1);
 		}
 
@@ -419,20 +431,20 @@
 			padding-inline: var(--space-2);
 
 			&[aria-pressed='true'] {
-				background-color: var(--bg-400);
+				background-color: var(--bg-300);
 			}
 		}
 
 		.warning {
-			text-decoration: wavy underline var(--orange-400);
+			text-decoration: wavy underline var(--wallace-custom-property-inspector-warning-color);
 		}
 
 		.error {
-			text-decoration: wavy underline var(--red-400);
+			text-decoration: wavy underline var(--wallace-custom-property-inspector-error-color);
 		}
 
 		.alert {
-			text-decoration: wavy underline var(--yellow-400);
+			text-decoration: wavy underline var(--wallace-custom-property-inspector-suggestion-color);
 		}
 	}
 </style>

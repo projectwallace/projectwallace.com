@@ -2,7 +2,7 @@
 	import { melt, type TreeView } from '@melt-ui/svelte'
 	import { getContext } from 'svelte'
 	import { format_number } from '$lib/format-number'
-	import type { TreeItem, Location } from './types'
+	import { UNUSED, UNDECLARED, UNDECLARED_WITH_FALLBACK, type TreeItem, type Location } from './types'
 	import Tree from './Tree.svelte'
 
 	let {
@@ -15,7 +15,7 @@
 
 	const {
 		elements: { item, group },
-		helpers: { isExpanded, isSelected }
+		helpers: { isExpanded }
 	} = getContext<TreeView>('tree')
 </script>
 
@@ -43,9 +43,9 @@
 				</span>
 				<code
 					class="[ language-css ] property-name"
-					class:warning={level === 1}
-					class:error={level === 2}
-					class:alert={level === 3}
+					class:warning={level === UNUSED}
+					class:error={level === UNDECLARED}
+					class:alert={level === UNDECLARED_WITH_FALLBACK}
 				>
 					{#if matches.length > 1}
 						<!-- All inline to collapse whitespaces -->
@@ -58,7 +58,7 @@
 					{format_number(count)}
 				</span>
 			{:else}
-				<code class="language-css property-use" class:warning={level === 1} class:error={level === 2}>
+				<code class="language-css property-use" class:warning={level === UNUSED} class:error={level === UNDECLARED}>
 					{title}
 				</code>
 				<span class="location">
@@ -91,8 +91,10 @@
 		background-color: transparent;
 		cursor: default;
 
-		&:hover {
-			background-color: var(--bg-200);
+		@media (hover) {
+			&:hover {
+				background-color: var(--bg-300);
+			}
 		}
 
 		&:focus {
@@ -108,7 +110,7 @@
 	.indicator {
 		color: var(--fg-400);
 		font-size: var(--size-xs);
-		width: var(--space-3);
+		inline-size: var(--space-3);
 	}
 
 	.language-css {
@@ -123,27 +125,28 @@
 		color: var(--fg-100);
 		font-weight: var(--font-medium);
 		display: inline-block;
-		max-width: 100%;
-		margin-right: auto;
+		max-inline-size: 100%;
+		margin-inline-end: auto;
 	}
 
 	.property-use {
 		display: block;
-		border-left: 1px solid var(--fg-450);
-		padding-left: var(--space-3);
+		border-inline-start: 1px solid var(--fg-500);
+		padding-inline-start: var(--space-3);
 		line-height: var(--leading-relaxed);
+		color: var(--fg-200);
 	}
 
 	.warning {
-		text-decoration: wavy underline var(--orange-400);
+		text-decoration: wavy underline var(--wallace-custom-property-inspector-error-color);
 	}
 
 	.error {
-		text-decoration: wavy underline var(--red-400);
+		text-decoration: wavy underline var(--wallace-custom-property-inspector-warning-color);
 	}
 
 	.alert {
-		text-decoration: wavy underline var(--yellow-400);
+		text-decoration: wavy underline var(--wallace-custom-property-inspector-suggestion-color);
 	}
 
 	.count {
@@ -162,8 +165,8 @@
 	}
 
 	.match {
-		background-color: transparent;
+		background-color: light-dark(var(--blue-100), var(--blue-700));
+		color: light-dark(var(--blue-800), var(--fg-100));
 		border: 1px solid var(--blue-300);
-		color: inherit;
 	}
 </style>

@@ -27,7 +27,9 @@ export function analyze(css: string) {
 				let name = property
 				let loc = to_loc(node)
 				declared_properties.add(name)
-				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
+				let locs = all_properties.get(name)
+				if (locs) locs.push(loc)
+				else all_properties.set(name, [loc])
 			}
 		} else if (node.type === FUNCTION && node.name === 'var') {
 			let [first_child, second_child] = node.children
@@ -36,7 +38,9 @@ export function analyze(css: string) {
 				let loc = to_loc(node)
 				let name = first_child.name
 				used_properties.add(name)
-				all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
+				let locs = all_properties.get(name)
+				if (locs) locs.push(loc)
+				else all_properties.set(name, [loc])
 
 				// check if it has a fallback value that is a custom property
 				if (second_child !== undefined && !(second_child.type === FUNCTION && second_child.name === 'var')) {
@@ -47,37 +51,29 @@ export function analyze(css: string) {
 			let name = node.prelude.text
 			let loc = to_loc(node)
 			declared_properties.add(name)
-			all_properties.set(name, (all_properties.get(name) ?? []).concat(loc))
+			let locs = all_properties.get(name)
+			if (locs) locs.push(loc)
+			else all_properties.set(name, [loc])
 		}
 	})
 
 	let unused_properties = new Set<string>()
-	outer_declared: for (let declared of declared_properties) {
-		for (let used of used_properties) {
-			if (used === declared) {
-				continue outer_declared
-			}
+	for (let declared of declared_properties) {
+		if (!used_properties.has(declared)) {
+			unused_properties.add(declared)
 		}
-
-		unused_properties.add(declared)
 	}
 
 	let undeclared_properties = new Set<string>()
 	let undeclared_with_fallback = new Set<string>()
-	outer_undeclared: for (let used of used_properties) {
-		for (let declared of declared_properties) {
-			if (used === declared) {
-				continue outer_undeclared
-			}
-		}
-		for (let declared of declared_with_fallback) {
-			if (used === declared) {
+	for (let used of used_properties) {
+		if (!declared_properties.has(used)) {
+			if (declared_with_fallback.has(used)) {
 				undeclared_with_fallback.add(used)
-				continue outer_undeclared
+			} else {
+				undeclared_properties.add(used)
 			}
 		}
-
-		undeclared_properties.add(used)
 	}
 
 	return {

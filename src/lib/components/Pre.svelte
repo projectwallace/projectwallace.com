@@ -39,10 +39,10 @@
 	let lines: Highlight | undefined
 	// body element is used to scroll to the highlighted location
 	// svelte-ignore non_reactive_update
-	let body: HTMLElement | undefined
+	let body: HTMLElement | undefined = undefined
 	// code_node is used to highlight the code (highlighting only works on TextNodes)
 	// svelte-ignore non_reactive_update
-	let code_node: HTMLElement | undefined
+	let code_node: HTMLElement | undefined = undefined
 	// Line height is used to scroll to the highlighted location
 	const LINE_HEIGHT = 20
 	// CHAR_WIDTH is used to scroll to the highlighted location
@@ -317,6 +317,7 @@
 		pointer-events: none;
 		/* force newlines when not using thousands of <li>'s but plaintext instead */
 		white-space: pre;
+		content-visibility: auto;
 	}
 
 	.line-number-range {
@@ -347,6 +348,6 @@
 	}
 
 	::highlight(lines) {
-		background-color: var(--highlight-bg, light-dark(var(--bg-200), var(--bg-400)));
+		background-color: var(--highlight-bg, light-dark(var(--yellow-200), var(--yellow-900)));
 	}
 </style>

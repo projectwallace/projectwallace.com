@@ -19,13 +19,14 @@
 			--blue-700: hsl(216.1deg 92.2% 25.1%);
 			--blue-800: hsl(216.1deg 80% 9%);
 
+			--yellow-200: hsl(60deg 66% 78%);
 			--yellow-300: hsl(60deg 70% 70%);
 			--yellow-400: hsl(60deg 80% 50%);
 			--yellow-500: hsl(60deg 80% 42%);
 			--yellow-600: hsl(60deg 90% 35%);
 			--yellow-700: hsl(60deg 90% 18%);
 			--yellow-800: hsl(60deg 90% 12%);
-			--yellow-900: hsl(60deg 97% 8%);
+			--yellow-900: hsl(60deg 97% 9%);
 
 			--orange-100: hsl(31.7deg 90% 90%);
 			--orange-300: #fcb76a;
