@@ -117,11 +117,6 @@
 </Container>
 
 <style>
-	header {
-		text-align: center;
-		margin-block: var(--space-8);
-	}
-
 	form {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);

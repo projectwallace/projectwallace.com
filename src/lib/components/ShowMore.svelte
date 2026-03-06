@@ -12,7 +12,7 @@
 	let { children, initial_open: initialOpen = false, closable = false }: Props = $props()
 
 	let status: Status = $state(initialOpen ? 'open' : 'closed')
-	let element: HTMLDivElement
+	let element: HTMLDivElement | undefined = undefined
 
 	function open() {
 		status = 'open'
@@ -20,6 +20,7 @@
 
 	function close() {
 		status = 'closed'
+		if (!element) return
 
 		// Scroll to the top of the element if it's taller than the viewport,
 		// to avoid the user losing their scroll position in the document

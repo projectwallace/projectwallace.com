@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition'
-	// @ts-expect-error Export issue with this package
 	import { calculate } from '@projectwallace/css-code-quality/core'
 	import type { calculate as Calculate } from '@projectwallace/css-code-quality'
 	import { analyze } from '@projectwallace/css-analyzer'

@@ -21,8 +21,10 @@
 	let css_state = get_css_state()
 	let tree: TreeNode[] = $derived(layer_tree(css_state.css))
 
-	css_state.set_origins(origins)
-	css_state.should_prettify = prettify_css_before_analyze
+	$effect(() => {
+		css_state.set_origins(origins)
+		css_state.should_prettify = prettify_css_before_analyze
+	})
 </script>
 
 {#if css_state.origins.length > 0}

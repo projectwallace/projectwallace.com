@@ -348,6 +348,6 @@
 	}
 
 	::highlight(lines) {
-		background-color: var(--highlight-bg, light-dark(var(--yellow-200), var(--yellow-700)));
+		background-color: var(--highlight-bg, light-dark(var(--yellow-200), var(--yellow-900)));
 	}
 </style>

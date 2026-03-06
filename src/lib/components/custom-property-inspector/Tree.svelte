@@ -110,7 +110,7 @@
 	.indicator {
 		color: var(--fg-400);
 		font-size: var(--size-xs);
-		inine-size: var(--space-3);
+		inline-size: var(--space-3);
 	}
 
 	.language-css {
