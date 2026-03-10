@@ -75,7 +75,7 @@
 	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe, math, .bar-chart)) {
 		margin-block-start: var(--space-6);
 
-		@media (height > 44rem) {
+		@media (min-height: 44rem) {
 			margin-block-start: var(--space-12);
 		}
 	}

@@ -302,7 +302,6 @@
 		--wallace-custom-property-inspector-error-color: var(--red-400);
 		--wallace-custom-property-inspector-warning-color: var(--orange-400);
 		--wallace-custom-property-inspector-suggestion-color: light-dark(var(--yellow-600), var(--yellow-400));
-
 		width: 100%;
 		border: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
 		background-color: var(--wallace-custom-property-inspector-bg-color);

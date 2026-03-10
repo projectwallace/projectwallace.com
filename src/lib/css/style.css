@@ -10,7 +10,6 @@
 			--teal-700: hsl(152deg 72% 33%);
 			--teal-800: hsl(152deg 80% 25%);
 			--teal-900: hsl(152deg 70% 12.5%);
-
 			--blue-100: hsl(215.9deg 90% 85%);
 			--blue-200: hsl(215.9deg 90% 70%);
 			--blue-300: hsl(215.9deg 90% 60%);
@@ -18,7 +17,6 @@
 			--blue-500: hsl(216deg 92.2% 35.1%);
 			--blue-700: hsl(216.1deg 92.2% 25.1%);
 			--blue-800: hsl(216.1deg 80% 9%);
-
 			--yellow-200: hsl(60deg 66% 78%);
 			--yellow-300: hsl(60deg 70% 70%);
 			--yellow-400: hsl(60deg 80% 50%);
@@ -27,15 +25,12 @@
 			--yellow-700: hsl(60deg 90% 18%);
 			--yellow-800: hsl(60deg 90% 12%);
 			--yellow-900: hsl(60deg 97% 9%);
-
 			--orange-100: hsl(31.7deg 90% 90%);
 			--orange-300: #fcb76a;
 			--orange-400: hsl(31.7deg 96.7% 47.3%);
-
 			--pink-300: rgb(233 44 120);
 			--pink-400: hsl(335.9deg 89% 50%);
 			--pink-500: hsl(335.9deg 80% 40%);
-
 			--green-100: hsl(121.9deg 40% 93%);
 			--green-200: hsl(121.9deg 50% 73%);
 			--green-300: hsl(121.9deg 55% 58%);
@@ -43,7 +38,6 @@
 			--green-500: hsl(121.9deg 70% 31%);
 			--green-600: hsl(121.9deg 35% 23%);
 			--green-700: hsl(166deg 25% 17%);
-
 			--red-100: hsl(4deg 36% 85%);
 			--red-200: hsl(4deg 46% 66%);
 			--red-300: hsl(4deg 66% 51%);
@@ -51,7 +45,6 @@
 			--red-600: hsl(0deg 70% 16%);
 			--red-700: hsl(0deg 74% 11%);
 			--red-900: hsl(338.9deg 26.8% 24.1%);
-
 			--purple-100: hsl(273.3deg 69.2% 97.5%);
 			--purple-200: hsl(272deg 66.7% 82.4%);
 			--purple-300: hsl(271.7deg 66.1% 57.3%);
@@ -61,7 +54,6 @@
 			/* --purple-700: hsl(271.9deg 66.3% 37.3%); */
 			--purple-800: hsl(271.7deg 66.4% 25.7%);
 			--purple-900: hsl(272.2deg 67.5% 15.7%);
-
 			--white: hsl(0deg 0% 100%);
 			--gray-100: hsl(198deg 5% 97.3%);
 			--gray-200: hsl(198deg 10% 90%);
@@ -81,7 +73,9 @@
 	@layer text {
 		html {
 			/* FONTS */
-			--font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+			--font-body:
+				-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+				'Droid Sans', 'Helvetica Neue', sans-serif;
 			--font-display: 'Teko', 'Teko Fallback', 'Arial Narrow', sans-serif;
 			--font-mono: ui-monospace, 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 
@@ -273,8 +267,9 @@
 			local('Teko Medium'),
 			local('Teko-Medium'),
 			url('../../../teko-500.2019-08-10.woff2') format('woff2');
-		unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC,
-			U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+		unicode-range:
+			U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122,
+			U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 	}
 
 	@font-face {
@@ -359,17 +354,17 @@
 			accent-color: var(--accent);
 
 			& * {
-				transition-duration: .1s;
+				transition-duration: 0.1s;
 				transition-property: color, background-color, border-color;
 				transition-timing-function: ease-out;
 				background-repeat: no-repeat;
 			}
 
-			&[data-theme="dark"] {
+			&[data-theme='dark'] {
 				color-scheme: dark;
 			}
 
-			&[data-theme="light"] {
+			&[data-theme='light'] {
 				color-scheme: light;
 			}
 
@@ -378,7 +373,7 @@
 			}
 		}
 
-		[data-theme="naked"] {
+		[data-theme='naked'] {
 			color-scheme: dark light !important;
 
 			&,
@@ -428,7 +423,7 @@
 			margin-right: 1ch;
 			margin-left: 1ch;
 			color: light-dark(var(--accent-800), var(--accent-300));
-			padding-inline: .5ch;
+			padding-inline: 0.5ch;
 		}
 
 		[aria-selected='true'] {
@@ -453,7 +448,6 @@
 				outline-offset: 2px;
 			}
 		}
-
 
 		@layer syntax {
 			html {
@@ -617,7 +611,7 @@
 			}
 
 			/* Use as progressive enhancement until we have grid-lanes */
-			@supports (grid-template-rows: masonry) and (not (display: grid-lanes))  {
+			@supports (grid-template-rows: masonry) and (not (display: grid-lanes)) {
 				grid-template-rows: masonry;
 			}
 
@@ -653,19 +647,25 @@
 			--color-example-pattern-color: var(--gray-700);
 
 			/* Create the actual background */
-			background-image: repeating-linear-gradient(45deg,
+			background-image:
+				repeating-linear-gradient(
+					45deg,
 					var(--color-example-pattern-color) 25%,
 					transparent 25%,
 					transparent 75%,
 					var(--color-example-pattern-color) 75%,
-					var(--color-example-pattern-color)),
-				repeating-linear-gradient(45deg,
+					var(--color-example-pattern-color)
+				),
+				repeating-linear-gradient(
+					45deg,
 					var(--color-example-pattern-color) 25%,
 					transparent 25%,
 					transparent 75%,
 					var(--color-example-pattern-color) 75%,
-					var(--color-example-pattern-color));
-			background-position: 0px 0px,
+					var(--color-example-pattern-color)
+				);
+			background-position:
+				0px 0px,
 				calc(var(--color-example-pattern-size) / 2) calc(var(--color-example-pattern-size) / 2);
 			background-size: var(--color-example-pattern-size) var(--color-example-pattern-size);
 			background-repeat: repeat;
@@ -720,7 +720,7 @@
 	.scroll-container {
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
-		transition: scrollbar-color .1s ease-out;
+		transition: scrollbar-color 0.1s ease-out;
 
 		&:hover,
 		&:focus {

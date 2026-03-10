@@ -5,8 +5,8 @@ export default {
 	overrides: [
 		{
 			files: ['src/**/*.svelte'],
-			customSyntax: 'postcss-html',
-		},
+			customSyntax: 'postcss-html'
+		}
 	],
 	ignoreFiles: ['**/*.js', '**/*.ts', '**/*.json', '**/*.md'],
 	defaultSeverity: 'warning',
@@ -26,6 +26,9 @@ export default {
 		// Descending
 		'no-descending-specificity': null,
 
+		// at-rule-prelude-no-invalid crashes on @container due to css-tree not supporting <container-query>
+		'at-rule-prelude-no-invalid': [true, { ignoreAtRules: ['container'] }],
+
 		// Empty
 		'comment-no-empty': true,
 
@@ -34,27 +37,29 @@ export default {
 			true,
 			{
 				ignorePseudoClasses: [
-					'global', // for Svelte
+					'global' // for Svelte
 				]
 			}
 		],
 		'function-no-unknown': [
 			true,
 			{
-				ignoreFunctions: [
-					'anchor'
-				]
+				ignoreFunctions: ['anchor']
 			}
 		],
 		'declaration-property-value-no-unknown': [
 			true,
 			{
 				ignoreProperties: {
-					'top': '/^anchor/',
-					'right': '/^anchor/',
-					'bottom': '/^anchor/',
-					'left': '/^anchor/',
-					'inset': '/^anchor/',
+					top: '/^anchor/',
+					right: '/^anchor/',
+					bottom: '/^anchor/',
+					left: '/^anchor/',
+					inset: '/^anchor/',
+					cursor: '/.*/', // css-tree crashes on <cursor-predefined> syntax reference
+					'list-style': '/.*/', // css-tree crashes on <symbols()> syntax reference
+					'list-style-type': '/.*/', // css-tree crashes on <symbols()> syntax reference
+					'grid-template-rows': 'masonry'
 				}
 			}
 		],
@@ -63,10 +68,7 @@ export default {
 		'property-no-vendor-prefix': [
 			true,
 			{
-				ignoreProperties: [
-					'text-size-adjust',
-					'text-decoration'
-				]
+				ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration']
 			}
 		],
 		'length-zero-no-unit': null,
@@ -90,15 +92,8 @@ export default {
 		'value-keyword-case': [
 			'lower',
 			{
-				ignoreKeywords: [
-					'currentColor',
-					'optimizeSpeed',
-				],
-				ignoreProperties: [
-					'font-family',
-					'font',
-					/^--font/
-				],
+				ignoreKeywords: ['currentColor', 'optimizeSpeed'],
+				ignoreProperties: ['font-family', 'font', /^--font/]
 			}
 		],
 		'selector-type-case': [
@@ -117,10 +112,11 @@ export default {
 					'SelectorList',
 					'String',
 					'Unit',
-					'Value',
+					'Value'
 				]
 			}
 		],
+		'selector-id-pattern': null,
 
 		// Empty lines
 		'comment-empty-line-before': null,
@@ -136,7 +132,8 @@ export default {
 		'custom-property-pattern': [
 			'^_?([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
 			{
-				message: 'Expected custom property name to be lowercase and hyphen-separated, optionally starting with an underscore to indicate a component-specific variable',
+				message:
+					'Expected custom property name to be lowercase and hyphen-separated, optionally starting with an underscore to indicate a component-specific variable'
 			}
 		],
 
@@ -149,13 +146,11 @@ export default {
 		'shorthand-property-no-redundant-values': null,
 
 		// Others / plugins
-		"csstools/value-no-unknown-custom-properties": [
+		'csstools/value-no-unknown-custom-properties': [
 			true,
 			{
-				importFrom: [
-					'./src/lib/css/style.css'
-				]
+				importFrom: ['./src/lib/css/style.css']
 			}
-		],
+		]
 	}
 }

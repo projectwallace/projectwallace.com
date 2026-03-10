@@ -197,7 +197,6 @@
 		gap: var(--space-8);
 		justify-content: center;
 		overflow: clip;
-
 		background-image:
 			radial-gradient(circle at top right, rgb(from var(--accent-400) r g b / 0.1) 0%, transparent 80%),
 			radial-gradient(circle at center left, rgb(from var(--purple-500) r g b / 0.12) 0%, transparent 70%);
