@@ -75,33 +75,32 @@
 		row-gap: 0.66rem;
 		column-gap: 0.5rem;
 		position: relative;
-		text-align: center;
 		line-height: 1.5;
 		padding: 1rem;
 		border-radius: 2px;
 		color: #fff;
 		box-shadow:
-			rgba(0, 0, 0, 0.025) 0 0 0 1px,
-			rgba(0, 0, 0, 0.05) 0px 1px 0px,
-			rgba(0, 0, 0, 0.03) 0px 0px 8px,
-			rgba(0, 0, 0, 0.1) 0px 20px 30px;
+			rgb(0 0 0 / 0.025) 0 0 0 1px,
+			rgb(0 0 0 / 0.05) 0px 1px 0px,
+			rgb(0 0 0 / 0.03) 0px 0px 8px,
+			rgb(0 0 0 / 0.1) 0px 20px 30px;
 		text-align: left;
 		background: #4ca2cd linear-gradient(135deg, #4ca2cd, #67b26f);
 
 		&:hover,
 		&:focus-within {
 			box-shadow:
-				rgba(0, 0, 0, 0.025) 0 0 0 1px,
-				rgba(0, 0, 0, 0.05) 0px 1px 0px,
-				rgba(0, 0, 0, 0.03) 0px 10px 8px,
-				rgba(0, 0, 0, 0.05) 0px 30px -10px 20px;
+				rgb(0 0 0 / 0.025) 0 0 0 1px,
+				rgb(0 0 0 / 0.05) 0px 1px 0px,
+				rgb(0 0 0 / 0.03) 0px 10px 8px,
+				rgb(0 0 0 / 0.05) 0px 30px -10px 20px;
 
 			& .polypane-button {
 				box-shadow:
-					rgba(0, 0, 0, 0.025) 0 0 0 1px,
-					rgba(0, 0, 0, 0.05) 0px 1px 0px,
-					rgba(0, 0, 0, 0.03) 0px 0px 8px,
-					rgba(0, 0, 0, 0.1) 0px 20px 30px;
+					rgb(0 0 0 / 0.025) 0 0 0 1px,
+					rgb(0 0 0 / 0.05) 0px 1px 0px,
+					rgb(0 0 0 / 0.03) 0px 0px 8px,
+					rgb(0 0 0 / 0.1) 0px 20px 30px;
 			}
 
 			& .button-arrow {
@@ -146,7 +145,6 @@
 		font-weight: 800;
 		background: #0a1530;
 		color: #fff;
-		line-height: 1.25;
 		padding: 0.33em 2rem;
 		border-radius: 4px;
 		text-align: center;

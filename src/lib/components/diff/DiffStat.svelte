@@ -14,9 +14,11 @@
 {#snippet icon()}
 	<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 20 20">
 		<style>
+			/* stylelint-disable csstools/value-no-unknown-custom-properties */
 			.stripe-1 {
 				fill: var(--wallace-diffstat-fg);
 			}
+
 			.stripe-2 {
 				fill: var(--wallace-diffstat-bg);
 			}

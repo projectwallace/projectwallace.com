@@ -76,6 +76,7 @@
 {/each}
 
 <style>
+	/* stylelint-disable csstools/value-no-unknown-custom-properties */
 	button[role='treeitem'] {
 		content-visibility: auto;
 		contain-intrinsic-size: auto 28.8px;
