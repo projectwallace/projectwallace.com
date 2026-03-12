@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-	import { DECLARATION, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
+	import { DECLARATION, RAW, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
 	import { MediaQuery } from 'svelte/reactivity'
 
 	// Brute force type definition for CssNode so we can iterate over its keys
@@ -98,6 +98,11 @@
 					<span class="property">{prop}</span>: <span class="number">{node[prop]}</span>
 				</li>
 			{/each}
+		{/if}
+		{#if node.type === RAW}
+			<li>
+				<span class="property">text</span>: <span class="string">{JSON.stringify(node.text)}</span>
+			</li>
 		{/if}
 		{#each filter_properties(plain_node) as key}
 			{@const value = plain_node[key]}
