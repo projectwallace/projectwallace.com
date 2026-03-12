@@ -161,7 +161,9 @@ test.describe('Inspecting an origin', () => {
 	})
 
 	test('Shift+clicking an origin opens the HTML/CSS in a new tab', async ({ context }) => {
-		let new_page_promise: Promise<Page> = new Promise((resolve) => context.once('page', resolve))
+		let new_page_promise: Promise<Page> = new Promise((resolve) => {
+			context.once('page', resolve)
+		})
 
 		// Shift+click the origin
 		await first_origin.click({ modifiers: ['Shift'] })
