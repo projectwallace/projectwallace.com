@@ -10,6 +10,7 @@
 	}
 
 	let { initial_theme }: Props = $props()
+	// svelte-ignore state_referenced_locally
 	let theme = $state<Theme | undefined>(initial_theme)
 	let prefers_light = new MediaQuery('(prefers-color-scheme: light)', false)
 	let popover_open = $state(false)
