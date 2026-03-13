@@ -31,7 +31,7 @@
 		"@sveltejs/enhanced-img": "0.4.4",
 		"@sveltejs/kit": "^2.53.4",
 		"@sveltejs/pancake": "^0.0.18",
-		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"color-sorter": "^7.0.2",
 		"css-time-sort": "^3.0.0",
 		"diff": "^8.0.2",
@@ -44,7 +44,7 @@
 		"svelte": "^5.53.9",
 		"typescript": "^5.9.3",
 		"valibot": "^1.1.0",
-		"vite": "npm:rolldown-vite@7.2.2"
+		"vite": "8.0.0"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.58.2",
@@ -58,7 +58,7 @@
 		"stylelint-config-standard": "^40.0.0",
 		"stylelint-value-no-unknown-custom-properties": "^6.1.1",
 		"svelte-check": "^4.4.5",
-		"vitest": "^4.0.18"
+		"vitest": "^4.1.0"
 	},
 	"overrides": {
 		"@projectwallace/css-analyzer": "$@projectwallace/css-analyzer",
@@ -66,6 +66,7 @@
 		"@projectwallace/format-css": "$@projectwallace/format-css",
 		"color-sorter": "$color-sorter",
 		"runed": "$runed",
+		"sharp": "0.34.3",
 		"vite": "$vite"
 	}
 }
