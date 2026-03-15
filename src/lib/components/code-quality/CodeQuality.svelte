@@ -136,7 +136,7 @@
 				<section>
 					<header>
 						<Heading element="h3">Report JSON</Heading>
-						<CopyButton text={JSON.stringify(result, undefined, 2)}>Copy JSON</CopyButton>
+						<CopyButton text={() => JSON.stringify(result, undefined, 2)}>Copy JSON</CopyButton>
 					</header>
 					<Textarea name="json-output" id="json-output" value={JSON.stringify(result, undefined, 2)} readonly />
 				</section>

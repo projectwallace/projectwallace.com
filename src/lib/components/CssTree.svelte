@@ -86,7 +86,7 @@
 	<ol role="group">
 		{#if show_types}
 			<li>
-				<span class="property">type</span>: <span class="number">{node.type}</span>
+				<span class="property" data-testid="type">type</span>: <span class="number">{node.type}</span>
 			</li>
 			<li>
 				<span class="property">type_name</span>: <span class="string">{JSON.stringify(node.type_name)}</span>

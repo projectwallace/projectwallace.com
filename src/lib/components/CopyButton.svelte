@@ -4,7 +4,7 @@
 	import type { Variant } from './Button'
 
 	interface Props {
-		text: string
+		text: string | (() => string)
 		variant?: Variant
 		children?: Snippet
 	}
@@ -14,8 +14,9 @@
 	let timer_id: number | undefined = $state()
 
 	async function copyToClipBoard() {
+		let txt = typeof text === 'function' ? text() : text
 		try {
-			await navigator.clipboard.writeText(text)
+			await navigator.clipboard.writeText(txt)
 			timer_id = window.setTimeout(() => {
 				timer_id = undefined
 			}, 2000)
