@@ -37,7 +37,7 @@ test.describe('locations', () => {
 		await expect(locations).toHaveCount(0)
 	})
 
-	test('location data becomes visible once enabled', async ({page}) => {
+	test('location data becomes visible once enabled', async ({ page }) => {
 		await page.getByLabel('Show locations').check()
 		let locations = page.getByTestId('location')
 		await expect(locations.first()).toBeVisible()
@@ -55,7 +55,7 @@ test.describe('node types', () => {
 		await expect(types).toHaveCount(0)
 	})
 
-	test('node types become visible once enabled', async ({page}) => {
+	test('node types become visible once enabled', async ({ page }) => {
 		await page.getByLabel('Show types').check()
 		let types = page.getByTestId('type')
 		await expect(types.first()).toBeVisible()
@@ -65,16 +65,16 @@ test.describe('node types', () => {
 test.describe('Atrule prelude parsing', () => {
 	test('enabled by default', async ({ page }) => {
 		await expect(page.getByLabel('Parse atrule preludes')).toBeChecked()
-		let treeitem = page.getByRole('treeitem', { name: 'MediaQuery (32)'})
+		let treeitem = page.getByRole('treeitem', { name: 'MediaQuery (32)' })
 		await treeitem.scrollIntoViewIfNeeded()
 		await expect(treeitem).toBeVisible()
 	})
 
-	test('raw node is shown when disabled', async ({page}) => {
+	test('raw node is shown when disabled', async ({ page }) => {
 		await page.getByLabel('Parse atrule preludes').uncheck()
-		let treeitem = page.getByRole('treeitem', { name: 'MediaQuery (32)'})
+		let treeitem = page.getByRole('treeitem', { name: 'MediaQuery (32)' })
 		expect(treeitem).not.toBeAttached()
-		let item = page.getByRole('treeitem', { name: 'Atrule (3)'}).getByRole('treeitem', { name: 'Raw (8)'})
+		let item = page.getByRole('treeitem', { name: 'Atrule (3)' }).getByRole('treeitem', { name: 'Raw (8)' })
 		await item.scrollIntoViewIfNeeded()
 		await expect(item).toBeVisible()
 	})
@@ -83,16 +83,48 @@ test.describe('Atrule prelude parsing', () => {
 test.describe('Selector parsing', () => {
 	test('enabled by default', async ({ page }) => {
 		await expect(page.getByLabel('Parse selectors')).toBeChecked()
-		let treeitem = page.getByRole('treeitem', { name: 'Selector (5)'}).first()
+		let treeitem = page.getByRole('treeitem', { name: 'Selector (5)' }).first()
 		await treeitem.scrollIntoViewIfNeeded()
 		await expect(treeitem).toBeVisible()
 	})
 
-	test('raw node is shown when disabled', async ({page}) => {
+	test('raw node is shown when disabled', async ({ page }) => {
 		await page.getByLabel('Parse selectors').uncheck()
-		let treeitem = page.getByRole('treeitem', { name: 'Selector (5)'}).first()
+		let treeitem = page.getByRole('treeitem', { name: 'Selector (5)' }).first()
 		await expect(treeitem).not.toBeAttached()
-		let item = page.getByRole('treeitem', { name: 'Rule (2)'}).first().getByRole('treeitem', { name: 'Raw (8)'}).first()
+		let item = page
+			.getByRole('treeitem', { name: 'Rule (2)' })
+			.first()
+			.getByRole('treeitem', { name: 'Raw (8)' })
+			.first()
+		await item.scrollIntoViewIfNeeded()
+		await expect(item).toBeVisible()
+	})
+})
+
+test.describe('Value parsing', () => {
+	test('enabled by default', async ({ page }) => {
+		await expect(page.getByLabel('Parse values')).toBeChecked()
+		let treeitem = page
+			.getByRole('treeitem', { name: 'Value (50)' })
+			.getByRole('treeitem', { name: 'Identifier (10)' })
+			.first()
+		await treeitem.scrollIntoViewIfNeeded()
+		await expect(treeitem).toBeVisible()
+	})
+
+	test('raw node is shown when disabled', async ({ page }) => {
+		await page.getByLabel('Parse values').uncheck()
+		let treeitem = page
+			.getByRole('treeitem', { name: 'Value (50)' })
+			.getByRole('treeitem', { name: 'Identifier (10)' })
+			.first()
+		await expect(treeitem).not.toBeAttached()
+		let item = page
+			.getByRole('treeitem', { name: 'Declaration (4)' })
+			.first()
+			.getByRole('treeitem', { name: 'Raw (8)' })
+			.first()
 		await item.scrollIntoViewIfNeeded()
 		await expect(item).toBeVisible()
 	})
@@ -140,7 +172,6 @@ test.describe('autofocus', () => {
 	})
 })
 
-
 // Super broken for some reason, but it actually just works
 test.skip('prettifies the CSS when button is clicked', async ({ page }) => {
 	let input = page.getByLabel('CSS input')
@@ -166,14 +197,16 @@ test.describe('URL hash state', () => {
 		let input = page.getByLabel('CSS input')
 		let css = 'test { color: red; }'
 		await input.fill(css)
-		let expected_url = `/ast-explorer#${encodeHash({css, parse_atrule_preludes: true, parse_selectors: true, parse_values: true})}`
+		let expected_url = `/ast-explorer#${encodeHash({ css, parse_atrule_preludes: true, parse_selectors: true, parse_values: true })}`
 		await page.waitForURL(expected_url)
 		await expect(page).toHaveURL(expected_url)
 	})
 
 	test('opening page with hash shows prefilled input and AST output', async ({ page }) => {
 		let css = 'custom { display: block; }'
-		await page.goto(`/ast-explorer#${encodeHash({css, parse_atrule_preludes: true, parse_selectors: true, parse_values: true})}`)
+		await page.goto(
+			`/ast-explorer#${encodeHash({ css, parse_atrule_preludes: true, parse_selectors: true, parse_values: true })}`
+		)
 
 		let input = page.getByLabel('CSS input')
 		await expect(input).toHaveValue(css)
