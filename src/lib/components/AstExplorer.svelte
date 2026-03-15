@@ -7,6 +7,7 @@
 	import HighlightedTextarea from './HighlightedTextarea.svelte'
 	import { HashState } from '$lib/url-hash-state.svelte'
 	import Button from './Button.svelte'
+	import CopyButton from './CopyButton.svelte'
 
 	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined)
 	let show_locations = new PersistedState('ast-show-locations', false)
@@ -24,11 +25,27 @@
 		'a { color: red; background: blue !important; #test-nested { color: green; } } c + b[aria-selected^="true" i] { border: 3px solid rgb(0 30% 0 / 50%) } @media (min-width: 600px) or print { test { color: blue !ie; } }'
 	)
 
-	let css = new HashState<string>(DEFAULT_CSS)
+	type UrlState = {
+		css: string
+		parse_atrule_preludes: boolean
+		parse_selectors: boolean
+		parse_values: boolean
+	}
+
+	let url_state = new HashState<UrlState>({
+		css: DEFAULT_CSS,
+		parse_atrule_preludes: true,
+		parse_selectors: true,
+		parse_values: true
+	})
 
 	let ast = $derived.by(() => {
 		try {
-			return parse(css.current)
+			return parse(url_state.current.css, {
+				parse_atrule_preludes: url_state.current.parse_atrule_preludes,
+				parse_selectors: url_state.current.parse_selectors,
+				parse_values: url_state.current.parse_values
+			})
 		} catch (error) {
 			return undefined
 		}
@@ -57,7 +74,10 @@
 	}
 
 	function prettify() {
-		css.current = format(css.current)
+		url_state.current = {
+			...url_state.current,
+			css: format(url_state.current.css)
+		}
 	}
 </script>
 
@@ -70,40 +90,60 @@
 
 <div class="ast-explorer">
 	<div class="panes">
-		<div class="pane">
+		<div class="pane options">
 			<div class="pane-header">
-				<label for="input-css">CSS input</label>
-				<Button size="sm" variant="secondary" icon="brush" on_click={prettify}>Prettify CSS</Button>
+				<div class="pane-title">Options</div>
 			</div>
 			<div class="pane-content">
-				<HighlightedTextarea id="input-css" name="input-css" bind:value={css.current} {on_cursor_move} />
+				<div>
+					<input
+						type="checkbox"
+						name="parse-atrule-preludes"
+						id="parse-atrule-preludes"
+						bind:checked={url_state.current.parse_atrule_preludes}
+					/>
+					<label for="parse-atrule-preludes">Parse atrule preludes</label>
+				</div>
+				<div>
+					<input
+						type="checkbox"
+						name="parse-selectors"
+						id="parse-selectors"
+						bind:checked={url_state.current.parse_selectors}
+					/>
+					<label for="parse-selectors">Parse selectors</label>
+				</div>
+				<div>
+					<input type="checkbox" name="parse-values" id="parse-values" bind:checked={url_state.current.parse_values} />
+					<label for="parse-values">Parse values</label>
+				</div>
+				<div>
+					<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
+					<label for="show-locations">Show locations</label>
+				</div>
+				<div>
+					<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
+					<label for="show-types">Show types</label>
+				</div>
+				<div>
+					<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
+					<label for="autofocus-node">Autofocus selected node</label>
+				</div>
 			</div>
 		</div>
 		<div class="pane">
 			<div class="pane-header">
-				<label for="ast-output">AST output</label>
-				<div class="split"></div>
-				<div>
-					<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
-					<label for="show-locations">
-						<span class="sr-only">Show locations</span>
-						<span aria-hidden="true">Locations</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
-					<label for="show-types">
-						<span class="sr-only">Show types</span>
-						<span aria-hidden="true">Types</span>
-					</label>
-				</div>
-				<div>
-					<label for="autofocus-node">
-						<div class="sr-only">Autofocus selected node</div>
-						<span aria-hidden="true">Autofocus</span>
-					</label>
-					<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
-				</div>
+				<label for="input-css" class="pane-title">CSS input</label>
+				<Button size="sm" variant="secondary" icon="brush" on_click={prettify}>Prettify CSS</Button>
+			</div>
+			<div class="pane-content">
+				<HighlightedTextarea id="input-css" name="input-css" bind:value={url_state.current.css} {on_cursor_move} />
+			</div>
+		</div>
+		<div class="pane">
+			<div class="pane-header">
+				<label for="ast-output" class="pane-title">AST output</label>
+				<CopyButton variant="secondary" text={() => JSON.stringify(ast?.clone(), null, 2)}>Copy JSON</CopyButton>
 			</div>
 			<div class="pane-content">
 				{#if ast !== undefined}
@@ -129,6 +169,7 @@
 		--wallace-ast-explorer-border-color: var(--bg-300);
 		--wallace-ast-explorer-border-width: var(--space-px);
 		--wallace-ast-explorer-pane-block-size: calc(100vh - 16rem);
+
 		container-type: inline-size;
 		container-name: --ast-explorer;
 		border-width: var(--wallace-ast-explorer-border-width);
@@ -156,8 +197,8 @@
 		display: grid;
 		align-items: stretch;
 
-		@container --ast-explorer (min-width: 33rem) {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+		@container --ast-explorer (min-width: 50rem) {
+			grid-template-columns: max-content 1fr 1fr;
 		}
 	}
 
@@ -167,7 +208,6 @@
 		block-size: 100%;
 		display: grid;
 		grid-template-rows: auto 1fr;
-		row-gap: var(--space-2);
 
 		&:not(:first-child) {
 			border-inline-start-width: var(--wallace-ast-explorer-border-width);
@@ -192,16 +232,28 @@
 		row-gap: var(--space-2);
 		justify-content: space-between;
 		border-block-end-width: var(--wallace-ast-explorer-border-width);
-		border-block-end-color: var(--wallace-ast-explorer-border-color);
+		border-color: var(--wallace-ast-explorer-border-color);
 
-		& .split {
-			margin-inline-start: auto;
+		&:not(.pane:first-child &) {
+			@container --ast-explorer (max-width: 50rem) {
+				border-block-start-width: var(--wallace-ast-explorer-border-width);
+			}
 		}
 	}
 
+	.pane-title {
+		font-weight: var(--font-bold);
+	}
+
 	.pane-content {
-		block-size: var(--wallace-ast-explorer-pane-block-size);
-		font-size: var(--size-specimen);
 		overflow-x: auto;
+
+		&:not(.options &) {
+			font-size: var(--size-specimen);
+
+			@container --ast-explorer (min-width: 50rem) {
+				block-size: var(--wallace-ast-explorer-pane-block-size);
+			}
+		}
 	}
 </style>

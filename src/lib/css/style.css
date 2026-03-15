@@ -28,6 +28,7 @@
 			--orange-100: hsl(31.7deg 90% 90%);
 			--orange-300: #fcb76a;
 			--orange-400: hsl(31.7deg 96.7% 47.3%);
+			--orange-500: hsl(31.7deg 97% 32.3%);
 			--pink-300: rgb(233 44 120);
 			--pink-400: hsl(335.9deg 89% 50%);
 			--pink-500: hsl(335.9deg 80% 40%);
@@ -453,10 +454,10 @@
 			html {
 				--highlight-property: light-dark(var(--blue-400), var(--blue-100));
 				--highlight-number: light-dark(var(--blue-300), var(--blue-200));
-				--highlight-string: light-dark(var(--orange-400), var(--orange-300));
+				--highlight-string: light-dark(var(--orange-500), var(--orange-300));
 				--highlight-name: light-dark(var(--purple-600), var(--purple-200));
 				--highlight-selector: light-dark(var(--green-500), var(--teal-400));
-				--highlight-comment: var(--fg-400);
+				--highlight-comment: light-dark(var(--fg-700), var(--fg-400));
 				--highlight-value: var(--fg-200);
 				--highlight-atrule: light-dark(var(--red-300), #ff7b72);
 				--highlight-important: var(--highlight-atrule);

@@ -3,6 +3,10 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.stylelint": "explicit"
 	},
+	"[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
 	"editor.renderWhitespace": "none",
 	"css.validate": false,
 	"less.validate": false,
