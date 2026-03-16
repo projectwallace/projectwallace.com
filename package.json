@@ -48,7 +48,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.58.2",
-		"@sveltejs/adapter-netlify": "^5.2.3",
+		"@sveltejs/adapter-netlify": "^6.0.4",
 		"@types/node": "^24.10.0",
 		"oxlint": "^1.56.0",
 		"postcss-html": "^1.8.1",
