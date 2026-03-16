@@ -41,18 +41,22 @@
 		popover_open = event.newState === 'open'
 	}
 
-	async function save_preference() {
-		// TODO: debounce
+	let save_timer: ReturnType<typeof setTimeout>
+
+	function save_preference() {
 		if (theme) {
 			set_theme(theme)
 		}
-		await fetch('/api/theme', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'text/plain'
-			},
-			body: theme
-		})
+		clearTimeout(save_timer)
+		save_timer = setTimeout(() => {
+			fetch('/api/theme', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'text/plain'
+				},
+				body: theme
+			})
+		}, 300)
 	}
 
 	function get_theme_icon(theme?: Theme): 'sun' | 'moon' {
