@@ -82,12 +82,12 @@
 			</div>
 		{:else}
 			<ol class="sections">
-				{#each results as section}
+				{#each results as section (section.title)}
 					{#if section.items.length > 0}
 						<li class="section">
 							<div class="section-title title">{section.title}</div>
 							<ol class="items">
-								{#each section.items as list_item}
+								{#each section.items as list_item (list_item.href)}
 									<li class="item">
 										<a class="shortcut" href={list_item.href}>
 											<span class="icon">

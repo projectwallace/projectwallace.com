@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
+	import { on } from 'svelte/events'
 	import type { Theme } from '$lib/theme'
 	import Icon from '$components/Icon.svelte'
 	import ThemePreview from './ThemePreview.svelte'
@@ -20,7 +20,7 @@
 		document.documentElement.dataset.theme = theme
 	}
 
-	onMount(() => {
+	$effect(() => {
 		if (!initial_theme) {
 			// If no initial theme is provided, we need to check the system preference
 			if (prefers_light.current) {
@@ -30,12 +30,11 @@
 			}
 			set_theme(theme)
 		}
+	})
 
-		popover?.addEventListener('keydown', prevent_fullscreen_close)
-
-		return () => {
-			popover?.removeEventListener('keydown', prevent_fullscreen_close)
-		}
+	$effect(() => {
+		if (!popover) return
+		return on(popover, 'keydown', prevent_fullscreen_close)
 	})
 
 	function ontoggle(event: ToggleEvent) {
