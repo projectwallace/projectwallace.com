@@ -121,10 +121,6 @@
 			background-color: var(--uneven-tr-bg);
 		}
 
-		&:not([aria-selected='true']):hover {
-			outline: 1px solid var(--fg-450);
-			outline-offset: -1px;
-		}
 	}
 
 	td,

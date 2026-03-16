@@ -435,6 +435,11 @@
 			z-index: 1;
 		}
 
+		[aria-selected='false']:hover {
+			outline: 1px solid var(--fg-450);
+			outline-offset: -1px;
+		}
+
 		:focus-visible {
 			outline: 2px solid var(--accent);
 			outline-offset: -2px;

@@ -147,10 +147,6 @@
 
 		&.clickable {
 			cursor: pointer;
-
-			&:where(:not([aria-selected='true']):hover) {
-				outline: 1px solid var(--fg-450);
-			}
 		}
 	}
 </style>
