@@ -19,6 +19,7 @@
 	let { sizes = Object.create(null), limit = 30 }: Props = $props()
 
 	let sorting = $state('by-source-order')
+	// svelte-ignore state_referenced_locally
 	let sorted = $state(Object.entries(sizes))
 
 	$effect(() => {

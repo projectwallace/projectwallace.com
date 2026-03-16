@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { on } from 'svelte/events'
+
 	type NavItem = {
 		id: string
 		title: string
@@ -28,12 +30,14 @@
 			}
 		})
 
+		const SCROLL_SPY_THRESHOLD = 100
+
 		function update() {
 			// Find the last heading that has scrolled past the top of the viewport
 			let currentId: string | undefined
 			for (const id of sectionIds) {
 				const el = document.getElementById(id)
-				if (el && el.getBoundingClientRect().top <= 100) {
+				if (el && el.getBoundingClientRect().top <= SCROLL_SPY_THRESHOLD) {
 					currentId = id
 				}
 			}
@@ -45,12 +49,8 @@
 			activeIds = next
 		}
 
-		window.addEventListener('scroll', update, { passive: true })
+		on(window, 'scroll', update, { passive: true })
 		update()
-
-		return () => {
-			window.removeEventListener('scroll', update)
-		}
 	})
 
 	function on_select(event: Event) {
@@ -69,7 +69,7 @@
 	<div class="compact">
 		<label for="report-nav" aria-labelledby="report-nav-title"></label>
 		<select name="report-nav" id="report-nav" onchange={on_select}>
-			{#each nav as { title, items }}
+			{#each nav as { id, title, items } (id)}
 				{#if items}
 					<optgroup label={title}>
 						{#each items as item}
@@ -84,7 +84,7 @@
 	</div>
 
 	<div class="loose" aria-labelledby="report-nav-title">
-		{#each nav as { id, title, items }}
+		{#each nav as { id, title, items } (id)}
 			<a href="#{id}" class="parent" aria-current={activeIds.has(id) ? 'true' : undefined}>
 				{title}
 			</a>

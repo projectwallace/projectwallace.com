@@ -11,6 +11,7 @@
 
 	let { children, initial_open: initialOpen = false, closable = false }: Props = $props()
 
+	// svelte-ignore state_referenced_locally
 	let status: Status = $state(initialOpen ? 'open' : 'closed')
 	let element: HTMLDivElement | undefined = undefined
 

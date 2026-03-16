@@ -1,4 +1,4 @@
-import { onDestroy, setContext, getContext } from "svelte"
+import { setContext, getContext } from "svelte"
 import { format } from "@projectwallace/format-css"
 import type { CSSOrigin } from "./css-origins"
 import { SvelteSet } from "svelte/reactivity"
@@ -23,12 +23,6 @@ class CssState {
 	selected_location = $state<number | undefined>()
 	run_id = $state<string | undefined>()
 	url = $state<string | undefined>()
-
-	constructor() {
-		onDestroy(() => {
-			this.enabled_origins.clear()
-		})
-	}
 
 	#join_origins() {
 		let blob = ''

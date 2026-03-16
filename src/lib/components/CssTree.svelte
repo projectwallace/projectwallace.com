@@ -8,6 +8,7 @@
 
 	// Brute force type definition for CssNode so we can iterate over its keys
 	type Node = CSSNode & {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any
 	}
 
@@ -93,7 +94,7 @@
 			</li>
 		{/if}
 		{#if show_locations}
-			{#each ['line', 'column', 'start', 'end', 'length'] as prop}
+			{#each ['line', 'column', 'start', 'end', 'length'] as prop (prop)}
 				<li data-testid="location">
 					<span class="property">{prop}</span>: <span class="number">{node[prop]}</span>
 				</li>
@@ -104,7 +105,7 @@
 				<span class="property">text</span>: <span class="string">{JSON.stringify(node.text)}</span>
 			</li>
 		{/if}
-		{#each filter_properties(plain_node) as key}
+		{#each filter_properties(plain_node) as key (key)}
 			{@const value = plain_node[key]}
 			{@const expandable = typeof value === 'object' && value !== null}
 			<li>
@@ -131,7 +132,7 @@
 			<li>
 				<span class="property">children</span>:
 				<ol role="group">
-					{#each node.children as child}
+					{#each node.children as child (child.start)}
 						<CssTree
 							node={child}
 							depth={depth + 1}
