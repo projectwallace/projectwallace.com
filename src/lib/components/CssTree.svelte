@@ -8,7 +8,8 @@
 
 	// Brute force type definition for CssNode so we can iterate over its keys
 	type Node = CSSNode & {
-		[key: string]: unknown
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		[key: string]: any
 	}
 
 	import CssTree from './CssTree.svelte'
@@ -112,7 +113,7 @@
 				{#if expandable}
 					<ol role="group">
 						<CssTree
-							node={value as Node}
+							node={value}
 							depth={depth + 1}
 							{show_locations}
 							{show_types}
