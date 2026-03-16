@@ -36,9 +36,16 @@ type CSSStyleTagOrigin = {
 	url: string
 }
 
+type CSSInlineOrigin = {
+	type: 'inline'
+	css: string
+	url: string
+}
+
 export type CSSOrigin = CSSImportOrigin
 	| CSSLinkOrigin
 	| CSSFileOrigin
 	| CSSStyleTagOrigin
+	| CSSInlineOrigin
 	| CSSRawInputOrigin
 	| CSSLocalFileOrigin

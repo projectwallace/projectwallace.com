@@ -1,6 +1,7 @@
 import { parseHTML } from 'linkedom'
 import { parse, walk } from '@projectwallace/css-parser'
 import { resolve_url } from '../../../lib/resolve-url.js'
+import type { CSSOrigin } from '../../../lib/css-origins.js'
 
 export const USER_AGENT = 'Project Wallace CSS Scraper/1.1 (+https://www.projectwallace.com/docs/css-scraper)'
 
@@ -97,13 +98,8 @@ async function get_css_file(url: string | URL, abort_signal: AbortSignal) {
 	}
 }
 
-type StyleItem =
-	| { type: 'link'; href: string | null; media: string | null; rel: string | null; url: string; css: string }
-	| { type: 'style'; css: string; url: string }
-	| { type: 'inline'; css: string; url: string }
-
-function get_styles(nodes: NodeListOf<Element>, base_url: string): StyleItem[] {
-	let items: StyleItem[] = []
+function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
+	let items: CSSOrigin[] = []
 	let inline_styles = ''
 
 	for (let node of nodes) {
@@ -111,9 +107,9 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): StyleItem[] {
 			let href = node.getAttribute('href')
 			items.push({
 				type: 'link',
-				href,
-				media: node.getAttribute('media'),
-				rel: node.getAttribute('rel'),
+				href: href ?? '',
+				media: node.getAttribute('media') ?? undefined,
+				rel: node.getAttribute('rel') ?? '',
 				url: href !== null && href.startsWith('http') ? href : base_url + href,
 				css: ''
 			})
