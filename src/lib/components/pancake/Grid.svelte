@@ -8,7 +8,9 @@
 	function get_ticks(start, stop, count = 5) {
 		let reverse
 		let i = -1
-		let n, ticks, step
+		let n
+		let ticks
+		let step
 
 		if (start === stop && count > 0) return [start]
 
