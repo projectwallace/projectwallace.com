@@ -1,6 +1,10 @@
 <script lang="ts">
-	// @ts-expect-error Pancake types are missing
-	import * as Pancake from '@sveltejs/pancake'
+	import Chart from '$lib/components/pancake/Chart.svelte'
+	import Grid from '$lib/components/pancake/Grid.svelte'
+	import Svg from '$lib/components/pancake/Svg.svelte'
+	import SvgScatterplot from '$lib/components/pancake/SvgScatterplot.svelte'
+	import SvgLine from '$lib/components/pancake/SvgLine.svelte'
+	const Pancake = { Chart, Grid, Svg, SvgScatterplot, SvgLine }
 	import { format_number } from '$lib/format-number'
 	import { IsInViewport } from 'runed'
 	interface Props {
