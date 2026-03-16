@@ -13,7 +13,7 @@
 		"test": "playwright test",
 		"test:unit": "vitest run --exclude **/*.spec.ts",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"lint": "oxlint --config oxlintrc.json && eslint",
+		"lint": "oxlint --config oxlintrc.json",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore",
 		"css-coverage": "css-coverage --coverage-dir=./css-coverage --min-coverage=.9  --min-file-coverage=.66 --show-uncovered=all"
 	},
@@ -50,8 +50,6 @@
 		"@playwright/test": "^1.58.2",
 		"@sveltejs/adapter-netlify": "^5.2.3",
 		"@types/node": "^24.10.0",
-		"eslint": "^9.0.0",
-		"eslint-plugin-svelte": "^3.0.0",
 		"oxlint": "^1.55.0",
 		"postcss-html": "^1.8.1",
 		"prettier": "^3.8.1",
