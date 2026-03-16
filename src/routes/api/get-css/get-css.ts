@@ -4,6 +4,10 @@ import { resolve_url } from '../../../lib/resolve-url.js'
 
 export const USER_AGENT = 'Project Wallace CSS Scraper/1.1 (+https://www.projectwallace.com/docs/css-scraper)'
 
+function make_error(url: string, statusCode: number, message: string) {
+	return { error: { url, statusCode, message } }
+}
+
 function is_wayback_url(url: string) {
 	return /^(?:(?:https:)?\/\/)?web\.archive\.org\/web\/\d{14}\/.+/.test(url)
 }
@@ -29,10 +33,15 @@ function get_import_urls(css: string) {
 	return urls
 }
 
+const MAX_TEXT_PREVIEW = 3000 // prevent unbound regex
+
 const HTML_REGEX = /<\/?(html|body|head|div|span|script|style)/i
 
+const WAYBACK_TOOLBAR_START = '<!-- BEGIN WAYBACK TOOLBAR INSERT -->'
+const WAYBACK_TOOLBAR_END = '<!-- END WAYBACK TOOLBAR INSERT -->'
+
 function is_html_like(text: string): boolean {
-	text = text.substring(0, 3000) // prevent unbound regex
+	text = text.substring(0, MAX_TEXT_PREVIEW)
 	return HTML_REGEX.test(text)
 }
 
@@ -42,7 +51,7 @@ const SELECTOR_REGEX = /(@[a-z-]+|\[[^\]]+\]|[a-z_#.-][a-z0-9_-]*)\s*\{/i
 const DECLARATION_REGEX = /^\s*[a-z-]+\s*:\s*.+;?\s*$/im
 
 function is_css_like(text: string): boolean {
-	text = text.substring(0, 3000) // prevent unbound regex
+	text = text.substring(0, MAX_TEXT_PREVIEW)
 	return SELECTOR_REGEX.test(text) || DECLARATION_REGEX.test(text)
 }
 
@@ -88,8 +97,13 @@ async function get_css_file(url: string | URL, abort_signal: AbortSignal) {
 	}
 }
 
-function get_styles(nodes: NodeListOf<Element>, base_url: string) {
-	let items = []
+type StyleItem =
+	| { type: 'link'; href: string | null; media: string | null; rel: string | null; url: string; css: string }
+	| { type: 'style'; css: string; url: string }
+	| { type: 'inline'; css: string; url: string }
+
+function get_styles(nodes: NodeListOf<Element>, base_url: string): StyleItem[] {
+	let items: StyleItem[] = []
 	let inline_styles = ''
 
 	for (let node of nodes) {
@@ -128,10 +142,7 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string) {
 					.split(/\s+/g)
 					.filter((s) => {
 						if (s.length === 0) return false
-						if (s.length === 1) {
-							let code = s.charCodeAt(0)
-							if (code < 48 || code > 122) return false
-						}
+						if (s.length === 1 && !/^[a-zA-Z0-9_-]$/.test(s)) return false
 						return true
 					})
 					.map((s) => s.replaceAll(/(\[|\]|:|\.|\/)/g, '\\$1'))
@@ -161,13 +172,7 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 	let resolved_url = resolve_url(url)
 
 	if (resolved_url === undefined) {
-		return {
-			error: {
-				url,
-				statusCode: 400,
-				message: 'The URL is not valid. Are you sure you entered a URL and not CSS?'
-			}
-		}
+		return make_error(url, 400, 'The URL is not valid. Are you sure you entered a URL and not CSS?')
 	}
 
 	let body: string
@@ -191,19 +196,10 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 		body = await response.text()
 		headers = response.headers
 	} catch (error: unknown) {
-		clearTimeout(timeout_id)
-
 		if (typeof error === 'object' && error !== null && 'message' in error) {
 			// Examples: chatgpt.com
 			if (error.message === 'Forbidden') {
-				return {
-					error: {
-						url,
-						statusCode: 403,
-						message:
-							'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?'
-					}
-				}
+				return make_error(url, 403, 'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?')
 			}
 
 			// Examples: localhost, sduhsdf.test
@@ -212,41 +208,23 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 				if (url.includes('localhost') || url.includes('192.168') || url.includes('127.0.0.1')) {
 					message += ' You are trying to scrape a local server. Make sure to use a public URL.'
 				}
-
-				return {
-					error: {
-						url,
-						statusCode: 400,
-						message
-					}
-				}
+				return make_error(url, 400, message)
 			}
 
 			// Examples: projectwallace.com/auygsdjhgsj
 			if (error.message === 'Not Found') {
-				return {
-					error: {
-						url,
-						statusCode: 404,
-						message: 'The origin server responded with a 404 Not Found status code.'
-					}
-				}
+				return make_error(url, 404, 'The origin server responded with a 404 Not Found status code.')
 			}
 		}
 
 		// Generic error handling (TODO: add test case)
-		return {
-			error: {
-				url,
-				statusCode: 500,
-				message: 'something went wrong'
-			}
-		}
+		return make_error(url, 500, 'something went wrong')
+	} finally {
+		clearTimeout(timeout_id)
 	}
 
 	// Return early if our response was a CSS file already
 	if (headers.get('content-type')?.includes('text/css')) {
-		clearTimeout(timeout_id)
 		return [
 			{
 				type: 'file',
@@ -257,14 +235,11 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 	}
 
 	// Remove the Wayback Machine toolbar if it's present
-	const START_COMMENT = '<!-- BEGIN WAYBACK TOOLBAR INSERT -->'
-	const END_COMMENT = '<!-- END WAYBACK TOOLBAR INSERT -->'
-
-	let start_insert = body.indexOf(START_COMMENT)
-	let end_insert = body.indexOf(END_COMMENT)
+	let start_insert = body.indexOf(WAYBACK_TOOLBAR_START)
+	let end_insert = body.indexOf(WAYBACK_TOOLBAR_END)
 
 	if (start_insert !== -1 && end_insert !== -1) {
-		body = body.substring(0, start_insert) + body.substring(end_insert + END_COMMENT.length)
+		body = body.substring(0, start_insert) + body.substring(end_insert + WAYBACK_TOOLBAR_END.length)
 	}
 
 	let { document } = parseHTML(body)
@@ -327,8 +302,6 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 			}
 		}
 	}
-
-	clearTimeout(timeout_id)
 
 	return result.filter(({ css }) => css.length > 0)
 }

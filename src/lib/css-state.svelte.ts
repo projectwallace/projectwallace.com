@@ -63,18 +63,19 @@ class CssState {
 		this.css = this.#join_origins()
 	}
 
-	prettify(enabled = true) {
+	#set_prettify(enabled: boolean) {
 		this.should_prettify = enabled
 		this.css = this.#join_origins()
 		this.unselect_item()
 		this.unselect_location()
 	}
 
+	prettify(enabled = true) {
+		this.#set_prettify(enabled)
+	}
+
 	uglify() {
-		this.should_prettify = false
-		this.css = this.#join_origins()
-		this.unselect_item()
-		this.unselect_location()
+		this.#set_prettify(false)
 	}
 
 	select_origin_at(index: number) {
