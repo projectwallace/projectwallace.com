@@ -162,7 +162,7 @@
 								(rule['unicode-range'] || '')
 						)}
 						{@const selected = value === selected_item?.value && selected_item.type === 'font-face'}
-						<tr class:active={selected} use:item={{ value }}>
+						<tr aria-selected={selected ? 'true' : 'false'} use:item={{ value }}>
 							{#each default_descriptors.concat(Array.from(extra_descriptors)) as property}
 								<td>
 									{#if property in rule}
@@ -205,12 +205,11 @@
 <style>
 	tbody tr {
 		cursor: pointer;
-	}
 
-	tr.active {
-		background-color: var(--gray-500);
-		outline: 1px solid var(--teal-400);
-		outline-offset: -1px;
+		&:not([aria-selected='true']):hover {
+			outline: 1px solid var(--fg-450);
+			outline-offset: -1px;
+		}
 	}
 
 	th,

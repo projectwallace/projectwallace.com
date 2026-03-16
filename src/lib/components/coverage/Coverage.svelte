@@ -284,10 +284,11 @@
 
 	tbody tr {
 		cursor: pointer;
-	}
 
-	tr[aria-selected='true'] {
-		background-color: var(--highlight);
+		&:not([aria-selected='true']):hover {
+			outline: 1px solid var(--fg-450);
+			outline-offset: -1px;
+		}
 	}
 
 	tr {

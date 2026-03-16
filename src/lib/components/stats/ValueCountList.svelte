@@ -124,10 +124,6 @@
 		outline-offset: -1px;
 	}
 
-	[aria-selected='true'] {
-		background-color: var(--highlight);
-	}
-
 	.warning {
 		text-decoration: var(--orange-400) wavy underline;
 	}
