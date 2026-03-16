@@ -4,6 +4,7 @@ excerpt: Collect and analyze CSS coverage using Playwright tests to detect and p
 ---
 
 <script>
+	import BlogImage from '$components/BlogImage.svelte'
 	import cli from '$lib/img/blog/2025-10-31-how-to-calculate-css-code-coverage-with-playwright/css-code-coverage-linter-cli.png?enhanced'
   import cli_full from '$lib/img/blog/2025-10-31-how-to-calculate-css-code-coverage-with-playwright/css-code-coverage-linter-cli.png'
 </script>
@@ -139,7 +140,7 @@ This is the result when running it for projectwallace.com's repository:
 
 <figure>
 	<a href={cli_full}>
-		<enhanced:img src={cli} alt="A terminal showing 'Failed: line coverage is 82.50%% which is lower than the threshold of 0.9; Failed: 4 files do not meet the minimum line coverage of 70.00% (minimum coverage was 47.75%)' and part of a CSS file where some lines are marked as uncovered." loading="lazy" />
+		<BlogImage src={cli} alt="A terminal showing 'Failed: line coverage is 82.50%% which is lower than the threshold of 0.9; Failed: 4 files do not meet the minimum line coverage of 70.00% (minimum coverage was 47.75%)' and part of a CSS file where some lines are marked as uncovered." loading="lazy" />
 	</a>
 	<figcaption>The CLI tool highlights which lines are not covered and even gives a hint with how many lines to go to meet the threshold.</figcaption>
 </figure>

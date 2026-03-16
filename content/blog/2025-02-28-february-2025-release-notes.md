@@ -4,6 +4,7 @@ excerpt: A new feature on the site that has been on the list for years and it's 
 ---
 
 <script>
+  import BlogImage from '$components/BlogImage.svelte'
   import item_highlight from '$lib/img/blog/2025-02-28-february-2025-release-notes/item-usage-highlight.png?enhanced'
   import item_highlight_full from '$lib/img/blog/2025-02-28-february-2025-release-notes/item-usage-highlight.png'
   import diffstat from '$lib/img/blog/2025-02-28-february-2025-release-notes/diffstat.png?enhanced'
@@ -29,7 +30,7 @@ You rarely audit one website or file in isolation. Wallace has many pages and de
 - The CSS Scraper pages now has it's own network panel. It's the same one you're familiar with from the analyzer and layers pages. While writing these release notes I spotted a very nasty UI bug so expect that to be fixed soon.
 - Pseudo classes analysis because this is rather useful when looking for usage of `:popover-open` or other new-ish selectors that might not be readily available yet in all browsers.
   <a href={pseudo_classes_full}>
-  <enhanced:img src={pseudo_classes} alt="A table of 12 CSS pseudo classes, sorted by count." loading="eager" fetchproprity="high" />
+  <BlogImage src={pseudo_classes} alt="A table of 12 CSS pseudo classes, sorted by count." loading="eager" fetchproprity="high" />
   </a>
 
 ## Updated features
@@ -39,7 +40,7 @@ You rarely audit one website or file in isolation. Wallace has many pages and de
 - Syntax highlighting in item usage devtools.
 
   <a href={item_highlight_full}>
-    <enhanced:img src={item_highlight} alt="Item usage devtools showing a table of syntax highlighted CSS rulesets" loading="lazy" />
+    <BlogImage src={item_highlight} alt="Item usage devtools showing a table of syntax highlighted CSS rulesets" loading="lazy" />
   </a>
 
   After implementing sytax highlighting in most large `<pre>` blocks I fgured it was time for smaller chunks of code to look nice too.
@@ -47,7 +48,7 @@ You rarely audit one website or file in isolation. Wallace has many pages and de
 - Calculating the diffstat on the [CSS Diff page](/css-diff) is now a lot more accurate on large diffs as well as being a bunch faster. I'm really into using typed arrays in JavaScript lately, so the diffstat is now a `Uint8Array()` with 5 integers: `0` for unchanged, `1` for deletions and `2` for additions.
 
   <a href={diffstat_full}>
-    <enhanced:img src={diffstat} alt="A git diff shown with a diffstat above it saying that there were 5 changes: 3 additions and 2 deletions. It shows 5 squares, 3 green and 2 red." loading="lazy" />
+    <BlogImage src={diffstat} alt="A git diff shown with a diffstat above it saying that there were 5 changes: 3 additions and 2 deletions. It shows 5 squares, 3 green and 2 red." loading="lazy" />
   </a>
 
 ### Split panes
@@ -63,7 +64,7 @@ The AST Explorer was the first page where I implemented the excellent [PaneForge
 Resize and render performance isn't exactly great in some of these places when bombarding it with big CSS input, but it's on my radar and some day I'll fgure out how to tackle that.
 
 <a href={resize_full}>
-  <enhanced:img src={resize} alt="Wallace devtools network panel with the horizontal resize handle being highlighted" loading="lazy" />
+  <BlogImage src={resize} alt="Wallace devtools network panel with the horizontal resize handle being highlighted" loading="lazy" />
 </a>
 
 ## Dependencies
