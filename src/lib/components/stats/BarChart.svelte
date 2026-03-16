@@ -33,6 +33,7 @@
 	let {
 		elements: { root, item }
 	} = create_keyboard_list({
+		// svelte-ignore state_referenced_locally
 		enabled: enable_keyboard_navigation
 	})
 

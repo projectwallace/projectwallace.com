@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, type Snippet } from 'svelte'
+	import { type Snippet } from 'svelte'
 	import { innerHeight } from 'svelte/reactivity/window'
 	import { createTabs, melt } from '@melt-ui/svelte'
 	import Icon from '$lib/components/Icon.svelte'
@@ -38,7 +38,7 @@
 	let current_height = $state(0)
 	let max_height = $state(0)
 
-	onMount(function () {
+	$effect(() => {
 		max_height = (innerHeight.current || 100) * 0.5
 	})
 

@@ -25,8 +25,9 @@
 		error = undefined
 	}
 
-	function on_render_error() {
+	function on_render_error(error: any) {
 		status = 'error'
+		console.error(error)
 	}
 </script>
 
