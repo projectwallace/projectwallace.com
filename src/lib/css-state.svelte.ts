@@ -1,4 +1,4 @@
-import { onDestroy, setContext, getContext } from "svelte"
+import { setContext, getContext } from "svelte"
 import { format } from "@projectwallace/format-css"
 import type { CSSOrigin } from "./css-origins"
 import { SvelteSet } from "svelte/reactivity"
@@ -23,12 +23,6 @@ class CssState {
 	selected_location = $state<number | undefined>()
 	run_id = $state<string | undefined>()
 	url = $state<string | undefined>()
-
-	constructor() {
-		onDestroy(() => {
-			this.enabled_origins.clear()
-		})
-	}
 
 	#join_origins() {
 		let blob = ''
@@ -63,18 +57,19 @@ class CssState {
 		this.css = this.#join_origins()
 	}
 
-	prettify(enabled = true) {
+	#set_prettify(enabled: boolean) {
 		this.should_prettify = enabled
 		this.css = this.#join_origins()
 		this.unselect_item()
 		this.unselect_location()
 	}
 
+	prettify(enabled = true) {
+		this.#set_prettify(enabled)
+	}
+
 	uglify() {
-		this.should_prettify = false
-		this.css = this.#join_origins()
-		this.unselect_item()
-		this.unselect_location()
+		this.#set_prettify(false)
 	}
 
 	select_origin_at(index: number) {

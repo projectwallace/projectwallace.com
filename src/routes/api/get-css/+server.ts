@@ -5,7 +5,7 @@ export async function GET({ setHeaders, url }) {
 	let analyzeUrl = url.searchParams.get('url')
 
 	if (!analyzeUrl) {
-		return json({ error: 'Missing URL' })
+		return json({ error: 'Missing URL' }, { status: 400 })
 	}
 
 	try {

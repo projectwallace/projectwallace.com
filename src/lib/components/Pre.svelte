@@ -139,9 +139,9 @@
 			if (chunk.is_covered) return false
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top > current_scroll_offset
-		})!
+		})
 		let next_chunk = next_uncovered_chunk
-		let first_uncovered_chunk = coverage_chunks.find((chunk) => !chunk.is_covered)!
+		let first_uncovered_chunk = coverage_chunks.find((chunk) => !chunk.is_covered)
 		let is_scrolled_to_bottom = body.scrollTop === body.scrollHeight - body.clientHeight
 
 		if (!next_uncovered_chunk || is_scrolled_to_bottom) {
@@ -150,7 +150,9 @@
 			next_chunk = first_uncovered_chunk
 		}
 
-		scroll_to_line(next_chunk.start_line)
+		if (next_chunk) {
+			scroll_to_line(next_chunk.start_line)
+		}
 	}
 
 	function jump_to_previous_uncovered() {
@@ -163,8 +165,8 @@
 			if (chunk.is_covered) return false
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top < current_scroll_offset
-		})!
-		let last_uncovered_chunk = coverage_chunks.findLast((chunk) => !chunk.is_covered)!
+		})
+		let last_uncovered_chunk = coverage_chunks.findLast((chunk) => !chunk.is_covered)
 		let next_chunk = previous_uncovered_chunk
 		let is_scrolled_to_top = body.scrollTop === 0
 
@@ -174,7 +176,9 @@
 			next_chunk = last_uncovered_chunk
 		}
 
-		scroll_to_line(next_chunk.start_line)
+		if (next_chunk) {
+			scroll_to_line(next_chunk.start_line)
+		}
 	}
 </script>
 

@@ -6,7 +6,8 @@
 	import { onNavigate } from '$app/navigation'
 	import { items } from './Nav.items'
 	import { get_css_state } from '$lib/css-state.svelte'
-	import { onMount, type Snippet } from 'svelte'
+	import { type Snippet } from 'svelte'
+	import { on } from 'svelte/events'
 
 	let { children }: { children: Snippet } = $props()
 
@@ -72,12 +73,8 @@
 
 	useResizeObserver(() => wrapper, on_resize)
 
-	onMount(() => {
-		window?.addEventListener('keydown', prevent_fullscreen_close)
-
-		return () => {
-			window?.removeEventListener('keydown', prevent_fullscreen_close)
-		}
+	$effect(() => {
+		return on(window, 'keydown', prevent_fullscreen_close)
 	})
 
 	function prevent_fullscreen_close(event: KeyboardEvent) {
