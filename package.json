@@ -28,7 +28,7 @@
 		"@projectwallace/css-layer-tree": "^2.1.2",
 		"@projectwallace/css-parser": "^0.13.8",
 		"@projectwallace/format-css": "^2.2.6",
-		"@sveltejs/enhanced-img": "0.4.4",
+		"@sveltejs/enhanced-img": "^0.10.4",
 		"@sveltejs/kit": "^2.55.0",
 		"@sveltejs/pancake": "^0.0.18",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",

@@ -4,6 +4,7 @@ excerpt: 35 releases but hardly anything that you will notice. Read on to learn 
 ---
 
 <script>
+  import BlogImage from '$components/BlogImage.svelte'
   import layers from '$lib/img/blog/2025-03-31-march-2025-release-notes/layers.png?enhanced'
   import layers_full from '$lib/img/blog/2025-03-31-march-2025-release-notes/layers.png'
 </script>
@@ -33,7 +34,7 @@ Dropped Tailwind CSS, autoprefixer and postcss. There, it's out there. I still l
 Even though I've tried to do the migration in small pieces you may still occasionally see some broken styling here and there.
 
 <a href={layers_full}>
-  <enhanced:img src={layers} alt="A layer tree showing 11 layers." loading="lazy" />
+  <BlogImage src={layers} alt="A layer tree showing 11 layers." loading="lazy" />
 </a>
 
 I even implemented a rudimentary layer architecture right after I finished the migration!

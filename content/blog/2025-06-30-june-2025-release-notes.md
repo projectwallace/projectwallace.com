@@ -4,6 +4,7 @@ excerpt: "'Only' 20 releases on the website this month but also lots of releases
 ---
 
 <script>
+	import BlogImage from '$components/BlogImage.svelte'
 	import counterscale from '$lib/img/blog/2025-06-30-june-2025-release-notes/counterscale.png?enhanced'
   import counterscale_full from '$lib/img/blog/2025-06-30-june-2025-release-notes/counterscale.png'
 	import resets from '$lib/img/blog/2025-06-30-june-2025-release-notes/resets.png?enhanced'
@@ -30,7 +31,7 @@ Sparked by Ana Rodrigues' talk on CSS Day which showed that she used Project Wal
 
 <figure>
 	<a href={resets_full}>
-		<enhanced:img src={resets} alt="A table showing CSS spacing resets found on a page." loading="eager" />
+		<BlogImage src={resets} alt="A table showing CSS spacing resets found on a page." loading="eager" />
 	</a>
 	<figcaption>Spacing resets can be considered a code smell sometimes.</figcaption>
 </figure>
@@ -41,7 +42,7 @@ Initially sparked by the [Web Almanac CSS chapter](https://almanac.httparchive.o
 
 <figure>
 	<a href={nesting_full}>
-		<enhanced:img src={nesting} alt="A table showing CSS nesting depths found on a page." loading="lazy" />
+		<BlogImage src={nesting} alt="A table showing CSS nesting depths found on a page." loading="lazy" />
 	</a>
 	<figcaption>Oh, Adam, you're different than the rest of us</figcaption>
 </figure>
@@ -52,7 +53,7 @@ For a quick overview of what your atrule game looks like you can look at the new
 
 <figure>
 	<a href={atrules_full}>
-		<enhanced:img src={atrules} alt="A table showing CSS atrules found on a page." loading="lazy" />
+		<BlogImage src={atrules} alt="A table showing CSS atrules found on a page." loading="lazy" />
 	</a>
 	<figcaption>Oh look, this looks like modern stuff. Look at how many <code>@property</code> and <code>@layer</code> atrules.</figcaption>
 </figure>
@@ -66,7 +67,7 @@ Our design tokens page has had a panel for design tokens for a long time but now
 Because I *sometimes* wish I had it. Nothing more. The CSS analyzer page shows a graph and table of selector complexity. Because of that it makes sense to offer [a standalone tool](/selector-complexity) to test individual selectors quickly.
 
 <a href={complexity_full}>
-	<enhanced:img src={complexity} alt="The complexity calculator showing the complexity of a long selector" loading="lazy" />
+	<BlogImage src={complexity} alt="The complexity calculator showing the complexity of a long selector" loading="lazy" />
 </a>
 
 ## Updated features
@@ -93,7 +94,7 @@ Because I *sometimes* wish I had it. Nothing more. The CSS analyzer page shows a
 - Top pages: [analyze-css](/analyze-css) (25%), [get-css](/get-css) (21.7%), [css-code-quality](/css-code-quality) (18%), [design-tokens](/design-tokens) (7%)
 
 <a href={counterscale_full}>
-	<enhanced:img src={counterscale} alt="Dashboard overview of Counterscale website analytics for this website over the month June of 2025" loading="lazy" />
+	<BlogImage src={counterscale} alt="Dashboard overview of Counterscale website analytics for this website over the month June of 2025" loading="lazy" />
 </a>
 
 ---
