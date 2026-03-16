@@ -23,12 +23,12 @@
 		if (step > 0) {
 			start = Math.ceil(start / step)
 			stop = Math.floor(stop / step)
-			ticks = new Array((n = Math.ceil(stop - start + 1)))
+			ticks = Array.from({ length: (n = Math.ceil(stop - start + 1)) })
 			while (++i < n) ticks[i] = (start + i) * step
 		} else {
 			start = Math.floor(start * step)
 			stop = Math.ceil(stop * step)
-			ticks = new Array((n = Math.ceil(start - stop + 1)))
+			ticks = Array.from({ length: (n = Math.ceil(start - stop + 1)) })
 			while (++i < n) ticks[i] = (start - i) / step
 		}
 
@@ -50,9 +50,7 @@
 
 	let { count = undefined, ticks = undefined, vertical = false, children } = $props()
 
-	let _ticks = $derived(
-		ticks ?? (vertical ? get_ticks(ctx.x1, ctx.x2, count) : get_ticks(ctx.y1, ctx.y2, count))
-	)
+	let _ticks = $derived(ticks ?? (vertical ? get_ticks(ctx.x1, ctx.x2, count) : get_ticks(ctx.y1, ctx.y2, count)))
 
 	function style(tick) {
 		return vertical

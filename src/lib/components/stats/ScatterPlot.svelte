@@ -4,9 +4,9 @@
 	import Svg from '$lib/components/pancake/Svg.svelte'
 	import SvgScatterplot from '$lib/components/pancake/SvgScatterplot.svelte'
 	import SvgLine from '$lib/components/pancake/SvgLine.svelte'
-	const Pancake = { Chart, Grid, Svg, SvgScatterplot, SvgLine }
 	import { format_number } from '$lib/format-number'
 	import { IsInViewport } from 'runed'
+
 	interface Props {
 		items: number[]
 		max: number
@@ -21,8 +21,8 @@
 
 <div class="chart" bind:this={wrapper}>
 	{#if is_in_viewport.current === true}
-		<Pancake.Chart x1={0} x2={items.length} y1={0} y2={max}>
-			<Pancake.Grid horizontal count={3}>
+		<Chart x1={0} x2={items.length} y1={0} y2={max}>
+			<Grid vertical={false} count={3}>
 				{#snippet children({ value }: { value: number })}
 					<!-- Only show whole numbers on the y-axis -->
 					{#if Number.isInteger(value)}
@@ -32,17 +32,17 @@
 						</span>
 					{/if}
 				{/snippet}
-			</Pancake.Grid>
+			</Grid>
 
 			{#if points.length > 0}
-				<Pancake.Svg>
-					<Pancake.SvgScatterplot data={points}>
+				<Svg>
+					<SvgScatterplot data={points}>
 						{#snippet children({ d }: { d: string })}
 							<path class="dot" {d} />
 						{/snippet}
-					</Pancake.SvgScatterplot>
+					</SvgScatterplot>
 					{#if threshold != -1}
-						<Pancake.SvgLine
+						<SvgLine
 							data={[
 								{ x: 0, y: threshold },
 								{ x: items.length, y: threshold }
@@ -51,11 +51,11 @@
 							{#snippet children({ d }: { d: string })}
 								<path class="threshold" {d} />
 							{/snippet}
-						</Pancake.SvgLine>
+						</SvgLine>
 					{/if}
-				</Pancake.Svg>
+				</Svg>
 			{/if}
-		</Pancake.Chart>
+		</Chart>
 	{/if}
 </div>
 
