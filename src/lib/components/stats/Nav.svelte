@@ -28,12 +28,14 @@
 			}
 		})
 
-		function update() {
+		const SCROLL_SPY_THRESHOLD = 100
+
+	function update() {
 			// Find the last heading that has scrolled past the top of the viewport
 			let currentId: string | undefined
 			for (const id of sectionIds) {
 				const el = document.getElementById(id)
-				if (el && el.getBoundingClientRect().top <= 100) {
+				if (el && el.getBoundingClientRect().top <= SCROLL_SPY_THRESHOLD) {
 					currentId = id
 				}
 			}
@@ -69,10 +71,10 @@
 	<div class="compact">
 		<label for="report-nav" aria-labelledby="report-nav-title"></label>
 		<select name="report-nav" id="report-nav" onchange={on_select}>
-			{#each nav as { title, items }}
+			{#each nav as { id, title, items } (id)}
 				{#if items}
 					<optgroup label={title}>
-						{#each items as item}
+						{#each items as item (item.id)}
 							<option value={item.id}>{item.title}</option>
 						{/each}
 					</optgroup>
@@ -84,12 +86,12 @@
 	</div>
 
 	<div class="loose" aria-labelledby="report-nav-title">
-		{#each nav as { id, title, items }}
+		{#each nav as { id, title, items } (id)}
 			<a href="#{id}" class="parent" aria-current={activeIds.has(id) ? 'true' : undefined}>
 				{title}
 			</a>
 			{#if items}
-				{#each items as item}
+				{#each items as item (item.id)}
 					<a href="#{item.id}" class="child" aria-current={activeIds.has(item.id) ? 'true' : undefined}>
 						{item.title}
 					</a>

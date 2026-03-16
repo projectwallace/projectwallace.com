@@ -8,7 +8,7 @@
 	import Markdown from '$components/Markdown.svelte'
 	import Container from '$components/Container.svelte'
 	import Heading from '$components/Heading.svelte'
-	import { onMount } from 'svelte'
+	import { on } from 'svelte/events'
 	import Hero from '$components/Hero.svelte'
 
 	let data: Coverage[] = $state([])
@@ -50,12 +50,8 @@
 		}
 	}
 
-	onMount(() => {
-		window.addEventListener('keydown', on_keydown)
-
-		return () => {
-			window.removeEventListener('keydown', on_keydown)
-		}
+	$effect(() => {
+		return on(window, 'keydown', on_keydown)
 	})
 </script>
 
