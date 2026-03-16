@@ -121,9 +121,6 @@
 			background-color: var(--uneven-tr-bg);
 		}
 
-		&[aria-selected='true'] {
-			background-color: var(--highlight);
-		}
 	}
 
 	td,

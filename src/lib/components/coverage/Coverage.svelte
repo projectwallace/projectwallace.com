@@ -286,10 +286,6 @@
 		cursor: pointer;
 	}
 
-	tr[aria-selected='true'] {
-		background-color: var(--highlight);
-	}
-
 	tr {
 		--meter-bg: repeating-linear-gradient(
 			-45deg,

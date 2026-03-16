@@ -119,15 +119,6 @@
 		color: inherit;
 	}
 
-	[aria-selected='false']:hover {
-		outline: 1px solid var(--fg-450);
-		outline-offset: -1px;
-	}
-
-	[aria-selected='true'] {
-		background-color: var(--highlight);
-	}
-
 	.warning {
 		text-decoration: var(--orange-400) wavy underline;
 	}

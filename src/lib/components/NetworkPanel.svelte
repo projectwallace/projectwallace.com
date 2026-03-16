@@ -386,10 +386,6 @@
 
 	tbody tr {
 		position: relative;
-
-		&[aria-selected='true'] {
-			background-color: var(--highlight);
-		}
 	}
 
 	tbody a::after {
