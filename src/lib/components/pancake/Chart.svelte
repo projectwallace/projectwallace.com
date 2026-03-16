@@ -17,20 +17,15 @@
 		const d0 = domain[0]
 		const r0 = range[0]
 		const m = (range[1] - r0) / (domain[1] - d0)
-		return Object.assign((num) => r0 + (num - d0) * m, {
-			inverse: () => linear_scale(range, domain)
-		})
+		return Object.assign((num) => r0 + (num - d0) * m)
 	}
 
 	let chart = $state()
 	let width = $state(0)
 	let height = $state(0)
-	let pointer = $state(null)
 
 	let x_scale = $derived(linear_scale([x1, x2], [0, 100]))
 	let y_scale = $derived(linear_scale([y1, y2], [100, 0]))
-	let x_scale_inverse = $derived(x_scale.inverse())
-	let y_scale_inverse = $derived(y_scale.inverse())
 
 	setContext(key, {
 		get x1() {
@@ -50,15 +45,6 @@
 		},
 		get y_scale() {
 			return y_scale
-		},
-		get x_scale_inverse() {
-			return x_scale_inverse
-		},
-		get y_scale_inverse() {
-			return y_scale_inverse
-		},
-		get pointer() {
-			return pointer
 		},
 		get width() {
 			return width
