@@ -243,7 +243,8 @@ test.describe('Design Tokens panel', () => {
 		await button.click()
 
 		let clipboard_text = await page.evaluate(async () => {
-			return await navigator.clipboard.readText()
+			let txt = await navigator.clipboard.readText()
+			return txt
 		})
 		expect.soft(clipboard_text).toContain('"com.projectwallace.css-authored-as": "12px"')
 	})

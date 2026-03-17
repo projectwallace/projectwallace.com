@@ -3,7 +3,8 @@ import type { Locator } from '@playwright/test'
 
 let input: Locator
 
-const ERROR_MESSAGE = 'Your selector complexity cannot be calculated. Please check your selector carefully for mistakes.'
+const ERROR_MESSAGE =
+	'Your selector complexity cannot be calculated. Please check your selector carefully for mistakes.'
 
 test.describe('without preloading', () => {
 	test.beforeEach(async ({ page }) => {
@@ -89,7 +90,7 @@ test.describe('with preloading', () => {
 		let result = page.getByTestId('complexity-result')
 
 		for (let complexity of await result.all()) {
-			expect.soft(complexity).toBeVisible()
+			await expect.soft(complexity).toBeVisible()
 		}
 	})
 

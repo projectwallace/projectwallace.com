@@ -90,7 +90,7 @@ export function create_keyboard_list({
 			}
 			active_index = new_index
 			let node = root.childNodes[new_index] as HTMLElement
-			if (node) {
+			if (node !== undefined) {
 				node.tabIndex = 0
 				node.focus()
 				scroll_into_view_if_necessary(node, { block: 'center' })
@@ -107,12 +107,12 @@ export function create_keyboard_list({
 		}
 
 		let old_node = root.childNodes[active_index]
-		if (active_index !== -1 && old_node) {
+		if (active_index !== -1 && old_node !== undefined) {
 			;(old_node as HTMLElement).tabIndex = -1
 		}
 		active_index = index
 		let node = root.childNodes[active_index] as HTMLElement
-		if (node) {
+		if (node !== undefined) {
 			node.tabIndex = 0
 			node.focus()
 			scroll_into_view_if_necessary(node, { block: 'center' })

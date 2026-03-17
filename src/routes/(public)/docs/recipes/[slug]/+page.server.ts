@@ -1,7 +1,8 @@
 import { error } from '@sveltejs/kit'
 import { getRecipes } from '$lib/recipes'
+import type { PageServerLoad } from './$types'
 
-export function load({ params }) {
+export const load: PageServerLoad = ({ params }) => {
 	const page = getRecipes().find((p) => params.slug === p.slug)
 
 	if (page === undefined) {

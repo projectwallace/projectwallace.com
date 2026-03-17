@@ -2,6 +2,7 @@ export const trailingSlash = 'never' // or 'always' or 'ignore', depending on wh
 
 import { dev } from '$app/environment'
 import { env } from '$env/dynamic/private'
+import type { LayoutServerLoad } from './$types'
 
 function should_allow_analytics({
 	dev,
@@ -16,7 +17,7 @@ function should_allow_analytics({
 
 	if (deploy_context !== 'production') return false
 
-	if (user_agent) {
+	if (user_agent !== null) {
 		user_agent = user_agent.toLowerCase()
 
 		if (user_agent.includes('playwright')) return false
@@ -29,12 +30,12 @@ function should_allow_analytics({
 	return true
 }
 
-export function load({ locals, request }) {
+export const load: LayoutServerLoad = ({ locals, request }) => {
 	let deploy_context =
-		env.CONTEXT ||
-		env.DEPLOY_CONTEXT ||
-		request.headers.get('x-nf-deploy-context') ||
-		request.headers.get('x-nf-site-id') ||
+		env.CONTEXT ??
+		env.DEPLOY_CONTEXT ??
+		request.headers.get('x-nf-deploy-context') ??
+		request.headers.get('x-nf-site-id') ??
 		'unknown'
 
 	let allow_analytics = should_allow_analytics({

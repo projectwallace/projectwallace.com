@@ -1,5 +1,7 @@
 // https://developer.chrome.com/blog/using-requestidlecallback
 
+// oxlint-disable strict-boolean-expressions
+
 globalThis.requestIdleCallback =
 	globalThis.requestIdleCallback ||
 	function (cb) {

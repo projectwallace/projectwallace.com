@@ -44,7 +44,10 @@ test('allows minified CSS to be copied', async ({ page, context }) => {
 	// Check the clipboard
 	await context.grantPermissions(['clipboard-write', 'clipboard-read'])
 	await copy_button.click()
-	let clipboard_contents = await page.evaluate(async () => await navigator.clipboard.readText())
+	let clipboard_contents = await page.evaluate(async () => {
+		let txt = await navigator.clipboard.readText()
+		return txt
+	})
 	expect(clipboard_contents).toBe(minified)
 })
 

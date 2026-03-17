@@ -73,7 +73,7 @@ test.describe('Atrule prelude parsing', () => {
 	test('raw node is shown when disabled', async ({ page }) => {
 		await page.getByLabel('Parse atrule preludes').uncheck()
 		let treeitem = page.getByRole('treeitem', { name: 'MediaQuery (32)' })
-		expect(treeitem).not.toBeAttached()
+		await expect(treeitem).not.toBeAttached()
 		let item = page.getByRole('treeitem', { name: 'Atrule (3)' }).getByRole('treeitem', { name: 'Raw (8)' })
 		await item.scrollIntoViewIfNeeded()
 		await expect(item).toBeVisible()

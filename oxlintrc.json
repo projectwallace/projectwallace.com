@@ -58,7 +58,9 @@
 		"no-warning-comments": "warn",
 		"no-inline-comments": "off",
 		"prefer-at": "off",
-		"no-map-spread": "off"
+		"no-map-spread": "off",
+		"strict-boolean-expressions": "off",
+		"no-confusing-void-expression": "off"
 	},
 	"overrides": [
 		{

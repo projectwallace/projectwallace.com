@@ -5,15 +5,15 @@ type ServerError = {
 	statusCode: number
 }
 
-export class CssFetchNetworkError extends Error { }
+export class CssFetchNetworkError extends Error {}
 
-export class CssFetchApiError extends Error { }
+export class CssFetchApiError extends Error {}
 
-export class CssFetchRemoteError extends Error { }
+export class CssFetchRemoteError extends Error {}
 
-class UrlNotFoundError extends Error { }
+class UrlNotFoundError extends Error {}
 
-export async function get_css(url: string | FormDataEntryValue): Promise<CSSOrigin[]> {
+export async function get_css(url: string): Promise<CSSOrigin[]> {
 	let response: Response
 
 	try {
@@ -22,7 +22,7 @@ export async function get_css(url: string | FormDataEntryValue): Promise<CSSOrig
 				Accept: 'application/json'
 			}
 		})
-	} catch (error: unknown) {
+	} catch {
 		console.error('Network Error while fetching CSS from remote')
 		throw new CssFetchNetworkError('Network Error while fetching CSS from remote')
 	}
@@ -32,7 +32,7 @@ export async function get_css(url: string | FormDataEntryValue): Promise<CSSOrig
 		throw new CssFetchApiError('Get CSS API Error while fetching CSS: ' + response.statusText)
 	}
 
-	let data: CSSOrigin[] | { error: ServerError } = await response.json()
+	let data = await response.json() as CSSOrigin[] | { error: ServerError }
 
 	if ('error' in data) {
 		let error = data.error

@@ -1,10 +1,11 @@
 import { error, json } from '@sveltejs/kit'
 import { get_css } from './get-css'
+import type { RequestHandler } from './$types'
 
-export async function GET({ setHeaders, url }) {
+export const GET: RequestHandler = async ({ setHeaders, url }) => {
 	let analyzeUrl = url.searchParams.get('url')
 
-	if (!analyzeUrl) {
+	if (analyzeUrl === null) {
 		return json({ error: 'Missing URL' }, { status: 400 })
 	}
 
@@ -20,6 +21,6 @@ export async function GET({ setHeaders, url }) {
 		return json(result)
 	} catch (err) {
 		console.error(err)
-		error(500, 'An unexpected error occurred.');
+		error(500, 'An unexpected error occurred.')
 	}
 }

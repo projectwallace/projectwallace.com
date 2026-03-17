@@ -1,6 +1,6 @@
 import { GH_TOKEN } from '$env/static/private'
 
-export async function graphql(fetch: typeof globalThis.fetch, query: string) {
+export async function graphql<T = unknown>(fetch: typeof globalThis.fetch, query: string): Promise<{ data: T }> {
 	if (!GH_TOKEN) {
 		throw new Error(`GH_TOKEN is not set`)
 	}
@@ -14,5 +14,5 @@ export async function graphql(fetch: typeof globalThis.fetch, query: string) {
 			query
 		})
 	})
-	return response.json()
+	return response.json() as Promise<{ data: T }>
 }
