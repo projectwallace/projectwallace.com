@@ -71,7 +71,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 			html,
 			title: metadata.title,
 			amount: parseFloat(metadata.amount)
-		} as Provider
+		} satisfies Provider
 	})
 
 	return {

@@ -42,7 +42,7 @@ export function create_keyboard_list({
 		// Enter or Space: select the focused option
 		if (event.key === 'Enter' || event.key === ' ') {
 			event.preventDefault()
-			let node = root.querySelector('[tabindex="0"]') as HTMLElement | null
+			let node = root.querySelector<HTMLElement>('[tabindex="0"]')
 			if (node !== null) {
 				node.tabIndex = 0
 				node.focus()
@@ -83,13 +83,13 @@ export function create_keyboard_list({
 
 		if (new_index !== active_index) {
 			if (active_index !== -1) {
-				let node = root.querySelector('[tabindex="0"]') as HTMLElement | null
+				let node = root.querySelector<HTMLElement>('[tabindex="0"]')
 				if (node !== null) {
 					node.tabIndex = -1
 				}
 			}
 			active_index = new_index
-			let node = root.childNodes[new_index] as HTMLElement
+			let node = root.childNodes[new_index] as HTMLElement | undefined
 			if (node !== undefined) {
 				node.tabIndex = 0
 				node.focus()
@@ -99,19 +99,19 @@ export function create_keyboard_list({
 	}
 
 	function on_root_click(event: MouseEvent) {
-		let target = (event.target as HTMLElement)?.closest('tr')
+		let target = (event.target as HTMLElement | null)?.closest('tr')
 		let index = target?.sectionRowIndex
 
 		if (index === undefined) {
 			return
 		}
 
-		let old_node = root.childNodes[active_index]
+		let old_node = root.childNodes[active_index] as HTMLElement | undefined
 		if (active_index !== -1 && old_node !== undefined) {
-			;(old_node as HTMLElement).tabIndex = -1
+			old_node.tabIndex = -1
 		}
 		active_index = index
-		let node = root.childNodes[active_index] as HTMLElement
+		let node = root.childNodes[active_index] as HTMLElement | undefined
 		if (node !== undefined) {
 			node.tabIndex = 0
 			node.focus()
@@ -141,8 +141,9 @@ export function create_keyboard_list({
 				child_count++
 
 				function on_item_click() {
-					if (active_index !== -1) {
-						;(root.childNodes[active_index] as HTMLElement).tabIndex = -1
+					let active_node = root.childNodes[active_index] as HTMLElement | undefined
+					if (active_index !== -1 && active_node !== undefined) {
+						active_node.tabIndex = -1
 					}
 					let i = 0
 					for (let item of root.childNodes) {

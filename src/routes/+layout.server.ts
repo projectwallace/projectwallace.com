@@ -17,7 +17,7 @@ function should_allow_analytics({
 
 	if (deploy_context !== 'production') return false
 
-	if (user_agent !== null) {
+	if (user_agent) {
 		user_agent = user_agent.toLowerCase()
 
 		if (user_agent.includes('playwright')) return false

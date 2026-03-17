@@ -18,10 +18,10 @@ export function focusable_children(node: HTMLElement) {
 		let i = (reordered.length + d) % reordered.length
 		let node
 
-		while ((node = reordered[i]) !== undefined) {
+		while ((node = reordered[i])) {
 			i += d
 
-			if (selector === undefined || node.matches(selector)) {
+			if (!selector || node.matches(selector)) {
 				node.focus()
 				return
 			}
@@ -31,7 +31,7 @@ export function focusable_children(node: HTMLElement) {
 	return {
 		first: (selector?: string) => {
 			for (let node of nodes) {
-				if (selector === undefined || node.matches(selector)) {
+				if (!selector || node.matches(selector)) {
 					node.focus()
 					break
 				}
@@ -40,7 +40,7 @@ export function focusable_children(node: HTMLElement) {
 		last: (selector?: string) => {
 			for (let i = nodes.length - 1; i >= 0; i--) {
 				const node = nodes[i]
-				if (selector === undefined || node.matches(selector)) {
+				if (!selector || node.matches(selector)) {
 					node.focus()
 					break
 				}
