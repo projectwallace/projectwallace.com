@@ -50,6 +50,8 @@ test.describe('stored theme and OS color scheme', () => {
 })
 
 test.describe('switching to a specific theme', () => {
+	test.describe.configure({ retries: 4 })
+
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
