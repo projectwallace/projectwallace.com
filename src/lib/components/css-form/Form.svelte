@@ -13,6 +13,7 @@
 	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '$lib/get-css'
 	import { get_css_state } from '$lib/css-state.svelte'
 	import { IsOnline } from '$lib/is-online.svelte'
+	import { HashState } from '$lib/url-hash-state.svelte'
 	import type { Snippet } from 'svelte'
 
 	interface Props {
@@ -29,6 +30,8 @@
 	let error: Error | undefined = $state()
 	let url = $state('')
 	let css_state = get_css_state()
+	let raw_hash_state = new HashState<{ css: string }>({ css: '' })
+	let initial_tab: 'url' | 'file' | 'raw' = raw_hash_state.current.css ? 'raw' : 'url'
 	let prettify = $state(page.url.searchParams.has('prettify') ? page.url.searchParams.get('prettify') === '1' : true)
 	let is_online = new IsOnline()
 
@@ -42,11 +45,11 @@
 		let input_val = form_data.get('raw-css')
 		let val = String(input_val)
 
-		// Remove ?url= and prettify= query parameters from the URL
+		// Remove ?url= and prettify= query parameters from the URL, but keep
+		// the hash so the raw CSS state is preserved for sharing
 		let cleaned_url = page.url
 		cleaned_url.searchParams.delete('url')
 		cleaned_url.searchParams.delete('prettify')
-		cleaned_url.hash = ''
 		await goto(cleaned_url, { replaceState: true })
 
 		status = 'idle'
@@ -167,7 +170,7 @@
 	</div>
 {/snippet}
 
-<InputModeSwitcher>
+<InputModeSwitcher default_tab={initial_tab}>
 	{#snippet title()}
 		{@render title_snippet?.()}
 	{/snippet}
@@ -227,7 +230,7 @@
 		<form method="POST" onsubmit={on_submit_raw}>
 			<FormGroup>
 				<Label for="raw-css">CSS to analyze</Label>
-				<Textarea name="raw-css" id="raw-css" wrap_lines required />
+				<Textarea name="raw-css" id="raw-css" wrap_lines required bind:value={raw_hash_state.current.css} />
 			</FormGroup>
 			{@render prettify_option()}
 			<div class="submit">
