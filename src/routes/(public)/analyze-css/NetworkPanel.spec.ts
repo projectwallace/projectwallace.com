@@ -172,7 +172,7 @@ test.describe('Inspecting an origin', () => {
 		let new_page = await new_page_promise
 		let pages = context.pages()
 		expect.soft(pages).toHaveLength(2)
-		if (fixture[0] && 'url' in fixture[0]) {
+		if ('url' in fixture[0]) {
 			expect.soft(new_page.url()).toContain(fixture[0].url)
 		}
 
@@ -190,7 +190,8 @@ test.describe('Inspecting an origin', () => {
 		await context.grantPermissions(['clipboard-write', 'clipboard-read'])
 		await css_slide.getByRole('button', { name: 'Copy CSS' }).click()
 		let clipboard_text = await page.evaluate(async () => {
-			return await navigator.clipboard.readText()
+			let txt = await navigator.clipboard.readText()
+			return txt
 		})
 		expect(clipboard_text).toBe('test-link-element {}')
 	})
@@ -204,7 +205,8 @@ test.describe('Inspecting an origin', () => {
 		// Hacky way to get the formatted CSS
 		await css_slide.getByRole('button', { name: 'Copy CSS' }).click()
 		let clipboard_text = await page.evaluate(async () => {
-			return await navigator.clipboard.readText()
+			let txt = await navigator.clipboard.readText()
+			return txt
 		})
 		expect(clipboard_text).toBe('test-link-element {}')
 	})

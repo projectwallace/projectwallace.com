@@ -51,7 +51,7 @@ test('clicking an item in the keyboard list focuses the element', async ({ page 
 	let row = table.getByRole('row').first()
 	await row.click()
 	await page.pause()
-	expect.soft(row).toBeFocused()
+	await expect.soft(row).toBeFocused()
 })
 
 test.describe('navigating the list', () => {
@@ -76,7 +76,7 @@ test.describe('navigating the list', () => {
 	test('pressing End moves focus to the last item', async ({ page }) => {
 		await table.getByRole('row').first().click()
 		await page.keyboard.press('End')
-		expect.soft(table.getByRole('row').last()).toBeFocused()
+		await expect.soft(table.getByRole('row').last()).toBeFocused()
 	})
 
 	test('pressing Meta+ArrowDown moves focus to the last item', async ({ page }) => {

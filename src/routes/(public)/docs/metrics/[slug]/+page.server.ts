@@ -1,7 +1,8 @@
 import { error } from '@sveltejs/kit'
 import { getMetrics } from '$lib/metrics'
+import type { PageServerLoad } from './$types'
 
-export function load({ params }) {
+export const load: PageServerLoad = ({ params }) => {
 	const page = getMetrics().find((doc) => params.slug === doc.slug)
 
 	if (page === undefined) {

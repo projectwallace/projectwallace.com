@@ -79,7 +79,8 @@ test.describe('DevTools: ItemUsage Panel', () => {
 			await panel.getByRole('button', { name: 'Copy selection' }).click()
 
 			let clipboard_text = await page.evaluate(async () => {
-				return await navigator.clipboard.readText()
+				const txt = await navigator.clipboard.readText()
+				return txt
 			})
 			expect(clipboard_text).toBe('font-size')
 		})

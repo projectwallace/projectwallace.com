@@ -1,7 +1,8 @@
 import { error } from '@sveltejs/kit'
 import { getPost, getPostList } from '$lib/blog'
+import type { PageServerLoad } from './$types'
 
-export function load({ params }) {
+export const load: PageServerLoad = ({ params }) => {
 	let post = getPost(params.slug)
 
 	if (post) {

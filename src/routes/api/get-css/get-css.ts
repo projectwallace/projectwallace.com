@@ -60,6 +60,7 @@ function is_js_like(text: string): boolean {
 	try {
 		// Only parses the input, does not execute it.
 		// NEVER EXECUTE THIS UNTRUSTED CODE!!!
+		// oxlint-disable-next-line no-implied-eval
 		new Function(text)
 		return true
 	} catch {
@@ -83,7 +84,7 @@ async function get_css_file(url: string | URL, abort_signal: AbortSignal) {
 		}
 
 		if (response.headers.get('content-type')?.includes('css')) {
-			return response.text()
+			return await response.text()
 		}
 
 		let text = await response.text()
@@ -121,7 +122,7 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 				url: base_url
 			})
 		} else if (node.hasAttribute('style')) {
-			let declarations = (node.getAttribute('style') || '').trim()
+			let declarations = (node.getAttribute('style') ?? '').trim()
 			if (declarations.length === 0) continue
 
 			// I forgot why I added this, but it's apparently important
@@ -174,7 +175,9 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 	let body: string
 	let headers: Headers
 	let abort_controller = new AbortController()
-	let timeout_id = setTimeout(() => abort_controller.abort(), timeout)
+	let timeout_id = setTimeout(() => {
+		abort_controller.abort()
+	}, timeout)
 
 	try {
 		let response = await fetch(resolved_url, {
@@ -195,7 +198,11 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 		if (typeof error === 'object' && error !== null && 'message' in error) {
 			// Examples: chatgpt.com
 			if (error.message === 'Forbidden') {
-				return make_error(url, 403, 'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?')
+				return make_error(
+					url,
+					403,
+					'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?'
+				)
 			}
 
 			// Examples: localhost, sduhsdf.test
@@ -252,7 +259,7 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 	let baseElement = document.querySelector('base[href]')
 	let baseUrl =
 		baseElement !== null && baseElement.hasAttribute('href') ? baseElement.getAttribute('href') : resolved_url
-	let items = get_styles(nodes, baseUrl?.toString() || '') || []
+	let items = get_styles(nodes, baseUrl?.toString() ?? '') || []
 	let result = []
 
 	for (let item of items) {

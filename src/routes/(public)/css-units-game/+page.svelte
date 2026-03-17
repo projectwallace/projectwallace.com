@@ -14,7 +14,7 @@
 
 	let interaction_started = false
 	let currentGuess = $state('')
-	let guessed: string[] = $state([]) // TODO: should be a subset type of `units`
+	let guessed: string[] = $state([])
 
 	function checkGuess(event: SubmitEvent) {
 		event.preventDefault()

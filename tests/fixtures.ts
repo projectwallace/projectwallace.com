@@ -111,7 +111,7 @@ export const expect = base_expect.extend({
 		}
 	},
 
-	async toHaveCanonical(page, { trailing_slash = false } = {}) {
+	async toHaveCanonical(page: Page, { trailing_slash = false } = {}) {
 		let canonicals = await page.locator('head link[rel*=canonical]').all()
 
 		if (canonicals.length !== 1) {
@@ -122,16 +122,16 @@ export const expect = base_expect.extend({
 			}
 		}
 
-		let href = await canonicals.at(0).getAttribute('href')
+		let href = await canonicals.at(0)?.getAttribute('href')
 
-		if (href.length === 0) {
+		if (href?.length === 0) {
 			return {
 				pass: false,
 				message: () => 'canonical href has no content'
 			}
 		}
 
-		if (href.endsWith('/') !== trailing_slash) {
+		if (href?.endsWith('/') !== trailing_slash) {
 			return {
 				pass: false,
 				message: () => `canonical href must ${trailing_slash ? '' : 'not'} have a traling slash; received "${href}"`
@@ -144,7 +144,7 @@ export const expect = base_expect.extend({
 		}
 	},
 
-	async toHaveMetaDescription(page) {
+	async toHaveMetaDescription(page: Page) {
 		let descriptions = await page.locator('head meta[name=description]').all()
 
 		if (descriptions.length !== 1) {
@@ -155,9 +155,9 @@ export const expect = base_expect.extend({
 			}
 		}
 
-		let content = await descriptions.at(0).getAttribute('content')
+		let content = await descriptions.at(0)?.getAttribute('content')
 
-		if (content.length === 0) {
+		if (content?.length === 0) {
 			return {
 				pass: false,
 				message: () => 'canonical href has no content'
@@ -170,7 +170,7 @@ export const expect = base_expect.extend({
 		}
 	},
 
-	async toHaveOpenGraphImage(page) {
+	async toHaveOpenGraphImage(page: Page) {
 		let images = await page.locator('head meta[property="og:image"]').all()
 
 		if (images.length !== 1) {
@@ -181,9 +181,9 @@ export const expect = base_expect.extend({
 			}
 		}
 
-		let content = await images.at(0).getAttribute('content')
+		let content = await images.at(0)?.getAttribute('content')
 
-		if (content.length === 0) {
+		if (content?.length === 0) {
 			return {
 				pass: false,
 				message: () => 'og:image has no content'

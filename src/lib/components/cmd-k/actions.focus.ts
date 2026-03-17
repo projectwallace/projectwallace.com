@@ -8,22 +8,22 @@ export function focusable_children(node: HTMLElement) {
 		node.querySelectorAll(
 			':where(a[href], button, input, textarea, select, summary, [tabindex]:not([tabindex="-1"])):not(details:not([open]) *), summary:not(details:not([open]) details *)'
 		)
-	);
+	)
 
-	const index = nodes.indexOf(document.activeElement as HTMLElement);
+	const index = nodes.indexOf(document.activeElement as HTMLElement)
 
 	function traverse(d: number, selector?: string) {
-		const reordered = [...nodes.slice(index), ...nodes.slice(0, index)];
+		const reordered = [...nodes.slice(index), ...nodes.slice(0, index)]
 
-		let i = (reordered.length + d) % reordered.length;
-		let node;
+		let i = (reordered.length + d) % reordered.length
+		let node
 
 		while ((node = reordered[i])) {
-			i += d;
+			i += d
 
 			if (!selector || node.matches(selector)) {
-				node.focus();
-				return;
+				node.focus()
+				return
 			}
 		}
 	}
@@ -46,35 +46,39 @@ export function focusable_children(node: HTMLElement) {
 				}
 			}
 		},
-		next: (selector?: string) => traverse(1, selector),
-		prev: (selector?: string) => traverse(-1, selector),
-	};
+		next: (selector?: string) => {
+			traverse(1, selector)
+		},
+		prev: (selector?: string) => {
+			traverse(-1, selector)
+		}
+	}
 }
 
 export function trap(node: HTMLElement, { reset_focus = true }: { reset_focus?: boolean } = {}) {
-	const previous = document.activeElement as HTMLElement;
+	const previous = document.activeElement as HTMLElement
 
 	const handle_keydown = (e: KeyboardEvent) => {
 		if (e.key === 'Tab') {
-			e.preventDefault();
+			e.preventDefault()
 
-			const group = focusable_children(node);
+			const group = focusable_children(node)
 			if (e.shiftKey) {
-				group.prev();
+				group.prev()
 			} else {
-				group.next();
+				group.next()
 			}
 		}
-	};
+	}
 
-	node.addEventListener('keydown', handle_keydown);
+	node.addEventListener('keydown', handle_keydown)
 
 	return {
 		destroy: () => {
-			node.removeEventListener('keydown', handle_keydown);
+			node.removeEventListener('keydown', handle_keydown)
 			if (reset_focus) {
-				previous?.focus({ preventScroll: true });
+				previous?.focus({ preventScroll: true })
 			}
 		}
-	};
+	}
 }

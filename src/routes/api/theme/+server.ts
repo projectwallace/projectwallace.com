@@ -1,7 +1,8 @@
 import { type Theme, theme_schema } from '$lib/theme'
 import * as v from 'valibot'
+import type { RequestHandler } from './$types'
 
-export async function POST({ request, locals, cookies }) {
+export const POST: RequestHandler = async ({ request, locals, cookies }) => {
 	let request_theme = await request.text()
 	let parsed_theme = v.safeParse(theme_schema, request_theme)
 	let theme: Theme = 'system'
