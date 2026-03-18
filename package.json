@@ -22,7 +22,7 @@
 		"@melt-ui/svelte": "^0.86.6",
 		"@oddbird/popover-polyfill": "^0.6.1",
 		"@projectwallace/css-analyzer": "^9.3.0",
-		"@projectwallace/css-code-coverage": "^0.9.0",
+		"@projectwallace/css-code-coverage": "^0.9.1",
 		"@projectwallace/css-code-quality": "^3.1.1",
 		"@projectwallace/css-design-tokens": "^0.11.2",
 		"@projectwallace/css-layer-tree": "^2.1.2",
