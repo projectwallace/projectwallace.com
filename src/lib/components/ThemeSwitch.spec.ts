@@ -50,26 +50,24 @@ test.describe('stored theme and OS color scheme', () => {
 })
 
 test.describe('switching to a specific theme', () => {
-	test.describe.configure({ retries: 4 })
-
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		await page.getByRole('button', { name: 'Choose website theme' }).click()
 		await page.getByRole('radio', { name: 'Dark' }).click()
+		await page.waitForRequest('/api/theme')
 	})
 
 	test('sets the theme to dark', async ({ page }) => {
-		await expect.soft(page.locator('html')).toHaveAttribute('data-theme', 'dark')
+		await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
 	})
 
 	test('stores the theme in a cookie', async ({ page, context }) => {
 		await page.reload({ waitUntil: 'domcontentloaded' })
-		await expect(page).toBeHydrated()
 
 		// Check that the cookie is set
 		let cookies = await context.cookies()
 		let theme_cookie = cookies.find((cookie) => cookie.name === 'theme')
-		expect.soft(theme_cookie?.value).toBe('dark')
+		expect(theme_cookie?.value).toBe('dark')
 	})
 })
