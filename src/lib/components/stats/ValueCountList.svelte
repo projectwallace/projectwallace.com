@@ -119,10 +119,6 @@
 		color: inherit;
 	}
 
-	.warning {
-		text-decoration: var(--orange-400) wavy underline;
-	}
-
 	td:last-child {
 		width: 100%;
 	}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { SvelteComponent } from 'svelte'
-	type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'auto'
+	type Size = 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'auto'
 
 	type Props = SvelteComponent & {
 		size?: Size
@@ -31,10 +31,6 @@
 
 	.size-auto {
 		max-width: 120rem;
-	}
-
-	.size-sm {
-		max-width: 28rem;
 	}
 
 	.size-md {

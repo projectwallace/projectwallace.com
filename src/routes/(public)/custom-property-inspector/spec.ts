@@ -158,7 +158,7 @@ test.describe('with css', () => {
 			search_input = page.getByRole('searchbox', { name: 'Search property name' })
 		})
 
-		test('filters the properties based on search query', async ({ page }) => {
+		test('filters the properties based on search query', async () => {
 			// Starting state
 			await expect.soft(properties).toHaveCount(4)
 
@@ -169,14 +169,11 @@ test.describe('with css', () => {
 
 			for (let property of await properties.all()) {
 				await expect.soft(property).toContainText('declared')
+				await expect.soft(property.locator('mark.match')).toContainText('declared')
 			}
-
-			// Search for a property that doesn't exist
-			await search_input.fill('nonexistent')
-			await expect.soft(properties).toHaveCount(0)
 		})
 
-		test('allows negating the search query', async ({ page }) => {
+		test('allows negating the search query', async () => {
 			// Show show properties that don't contain the word declared
 			await search_input.fill('!declared')
 

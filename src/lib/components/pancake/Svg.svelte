@@ -1,8 +1,8 @@
 <script>
-	let { clip = false, children } = $props()
+	let { children } = $props()
 </script>
 
-<svg viewBox="0 0 100 100" preserveAspectRatio="none" class:clip>
+<svg viewBox="0 0 100 100" preserveAspectRatio="none">
 	{@render children?.()}
 </svg>
 
@@ -12,10 +12,6 @@
 		width: 100%;
 		height: 100%;
 		overflow: visible;
-	}
-
-	.clip {
-		overflow: hidden;
 	}
 
 	svg :global(*) {

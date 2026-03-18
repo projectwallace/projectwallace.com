@@ -733,4 +733,8 @@
 			scrollbar-color: var(--fg-400) transparent;
 		}
 	}
+
+	.warning {
+		text-decoration: var(--orange-400) wavy underline;
+	}
 }

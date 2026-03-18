@@ -32,10 +32,7 @@
 				<ul>
 					{#each items as item}
 						{@const is_light = item.lightness <= 48 || item.alpha < 0.6}
-						<li
-							class="color"
-							class:active={selected_item?.type === 'grouped-color' && selected_item.value === item.authored}
-						>
+						<li class="color">
 							<div class={['specimen-wrapper', { 'is-light': is_light || item.alpha < 0.8 }]}>
 								{#if is_in_viewport.current === true}
 									<ColorExample color={item.authored}>
@@ -43,7 +40,11 @@
 									</ColorExample>
 								{/if}
 							</div>
+							<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 							<button
+								aria-selected={selected_item?.type === 'grouped-color' && selected_item.value === item.authored
+									? 'true'
+									: 'false'}
 								onclick={(event) => {
 									event.preventDefault()
 									css_state.select_item({
@@ -95,10 +96,6 @@
 		position: relative;
 		border: 1px solid transparent;
 		padding-inline-end: var(--space-2);
-
-		&.active {
-			border-color: var(--accent);
-		}
 	}
 
 	.title {

@@ -104,10 +104,6 @@
 		font-weight: var(--font-normal);
 		font-variant-numeric: tabular-nums;
 
-		&.warning {
-			text-decoration: var(--orange-400) wavy underline;
-		}
-
 		&,
 		& + td {
 			width: var(--space-16);

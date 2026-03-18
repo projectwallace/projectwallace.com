@@ -138,7 +138,7 @@
 			/>
 			{#if z_index_warnings.length > 0}
 				<p>
-					<dfn id="invalid-z-index">
+					<dfn id="invalid-z-index" class="warning">
 						🚫 :
 						<a href="https://www.w3.org/TR/CSS21/syndata.html#numbers" rel="external" target="_blank">
 							This value might not work because it is not a valid 32-bit integer.
@@ -231,6 +231,5 @@
 
 	dfn {
 		font-style: normal;
-		text-decoration: var(--orange-400) wavy underline;
 	}
 </style>

@@ -41,10 +41,11 @@
 	</FilterGroup>
 
 	<ol class="list" data-testid="gradient-list" bind:this={wrapper}>
-		{#each sorted as [value, locations]}
+		{#each sorted as [value, locations] (value)}
+			<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 			<li
 				class="item shadow [ coverable ]"
-				class:active={value === selected_item?.value && selected_item.type === 'gradient'}
+				aria-selected={value === selected_item?.value && selected_item.type === 'gradient' ? 'true' : 'false'}
 			>
 				{#if is_in_viewport.current === true}
 					<div class="gradient" style:--gradient={value}>{locations.length}&times;</div>
@@ -84,13 +85,6 @@
 
 	.item {
 		position: relative;
-	}
-
-	.active::after {
-		border: 1px solid var(--accent);
-		content: '';
-		position: absolute;
-		inset: 0;
 	}
 
 	.gradient {
