@@ -176,7 +176,7 @@
 									{/if}
 								</td>
 							{/each}
-							<td class="descriptor" class:valid={'src' in rule}>
+							<td class="descriptor" class:warning={!Object.hasOwn(rule, 'src')}>
 								{#if 'src' in rule}
 									<code class="specimen">
 										{rule['src']}
@@ -226,19 +226,10 @@
 		width: 100%;
 	}
 
-	.descriptor:not(.valid) {
-		text-decoration: var(--yellow-400) wavy underline;
-
-		tr:has(&) td:first-child code {
-			text-decoration: var(--yellow-400) wavy underline;
-		}
-	}
-
 	.warnings {
 		margin-top: var(--space-4);
 		padding-left: var(--space-6);
 		list-style-type: disc;
 		list-style-position: outside;
-		text-decoration: var(--yellow-400) wavy underline;
 	}
 </style>

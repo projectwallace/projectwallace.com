@@ -47,7 +47,7 @@
 		'details',
 		{
 			error: score > 5,
-			warning: score <= 5 && score > 0,
+			warn: score <= 5 && score > 0,
 			info: !score
 		}
 	]}
@@ -216,13 +216,12 @@
 	.details {
 		border-left: 4px solid transparent;
 		padding-inline-start: var(--space-4);
-		/* contain: style content; */
 
 		&.error {
 			border-left-color: var(--red-300);
 		}
 
-		&.warning {
+		&.warn {
 			border-left-color: var(--orange-400);
 		}
 
