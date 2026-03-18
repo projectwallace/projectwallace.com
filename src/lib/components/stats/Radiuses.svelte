@@ -63,14 +63,15 @@
 		{#snippet children({ status })}
 			<ul class="radiuses">
 				{#each radiuses.slice(0, status === 'open' ? Infinity : 15) as { property, value, locations }, index}
-					<li
-						class="radius"
-						class:active={selected_item?.type === 'border-radius' && selected_item.value === `${property}: ${value}`}
-					>
+					<li class="radius">
 						<div class="example" style="{property}: {value}"></div>
 						<code class="specimen">{property}: {value}</code>
 						<span class="count">{locations.length} &times;</span>
+						<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 						<button
+							aria-selected={selected_item?.type === 'border-radius' && selected_item.value === `${property}: ${value}`
+								? 'true'
+								: 'false'}
 							onclick={() => {
 								css_state.select_item({
 									type: 'border-radius',
@@ -109,17 +110,6 @@
 		gap: var(--space-2);
 		padding: var(--space-2);
 		border: 1px solid var(--fg-500);
-
-		&:focus-within {
-			border-color: var(--fg-200);
-		}
-	}
-
-	.active {
-		&,
-		&:focus-within {
-			border-color: var(--accent);
-		}
 	}
 
 	.example {
@@ -134,7 +124,6 @@
 		color: rgb(0 0 0 / 0);
 		padding: 0;
 		border: 0;
-		outline: none;
 		position: absolute;
 		inset: 0;
 		height: 100%;

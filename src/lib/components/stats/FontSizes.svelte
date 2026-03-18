@@ -63,16 +63,11 @@
 
 <ul class="sizes">
 	{#each sorted as [value, locations] (value)}
-		<li
-			class={[
-				'size coverable',
-				{
-					active: selected_item?.value === value && selected_item.type === 'font-size'
-				}
-			]}
-		>
+		<li class="size coverable">
+			<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 			<button
 				class="coverable-link"
+				aria-selected={selected_item?.value === value && selected_item.type === 'font-size' ? 'true' : 'false'}
 				onclick={(event) => {
 					event.preventDefault()
 					css_state.select_item({
@@ -116,10 +111,6 @@
 		display: flex;
 		flex-direction: column;
 		text-align: center;
-
-		&.active {
-			border-color: var(--accent);
-		}
 	}
 
 	.example {
