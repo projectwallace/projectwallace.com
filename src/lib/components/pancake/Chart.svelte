@@ -11,7 +11,7 @@
 <script>
 	import { setContext } from 'svelte'
 
-	let { x1 = 0, y1 = 0, x2 = 1, y2 = 1, clip = false, children } = $props()
+	let { x1 = 0, y1 = 0, x2 = 1, y2 = 1, children } = $props()
 
 	function linear_scale(domain, range) {
 		const d0 = domain[0]
@@ -55,7 +55,7 @@
 	})
 </script>
 
-<div class="pancake-chart" bind:this={chart} bind:clientWidth={width} bind:clientHeight={height} class:clip>
+<div class="pancake-chart" bind:this={chart} bind:clientWidth={width} bind:clientHeight={height}>
 	{@render children?.()}
 </div>
 
@@ -65,9 +65,5 @@
 		display: block;
 		width: 100%;
 		height: 100%;
-	}
-
-	.clip {
-		overflow: hidden;
 	}
 </style>
