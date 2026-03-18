@@ -15,14 +15,14 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"lint": "svelte-kit sync && oxlint --config oxlintrc.json",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore",
-		"css-coverage": "css-coverage --coverage-dir=./css-coverage --min-coverage=.9  --min-file-coverage=.66 --show-uncovered=all"
+		"css-coverage": "css-coverage ./css-coverage --min-coverage=.9  --min-file-coverage=.66 --show-uncovered=all"
 	},
 	"dependencies": {
 		"@melt-ui/pp": "^0.3.2",
 		"@melt-ui/svelte": "^0.86.6",
 		"@oddbird/popover-polyfill": "^0.6.1",
 		"@projectwallace/css-analyzer": "^9.3.0",
-		"@projectwallace/css-code-coverage": "^0.9.1",
+		"@projectwallace/css-code-coverage": "^0.10.0",
 		"@projectwallace/css-code-quality": "^3.1.1",
 		"@projectwallace/css-design-tokens": "^0.11.2",
 		"@projectwallace/css-layer-tree": "^2.1.2",
