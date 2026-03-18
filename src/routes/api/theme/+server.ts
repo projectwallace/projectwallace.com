@@ -1,14 +1,12 @@
-import { type Theme, theme_schema } from '$lib/theme'
-import * as v from 'valibot'
+import { type Theme, validate_theme } from '$lib/theme'
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({ request, locals, cookies }) => {
 	let request_theme = await request.text()
-	let parsed_theme = v.safeParse(theme_schema, request_theme)
 	let theme: Theme = 'system'
 
-	if (parsed_theme.success) {
-		theme = parsed_theme.output
+	if (validate_theme(request_theme)) {
+		theme = request_theme
 		locals.theme = theme
 
 		cookies.set('theme', theme, {
@@ -17,7 +15,7 @@ export const POST: RequestHandler = async ({ request, locals, cookies }) => {
 		})
 
 		return new Response('OK', {
-			status: 200,
+			status: 200
 		})
 	}
 
