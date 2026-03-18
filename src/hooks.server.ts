@@ -1,7 +1,6 @@
 import { sequence } from '@sveltejs/kit/hooks'
 import { redirect, type Handle } from '@sveltejs/kit'
-import * as v from 'valibot'
-import { theme_schema, type Theme } from '$lib/theme'
+import { type Theme, validate_theme } from '$lib/theme'
 
 export const handle_redirects: Handle = async function ({ event, resolve }) {
 	const redirects = [
@@ -59,10 +58,9 @@ const apply_security_headers: Handle = async function ({ event, resolve }) {
 const set_theme: Handle = async function ({ event, resolve }) {
 	let cookie_theme = event.cookies.get('theme')
 	let theme: Theme = 'system'
-	let parsed_theme = v.safeParse(theme_schema, cookie_theme)
 
-	if (parsed_theme.success) {
-		theme = parsed_theme.output
+	if (validate_theme(cookie_theme)) {
+		theme = cookie_theme
 	}
 
 	event.locals.theme = theme

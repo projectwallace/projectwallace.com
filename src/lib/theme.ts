@@ -1,5 +1,7 @@
-import * as v from 'valibot'
+export const themes = ['dark', 'light', 'system', 'naked'] as const
 
-export const theme_schema = v.union([v.literal('dark'), v.literal('light'), v.literal('system'), v.literal('naked')])
+export type Theme = (typeof themes)[number]
 
-export type Theme = v.InferOutput<typeof theme_schema>
+export function validate_theme(theme?: string): theme is Theme {
+	return themes.includes(theme as Theme)
+}
