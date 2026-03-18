@@ -412,3 +412,33 @@ test.describe('URL preloading', () => {
 		await expect.soft(page).toHaveURL('/analyze-css')
 	})
 })
+
+test('allows to expand ShowMore components', async ({ page }) => {
+	await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })
+	await expect(page).toBeHydrated()
+	await page.getByRole('tab', { name: 'Paste CSS' }).click()
+	const NUM_LINES = 100
+
+	let textarea = page.getByLabel('CSS to analyze')
+	let css = `
+		test {
+			${Array.from({ length: NUM_LINES }, (_, i) => `property-${i}: initial;\n`).join('')}
+		}
+	`
+	await textarea.fill(css)
+	await page.getByRole('button', { name: 'Analyze CSS' }).click()
+
+	// Report is now shown, scroll to the 'properties' section
+	await page.getByRole('navigation', { name: 'Navigate this page' }).getByRole('link', { name: 'Properties' }).click()
+
+	let button = page.getByRole('button', { name: 'Show more' })
+	await expect(button).toBeVisible()
+
+	let panel = page.locator('#properties')
+	let table_rows = panel.getByRole('table').locator('tr')
+	await expect(table_rows).toHaveCount(15) // 14 data rows + 1 header
+
+	await button.click()
+	await expect.soft(table_rows).toHaveCount(NUM_LINES + 1) // 100 data rows + 1 header
+	await expect.soft(button).not.toBeVisible()
+})
