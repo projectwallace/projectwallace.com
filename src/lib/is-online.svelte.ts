@@ -1,4 +1,5 @@
 import { on } from 'svelte/events'
+import { browser } from '$app/environment'
 
 export class IsOnline {
 	private is_online: boolean
@@ -7,7 +8,7 @@ export class IsOnline {
 		this.is_online = $state(typeof navigator === 'undefined' ? true : navigator.onLine)
 
 		$effect(() => {
-			if (typeof window !== 'undefined') {
+			if (browser) {
 				return on(window, 'online', () => {
 					this.is_online = true
 				})
@@ -15,7 +16,7 @@ export class IsOnline {
 		})
 
 		$effect(() => {
-			if (typeof window !== 'undefined') {
+			if (browser) {
 				return on(window, 'offline', () => {
 					this.is_online = false
 				})
