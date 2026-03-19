@@ -22,7 +22,7 @@ export function highlight_css(
 	if (!enabled) {
 		return
 	}
-	let supports_highlights = 'highlights' in window.CSS
+	let supports_highlights = typeof window !== undefined && 'highlights' in window.CSS
 	if (!supports_highlights) {
 		console.warn('CSS highlights are not supported in this browser')
 		return

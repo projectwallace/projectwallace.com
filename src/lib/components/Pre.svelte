@@ -56,7 +56,7 @@
 	let show_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
 
 	onMount(function () {
-		supports_highlights = 'highlights' in window.CSS
+		supports_highlights = typeof window !== undefined && 'highlights' in window.CSS
 		if (supports_highlights) {
 			lines = window.CSS.highlights.get('lines') || new Highlight()
 		}
