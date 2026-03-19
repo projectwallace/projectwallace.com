@@ -1,3 +1,4 @@
+import { browser } from '$app/environment'
 import {
 	parse,
 	parse_selector,
@@ -22,7 +23,7 @@ export function highlight_css(
 	if (!enabled) {
 		return
 	}
-	let supports_highlights = 'highlights' in window.CSS
+	let supports_highlights = browser && 'highlights' in window.CSS
 	if (!supports_highlights) {
 		console.warn('CSS highlights are not supported in this browser')
 		return

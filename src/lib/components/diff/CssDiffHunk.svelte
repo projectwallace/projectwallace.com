@@ -1,5 +1,7 @@
 <script module lang="ts">
-	export const supports_highlights = typeof window !== 'undefined' && 'highlights' in window.CSS
+	import { browser } from '$app/environment'
+
+	export const supports_highlights = browser && 'highlights' in window.CSS
 
 	export const token_types = ['AtruleName', 'Selector', 'Property', 'Value']
 

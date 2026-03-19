@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte'
+	import { browser } from '$app/environment'
 	import type { CssLocation } from '$lib/css-location'
 	import { highlight_css } from './use-css-highlight'
 	import Icon from '$components/Icon.svelte'
@@ -56,7 +57,7 @@
 	let show_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
 
 	onMount(function () {
-		supports_highlights = 'highlights' in window.CSS
+		supports_highlights = browser && 'highlights' in window.CSS
 		if (supports_highlights) {
 			lines = window.CSS.highlights.get('lines') || new Highlight()
 		}
