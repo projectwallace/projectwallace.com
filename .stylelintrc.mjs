@@ -1,7 +1,7 @@
 /** @type {import('stylelint').Config} */
 export default {
 	extends: ['stylelint-config-standard'],
-	plugins: ['stylelint-value-no-unknown-custom-properties'],
+	plugins: ['stylelint-value-no-unknown-custom-properties', '@projectwallace/stylelint-plugin'],
 	overrides: [
 		{
 			files: ['src/**/*.svelte'],
@@ -151,6 +151,18 @@ export default {
 			{
 				importFrom: ['./src/lib/css/style.css']
 			}
-		]
+		],
+
+		// @projectwallace/stylelint-plugin recommended rules
+		'project-wallace/max-lines-of-code': 200,
+		'project-wallace/max-selector-complexity': 5,
+		'project-wallace/no-anonymous-layers': true,
+		'project-wallace/no-property-browserhacks': true,
+		'project-wallace/no-undeclared-container-names': true,
+		'project-wallace/no-unknown-custom-property': true,
+		'project-wallace/no-unused-container-names': true,
+		'project-wallace/no-unused-custom-properties': true,
+		'project-wallace/no-unused-layers': true,
+		'project-wallace/no-useless-custom-property-assignment': true
 	}
 }
