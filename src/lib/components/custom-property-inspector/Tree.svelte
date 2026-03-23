@@ -139,17 +139,14 @@
 	}
 
 	.warning {
-		/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 		text-decoration: wavy underline var(--wallace-custom-property-inspector-error-color);
 	}
 
 	.error {
-		/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 		text-decoration: wavy underline var(--wallace-custom-property-inspector-warning-color);
 	}
 
 	.alert {
-		/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 		text-decoration: wavy underline var(--wallace-custom-property-inspector-suggestion-color);
 	}
 

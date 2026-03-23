@@ -105,8 +105,6 @@
 		bottom: 0;
 		left: 0;
 		z-index: -1;
-		/* --gradient is defined in the HTML above */
-		/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 		background-image: var(--gradient, linear-gradient(0deg, transparent, transparent));
 		background-repeat: repeat;
 	}
