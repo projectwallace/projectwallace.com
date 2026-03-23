@@ -57,6 +57,8 @@
 <style>
 	canvas {
 		width: 100%;
+		/* --color-bar-height is a public API and potentially set by other components */
+		/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 		height: var(--color-bar-height, 6em);
 		contain: strict;
 	}

@@ -176,11 +176,7 @@
 		font-weight: var(--font-bold);
 	}
 
-	:global(.markdown > :is(p, #ID-HACK)) {
-		margin-top: var(--space-12);
-	}
-
-	:global(.markdown :is(.scroller:has(table) + p:has(> a[href]), #ID-HACK)) {
+	:global(.markdown .scroller:has(table) + p:has(> a[href])) {
 		max-width: none;
 		text-align: end;
 		margin-block-start: var(--space-2);

@@ -284,6 +284,8 @@
 		gap: var(--space-1);
 		overflow-y: auto;
 		max-height: 100%;
+		/* --pre-line-number-width is set with inline style */
+		/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 		--pre-ch-width: calc(1ch * var(--pre-line-number-width, 4));
 		contain: strict;
 		overscroll-behavior: contain;
@@ -308,6 +310,8 @@
 
 		& > * {
 			padding-block: var(--space-2);
+			/* --pre-line-height is set in JS & inline style */
+			/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 			line-height: var(--pre-line-height);
 			font-family: var(--font-mono);
 			font-size: var(--size-specimen);
@@ -353,6 +357,6 @@
 	}
 
 	::highlight(lines) {
-		background-color: var(--highlight-bg, light-dark(var(--yellow-200), var(--yellow-900)));
+		background-color: var(--highlight);
 	}
 </style>

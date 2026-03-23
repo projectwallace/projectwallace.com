@@ -169,7 +169,6 @@
 		--wallace-ast-explorer-border-color: var(--bg-300);
 		--wallace-ast-explorer-border-width: var(--space-px);
 		--wallace-ast-explorer-pane-block-size: calc(100vh - 16rem);
-
 		container-type: inline-size;
 		container-name: --ast-explorer;
 		border-width: var(--wallace-ast-explorer-border-width);

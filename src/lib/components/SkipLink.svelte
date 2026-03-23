@@ -15,6 +15,8 @@
 </a>
 
 <style>
+	/* stylelint-disable projectwallace/max-average-declarations-per-rule */
+	/* Exception to the stylelint config: skiplinks are hard to compose 🙈 */
 	.skip-link {
 		position: absolute;
 		left: -1000px;
@@ -32,7 +34,6 @@
 			top: 0;
 			width: auto;
 			height: auto;
-			overflow: visible;
 			transform: translateX(-50%);
 			padding: var(--space-2) var(--space-4);
 			background: var(--bg-100);

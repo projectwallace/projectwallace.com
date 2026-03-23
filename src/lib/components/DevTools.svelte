@@ -200,6 +200,8 @@
 
 	[role='tabpanel'] {
 		background-color: var(--bg-100);
+		/* --panel-offset is set with inline styles in the HTML above */
+		/* stylelint-disable-next-line projectwallace/no-unknown-custom-property */
 		height: calc(20rem + var(--panel-offset, 0));
 		min-height: 1rem;
 		max-height: calc(50vh - var(--space-16));

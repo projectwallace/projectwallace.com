@@ -18,9 +18,7 @@
 		contain: layout paint;
 		background-color: light-dark(transparent, var(--bg-200));
 		padding: var(--space-4) var(--space-2);
-		border-width: 1px;
-		border-style: solid;
-		border-color: light-dark(var(--fg-800), transparent);
+		border: 1px solid light-dark(var(--fg-800), transparent);
 		/* Usually contains expensive elements to render, so content-visibility:auto makes sense */
 		content-visibility: auto;
 
@@ -30,7 +28,7 @@
 		}
 
 		@media print {
-			border: 1px solid currentColor;
+			border-color: currentColor;
 			break-inside: avoid-page;
 		}
 	}
