@@ -79,7 +79,6 @@
 		block-size: var(--space-3);
 		font-size: 0;
 		overflow: clip;
-		/* stylelint-disable-next-line projectwallace/no-unused-custom-properties */
 		--wallace-diffstat-fg: transparent;
 
 		@media print, (forced-colors: active) {
@@ -95,7 +94,6 @@
 			--wallace-diffstat-bg: var(--error-200);
 
 			@media (prefers-contrast: more) {
-				/* stylelint-disable-next-line projectwallace/no-unused-custom-properties */
 				--wallace-diffstat-bg: var(--error-100);
 			}
 		}

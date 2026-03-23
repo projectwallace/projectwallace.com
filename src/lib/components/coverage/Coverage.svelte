@@ -287,8 +287,6 @@
 	}
 
 	tr {
-		/* This is public API for the <Meter> component */
-		/* stylelint-disable-next-line projectwallace/no-unused-custom-properties */
 		--meter-bg: repeating-linear-gradient(
 			-45deg,
 			var(--error-400),
