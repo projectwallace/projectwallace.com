@@ -54,6 +54,7 @@
 </div>
 
 <style>
+	/* stylelint-disable projectwallace/max-average-declarations-per-rule */
 	.polypane-banner {
 		margin-top: var(--space-8);
 		background-color: var(--bg-200);

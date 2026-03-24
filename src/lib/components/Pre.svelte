@@ -274,8 +274,6 @@
 		}
 	}
 
-	/* We set --pre-line-height on the actual element */
-	/* stylelint-disable csstools/value-no-unknown-custom-properties */
 	.body {
 		flex: 1 1 auto;
 		position: relative;
@@ -353,6 +351,6 @@
 	}
 
 	::highlight(lines) {
-		background-color: var(--highlight-bg, light-dark(var(--yellow-200), var(--yellow-900)));
+		background-color: var(--highlight);
 	}
 </style>

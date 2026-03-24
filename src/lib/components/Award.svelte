@@ -17,19 +17,20 @@
 		position: relative;
 		display: flow-root;
 
+		&::before,
 		&::after {
 			content: '';
 			position: absolute;
 			z-index: -1;
+		}
+
+		&::after {
 			inset: 1rem -1rem -1rem 1rem;
 			background-color: var(--bg-200);
 		}
 
 		&::before {
-			content: '';
-			position: absolute;
 			inset: 2rem -2rem -2rem 2rem;
-			z-index: -1;
 			border: 2px solid var(--bg-300);
 		}
 	}

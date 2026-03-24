@@ -1,6 +1,9 @@
 /** @type {import('stylelint').Config} */
 export default {
-	extends: ['stylelint-config-standard'],
+	extends: [
+		'stylelint-config-standard',
+		'@projectwallace/stylelint-plugin/configs/recommended'
+	],
 	plugins: ['stylelint-value-no-unknown-custom-properties'],
 	overrides: [
 		{
@@ -146,11 +149,7 @@ export default {
 		'shorthand-property-no-redundant-values': null,
 
 		// Others / plugins
-		'csstools/value-no-unknown-custom-properties': [
-			true,
-			{
-				importFrom: ['./src/lib/css/style.css']
-			}
-		]
-	}
+		'projectwallace/no-unknown-custom-property': null,
+		'projectwallace/no-unused-custom-properties': null,
+	},
 }

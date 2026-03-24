@@ -54,6 +54,7 @@
 </div>
 
 <style>
+	/* stylelint-disable projectwallace/max-average-declarations-per-rule */
 	p {
 		text-align: center;
 		max-width: none;

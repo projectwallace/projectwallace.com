@@ -33,9 +33,8 @@
 
 <style>
 	.theme-preview {
-		container-name: theme-preview;
-		container-type: inline-size;
 		--theme-preview-text: var(--fg-400);
+		container-type: inline-size;
 		contain: layout paint;
 		width: 100%;
 
