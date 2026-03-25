@@ -8,7 +8,8 @@
 				{ href: '/design-tokens', title: 'CSS Design Tokens' },
 				{ href: '/css-layers-visualizer', title: 'CSS Layers Visualizer' },
 				{ href: '/custom-property-inspector', title: 'CSS Custom Property inspector' },
-				{ href: '/get-css', title: 'CSS Scraper' }
+				{ href: '/get-css', title: 'CSS Scraper' },
+				{ href: '/lint-css', title: 'CSS Linter' }
 			]
 		},
 		{
