@@ -108,7 +108,11 @@
 		&[aria-current='true'] {
 			outline: 1px solid var(--accent);
 			outline-offset: -1px;
-			background-color: var(--highlight);
+			background-color: var(--highlight-item);
+
+			& code {
+				color: var(--fg-200);
+			}
 		}
 	}
 

@@ -138,11 +138,11 @@
 	}
 
 	.warning {
-		text-decoration: wavy underline var(--wallace-custom-property-inspector-error-color);
+		text-decoration: wavy underline var(--wallace-custom-property-inspector-warning-color);
 	}
 
 	.error {
-		text-decoration: wavy underline var(--wallace-custom-property-inspector-warning-color);
+		text-decoration: wavy underline var(--wallace-custom-property-inspector-error-color);
 	}
 
 	.alert {
