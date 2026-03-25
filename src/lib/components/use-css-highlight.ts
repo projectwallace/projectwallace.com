@@ -56,6 +56,12 @@ export function highlight_css(
 		try {
 			let ast: CSSNode | CSSNode[]
 
+			for (let token_type of token_types) {
+				if (!highlights.has(token_type)) {
+					highlights.set(token_type, new Highlight())
+				}
+			}
+
 			// Use appropriate parser based on node_type
 			if (node_type === 'selector' || node_type === 'selectorList') {
 				ast = parse_selector(css)
@@ -73,12 +79,6 @@ export function highlight_css(
 						add_range('Comment', comment.start, comment.end)
 					}
 				})
-			}
-
-			for (let token_type of token_types) {
-				if (!highlights.has(token_type)) {
-					highlights.set(token_type, new Highlight())
-				}
 			}
 
 			// Walk handles both single nodes and arrays
