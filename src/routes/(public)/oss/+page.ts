@@ -27,7 +27,7 @@ let projects = [
 		url: 'https://github.com/projectwallace/css-code-quality',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-				<title>Github Diff Action</title>
+				<title>CSS Code Quality</title>
 				<rect fill="#29c87d" width="4" height="1" x="3" y="3"></rect>
 				<rect fill="#da2b2b" width="4" height="1" x="3" y="5"></rect>
 				<rect fill="#29c87d" width="4" height="1" x="3" y="7"></rect>
@@ -69,11 +69,11 @@ let projects = [
 	},
 	{
 		title: 'Format CSS',
-		description: 'Fast, small, zero-config library to format (or minify) CSS using basic rules',
+		description: 'Fast, small, zero-config library to format (or minify) CSS using basic rules.',
 		url: 'https://github.com/projectwallace/format-css',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-				<title>CSS Analyzer</title>
+				<title>Format CSS</title>
 				<rect fill="#29c87d" width="1" height="1" y="10" x="3"></rect>
 				<rect fill="#29c87d" width="1" height="1" y="10" x="6"></rect>
 				<rect fill="#29c87d" width="1" height="1" y="10" x="9"></rect>
@@ -88,8 +88,18 @@ let projects = [
 	},
 	{
 		title: 'CSS Code Coverage',
-		description: ' Generate useful CSS Code Coverage report from browser/Playwright/Puppeteer-reported coverage',
-		url: 'https://github.com/projectwallace/css-code-coverage'
+		description: 'Generate useful CSS Code Coverage report from browser/Playwright/Puppeteer-reported coverage',
+		url: 'https://github.com/projectwallace/css-code-coverage',
+		icon: `
+			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+				<title>CSS Coverage</title>
+				<rect fill="#29c87d" width="8" height="1" y="3" x="3"></rect>
+				<rect fill="#da2b2b" width="8" height="1" y="5" x="3"></rect>
+				<rect fill="#29c87d" width="8" height="1" y="7" x="3"></rect>
+				<rect fill="#da2b2b" width="8" height="1" y="9" x="3"></rect>
+				<rect fill="#29c87d" width="8" height="1" y="11" x="3"></rect>
+			</svg>
+		`
 	},
 	{
 		title: 'CSS time sort',
@@ -97,7 +107,7 @@ let projects = [
 		url: 'https://github.com/projectwallace/css-time-sort',
 		icon: `
 			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-				<title>CSS Analyzer</title>
+				<title>CSS Time sort</title>
 				<rect fill="#29c87d" width="2" height="1" y="3" x="3"></rect>
 				<rect fill="#29c87d" width="4" height="1" y="5" x="3"></rect>
 				<rect fill="#29c87d" width="7" height="1" y="7" x="3"></rect>
@@ -109,12 +119,27 @@ let projects = [
 	{
 		title: 'CSS @layer tree',
 		description: 'Discover the composition of your CSS @layers',
-		url: 'https://github.com/projectwallace/css-layer-tree'
+		url: 'https://github.com/projectwallace/css-layer-tree',
+		icon: `
+			<svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+				<title>CSS Layer Tree</title>
+				<rect fill="#29c87d" width="1" height="1" y="3" x="7"></rect>
+				<rect fill="#29c87d" width="3" height="1" y="5" x="6"></rect>
+				<rect fill="#29c87d" width="5" height="1" y="7" x="5"></rect>
+				<rect fill="#29c87d" width="7" height="1" y="9" x="4"></rect>
+				<rect fill="#29c87d" width="9" height="1" y="11" x="3"></rect>
+			</svg>
+		`
 	},
 	{
 		title: 'CSS Parser',
 		description: 'High-performance CSS parser optimized for static analysis and formatting ',
 		url: 'https://github.com/projectwallace/css-parser'
+	},
+	{
+		title: 'Stylelint plugin',
+		description: 'A Stylelint plugin that warns you about opinionated code quality issues',
+		url: 'https://github.com/projectwallace/stylelint-plugin'
 	}
 ] satisfies Project[]
 
