@@ -15,8 +15,7 @@
 </a>
 
 <style>
-	/* stylelint-disable projectwallace/max-average-declarations-per-rule */
-	/* Exception to the stylelint config: skiplinks are hard to compose 🙈 */
+	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- Exception to the stylelint config: skiplinks are hard to compose 🙈 */
 	.skip-link {
 		position: absolute;
 		left: -1000px;

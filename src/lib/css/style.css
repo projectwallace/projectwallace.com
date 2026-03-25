@@ -662,7 +662,7 @@
 			grid-column: 1 / -1;
 		}
 
-		/* Checkerd background pattern */
+		/* Checkered background pattern */
 		.color-example {
 			--color-example-pattern-size: 1rem;
 			--color-example-pattern-color: var(--gray-700);
@@ -696,7 +696,7 @@
 
 @layer utilities {
 	.sr-only {
-		/* stylelint-disable property-no-deprecated */
+		/* stylelint-disable property-no-deprecated -- progressive enhancement */
 		clip: rect(0, 0, 0, 0);
 		/* stylelint-enable property-no-deprecated */
 		white-space: nowrap;

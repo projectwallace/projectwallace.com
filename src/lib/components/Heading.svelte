@@ -30,8 +30,7 @@
 	.heading {
 		line-height: var(--leading-none);
 
-		/* Progressive enhancement for text-wrap: pretty */
-		/* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+		/* stylelint-disable-next-line declaration-block-no-duplicate-properties -- Progressive enhancement for text-wrap: pretty */
 		text-wrap: balance;
 		text-wrap: pretty;
 	}

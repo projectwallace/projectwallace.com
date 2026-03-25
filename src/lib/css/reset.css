@@ -1,4 +1,4 @@
-/* stylelint-disable projectwallace/max-important-ratio, projectwallace/max-comment-size */
+/* stylelint-disable projectwallace/max-comment-size -- Comments here are nicely descriptive */
 
 @layer normalize {
 	/*
@@ -6,7 +6,6 @@
 		2. Remove default margins and padding
 		3. Reset all borders.
 	*/
-
 	*,
 	::after,
 	::before,
@@ -78,7 +77,6 @@
 
 	a {
 		color: inherit;
-		/* stylelint-disable */
 		-webkit-text-decoration: inherit;
 		text-decoration: inherit;
 	}
@@ -291,6 +289,7 @@
 	*/
 
 	::-webkit-search-decoration {
+		/* stylelint-disable-next-line property-no-vendor-prefix -- That's the point of the reset */
 		-webkit-appearance: none;
 	}
 
@@ -347,6 +346,7 @@
 	button,
 	input:where([type='button'], [type='reset'], [type='submit']),
 	::file-selector-button {
+		/* stylelint-disable-next-line declaration-property-value-keyword-no-deprecated -- part of the reset */
 		appearance: button;
 	}
 
