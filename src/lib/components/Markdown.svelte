@@ -14,7 +14,7 @@
 </div>
 
 <style>
-	/* stylelint-disable projectwallace/max-average-selector-complexity */
+	/* stylelint-disable projectwallace/max-average-selector-complexity -- Global styling requires more complex selectors */
 	:global(.markdown :is(h1, h2, h3, h4)) {
 		line-height: var(--leading-none);
 	}
@@ -73,7 +73,7 @@
 		font-style: italic;
 	}
 
-	/* stylelint-disable-next-line projectwallace/max-selector-complexity */
+	/* stylelint-disable-next-line projectwallace/max-selector-complexity -- This is just a big one */
 	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe, math, .bar-chart)) {
 		margin-block-start: var(--space-6);
 
