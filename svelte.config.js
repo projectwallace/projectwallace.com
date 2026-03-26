@@ -14,7 +14,10 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			edge: true
+			// Cannot run on edge because stylelint requires NodeJS-specific APIs
+			edge: false,
+			// We split the bundles to not impact other routes with Stylelint's slow start
+			split: true,
 		}),
 		serviceWorker: {
 			register: false

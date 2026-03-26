@@ -293,6 +293,7 @@
 
 		.severity {
 			background-color: var(--error);
+			color: var(--white);
 			padding-inline: 1ch;
 			padding-block: var(--space-1);
 		}
