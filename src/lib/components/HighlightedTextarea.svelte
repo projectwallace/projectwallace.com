@@ -55,7 +55,7 @@
 		textarea {
 			color: rgb(255 255 255 / 0);
 			background-color: transparent;
-			caret-color: var(--gray-100);
+			caret-color: var(--fg-100);
 			resize: none;
 			overflow: auto;
 
