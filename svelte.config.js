@@ -14,9 +14,11 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			// We don't generate enough traffic to keep edge workers ready,
-			// so disable edge to avoid cold-starts
-			edge: false
+			// We don't generate enough traffic to keep edge workers ready, so disable edge to avoid cold-starts
+			// Also cannot run on edge because stylelint requires NodeJS-specific APIs
+			edge: false,
+			// We split the bundles to not impact other routes with Stylelint's slow start
+			split: true
 		}),
 		alias: {
 			$components: 'src/lib/components'
