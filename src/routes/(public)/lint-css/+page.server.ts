@@ -1,13 +1,16 @@
 import { error } from '@sveltejs/kit'
 import type { Actions } from './$types'
 import stylelint from 'stylelint'
+import recommendedConfig from '@projectwallace/stylelint-plugin/configs/recommended'
+import performanceConfig from '@projectwallace/stylelint-plugin/configs/performance'
+import stylelintPlugin from '@projectwallace/stylelint-plugin'
 
 const presets = ['recommended', 'performance', 'none'] as const
 export type Preset = (typeof presets)[number]
 const DEFAULT_PRESET = presets[0]
-const PRESET_MAP: Record<Preset, string[] | null> = {
-	recommended: ['@projectwallace/stylelint-plugin/configs/recommended'],
-	performance: ['@projectwallace/stylelint-plugin/configs/performance'],
+const PRESET_MAP: Record<Preset, NonNullable<stylelint.Config['rules']> | null> = {
+	recommended: recommendedConfig.rules,
+	performance: performanceConfig.rules,
 	none: null
 }
 
@@ -24,29 +27,28 @@ export const actions = {
 		const start = performance.now()
 		const lint_result = await stylelint.lint({
 			config: {
-				extends: PRESET_MAP[preset] ?? [],
-				rules: []
+				plugins: stylelintPlugin,
+				rules: PRESET_MAP[preset] ?? []
 			},
 			code: css?.toString(),
 			configBasedir: process.cwd()
 		})
 
-		const lint_report = JSON.parse(lint_result.report)
+		const file = lint_result.results.at(0)
 
-		if (!Array.isArray(lint_report)) {
+		if (!file) {
 			error(500)
 		}
 
-		const file = lint_report.at(0)
 		const return_data = {
-			...file,
-			warnings: file.warnings?.toSorted((a: StylelintIssue, b: StylelintIssue) => {
-				if (a.line === b.line) {
-					return a.column - b.column
-				}
-				return a.line - b.line
-			})
-		} as { errored: boolean; warnings: StylelintIssue[] }
+			errored: file.invalidOptionWarnings.length > 0 || file.warnings.some((w) => w.severity === 'error'),
+			warnings: file.warnings
+				// .map(({ column, line, rule, text, severity }) => ({ column, line, rule, text, severity }))
+				.toSorted((a, b) => {
+					if (a.line === b.line) return a.column - b.column
+					return a.line - b.line
+				})
+		}
 
 		const duration = performance.now() - start
 		setHeaders({ 'Server-Timing': `lint;dur=${duration.toFixed(1)}` })
