@@ -27,7 +27,8 @@ export const actions = {
 				extends: PRESET_MAP[preset] ?? [],
 				rules: []
 			},
-			code: css?.toString()
+			code: css?.toString(),
+			configBasedir: process.cwd()
 		})
 
 		const lint_report = JSON.parse(lint_result.report)
