@@ -236,10 +236,6 @@
 			border-inline-start-width: var(--wallace-ast-explorer-border-width);
 			border-inline-start-color: var(--wallace-ast-explorer-border-color);
 		}
-
-		&:first-child {
-			padding-inline-end: var(--space-4);
-		}
 	}
 
 	.pane.scroller {
