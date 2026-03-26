@@ -1,31 +1,33 @@
 <script lang="ts">
 	import { highlight_css } from './use-css-highlight'
+	import type { HTMLTextareaAttributes } from 'svelte/elements'
 
-	type Props = Pick<HTMLTextAreaElement, 'name' | 'id'> & {
+	type Props = Omit<HTMLTextareaAttributes, 'value'> & {
 		value?: string
 		on_cursor_move?: ({ start, end }: { start: number; end: number }) => void
 	}
 
-	let { value = $bindable(''), on_cursor_move, name, id }: Props = $props()
+	let { value = $bindable(''), on_cursor_move, ...rest }: Props = $props()
 	let textarea: HTMLTextAreaElement | undefined = undefined
 
 	function set_cursor_positions() {
-		if (!textarea) return
-		on_cursor_move?.({ start: textarea.selectionStart, end: textarea.selectionEnd })
+		if (!textarea || !on_cursor_move) return
+		on_cursor_move({ start: textarea.selectionStart, end: textarea.selectionEnd })
 	}
 </script>
 
 <div class="wrapper scroll-container">
+	<!-- The text in this textarea is made invisible so the output can show the highlighted text -->
 	<textarea
-		{name}
-		{id}
 		bind:value
 		bind:this={textarea}
 		onclick={set_cursor_positions}
 		onkeyup={set_cursor_positions}
 		onfocus={set_cursor_positions}
 		spellcheck="false"
+		{...rest}
 	></textarea>
+	<!-- This output contains the highlighted CSS -->
 	<output aria-hidden="true" use:highlight_css={{ css: value }}>{value}</output>
 </div>
 
@@ -52,13 +54,13 @@
 		textarea {
 			color: rgb(255 255 255 / 0);
 			background-color: transparent;
-			caret-color: var(--gray-100);
+			caret-color: var(--fg-100);
 			resize: none;
 			overflow: auto;
 
 			&::selection {
 				background-color: Highlight;
-				color: var(--gray-100);
+				color: var(--fg-100);
 			}
 
 			&:focus {

@@ -14,7 +14,8 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			edge: true
+			// Cannot run on edge because stylelint requires NodeJS-specific APIs
+			edge: false,
 		}),
 		serviceWorker: {
 			register: false

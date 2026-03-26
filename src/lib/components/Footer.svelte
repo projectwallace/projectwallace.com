@@ -8,7 +8,8 @@
 				{ title: 'CSS Design Tokens', href: '/design-tokens' },
 				{ title: 'CSS Layers Visualizer', href: '/css-layers-visualizer' },
 				{ title: 'CSS Custom Property inspector', href: '/custom-property-inspector' },
-				{ title: 'CSS Scraper', href: '/get-css' }
+				{ title: 'CSS Scraper', href: '/get-css' },
+				{ title: 'CSS Linter', href: '/lint-css' }
 			]
 		},
 		{
@@ -80,7 +81,7 @@
 		margin-bottom: var(--space-4);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-3);
-		border-top: 1px solid var(--fg-600);
+		border-top: 1px solid var(--fg-800);
 		color: var(--fg-300);
 
 		@media (min-width: 66rem) {
