@@ -6,13 +6,13 @@ title: Detecting color aliases
 
 I love looking at the color-metric pages of projects and I found a pattern while browsing through a bunch of projects. Many of them have multiple notations for the same color, like `#000` and `rgb(0, 0, 0)` that result in the same black color. I'm calling them aliases. I'm pretty sure that these aliases are not intentional, so keeping track of them may help us understand why they appear and how to fix them.
 
-## Examples
+<!-- ## Examples
 
 First, some examples to show you what I mean by aliases:
 
 - [cloud.google.com](https://www.projectwallace.com/teamwallace/google-cloud/colors#alias)
 - [facebook.com](https://www.projectwallace.com/teamwallace/facebookcom/colors#alias)
-- [stackoverflow.com](https://www.projectwallace.com/teamwallace/stackoverflowcom/colors#alias)
+- [stackoverflow.com](https://www.projectwallace.com/teamwallace/stackoverflowcom/colors#alias) -->
 
 ## What does it mean having aliases in my CSS?
 

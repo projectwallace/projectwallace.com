@@ -2,6 +2,7 @@
 excerpt: A recent REWORK podcast episode triggered me thinking about user privacy and this post explains how we deal with privacy.
 author: bartveneman
 title: Privacy by default
+archived: true
 ---
 
 TLDR; there's no tracking on Project Wallace.

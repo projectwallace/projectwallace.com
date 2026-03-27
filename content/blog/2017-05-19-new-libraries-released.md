@@ -1,9 +1,8 @@
 ---
 title: New libraries released!
 author: bartveneman
-excerpt: 'Two new libraries were released that will
-contribute to a better and faster API to power the Project
-Wallace website.'
+excerpt: 'Two new libraries were released that will contribute to a better and faster API to power the Project Wallace website.'
+archived: true
 ---
 
 Today I released two libraries on GitHub that will ultimately power [projectwallace.com](https://www.projectwallace.com)! Both libraries are brand new and take part in replacing a slow PHP API that times out on a lot of CSS files. Because that's such a big and important part of what Project Wallace is, I decided to make the open source. That way our fantastic community will get a chance to contribute to the Project.

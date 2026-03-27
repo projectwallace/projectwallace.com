@@ -4,6 +4,8 @@ import { type Theme, validate_theme } from '$lib/theme'
 
 export const handle_redirects: Handle = async function ({ event, resolve }) {
 	const redirects = [
+		{ source: '/blog/new-libraries-released', destination: '/blog' },
+		{ source: '/blog/php-library', destination: '/blog' },
 		{ source: '/blog/automatically-analyze-css-on-every-push', destination: '/blog' },
 		{ source: '/blog/cancel-subscription', destination: '/blog' },
 		{ source: '/blog/privacy-by-default', destination: '/blog' },

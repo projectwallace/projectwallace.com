@@ -15,7 +15,7 @@ Just a short post to share my excitement that Project Wallace has been mentioned
 
 <img src={survey} alt="Overview of all utilities listed on the State of CSS" loading="eager" width="1092" height="755">
 
-Thanks to [Romain](https://twitter.com/romainmenke/status/1670852482174468096) we were listed under [the 'utilities' section](https://2023.stateofcss.com/en-US/other-tools/), which means we're not a framework or a bundler, basically. It really helps getting this sort of exposure and I can see a slight increase in traffic and CSS analyzed because of this. Very cool to see Project Wallace listed in such an influential survey, even though I'm fully aware that my impact is very, very small. 30 of you indicated that they've been using Project Wallace from time and even though that's not much compared to the other tools, it's enough validation for me to keep going!
+Thanks to [Romain](https://www.romainmenke.com/) we were listed under [the 'utilities' section](https://2023.stateofcss.com/en-US/other-tools/), which means we're not a framework or a bundler, basically. It really helps getting this sort of exposure and I can see a slight increase in traffic and CSS analyzed because of this. Very cool to see Project Wallace listed in such an influential survey, even though I'm fully aware that my impact is very, very small. 30 of you indicated that they've been using Project Wallace from time and even though that's not much compared to the other tools, it's enough validation for me to keep going!
 
 ## Syntax.fm
 

@@ -4,7 +4,7 @@ excerpt: Support for analyzing CSS animations and transitions was added recently
 author: bartveneman
 ---
 
-In the [previous blog post](https://www.projectwallace.com/blog/analyzing-animations) I announced that Project Wallace now supports analysis of `animation-duration` and `transition-duration`. One of the neat things about Project Wallace is that it always shows all your values sorted in a sensible way. For example, font-sizes are sorted from small to large, colors are sorted by hue, etc. So it only makes sense to sort CSS [`&lt;time&gt;` values](https://developer.mozilla.org/en-US/docs/Web/CSS/time) from short to long. Enter [css-time-sort](https://github.com/bartveneman/css-time-sort).
+In the [previous blog post](https://www.projectwallace.com/blog/analyzing-animations) I announced that Project Wallace now supports analysis of `animation-duration` and `transition-duration`. One of the neat things about Project Wallace is that it always shows all your values sorted in a sensible way. For example, font-sizes are sorted from small to large, colors are sorted by hue, etc. So it only makes sense to sort CSS [`&lt;time&gt;` values](https://developer.mozilla.org/en-US/docs/Web/CSS/time) from short to long. Enter [css-time-sort](https://github.com/projectwallace/css-time-sort).
 
 ## The functional requirements
 
@@ -22,4 +22,4 @@ const sorted = ['1s', '200ms'].sort(sortFn)
 // => ['200ms', '1s']
 ```
 
-Check out the [source code on GitHub](https://github.com/bartveneman/css-time-sort).
+Check out the [source code on GitHub](https://github.com/projectwallace/css-time-sort).

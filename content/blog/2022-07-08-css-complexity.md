@@ -14,6 +14,7 @@ And then came [Bramus at CSS Day 2022](https://www.bram.us/2022/06/28/the-css-ca
 
 Some recent additions to CSS have made it easier to deal with specificity issues, like `:where()` and `:is()`. Both give us the opportunity to write more complex selectors at the cost of little specificity added (or none, in the case of `:where()`). But they can make selectors **more complex**. Let's take a look at these two examples:
 
+<!-- prettier-ignore -->
 ```css
 /* specificity: 0,1,2 */
 :is(header, main, footer) p:hover {}
@@ -22,7 +23,7 @@ Some recent additions to CSS have made it easier to deal with specificity issues
 header p:hover {}
 ```
 
-[Specificity for both selectors is `0,1,2`](<https://polypane.app/css-specificity-calculator/#selector=%3Ais(header%2C%20main%2C%20footer)%20p%3Ahover%2C%20header%20p%3Ahover>), but I'd argue that **the first one is more complex** than the second, because of the arguments in `:is()`. For me there's at least 6 parts to this selector, instead of the 3 (2 + 1) that the specificity would hint at. This is one example of specificity being not enough to explain the complexity of a selector.
+[Specificity for both selectors is `0,1,2`](</specificity-calculator?selectors=%3Ais(header%2C+main%2C+footer)+p%3Ahover%2C+header+p%3Ahover>), but I'd argue that **the first one is more complex** than the second, because of the arguments in `:is()`. For me there's at least 6 parts to this selector, instead of the 3 (2 + 1) that the specificity would hint at. This is one example of specificity being not enough to explain the complexity of a selector.
 
 ## More than just selector complexity
 
@@ -45,7 +46,7 @@ My goal is to work on a complete list and implement all these into Project Walla
 - Properties:
   - Vendor prefixes: `-webkit-appearance`
   - Browserhacks: `*zoom`
-  - Custom properties: `--brand-surface` (I'm actually still undecided if this should count towards complexity, so I'd love to hear your thoughts. Again, [Bramus shows](https://twitter.com/bramus/status/1363842359918800898) us there's definitely a complexity cost to pay in some circumstances and [Lea Verou's talk](https://www.youtube.com/watch?v=ZuZizqDF4q8) also highlighted that custom properties can be really powerful, but that power comes with a complexity cost)
+  - Custom properties: `--brand-surface` (I'm actually still undecided if this should count towards complexity, so I'd love to hear your thoughts. [Lea Verou's talk](https://www.youtube.com/watch?v=ZuZizqDF4q8) highlights that custom properties can be really powerful, but that power comes with a complexity cost)
 - Values
   - Browserhacks: `10px !ie`, `green \9`
   - Vendor prefixes: `-webkit-linear-gradient()`

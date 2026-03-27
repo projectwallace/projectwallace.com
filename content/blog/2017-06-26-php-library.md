@@ -2,6 +2,7 @@
 title: The PHP CSS project that was released. And abandoned right away.
 author: bartveneman
 excerpt: Today marks the point where a new PHP CSS parsing/analyzing library is released publicly. And abandoned immediately.
+archived: true
 ---
 
 Today marks the point where a PHP library accepting incoming HTTP requests, parsing CSS into an Abstract Syntaxt Tree (AST) and analysing it into a hash of statistics was [released on GitHub](https://github.com/projectwallace/php-css-parser-analyser). And abandoned immediately.

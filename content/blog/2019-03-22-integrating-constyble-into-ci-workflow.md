@@ -46,4 +46,4 @@ The 'trick' is to run Constyble in your NPM <code>test</code> script. It will lo
 
 Here is [an example repository](https://github.com/projectwallace/constyble-continuous-integration-example) that includes the example above. This example repo has an integration with [Travis](https://travis-ci.com), so that every push and Pull Request will run the <code>npm test</code> script to validate that CSS changes do not exceed the thresholds set in <code>.constyblerc</code>.
 
-That's all there is to it. Do you find this a useful addition to your tool chain? Let me know [via Twitter](https://twitter.com/bartveneman)!
+That's all there is to it. Do you find this a useful addition to your tool chain? Let me know!

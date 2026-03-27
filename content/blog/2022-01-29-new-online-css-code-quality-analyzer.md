@@ -8,7 +8,7 @@ _TL;DR: See your CSS Code Quality in numbers in a single glance on [our Online C
 
 Ever since I started Project Wallace years ago, I've been missing something. Because every time you open a project or do a one-off analysis it's difficult to see in a quick glance how you're doing. Is it good? Is it bad? Is it really bad? Well, let's scroll for a couple of seconds and try to make sense of what is shown on the page. If you understand most metrics, that is.
 
-Well, at the start of this year, [it finally clicked](https://twitter.com/projectwallace/status/1477687128087830533):
+Well, at the start of this year, it finally clicked:
 
 > Starting off the new year with an attempt to write a CSS code quality tool.... :sweat_smile:<br><br>Points deducted for complexity, performance anti-patterns etc etc.<br><br>Think @\_\_\_\_lighthouse, but for CSS specifically.
 

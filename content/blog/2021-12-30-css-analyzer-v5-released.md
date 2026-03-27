@@ -54,12 +54,12 @@ If you're in a hurry, go grab it [on GitHub](https://github.com/projectwallace/c
 
 ## Dependencies 📦
 
-An upcoming trend in Node land is to have a closer look at the `node_modules` of your project. The running gag is to compare `node_modules` to a black hole, but the undertone is more serious: it has gotten out of hand and many projects face insane install times with all the environmental impact that comes along with that. To turn this trend, projects like [PostCSS](https://twitter.com/sitnikcode/status/1471791895332499456) and [Vite](https://twitter.com/IAmTrySound/status/1475600522572877829) have gone the route of closely inspecting their dependencies and replacing big libraries with smaller alternatives.
+An upcoming trend in Node land is to have a closer look at the `node_modules` of your project. The running gag is to compare `node_modules` to a black hole, but the undertone is more serious: it has gotten out of hand and many projects face insane install times with all the environmental impact that comes along with that. To turn this trend, projects like PostCSS and Vite have gone the route of closely inspecting their dependencies and replacing big libraries with smaller alternatives.
 
 For this project it meant getting rid of a whole list of my own dependencies, as well as swapping existing ones with smaller and faster alternatives.
-The biggest change in dependencies is that all existing dependencies have turned into a single dependency: `css-tree`. [CSSTree is amazing](https://github.com/csstree/csstree) and I am a big fan of the work of CSSTree's author [Roman Dvornov](https://twitter.com/rdvornov).
+The biggest change in dependencies is that all existing dependencies have turned into a single dependency: `css-tree`. [CSSTree is amazing](https://github.com/csstree/csstree) and I am a big fan of the work of CSSTree's author [Roman Dvornov](https://github.com/lahmatiy).
 
-For devDependencies, I've replaced Ava with Uvu (by [Luke Edwards](https://twitter.com/lukeed05)). [Uvu is insanely fast](https://github.com/lukeed/uvu) and I find it easier to use than Ava because it doesn't rely on magical global variables.
+For devDependencies, I've replaced Ava with Uvu (by [Luke Edwards](https://github.com/lukeed/)). [Uvu is insanely fast](https://github.com/lukeed/uvu) and I find it easier to use than Ava because it doesn't rely on magical global variables.
 
 ## Conclusion
 

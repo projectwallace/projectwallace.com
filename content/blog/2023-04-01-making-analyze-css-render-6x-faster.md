@@ -105,11 +105,7 @@ There's a pretty nice [Svelte package to use IntersectionOberserver](https://git
 	let is_visible = false
 </script>
 
-<div
-	class="chart"
-	use:inview={{ unobserveOnEnter: true }}
-	on:inview_enter={() => (is_visible = true)}
->
+<div class="chart" use:inview={{ unobserveOnEnter: true }} on:inview_enter={() => (is_visible = true)}>
 	{#if is_visible}
 		<Pancake.Chart x1={0} x2={points.length} y1={0} y2={max}>
 			{#if points.length > 0}
@@ -255,4 +251,4 @@ The image also shows two big blocks of Recalculate Style and Layout, taking up 1
 
 ## Thank you
 
-A big shoutout to [Tim Vereecke](https://twitter.com/TimVereecke) and [John](https://twitter.com/burntcustard) for helping me understand what's going on! Your feedback really helped me fix the issues and motivated me to write this post. John also found some interesting pointers to potentially speed up Pancake.svelte, but let's leave that for another time. 😉
+A big shoutout to Tim Vereecke and [John](https://burnt.io/) for helping me understand what's going on! Your feedback really helped me fix the issues and motivated me to write this post. John also found some interesting pointers to potentially speed up Pancake.svelte, but let's leave that for another time. 😉

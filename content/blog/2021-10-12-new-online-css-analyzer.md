@@ -20,4 +20,4 @@ Here's a list of what you can expect from the new online CSS analyzer:
 - The ability to sort colors, font-sizes, z-indexes, etc.
 - Big reduction in errors; You'll only get an error now if your site can't be reached for scraping the CSS.
 
-I really hope you enjoy the new analyzer as much as I do and if you have ideas or suggestions to improve it, let me know [on Twitter via @projectwallace](https://twitter.com/projectwallace)!
+I really hope you enjoy the new analyzer as much as I do and if you have ideas or suggestions to improve it, let me know!

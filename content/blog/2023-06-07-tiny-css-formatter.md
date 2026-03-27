@@ -145,7 +145,7 @@ No project is perfect and neither is this little script. There are some things t
 - ✅ super fast (>90% faster than Prettier)
 - ✅ 'tiny' bundle size (~99% smaller than Prettier)
 - ✅ prettifies well enough for our use cases
-- 🔸 if your source CSS renders things multi-line (like long selectors or values), they'll stay multi-line (fine, I guess)
+- ✅ one thing per line, makes side-by-side comparison easy
 - 🔺 not as configurable and extensive as Prettier
 
 These are tradeoffs I can live with.
