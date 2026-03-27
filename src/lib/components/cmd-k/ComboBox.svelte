@@ -168,7 +168,7 @@
 		&:focus {
 			outline: 1px solid light-dark(var(--accent-600), var(--accent));
 			outline-offset: -1px;
-			background-color: var(--highlight);
+			background-color: var(--highlight-item);
 		}
 	}
 </style>
