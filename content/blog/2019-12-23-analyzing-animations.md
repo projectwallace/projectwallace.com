@@ -4,7 +4,7 @@ excerpt: Project Wallace now supports analysis of CSS animation and transition d
 author: bartveneman
 ---
 
-Animations and transitions are becoming part of many design systems. In the early days of style guides it used to be enough to keep track of font-sizes and colors. But these days design systems have evolved into full-blown user experience documents and animations are now first-class citizens. That's why Wallace now also analyzes animation-related properties. Let's take a look at [the new features](https://www.projectwallace.com/~teamwallace/project-wallace/animations).
+Animations and transitions are becoming part of many design systems. In the early days of style guides it used to be enough to keep track of font-sizes and colors. But these days design systems have evolved into full-blown user experience documents and animations are now first-class citizens. That's why Wallace now also analyzes animation-related properties. Let's take a look at the new features.
 
 ## Animation and transition durations
 
@@ -85,4 +85,4 @@ Result:
 
 ## Next steps
 
-These reports are also available in [projectwallace.com](https://www.projectwallace.com), [Wallace CLI](https://github.com/bartveneman/wallace-cli) and [Constyble](https://github.com/bartveneman/constyble). What are you going to do with these reports? What scary values did you find? Let me know [on Twitter](https://twitter.com/bartveneman)!
+These reports are also available in [projectwallace.com](https://www.projectwallace.com), [Wallace CLI](https://github.com/projectwallace/wallace-cli) and [Constyble](https://github.com/bartveneman/constyble). What are you going to do with these reports? What scary values did you find? Let me know!

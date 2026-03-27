@@ -33,7 +33,7 @@ This will change what CSS ships to the browser, because preprocessors (PostCSS, 
 
 In the example above you can see that Chrome Devtools (Chrome 114) are trying to add helpful context about the selector, but there's multiple levels of nesting, so we don't get to see the full resolved selector here, which is inconvenient.
 
-<aside>Update 13-06-2023: Apparently <a href="https://twitter.com/bramus/status/1668711607222902785">the Chrome team is aware</a> of this inconvenience and they're looking into it.</aside>
+<aside>Update 13-06-2023: Apparently the Chrome team are aware of this inconvenience and they're looking into it.</aside>
 
 Time will tell how much profit CSS nesting will bring us. Writing the CSS will become faster, but debugging it will become harder as it requires more tooling or mental gymnastics to surface the resolved CSS.
 
@@ -103,7 +103,7 @@ It looks like Firefox is very much on top of the game here, although Chrome's de
 
 A couple of demos and talks showed off the amazing things we can build with Scroll Driven Animations. I'm not going to explain them here, so if you need examples you can check the ones from [Jhey](https://jhey.dev/cheep/rotating-gallery-with-css-scroll-driven-animations/) or [Bramus](https://www.bram.us/2023/05/16/whats-new-in-web-animations/).
 
-One thing that stood out is that the new `animation-timeline`, `animation-composition` and `animation-range` properties [cannot be combined](https://twitter.com/bramus/status/1667916024107216897) with the `animation`-shorthand property.
+One thing that stood out is that the new `animation-timeline`, `animation-composition` and `animation-range` properties cannot be combined with the `animation`-shorthand property.
 
 ```css
 /* WARNING: will not work */

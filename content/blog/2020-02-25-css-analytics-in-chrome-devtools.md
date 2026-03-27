@@ -9,7 +9,7 @@ keywords: css, colors, analysis, devtools
 	import screenshot from '$lib/img/blog/2020-02-25-css-analytics-in-chrome-devtools/screenshot.png'
 </script>
 
-The people at Chrome DevTools are joining the CSS Analytics game! [Harry Roberts posted a tweet](https://twitter.com/csswizardry/status/1231940099992170496) showing a screen in Chrome that lists colors on a page, complex CSS selectors, and more.
+The people at Chrome DevTools are joining the CSS Analytics game! Harry Roberts posted a tweet showing a screen in Chrome that lists colors on a page, complex CSS selectors, and more.
 
 <img loading="eager" src={screenshot} alt="Chrome DevTools showing built-in CSS Analytics" width="1040" height="857">
 

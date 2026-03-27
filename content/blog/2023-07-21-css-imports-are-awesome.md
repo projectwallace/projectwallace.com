@@ -80,7 +80,7 @@ Now that last import's rules will be assigned to a new, anonymous layer. The ben
 
 It seems like [`layer` browser support in imports](https://caniuse.com/mdn-css_at-rules_import_supports) has been around for for over a year already. They probably picked this up right alongside developing initial `@layer` efforts.
 
-The `<link>` element [does not (yet) support](https://twitter.com/bramus/status/1593376033725591552) importing into a layer, so if you really must add some 3rd party CSS into a layer, this is your bet. For now. Keep an eye on [this GitHub thread](https://github.com/whatwg/html/issues/7540) if you want to know if and when support is coming.
+The `<link>` element [does not (yet) support](https://github.com/whatwg/html/issues/7540) importing into a layer, so if you really must add some 3rd party CSS into a layer, this is your bet. For now. Keep an eye on [this GitHub thread](https://github.com/whatwg/html/issues/7540) if you want to know if and when support is coming.
 
 ## Import conditions
 
@@ -183,6 +183,6 @@ See!? I told you! This at-rule is full of good stuff. After diving into this I'm
 - Will browsers pick up support for `supports()`?
 - What would be a good trigger for us to start using `@import` again. There's probably a way to mitigate some of the [performance drawbacks](https://gtmetrix.com/avoid-css-import.html), right?
 - ~~I remember seeing a GitHub thread of some CSS working group around adding support for `layer` and `supports` in the `<link>` element, but I can't seem to find the relevant issue. If you know where it is, please send me a message, because I think that really fits the theme here as well.~~
-  Thanks for [tweeting](https://twitter.com/bramus/status/1593376033725591552) Bramus and Barry!
+  Thanks for helping Bramus and Barry!
 
-Some of this is just more research material that I haven't got to yet. I'd love to know more about `@import`, so I encourage you to [mail](mailto:bart@projectwallace.com?subject=CSS%20at-import) or [tweet](https://twitter.com/projectwallace) me some good reading material.
+Some of this is just more research material that I haven't got to yet. I'd love to know more about `@import`, so I encourage you to [mail](mailto:bart@projectwallace.com?subject=CSS%20at-import) me some good reading material.

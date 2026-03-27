@@ -6,7 +6,7 @@ title: The CSS Tricks 2019 redesign in numbers
 
 On the 1<sup>st</sup> of January [CSS-Tricks.com](https://css-tricks.com) got a fresh coat of paint, and what a looker she is! Chris Coyier and his team have done an excellent job at delivering a stunning looking website. A redesign at such scale (CSS Tricks is no tiny website) is interesting to look at from a CSS analysis perspective, so let&rsquo;s do that.
 
-(If you just want to take a look at the raw numbers: [Compare CSS Tricks 30 Dec 2018 21:18:23 to 1 Jan 2019 20:27:56](https://www.projectwallace.com/teamwallace/css-tricks/imports/20190101202756143))
+<!-- (If you just want to take a look at the raw numbers: [Compare CSS Tricks 30 Dec 2018 21:18:23 to 1 Jan 2019 20:27:56](https://www.projectwallace.com/teamwallace/css-tricks/imports/20190101202756143)) -->
 
 ## A quick overview of numbers
 
@@ -31,7 +31,7 @@ The most notable change in a redesign is the visual aspect of things, so let&rsq
 | Font-sizes    | 175    | 137   | -30.88%    |
 | Font-families | 7      | 8     | +14.29%    |
 
-The amount of unique colors and font-sizes have decreased quite a lot. I suspect that the team focused on building a more consistent looking UI. Fun fact from the [font-family department](https://www.projectwallace.com/teamwallace/css-tricks/imports/20190101202756143#values.fontfamilies.unique): no more icon fonts!
+The amount of unique colors and font-sizes have decreased quite a lot. I suspect that the team focused on building a more consistent looking UI. Fun fact from the font-family department: no more icon fonts!
 
 ## Changes in complexity
 

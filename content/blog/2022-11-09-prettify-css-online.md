@@ -8,4 +8,4 @@ It's one of those common tasks that you do when auditing CSS: making minified CS
 
 For now, the prettifier is a standalone page, but perhaps we'll eventually add 'prettify CSS' buttons to other pages as well, like the [Analyze CSS](/analyze-css) or [CSS Code Quality](/css-code-quality) pages.
 
-This online CSS prettifier is [powered by Prettier](https://prettier.io/docs/en/api.html) and runs in your browser, so our servers never see that CSS.
+This online CSS prettifier runs in your browser, so our servers never see that CSS.

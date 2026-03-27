@@ -2,8 +2,7 @@
 	import { page } from '$app/state'
 	import Container from '$lib/components/Container.svelte'
 	import Hero from '$lib/components/Hero.svelte'
-
-	const dev = process.env.NODE_ENV === 'development'
+	import { dev } from '$app/environment'
 </script>
 
 <svelte:head>
@@ -20,3 +19,9 @@
 		<pre>{JSON.stringify(page.error, null, 2)}</pre>
 	</Container>
 {/if}
+
+<style>
+	.font-heading {
+		font-size: var(--size-6xl);
+	}
+</style>

@@ -25,23 +25,23 @@ export const faqs = [
 			<p>Some awesome people I follow around these topics are:</p>
 			<ul>
 				<li>
-					<a href="https://twitter.com/mrmrs_">Adam Morse</a>
+					Adam Morse
 					(works on CSS Stats and occasionally tweets awesome ways of analyzing CSS),
 				</li>
 				<li>
-					<a href="https://twitter.com/4lpine">John Otander</a>
+					John Otander
 					is a core member of the CSS Stats team,
 				</li>
 				<li>
-					<a href="https://twitter.com/jxnblk">Brent Jackson</a>
+					Brent Jackson
 					is a design systems developer and part of the CSS Stats team,
 				</li>
 				<li>
-					<a href="https://twitter.com/katie_fenn">Katie Fenn</a>
+					Katie Fenn
 					(developed <a href="https://github.com/katiefenn/parker">Parker</a>),
 				</li>
 				<li>
-					<a href="https://twitter.com/csswizardry">Harry Roberts</a>
+					Harry Roberts
 					(has a keen eye for analyzing anything really, but has written some very good posts about CSS complexity in the past specifically).
 				</li>
 			</ul>
@@ -79,5 +79,5 @@ export const faqs = [
 		title: 'This is so cool, can I give you my money? 💸',
 		content:
 			'<p>YES! You can <a href="https://www.projectwallace.com/funding">sponsor me</a> and support my efforts to make this a must-have tool for any developer.</p>'
-	},
+	}
 ]

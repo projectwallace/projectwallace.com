@@ -214,8 +214,4 @@ Again, a huge list: 78 unique font-families (most sites stop at about ~20). Scro
 
 That's it for now! I won't go into more details about other things because A) this post is long enough as it is and B) most things are what you would expect from a website as big as instagram.com.
 
-I highly encourage you to check out the report yourself and see what you can take away from these analytics. Let me know what you think of this type of post! Did you like it? Was it deep enough? Or still too superficial? Ping me at [@bartveneman](https://twitter.com/bartveneman).
-
-<aside>
-<p>This post is the first part of a series of posts focusing on dissecting the CSS of popular websites. The goal is to see how big companies structure their CSS, what mistakes they make and what we can learn from their CSS architecture.</p>
-</aside>
+I highly encourage you to check out the report yourself and see what you can take away from these analytics. Let me know what you think of this type of post! Did you like it? Was it deep enough? Or still too superficial?

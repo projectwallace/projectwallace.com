@@ -18,11 +18,11 @@ Apparently a lot of people have _some form of interest_ in the CSS of their webs
 Pretty much all traffic on this website comes from a handful of blog posts on the internet. Most of these posts are either on Smashing Magazine or CSS Tricks. Some big spikes in traffic this year because of some posts gaining traction or a popular newsletter that was just sent. Let's list the top ones:
 
 - **Smashing Magazine** (3.6K views):
-  - [CSS Auditing Tools](https://www.smashingmagazine.com/2021/03/css-auditing-tools/#project-wallace) by [Iris Lješnjanin](https://twitter.com/smash_it_on): 2.4K views
-  - [Refactoring CSS: Introduction](https://www.smashingmagazine.com/2021/07/refactoring-css-introduction-part1/) by [Adrian Bece](https://twitter.com/AdrianBeceDev): 915 views
+  - [CSS Auditing Tools](https://www.smashingmagazine.com/2021/03/css-auditing-tools/#project-wallace) by Iris Lješnjanin: 2.4K views
+  - [Refactoring CSS: Introduction](https://www.smashingmagazine.com/2021/07/refactoring-css-introduction-part1/) by Adrian Bece: 915 views
 - **CSS Tricks** (2.3K views):
-  - [Tools for Auditing CSS](https://css-tricks.com/tools-for-auditing-css/) by [Silvestar Bistrović](https://twitter.com/malimirkeccita): 1.2K views
-  - [Design v18](https://css-tricks.com/design-v18/) by [Chris Coyier](https://twitter.com/chriscoyier): 530 views
+  - [Tools for Auditing CSS](https://css-tricks.com/tools-for-auditing-css/) by Silvestar Bistrović: 1.2K views
+  - [Design v18](https://css-tricks.com/design-v18/) by Chris Coyier: 530 views
   - Several more newsletter pages and older blog posts that gained less traction.
 - **Google**: 2K views
 - **Twitter**: 1.2K views

@@ -3,6 +3,7 @@ title: Writing docs
 excerpt: Documentation for all Project Wallace's metrics is absent, and I'm currently working to bring them up to speed.
 author: bartveneman
 keywords: docs, metrics
+archived: true
 ---
 
 With COVID-19 raging across our planet, sales for Project Wallace have pretty much dried up. Hardly any new paying customers are showing up. And I get that. These are incredibly challenging times. This is probably not the time to make (even a tiny) investment in a tool like Wallace, that you don't strictly need anyway. _This is why I have decided to move my attention to serving the developer community with writing documentation for all Project Wallace's CSS metrics._

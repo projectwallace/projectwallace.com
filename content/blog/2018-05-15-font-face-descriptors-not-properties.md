@@ -38,7 +38,7 @@ Most CSS parsers, like PostCSS and ReworkCSS take those lines as declarations be
 ## Consequenses for CSS statistics
 
 - Less properties are counted than you might expect
-- Specifically: less font-related properties, which usually means there are less font-families to show in your projects' [font-family details pages](https://www.projectwallace.com/teamwallace/project-wallace/fontfamilies)
+- Specifically: less font-related properties, which usually means there are less font-families to show in your projects' font-family details pages
 
 ## More information
 
