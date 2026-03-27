@@ -57,4 +57,5 @@ export const shorthands = new KeywordSet([
     'text-decoration',
     'text-emphasis',
     'transition',
+    'vertical-align',
 ])
