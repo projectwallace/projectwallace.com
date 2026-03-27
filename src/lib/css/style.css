@@ -362,8 +362,7 @@
 			--fg: light-dark(var(--gray-850), var(--gray-200));
 			--bg: light-dark(var(--gray-100), var(--gray-850));
 			--uneven-tr-bg: color-mix(in srgb, var(--gray-450) 10%, transparent);
-			/* Mimics the 'Highlight' CSS system color keyword */
-			--highlight: rgb(from light-dark(var(--yellow-200), var(--yellow-900)) r g b / 0.25);
+			--highlight-item: rgb(from light-dark(var(--accent-600), var(--accent)) r g b / 0.14);
 
 			/* Setup theme */
 			color-scheme: dark light;
@@ -445,7 +444,7 @@
 		[aria-selected='true'] {
 			outline: 1px solid light-dark(var(--accent-600), var(--accent));
 			outline-offset: -1px;
-			background-color: var(--highlight);
+			background-color: var(--highlight-item);
 			position: relative;
 			z-index: 1;
 		}
@@ -472,6 +471,9 @@
 
 		@layer syntax {
 			html {
+				--highlight-code-background-color: light-dark(var(--yellow-300), var(--yellow-700));
+				/* Mimics the 'Highlight' CSS system color keyword. Needs to work against several background-colors, hence the opacity */
+				--highlight-code: rgb(from var(--highlight-code-background-color) r g b / 0.4);
 				--highlight-property: light-dark(var(--blue-400), var(--blue-100));
 				--highlight-number: light-dark(var(--blue-300), var(--blue-200));
 				--highlight-string: light-dark(var(--orange-500), var(--orange-300));

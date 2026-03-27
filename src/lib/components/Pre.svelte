@@ -351,6 +351,6 @@
 	}
 
 	::highlight(lines) {
-		background-color: var(--highlight);
+		background-color: var(--highlight-code);
 	}
 </style>
