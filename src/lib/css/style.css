@@ -744,6 +744,7 @@
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
 		transition: scrollbar-color 0.1s ease-out;
+		overscroll-behavior-y: contain;
 
 		&:hover,
 		&:focus {

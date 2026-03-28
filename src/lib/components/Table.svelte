@@ -41,6 +41,10 @@
 				border-bottom: 2px solid var(--fg-450);
 			}
 
+			tbody tr[aria-selected] {
+				cursor: default;
+			}
+
 			:is(th, td) {
 				text-align: start;
 				padding: var(--pw-table-padding-block) var(--space-2);
@@ -55,7 +59,7 @@
 				white-space: nowrap;
 			}
 
-			:where(tr:nth-child(even)) {
+			:where(tr:nth-child(even):not([aria-selected='true'])) {
 				background-color: var(--uneven-tr-bg);
 			}
 

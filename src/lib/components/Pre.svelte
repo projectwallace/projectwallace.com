@@ -110,6 +110,16 @@
 			// Clear previous highlights
 			lines.clear()
 
+			for (let location of locations) {
+				let range = new StaticRange({
+					startContainer: node,
+					startOffset: location.offset,
+					endContainer: node,
+					endOffset: location.offset + location.length
+				})
+				lines.add(range)
+			}
+
 			// Highlight the location
 			let range = new StaticRange({
 				startContainer: node,
