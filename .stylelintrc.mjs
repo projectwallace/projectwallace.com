@@ -151,5 +151,6 @@ export default {
 		// Others / plugins
 		'projectwallace/no-unknown-custom-property': null,
 		'projectwallace/no-unused-custom-properties': null,
+		'projectwallace/no-property-shorthand': null,
 	},
 }
