@@ -8,6 +8,15 @@
 	import { debounce } from '$lib/debounce'
 	import Empty from './Empty.svelte'
 	import Table from './Table.svelte'
+	import Pre from './Pre.svelte'
+	import { create_keyboard_list, type OnChange } from './use-keyboard-list.svelte'
+	import type { Warning } from 'stylelint'
+
+	let {
+		elements: { root, item }
+	} = create_keyboard_list({
+		scroll_selected_item_into_view: false
+	})
 
 	type LintResult = Awaited<ReturnType<(typeof actions)['default']>>
 
@@ -46,16 +55,38 @@
 
 	let form = $state<HTMLFormElement>()
 	let lint_result = $state<LintResult | null>(null)
+	let active_item = $state<number | undefined>()
 
-	onMount(() => form?.requestSubmit())
-
-	const oninput = debounce(() => form?.requestSubmit(), 150)
+	const oninput = debounce(() => {
+		form?.requestSubmit()
+		active_item = undefined
+	}, 150)
 
 	$effect(() => {
 		if (css.length > 0) {
 			form?.requestSubmit()
+			active_item = undefined
 		}
 	})
+
+	function warning_to_css_location(source: string, warning: Warning) {
+		const lines = source.split('\n')
+		function line_offset(line: number, column: number) {
+			let offset = 0
+			for (let i = 0; i < line - 1; i++) offset += lines[i].length + 1
+			return offset + column - 1
+		}
+		const start = line_offset(warning.line, warning.column)
+		let length = 1
+		if (typeof warning.endLine === 'number' && typeof warning.endColumn === 'number') {
+			length = line_offset(warning.endLine, warning.endColumn) - start
+		}
+		return { line: warning.line, column: warning.column, offset: start, length }
+	}
+
+	const on_change: OnChange = ({ value, active_index }) => {
+		active_item = active_index
+	}
 </script>
 
 <form
@@ -103,12 +134,25 @@
 					<label for="input-css" class="pane-title">CSS input</label>
 				</div>
 				<div class="pane-content">
-					<!-- TODO: line numbers, highlights, etc. -->
-					<HighlightedTextarea
-						id="input-css"
-						name="input-css"
-						bind:value={css}
-						aria-invalid={lint_result?.result.errored}
+					<input type="hidden" name="input-css" id="input-css" value={css} />
+					<Pre
+						{css}
+						selected_location={active_item === undefined
+							? undefined
+							: warning_to_css_location(css, lint_result?.result.warnings.at(active_item))}
+						locations={lint_result?.result.warnings
+							.filter((warning) => {
+								if (
+									warning.column === 1 &&
+									warning.line === 1 &&
+									typeof warning.endLine === 'number' &&
+									warning.endLine > 1
+								) {
+									return false
+								}
+								return true
+							})
+							.map((warning) => warning_to_css_location(css, warning))}
 					/>
 				</div>
 			</div>
@@ -129,19 +173,23 @@
 									<caption class="sr-only">Stylelint errors</caption>
 									<thead>
 										<tr>
-											<th>Location</th>
-											<th>Severity</th>
+											<th class="numeric">Location</th>
+											<!-- <th>Severity</th> -->
 											<th>Message</th>
 											<th>Rule</th>
 										</tr>
 									</thead>
-									<tbody>
-										{#each lint_result?.result.warnings as issue}
-											<tr>
-												<td>{issue.line}:{issue.column}</td>
-												<td>
+									<tbody
+										use:root={{
+											onchange: on_change
+										}}
+									>
+										{#each lint_result?.result.warnings as issue, index}
+											<tr use:item={{ value: index }} aria-selected={active_item === index}>
+												<td class="numeric">{issue.line}:{issue.column}</td>
+												<!-- <td>
 													<span class="severity">{issue.severity}</span>
-												</td>
+												</td> -->
 												<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
 												<td>{issue.rule}</td>
 											</tr>
@@ -157,6 +205,10 @@
 	</div>
 </form>
 
+<p>
+	active_item: {JSON.stringify(active_item)}
+</p>
+
 <style>
 	/*
 		Changes:
@@ -165,9 +217,10 @@
 		- added type=button to prettify css
 	*/
 	.ast-explorer {
+		--wallace-pane-background-color: var(--bg-200);
 		--wallace-ast-explorer-border-color: var(--bg-300);
 		--wallace-ast-explorer-border-width: var(--space-px);
-		--wallace-ast-explorer-pane-block-size: calc(100vh - 16rem);
+		--wallace-ast-explorer-pane-block-size: calc(100vh - 24rem);
 		container-type: inline-size;
 		container-name: --ast-explorer;
 		border-width: var(--wallace-ast-explorer-border-width);
@@ -184,7 +237,7 @@
 	}
 
 	.pane {
-		background-color: light-dark(transparent, var(--bg-200));
+		background-color: light-dark(transparent, var(--wallace-pane-background-color));
 		line-height: 2;
 		block-size: 100%;
 		display: grid;
@@ -225,16 +278,16 @@
 	.pane-content {
 		overflow-x: auto;
 
-		&:not(.options &) {
-			font-size: var(--size-specimen);
-
-			@container --ast-explorer (min-width: 50rem) {
-				block-size: var(--wallace-ast-explorer-pane-block-size);
-			}
+		@container --ast-explorer (min-width: 50rem) {
+			block-size: var(--wallace-ast-explorer-pane-block-size);
 		}
 	}
 
 	@layer linter {
+		th {
+			background-color: var(--wallace-pane-background-color);
+		}
+
 		td {
 			white-space: nowrap;
 			font-family: var(--font-mono);
