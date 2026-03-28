@@ -13,6 +13,7 @@
 </svelte:element>
 
 <style>
+	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- versatile little thing */
 	.empty {
 		padding: var(--space-4) var(--space-6);
 		border: 3px dashed var(--fg-700);
@@ -23,10 +24,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}
 
-	@media print {
-		.empty {
+		@media print {
 			border-width: 1px;
 		}
 	}

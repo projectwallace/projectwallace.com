@@ -1,73 +1,116 @@
+/* stylelint-disable projectwallace/min-selector-uniqueness-ratio -- Yes, we repeat `html` a lot */
 @layer config {
 	@layer color {
-		html {
-			--teal-100: hsl(151.7deg 33% 90%);
-			--teal-200: hsl(151.7deg 43% 75%);
-			--teal-300: hsl(151.7deg 53% 60%);
-			--teal-400: hsl(151.7deg 66% 47.3%);
-			--teal-500: hsl(152deg 65.6% 41%);
-			--teal-600: hsl(152deg 68.6% 36%);
-			--teal-700: hsl(152deg 72% 33%);
-			--teal-800: hsl(152deg 80% 25%);
-			--teal-900: hsl(152deg 70% 12.5%);
-			--blue-100: hsl(215.9deg 90% 85%);
-			--blue-200: hsl(215.9deg 90% 70%);
-			--blue-300: hsl(215.9deg 90% 60%);
-			--blue-400: hsl(215.9deg 92% 40%);
-			--blue-500: hsl(216deg 92.2% 35.1%);
-			--blue-700: hsl(216.1deg 92.2% 25.1%);
-			--blue-800: hsl(216.1deg 80% 9%);
-			--yellow-200: hsl(60deg 66% 78%);
-			--yellow-300: hsl(60deg 70% 70%);
-			--yellow-400: hsl(60deg 80% 50%);
-			--yellow-500: hsl(60deg 80% 42%);
-			--yellow-600: hsl(60deg 90% 35%);
-			--yellow-700: hsl(60deg 90% 18%);
-			--yellow-800: hsl(60deg 90% 12%);
-			--yellow-900: hsl(60deg 97% 9%);
-			--orange-100: hsl(31.7deg 90% 90%);
-			--orange-300: #fcb76a;
-			--orange-400: hsl(31.7deg 96.7% 47.3%);
-			--orange-500: hsl(31.7deg 97% 32.3%);
-			--pink-300: rgb(233 44 120);
-			--pink-400: hsl(335.9deg 89% 50%);
-			--pink-500: hsl(335.9deg 80% 40%);
-			--green-100: hsl(121.9deg 40% 93%);
-			--green-200: hsl(121.9deg 50% 73%);
-			--green-300: hsl(121.9deg 55% 58%);
-			--green-400: hsl(121.9deg 60% 43%);
-			--green-500: hsl(121.9deg 70% 31%);
-			--green-600: hsl(121.9deg 35% 23%);
-			--green-700: hsl(166deg 25% 17%);
-			--red-100: hsl(4deg 36% 85%);
-			--red-200: hsl(4deg 46% 66%);
-			--red-300: hsl(4deg 66% 51%);
-			--red-400: hsl(0deg 70% 42%);
-			--red-600: hsl(0deg 70% 16%);
-			--red-700: hsl(0deg 74% 11%);
-			--red-900: hsl(338.9deg 26.8% 24.1%);
-			--purple-100: hsl(273.3deg 69.2% 97.5%);
-			--purple-200: hsl(272deg 66.7% 82.4%);
-			--purple-300: hsl(271.7deg 66.1% 57.3%);
-			--purple-400: hsl(271.7deg 66% 47.3%);
-			--purple-500: hsl(271.7deg 65.7% 42.4%);
-			--purple-600: hsl(272.4deg 66.7% 29.4%);
-			/* --purple-700: hsl(271.9deg 66.3% 37.3%); */
-			--purple-800: hsl(271.7deg 66.4% 25.7%);
-			--purple-900: hsl(272.2deg 67.5% 15.7%);
-			--white: hsl(0deg 0% 100%);
-			--gray-100: hsl(198deg 5% 97.3%);
-			--gray-200: hsl(198deg 10% 90%);
-			--gray-300: hsl(198deg 12% 66%);
-			--gray-400: hsl(198deg 12% 52%);
-			--gray-450: hsl(198.6deg 19.6% 28%);
-			--gray-500: hsl(198.6deg 19.6% 20.8%);
-			--gray-600: hsl(205.3deg 19.6% 19%);
-			--gray-700: hsl(203deg 23% 16%);
-			--gray-800: hsl(203.3deg 27.3% 10%);
-			--gray-850: hsl(203.3deg 36% 6%);
-			--gray-900: hsl(195deg 44% 4.7%);
-			--black: hsl(0deg 0% 0%);
+		@layer teal {
+			html {
+				--teal-100: hsl(151.7deg 33% 90%);
+				--teal-200: hsl(151.7deg 43% 75%);
+				--teal-300: hsl(151.7deg 53% 60%);
+				--teal-400: hsl(151.7deg 66% 47.3%);
+				--teal-500: hsl(152deg 65.6% 41%);
+				--teal-600: hsl(152deg 68.6% 36%);
+				--teal-700: hsl(152deg 72% 33%);
+				--teal-800: hsl(152deg 80% 25%);
+				--teal-900: hsl(152deg 70% 12.5%);
+			}
+		}
+
+		@layer blue {
+			html {
+				--blue-100: hsl(215.9deg 90% 85%);
+				--blue-200: hsl(215.9deg 90% 70%);
+				--blue-300: hsl(215.9deg 90% 60%);
+				--blue-400: hsl(215.9deg 92% 40%);
+				--blue-500: hsl(216deg 92.2% 35.1%);
+				--blue-700: hsl(216.1deg 92.2% 25.1%);
+				--blue-800: hsl(216.1deg 80% 9%);
+			}
+		}
+
+		@layer yellow {
+			html {
+				--yellow-200: hsl(60deg 66% 78%);
+				--yellow-300: hsl(60deg 70% 70%);
+				--yellow-400: hsl(60deg 80% 50%);
+				--yellow-500: hsl(60deg 80% 42%);
+				--yellow-600: hsl(60deg 90% 35%);
+				--yellow-700: hsl(60deg 90% 18%);
+				--yellow-800: hsl(60deg 90% 12%);
+				--yellow-900: hsl(60deg 97% 9%);
+			}
+		}
+
+		@layer orange {
+			html {
+				--orange-100: hsl(31.7deg 90% 90%);
+				--orange-300: #fcb76a;
+				--orange-400: hsl(31.7deg 96.7% 47.3%);
+				--orange-500: hsl(31.7deg 97% 32.3%);
+			}
+		}
+
+		@layer pink {
+			html {
+				--pink-300: rgb(233 44 120);
+				--pink-400: hsl(335.9deg 89% 50%);
+				--pink-500: hsl(335.9deg 80% 40%);
+			}
+		}
+
+		@layer green {
+			html {
+				--green-100: hsl(121.9deg 40% 93%);
+				--green-200: hsl(121.9deg 50% 73%);
+				--green-300: hsl(121.9deg 55% 58%);
+				--green-400: hsl(121.9deg 60% 43%);
+				--green-500: hsl(121.9deg 70% 31%);
+				--green-600: hsl(121.9deg 35% 23%);
+				--green-700: hsl(166deg 25% 17%);
+			}
+		}
+
+		@layer red {
+			html {
+				--red-100: hsl(4deg 36% 85%);
+				--red-200: hsl(4deg 46% 66%);
+				--red-300: hsl(4deg 66% 51%);
+				--red-400: hsl(0deg 70% 42%);
+				--red-600: hsl(0deg 70% 16%);
+				--red-700: hsl(0deg 74% 11%);
+				--red-900: hsl(338.9deg 26.8% 24.1%);
+			}
+		}
+
+		@layer purple {
+			html {
+				--purple-100: hsl(273.3deg 69.2% 97.5%);
+				--purple-200: hsl(272deg 66.7% 82.4%);
+				--purple-300: hsl(271.7deg 66.1% 57.3%);
+				--purple-400: hsl(271.7deg 66% 47.3%);
+				--purple-500: hsl(271.7deg 65.7% 42.4%);
+				--purple-600: hsl(272.4deg 66.7% 29.4%);
+				/* --purple-700: hsl(271.9deg 66.3% 37.3%); */
+				--purple-800: hsl(271.7deg 66.4% 25.7%);
+				--purple-900: hsl(272.2deg 67.5% 15.7%);
+			}
+		}
+
+		@layer gray {
+			html {
+				--white: hsl(0deg 0% 100%);
+				--gray-100: hsl(198deg 5% 97.3%);
+				--gray-200: hsl(198deg 10% 90%);
+				--gray-300: hsl(198deg 12% 66%);
+				--gray-400: hsl(198deg 12% 52%);
+				--gray-450: hsl(198.6deg 19.6% 28%);
+				--gray-500: hsl(198.6deg 19.6% 20.8%);
+				--gray-600: hsl(205.3deg 19.6% 19%);
+				--gray-700: hsl(203deg 23% 16%);
+				--gray-800: hsl(203.3deg 27.3% 10%);
+				--gray-850: hsl(203.3deg 36% 6%);
+				--gray-900: hsl(195deg 44% 4.7%);
+				--black: hsl(0deg 0% 0%);
+			}
 		}
 	}
 
@@ -128,6 +171,7 @@
 	}
 
 	@layer spacing {
+		/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- Our spacing scale is just big, okay */
 		html {
 			--space-0: 0;
 			--space-px: 1px;
@@ -576,6 +620,7 @@
 		}
 
 		/* Nasty hack: can't extend our <Button> component styles, so let's just duplicate it like this */
+		/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- As said, this is nasty */
 		::file-selector-button {
 			display: inline-flex;
 			align-items: center;
