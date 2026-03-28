@@ -1,18 +1,19 @@
 <script lang="ts">
-	import plugin_pkg from '@projectwallace/stylelint-plugin/package.json' with { type: 'json' }
 	import { format } from '@projectwallace/format-css'
 	import HighlightedTextarea from '$components/HighlightedTextarea.svelte'
-	import { HashState } from '$lib/url-hash-state.svelte'
-	import Button from '$components/Button.svelte'
 	import CopyButton from '$components/CopyButton.svelte'
 	import { enhance } from '$app/forms'
 	import { onMount } from 'svelte'
-	import type { actions, Preset } from '../../routes/(public)/lint-css/+page.server'
+	import type { actions } from '../../routes/(public)/lint-css/+page.server'
 	import { debounce } from '$lib/debounce'
 	import Empty from './Empty.svelte'
 	import Table from './Table.svelte'
 
 	type LintResult = Awaited<ReturnType<(typeof actions)['default']>>
+
+	type Props = {
+		css?: string
+	}
 
 	const DEFAULT_CSS = format(`
 		@layer reset, components;
@@ -41,37 +42,21 @@
 		}
 	`)
 
-	type UrlState = {
-		css: string
-		preset: Preset
-	}
+	let { css = DEFAULT_CSS }: Props = $props()
 
 	let form = $state<HTMLFormElement>()
-	let url_state = new HashState<UrlState>({
-		css: DEFAULT_CSS,
-		preset: 'recommended'
-	})
 	let lint_result = $state<LintResult | null>(null)
-	let duration = $state<number | null>(null)
-
-	function prettify() {
-		url_state.current = {
-			...url_state.current,
-			css: format(url_state.current.css)
-		}
-	}
 
 	onMount(() => form?.requestSubmit())
 
 	const oninput = debounce(() => form?.requestSubmit(), 150)
-</script>
 
-<header class="header">
-	<strong class="title">CSS Linter</strong>
-	<a href={plugin_pkg.homepage} target="_blank" rel="external">
-		Stylelint Plugin: {plugin_pkg.version}
-	</a>
-</header>
+	$effect(() => {
+		if (css.length > 0) {
+			form?.requestSubmit()
+		}
+	})
+</script>
 
 <form
 	method="POST"
@@ -82,7 +67,6 @@
 		async ({ result }) => {
 			if (result.type === 'success') {
 				lint_result = result.data as LintResult
-				duration = (result.data as LintResult).duration ?? null
 			}
 		}}
 >
@@ -96,28 +80,20 @@
 					<fieldset>
 						<legend>Preset</legend>
 						<div>
-							<input
-								type="radio"
-								id="preset-recommended"
-								name="preset"
-								value="recommended"
-								bind:group={url_state.current.preset}
-							/>
+							<input type="radio" id="preset-recommended" name="preset" value="recommended" checked />
 							<label for="preset-recommended">Recommended</label>
 						</div>
 						<div>
-							<input
-								type="radio"
-								id="preset-performance"
-								name="preset"
-								value="performance"
-								bind:group={url_state.current.preset}
-							/>
+							<input type="radio" id="preset-correctness" name="preset" value="correctness" />
+							<label for="preset-correctness">Correctness</label>
+						</div>
+						<div>
+							<input type="radio" id="preset-performance" name="preset" value="performance" />
 							<label for="preset-performance">Performance</label>
 						</div>
 						<div>
-							<input type="radio" id="preset-none" name="preset" value="none" bind:group={url_state.current.preset} />
-							<label for="preset-none">No preset</label>
+							<input type="radio" id="preset-maintainability" name="preset" value="maintainability" />
+							<label for="preset-maintainability">Maintainability</label>
 						</div>
 					</fieldset>
 				</div>
@@ -125,14 +101,13 @@
 			<div class="pane">
 				<div class="pane-header">
 					<label for="input-css" class="pane-title">CSS input</label>
-					<Button type="button" size="sm" variant="secondary" icon="brush" on_click={prettify}>Prettify CSS</Button>
 				</div>
 				<div class="pane-content">
 					<!-- TODO: line numbers, highlights, etc. -->
 					<HighlightedTextarea
 						id="input-css"
 						name="input-css"
-						bind:value={url_state.current.css}
+						bind:value={css}
 						aria-invalid={lint_result?.result.errored}
 					/>
 				</div>
@@ -199,23 +174,6 @@
 		border-color: var(--wallace-ast-explorer-border-color);
 	}
 
-	.header {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-between;
-		gap: var(--space-6);
-		padding-block: var(--space-2);
-
-		:first-child {
-			margin-inline-end: auto;
-		}
-	}
-
-	.title {
-		font-weight: var(--font-bold);
-	}
-
 	.panes {
 		display: grid;
 		align-items: stretch;
@@ -236,10 +194,6 @@
 			border-inline-start-width: var(--wallace-ast-explorer-border-width);
 			border-inline-start-color: var(--wallace-ast-explorer-border-color);
 		}
-	}
-
-	.pane.scroller {
-		overflow: auto;
 	}
 
 	.pane-header,
