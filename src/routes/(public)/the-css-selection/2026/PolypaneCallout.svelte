@@ -139,6 +139,7 @@
 		}
 	}
 
+	/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- PolyPane is special for us */
 	.polypane-button {
 		position: relative;
 		font-size: calc(14px + 0.5vw);

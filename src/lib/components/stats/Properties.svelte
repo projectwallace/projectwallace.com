@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { CssAnalysis } from '$lib/analyze-css'
-	import { shorthands } from '$lib/css-property-shorthands'
 	import { Panel, Header } from '$lib/components/Panel'
 	import ShowMore from '$lib/components/ShowMore.svelte'
 	import Empty from '$lib/components/Empty.svelte'
@@ -10,6 +9,7 @@
 	import BarChart from '$lib/components/stats/BarChart.svelte'
 	import DefinitionList from '$lib/components/stats/DefinitionList.svelte'
 	import type { CssLocation } from '$lib/css-location'
+	import { shorthand_properties as shorthands } from '@projectwallace/css-analyzer/properties'
 
 	interface Props {
 		properties?: CssAnalysis['properties']
@@ -42,7 +42,7 @@
 	}
 
 	let shorthand_properties = $derived(
-		Object.entries(uniqueWithLocations).filter(([property]) => shorthands.has(property))
+		Object.entries(uniqueWithLocations).filter(([property]) => shorthands.has(property.toLowerCase()))
 	)
 
 	let visibility_filter: FilterType = $state(show_all)

@@ -137,8 +137,7 @@
 		width: 100%;
 	}
 
-	.parent,
-	.child {
+	:is(.parent, .child) {
 		display: block;
 		position: relative;
 		line-height: var(--leading-base);
@@ -160,7 +159,6 @@
 			opacity: 1;
 		}
 
-		&[aria-current='true'],
 		&[aria-current='true'] {
 			color: light-dark(var(--accent-700), var(--accent-500));
 

@@ -81,10 +81,22 @@
 		gap: var(--space-4);
 		align-items: start;
 		margin-block-start: var(--space-4);
+
+		@media print {
+			grid-template-columns: minmax(0, 1fr);
+			gap: var(--space-1);
+		}
 	}
 
 	.item {
 		position: relative;
+
+		@media print {
+			border: 1px solid;
+			display: grid;
+			grid-template-columns: 4rem minmax(0, 1fr);
+			align-items: center;
+		}
 	}
 
 	.gradient {
@@ -95,6 +107,12 @@
 		color: var(--fg-100);
 		font-weight: var(--font-bold);
 		contain: strict;
+
+		@media print {
+			height: auto;
+			padding: 0 var(--space-2);
+			font-weight: var(--font-normal);
+		}
 	}
 
 	.gradient::before {
@@ -107,28 +125,8 @@
 		z-index: -1;
 		background-image: var(--gradient, linear-gradient(0deg, transparent, transparent));
 		background-repeat: repeat;
-	}
 
-	@media print {
-		.list {
-			grid-template-columns: minmax(0, 1fr);
-			gap: var(--space-1);
-		}
-
-		.item {
-			border: 1px solid;
-			display: grid;
-			grid-template-columns: 4rem minmax(0, 1fr);
-			align-items: center;
-		}
-
-		.gradient {
-			height: auto;
-			padding: 0 var(--space-2);
-			font-weight: var(--font-normal);
-		}
-
-		.gradient::before {
+		@media print {
 			display: none;
 		}
 	}
