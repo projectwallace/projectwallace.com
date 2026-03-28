@@ -51,7 +51,7 @@
 	>(
 		Object.entries(items)
 			.sort((a, b) => b[1].total - a[1].total)
-			.map(([property, item]: [string, Item]) => {
+			.map(([property, item]) => {
 				let unique = [] as { converted: { authored: string }; locations: ArrayLike<unknown> }[]
 				for (let [value, locations] of Object.entries(item.uniqueWithLocations)) {
 					unique.push({
