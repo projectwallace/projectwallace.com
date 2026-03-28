@@ -3,18 +3,19 @@ import type { Actions } from './$types'
 import stylelint from 'stylelint'
 import recommendedConfig from '@projectwallace/stylelint-plugin/configs/recommended'
 import performanceConfig from '@projectwallace/stylelint-plugin/configs/performance'
+import maintainabilityConfig from '@projectwallace/stylelint-plugin/configs/maintainability'
+import correctnessConfig from '@projectwallace/stylelint-plugin/configs/correctness'
 import stylelintPlugin from '@projectwallace/stylelint-plugin'
 
-const presets = ['recommended', 'performance', 'none'] as const
+const presets = ['recommended', 'performance', 'maintainability', 'correctness'] as const
 export type Preset = (typeof presets)[number]
 const DEFAULT_PRESET = presets[0]
 const PRESET_MAP: Record<Preset, NonNullable<stylelint.Config['rules']> | null> = {
 	recommended: recommendedConfig.rules,
 	performance: performanceConfig.rules,
-	none: null
+	maintainability: maintainabilityConfig.rules,
+	correctness: correctnessConfig.rules
 }
-
-export type StylelintIssue = Pick<stylelint.Warning, 'column' | 'line' | 'rule' | 'text' | 'severity'>
 
 export const actions = {
 	default: async ({ request, setHeaders }) => {

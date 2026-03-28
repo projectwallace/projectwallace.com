@@ -3,25 +3,28 @@
 	import Linter from '$components/Linter.svelte'
 	import Container from '$components/Container.svelte'
 	import Hero from '$components/Hero.svelte'
+	import Form from '$components/css-form/Form.svelte'
+	import { get_css_state } from '$lib/css-state.svelte'
+
+	let css_state = get_css_state()
 </script>
 
 <Seo title="TODO" description="TODO" />
 
-<Hero title="Lint CSS">
-	<p class="lead">
-		Use Project Wallace's <a href="https://github.com/projectwallace/stylelint-plugin" rel="external">
-			Stylelint plugin
-		</a> to quickly audit your CSS.
-	</p>
+<Hero>
+	<Form>
+		{#snippet title()}
+			<h1 class="font-heading">Lint CSS</h1>
+		{/snippet}
+	</Form>
 </Hero>
 
 <Container>
-	<Linter />
+	<Linter css={css_state.css} />
 </Container>
 
 <style>
-	.lead :any-link {
-		text-decoration-line: underline;
-		text-decoration-color: var(--accent);
+	.font-heading {
+		font-size: var(--size-5xl);
 	}
 </style>
