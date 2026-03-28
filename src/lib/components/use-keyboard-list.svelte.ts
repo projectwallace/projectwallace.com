@@ -9,7 +9,7 @@ function is_in_bottom_screen_half(node: HTMLElement) {
 
 type ItemElement = HTMLElement
 
-export type OnChange = ({ value, active_index }: { value: string; active_index: number }) => void
+export type OnChange = ({ value, active_index }: { value: string | number; active_index: number }) => void
 
 function noop() {}
 
@@ -127,10 +127,10 @@ export function create_keyboard_list({
 				{
 					value
 				}: {
-					value: string
+					value: string | number
 				}
 			) {
-				node.dataset.value = value
+				node.dataset.value = value.toString()
 
 				if (node.getAttribute('aria-selected') === 'true' || active_index === -1) {
 					active_index = child_count
