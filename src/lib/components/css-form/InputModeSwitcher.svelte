@@ -1,21 +1,24 @@
 <script lang="ts">
 	import { createTabs, melt } from '@melt-ui/svelte'
+	import { untrack } from 'svelte'
 	import type { Snippet } from 'svelte'
-	const {
-		states: { value },
-		elements: { root, list, content: tab_content, trigger }
-	} = createTabs({
-		loop: false,
-		defaultValue: 'url'
-	})
 
 	type Props = {
 		url_tab: Snippet
 		file_tab: Snippet
 		raw_tab: Snippet
 		title: Snippet
+		default_tab?: 'url' | 'file' | 'raw'
 	}
-	let { url_tab, file_tab, raw_tab, title }: Props = $props()
+	let { url_tab, file_tab, raw_tab, title, default_tab = 'url' }: Props = $props()
+
+	const {
+		states: { value },
+		elements: { root, list, content: tab_content, trigger }
+	} = createTabs({
+		loop: false,
+		defaultValue: untrack(() => default_tab)
+	})
 </script>
 
 <div class="input-mode-switcher">
