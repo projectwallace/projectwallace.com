@@ -49,7 +49,7 @@
 		"@projectwallace/stylelint-plugin": "^0.1.14",
 		"@sveltejs/adapter-netlify": "^6.0.4",
 		"@types/node": "^24.10.0",
-		"oxlint": "^1.56.0",
+		"oxlint": "^1.58.0",
 		"oxlint-tsgolint": "^0.17.0",
 		"postcss-html": "^1.8.1",
 		"prettier": "^3.8.1",
