@@ -1,5 +1,5 @@
 import { parseHTML } from 'linkedom'
-import { parse, walk } from '@projectwallace/css-parser'
+import { AT_RULE, AT_RULE_PRELUDE, parse, URL, walk } from '@projectwallace/css-parser'
 import { resolve_url } from '../../../lib/resolve-url.js'
 import type { CSSOrigin } from '../../../lib/css-origins.js'
 
@@ -24,10 +24,12 @@ function get_import_urls(css: string) {
 		parse_values: false
 	})
 	walk(ast, (node) => {
-		if (node.type_name === 'Atrule' && node.name === 'import') {
-			let url = node.children.find((child) => child.type_name === 'Url')
-			if (url && typeof url.value === 'string') {
-				urls.push(unquote(url.value))
+		if (node.type === AT_RULE && node.name === 'import' && node.has_prelude && node.prelude.type === AT_RULE_PRELUDE) {
+			for (let child of node.prelude) {
+				if (child.type === URL && child.value) {
+					urls.push(unquote(child.value))
+					break
+				}
 			}
 		}
 	})

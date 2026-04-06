@@ -17,7 +17,7 @@
 			</p>
 		{:else}
 			<p>Something bad has happened. Here is what you should do:</p>
-			<ol class="mt-8 pl-6 list-disc">
+			<ol>
 				<li>Check that your URL is correct (if using the url input)</li>
 				<li>
 					Check that the URL you are pointing to is publicly accessible (some websites block scraping tools like Project

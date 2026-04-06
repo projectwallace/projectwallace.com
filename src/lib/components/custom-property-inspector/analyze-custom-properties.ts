@@ -1,5 +1,4 @@
-import { parse, walk, DECLARATION, FUNCTION, AT_RULE, IDENTIFIER } from '@projectwallace/css-parser'
-import type { CSSNode } from '@projectwallace/css-parser'
+import { parse, walk, DECLARATION, FUNCTION, AT_RULE, IDENTIFIER, type CSSNode } from '@projectwallace/css-parser'
 import type { CssLocation } from '$lib/css-location'
 
 function to_loc(node: CSSNode): CssLocation {
@@ -20,7 +19,7 @@ export function analyze(css: string) {
 	let all_properties = new Map<string, CssLocation[]>()
 	let declared_with_fallback = new Set<string>()
 
-	walk(ast, (node: CSSNode) => {
+	walk(ast, (node) => {
 		if (node.type === DECLARATION) {
 			let property = node.property!
 			if (property.startsWith('--')) {
