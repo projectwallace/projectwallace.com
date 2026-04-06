@@ -1,4 +1,4 @@
-import { parse, walk, DECLARATION, FUNCTION, AT_RULE, IDENTIFIER, type CSSNode } from '@projectwallace/css-parser'
+import { parse, walk, type CSSNode, is_atrule, is_function, is_identifier, is_declaration } from '@projectwallace/css-parser'
 import type { CssLocation } from '$lib/css-location'
 
 function to_loc(node: CSSNode): CssLocation {
@@ -20,8 +20,8 @@ export function analyze(css: string) {
 	let declared_with_fallback = new Set<string>()
 
 	walk(ast, (node) => {
-		if (node.type === DECLARATION) {
-			let property = node.property!
+		if (is_declaration(node)) {
+			let property = node.property
 			if (property.startsWith('--')) {
 				let name = property
 				let loc = to_loc(node)
@@ -30,13 +30,13 @@ export function analyze(css: string) {
 				if (locs) locs.push(loc)
 				else all_properties.set(name, [loc])
 			}
-		} else if (node.type === FUNCTION && node.name === 'var') {
-			let [first_child, second_child] = node.children
+		} else if (is_function(node) && node.name === 'var') {
+			let first_child = node.first_child
+			let second_child = first_child?.next_sibling
 
 			if (
-				first_child !== null &&
-				first_child.type === IDENTIFIER &&
-				typeof first_child.name === 'string' &&
+				first_child &&
+				is_identifier(first_child) &&
 				first_child.name.startsWith('--')
 			) {
 				let loc = to_loc(node)
@@ -47,11 +47,11 @@ export function analyze(css: string) {
 				else all_properties.set(name, [loc])
 
 				// check if it has a fallback value that is a custom property
-				if (second_child !== undefined && !(second_child.type === FUNCTION && second_child.name === 'var')) {
+				if (second_child && !(is_function(second_child) && second_child.name === 'var')) {
 					declared_with_fallback.add(name)
 				}
 			}
-		} else if (node.type === AT_RULE && node.name === 'property' && node.prelude) {
+		} else if (is_atrule(node) && node.name === 'property' && node.has_prelude) {
 			let name = node.prelude.text
 			let loc = to_loc(node)
 			declared_properties.add(name)

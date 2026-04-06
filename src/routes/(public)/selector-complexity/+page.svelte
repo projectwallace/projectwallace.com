@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
-	import { parse_selector } from '@projectwallace/css-parser'
+	import { is_selector, parse_selector } from '@projectwallace/css-parser'
 	import { selectorComplexity } from '@projectwallace/css-analyzer'
 	import Seo from '$components/Seo.svelte'
 	import Panel from '$components/Panel.svelte'
 	import Label from '$components/Label.svelte'
 	import FormGroup from '$components/FormGroup.svelte'
 	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
 	import { page } from '$app/state'
 	import Hero from '$components/Hero.svelte'
 
@@ -32,8 +31,8 @@
 			if (ast.has_children) {
 				result = []
 
-				for (let node of ast.children) {
-					if (node.type_name === 'Selector') {
+				for (let node of ast) {
+					if (is_selector(node)) {
 						let complexity = selectorComplexity(node)
 						result.push({
 							value: node.text,

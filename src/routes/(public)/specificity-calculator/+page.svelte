@@ -10,11 +10,10 @@
 	import Markdown from '$components/Markdown.svelte'
 	import FormGroup from '$components/FormGroup.svelte'
 	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
 	import SpecificityItem from './SpecificityItem.svelte'
+	import Hero from '$components/Hero.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
-	import Hero from '$components/Hero.svelte'
 
 	let input_ref: HTMLInputElement
 	let has_error = $state(false)
