@@ -6,7 +6,6 @@ import {
 	parse_declaration,
 	walk,
 	SKIP,
-	type CSSNode,
 	AT_RULE,
 	SELECTOR_LIST,
 	DECLARATION
@@ -54,7 +53,7 @@ export function highlight_css(
 
 	function do_highlight(css: string, node_type?: string) {
 		try {
-			let ast: CSSNode | CSSNode[]
+			let ast
 
 			// Use appropriate parser based on node_type
 			if (node_type === 'selector' || node_type === 'selectorList') {
@@ -82,7 +81,7 @@ export function highlight_css(
 			}
 
 			// Walk handles both single nodes and arrays
-			walk(ast, (node: CSSNode) => {
+			walk(ast, (node) => {
 				let start = node.start
 				let end = node.end
 
