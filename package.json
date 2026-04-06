@@ -22,7 +22,7 @@
 		"@melt-ui/svelte": "^0.86.6",
 		"@oddbird/popover-polyfill": "^0.6.1",
 		"@projectwallace/css-analyzer": "^9.6.3",
-		"@projectwallace/css-code-coverage": "^0.10.1",
+		"@projectwallace/css-code-coverage": "^0.10.2",
 		"@projectwallace/css-code-quality": "^3.1.2",
 		"@projectwallace/css-design-tokens": "^0.11.3",
 		"@projectwallace/css-layer-tree": "^2.1.3",
@@ -42,7 +42,7 @@
 		"runed": "^0.37.1",
 		"svelte": "^5.55.0",
 		"typescript": "^5.9.3",
-		"vite": "8.0.0"
+		"vite": "8.0.5"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.58.2",
