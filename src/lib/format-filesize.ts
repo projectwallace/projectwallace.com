@@ -1,30 +1,30 @@
-'use strict'
+const BYTE_UNITS = [
+	'byte',
+	'kilobyte',
+	'megabyte',
+	'gigabyte',
+	'terabyte',
+	'petabyte',
+	'exabyte',
+	'zettabyte',
+	'yottabyte',
+] as const
 
-const BYTE_UNITS = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+export function format_filesize(bytes: number): string {
+	const isNegative = bytes < 0
+	const abs = Math.abs(bytes)
 
-export function format_filesize(number: number) {
-	if (number === 0) {
-		return ' 0 ' + BYTE_UNITS[0]
-	}
+	const exponent =
+		abs < 1 ? 0 : Math.min(Math.floor(Math.log10(abs) / 3), BYTE_UNITS.length - 1)
 
-	const isNegative = number < 0
-	const prefix = isNegative ? '-' : ''
+	const value = abs === 0 ? 0 : abs / Math.pow(1000, exponent)
 
-	if (isNegative) {
-		number = -number
-	}
+	const formatted = new Intl.NumberFormat(undefined, {
+		style: 'unit',
+		unit: BYTE_UNITS[exponent],
+		unitDisplay: 'narrow',
+		maximumSignificantDigits: 3,
+	}).format(value)
 
-	if (number < 1) {
-		const numberString = number.toLocaleString()
-		return prefix + numberString + ' ' + BYTE_UNITS[0]
-	}
-
-	const exponent = Math.min(Math.floor(Math.log10(number) / 3), BYTE_UNITS.length - 1)
-	// eslint-disable-next-line unicorn/prefer-exponentiation-operator
-	number = Number((number / Math.pow(1000, exponent)).toPrecision(3))
-	const numberString = number.toLocaleString()
-
-	const unit = BYTE_UNITS[exponent]
-
-	return prefix + numberString + ' ' + unit
+	return isNegative ? `-${formatted}` : formatted
 }
