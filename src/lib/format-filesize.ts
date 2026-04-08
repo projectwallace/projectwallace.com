@@ -2,16 +2,10 @@ const byte_units = [
 	'byte',
 	'kilobyte',
 	'megabyte',
-	'gigabyte',
-	'terabyte',
-	'petabyte',
-	'exabyte',
-	'zettabyte',
-	'yottabyte',
 ] as const
 
 export function format_filesize(bytes: number): string {
-	const isNegative = bytes < 0
+	const is_negative = bytes < 0
 	const abs = Math.abs(bytes)
 
 	const exponent =
@@ -22,9 +16,9 @@ export function format_filesize(bytes: number): string {
 	const formatted = new Intl.NumberFormat(undefined, {
 		style: 'unit',
 		unit: byte_units[exponent],
-		unitDisplay: 'narrow',
+		unitDisplay: 'short',
 		maximumSignificantDigits: 3,
 	}).format(value)
 
-	return isNegative ? `-${formatted}` : formatted
+	return is_negative ? `-${formatted}` : formatted
 }
