@@ -216,6 +216,10 @@
 
 	.pane.scroller {
 		overflow: auto;
+
+		@media (prefers-reduced-motion: no-preference) {
+			scroll-behavior: smooth;
+		}
 	}
 
 	.pane-header,
