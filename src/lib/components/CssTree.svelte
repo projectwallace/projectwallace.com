@@ -4,7 +4,6 @@
 
 <script lang="ts">
 	import { DECLARATION, RAW, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
-	import { MediaQuery } from 'svelte/reactivity'
 
 	// Brute force type definition for CssNode so we can iterate over its keys
 	type Node = CSSNode & {
@@ -36,7 +35,6 @@
 	let plain_node = $derived(node.clone({ locations: true, deep: false }) as Node)
 
 	let node_element: HTMLElement | undefined = undefined
-	let prefers_reduced_motion = new MediaQuery('(prefers-reduced-motion: reduced)')
 
 	function compare_nodes(a: Node, b: PlainCSSNode | undefined): boolean {
 		if (!b) return false
@@ -69,8 +67,7 @@
 				const scroll_offset =
 					element_rect.top - container_rect.top - container_rect.height / 2 + element_rect.height / 2
 				scroll_container.scrollTo({
-					top: scroll_container.scrollTop + scroll_offset,
-					behavior: prefers_reduced_motion.current ? 'auto' : 'smooth'
+					top: scroll_container.scrollTop + scroll_offset
 				})
 			}
 		}
