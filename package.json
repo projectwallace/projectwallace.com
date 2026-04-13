@@ -48,7 +48,7 @@
 		"@playwright/test": "^1.59.1",
 		"@projectwallace/stylelint-plugin": "^0.1.14",
 		"@sveltejs/adapter-netlify": "^6.0.4",
-		"@types/node": "^24.10.0",
+		"@types/node": "^24.12.2",
 		"oxlint": "^1.59.0",
 		"oxlint-tsgolint": "^0.20.0",
 		"postcss-html": "^1.8.1",
