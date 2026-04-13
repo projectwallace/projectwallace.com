@@ -216,6 +216,24 @@ test.describe('URL hash state', () => {
 		await expect(tree).toBeVisible()
 	})
 
+	test('opening page with partial hash shows prefilled input and AST output and does not crash page', async ({ page }) => {
+		let css = 'custom { display: block; }'
+		// Notice that parse_* options are missing
+		await page.goto(`/ast-explorer#${encodeHash({ css })}`)
+
+		let input = page.getByLabel('CSS input')
+		await expect(input).toHaveValue(css)
+
+		// AST should be visible
+		let tree = page.getByRole('tree')
+		await expect(tree).toBeVisible()
+
+		// The missing parts from the URL should be overridden by default settings, so checkboxes should be enabled
+		await expect(page.getByLabel('Parse atrule preludes')).toBeChecked()
+		await expect(page.getByLabel('Parse selectors')).toBeChecked()
+		await expect(page.getByLabel('Parse values')).toBeChecked()
+	})
+
 	test('corrupted hash shows page in default state', async ({ page }) => {
 		await page.goto('/ast-explorer#invalid-base64-!!!')
 
