@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CssAnalysis } from '$lib/analyze-css'
 	import Heading from '$components/Heading.svelte'
-	import { group_colors, color_dict } from '$lib/group-colors'
+	import { group_colors } from '$lib/group-colors'
 	import ColorExample from '$components/ColorExample.svelte'
 	import { get_css_state } from '$lib/css-state.svelte'
 	import { IsInViewport } from 'runed'
@@ -28,7 +28,7 @@
 	<ol>
 		{#each color_groups as [group, items]}
 			<li>
-				<div class="title">{color_dict.get(group)}</div>
+				<div class="title">{group}</div>
 				<ul>
 					{#each items as item}
 						{@const is_light = item.lightness <= 48 || item.alpha < 0.6}
@@ -69,22 +69,23 @@
 <style>
 	section {
 		display: grid;
-		gap: var(--space-4);
+		row-gap: var(--space-5);
 	}
 
 	ol {
 		display: grid;
-		gap: var(--space-4);
+		row-gap: var(--space-5);
 
 		& > li {
 			display: grid;
-			gap: var(--space-2);
+			row-gap: var(--space-4);
 		}
 	}
 
 	ul {
 		display: flex;
-		gap: var(--space-2);
+		row-gap: var(--space-3);
+		column-gap: var(--space-2);
 		flex-wrap: wrap;
 	}
 
@@ -92,7 +93,7 @@
 		background-color: light-dark(var(--bg-200), var(--bg-300));
 		display: flex;
 		align-items: center;
-		gap: var(--space-3);
+		gap: var(--space-1);
 		position: relative;
 		border: 1px solid transparent;
 		padding-inline-end: var(--space-2);

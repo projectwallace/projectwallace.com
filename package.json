@@ -31,7 +31,7 @@
 		"@sveltejs/enhanced-img": "^0.10.4",
 		"@sveltejs/kit": "^2.57.1",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
-		"color-sorter": "^7.0.2",
+		"color-sorter": "^8.0.0",
 		"css-time-sort": "^3.0.0",
 		"diff": "^8.0.4",
 		"linkedom": "^0.18.12",
