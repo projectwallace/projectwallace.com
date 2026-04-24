@@ -2,7 +2,7 @@ import type { CssAnalysis } from "./analyze-css"
 import { convert, color_group } from 'color-sorter'
 
 export function group_colors(colors: CssAnalysis['values']['colors']['uniqueWithLocations']) {
-	const converted = Object.keys(colors).map(convert)
+	const converted = Object.keys(colors).map(color => convert(color))
 	const grouped = Object.groupBy(converted, color_group)
 
 	return Object.entries(grouped)
