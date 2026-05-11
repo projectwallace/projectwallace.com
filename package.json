@@ -33,7 +33,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"color-sorter": "^8.0.0",
 		"css-time-sort": "^3.0.0",
-		"diff": "^8.0.4",
+		"diff": "^9.0.0",
 		"linkedom": "^0.18.12",
 		"mdsvex": "^0.12.7",
 		"paneforge": "^1.0.2",
