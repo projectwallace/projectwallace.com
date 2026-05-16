@@ -4,7 +4,11 @@
 		"source.fixAll.stylelint": "explicit"
 	},
 	"[typescript]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.defaultFormatter": "oxc.oxc-vscode",
+		"editor.formatOnSave": true
+	},
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode",
 		"editor.formatOnSave": true
 	},
 	"editor.renderWhitespace": "none",
