@@ -7,18 +7,15 @@ export const prerender = true
 const NOINDEX_PAGES: Set<string> = new Set([])
 
 function getSystemPages() {
-	let files = Object.keys(import.meta.glob([
-		'../**/+page.svelte',
-		'../**/+error.svelte',
-		'../**/+layout.svelte',
-	]))
+	let files = Object.keys(import.meta.glob(['../**/+page.svelte', '../**/+error.svelte', '../**/+layout.svelte']))
 
 	return files
-		.map((route) => route
-			.replace('../', '/')
-			.replace('/+page.svelte', '')
-			.replace('/+layout.svelte', '')
-			.replace('/+error.svelte', '')
+		.map((route) =>
+			route
+				.replace('../', '/')
+				.replace('/+page.svelte', '')
+				.replace('/+layout.svelte', '')
+				.replace('/+error.svelte', '')
 		)
 		.filter((route) => {
 			if (route.includes('[')) return false // urls with placeholders
@@ -29,12 +26,13 @@ function getSystemPages() {
 
 export function GET() {
 	let systemPages = getSystemPages()
-	let posts = getPostList().map(post => post.path)
-	let docs = getMetrics().concat(getRecipes()).map(p => p.path)
+	let posts = getPostList().map((post) => post.path)
+	let docs = getMetrics()
+		.concat(getRecipes())
+		.map((p) => p.path)
 
-	let allUrls = [
-		'/',
-	].concat(systemPages, posts, docs)
+	let allUrls = ['/']
+		.concat(systemPages, posts, docs)
 		.filter(Boolean)
 		.filter((path, index, array) => {
 			return array.indexOf(path) === index

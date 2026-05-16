@@ -1,4 +1,12 @@
-import { parse, walk, type CSSNode, is_atrule, is_function, is_identifier, is_declaration } from '@projectwallace/css-parser'
+import {
+	parse,
+	walk,
+	type CSSNode,
+	is_atrule,
+	is_function,
+	is_identifier,
+	is_declaration
+} from '@projectwallace/css-parser'
 import type { CssLocation } from '$lib/css-location'
 
 function to_loc(node: CSSNode): CssLocation {
@@ -34,11 +42,7 @@ export function analyze(css: string) {
 			let first_child = node.first_child
 			let second_child = first_child?.next_sibling
 
-			if (
-				first_child &&
-				is_identifier(first_child) &&
-				first_child.name.startsWith('--')
-			) {
+			if (first_child && is_identifier(first_child) && first_child.name.startsWith('--')) {
 				let loc = to_loc(node)
 				let name = first_child.name
 				used_properties.add(name)

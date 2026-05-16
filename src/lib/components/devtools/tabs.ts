@@ -1,4 +1,4 @@
-import type { IconName } from "$components/Icon.svelte"
+import type { IconName } from '$components/Icon.svelte'
 
 export type TabId = 'inspector' | 'network' | 'report' | 'css' | 'design_tokens' | 'layers' | 'properties'
 
@@ -50,24 +50,8 @@ export const properties: DevtoolsTab = {
 	icon: 'cubes'
 }
 
-export const analyzer_tabs = [
-	inspector,
-	network,
-	report,
-	css
-]
+export const analyzer_tabs = [inspector, network, report, css]
 
-export const design_token_tabs = [
-	inspector,
-	network,
-	report,
-	css,
-	design_tokens
-]
+export const design_token_tabs = [inspector, network, report, css, design_tokens]
 
-export const layers_tabs = [
-	inspector,
-	network,
-	css,
-	layers
-]
+export const layers_tabs = [inspector, network, css, layers]

@@ -336,15 +336,15 @@
 	@layer elements {
 		@layer accent {
 			html {
-			--accent: light-dark(var(--teal-300), var(--teal-400));
-			--accent-100: var(--teal-100);
-			--accent-200: var(--teal-200);
-			--accent-300: light-dark(var(--teal-500), var(--teal-300));
-			--accent-400: light-dark(var(--teal-600), var(--teal-400));
-			--accent-500: var(--teal-500);
-			--accent-600: var(--teal-600);
-			--accent-700: var(--teal-700);
-			--accent-800: var(--teal-800);
+				--accent: light-dark(var(--teal-300), var(--teal-400));
+				--accent-100: var(--teal-100);
+				--accent-200: var(--teal-200);
+				--accent-300: light-dark(var(--teal-500), var(--teal-300));
+				--accent-400: light-dark(var(--teal-600), var(--teal-400));
+				--accent-500: var(--teal-500);
+				--accent-600: var(--teal-600);
+				--accent-700: var(--teal-700);
+				--accent-800: var(--teal-800);
 			}
 		}
 
@@ -596,7 +596,7 @@
 		}
 
 		.input {
-			padding-block: var(--space-3) ;
+			padding-block: var(--space-3);
 			padding-inline: var(--space-4);
 			color: var(--fg-200);
 			background-color: var(--bg-100);
@@ -642,7 +642,7 @@
 			letter-spacing: var(--tracking-wider);
 			line-height: var(--leading-tight);
 			text-transform: uppercase;
-			padding-block: var(--space-2) ;
+			padding-block: var(--space-2);
 			padding-inline: var(--space-4);
 			font-size: var(--size-base);
 			background-color: var(--accent-400);

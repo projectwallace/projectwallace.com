@@ -5,9 +5,7 @@ let logo: Locator
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/', { waitUntil: 'domcontentloaded' })
-	logo = page
-		.getByRole('navigation', { name: 'Primary' })
-		.getByRole('link', { name: 'Project Wallace' })
+	logo = page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Project Wallace' })
 })
 
 test('should have an accessible name', async () => {

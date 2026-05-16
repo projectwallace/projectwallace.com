@@ -216,7 +216,9 @@ test.describe('URL hash state', () => {
 		await expect(tree).toBeVisible()
 	})
 
-	test('opening page with partial hash shows prefilled input and AST output and does not crash page', async ({ page }) => {
+	test('opening page with partial hash shows prefilled input and AST output and does not crash page', async ({
+		page
+	}) => {
 		let css = 'custom { display: block; }'
 		// Notice that parse_* options are missing
 		await page.goto(`/ast-explorer#${encodeHash({ css })}`)
