@@ -17,7 +17,8 @@
 	.panel {
 		contain: layout paint;
 		background-color: light-dark(transparent, var(--bg-200));
-		padding: var(--space-4) var(--space-2);
+		padding-block: var(--space-4);
+		padding-inline: var(--space-2);
 		border: 1px solid light-dark(var(--fg-800), transparent);
 		/* Usually contains expensive elements to render, so content-visibility:auto makes sense */
 		content-visibility: auto;

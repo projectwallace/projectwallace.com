@@ -15,7 +15,8 @@
 <style>
 	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- versatile little thing */
 	.empty {
-		padding: var(--space-4) var(--space-6);
+		padding-block: var(--space-4);
+		padding-inline: var(--space-6);
 		border: 3px dashed var(--fg-700);
 		text-align: center;
 		font-weight: var(--font-medium);

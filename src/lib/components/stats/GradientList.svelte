@@ -110,7 +110,8 @@
 
 		@media print {
 			height: auto;
-			padding: 0 var(--space-2);
+			padding-block: 0;
+			padding-inline: var(--space-2);
 			font-weight: var(--font-normal);
 		}
 	}
@@ -134,7 +135,8 @@
 	.code {
 		position: relative;
 		display: block;
-		padding: var(--space-1) var(--space-2);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-2);
 		font-size: smaller;
 		background-color: var(--bg-400);
 		color: var(--fg-200);

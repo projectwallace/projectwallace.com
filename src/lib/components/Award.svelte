@@ -25,12 +25,18 @@
 		}
 
 		&::after {
-			inset: 1rem -1rem -1rem 1rem;
+			inset-block-start: 1rem;
+			inset-inline-end: -1rem;
+			inset-block-end: -1rem;
+			inset-inline-start: 1rem;
 			background-color: var(--bg-200);
 		}
 
 		&::before {
-			inset: 2rem -2rem -2rem 2rem;
+			inset-block-start: 2rem;
+			inset-inline-end: -2rem;
+			inset-block-end: -2rem;
+			inset-inline-start: 2rem;
 			border: 2px solid var(--bg-300);
 		}
 	}

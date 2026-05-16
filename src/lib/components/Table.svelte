@@ -38,12 +38,13 @@
 				z-index: 2;
 				inset-inline: 0;
 				/* Double border-width because it otherwise doesn't show */
-				border-bottom: 2px solid var(--fg-450);
+				border-block-end: 2px solid var(--fg-450);
 			}
 
 			:is(th, td) {
 				text-align: start;
-				padding: var(--pw-table-padding-block) var(--space-2);
+				padding-block: var(--pw-table-padding-block);
+				padding-inline: var(--space-2);
 			}
 
 			td:not(:first-child) {

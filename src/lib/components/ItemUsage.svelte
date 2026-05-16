@@ -120,13 +120,13 @@
 		&:nth-child(even) {
 			background-color: var(--uneven-tr-bg);
 		}
-
 	}
 
 	td,
 	th {
 		text-align: left;
-		padding: var(--space-1) var(--space-2);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-2);
 		vertical-align: top;
 		max-width: 50%;
 	}
@@ -157,7 +157,7 @@
 		background-color: var(--bg-200);
 
 		&:not(:last-of-type) {
-			border-right: 1px solid var(--fg-500);
+			border-inline-end: 1px solid var(--fg-500);
 		}
 	}
 

@@ -19,9 +19,11 @@
 
 		/* Gets used as a grid child a lot, so do not take up full width by default */
 		justify-self: start;
-		gap: var(--space-1) var(--space-3);
+		row-gap: var(--space-1);
+		column-gap: var(--space-3);
 		border: 1px solid var(--gray-500);
-		padding: var(--space-1) var(--space-2);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-2);
 	}
 
 	:global(label) {

@@ -48,10 +48,11 @@
 
 	:global(.markdown blockquote) {
 		background-color: var(--bg-200);
-		padding: var(--space-4) var(--space-12);
+		padding-block: var(--space-4);
+		padding-inline: var(--space-12);
 		max-width: 50ch;
 		box-shadow: var(--shadow);
-		border-left: 4px solid var(--accent);
+		border-inline-start: 4px solid var(--accent);
 	}
 
 	:global(.markdown p) {
@@ -84,10 +85,10 @@
 
 	:global(.markdown pre) {
 		background-color: var(--bg-200);
-		padding: 1rem 0.5rem;
+		padding-block: 1rem;
+		padding-inline: 0.5rem;
 		overflow-x: auto;
 		max-width: 100%;
-		-webkit-overflow-scrolling: touch;
 		color: var(--fg-100);
 		word-break: break-all;
 		white-space: pre;
@@ -98,7 +99,8 @@
 
 	@media (min-width: 44rem) {
 		:global(.markdown pre) {
-			padding: 0.75rem 1rem;
+			padding-block: 0.75rem;
+		padding-inline: 1rem;
 			margin-right: -1rem;
 			margin-left: -1rem;
 		}
@@ -151,7 +153,7 @@
 		--cell-spacing: 0.75rem;
 		border-spacing: 0;
 		width: 100%;
-		border-top: 0.125rem solid var(--fg-300);
+		border-block-start: 0.125rem solid var(--fg-300);
 		box-shadow: var(--shadow);
 		font-size: 0.8em;
 	}
@@ -199,12 +201,14 @@
 	}
 
 	:global(.markdown aside) {
-		margin: var(--space-16) 0;
+		margin-block: var(--space-16);
+		margin-inline: 0;
 	}
 
 	:global(.markdown aside):not([class]) {
 		border: 2px solid var(--accent-800);
-		padding: var(--space-6) var(--space-5);
+		padding-block: var(--space-6);
+		padding-inline: var(--space-5);
 	}
 
 	:global(.markdown :is(aside, blockquote) > :first-child) {
@@ -222,7 +226,8 @@
 	}
 
 	:global(.markdown hr) {
-		border-top: 1px solid var(--gray-500);
-		margin: var(--space-16) 0;
+		border-block-start: 1px solid var(--gray-500);
+		margin-block: var(--space-16);
+		margin-inline: 0;
 	}
 </style>

@@ -188,7 +188,8 @@
 
 	code.selector-string {
 		display: block;
-		padding: var(--space-4) var(--space-2);
+		padding-block: var(--space-4);
+		padding-inline: var(--space-2);
 		background-color: var(--bg-400);
 		margin-top: var(--space-4);
 		line-height: var(--leading-none);

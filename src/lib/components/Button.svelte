@@ -115,17 +115,20 @@
 	}
 
 	.sm {
-		padding: 0.3em var(--space-2);
+		padding-block: 0.3em;
+		padding-inline: var(--space-2);
 		font-size: var(--size-sm);
 	}
 
 	.md {
-		padding: var(--space-3) var(--space-4);
+		padding-block: var(--space-3);
+		padding-inline: var(--space-4);
 		font-size: var(--size-base);
 	}
 
 	.lg {
-		padding: 0.8em var(--space-5);
+		padding-block: 0.8em;
+		padding-inline: var(--space-5);
 		font-size: var(--size-lg);
 
 		& :global(.icon) {

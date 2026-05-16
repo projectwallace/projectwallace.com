@@ -150,9 +150,9 @@
 		--nav-font-size: var(--size-sm);
 		--item-block-padding: var(--space-2);
 		--item-inline-padding: var(--space-2);
-		border-top: var(--space-1) solid var(--accent);
+		border-block-start: var(--space-1) solid var(--accent);
 		background-color: var(--bg-100);
-		border-bottom: 1px solid var(--fg-800);
+		border-block-end: 1px solid var(--fg-800);
 
 		@media (min-width: 44rem) {
 			--nav-gap: var(--space-2);
@@ -191,14 +191,15 @@
 	.nav-item,
 	.popover-item {
 		display: block;
-		padding: var(--item-block-padding) var(--item-inline-padding);
+		padding-block: var(--item-block-padding);
+		padding-inline: var(--item-inline-padding);
 		font-weight: var(--font-medium);
 		color: var(--fg-200);
 		white-space: nowrap;
 	}
 
 	.nav-item {
-		border-bottom: var(--nav-border-height) solid transparent;
+		border-block-end: var(--nav-border-height) solid transparent;
 
 		&:hover,
 		&:focus {
@@ -224,7 +225,8 @@
 
 	.nav-popover-trigger {
 		display: block;
-		padding: 0.2em var(--space-3);
+		padding-block: 0.2em;
+		padding-inline: var(--space-3);
 		border: 1px solid var(--fg-500);
 		anchor-name: --nav-popover-trigger;
 
@@ -265,7 +267,8 @@
 	}
 
 	.popover-item {
-		padding: var(--space-1) var(--space-3);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-3);
 		border-inline-start: var(--space-1) solid transparent;
 		border-inline-end: var(--space-1) solid transparent;
 		font-size: var(--nav-font-size);

@@ -111,7 +111,7 @@
 		align-items: start;
 
 		@media (min-width: 44rem) {
-			border-width: 0 1px 0 0;
+			border-inline-end-width: 1px;
 		}
 	}
 
@@ -169,7 +169,7 @@
 		display: block;
 		padding-inline: var(--space-5);
 		padding-block: var(--space-1);
-		border-left: var(--space-1) solid transparent;
+		border-inline-start: var(--space-1) solid transparent;
 		text-decoration: none;
 
 		&:hover,

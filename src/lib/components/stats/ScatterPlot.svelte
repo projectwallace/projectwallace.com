@@ -102,6 +102,6 @@
 		display: block;
 		width: 100%;
 		left: 0;
-		border-bottom: 1px solid var(--gray-500);
+		border-block-end: 1px solid var(--gray-500);
 	}
 </style>

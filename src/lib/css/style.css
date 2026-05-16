@@ -117,6 +117,7 @@
 	@layer text {
 		@layer fonts {
 			html {
+				/* stylelint-disable-next-line projectwallace/no-prefixed-values -- We'll allow -apple-system for a bullet-proof font stack */
 				--font-body:
 					-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
 					'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -229,7 +230,10 @@
 	}
 
 	body {
+		/* TODO: remove anti-aliasing https://github.com/projectwallace/projectwallace.com/issues/285 */
+		/* stylelint-disable-next-line projectwallace/no-prefixed-properties -- TODO: remove this line later */
 		-webkit-font-smoothing: antialiased;
+		/* stylelint-disable-next-line projectwallace/no-prefixed-properties -- TODO: remove this line later */
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeSpeed;
 	}
@@ -592,7 +596,8 @@
 		}
 
 		.input {
-			padding: var(--space-3) var(--space-4);
+			padding-block: var(--space-3) ;
+			padding-inline: var(--space-4);
 			color: var(--fg-200);
 			background-color: var(--bg-100);
 			border: 1px solid var(--fg-450);
@@ -637,7 +642,8 @@
 			letter-spacing: var(--tracking-wider);
 			line-height: var(--leading-tight);
 			text-transform: uppercase;
-			padding: var(--space-2) var(--space-4);
+			padding-block: var(--space-2) ;
+			padding-inline: var(--space-4);
 			font-size: var(--size-base);
 			background-color: var(--accent-400);
 			color: var(--gray-800);
@@ -797,6 +803,8 @@
 	}
 
 	.warning {
-		text-decoration: var(--orange-400) wavy underline;
+		text-decoration-color: var(--orange-400);
+		text-decoration-line: underline;
+		text-decoration-style: wavy;
 	}
 }

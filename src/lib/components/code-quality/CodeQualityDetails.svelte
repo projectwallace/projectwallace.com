@@ -214,19 +214,19 @@
 
 <style>
 	.details {
-		border-left: 4px solid transparent;
+		border-inline-start: 4px solid transparent;
 		padding-inline-start: var(--space-4);
 
 		&.error {
-			border-left-color: var(--red-300);
+			border-inline-start-color: var(--red-300);
 		}
 
 		&.warn {
-			border-left-color: var(--orange-400);
+			border-inline-start-color: var(--orange-400);
 		}
 
 		&.info {
-			border-left-color: var(--teal-400);
+			border-inline-start-color: var(--teal-400);
 		}
 	}
 
@@ -240,25 +240,25 @@
 
 	.title {
 		color: var(--fg-100);
-		margin-right: var(--space-2);
+		margin-inline-end: var(--space-2);
 		font-weight: var(--font-bold);
 	}
 
 	.value {
-		margin-left: var(--space-2);
-		margin-right: auto;
+		margin-inline-start: var(--space-2);
+		margin-inline-end: auto;
 	}
 
 	.content {
-		padding-left: var(--space-2);
-		padding-bottom: var(--space-4);
+		padding-inline-start: var(--space-2);
+		padding-block-end: var(--space-4);
 
 		@media (min-width: 33rem) {
-			padding-left: var(--space-4);
+			padding-inline-start: var(--space-4);
 		}
 
 		@media (min-width: 44rem) {
-			padding-left: var(--space-6);
+			padding-inline-start: var(--space-6);
 		}
 	}
 

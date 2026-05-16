@@ -137,16 +137,23 @@
 		color: var(--fg-200);
 	}
 
+	.warning,
+	.error,
+	.alert {
+		text-decoration-line: underline;
+		text-decoration-style: wavy;
+	}
+
 	.warning {
-		text-decoration: wavy underline var(--wallace-custom-property-inspector-warning-color);
+		text-decoration-color: var(--wallace-custom-property-inspector-warning-color);
 	}
 
 	.error {
-		text-decoration: wavy underline var(--wallace-custom-property-inspector-error-color);
+		text-decoration-color: var(--wallace-custom-property-inspector-error-color);
 	}
 
 	.alert {
-		text-decoration: wavy underline var(--wallace-custom-property-inspector-suggestion-color);
+		text-decoration-color: var(--wallace-custom-property-inspector-suggestion-color);
 	}
 
 	.count {

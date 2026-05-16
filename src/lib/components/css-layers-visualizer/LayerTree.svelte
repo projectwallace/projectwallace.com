@@ -77,7 +77,8 @@
 
 	ol :global(ol) {
 		padding-left: 1rem;
-		margin: 0.5rem 0rem 0.5rem 0.5rem;
+		margin: 0.5rem;
+		margin-inline-end: 0;
 	}
 
 	:global(ol ol).children::before {
@@ -86,7 +87,7 @@
 		top: 0.5rem;
 		bottom: 0.5rem;
 		left: 0.25rem;
-		border-left: 1px dotted var(--fg-400);
+		border-inline-start: 1px dotted var(--fg-400);
 	}
 
 	li {
@@ -102,7 +103,8 @@
 		display: block;
 		width: 100%;
 		text-align: start;
-		padding: 0.33rem 0.75rem;
+		padding-block: 0.33rem;
+		padding-inline: 0.75rem;
 		box-shadow: var(--shadow-inset);
 
 		&[aria-current='true'] {

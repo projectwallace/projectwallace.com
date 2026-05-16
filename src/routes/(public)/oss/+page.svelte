@@ -59,7 +59,7 @@
 	.project {
 		background-color: var(--bg-200);
 		box-shadow: var(--shadow);
-		border-top: 2px solid var(--fg-700);
+		border-block-start: 2px solid var(--fg-700);
 		position: relative;
 	}
 
@@ -67,7 +67,7 @@
 		padding-inline: var(--space-16);
 		padding-block: var(--space-8);
 		margin-inline: auto;
-		border-bottom: 1px solid var(--fg-450);
+		border-block-end: 1px solid var(--fg-450);
 	}
 
 	.content {

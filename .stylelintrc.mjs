@@ -4,7 +4,6 @@ export default {
 		'stylelint-config-standard',
 		'@projectwallace/stylelint-plugin/configs/recommended'
 	],
-	plugins: ['stylelint-value-no-unknown-custom-properties'],
 	overrides: [
 		{
 			files: ['src/**/*.svelte'],
@@ -25,6 +24,8 @@ export default {
 				ignoreKeywords: ['break-word']
 			}
 		],
+		// Not needed
+		'no-invalid-position-declaration': null,
 
 		// Descending
 		'no-descending-specificity': null,
@@ -151,6 +152,32 @@ export default {
 		// Others / plugins
 		'projectwallace/no-unknown-custom-property': null,
 		'projectwallace/no-unused-custom-properties': null,
-		'projectwallace/no-property-shorthand': null,
+		'projectwallace/no-property-shorthand': [
+			true,
+			{
+				ignore: [
+					// Special case: allow shorthands with a single value, like `0px` or `inherit`
+					'single-value',
+					// Often used shorthands that are fine
+					'border', // 1px solid transparent
+					'outline', // 1px solid transparent
+					/border-block/, // 1px solid transparent
+					/border-inline/, // 1px solid transparent
+					'grid-column', // grid-column: 1 / -1
+					'grid-row', // grid-row: 1 / 2
+					'contain-intrinsic-size', // auto 28.8px
+					'transition' // TODO: break down these shorthands
+				]
+			}
+		],
+		'projectwallace/max-nesting-depth': 3,
+		'projectwallace/no-prefixed-selectors': [
+			true,
+			{
+				ignore: [
+					/-meter-/ // -moz-meter-bar, -webkit-meter-optimum-value, etc.
+				]
+			}
+		]
 	},
 }
