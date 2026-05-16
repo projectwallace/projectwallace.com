@@ -60,7 +60,9 @@
 		"prefer-at": "off",
 		"no-map-spread": "off",
 		"strict-boolean-expressions": "off",
-		"no-confusing-void-expression": "off"
+		"no-confusing-void-expression": "off",
+		"typescript/prefer-readonly-parameter-types": "off",
+		"require-unicode-regexp": "off"
 	},
 	"overrides": [
 		{

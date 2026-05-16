@@ -138,7 +138,7 @@
 					Visualize your cascade layer structure. Understand the order, nesting, and specificity implications of your
 					@layer declarations.
 				</p>
-				<a href="/custom-property-inspector">View layers →</a>
+				<a href="/css-layers-visualizer">View layers →</a>
 			</li>
 		</ul>
 	</Container>
@@ -382,7 +382,9 @@
 			em {
 				color: var(--accent-300);
 				font-style: italic;
-				text-decoration: underline;
+				text-decoration-line: underline;
+				text-decoration-style: wavy;
+				text-decoration-color: var(--fg-300);
 			}
 		}
 

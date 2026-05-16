@@ -3,8 +3,10 @@
 	"description": "Svelte Kit project for projectwallace.com",
 	"version": "0.0.1",
 	"type": "module",
+	"packageManager": "pnpm@10.30.3",
 	"engines": {
-		"node": ">=24"
+		"node": ">=24",
+		"pnpm": ">=10"
 	},
 	"scripts": {
 		"dev": "vite dev",
@@ -34,6 +36,7 @@
 		"color-sorter": "^8.0.0",
 		"css-time-sort": "^3.0.0",
 		"diff": "^8.0.4",
+		"github-slugger": "^2.0.0",
 		"linkedom": "^0.18.12",
 		"mdsvex": "^0.12.7",
 		"paneforge": "^1.0.2",
@@ -58,14 +61,5 @@
 		"stylelint-config-standard": "~40.0.0",
 		"svelte-check": "^4.4.6",
 		"vitest": "^4.1.5"
-	},
-	"overrides": {
-		"@projectwallace/css-analyzer": "$@projectwallace/css-analyzer",
-		"@projectwallace/css-parser": "$@projectwallace/css-parser",
-		"@projectwallace/format-css": "$@projectwallace/format-css",
-		"color-sorter": "$color-sorter",
-		"runed": "$runed",
-		"sharp": "0.34.3",
-		"vite": "$vite"
 	}
 }
