@@ -65,6 +65,9 @@ importers:
       diff:
         specifier: ^8.0.4
         version: 8.0.4
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       linkedom:
         specifier: ^0.18.12
         version: 0.18.12
