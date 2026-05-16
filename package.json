@@ -29,7 +29,7 @@
 		"@projectwallace/css-parser": "^0.15.0",
 		"@projectwallace/format-css": "^3.1.1",
 		"@sveltejs/enhanced-img": "^0.10.4",
-		"@sveltejs/kit": "^2.57.1",
+		"@sveltejs/kit": "^2.59.1",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"color-sorter": "^8.0.0",
 		"css-time-sort": "^3.0.0",
