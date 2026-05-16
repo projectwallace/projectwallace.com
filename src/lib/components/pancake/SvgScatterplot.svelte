@@ -12,7 +12,7 @@
 				const _y = ctx.y_scale(y(point, i))
 				return `M${_x} ${_y} A0 0 0 0 1 ${_x + 0.0001} ${_y + 0.0001}`
 			})
-			.join(' '),
+			.join(' ')
 	)
 </script>
 

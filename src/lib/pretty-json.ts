@@ -1,7 +1,7 @@
 export function pretty_json(
 	obj: unknown,
 	replacer?: (key: string, value: unknown) => unknown,
-	space?: string | number,
+	space?: string | number
 ) {
 	return (
 		JSON.stringify(obj, replacer, space)

@@ -49,7 +49,7 @@
 				result.undeclared_with_fallback,
 				filter_unused,
 				filter_undefined,
-				filter_with_fallback,
+				filter_with_fallback
 			)
 		}
 	})
@@ -91,9 +91,9 @@
 						type: 'location',
 						parent: property_name,
 						location,
-						level,
+						level
 					}
-				}),
+				})
 			}
 		}) as TreeItem[]
 	})
@@ -105,7 +105,7 @@
 		undeclared_with_fallback: Set<string>,
 		filter_unused: boolean,
 		filter_undefined: boolean,
-		filter_with_fallback: boolean,
+		filter_with_fallback: boolean
 	) {
 		if (filter_unused === false && filter_undefined === false && filter_with_fallback === false) {
 			return items
@@ -134,13 +134,13 @@
 	}
 
 	let ctx = createTreeView({
-		forceVisible: false,
+		forceVisible: false
 	})
 	setContext('tree', ctx)
 
 	let {
 		elements: { tree },
-		states: { selectedItem, expanded },
+		states: { selectedItem, expanded }
 	} = ctx
 
 	let selected_item = $derived.by(() => {
@@ -150,7 +150,7 @@
 			if (locations !== undefined) {
 				return {
 					location: data.type === 'property' ? locations.at(0) : data.location,
-					locations,
+					locations
 				}
 			}
 		}
@@ -287,7 +287,7 @@
 						'All Properties': Array.from(result.all.keys()),
 						'Unused Properties': Array.from(result.unused),
 						'Undefined Properties': Array.from(result.undeclared),
-						'Undefined with Fallback': Array.from(result.undeclared_with_fallback),
+						'Undefined with Fallback': Array.from(result.undeclared_with_fallback)
 					}}
 				/>
 			{/if}

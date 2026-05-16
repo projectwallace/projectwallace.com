@@ -7,7 +7,7 @@ const config = {
 	build: {
 		// Prevent base64 inlining of images (to avoid running into unexpected CSP issues)
 		// https://vite.dev/config/build-options.html#build-assetsinlinelimit
-		assetsInlineLimit: 0,
+		assetsInlineLimit: 0
 	},
 
 	// https://vitejs.dev/config/#server-fs-allow
@@ -15,9 +15,9 @@ const config = {
 		fs: {
 			// Allow serving files from one level up to the project root
 			// content
-			allow: ['..'],
-		},
-	},
+			allow: ['..']
+		}
+	}
 }
 
 export default config

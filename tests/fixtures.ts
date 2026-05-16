@@ -22,7 +22,7 @@ export const test = base_test.extend<Fixtures>({
 					s
 						.replaceAll(/\s+|\/|\./g, '-') // spaces or / → -
 						.replaceAll(/[^a-zA-Z0-9-_]/g, '') // remove other invalid chars
-						.toLowerCase(), // lowercase
+						.toLowerCase() // lowercase
 			)
 			let file_name = parts.join('-') + '.json'
 
@@ -35,11 +35,11 @@ export const test = base_test.extend<Fixtures>({
 			// attach to report
 			await testInfo.attach('css-coverage', {
 				path: file_path,
-				contentType: 'application/json',
+				contentType: 'application/json'
 			})
 		},
-		{ auto: true },
-	],
+		{ auto: true }
+	]
 })
 
 export const expect = base_expect.extend({
@@ -51,13 +51,13 @@ export const expect = base_expect.extend({
 		if (count !== 1) {
 			return {
 				pass: false,
-				message: () => 'Hydration meta tag not found',
+				message: () => 'Hydration meta tag not found'
 			}
 		}
 
 		return {
 			pass: true,
-			message: () => 'success',
+			message: () => 'success'
 		}
 	},
 
@@ -67,7 +67,7 @@ export const expect = base_expect.extend({
 		if (h1.length !== 1) {
 			return {
 				pass: false,
-				message: () => `There are ${h1.length} <h1> elements on the page. There should be exactly 1`,
+				message: () => `There are ${h1.length} <h1> elements on the page. There should be exactly 1`
 			}
 		}
 
@@ -76,13 +76,13 @@ export const expect = base_expect.extend({
 		if (text.length === 0) {
 			return {
 				pass: false,
-				message: () => '<h1> element has no content',
+				message: () => '<h1> element has no content'
 			}
 		}
 
 		return {
 			pass: true,
-			message: () => 'success',
+			message: () => 'success'
 		}
 	},
 
@@ -92,7 +92,7 @@ export const expect = base_expect.extend({
 		if (titles.length !== 1) {
 			return {
 				pass: false,
-				message: () => `There are ${titles.length} <title> elements on the page. There should be exactly 1`,
+				message: () => `There are ${titles.length} <title> elements on the page. There should be exactly 1`
 			}
 		}
 
@@ -101,13 +101,13 @@ export const expect = base_expect.extend({
 		if (text.length === 0) {
 			return {
 				pass: false,
-				message: () => '<title> element has no content',
+				message: () => '<title> element has no content'
 			}
 		}
 
 		return {
 			pass: true,
-			message: () => 'success',
+			message: () => 'success'
 		}
 	},
 
@@ -118,7 +118,7 @@ export const expect = base_expect.extend({
 			return {
 				pass: false,
 				message: () =>
-					`There are ${canonicals.length} <link rel="canonical"> elements on the page. There should be exactly 1`,
+					`There are ${canonicals.length} <link rel="canonical"> elements on the page. There should be exactly 1`
 			}
 		}
 
@@ -127,20 +127,20 @@ export const expect = base_expect.extend({
 		if (href?.length === 0) {
 			return {
 				pass: false,
-				message: () => 'canonical href has no content',
+				message: () => 'canonical href has no content'
 			}
 		}
 
 		if (href?.endsWith('/') !== trailing_slash) {
 			return {
 				pass: false,
-				message: () => `canonical href must ${trailing_slash ? '' : 'not'} have a traling slash; received "${href}"`,
+				message: () => `canonical href must ${trailing_slash ? '' : 'not'} have a traling slash; received "${href}"`
 			}
 		}
 
 		return {
 			pass: true,
-			message: () => 'success',
+			message: () => 'success'
 		}
 	},
 
@@ -151,7 +151,7 @@ export const expect = base_expect.extend({
 			return {
 				pass: false,
 				message: () =>
-					`There are ${descriptions.length} <meta name="description"> elements on the page. There should be exactly 1`,
+					`There are ${descriptions.length} <meta name="description"> elements on the page. There should be exactly 1`
 			}
 		}
 
@@ -160,13 +160,13 @@ export const expect = base_expect.extend({
 		if (content?.length === 0) {
 			return {
 				pass: false,
-				message: () => 'canonical href has no content',
+				message: () => 'canonical href has no content'
 			}
 		}
 
 		return {
 			pass: true,
-			message: () => 'success',
+			message: () => 'success'
 		}
 	},
 
@@ -177,7 +177,7 @@ export const expect = base_expect.extend({
 			return {
 				pass: false,
 				message: () =>
-					`There are ${images.length} <meta property="og:image"> elements on the page. There should be exactly 1`,
+					`There are ${images.length} <meta property="og:image"> elements on the page. There should be exactly 1`
 			}
 		}
 
@@ -186,13 +186,13 @@ export const expect = base_expect.extend({
 		if (content?.length === 0) {
 			return {
 				pass: false,
-				message: () => 'og:image has no content',
+				message: () => 'og:image has no content'
 			}
 		}
 
 		return {
 			pass: true,
-			message: () => 'success',
+			message: () => 'success'
 		}
-	},
+	}
 })

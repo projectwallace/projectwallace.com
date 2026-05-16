@@ -5,7 +5,7 @@ import { nav } from './nav'
 const file_fixture_1 = {
 	name: 'style_1.css',
 	mimeType: 'text/css',
-	buffer: Buffer.from('a { color: red; }'),
+	buffer: Buffer.from('a { color: red; }')
 }
 
 test('does SEO well', async ({ page }) => {
@@ -61,9 +61,9 @@ test.describe('navigation', () => {
 						media: undefined,
 						rel: 'stylesheet',
 						type: 'link',
-						css: MOCK_CSS,
-					},
-				] satisfies CSSOrigin[],
+						css: MOCK_CSS
+					}
+				] satisfies CSSOrigin[]
 			})
 		})
 		await page.goto('/design-tokens', { waitUntil: 'domcontentloaded' })
@@ -205,8 +205,8 @@ test.describe('Design Tokens panel', () => {
 			css: `test-link-element {
 				color: red;
 				font-size: 12px;
-			}`,
-		},
+			}`
+		}
 	] satisfies CSSOrigin[]
 	test.beforeEach(async ({ page }) => {
 		await page.route('/api/get-css*', async (route) => {

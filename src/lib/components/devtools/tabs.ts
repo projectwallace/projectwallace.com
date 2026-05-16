@@ -11,43 +11,43 @@ export type DevtoolsTab = {
 const inspector: DevtoolsTab = {
 	id: 'inspector',
 	name: 'Inspector',
-	icon: 'target',
+	icon: 'target'
 }
 
 export const network: DevtoolsTab = {
 	id: 'network',
 	name: 'Network',
-	icon: 'network',
+	icon: 'network'
 }
 
 const report: DevtoolsTab = {
 	id: 'report',
 	name: 'Report Data',
-	icon: 'file',
+	icon: 'file'
 }
 
 const css: DevtoolsTab = {
 	id: 'css',
 	name: 'All CSS',
-	icon: 'code',
+	icon: 'code'
 }
 
 const design_tokens: DevtoolsTab = {
 	id: 'design_tokens',
 	name: 'Design Tokens',
-	icon: 'brush',
+	icon: 'brush'
 }
 
 const layers: DevtoolsTab = {
 	id: 'layers',
 	name: 'Layers',
-	icon: 'layers',
+	icon: 'layers'
 }
 
 export const properties: DevtoolsTab = {
 	id: 'properties',
 	name: 'Properties',
-	icon: 'cubes',
+	icon: 'cubes'
 }
 
 export const analyzer_tabs = [inspector, network, report, css]

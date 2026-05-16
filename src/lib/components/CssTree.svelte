@@ -28,7 +28,7 @@
 		show_locations = false,
 		show_types = false,
 		highlighted_node,
-		scroll_container,
+		scroll_container
 	}: Props = $props()
 
 	// Convert the node to a plain object for easier iteration
@@ -67,7 +67,7 @@
 				const scroll_offset =
 					element_rect.top - container_rect.top - container_rect.height / 2 + element_rect.height / 2
 				scroll_container.scrollTo({
-					top: scroll_container.scrollTop + scroll_offset,
+					top: scroll_container.scrollTop + scroll_offset
 				})
 			}
 		}

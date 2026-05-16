@@ -48,12 +48,12 @@ export const load: PageServerLoad = async ({ fetch }) => {
 					...Repo
 				}
 			}
-		`,
+		`
 	)
 	let repositories = [data.analyzer, data.cli, data.colorsorter, data.format, data.constyble, data.quality]
 
 	return {
 		repositories,
-		totalStars: repositories.reduce((acc, curr) => (acc += curr.stargazerCount), 0),
+		totalStars: repositories.reduce((acc, curr) => (acc += curr.stargazerCount), 0)
 	}
 }

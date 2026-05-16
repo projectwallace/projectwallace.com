@@ -47,7 +47,7 @@
 		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
 			return string_sort(a[0], b[0])
 		},
-		id: 'alphabetical',
+		id: 'alphabetical'
 	}
 </script>
 
@@ -84,8 +84,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.gradients.totalUnique,
-										ratio: analysis.values.gradients.uniquenessRatio,
-									},
+										ratio: analysis.values.gradients.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -106,8 +106,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.fontSizes.totalUnique,
-										ratio: analysis.values.fontSizes.uniquenessRatio,
-									},
+										ratio: analysis.values.fontSizes.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -128,8 +128,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.fontFamilies.totalUnique,
-										ratio: analysis.values.fontFamilies.uniquenessRatio,
-									},
+										ratio: analysis.values.fontFamilies.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -156,8 +156,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.lineHeights.totalUnique,
-										ratio: analysis.values.lineHeights.uniquenessRatio,
-									},
+										ratio: analysis.values.lineHeights.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -170,8 +170,8 @@
 									{
 										id: 'size',
 										label: 'Sort by size',
-										fn: sort_font_sizes,
-									},
+										fn: sort_font_sizes
+									}
 								]}
 							/>
 						{:else}
@@ -188,8 +188,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.textShadows.totalUnique,
-										ratio: analysis.values.textShadows.uniquenessRatio,
-									},
+										ratio: analysis.values.textShadows.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -214,8 +214,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.boxShadows.totalUnique,
-										ratio: analysis.values.boxShadows.uniquenessRatio,
-									},
+										ratio: analysis.values.boxShadows.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -240,8 +240,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.borderRadiuses.totalUnique,
-										ratio: analysis.values.borderRadiuses.uniquenessRatio,
-									},
+										ratio: analysis.values.borderRadiuses.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -261,8 +261,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.animations.durations.totalUnique,
-										ratio: analysis.values.animations.durations.uniquenessRatio,
-									},
+										ratio: analysis.values.animations.durations.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>
@@ -272,14 +272,14 @@
 								node_type="value"
 								unique={analysis.values.animations.durations.uniqueWithLocations}
 								warnings={Object.keys(analysis.values.animations.durations.unique).filter(
-									(duration) => !validate_duration(duration),
+									(duration) => !validate_duration(duration)
 								)}
 								extra_sort_options={[
 									{
 										id: 'duration',
 										label: 'Sort by duration',
-										fn: sort_by_duration,
-									},
+										fn: sort_by_duration
+									}
 								]}
 							/>
 						{:else}
@@ -296,8 +296,8 @@
 									{
 										name: 'Unique',
 										value: analysis.values.animations.timingFunctions.totalUnique,
-										ratio: analysis.values.animations.timingFunctions.uniquenessRatio,
-									},
+										ratio: analysis.values.animations.timingFunctions.uniquenessRatio
+									}
 								]}
 							/>
 						</Header>

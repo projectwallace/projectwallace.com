@@ -56,7 +56,7 @@ const links = coverage
 	.map((entry) => ({
 		href: entry.url,
 		css: entry.text,
-		type: 'link-or-import',
+		type: 'link-or-import'
 	}))
 ```
 
@@ -80,7 +80,7 @@ const styleSheetsApiCss = await page.evaluate(() => {
 				return {
 					type: stylesheet.ownerNode.tagName.toLowerCase(),
 					href: stylesheet.href || document.location.href,
-					css: [...stylesheet.cssRules].map(({ cssText }) => cssText).join('\n'),
+					css: [...stylesheet.cssRules].map(({ cssText }) => cssText).join('\n')
 				}
 			})
 	)

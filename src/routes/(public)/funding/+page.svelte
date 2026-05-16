@@ -26,7 +26,7 @@
 			<Heading element="h2">Funding goal</Heading>
 			<p class="funding-target">
 				{data.sponsorGoal.title} - ({format_number(data.sponsorGoal.percentComplete, {
-					decimals: 1,
+					decimals: 1
 				})}% complete)
 			</p>
 			<Meter max={100} value={data.sponsorGoal.percentComplete} />

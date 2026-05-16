@@ -19,8 +19,8 @@ export async function get_css(url: string): Promise<CSSOrigin[]> {
 	try {
 		response = await fetch(`/api/get-css?url=${url}`, {
 			headers: {
-				Accept: 'application/json',
-			},
+				Accept: 'application/json'
+			}
 		})
 	} catch {
 		console.error('Network Error while fetching CSS from remote')

@@ -10,9 +10,9 @@
 	let table_scroller: HTMLDivElement
 	let css_state = get_css_state()
 	let {
-		elements: { root, item },
+		elements: { root, item }
 	} = create_keyboard_list({
-		scroll_selected_item_into_view: false,
+		scroll_selected_item_into_view: false
 	})
 
 	$effect(() => {
@@ -48,7 +48,7 @@
 									use:highlight_css={{
 										css,
 										node_type: css_state.selected_item_node_type,
-										enabled: false,
+										enabled: false
 									}}
 								>
 									<!-- Technically this should contain a <code> with the specimen, but the amount of DOM nodes is too damn high -->

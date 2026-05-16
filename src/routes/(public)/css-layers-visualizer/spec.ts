@@ -227,9 +227,9 @@ test.describe('URL with layers', () => {
 						href: 'https://nerdy.dev/fixture.css',
 						url: 'https://nerdy.dev/fixture.css',
 						rel: 'stylesheet',
-						css: NERDY_DEV_FIXTURE,
-					},
-				] satisfies CSSOrigin[],
+						css: NERDY_DEV_FIXTURE
+					}
+				] satisfies CSSOrigin[]
 			})
 		})
 		await expect(page).toBeHydrated()
@@ -282,9 +282,9 @@ test('analyzes a URL without layers', async ({ page }) => {
 					href: 'https://example.com/fixture.css',
 					url: 'https://example.com/fixture.css',
 					rel: 'stylesheet',
-					css: `test{}`,
-				},
-			] satisfies CSSOrigin[],
+					css: `test{}`
+				}
+			] satisfies CSSOrigin[]
 		})
 	})
 	await expect(page).toBeHydrated()

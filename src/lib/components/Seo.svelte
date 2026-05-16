@@ -15,7 +15,7 @@
 		title,
 		description = 'Analyze your CSS and keep track of changes in complexity and branding. Share your statistics with everyone in your team and get conversations going.',
 		image = '',
-		robots = 'index, follow',
+		robots = 'index, follow'
 	}: Props = $props()
 
 	// Add a trailing slash for the homepage only

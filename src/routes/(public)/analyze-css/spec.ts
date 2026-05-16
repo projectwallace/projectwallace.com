@@ -5,12 +5,12 @@ import { nav } from '../../../lib/components/stats/nav'
 const file_fixture_1 = {
 	name: 'style_1.css',
 	mimeType: 'text/css',
-	buffer: Buffer.from('a { color: red; }'),
+	buffer: Buffer.from('a { color: red; }')
 }
 const file_fixture_2 = {
 	name: 'style_2.css',
 	mimeType: 'text/css',
-	buffer: Buffer.from('a { color: blue; }'),
+	buffer: Buffer.from('a { color: blue; }')
 }
 
 test('does SEO well', async ({ page }) => {
@@ -34,9 +34,9 @@ test.describe('navigation', () => {
 						media: undefined,
 						rel: 'stylesheet',
 						type: 'link',
-						css: 'body { color: red; &:hover { color: blue; } }',
-					},
-				] satisfies CSSOrigin[],
+						css: 'body { color: red; &:hover { color: blue; } }'
+					}
+				] satisfies CSSOrigin[]
 			})
 		})
 		await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })
@@ -101,9 +101,9 @@ test.describe('URL input mode', () => {
 						original_status_code: 'ERR_NON_2XX_3XX_RESPONSE',
 						message:
 							'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?',
-						originalMessage: 'Response code 403 (Forbidden)',
-					},
-				},
+						originalMessage: 'Response code 403 (Forbidden)'
+					}
+				}
 			})
 		})
 		// Fill in an invalid URL
@@ -116,7 +116,7 @@ test.describe('URL input mode', () => {
 		await expect
 			.soft(page.getByTestId('form-url-error'))
 			.toContainText(
-				'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?',
+				'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?'
 			)
 	})
 
@@ -130,9 +130,9 @@ test.describe('URL input mode', () => {
 						statusCode: 400,
 						original_status_code: 'ECONNREFUSED',
 						message: 'The origin server is refusing connections.',
-						originalMessage: 'The origin server errored with statusCode 403',
-					},
-				},
+						originalMessage: 'The origin server errored with statusCode 403'
+					}
+				}
 			})
 		})
 		// Fill in an invalid URL
@@ -156,9 +156,9 @@ test.describe('URL input mode', () => {
 							original_status_code: 'ECONNREFUSED',
 							message:
 								'The origin server is refusing connections. You are trying to scrape a local server. Make sure to use a public URL.',
-							originalMessage: 'The origin server errored with statusCode 403',
-						},
-					},
+							originalMessage: 'The origin server errored with statusCode 403'
+						}
+					}
 				})
 			})
 			// Fill in an invalid URL
@@ -171,7 +171,7 @@ test.describe('URL input mode', () => {
 			await expect
 				.soft(page.getByTestId('form-url-error'))
 				.toContainText(
-					'The origin server is refusing connections. You are trying to scrape a local server. Make sure to use a public URL.',
+					'The origin server is refusing connections. You are trying to scrape a local server. Make sure to use a public URL.'
 				)
 		})
 	})
@@ -310,9 +310,9 @@ test('does not have horizontal scrollbars', async ({ page }) => {
 						url: 'https://example.com/test.css',
 						media: undefined,
 						rel: 'stylesheet',
-						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); }`,
-					},
-				] satisfies CSSOrigin[],
+						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); }`
+					}
+				] satisfies CSSOrigin[]
 			})
 		} else {
 			await route.continue()
@@ -321,7 +321,7 @@ test('does not have horizontal scrollbars', async ({ page }) => {
 
 	await page.setViewportSize({
 		width: 540,
-		height: 667,
+		height: 667
 	})
 
 	await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })

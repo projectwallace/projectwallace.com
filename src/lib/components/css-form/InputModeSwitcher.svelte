@@ -3,10 +3,10 @@
 	import type { Snippet } from 'svelte'
 	const {
 		states: { value },
-		elements: { root, list, content: tab_content, trigger },
+		elements: { root, list, content: tab_content, trigger }
 	} = createTabs({
 		loop: false,
-		defaultValue: 'url',
+		defaultValue: 'url'
 	})
 
 	type Props = {

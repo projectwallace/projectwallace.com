@@ -30,10 +30,10 @@
 				return {
 					property,
 					value,
-					locations,
+					locations
 				}
 			})
-		}),
+		})
 	)
 	let radiuses = $derived.by(() => {
 		if (sorting === as_authored) {
@@ -77,7 +77,7 @@
 									type: 'border-radius',
 									node_type: 'value',
 									value: `${property}: ${value}`,
-									locations,
+									locations
 								})
 							}}
 						>

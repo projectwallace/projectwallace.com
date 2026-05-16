@@ -59,7 +59,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 					}
 				}
 			}
-		`,
+		`
 	)
 
 	let files = import.meta.glob('./*.md', { eager: true }) as Record<string, MdsvexDocument>
@@ -70,7 +70,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 		return {
 			html,
 			title: metadata.title,
-			amount: parseFloat(metadata.amount),
+			amount: parseFloat(metadata.amount)
 		} satisfies Provider
 	})
 
@@ -81,7 +81,7 @@ export const load: PageServerLoad = async ({ fetch }) => {
 			...response.data.user.sponsorsListing.activeGoal,
 			title: '$21.50 per month',
 			targetValue: 2150,
-			percentComplete: (10 / 21.5) * 100,
-		},
+			percentComplete: (10 / 21.5) * 100
+		}
 	}
 }

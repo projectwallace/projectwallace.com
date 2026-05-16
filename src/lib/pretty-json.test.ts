@@ -23,8 +23,8 @@ test('simple plain object', () => {
 		more: 'hello',
 		check: ['me', 'now'],
 		case: {
-			first: true,
-		},
+			first: true
+		}
 	}
 
 	expect(pretty_json(input, (key, value) => value, 2)).toEqual(`{
@@ -45,9 +45,9 @@ test('puts nested arrays on a single line', () => {
 		specificity: {
 			items: [
 				[0, 2, 0],
-				[0, 1, 0],
-			],
-		},
+				[0, 1, 0]
+			]
+		}
 	}
 
 	expect(pretty_json(input, (key, value) => value, 2)).toEqual(`{

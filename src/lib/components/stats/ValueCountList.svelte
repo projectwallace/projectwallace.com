@@ -11,7 +11,7 @@
 
 	let css_state = get_css_state()
 	let {
-		elements: { root, item },
+		elements: { root, item }
 	} = create_keyboard_list()
 
 	interface Props {
@@ -32,15 +32,15 @@
 		{
 			label: 'Sort by source order',
 			fn: () => -1,
-			id: 'source-order',
+			id: 'source-order'
 		},
 		{
 			label: 'Sort by count',
 			fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
 				return b[1].length - a[1].length
 			},
-			id: 'count',
-		},
+			id: 'count'
+		}
 	]
 
 	let sorting = $state(default_sortings[0].id)
@@ -59,7 +59,7 @@
 			type: id,
 			value,
 			locations: unique[value],
-			node_type,
+			node_type
 		})
 	}
 </script>

@@ -8,7 +8,7 @@ import {
 	SKIP,
 	AT_RULE,
 	SELECTOR_LIST,
-	DECLARATION,
+	DECLARATION
 } from '@projectwallace/css-parser'
 
 const token_types = ['AtruleName', 'SelectorList', 'Property', 'Comment', 'Important']
@@ -17,7 +17,7 @@ export type NodeType = 'selector' | 'declaration' | 'selectorList' | 'atrule' | 
 
 export function highlight_css(
 	node: HTMLElement,
-	{ css, node_type, enabled = true }: { css: string; node_type?: NodeType; enabled?: boolean },
+	{ css, node_type, enabled = true }: { css: string; node_type?: NodeType; enabled?: boolean }
 ) {
 	if (!enabled) {
 		return
@@ -43,7 +43,7 @@ export function highlight_css(
 			startContainer: text_node,
 			startOffset: start,
 			endContainer: text_node,
-			endOffset: end,
+			endOffset: end
 		})
 
 		// Keep track of all ranges within scope to remove them later to prevent memory leaks
@@ -70,7 +70,7 @@ export function highlight_css(
 					parse_selectors: false,
 					on_comment: (comment) => {
 						add_range('Comment', comment.start, comment.end)
-					},
+					}
 				})
 			}
 
@@ -133,6 +133,6 @@ export function highlight_css(
 		},
 		destroy: () => {
 			requestIdleCallback(cleanup)
-		},
+		}
 	}
 }

@@ -35,8 +35,8 @@
 				{
 					'stat-value-bad': score <= 50,
 					'stat-value-medium': score > 50 && score < 80,
-					'stat-value-good': score >= 80,
-				},
+					'stat-value-good': score >= 80
+				}
 			]}
 		>
 			{score}

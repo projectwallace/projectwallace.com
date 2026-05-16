@@ -28,7 +28,7 @@
 		rules = Object.create(null),
 		atrules = Object.create(null),
 		selectors = Object.create(null),
-		declarations = Object.create(null),
+		declarations = Object.create(null)
 	}: Props = $props()
 
 	let { selectors: rule_selectors, declarations: rule_declarations, sizes, nesting, total } = $derived(rules)
@@ -45,7 +45,7 @@
 				{ name: 'Unique', value: format_number(nesting.totalUnique) },
 				{ name: 'Average', value: format_number(nesting.mean) },
 				{ name: 'Max', value: format_number(nesting.max || 0) },
-				{ name: 'Mode', value: format_number(nesting.mode) },
+				{ name: 'Mode', value: format_number(nesting.mode) }
 			]}
 		/>
 	</Header>
@@ -63,7 +63,7 @@
 		items={Object.entries(nesting.uniqueWithLocations as Record<string, CssLocation[]>).map(([value, locations]) => ({
 			value,
 			locations,
-			count: locations.length,
+			count: locations.length
 		}))}
 		column_headers={['Depth', 'Count']}
 		{node_type}
@@ -74,7 +74,7 @@
 	label,
 	node_type,
 	size_set,
-	node_name,
+	node_name
 }: {
 	label: string
 	node_type: NodeType
@@ -88,7 +88,7 @@
 				{ name: 'Unique', value: format_number(size_set.totalUnique) },
 				{ name: 'Average', value: format_number(size_set.mean) },
 				{ name: 'Max', value: format_number(size_set.max || 0) },
-				{ name: 'Mode', value: format_number(size_set.mode) },
+				{ name: 'Mode', value: format_number(size_set.mode) }
 			]}
 		/>
 	</Header>
@@ -106,8 +106,8 @@
 				([value, locations]) => ({
 					value,
 					locations,
-					count: locations.length,
-				}),
+					count: locations.length
+				})
 			)}
 			column_headers={[node_name, 'Count']}
 			{node_type}
@@ -123,7 +123,7 @@
 		<DefinitionList
 			stats={[
 				{ name: 'Total', value: format_number(rules.total) },
-				{ name: 'Empty', value: format_number(rules.empty.total) },
+				{ name: 'Empty', value: format_number(rules.empty.total) }
 			]}
 		/>
 	</Header>
@@ -143,7 +143,7 @@
 				label: 'Sizes per ruleset',
 				node_type: 'rule',
 				size_set: sizes,
-				node_name: 'Rule',
+				node_name: 'Rule'
 			})}
 		{/if}
 
@@ -152,7 +152,7 @@
 				label: 'Selectors per ruleset',
 				node_type: 'selectorList',
 				size_set: rule_selectors,
-				node_name: 'Selector',
+				node_name: 'Selector'
 			})}
 		{/if}
 
@@ -161,7 +161,7 @@
 				label: 'Declarations per ruleset',
 				node_type: 'declaration',
 				size_set: rule_declarations,
-				node_name: 'Declaration',
+				node_name: 'Declaration'
 			})}
 		{/if}
 	</div>
@@ -188,7 +188,7 @@
 				{@render nesting_stats({
 					label: 'Atrule nesting depth',
 					node_type: 'atrule',
-					nesting: atrules.nesting,
+					nesting: atrules.nesting
 				})}
 			{/if}
 
@@ -196,7 +196,7 @@
 				{@render nesting_stats({
 					label: 'Rule nesting depth',
 					node_type: 'rule',
-					nesting: rules.nesting,
+					nesting: rules.nesting
 				})}
 			{/if}
 
@@ -204,7 +204,7 @@
 				{@render nesting_stats({
 					label: 'Selector nesting depth',
 					node_type: 'selector',
-					nesting: selectors.nesting,
+					nesting: selectors.nesting
 				})}
 			{/if}
 
@@ -212,7 +212,7 @@
 				{@render nesting_stats({
 					label: 'Declaration nesting depth',
 					node_type: 'declaration',
-					nesting: declarations.nesting,
+					nesting: declarations.nesting
 				})}
 			{/if}
 		</div>

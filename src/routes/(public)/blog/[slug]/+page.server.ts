@@ -13,7 +13,7 @@ export const load: PageServerLoad = ({ params }) => {
 				path: post.path,
 				title: post.title,
 				excerpt: post.excerpt,
-				date: post.date,
+				date: post.date
 			}))
 		return { post, popular }
 	}

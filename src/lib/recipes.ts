@@ -35,7 +35,7 @@ export function getRecipes() {
 			slug,
 			path,
 			title,
-			meta,
+			meta
 		} as RecipeDoc
 	})
 }

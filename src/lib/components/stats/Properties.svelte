@@ -42,7 +42,7 @@
 	}
 
 	let shorthand_properties = $derived(
-		Object.entries(uniqueWithLocations).filter(([property]) => shorthands.has(property.toLowerCase())),
+		Object.entries(uniqueWithLocations).filter(([property]) => shorthands.has(property.toLowerCase()))
 	)
 
 	let visibility_filter: FilterType = $state(show_all)
@@ -71,7 +71,7 @@
 				<DefinitionList
 					stats={[
 						{ name: 'Total', value: total },
-						{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio },
+						{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
 					]}
 				/>
 			</Header>

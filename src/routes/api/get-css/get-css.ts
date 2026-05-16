@@ -21,7 +21,7 @@ function get_import_urls(css: string) {
 	let urls: string[] = []
 	let ast = parse(css, {
 		parse_selectors: false,
-		parse_values: false,
+		parse_values: false
 	})
 	walk(ast, (node) => {
 		if (node.type === AT_RULE && node.name === 'import' && node.has_prelude && node.prelude.type === AT_RULE_PRELUDE) {
@@ -75,10 +75,10 @@ async function get_css_file(url: string | URL, abort_signal: AbortSignal) {
 		let response = await fetch(url, {
 			headers: {
 				'User-Agent': USER_AGENT,
-				Accept: 'text/css',
+				Accept: 'text/css'
 			},
 			// If aborted early try to return an empty string so we can continue with just the content we have
-			signal: abort_signal,
+			signal: abort_signal
 		})
 
 		if (!response.ok) {
@@ -114,14 +114,14 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 				media: node.getAttribute('media') ?? undefined,
 				rel: node.getAttribute('rel') ?? '',
 				url: href !== null && href.startsWith('http') ? href : base_url + href,
-				css: '',
+				css: ''
 			})
 		} else if (node.nodeName === 'STYLE' && node.textContent !== null && node.textContent.trim().length > 0) {
 			let css = node.textContent
 			items.push({
 				type: 'style',
 				css,
-				url: base_url,
+				url: base_url
 			})
 		} else if (node.hasAttribute('style')) {
 			let declarations = (node.getAttribute('style') ?? '').trim()
@@ -160,7 +160,7 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 		items.push({
 			type: 'inline',
 			css: inlined,
-			url: base_url,
+			url: base_url
 		})
 	}
 
@@ -186,8 +186,8 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 			signal: abort_controller.signal,
 			headers: {
 				'User-Agent': USER_AGENT,
-				Accept: 'text/html,*/*;q=0.1',
-			},
+				Accept: 'text/html,*/*;q=0.1'
+			}
 		})
 
 		if (!response.ok) {
@@ -203,7 +203,7 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 				return make_error(
 					url,
 					403,
-					'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?',
+					'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?'
 				)
 			}
 
@@ -234,8 +234,8 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 			{
 				type: 'file',
 				href: url,
-				css: body,
-			},
+				css: body
+			}
 		]
 	}
 
@@ -294,14 +294,14 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 			let importUrls = get_import_urls(item.css)
 			if (importUrls.length > 0) {
 				let cssRequests = importUrls.map((importUrl) =>
-					get_css_file(resolve_url(importUrl, url)!, abort_controller.signal),
+					get_css_file(resolve_url(importUrl, url)!, abort_controller.signal)
 				)
 				let importedFiles = await Promise.all(cssRequests)
 				importedFiles.forEach((css, index) => {
 					result.push({
 						type: 'import',
 						css,
-						href: importUrls[index],
+						href: importUrls[index]
 					})
 				})
 			}

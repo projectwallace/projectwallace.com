@@ -14,7 +14,7 @@
 		'CSS diff viewer': '/css-diff',
 		'Coverage inspector': '/css-coverage',
 		'Specificity calculator': '/specificity-calculator',
-		'Selector complexity': '/selector-complexity',
+		'Selector complexity': '/selector-complexity'
 	}
 </script>
 

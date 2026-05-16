@@ -14,14 +14,14 @@ let matrix: Item[] = [
 	['Light', 'dark', 'light'],
 	['Light', 'light', 'light'],
 	['System', 'dark', 'system'],
-	['System', 'light', 'system'],
+	['System', 'light', 'system']
 ]
 
 test.describe('stored theme and OS color scheme', () => {
 	for (let [expected_scheme, prefered_color_scheme, stored_theme] of matrix) {
 		test(`stored theme: ${stored_theme ?? 'none'}, OS: ${prefered_color_scheme ?? 'no-preference'}`, async ({
 			page,
-			context,
+			context
 		}) => {
 			await page.emulateMedia({ colorScheme: prefered_color_scheme })
 			await page.goto('/', { waitUntil: 'domcontentloaded' })
@@ -30,8 +30,8 @@ test.describe('stored theme and OS color scheme', () => {
 					{
 						name: 'theme',
 						value: stored_theme,
-						url: page.url(),
-					},
+						url: page.url()
+					}
 				])
 				await page.reload({ waitUntil: 'domcontentloaded' })
 			}

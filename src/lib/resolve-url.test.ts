@@ -12,7 +12,7 @@ describe('valid urls', () => {
 		['example.com?test=1', new URL('https://example.com?test=1')],
 		['example.com#fragment', new URL('https://example.com#fragment')],
 		['example.com/path', new URL('https://example.com/path')],
-		['example.com/path?query=1#fragment', new URL('https://example.com/path?query=1#fragment')],
+		['example.com/path?query=1#fragment', new URL('https://example.com/path?query=1#fragment')]
 	] satisfies Array<[string, URL]>)('%s => %s', (input, expected) => {
 		expect(resolve_url(input)).toEqual(expected)
 	})
@@ -43,6 +43,6 @@ describe('invalid urls', () => {
 		'%s',
 		(input) => {
 			expect(resolve_url(input)).toBeUndefined()
-		},
+		}
 	)
 })

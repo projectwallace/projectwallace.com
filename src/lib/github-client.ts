@@ -8,11 +8,11 @@ export async function graphql<T = unknown>(fetch: typeof globalThis.fetch, query
 	let response = await fetch(`https://api.github.com/graphql`, {
 		method: 'POST',
 		headers: {
-			authorization: `bearer ${GH_TOKEN}`,
+			authorization: `bearer ${GH_TOKEN}`
 		},
 		body: JSON.stringify({
-			query,
-		}),
+			query
+		})
 	})
 	return response.json() as Promise<{ data: T }>
 }

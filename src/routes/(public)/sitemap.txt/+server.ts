@@ -15,7 +15,7 @@ function getSystemPages() {
 				.replace('../', '/')
 				.replace('/+page.svelte', '')
 				.replace('/+layout.svelte', '')
-				.replace('/+error.svelte', ''),
+				.replace('/+error.svelte', '')
 		)
 		.filter((route) => {
 			if (route.includes('[')) return false // urls with placeholders
@@ -42,7 +42,7 @@ export function GET() {
 
 	return new Response(body, {
 		headers: {
-			'Content-Type': 'text/plain',
-		},
+			'Content-Type': 'text/plain'
+		}
 	})
 }

@@ -4,5 +4,5 @@ export const items = [
 	{ url: '/design-tokens', title: 'Design Tokens' },
 	{ url: '/custom-property-inspector', title: 'Custom properties' },
 	{ url: '/css-coverage', title: 'Code coverage' },
-	{ url: '/the-css-selection/2026', title: 'The CSS Selection' },
+	{ url: '/the-css-selection/2026', title: 'The CSS Selection' }
 ]

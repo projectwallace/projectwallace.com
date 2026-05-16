@@ -4,8 +4,8 @@ export default {
 	overrides: [
 		{
 			files: ['src/**/*.svelte'],
-			customSyntax: 'postcss-html',
-		},
+			customSyntax: 'postcss-html'
+		}
 	],
 	ignoreFiles: ['**/*.js', '**/*.ts', '**/*.json', '**/*.md'],
 	defaultSeverity: 'warning',
@@ -18,8 +18,8 @@ export default {
 		'declaration-property-value-keyword-no-deprecated': [
 			true,
 			{
-				ignoreKeywords: ['break-word'],
-			},
+				ignoreKeywords: ['break-word']
+			}
 		],
 		// Not needed
 		'no-invalid-position-declaration': null,
@@ -38,15 +38,15 @@ export default {
 			true,
 			{
 				ignorePseudoClasses: [
-					'global', // for Svelte
-				],
-			},
+					'global' // for Svelte
+				]
+			}
 		],
 		'function-no-unknown': [
 			true,
 			{
-				ignoreFunctions: ['anchor'],
-			},
+				ignoreFunctions: ['anchor']
+			}
 		],
 		'declaration-property-value-no-unknown': [
 			true,
@@ -60,17 +60,17 @@ export default {
 					cursor: '/.*/', // css-tree crashes on <cursor-predefined> syntax reference
 					'list-style': '/.*/', // css-tree crashes on <symbols()> syntax reference
 					'list-style-type': '/.*/', // css-tree crashes on <symbols()> syntax reference
-					'grid-template-rows': 'masonry',
-				},
-			},
+					'grid-template-rows': 'masonry'
+				}
+			}
 		],
 
 		// Conventions
 		'property-no-vendor-prefix': [
 			true,
 			{
-				ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration'],
-			},
+				ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration']
+			}
 		],
 		'length-zero-no-unit': null,
 		'custom-property-empty-line-before': 'never',
@@ -94,8 +94,8 @@ export default {
 			'lower',
 			{
 				ignoreKeywords: ['currentColor', 'optimizeSpeed'],
-				ignoreProperties: ['font-family', 'font', /^--font/],
-			},
+				ignoreProperties: ['font-family', 'font', /^--font/]
+			}
 		],
 		'selector-type-case': [
 			'lower',
@@ -113,9 +113,9 @@ export default {
 					'SelectorList',
 					'String',
 					'Unit',
-					'Value',
-				],
-			},
+					'Value'
+				]
+			}
 		],
 		'selector-id-pattern': null,
 
@@ -134,8 +134,8 @@ export default {
 			'^_?([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
 			{
 				message:
-					'Expected custom property name to be lowercase and hyphen-separated, optionally starting with an underscore to indicate a component-specific variable',
-			},
+					'Expected custom property name to be lowercase and hyphen-separated, optionally starting with an underscore to indicate a component-specific variable'
+			}
 		],
 
 		// Quotes
@@ -163,18 +163,18 @@ export default {
 					'grid-column', // grid-column: 1 / -1
 					'grid-row', // grid-row: 1 / 2
 					'contain-intrinsic-size', // auto 28.8px
-					'transition', // TODO: break down these shorthands
-				],
-			},
+					'transition' // TODO: break down these shorthands
+				]
+			}
 		],
 		'projectwallace/max-nesting-depth': 3,
 		'projectwallace/no-prefixed-selectors': [
 			true,
 			{
 				ignore: [
-					/-meter-/, // -moz-meter-bar, -webkit-meter-optimum-value, etc.
-				],
-			},
-		],
-	},
+					/-meter-/ // -moz-meter-bar, -webkit-meter-optimum-value, etc.
+				]
+			}
+		]
+	}
 }

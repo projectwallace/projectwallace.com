@@ -15,7 +15,7 @@
 	let css_state = get_css_state()
 	let selected_item = $derived(css_state.selected_item)
 	let {
-		elements: { root, item },
+		elements: { root, item }
 	} = create_keyboard_list()
 
 	type FontFaces = CssAnalysis['atrules']['fontface']
@@ -25,7 +25,7 @@
 		totalUnique = 0,
 		uniquenessRatio = 0,
 		unique = [],
-		uniqueWithLocations = Object.create(null),
+		uniqueWithLocations = Object.create(null)
 	}: Pick<FontFaces, 'total' | 'totalUnique' | 'uniquenessRatio' | 'unique' | 'uniqueWithLocations'> = $props()
 
 	const font_style = 'font-style'
@@ -113,7 +113,7 @@
 				type: 'font-face',
 				node_type: 'atrule',
 				value,
-				locations: item[1] as Location[],
+				locations: item[1] as Location[]
 			})
 		}
 	}
@@ -127,7 +127,7 @@
 				<DefinitionList
 					stats={[
 						{ name: 'Total', value: total },
-						{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio },
+						{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
 					]}
 				/>
 			{/if}
@@ -159,7 +159,7 @@
 								(rule['font-family'] || '') +
 								(rule['font-weight'] || '') +
 								(rule['font-style'] || '') +
-								(rule['unicode-range'] || ''),
+								(rule['unicode-range'] || '')
 						)}
 						{@const selected = value === selected_item?.value && selected_item.type === 'font-face'}
 						<tr aria-selected={selected ? 'true' : 'false'} use:item={{ value }}>

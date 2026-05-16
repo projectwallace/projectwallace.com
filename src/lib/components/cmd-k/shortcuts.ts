@@ -20,8 +20,8 @@ export const shortcuts: Shortcuts = [
 			{ title: 'CSS Design Tokens', href: '/design-tokens', keywords: 'dtcg color' },
 			{ title: 'CSS Layers Visualizer', href: '/css-layers-visualizer', keywords: 'nesting cascade' },
 			{ title: 'CSS Custom Property inspector', href: '/custom-property-inspector', keywords: 'variables' },
-			{ title: 'CSS Scraper', href: '/get-css', keywords: 'extract' },
-		],
+			{ title: 'CSS Scraper', href: '/get-css', keywords: 'extract' }
+		]
 	},
 	{
 		title: 'One-off CSS tools',
@@ -32,15 +32,15 @@ export const shortcuts: Shortcuts = [
 			{ title: 'CSS Minifier', href: '/minify-css', keywords: 'compress optimize minify nano' },
 			{ title: 'CSS Diff viewer', href: '/css-diff', keywords: 'git' },
 			{ title: 'CSS Coverage inspector', href: '/css-coverage', keywords: 'code coverage' },
-			{ title: 'CSS AST Explorer', href: '/ast-explorer', keywords: 'csstree' },
-		],
+			{ title: 'CSS AST Explorer', href: '/ast-explorer', keywords: 'csstree' }
+		]
 	},
 	{
 		title: 'Other',
 		items: [
 			{ title: 'Blog', href: '/blog' },
 			{ title: 'Docs', href: '/docs' },
-			{ title: 'The CSS Selection', href: '/the-css-selection' },
-		],
-	},
+			{ title: 'The CSS Selection', href: '/the-css-selection' }
+		]
+	}
 ]

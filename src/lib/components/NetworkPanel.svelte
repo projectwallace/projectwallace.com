@@ -16,7 +16,7 @@
 	let enabled_origins = $state<number[]>(Array.from(css_state.enabled_origins))
 	let checkbox_state = $derived({
 		checked: enabled_origins.length === css_state.origins.length,
-		indeterminate: enabled_origins.length > 0 && enabled_origins.length < css_state.origins.length,
+		indeterminate: enabled_origins.length > 0 && enabled_origins.length < css_state.origins.length
 	})
 
 	$effect(() => {
@@ -67,7 +67,7 @@
 	let total_size = $derived(
 		css_state.origins.reduce((total, origin) => {
 			return (total += origin.css.length)
-		}, 0),
+		}, 0)
 	)
 	let disabled_size = $derived(
 		css_state.origins.reduce((total, origin, index) => {
@@ -75,7 +75,7 @@
 				total += origin.css.length
 			}
 			return total
-		}, 0),
+		}, 0)
 	)
 
 	function on_select_all_change(event: Event) {

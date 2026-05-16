@@ -61,7 +61,7 @@ The configuration is based on all the metrics that Wallace's CSS Analyzer can me
 	"selectors.total": 4095,
 	"selectors.id.total": 0,
 	"values.colors.totalUnique": 2,
-	"values.colors.unique": ["#fff", "#000"],
+	"values.colors.unique": ["#fff", "#000"]
 }
 ```
 

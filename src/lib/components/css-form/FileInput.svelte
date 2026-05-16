@@ -59,7 +59,7 @@
 				files.push({
 					name: file.name,
 					css,
-					size: file.size,
+					size: file.size
 				})
 			}
 		}

@@ -4,6 +4,6 @@ import { getRecipes } from '$lib/recipes'
 export function load() {
 	return {
 		allGroups: getGroups(),
-		allRecipes: getRecipes(),
+		allRecipes: getRecipes()
 	}
 }

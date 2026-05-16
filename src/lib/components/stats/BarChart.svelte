@@ -18,7 +18,7 @@
 		warnings = [],
 		class: className = '',
 		enable_keyboard_navigation = true,
-		node_type,
+		node_type
 	}: {
 		items: { value: string; locations?: CssLocation[]; count: number }[]
 		context: string
@@ -31,10 +31,10 @@
 	} = $props()
 
 	let {
-		elements: { root, item },
+		elements: { root, item }
 	} = create_keyboard_list({
 		// svelte-ignore state_referenced_locally
-		enabled: enable_keyboard_navigation,
+		enabled: enable_keyboard_navigation
 	})
 
 	// Getting the max without creating an additional array using .map()
@@ -57,7 +57,7 @@
 				type: context,
 				value,
 				locations: item.locations,
-				node_type,
+				node_type
 			})
 		}
 	}

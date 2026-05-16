@@ -27,8 +27,8 @@
 				line,
 				column,
 				offset: start,
-				length: end - start,
-			})),
+				length: end - start
+			}))
 		})
 	}
 </script>

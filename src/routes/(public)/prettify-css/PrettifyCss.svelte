@@ -11,13 +11,13 @@
 	let state = new HashState<{ css: string; use_spaces: boolean; indent_size: number }>({
 		css: '',
 		use_spaces: false,
-		indent_size: 2,
+		indent_size: 2
 	})
 	let { css, use_spaces } = $derived(state.current)
 	let result = $derived(
 		format(css, {
-			tab_size: use_spaces ? 2 : undefined,
-		}),
+			tab_size: use_spaces ? 2 : undefined
+		})
 	)
 	let filesize_diff = $derived(format_filesize(result.length - css.length))
 </script>

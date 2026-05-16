@@ -11,11 +11,11 @@ export const POST: RequestHandler = async ({ request, locals, cookies }) => {
 
 		cookies.set('theme', theme, {
 			path: '/',
-			expires: new Date(Date.now() + 60 * 60 * 24 * 365 * 1000), // One year from now
+			expires: new Date(Date.now() + 60 * 60 * 24 * 365 * 1000) // One year from now
 		})
 
 		return new Response('OK', {
-			status: 200,
+			status: 200
 		})
 	}
 

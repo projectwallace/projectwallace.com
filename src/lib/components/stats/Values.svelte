@@ -40,7 +40,7 @@
 		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
 			return string_sort(a[0], b[0])
 		},
-		id: 'alphabetical',
+		id: 'alphabetical'
 	}
 
 	let { units, zindexes, prefixes, browserhacks, resets, displays } = $derived(values)
@@ -71,7 +71,7 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: resets.total },
-					{ name: 'Unique', value: resets.totalUnique },
+					{ name: 'Unique', value: resets.totalUnique }
 				]}
 			/>
 		</Header>
@@ -92,7 +92,7 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: displays.total },
-					{ name: 'Unique', value: displays.totalUnique },
+					{ name: 'Unique', value: displays.totalUnique }
 				]}
 			/>
 		</Header>
@@ -116,8 +116,8 @@
 					{
 						name: 'Unique',
 						value: zindexes.totalUnique,
-						ratio: zindexes.uniquenessRatio,
-					},
+						ratio: zindexes.uniquenessRatio
+					}
 				]}
 			/>
 		</Header>
@@ -131,8 +131,8 @@
 						fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
 							return normalize_z_index(a[0]) - normalize_z_index(b[0])
 						},
-						id: 'numeric',
-					},
+						id: 'numeric'
+					}
 				]}
 				warnings={z_index_warnings}
 			/>
@@ -160,8 +160,8 @@
 					{
 						name: 'Unique',
 						value: prefixes.totalUnique,
-						ratio: prefixes.uniquenessRatio,
-					},
+						ratio: prefixes.uniquenessRatio
+					}
 				]}
 			/>
 		</Header>
@@ -185,8 +185,8 @@
 					{
 						name: 'Unique',
 						value: browserhacks.totalUnique,
-						ratio: browserhacks.uniquenessRatio,
-					},
+						ratio: browserhacks.uniquenessRatio
+					}
 				]}
 			/>
 		</Header>

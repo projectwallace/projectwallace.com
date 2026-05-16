@@ -22,7 +22,7 @@
 	})
 
 	const DEFAULT_CSS = format(
-		'a { color: red; background: blue !important; #test-nested { color: green; } } c + b[aria-selected^="true" i] { border: 3px solid rgb(0 30% 0 / 50%) } @media (min-width: 600px) or print { test { color: blue !ie; } }',
+		'a { color: red; background: blue !important; #test-nested { color: green; } } c + b[aria-selected^="true" i] { border: 3px solid rgb(0 30% 0 / 50%) } @media (min-width: 600px) or print { test { color: blue !ie; } }'
 	)
 
 	type UrlState = {
@@ -36,7 +36,7 @@
 		css: DEFAULT_CSS,
 		parse_atrule_preludes: true,
 		parse_selectors: true,
-		parse_values: true,
+		parse_values: true
 	})
 
 	let ast = $derived.by(() => {
@@ -44,7 +44,7 @@
 			return parse(url_state.current.css, {
 				parse_atrule_preludes: url_state.current.parse_atrule_preludes,
 				parse_selectors: url_state.current.parse_selectors,
-				parse_values: url_state.current.parse_values,
+				parse_values: url_state.current.parse_values
 			})
 		} catch (error) {
 			return undefined
@@ -76,7 +76,7 @@
 	function prettify() {
 		url_state.current = {
 			...url_state.current,
-			css: format(url_state.current.css),
+			css: format(url_state.current.css)
 		}
 	}
 </script>

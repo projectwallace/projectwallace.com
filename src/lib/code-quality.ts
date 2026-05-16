@@ -45,7 +45,7 @@ export function getDocs() {
 			unit,
 			format,
 			category,
-			meta,
+			meta
 		} as CodeQualityDoc
 	})
 	return docs.reduce(
@@ -53,6 +53,6 @@ export function getDocs() {
 			acc[curr.id] = curr
 			return acc
 		},
-		Object.create(null) as Record<string, CodeQualityDoc>,
+		Object.create(null) as Record<string, CodeQualityDoc>
 	)
 }

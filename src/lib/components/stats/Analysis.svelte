@@ -26,8 +26,8 @@
 	let css_state = get_css_state()
 	let analysis = $derived(
 		analyze(css_state.css, {
-			useLocations: true,
-		}),
+			useLocations: true
+		})
 	)
 	let nav_visible = new PersistedState<boolean>('analyzer-nav-visible', true)
 

@@ -103,6 +103,6 @@ test('used @property', () => {
 	expect(actual.all.size).toBe(1)
 	expect(actual.all.get('--used')).toEqual([
 		{ column: 2, length: 64, line: 2, offset: 2 },
-		{ column: 6, length: 11, line: 7, offset: 77 },
+		{ column: 6, length: 11, line: 7, offset: 77 }
 	])
 })

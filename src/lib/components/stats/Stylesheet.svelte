@@ -61,7 +61,7 @@
 					{ value: 'Selectors', count: selectors.total },
 					{ value: 'Declarations', count: declarations.total },
 					{ value: 'Properties', count: properties.total },
-					{ value: 'Values', count: declarations.total },
+					{ value: 'Values', count: declarations.total }
 				]}
 				column_headers={['Type', 'Total']}
 				node_type="value"
@@ -83,7 +83,7 @@
 					{ value: 'Selectors', count: selectors.complexity.sum },
 					{ value: 'Declarations', count: declarations.complexity.sum },
 					{ value: 'Properties', count: properties.complexity.sum },
-					{ value: 'Values', count: values.complexity.sum },
+					{ value: 'Values', count: values.complexity.sum }
 				]}
 				column_headers={['Type', 'Complexity']}
 				node_type="value"
@@ -99,8 +99,8 @@
 						{
 							name: 'Unique',
 							value: embeddedContent.types.totalUnique,
-							ratio: embeddedContent.types.uniquenessRatio,
-						},
+							ratio: embeddedContent.types.uniquenessRatio
+						}
 					]}
 				/>
 			</Header>
@@ -111,7 +111,7 @@
 					items={Object.entries(embeddedContent.types.unique).map(([embedType, item]) => ({
 						value: embedType,
 						count: item.count,
-						locations: item.uniqueWithLocations,
+						locations: item.uniqueWithLocations
 					}))}
 					column_headers={['Embed type', 'Count']}
 					node_type="value"
@@ -130,8 +130,8 @@
 							{
 								name: 'Total',
 								value: format_filesize(embeddedContent.size.total),
-								ratio: embeddedContent.size.ratio,
-							},
+								ratio: embeddedContent.size.ratio
+							}
 						]}
 					/>
 				</Header>
@@ -141,7 +141,7 @@
 					items={Object.entries(embeddedContent.types.unique).map(([embedType, item]) => ({
 						value: embedType,
 						count: item.size,
-						locations: item.uniqueWithLocations,
+						locations: item.uniqueWithLocations
 					}))}
 					column_headers={['Embed type', 'Size']}
 					node_type="value"

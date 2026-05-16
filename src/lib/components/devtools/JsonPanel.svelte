@@ -12,8 +12,8 @@
 			return {
 				...rest,
 				unique: Object.fromEntries(
-					Object.entries(uniqueWithLocations as Record<string, unknown[]>).map(([k, v]) => [k, v.length]),
-				),
+					Object.entries(uniqueWithLocations as Record<string, unknown[]>).map(([k, v]) => [k, v.length])
+				)
 			}
 		}
 		return value

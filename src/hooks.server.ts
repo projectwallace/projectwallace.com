@@ -23,7 +23,7 @@ export const handle_redirects: Handle = async function ({ event, resolve }) {
 		{ source: '/css-analysis', destination: '/analyze-css' },
 		{ source: '/register', destination: '/' },
 		{ source: '/dashboard', destination: '/' },
-		{ source: '/projects-coming-soon', destination: '/' },
+		{ source: '/projects-coming-soon', destination: '/' }
 	]
 
 	// Redirect old /~username to the home page
@@ -46,7 +46,7 @@ const apply_security_headers: Handle = async function ({ event, resolve }) {
 		'referrer-policy': 'strict-origin-when-cross-origin',
 		'x-content-type-options': 'nosniff',
 		'x-frame-options': 'DENY',
-		'x-xss-protection': '1; mode=block',
+		'x-xss-protection': '1; mode=block'
 	}
 	let response = await resolve(event)
 
@@ -70,7 +70,7 @@ const set_theme: Handle = async function ({ event, resolve }) {
 	let response = await resolve(event, {
 		transformPageChunk: ({ html }) => {
 			return html.replace('%sveltekit.theme%', theme)
-		},
+		}
 	})
 	return response
 }

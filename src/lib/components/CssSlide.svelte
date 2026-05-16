@@ -23,7 +23,7 @@
 		allow_prettify = false,
 		allow_copy = false,
 		allow_copy_highlighted = false,
-		on_close,
+		on_close
 	}: Props = $props()
 
 	function format_css() {

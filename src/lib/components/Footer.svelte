@@ -8,8 +8,8 @@
 				{ title: 'CSS Design Tokens', href: '/design-tokens' },
 				{ title: 'CSS Layers Visualizer', href: '/css-layers-visualizer' },
 				{ title: 'CSS Custom Property inspector', href: '/custom-property-inspector' },
-				{ title: 'CSS Scraper', href: '/get-css' },
-			],
+				{ title: 'CSS Scraper', href: '/get-css' }
+			]
 		},
 		{
 			title: 'One-off CSS tools',
@@ -20,20 +20,20 @@
 				{ title: 'CSS Minifier', href: '/minify-css' },
 				{ title: 'CSS Diff viewer', href: '/css-diff' },
 				{ title: 'CSS Coverage inspector', href: '/css-coverage' },
-				{ title: 'CSS AST Explorer', href: '/ast-explorer' },
-			],
+				{ title: 'CSS AST Explorer', href: '/ast-explorer' }
+			]
 		},
 		{
 			title: 'CSS Games',
-			items: [{ title: 'CSS Units memory', href: '/css-units-game' }],
+			items: [{ title: 'CSS Units memory', href: '/css-units-game' }]
 		},
 		{
 			title: 'Documentation',
 			items: [
 				{ href: '/docs', title: 'Docs' },
 				{ href: '/blog', title: 'Blog' },
-				{ href: '/the-css-selection', title: 'The CSS Selection' },
-			],
+				{ href: '/the-css-selection', title: 'The CSS Selection' }
+			]
 		},
 		{
 			title: 'About Project Wallace',
@@ -46,12 +46,12 @@
 				{
 					title: 'Code of Conduct',
 					href: 'https://github.com/projectwallace/projectwallace.com/blob/main/CODE_OF_CONDUCT.md',
-					rel: 'external',
+					rel: 'external'
 				},
 				{ title: 'Bluesky', href: 'https://bsky.app/profile/projectwallace.com', rel: 'external' },
-				{ title: 'GitHub', href: 'https://github.com/projectwallace', rel: 'external' },
-			],
-		},
+				{ title: 'GitHub', href: 'https://github.com/projectwallace', rel: 'external' }
+			]
+		}
 	]
 </script>
 

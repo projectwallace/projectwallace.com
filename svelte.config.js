@@ -14,13 +14,13 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			edge: true,
+			edge: true
 		}),
 		serviceWorker: {
-			register: false,
+			register: false
 		},
 		alias: {
-			$components: 'src/lib/components',
+			$components: 'src/lib/components'
 		},
 		csp: {
 			directives: {
@@ -31,10 +31,10 @@ const config = {
 				'frame-src': ['codepen.io'],
 				'worker-src': ['self', 'blob:'],
 				'font-src': ['self', 'https://www.projectwallace.com'],
-				'default-src': ['self'],
-			},
-		},
-	},
+				'default-src': ['self']
+			}
+		}
+	}
 }
 
 export default config

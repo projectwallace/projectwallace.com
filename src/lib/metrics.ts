@@ -35,7 +35,7 @@ export function getMetrics() {
 			slug,
 			path,
 			title,
-			meta,
+			meta
 		} as MetricDoc
 	})
 }
@@ -47,7 +47,7 @@ export function groupBySection(metrics: MetricDoc[]) {
 			let [group] = id.split('.')
 			return {
 				...rest,
-				group,
+				group
 			}
 		})
 		.reduce(
@@ -59,6 +59,6 @@ export function groupBySection(metrics: MetricDoc[]) {
 				groups[metric.group].push(metric)
 				return groups
 			},
-			Object.create(null) as Record<string, Partial<MetricDoc>[]>,
+			Object.create(null) as Record<string, Partial<MetricDoc>[]>
 		)
 }

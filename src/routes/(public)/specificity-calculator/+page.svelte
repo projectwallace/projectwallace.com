@@ -66,7 +66,7 @@
 		await goto(`?${new_params.toString()}`, {
 			replaceState: true,
 			keepFocus: true,
-			noScroll: true,
+			noScroll: true
 		})
 	}
 

@@ -107,7 +107,7 @@
 			<Button
 				element="a"
 				href="https://bsky.app/intent/compose?text={encodeURIComponent(
-					`I just scored ${guessed.length} out of ${units.length} units on Project Wallace's CSS Units game!\n\nhttps://www.projectwallace.com/css-units-game`,
+					`I just scored ${guessed.length} out of ${units.length} units on Project Wallace's CSS Units game!\n\nhttps://www.projectwallace.com/css-units-game`
 				)}"
 				rel="external"
 				target="_blank"

@@ -52,9 +52,9 @@
 			fetch('/api/theme', {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'text/plain',
+					'Content-Type': 'text/plain'
 				},
-				body: theme,
+				body: theme
 			})
 		}, 300)
 	}

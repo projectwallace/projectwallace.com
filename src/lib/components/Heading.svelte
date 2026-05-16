@@ -9,7 +9,7 @@
 		['h3' as HeadingElement]: 3,
 		['h4' as HeadingElement]: 4,
 		['span' as HeadingElement]: 6,
-		['div' as HeadingElement]: 6,
+		['div' as HeadingElement]: 6
 	}
 
 	type Props = {

@@ -51,7 +51,7 @@
 		},
 		get height() {
 			return height
-		},
+		}
 	})
 </script>
 

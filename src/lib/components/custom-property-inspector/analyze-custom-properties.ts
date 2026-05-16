@@ -5,7 +5,7 @@ import {
 	is_atrule,
 	is_function,
 	is_identifier,
-	is_declaration,
+	is_declaration
 } from '@projectwallace/css-parser'
 import type { CssLocation } from '$lib/css-location'
 
@@ -14,13 +14,13 @@ function to_loc(node: CSSNode): CssLocation {
 		line: node.line,
 		column: node.column,
 		offset: node.start,
-		length: node.length,
+		length: node.length
 	}
 }
 
 export function analyze(css: string) {
 	let ast = parse(css, {
-		parse_selectors: false,
+		parse_selectors: false
 	})
 	let declared_properties = new Set<string>()
 	let used_properties = new Set<string>()
@@ -88,6 +88,6 @@ export function analyze(css: string) {
 		all: all_properties,
 		unused: unused_properties,
 		undeclared: undeclared_properties,
-		undeclared_with_fallback,
+		undeclared_with_fallback
 	}
 }

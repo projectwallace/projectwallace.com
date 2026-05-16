@@ -31,7 +31,7 @@ export function getGroups() {
 				path,
 				title,
 				meta,
-				id,
+				id
 			} as MetricGroup
 		})
 		.sort((a, b) => parseInt(a.meta.order, 10) - parseInt(b.meta.order, 10))

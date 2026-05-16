@@ -12,7 +12,7 @@ export function format_filesize(bytes: number): string {
 		style: 'unit',
 		unit: byte_units[exponent],
 		unitDisplay: 'short',
-		maximumSignificantDigits: 3,
+		maximumSignificantDigits: 3
 	}).format(value)
 
 	return is_negative ? `-${formatted}` : formatted

@@ -45,7 +45,7 @@
 						<SvgLine
 							data={[
 								{ x: 0, y: threshold },
-								{ x: items.length, y: threshold },
+								{ x: items.length, y: threshold }
 							]}
 						>
 							{#snippet children({ d }: { d: string })}

@@ -7,6 +7,6 @@ export function load() {
 	return {
 		allRecipes: getRecipes(),
 		groupedBySection: groupBySection(metrics),
-		allGroups: getGroups(),
+		allGroups: getGroups()
 	}
 }

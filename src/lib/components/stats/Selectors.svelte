@@ -44,7 +44,7 @@
 		pseudoClasses,
 		pseudoElements,
 		attributes,
-		customElements,
+		customElements
 	} = $derived(selectors)
 
 	let alphabetical_sorting = {
@@ -52,14 +52,14 @@
 		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
 			return string_sort(a[0], b[0])
 		},
-		id: 'alphabetical',
+		id: 'alphabetical'
 	}
 
 	const COMBINATOR_NAMES = {
 		' ': `Descendant ( )`,
 		'>': 'Child (>)',
 		'~': 'General sibling (~)',
-		'+': 'Adjacent sibling (+)',
+		'+': 'Adjacent sibling (+)'
 	}
 
 	const SPECIFICITY_LENGTH = 3
@@ -81,9 +81,9 @@
 				value,
 				locations,
 				count: locations.length,
-				specificity: parse_specificity(value),
+				specificity: parse_specificity(value)
 			}))
-			.sort((a, b) => compareSpecificity(b.specificity, a.specificity)),
+			.sort((a, b) => compareSpecificity(b.specificity, a.specificity))
 	)
 
 	let sorted_combinators = $derived(
@@ -92,15 +92,15 @@
 				// @ts-expect-error TS does not know JS
 				value: COMBINATOR_NAMES[value] || value,
 				locations,
-				count: locations.length,
+				count: locations.length
 			}))
-			.sort((a, b) => b.count - a.count),
+			.sort((a, b) => b.count - a.count)
 	)
 
 	let sorted_complexities = $derived(
 		Object.entries(complexity.uniqueWithLocations as Record<string, CssLocation[]>)
 			.map(([value, locations]) => ({ value, locations, count: locations.length }))
-			.sort((a, b) => parseInt(a.value, 10) - parseInt(b.value, 10)),
+			.sort((a, b) => parseInt(a.value, 10) - parseInt(b.value, 10))
 	)
 
 	function sort_keyframes(a: [string, CssLocation[]], b: [string, CssLocation[]]) {
@@ -114,7 +114,7 @@
 	data,
 	list_id,
 	empty_message,
-	sort_options = [alphabetical_sorting],
+	sort_options = [alphabetical_sorting]
 }: ValueCountPanelProps)}
 	<Panel id={panel_id}>
 		<Header>
@@ -122,7 +122,7 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: data.total },
-					{ name: 'Unique', value: data.totalUnique, ratio: data.uniquenessRatio },
+					{ name: 'Unique', value: data.totalUnique, ratio: data.uniquenessRatio }
 				]}
 			/>
 		</Header>
@@ -163,8 +163,8 @@
 						{ name: 'Unique', value: specificity.totalUnique },
 						{
 							name: 'Average',
-							value: specificity.mean.map((i) => format_number(i, { decimals: 2 })),
-						},
+							value: specificity.mean.map((i) => format_number(i, { decimals: 2 }))
+						}
 					]}
 				/>
 			</Header>
@@ -182,7 +182,7 @@
 						stats={[
 							{ name: 'Specificity A', value: specificity.sum[0] },
 							{ name: 'Specificity B', value: specificity.sum[1] },
-							{ name: 'Specificity C', value: specificity.sum[2] },
+							{ name: 'Specificity C', value: specificity.sum[2] }
 						]}
 					/>
 				</div>
@@ -198,7 +198,7 @@
 					stats={[
 						{ name: 'Total', value: complexity.sum },
 						{ name: 'Unique', value: complexity.totalUnique },
-						{ name: 'Average', value: complexity.mean },
+						{ name: 'Average', value: complexity.mean }
 					]}
 				/>
 			</Header>
@@ -235,14 +235,14 @@
 			title: 'Pseudo classes',
 			data: pseudoClasses,
 			list_id: 'pseudo-classes-list',
-			empty_message: 'No pseudo classes found.',
+			empty_message: 'No pseudo classes found.'
 		})}
 		{@render value_count_panel({
 			panel_id: 'pseudo-elements',
 			title: 'Pseudo elements',
 			data: pseudoElements,
 			list_id: 'pseudo-elements-list',
-			empty_message: 'No pseudo elements found.',
+			empty_message: 'No pseudo elements found.'
 		})}
 
 		<Panel id="selector-combinators">
@@ -251,7 +251,7 @@
 				<DefinitionList
 					stats={[
 						{ name: 'Total', value: combinators.total },
-						{ name: 'Unique', value: combinators.totalUnique, ratio: combinators.uniquenessRatio },
+						{ name: 'Unique', value: combinators.totalUnique, ratio: combinators.uniquenessRatio }
 					]}
 				/>
 			</Header>
@@ -272,14 +272,14 @@
 			title: 'Attribute selectors',
 			data: attributes,
 			list_id: 'attribute-selectors-list',
-			empty_message: 'No attribute selectors found.',
+			empty_message: 'No attribute selectors found.'
 		})}
 		{@render value_count_panel({
 			panel_id: 'accessibility-selectors',
 			title: 'Accessibility selectors',
 			data: accessibility,
 			list_id: 'accessibility-selectors-list',
-			empty_message: 'No accessibility selectors found.',
+			empty_message: 'No accessibility selectors found.'
 		})}
 		{@render value_count_panel({
 			panel_id: 'keyframes-selectors',
@@ -287,21 +287,21 @@
 			data: keyframes,
 			list_id: 'keyframes-selectors-list',
 			empty_message: 'No keyframe selectors found.',
-			sort_options: [{ label: 'Sort by %', fn: sort_keyframes, id: 'keyframes-selectors' }],
+			sort_options: [{ label: 'Sort by %', fn: sort_keyframes, id: 'keyframes-selectors' }]
 		})}
 		{@render value_count_panel({
 			panel_id: 'custom-element-selectors',
 			title: 'Custom element selectors',
 			data: customElements,
 			list_id: 'custom-element-selectors-list',
-			empty_message: 'No custom element selectors found.',
+			empty_message: 'No custom element selectors found.'
 		})}
 		{@render value_count_panel({
 			panel_id: 'prefixed-selectors',
 			title: 'Vendor-prefixed selectors',
 			data: prefixed,
 			list_id: 'prefixed-selectors-list',
-			empty_message: 'No vendor prefixed selectors found.',
+			empty_message: 'No vendor prefixed selectors found.'
 		})}
 	</div>
 </div>

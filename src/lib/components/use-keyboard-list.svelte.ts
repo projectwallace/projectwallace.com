@@ -15,11 +15,11 @@ function noop() {}
 
 export function create_keyboard_list({
 	enabled = true,
-	scroll_selected_item_into_view = true,
+	scroll_selected_item_into_view = true
 }: { enabled?: boolean; scroll_selected_item_into_view?: boolean } = {}) {
 	if (!enabled) {
 		return {
-			elements: { root: noop, item: noop },
+			elements: { root: noop, item: noop }
 		}
 	}
 
@@ -125,10 +125,10 @@ export function create_keyboard_list({
 			item: function (
 				node: ItemElement,
 				{
-					value,
+					value
 				}: {
 					value: string
-				},
+				}
 			) {
 				node.dataset.value = value
 
@@ -169,16 +169,16 @@ export function create_keyboard_list({
 						if (node.tagName !== 'TR') {
 							node.removeEventListener('click', on_item_click)
 						}
-					},
+					}
 				}
 			},
 			root: function (
 				node: HTMLElement,
 				{
-					onchange,
+					onchange
 				}: {
 					onchange: OnChange
-				},
+				}
 			) {
 				root = node
 				root.tabIndex = -1
@@ -192,9 +192,9 @@ export function create_keyboard_list({
 						child_count = 0
 						root.removeEventListener('keydown', on_root_keydown)
 						root.removeEventListener('click', on_root_click)
-					},
+					}
 				}
-			},
-		},
+			}
+		}
 	}
 }

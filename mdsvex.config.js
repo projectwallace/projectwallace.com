@@ -6,7 +6,7 @@ const config = defineConfig({
 	extensions: ['.md', '.svx'],
 
 	smartypants: {
-		dashes: 'oldschool',
+		dashes: 'oldschool'
 	},
 
 	remarkPlugins: [],
@@ -15,10 +15,10 @@ const config = defineConfig({
 		[
 			autolinkHeadings,
 			{
-				behavior: 'wrap',
-			},
-		],
-	],
+				behavior: 'wrap'
+			}
+		]
+	]
 })
 
 export default config

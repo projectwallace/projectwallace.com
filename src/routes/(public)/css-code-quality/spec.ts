@@ -23,9 +23,9 @@ test.describe('interaction', () => {
 						href: 'https://example.com/fixture.css',
 						url: 'https://example.com/fixture.css',
 						rel: 'stylesheet',
-						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); }`,
-					},
-				] satisfies CSSOrigin[],
+						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); }`
+					}
+				] satisfies CSSOrigin[]
 			})
 		})
 		await expect(page).toBeHydrated()

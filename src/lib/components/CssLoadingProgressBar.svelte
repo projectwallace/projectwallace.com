@@ -6,7 +6,7 @@
 	const steps = [34, 54, 62, 70, 76, 80, 88, 89, 90, 94, 96, 100]
 	let progress = tweened(1, {
 		duration: 850,
-		easing: cubicOut,
+		easing: cubicOut
 	})
 
 	$effect(() => {

@@ -26,7 +26,7 @@ function createFeed(posts: Post[]) {
           <pubDate>${post.date.toUTCString()}</pubDate>
           <author>Bart Veneman</author>
         </item>
-      `,
+      `
 				)
 				.join('')}
     </channel>
@@ -40,7 +40,7 @@ export function GET() {
 	return new Response(feed, {
 		headers: {
 			'cache-control': `max-age=0, s-max-age=3600`,
-			'content-type': 'application/xml',
-		},
+			'content-type': 'application/xml'
+		}
 	})
 }
