@@ -275,7 +275,9 @@
 	}
 
 	.body {
-		flex: 1 1 auto;
+		flex-shrink: 1;
+		flex-grow: 1;
+		flex-basis: auto;
 		position: relative;
 		display: grid;
 		grid-template-columns: auto;
@@ -324,12 +326,13 @@
 	}
 
 	.line-number-range {
-		border-right: 0.3em solid transparent;
+		border-inline-end: 0.3em solid transparent;
 	}
 
 	pre {
 		padding-inline: var(--space-2);
-		overflow: auto hidden;
+		overflow-inline: auto;
+		overflow-block: hidden;
 		max-height: 100%;
 		height: 100%;
 		color: var(--fg-200);

@@ -134,7 +134,8 @@
 			&::after {
 				content: '';
 				position: absolute;
-				inset: -0.2em -0.1em;
+				inset-block: -0.2em;
+				inset-inline: -0.1em;
 				background-color: var(--teal-400);
 				rotate: -0.004turn;
 				z-index: -1;
@@ -152,7 +153,7 @@
 				bottom: -0.4cqb;
 				right: 0;
 				left: 0;
-				border-bottom: 0.4cqb solid var(--purple-400);
+				border-block-end: 0.4cqb solid var(--purple-400);
 				rotate: -0.004turn;
 			}
 		}

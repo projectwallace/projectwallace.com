@@ -75,7 +75,7 @@
 
 	[role='tab'] {
 		display: block;
-		padding: 0 var(--space-2);
+		padding-inline: var(--space-2);
 		font-weight: var(--font-medium);
 		color: var(--fg-300);
 		font-size: var(--size-sm);

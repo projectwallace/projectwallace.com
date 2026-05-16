@@ -237,7 +237,8 @@
 		overflow: clip;
 
 		@media (prefers-color-scheme: dark) {
-			border-width: 1px 0 0 0;
+			border-inline-width: 0;
+			border-block-end-width: 0;
 		}
 	}
 

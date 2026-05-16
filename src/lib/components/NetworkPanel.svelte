@@ -181,7 +181,10 @@
 								{@const origin = css_state.origins.at(origin_index)!}
 								{@const link =
 									'url' in origin ? origin.url : 'href' in origin ? origin.href : 'name' in origin ? origin.name : ''}
-								<tr aria-selected={origin_index === css_state.selected_origin ? 'true' : 'false'} data-testid="css-origin">
+								<tr
+									aria-selected={origin_index === css_state.selected_origin ? 'true' : 'false'}
+									data-testid="css-origin"
+								>
 									<td class="select">
 										<label for="css-origin-{origin_index}" class="sr-only">
 											Enable source {origin.type} ({format_number(origin.css.length)} bytes)
@@ -310,7 +313,7 @@
 		bottom: 0;
 		inset-inline: 0;
 		z-index: 1;
-		border-top: 1px solid var(--fg-450);
+		border-block-start: 1px solid var(--fg-450);
 		padding-inline: var(--space-2);
 		gap: var(--space-4);
 		font-size: var(--size-sm);
@@ -344,7 +347,7 @@
 	}
 
 	th:not(:last-of-type) {
-		border-right: 1px solid var(--fg-450);
+		border-inline-end: 1px solid var(--fg-450);
 	}
 
 	.sort-button {
@@ -370,7 +373,8 @@
 	td,
 	th {
 		text-align: left;
-		padding: var(--space-1) var(--space-2);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-2);
 		white-space: nowrap;
 	}
 

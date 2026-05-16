@@ -64,7 +64,8 @@
 	.action {
 		display: block;
 		width: 100%;
-		padding: var(--space-2) var(--space-8);
+		padding-block: var(--space-2);
+		padding-inline: var(--space-8);
 		font-weight: var(--font-bold);
 		text-align: center;
 	}

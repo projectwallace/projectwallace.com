@@ -146,6 +146,6 @@
 	li {
 		margin-top: var(--space-2);
 		padding-block: var(--space-4);
-		border-top: 1px solid var(--fg-450);
+		border-block-start: 1px solid var(--fg-450);
 	}
 </style>

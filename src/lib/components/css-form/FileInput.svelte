@@ -127,7 +127,8 @@
 		gap: var(--space-3);
 		justify-content: space-between;
 		background-color: var(--bg-200);
-		padding: var(--space-1) var(--space-2);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-2);
 	}
 
 	.file-name {
@@ -145,6 +146,7 @@
 	pre {
 		white-space: pre;
 		overflow: hidden;
-		padding: var(--space-1) var(--space-2);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-2);
 	}
 </style>

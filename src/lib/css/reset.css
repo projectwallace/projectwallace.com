@@ -1,4 +1,4 @@
-/* stylelint-disable projectwallace/max-comment-size -- Comments here are nicely descriptive */
+/* stylelint-disable projectwallace/max-comments, projectwallace/max-comment-size, projectwallace/no-prefixed-properties, projectwallace/no-prefixed-selectors, projectwallace/no-property-shorthand -- Comments here are nicely descriptive */
 
 @layer normalize {
 	/*
