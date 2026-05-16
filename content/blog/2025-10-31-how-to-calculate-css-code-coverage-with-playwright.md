@@ -66,8 +66,8 @@ export const test = base_test.extend<Fixtures>({
 			// write coverage to disk
 			await fs.writeFile('path-to-file.json', JSON.stringify(coverage))
 		},
-		{ auto: true }
-	]
+		{ auto: true },
+	],
 })
 ```
 
@@ -89,8 +89,8 @@ export const test = base_test.extend<Fixtures>({
 		async ({ page }, use, testInfo) => {
 			// etc.
 		},
-		{ auto: true }
-	]
+		{ auto: true },
+	],
 })
 ```
 

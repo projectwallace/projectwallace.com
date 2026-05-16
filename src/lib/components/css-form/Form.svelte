@@ -55,7 +55,7 @@
 		on_success({
 			origins: [{ css: val, type: 'raw' }],
 			submit_type: 'raw',
-			prettify
+			prettify,
 		})
 		css_state.set_origins([{ css: val, type: 'raw' }])
 		css_state.url = undefined
@@ -88,7 +88,7 @@
 			on_success({
 				origins,
 				submit_type: 'url',
-				prettify
+				prettify,
 			})
 		} catch (err: unknown) {
 			status = 'error'
@@ -125,7 +125,7 @@
 		on_success({
 			origins,
 			submit_type: 'file',
-			prettify
+			prettify,
 		})
 		css_state.set_origins(origins)
 		css_state.url = undefined

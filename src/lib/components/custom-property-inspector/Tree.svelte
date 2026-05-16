@@ -7,7 +7,7 @@
 
 	let {
 		items,
-		search_query
+		search_query,
 	}: {
 		items: TreeItem[] | Location[]
 		search_query: string
@@ -15,7 +15,7 @@
 
 	const {
 		elements: { item, group },
-		helpers: { isExpanded }
+		helpers: { isExpanded },
 	} = getContext<TreeView>('tree')
 </script>
 
@@ -28,12 +28,12 @@
 		<button
 			use:melt={$item({
 				id: item_id,
-				hasChildren: has_children
+				hasChildren: has_children,
 			})}
 			data-item={JSON.stringify({
 				type,
 				title: parent || title,
-				location
+				location,
 			})}
 			data-testid={type === 'property' ? 'property-name' : 'property-location'}
 		>

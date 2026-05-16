@@ -42,12 +42,12 @@
 						atrules.uniqueWithLocations as Record<
 							string,
 							{ line: number; column: number; offset: number; length: number }[]
-						>
+						>,
 					)
 						.map(([atrule_name, locations]) => ({
 							value: `@${atrule_name}`,
 							count: locations.length,
-							locations
+							locations,
 						}))
 						.sort((a, b) => b.count - a.count)}
 					column_headers={['Atrule name', 'Count']}
@@ -76,7 +76,7 @@
 					<DefinitionList
 						stats={[
 							{ name: 'Total', value: layer.total },
-							{ name: 'Unique', value: layer.totalUnique, ratio: layer.uniquenessRatio }
+							{ name: 'Unique', value: layer.totalUnique, ratio: layer.uniquenessRatio },
 						]}
 					/>
 				{/if}

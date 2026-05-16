@@ -17,8 +17,8 @@ let fixture = [
 		second {
 			background-color: yellow;
 			color: black;
-		}`.repeat(20)
-	}
+		}`.repeat(20),
+	},
 ] satisfies CSSOrigin[]
 
 test.describe('DevTools: ItemUsage Panel', () => {

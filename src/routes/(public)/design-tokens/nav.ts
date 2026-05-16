@@ -6,8 +6,8 @@ export const nav = [
 			{ id: 'colors', title: 'All Colors' },
 			{ id: 'color-groups', title: 'Color Groups' },
 			{ id: 'color-usage', title: 'Color Usage' },
-			{ id: 'color-formats', title: 'Color Formats' }
-		]
+			{ id: 'color-formats', title: 'Color Formats' },
+		],
 	},
 	{ id: 'gradients', title: 'Gradients' },
 	{ id: 'font-sizes', title: 'Font Sizes' },
@@ -19,5 +19,5 @@ export const nav = [
 	{ id: 'border-radiuses', title: 'Border Radiuses' },
 	{ id: 'animation-durations', title: 'Animation durations' },
 	{ id: 'animation-functions', title: 'Animation functions' },
-	{ id: 'units', title: 'Units' }
+	{ id: 'units', title: 'Units' },
 ]

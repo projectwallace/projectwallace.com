@@ -73,9 +73,9 @@
 				height: bar_height,
 				label: label,
 				value: value,
-				center_x: i * bar_spacing + bar_spacing / 2
+				center_x: i * bar_spacing + bar_spacing / 2,
 			}
-		})
+		}),
 	)
 
 	let uid = $props.id()

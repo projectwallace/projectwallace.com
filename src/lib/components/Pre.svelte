@@ -32,7 +32,7 @@
 		wrap = false,
 		// Used in MinifyCss
 		line_numbers = false,
-		coverage_chunks = []
+		coverage_chunks = [],
 	}: Props = $props()
 
 	// Keep track of whether the browser supports the Highlight API
@@ -52,7 +52,7 @@
 	let total_lines = $derived(css.split('\n').length)
 	let line_number_width = $derived(total_lines.toString().length)
 	let show_line_numbers = $derived(
-		coverage_chunks !== undefined || (line_numbers && total_lines > 1 && total_lines < 10_000)
+		coverage_chunks !== undefined || (line_numbers && total_lines > 1 && total_lines < 10_000),
 	)
 	let show_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
 
@@ -75,7 +75,7 @@
 		if (css && css.length > 0 && body !== undefined) {
 			body.scrollTo({
 				top: 0,
-				left: 0
+				left: 0,
 			})
 		}
 	})
@@ -91,7 +91,7 @@
 				top: (selected_location.line * LINE_HEIGHT) - margin_top,
 				// Scroll right if CSS is minified (longer than 32 characters per line is usually an indicator of minification)
 				// prettier-ignore
-				left: selected_location.column < 50 ? 0 : (selected_location.column * CHAR_WIDTH) - margin_left
+				left: selected_location.column < 50 ? 0 : (selected_location.column * CHAR_WIDTH) - margin_left,
 			})
 		}
 
@@ -115,7 +115,7 @@
 				startContainer: node,
 				startOffset: selected_location.offset,
 				endContainer: node,
-				endOffset: selected_location.offset + selected_location.length
+				endOffset: selected_location.offset + selected_location.length,
 			})
 			lines.add(range)
 
@@ -126,7 +126,7 @@
 	function scroll_to_line(line: number) {
 		body?.scrollTo({
 			top: line * LINE_HEIGHT,
-			behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+			behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
 		})
 	}
 

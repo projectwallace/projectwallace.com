@@ -6,8 +6,8 @@ export const nav = [
 			{ id: 'stylesheet-composition', title: 'Composition' },
 			{ id: 'stylesheet-complexity', title: 'Complexity' },
 			{ id: 'stylesheet-embedded-content', title: 'Embedded content' },
-			{ id: 'stylesheet-comments', title: 'Comments' }
-		]
+			{ id: 'stylesheet-comments', title: 'Comments' },
+		],
 	},
 	{
 		id: 'rulesets',
@@ -16,8 +16,8 @@ export const nav = [
 			{ id: 'rulesets', title: 'Selectors per RuleSet' },
 			{ id: 'rulesets', title: 'Declarations per RuleSet' },
 			{ id: 'rulesets', title: 'RuleSet sizes' },
-			{ id: 'nesting', title: 'Nesting' }
-		]
+			{ id: 'nesting', title: 'Nesting' },
+		],
 	},
 	{
 		id: 'selectors',
@@ -32,8 +32,8 @@ export const nav = [
 			{ id: 'accessibility-selectors', title: 'Accessibility' },
 			{ id: 'keyframes-selectors', title: 'Keyframes' },
 			{ id: 'custom-element-selectors', title: 'Custom elements' },
-			{ id: 'prefixed-selectors', title: 'Vendor Prefixed' }
-		]
+			{ id: 'prefixed-selectors', title: 'Vendor Prefixed' },
+		],
 	},
 	{
 		id: 'at-rules',
@@ -48,16 +48,16 @@ export const nav = [
 			{ id: 'layer', title: '@layer' },
 			{ id: 'property', title: '@property' },
 			{ id: 'scope', title: '@scope' },
-			{ id: 'import', title: '@import' }
-		]
+			{ id: 'import', title: '@import' },
+		],
 	},
 	{
 		id: 'declarations',
 		title: 'Declarations',
 		items: [
 			{ id: 'importants', title: 'Importants' },
-			{ id: 'properties', title: 'Properties' }
-		]
+			{ id: 'properties', title: 'Properties' },
+		],
 	},
 	{
 		id: 'values',
@@ -68,7 +68,7 @@ export const nav = [
 			{ id: 'displays', title: 'Display values' },
 			{ id: 'z-indexes', title: 'Z-indexes' },
 			{ id: 'prefixed-values', title: 'Vendor prefixed' },
-			{ id: 'value-browserhacks', title: 'Browserhacks' }
-		]
-	}
+			{ id: 'value-browserhacks', title: 'Browserhacks' },
+		],
+	},
 ]

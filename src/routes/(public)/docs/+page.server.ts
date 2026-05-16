@@ -3,10 +3,10 @@ import { groupBySection, getMetrics } from '$lib/metrics'
 import { getGroups } from '$lib/metric-groups'
 
 export function load() {
-	const metrics = getMetrics();
+	const metrics = getMetrics()
 	return {
 		allRecipes: getRecipes(),
 		groupedBySection: groupBySection(metrics),
-		allGroups: getGroups()
+		allGroups: getGroups(),
 	}
 }

@@ -22,7 +22,7 @@
 		PENDING: 'pending',
 		DONE: 'done',
 		ERROR: 'error',
-		REMOTE_ERROR: 'remoteError'
+		REMOTE_ERROR: 'remoteError',
 	}
 
 	let css_state = get_css_state()
@@ -60,7 +60,7 @@
 		let new_url = page.url
 		new_url.searchParams.set('url', value)
 		await goto(new_url, {
-			replaceState: true
+			replaceState: true,
 		})
 
 		try {

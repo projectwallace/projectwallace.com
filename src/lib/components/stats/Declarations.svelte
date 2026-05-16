@@ -37,7 +37,7 @@
 					key="Total"
 					value={format_number(importants.total)}
 					secondary_value="{format_number(importants.ratio * 100, {
-						decimals: 2
+						decimals: 2,
 					})}% of all declarations"
 				/>
 			</StatsList>

@@ -21,9 +21,11 @@ export function resize(node: HTMLButtonElement) {
 		if (drag_status === 'resizing' && drag_method === 'pointer') {
 			event.preventDefault()
 			drag_offset -= event.movementY
-			node.dispatchEvent(new CustomEvent('resize', {
-				detail: drag_offset
-			}))
+			node.dispatchEvent(
+				new CustomEvent('resize', {
+					detail: drag_offset,
+				}),
+			)
 		}
 	}
 
@@ -56,15 +58,19 @@ export function resize(node: HTMLButtonElement) {
 				if (event.key === 'ArrowUp') {
 					event.preventDefault()
 					drag_offset += 5
-					node.dispatchEvent(new CustomEvent('resize', {
-						detail: drag_offset
-					}))
+					node.dispatchEvent(
+						new CustomEvent('resize', {
+							detail: drag_offset,
+						}),
+					)
 				} else if (event.key === 'ArrowDown') {
 					event.preventDefault()
 					drag_offset -= 5
-					node.dispatchEvent(new CustomEvent('resize', {
-						detail: drag_offset
-					}))
+					node.dispatchEvent(
+						new CustomEvent('resize', {
+							detail: drag_offset,
+						}),
+					)
 				}
 			}
 		}
@@ -78,6 +84,6 @@ export function resize(node: HTMLButtonElement) {
 			node.removeEventListener('focus', on_focus)
 			node.removeEventListener('blur', on_blur)
 			document.removeEventListener('keydown', on_keypress)
-		}
+		},
 	}
 }

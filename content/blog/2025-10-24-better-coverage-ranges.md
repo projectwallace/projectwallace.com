@@ -43,7 +43,7 @@ let coverage = [
 	{ start: 7, end: 11 },
 	{ start: 14, end: 37 },
 	{ start: 50, end: 66 },
-	{ start: 69, end: 95 }
+	{ start: 69, end: 95 },
 ]
 ```
 

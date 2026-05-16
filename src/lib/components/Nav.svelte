@@ -43,7 +43,7 @@
 			return {
 				...item,
 				url: url.pathname + url.search + url.hash,
-				canonical: item.url
+				canonical: item.url,
 			}
 		})
 	})

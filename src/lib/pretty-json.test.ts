@@ -1,4 +1,4 @@
-import { pretty_json } from "./pretty-json"
+import { pretty_json } from './pretty-json'
 import { test, expect, describe } from 'vitest'
 
 test('array with integers', () => {
@@ -23,8 +23,8 @@ test('simple plain object', () => {
 		more: 'hello',
 		check: ['me', 'now'],
 		case: {
-			first: true
-		}
+			first: true,
+		},
 	}
 
 	expect(pretty_json(input, (key, value) => value, 2)).toEqual(`{
@@ -42,12 +42,12 @@ test('simple plain object', () => {
 
 test('puts nested arrays on a single line', () => {
 	let input = {
-		"specificity": {
-			"items": [
+		specificity: {
+			items: [
 				[0, 2, 0],
-				[0, 1, 0]
-			]
-		}
+				[0, 1, 0],
+			],
+		},
 	}
 
 	expect(pretty_json(input, (key, value) => value, 2)).toEqual(`{

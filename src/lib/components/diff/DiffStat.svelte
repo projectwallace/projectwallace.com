@@ -41,8 +41,8 @@
 					{
 						added: square === ADDED,
 						deleted: square === DELETED,
-						empty: square === EMPTY
-					}
+						empty: square === EMPTY,
+					},
 				]}
 			>
 				<!-- Some sensible content in case CSS doesn't work. Hiding it with `font-size: 0;` -->

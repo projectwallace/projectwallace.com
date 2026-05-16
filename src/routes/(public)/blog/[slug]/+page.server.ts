@@ -7,11 +7,9 @@ export const load: PageServerLoad = ({ params }) => {
 
 	if (post) {
 		let posts = getPostList()
-		let popular = posts.filter(({ slug }) => [
-			'css-complexity',
-			'making-analyze-css-render-6x-faster',
-		].includes(slug))
-			.map(post => ({
+		let popular = posts
+			.filter(({ slug }) => ['css-complexity', 'making-analyze-css-render-6x-faster'].includes(slug))
+			.map((post) => ({
 				path: post.path,
 				title: post.title,
 				excerpt: post.excerpt,
@@ -20,5 +18,5 @@ export const load: PageServerLoad = ({ params }) => {
 		return { post, popular }
 	}
 
-	error(404, 'Blog post not found');
+	error(404, 'Blog post not found')
 }

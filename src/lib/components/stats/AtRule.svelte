@@ -32,7 +32,7 @@
 		uniqueWithLocations = Object.create(null),
 		title,
 		id,
-		warnings = []
+		warnings = [],
 	}: Props = $props()
 </script>
 
@@ -43,7 +43,7 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: total },
-					{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
+					{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio },
 				]}
 			/>
 		{/if}
@@ -59,8 +59,8 @@
 					fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
 						return string_sort(a[0], b[0])
 					},
-					id: 'alphabetical'
-				}
+					id: 'alphabetical',
+				},
 			]}
 		/>
 	{:else}

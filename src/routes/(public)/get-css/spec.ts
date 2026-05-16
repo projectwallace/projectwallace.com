@@ -21,9 +21,9 @@ test('scrapes CSS on a valid URL', async ({ page }) => {
 					href: 'https://example.com/fixture.css',
 					url: 'https://example.com/fixture.css',
 					rel: 'stylesheet',
-					css: css_fixture
-				}
-			] satisfies CSSOrigin[]
+					css: css_fixture,
+				},
+			] satisfies CSSOrigin[],
 		})
 	})
 	await page.goto('/get-css', { waitUntil: 'domcontentloaded' })
@@ -61,9 +61,9 @@ test('pre-fills the page when coming from another page', async ({ page }) => {
 					href: 'https://example.com/fixture.css',
 					url: 'https://example.com/fixture.css',
 					rel: 'stylesheet',
-					css: css_fixture
-				}
-			] satisfies CSSOrigin[]
+					css: css_fixture,
+				},
+			] satisfies CSSOrigin[],
 		})
 	})
 

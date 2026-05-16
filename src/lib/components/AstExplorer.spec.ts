@@ -148,7 +148,7 @@ test.describe('autofocus', () => {
 		}
 		// Wait for the selection to update and element to exist
 		let treeitem = page.getByRole('treeitem', {
-			selected: true
+			selected: true,
 		})
 		await expect(treeitem).toHaveCount(1)
 		await expect(treeitem).toBeVisible()
@@ -166,7 +166,7 @@ test.describe('autofocus', () => {
 		}
 		// Wait for the selection to update and element to exist
 		let treeitem = page.getByRole('treeitem', {
-			selected: true
+			selected: true,
 		})
 		await expect(treeitem).toHaveCount(0)
 	})
@@ -205,7 +205,7 @@ test.describe('URL hash state', () => {
 	test('opening page with hash shows prefilled input and AST output', async ({ page }) => {
 		let css = 'custom { display: block; }'
 		await page.goto(
-			`/ast-explorer#${encodeHash({ css, parse_atrule_preludes: true, parse_selectors: true, parse_values: true })}`
+			`/ast-explorer#${encodeHash({ css, parse_atrule_preludes: true, parse_selectors: true, parse_values: true })}`,
 		)
 
 		let input = page.getByLabel('CSS input')
@@ -216,7 +216,9 @@ test.describe('URL hash state', () => {
 		await expect(tree).toBeVisible()
 	})
 
-	test('opening page with partial hash shows prefilled input and AST output and does not crash page', async ({ page }) => {
+	test('opening page with partial hash shows prefilled input and AST output and does not crash page', async ({
+		page,
+	}) => {
 		let css = 'custom { display: block; }'
 		// Notice that parse_* options are missing
 		await page.goto(`/ast-explorer#${encodeHash({ css })}`)

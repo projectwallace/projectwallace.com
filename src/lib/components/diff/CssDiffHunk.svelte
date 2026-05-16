@@ -38,7 +38,7 @@
 				startContainer: text_node,
 				startOffset: start,
 				endContainer: text_node,
-				endOffset: end
+				endOffset: end,
 			})
 		}
 
@@ -96,7 +96,7 @@
 				class={{
 					added,
 					deleted,
-					unchanged
+					unchanged,
 				}}
 				data-testid={added ? 'diff-line-added' : deleted ? 'diff-line-deleted' : 'diff-line-unchanged'}
 			>

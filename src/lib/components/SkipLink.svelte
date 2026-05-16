@@ -3,7 +3,7 @@
 
 	let {
 		href,
-		children
+		children,
 	}: {
 		href: string
 		children: Snippet

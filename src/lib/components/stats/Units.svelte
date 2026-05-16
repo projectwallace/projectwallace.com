@@ -17,9 +17,9 @@
 			.map(([value, locations]) => ({
 				value,
 				locations,
-				count: locations.length
+				count: locations.length,
 			}))
-			.sort((a, b) => b.count - a.count)
+			.sort((a, b) => b.count - a.count),
 	)
 
 	let warnings = $derived(
@@ -28,7 +28,7 @@
 				acc.push(value)
 			}
 			return acc
-		}, new Array<string>())
+		}, new Array<string>()),
 	)
 </script>
 
@@ -38,7 +38,7 @@
 		<DefinitionList
 			stats={[
 				{ name: 'Total', value: units.total },
-				{ name: 'Unique', value: units.totalUnique, ratio: units.uniquenessRatio }
+				{ name: 'Unique', value: units.totalUnique, ratio: units.uniquenessRatio },
 			]}
 		/>
 	</Header>

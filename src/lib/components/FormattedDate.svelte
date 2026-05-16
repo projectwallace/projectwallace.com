@@ -10,7 +10,7 @@
 	{new Intl.DateTimeFormat('en-GB', {
 		year: 'numeric',
 		month: 'long',
-		day: 'numeric'
+		day: 'numeric',
 	}).format(date)}
 </time>
 

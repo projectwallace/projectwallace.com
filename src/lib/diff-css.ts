@@ -67,13 +67,13 @@ export function diff_css(old_css: string, new_css: string): StructuredPatch {
 				added,
 				deleted,
 				old_line_number,
-				new_line_number
+				new_line_number,
 			})
 		}
 
 		return {
 			...hunk,
-			lines
+			lines,
 		}
 	}) as Hunk[]
 

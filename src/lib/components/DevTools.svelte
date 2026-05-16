@@ -12,10 +12,10 @@
 
 	const {
 		elements: { root, list, content, trigger },
-		states: { value }
+		states: { value },
 	} = createTabs({
 		autoSet: false,
-		loop: true
+		loop: true,
 	})
 
 	interface Props {

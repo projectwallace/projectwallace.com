@@ -12,13 +12,13 @@
 	import { string_sort } from '$lib/string-sort'
 
 	let {
-		browser_coverage
+		browser_coverage,
 	}: {
 		browser_coverage: Coverage[]
 	} = $props()
 
 	let {
-		elements: { root, item }
+		elements: { root, item },
 	} = create_keyboard_list()
 	let selected_index = $state(0)
 	// $state.snapshot() necessary to avoid "unsafe state mutation" errors

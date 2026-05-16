@@ -19,7 +19,7 @@ let projects = [
 				<rect fill="#29c87d" width="5" height="1" y="9" x="3"></rect>
 				<rect fill="#29c87d" width="7" height="1" y="11" x="3"></rect>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'CSS Code Quality analyzer',
@@ -36,7 +36,7 @@ let projects = [
 				<rect fill="#29c87d" width="4" height="1" x="8" y="7"></rect>
 				<rect fill="#29c87d" width="4" height="1" x="8" y="9"></rect>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'Wallace CLI',
@@ -51,7 +51,7 @@ let projects = [
 					<rect width="5" height="1" transform="rotate(-45) translate(-5, 10)"></rect>
 				</g>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'Color Sorter',
@@ -65,7 +65,7 @@ let projects = [
 				<rect width="3" height="9" x="7" y="3" fill="#29c87d"></rect>
 				<rect width="2" height="9" x="10" y="3" fill="#24ad6d"></rect>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'Format CSS',
@@ -78,13 +78,13 @@ let projects = [
 				<rect fill="#29c87d" width="1" height="1" y="10" x="6"></rect>
 				<rect fill="#29c87d" width="1" height="1" y="10" x="9"></rect>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'CSS Design Tokens',
 		description:
 			'Create Design Tokens by going through CSS to find colors, font-sizes, gradients etcetera and turn them into a Design Tokens spec-compliant token format.',
-		url: 'https://github.com/projectwallace/css-design-tokens'
+		url: 'https://github.com/projectwallace/css-design-tokens',
 	},
 	{
 		title: 'CSS Code Coverage',
@@ -99,7 +99,7 @@ let projects = [
 				<rect fill="#da2b2b" width="8" height="1" y="9" x="3"></rect>
 				<rect fill="#29c87d" width="8" height="1" y="11" x="3"></rect>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'CSS time sort',
@@ -114,7 +114,7 @@ let projects = [
 				<rect fill="#29c87d" width="8" height="1" y="9" x="3"></rect>
 				<rect fill="#29c87d" width="9" height="1" y="11" x="3"></rect>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'CSS @layer tree',
@@ -129,18 +129,18 @@ let projects = [
 				<rect fill="#29c87d" width="7" height="1" y="9" x="4"></rect>
 				<rect fill="#29c87d" width="9" height="1" y="11" x="3"></rect>
 			</svg>
-		`
+		`,
 	},
 	{
 		title: 'CSS Parser',
 		description: 'High-performance CSS parser optimized for static analysis and formatting ',
-		url: 'https://github.com/projectwallace/css-parser'
+		url: 'https://github.com/projectwallace/css-parser',
 	},
 	{
 		title: 'Stylelint plugin',
 		description: 'A Stylelint plugin that warns you about opinionated code quality issues',
-		url: 'https://github.com/projectwallace/stylelint-plugin'
-	}
+		url: 'https://github.com/projectwallace/stylelint-plugin',
+	},
 ] satisfies Project[]
 
 export function load() {

@@ -7,7 +7,7 @@ import type { LayoutServerLoad } from './$types'
 function should_allow_analytics({
 	dev,
 	deploy_context,
-	user_agent
+	user_agent,
 }: {
 	dev: boolean
 	deploy_context?: string
@@ -41,11 +41,11 @@ export const load: LayoutServerLoad = ({ locals, request }) => {
 	let allow_analytics = should_allow_analytics({
 		dev,
 		deploy_context,
-		user_agent: request.headers.get('user-agent')
+		user_agent: request.headers.get('user-agent'),
 	})
 
 	return {
 		theme: locals.theme,
-		allow_analytics
+		allow_analytics,
 	}
 }

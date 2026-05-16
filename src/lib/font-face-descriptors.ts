@@ -12,5 +12,5 @@ export const descriptors = new Set([
 	'line-gap-override',
 	'size-adjust',
 	'src',
-	'unicode-range'
+	'unicode-range',
 ])

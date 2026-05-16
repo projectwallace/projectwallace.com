@@ -1,8 +1,8 @@
-import { resolve_url } from "./resolve-url"
-import { test, expect, describe } from "vitest"
+import { resolve_url } from './resolve-url'
+import { test, expect, describe } from 'vitest'
 
 describe('valid urls', () => {
-	;([
+	test.each([
 		['https://example.com', new URL('https://example.com')],
 		['http://example.com', new URL('http://example.com')],
 		['example.com', new URL('https://example.com')],
@@ -13,10 +13,8 @@ describe('valid urls', () => {
 		['example.com#fragment', new URL('https://example.com#fragment')],
 		['example.com/path', new URL('https://example.com/path')],
 		['example.com/path?query=1#fragment', new URL('https://example.com/path?query=1#fragment')],
-	] satisfies Array<[string, URL]>).forEach(([input, expected]) => {
-		test(`${input} => ${expected.toString()}`, () => {
-			expect(resolve_url(input)).toEqual(expected)
-		})
+	] satisfies Array<[string, URL]>)('%s => %s', (input, expected) => {
+		expect(resolve_url(input)).toEqual(expected)
 	})
 })
 
@@ -28,21 +26,23 @@ test('paths with base url', () => {
 })
 
 test('parent paths with base url', () => {
-	expect.soft(resolve_url('./style.css', 'https://example.com/lots/of/nested/folders')).toEqual(new URL('https://example.com/lots/of/nested/style.css'))
+	expect
+		.soft(resolve_url('./style.css', 'https://example.com/lots/of/nested/folders'))
+		.toEqual(new URL('https://example.com/lots/of/nested/style.css'))
 	expect.soft(resolve_url('../style.css', 'https://example.com/css/')).toEqual(new URL('https://example.com/style.css'))
-	expect.soft(resolve_url('../path/style.css', 'https://example.com/dir/file.css')).toEqual(new URL('https://example.com/path/style.css'))
-	expect.soft(resolve_url('../../style.css', 'https://example.com/dir/subdir')).toEqual(new URL('https://example.com/style.css'))
+	expect
+		.soft(resolve_url('../path/style.css', 'https://example.com/dir/file.css'))
+		.toEqual(new URL('https://example.com/path/style.css'))
+	expect
+		.soft(resolve_url('../../style.css', 'https://example.com/dir/subdir'))
+		.toEqual(new URL('https://example.com/style.css'))
 })
 
 describe('invalid urls', () => {
-	;([
-		'',
-		'example',
-		'//example.com',
-		'a { color: red; } b { font-size: 12px; }',
-	] satisfies Array<string>).forEach((input) => {
-		test(input, () => {
+	test.each(['', 'example', '//example.com', 'a { color: red; } b { font-size: 12px; }'] satisfies Array<string>)(
+		'%s',
+		(input) => {
 			expect(resolve_url(input)).toBeUndefined()
-		})
-	})
+		},
+	)
 })

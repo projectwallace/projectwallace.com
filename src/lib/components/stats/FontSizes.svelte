@@ -74,7 +74,7 @@
 						type: 'font-size',
 						node_type: 'value',
 						value: value,
-						locations
+						locations,
 					})
 				}}
 			>

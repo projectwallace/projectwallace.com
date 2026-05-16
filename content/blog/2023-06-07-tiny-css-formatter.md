@@ -29,7 +29,7 @@ onmessage = function (event) {
 	try {
 		let result = prettier.format(event.data, {
 			parser: 'css',
-			plugins: [cssParser]
+			plugins: [cssParser],
 		})
 		// Send result back to UI thread
 		postMessage(result)
@@ -56,7 +56,7 @@ let ast = parse(css, {
 	positions: true,
 	parseAtrulePrelude: false,
 	parseCustomProperty: false,
-	parseValue: false
+	parseValue: false,
 })
 ```
 

@@ -32,7 +32,7 @@
 		open = $bindable(false),
 		actuals = Object.create(null),
 		css = '',
-		children
+		children,
 	}: Props = $props()
 
 	function on_toggle(event: Event) {
@@ -48,8 +48,8 @@
 		{
 			error: score > 5,
 			warn: score <= 5 && score > 0,
-			info: !score
-		}
+			info: !score,
+		},
 	]}
 	ontoggle={on_toggle}
 	data-testid="quality-rule"
@@ -96,7 +96,7 @@
 				<h3>Discovered embedded contents</h3>
 				<p>
 					Found {actuals.stylesheet.embeddedContent.types.total} embedded items worth {format_filesize(
-						actuals.stylesheet.embeddedContent.size.total
+						actuals.stylesheet.embeddedContent.size.total,
 					)}.
 				</p>
 			{:else if id == 'AverageSelectorsPerRule'}

@@ -36,7 +36,7 @@
 						let complexity = selectorComplexity(node)
 						result.push({
 							value: node.text,
-							complexity: complexity
+							complexity: complexity,
 						})
 					}
 				}
@@ -66,7 +66,7 @@
 		await goto(`?${new_params.toString()}`, {
 			replaceState: true,
 			keepFocus: true,
-			noScroll: true
+			noScroll: true,
 		})
 	}
 

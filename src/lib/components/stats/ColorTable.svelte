@@ -10,7 +10,7 @@
 
 	let {
 		items = Object.create(null),
-		sizing = 'relative'
+		sizing = 'relative',
 	}: {
 		items?: CssAnalysis['values']['colors']['itemsPerContext']
 		sizing?: Sizing
@@ -46,7 +46,7 @@
 					}
 					locations: ArrayLike<unknown>
 				}[]
-			}
+			},
 		][]
 	>(
 		Object.entries(items)
@@ -56,7 +56,7 @@
 				for (let [value, locations] of Object.entries(item.uniqueWithLocations)) {
 					unique.push({
 						converted: { authored: value },
-						locations: new Uint8Array((locations as {}[]).length)
+						locations: new Uint8Array((locations as {}[]).length),
 					})
 				}
 				return [
@@ -64,10 +64,10 @@
 					{
 						unique,
 						total: item.total,
-						totalUnique: item.totalUnique
-					}
+						totalUnique: item.totalUnique,
+					},
 				]
-			})
+			}),
 	)
 </script>
 

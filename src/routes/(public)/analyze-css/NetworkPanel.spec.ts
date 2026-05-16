@@ -9,7 +9,7 @@ let fixture = [
 		url: 'https://example.com/test.css',
 		media: undefined,
 		rel: 'stylesheet',
-		css: 'test-link-element {}'
+		css: 'test-link-element {}',
 	},
 	{
 		type: 'link',
@@ -17,19 +17,19 @@ let fixture = [
 		url: 'https://example.com/test.css',
 		media: '(min-width: 1000px)',
 		rel: 'stylesheet',
-		css: 'test-link-element {}'
+		css: 'test-link-element {}',
 	},
 	{
 		type: 'style',
 		href: 'https://example.com',
-		css: 'style-tag-css {}'
+		css: 'style-tag-css {}',
 	},
 	{
 		type: 'import',
 		url: 'https://example.com',
 		href: 'https://example.com',
-		css: '@import url(test); import-css {}'
-	}
+		css: '@import url(test); import-css {}',
+	},
 ] as CSSOrigin[]
 
 test.beforeEach(async ({ page }) => {

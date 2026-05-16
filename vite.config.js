@@ -3,10 +3,7 @@ import { enhancedImages } from '@sveltejs/enhanced-img'
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [
-		enhancedImages(),
-		sveltekit(),
-	],
+	plugins: [enhancedImages(), sveltekit()],
 	build: {
 		// Prevent base64 inlining of images (to avoid running into unexpected CSP issues)
 		// https://vite.dev/config/build-options.html#build-assetsinlinelimit
@@ -20,7 +17,7 @@ const config = {
 			// content
 			allow: ['..'],
 		},
-	}
+	},
 }
 
 export default config

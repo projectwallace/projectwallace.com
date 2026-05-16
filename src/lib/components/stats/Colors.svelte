@@ -40,7 +40,7 @@
 		system: 'system',
 		transparent: 'transparent',
 		lab: 'lab()',
-		oklab: 'oklab()'
+		oklab: 'oklab()',
 	}
 
 	let sizing: Sizing = $state('relative')
@@ -52,15 +52,15 @@
 				// @ts-expect-error TS does not understand JS
 				value: COLOR_FORMATS[value] || value,
 				locations,
-				count: locations.length
+				count: locations.length,
 			}))
-			.sort((a, b) => b.locations.length - a.locations.length)
+			.sort((a, b) => b.locations.length - a.locations.length),
 	)
 
 	let converted = $derived.by(() => {
 		let _converted = Object.entries(uniqueWithLocations as Record<string, CssLocation[]>).map(([value, locations]) => ({
 			converted: convert(value),
-			locations
+			locations,
 		}))
 
 		if (sorting === 'as-authored') {
@@ -83,7 +83,7 @@
 		<DefinitionList
 			stats={[
 				{ name: 'Total', value: total },
-				{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
+				{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio },
 			]}
 		/>
 	</Header>

@@ -50,7 +50,7 @@ test.describe('without preloading', () => {
 		let specificities = page.locator('dl')
 		let expected_specificities = [
 			[1, 1, 1],
-			[0, 1, 0]
+			[0, 1, 0],
 		]
 		let index = 0
 		for (let specificity of await specificities.all()) {

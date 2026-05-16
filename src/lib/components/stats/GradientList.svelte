@@ -61,7 +61,7 @@
 							type: 'gradient',
 							node_type: 'value',
 							value,
-							locations
+							locations,
 						})
 					}}
 				>

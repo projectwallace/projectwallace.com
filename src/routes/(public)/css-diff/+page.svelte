@@ -35,14 +35,14 @@
 
 	let css_state = new HashState<{ old_css: string; new_css: string }>({
 		old_css: PLACEHOLDER_OLD,
-		new_css: PLACEHOLDER_NEW
+		new_css: PLACEHOLDER_NEW,
 	})
 	let { old_css, new_css } = $derived(css_state.current)
 
 	function swap() {
 		css_state.current = {
 			old_css: css_state.current.new_css,
-			new_css: css_state.current.old_css
+			new_css: css_state.current.old_css,
 		}
 	}
 </script>

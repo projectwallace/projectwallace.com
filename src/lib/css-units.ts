@@ -51,7 +51,7 @@ const length = [
 	'cqi',
 	'cqb',
 	'cqmin',
-	'cqmax'
+	'cqmax',
 ]
 const angle = ['deg', 'grad', 'rad', 'turn'] // https://www.w3.org/TR/css-values-3/#angles
 const time = ['s', 'ms'] // https://www.w3.org/TR/css-values-3/#time

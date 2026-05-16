@@ -51,7 +51,7 @@
 										type: 'grouped-color',
 										node_type: 'value',
 										value: item.authored,
-										locations: unique[item.authored]
+										locations: unique[item.authored],
 									})
 								}}
 							>

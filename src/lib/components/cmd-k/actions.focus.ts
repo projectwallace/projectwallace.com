@@ -6,8 +6,8 @@ export function focusable_children(node: HTMLElement) {
 		// this rather intimating selector selects elements that aren't children of closed <details> elements,
 		// except for the <summary> elements that are their direct children
 		node.querySelectorAll(
-			':where(a[href], button, input, textarea, select, summary, [tabindex]:not([tabindex="-1"])):not(details:not([open]) *), summary:not(details:not([open]) details *)'
-		)
+			':where(a[href], button, input, textarea, select, summary, [tabindex]:not([tabindex="-1"])):not(details:not([open]) *), summary:not(details:not([open]) details *)',
+		),
 	)
 
 	const index = nodes.indexOf(document.activeElement as HTMLElement)
@@ -51,7 +51,7 @@ export function focusable_children(node: HTMLElement) {
 		},
 		prev: (selector?: string) => {
 			traverse(-1, selector)
-		}
+		},
 	}
 }
 
@@ -79,6 +79,6 @@ export function trap(node: HTMLElement, { reset_focus = true }: { reset_focus?: 
 			if (reset_focus) {
 				previous?.focus({ preventScroll: true })
 			}
-		}
+		},
 	}
 }

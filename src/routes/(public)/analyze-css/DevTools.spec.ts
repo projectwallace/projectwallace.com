@@ -8,8 +8,8 @@ let fixture = [
 		url: 'https://example.com/test.css',
 		media: undefined,
 		rel: 'stylesheet',
-		css: 'test-link-element {}'
-	}
+		css: 'test-link-element {}',
+	},
 ] satisfies CSSOrigin[]
 
 test.describe('DevTools Panel', () => {
@@ -154,8 +154,8 @@ test.describe('DevTools Panel', () => {
 			force: true,
 			targetPosition: {
 				y: initial_size!.y + 200,
-				x: 0
-			}
+				x: 0,
+			},
 		})
 
 		let new_size = await devtools.boundingBox()
