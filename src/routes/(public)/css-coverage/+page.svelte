@@ -85,7 +85,6 @@
 
 	{#if data.length > 0}
 		<CoverageReport browser_coverage={data} />
-		<hr />
 	{/if}
 
 	<Container size="lg">
@@ -110,9 +109,10 @@
 
 <style>
 	.app {
-		padding: var(--space-4) var(--space-8);
 		display: grid;
 		gap: var(--space-8);
+		padding-block: var(--space-4);
+		padding-inline: var(--space-8);
 	}
 
 	form {
@@ -136,10 +136,6 @@
 		&[data-drag-state='dragging'] {
 			border-color: var(--accent);
 		}
-	}
-
-	hr {
-		border-top: 1px solid var(--fg-450);
 	}
 
 	.example {

@@ -119,7 +119,7 @@
 	}
 
 	.resize-bar {
-		border-bottom: 3px solid var(--blue-400);
+		border-block-end: 3px solid var(--blue-400);
 		padding-top: 9px;
 		cursor: ns-resize;
 		opacity: 0;
@@ -147,12 +147,13 @@
 		display: flex;
 		justify-content: space-between;
 		background-color: var(--bg-100);
-		border-top: 1px solid var(--fg-450);
-		border-bottom: 1px solid var(--fg-450);
+		border-block-start: 1px solid var(--fg-450);
+		border-block-end: 1px solid var(--fg-450);
 	}
 
 	.close-devtools {
-		padding: 0.33rem var(--space-3);
+		padding-block: 0.33rem;
+		padding-inline: var(--space-3);
 
 		@media (hover: hover) {
 			&:hover {
@@ -182,7 +183,8 @@
 
 		@media (min-width: 33rem) {
 			gap: var(--space-2);
-			padding: 0.3rem var(--space-3);
+			padding-block: 0.3rem;
+			padding-inline: var(--space-3);
 		}
 
 		@media (hover: hover) {

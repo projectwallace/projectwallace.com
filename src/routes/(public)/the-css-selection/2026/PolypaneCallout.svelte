@@ -54,6 +54,8 @@
 </div>
 
 <style>
+	/* stylelint-disable projectwallace/no-property-shorthand, projectwallace/max-declarations-per-rule -- Polypane is special */
+
 	p {
 		text-align: center;
 		max-width: none;
@@ -139,14 +141,14 @@
 		}
 	}
 
-	/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- PolyPane is special for us */
 	.polypane-button {
 		position: relative;
 		font-size: calc(14px + 0.5vw);
 		font-weight: 800;
 		background: #0a1530;
 		color: #fff;
-		padding: 0.33em 2rem;
+		padding-block: 0.33em;
+		padding-inline: 2rem;
 		border-radius: 4px;
 		text-align: center;
 		display: inline-flex;

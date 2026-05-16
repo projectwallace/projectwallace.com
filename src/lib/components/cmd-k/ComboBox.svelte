@@ -118,25 +118,25 @@
 	}
 
 	input[type='search'] {
-		width: 100%;
+		inline-size: 100%;
 	}
 
 	.body {
-		max-height: 85vh;
-		overflow-y: auto;
+		max-block-size: 85vh;
+		overflow-inline: auto;
 		scrollbar-gutter: stable;
 		overscroll-behavior: contain;
 	}
 
 	.empty {
-		margin-bottom: var(--space-3);
+		margin-block-end: var(--space-3);
 	}
 
 	.section {
 		padding-block: var(--space-3);
 
 		&:not(:last-child) {
-			border-bottom: 1px solid var(--fg-500);
+			border-block-end: 1px solid var(--fg-500);
 		}
 	}
 
@@ -158,7 +158,7 @@
 
 		& .icon {
 			color: var(--fg-300);
-			margin-right: var(--space-3);
+			margin-block-end: var(--space-3);
 		}
 
 		&:hover {

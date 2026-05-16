@@ -34,7 +34,8 @@
 			width: auto;
 			height: auto;
 			transform: translateX(-50%);
-			padding: var(--space-2) var(--space-4);
+			padding-block: var(--space-2);
+			padding-inline: var(--space-4);
 			background: var(--bg-100);
 			color: var(--fg-100);
 			box-shadow: var(--shadow);

@@ -94,7 +94,8 @@
 		font-weight: 800;
 		background: #0a1530;
 		color: #fff;
-		padding: 0.33em 2rem;
+		padding-block: 0.33em;
+		padding-inline: 2rem;
 		border-radius: 4px;
 		text-align: center;
 		display: inline-flex;

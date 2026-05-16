@@ -75,7 +75,7 @@
 		background-color: var(--bg-0);
 		padding-block: 4cqi;
 		padding-inline: 5cqi;
-		border-bottom: 1px solid var(--fg-800);
+		border-block-end: 1px solid var(--fg-800);
 	}
 
 	.logo,

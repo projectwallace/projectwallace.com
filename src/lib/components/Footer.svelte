@@ -80,7 +80,7 @@
 		margin-bottom: var(--space-4);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-3);
-		border-top: 1px solid var(--fg-600);
+		border-block-start: 1px solid var(--fg-600);
 		color: var(--fg-300);
 
 		@media (min-width: 66rem) {

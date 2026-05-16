@@ -192,7 +192,8 @@
 		display: grid;
 		grid-template-columns: 1fr max-content;
 		grid-template-rows: repeat(2, auto);
-		gap: var(--space-2) var(--space-3);
+		row-gap: var(--space-2);
+		column-gap: var(--space-3);
 		margin-inline: auto;
 		width: 100%;
 		text-align: left;

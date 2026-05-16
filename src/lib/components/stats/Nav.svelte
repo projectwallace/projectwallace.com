@@ -106,7 +106,8 @@
 	}
 
 	.compact {
-		padding: var(--py) var(--px);
+		padding-block: var(--py);
+		padding-inline: var(--px);
 	}
 
 	.loose {
@@ -127,13 +128,15 @@
 	.title {
 		font-weight: var(--font-bold);
 		color: var(--fg-100);
-		margin: var(--space-2) var(--px);
+		margin-block: var(--space-2);
+		margin-inline: var(--px);
 	}
 
 	select {
 		background-color: var(--bg-200);
 		color: var(--fg-200);
-		padding: var(--py) var(--px);
+		padding-block: var(--py);
+		padding-inline: var(--px);
 		width: 100%;
 	}
 
@@ -174,12 +177,15 @@
 	}
 
 	.parent {
-		padding: var(--py) var(--px);
+		padding-block: var(--py);
+		padding-inline: var(--px);
 		font-weight: var(--font-bold);
 	}
 
 	.child {
-		padding: var(--py) var(--px) var(--py) var(--space-7);
+		padding-block: var(--py);
+		padding-inline-end: var(--px);
+		padding-inline-start: var(--space-7);
 
 		&::before {
 			content: '';
