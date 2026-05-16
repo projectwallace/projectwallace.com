@@ -18,19 +18,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
+
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm install --no-fund --no-audit --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
-        run: npx playwright install chromium --no-shell
+        run: pnpm exec playwright install chromium --no-shell
 
       - name: Run Playwright tests
-        run: npx playwright test --forbid-only
+        run: pnpm exec playwright test --forbid-only
 
       - name: Store Playwright test results
         uses: actions/upload-artifact@v7
@@ -47,13 +51,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
+
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm install --no-fund --no-audit --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
       - name: Download artifact
         uses: actions/download-artifact@v8
@@ -62,6 +70,6 @@ jobs:
           path: ./css-coverage
 
       - name: Analyze CSS Code Coverage
-        run: npm run css-coverage
+        run: pnpm css-coverage
         env:
           FORCE_COLOR: '3'
