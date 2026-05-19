@@ -1,7 +1,4 @@
-import Header from './Panel.Header.svelte';
+import Header from './Panel.Header.svelte'
 import Panel from '../Panel.svelte'
 
-export {
-	Header,
-	Panel,
-}
+export { Header, Panel }

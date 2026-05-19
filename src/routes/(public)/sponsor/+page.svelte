@@ -8,10 +8,7 @@
 	let { data } = $props()
 </script>
 
-<Seo
-	title="Sponsor Project Wallace"
-	description="Project Wallace can not exist without your support!"
-/>
+<Seo title="Sponsor Project Wallace" description="Project Wallace can not exist without your support!" />
 
 <Hero>
 	<h1 class="font-heading">Sponsor Project Wallace</h1>

@@ -18,32 +18,32 @@ Project Wallace scrapes websites by fetching the HTML and then going through all
 
 1. Fetch the HTML document belonging to the URL you've entered (this works best in a NodeJS enviroment but in some cases is also possible in the browser)
 2. Parse the HTML into an AST
-	1. Tip: use [`DOMParser.parseFromString()`](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString) if you're in a browser environment or [linkedom](https://github.com/WebReflection/linkedom) if you're in a JavaScript engine like NodeJS
+   1. Tip: use [`DOMParser.parseFromString()`](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString) if you're in a browser environment or [linkedom](https://github.com/WebReflection/linkedom) if you're in a JavaScript engine like NodeJS
 3. Walk the AST and grab every `<style>` element
-	1. Each `<style>`'s contents can be added to our CSS as-is
+   1. Each `<style>`'s contents can be added to our CSS as-is
 4. Walk the tree and grab every `<link rel~="stylesheet">`
-	1. Grab the `href` from the `<link>`
-	2. Fetch the `href`'s contents
-	2. Add the contents to our CSS
+   1. Grab the `href` from the `<link>`
+   2. Fetch the `href`'s contents
+   3. Add the contents to our CSS
 5. Walk the tree and grab every `[style]` element
-	1. The `style` contents of `<div style="color: red; margin: 0">` can be taken as-is
-	2. Make up a selector and rule for the single element (like `div` in this example), or one selector and rule for _all_ elements with inline styles (`inline-styles { color: red, etc. }`)
-	3. Add the inline CSS to the rule
-	4. Add the rule(s) to our CSS
+   1. The `style` contents of `<div style="color: red; margin: 0">` can be taken as-is
+   2. Make up a selector and rule for the single element (like `div` in this example), or one selector and rule for _all_ elements with inline styles (`inline-styles { color: red, etc. }`)
+   3. Add the inline CSS to the rule
+   4. Add the rule(s) to our CSS
 6. Recursively scrape any CSS `@import`
-	1. Parse the CSS into an AST
-	2. Walk the tree and take each `import` atrule
-	3. Take the `url()` of the import
-	4. Download the contents of the URL
-	5. Add to our CSS
+   1. Parse the CSS into an AST
+   2. Walk the tree and take each `import` atrule
+   3. Take the `url()` of the import
+   4. Download the contents of the URL
+   5. Add to our CSS
 
 ### Pros and cons
 
-| ✅ Pros | ❌ Cons |
-|---------|---------|
-| Cheap to run on a server | A lot of work to manage state, timeouts, error handling and data flows |
-| Returns the CSS as it was sent to the browser / as authored | Does not easily fit in a bookmarklet |
-| Can be run in your browser or other JavaScript runtimes | Does not find adoptedStylesheets or CSS injected with runtime CSS-in-JS |
+| ✅ Pros                                                     | ❌ Cons                                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Cheap to run on a server                                    | A lot of work to manage state, timeouts, error handling and data flows  |
+| Returns the CSS as it was sent to the browser / as authored | Does not easily fit in a bookmarklet                                    |
+| Can be run in your browser or other JavaScript runtimes     | Does not find adoptedStylesheets or CSS injected with runtime CSS-in-JS |
 
 ## Option 2: Use CSSOM
 
@@ -73,12 +73,12 @@ function scrape_css()
 
 ### Pros and cons
 
-| ✅ Pros | ❌ Cons |
-|---------|---------|
-| Much simpler than HTML scraping | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
-| Fits in a bookmarklet easily | Does not return the CSS in the format that it was authored in (it changes color notations, etc.) |
-| Can be run in your browser or any JavaScript runtime that supports running (headless) browsers | Does not scrape inline styles |
-|  | Cross Origin errors sometimes happen and are hard to solve |
+| ✅ Pros                                                                                        | ❌ Cons                                                                                                 |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Much simpler than HTML scraping                                                                | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
+| Fits in a bookmarklet easily                                                                   | Does not return the CSS in the format that it was authored in (it changes color notations, etc.)        |
+| Can be run in your browser or any JavaScript runtime that supports running (headless) browsers | Does not scrape inline styles                                                                           |
+|                                                                                                | Cross Origin errors sometimes happen and are hard to solve                                              |
 
 ## Option 3: Use CSSCoverage API
 
@@ -116,22 +116,22 @@ async function scrape() {
 
 ### Pros and cons
 
-| ✅ Pros | ❌ Cons |
-|---------|---------|
-| Much simpler than HTML scraping | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
-| Can be run in any JavaScript runtime that supports running (headless) browsers | Does not run in a bookmarklet |
-| CSSCoverage can also be collected between opening a page, doing interactions and navigating to other pages | |
+| ✅ Pros                                                                                                    | ❌ Cons                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| Much simpler than HTML scraping                                                                            | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
+| Can be run in any JavaScript runtime that supports running (headless) browsers                             | Does not run in a bookmarklet                                                                           |
+| CSSCoverage can also be collected between opening a page, doing interactions and navigating to other pages |                                                                                                         |
 
 ## Summary
 
 Each of these methods has their pros and cons so it really depends on the use case what you'll end up using.
 
-|                       | HTML Scraper          | CSSOM | CSSCoverage API |
-|-----------------------|-----------------------|-------|-----------------|
-| Leaves CSS intact     | ✅                     | ❌     | ✅               |
-| Cost to run on server | 💰                     | 💰💰    | 💰💰              |
-| Complexity            | 100                   | 10    | 30              |
-| Runs in bookmarklet   | ✅ (a big bookmarklet) | ✅     | ❌               |
-| Scrape inline styles  | ✅                     | ❌     | ❌               |
+|                       | HTML Scraper           | CSSOM | CSSCoverage API |
+| --------------------- | ---------------------- | ----- | --------------- |
+| Leaves CSS intact     | ✅                     | ❌    | ✅              |
+| Cost to run on server | 💰                     | 💰💰  | 💰💰            |
+| Complexity            | 100                    | 10    | 30              |
+| Runs in bookmarklet   | ✅ (a big bookmarklet) | ✅    | ❌              |
+| Scrape inline styles  | ✅                     | ❌    | ❌              |
 
 Hope this was helpful. Did I miss anything? Let me know!

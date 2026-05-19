@@ -12,9 +12,12 @@ type MetricGroup = {
 }
 
 export function getGroups() {
-	let files = import.meta.glob('/content/docs/metric-groups/*.md', { eager: true }) as Record<string, { default: { render: () => unknown }, metadata: Record<string, string> }>
-	return Object.entries(files).map(
-		([filePath, doc]) => {
+	let files = import.meta.glob('/content/docs/metric-groups/*.md', { eager: true }) as Record<
+		string,
+		{ default: { render: () => unknown }; metadata: Record<string, string> }
+	>
+	return Object.entries(files)
+		.map(([filePath, doc]) => {
 			let id = basename(filePath, '.md')
 			let slug = id.toLowerCase().replaceAll('.', '-')
 			let path = `/docs/metrics/${slug}`
@@ -23,8 +26,13 @@ export function getGroups() {
 			let { title, ...meta } = doc.metadata
 
 			return {
-				html, slug, path, title, meta, id,
+				html,
+				slug,
+				path,
+				title,
+				meta,
+				id
 			} as MetricGroup
-		}
-	).sort((a, b) => parseInt(a.meta.order, 10) - parseInt(b.meta.order, 10))
+		})
+		.sort((a, b) => parseInt(a.meta.order, 10) - parseInt(b.meta.order, 10))
 }

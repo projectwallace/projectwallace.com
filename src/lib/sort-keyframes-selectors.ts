@@ -1,8 +1,9 @@
-import { string_sort } from "./string-sort"
+import { string_sort } from './string-sort'
 
 export function normalize(selector: string) {
 	// 10%, 20.5%, etc.
-	if (selector.charCodeAt(selector.length - 1) === 37) { // 37 == '%'
+	if (selector.charCodeAt(selector.length - 1) === 37) {
+		// 37 == '%'
 		return Number(selector.substring(0, selector.length - 1))
 	}
 

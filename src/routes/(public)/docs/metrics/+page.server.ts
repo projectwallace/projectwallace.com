@@ -6,6 +6,6 @@ export function load() {
 
 	return {
 		groupedBySection: groupBySection(metrics),
-		allGroups: getGroups(),
+		allGroups: getGroups()
 	}
 }

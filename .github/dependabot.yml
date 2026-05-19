@@ -3,19 +3,19 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "monthly"
+      interval: 'monthly'
     groups:
       stylelint:
         patterns:
-          - "stylelint*"
+          - 'stylelint*'
       oxc:
         patterns:
-          - "oxlint"
-          - "oxfmt"
-  - package-ecosystem: "github-actions"
-    directory: "/"
+          - 'oxlint'
+          - 'oxfmt'
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'

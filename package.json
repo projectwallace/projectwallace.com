@@ -1,13 +1,9 @@
 {
 	"name": "project-wallace-com",
-	"description": "Svelte Kit project for projectwallace.com",
 	"version": "0.0.1",
+	"private": true,
+	"description": "Svelte Kit project for projectwallace.com",
 	"type": "module",
-	"packageManager": "pnpm@10.30.3",
-	"engines": {
-		"node": ">=24",
-		"pnpm": ">=10"
-	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -15,6 +11,8 @@
 		"test": "playwright test",
 		"test:unit": "vitest --exclude **/*.spec.ts",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
 		"lint": "svelte-kit sync && oxlint --config oxlintrc.json",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore --report-needless-disables --report-descriptionless-disables --report-unscoped-disables",
 		"css-coverage": "css-coverage ./css-coverage --min-coverage=.9  --min-file-coverage=.66 --show-uncovered=all"
@@ -52,14 +50,18 @@
 		"@projectwallace/stylelint-plugin": "^0.4.3",
 		"@sveltejs/adapter-netlify": "^6.0.4",
 		"@types/node": "^24.12.2",
+		"oxfmt": "0.50.0",
 		"oxlint": "^1.59.0",
 		"oxlint-tsgolint": "^0.22.1",
 		"postcss-html": "^1.8.1",
-		"prettier": "^3.8.2",
-		"prettier-plugin-svelte": "^3.5.1",
 		"stylelint": "~17.11.0",
 		"stylelint-config-standard": "~40.0.0",
 		"svelte-check": "^4.4.6",
 		"vitest": "^4.1.5"
-	}
+	},
+	"engines": {
+		"node": ">=24",
+		"pnpm": ">=10"
+	},
+	"packageManager": "pnpm@10.30.3"
 }

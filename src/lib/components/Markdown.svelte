@@ -100,7 +100,7 @@
 	@media (min-width: 44rem) {
 		:global(.markdown pre) {
 			padding-block: 0.75rem;
-		padding-inline: 1rem;
+			padding-inline: 1rem;
 			margin-right: -1rem;
 			margin-left: -1rem;
 		}

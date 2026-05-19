@@ -56,7 +56,12 @@ export class HashState<T> {
 		// Read hash synchronously to avoid flash of default content
 		if (browser) {
 			const decoded = decodeHashState<T>(window.location.hash)
-			if (typeof decoded === 'object' && decoded !== null && typeof defaultValue === 'object' && defaultValue !== null) {
+			if (
+				typeof decoded === 'object' &&
+				decoded !== null &&
+				typeof defaultValue === 'object' &&
+				defaultValue !== null
+			) {
 				this.#value = { ...defaultValue, ...decoded } as T
 			} else {
 				this.#value = decoded ?? defaultValue

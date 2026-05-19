@@ -64,7 +64,7 @@ Our design tokens page has had a panel for design tokens for a long time but now
 
 ### CSS Selector complexity calculator page
 
-Because I *sometimes* wish I had it. Nothing more. The CSS analyzer page shows a graph and table of selector complexity. Because of that it makes sense to offer [a standalone tool](/selector-complexity) to test individual selectors quickly.
+Because I _sometimes_ wish I had it. Nothing more. The CSS analyzer page shows a graph and table of selector complexity. Because of that it makes sense to offer [a standalone tool](/selector-complexity) to test individual selectors quickly.
 
 <a href={complexity_full}>
 	<BlogImage src={complexity} alt="The complexity calculator showing the complexity of a long selector" loading="lazy" />
@@ -73,7 +73,7 @@ Because I *sometimes* wish I had it. Nothing more. The CSS analyzer page shows a
 ## Updated features
 
 - When Adam Argyle comes on stage at CSS Day you know you're up for some great takeaways. This year [Adam did a talk](https://nerdy.dev/cssday-2025) on scrollers and my first goal was to fix the ugly scrollbars that appear absolutely everywhere! I highly recommend you watch the talk when it appears on [CSS Day's YouTube channel](https://www.youtube.com/@WebConferencesAmsterdam). Until then you can check out the slides on Adam's website.
-- Implemented additional error boundaries and error logging. [Sentry](https://sentry.io) kindly offers an [Open-Source Sponsorship Plan](https://sentry.io/for/open-source/) which allows me to do more fine grained error logging than  I could in the free plan. Thanks Sentry for sponsoring!
+- Implemented additional error boundaries and error logging. [Sentry](https://sentry.io) kindly offers an [Open-Source Sponsorship Plan](https://sentry.io/for/open-source/) which allows me to do more fine grained error logging than I could in the free plan. Thanks Sentry for sponsoring!
 - We do a ton of syntax highlight across this website but the highlighting in docs and blog posts looked different from everything else. Well, no more!
 - The [Prettify CSS page](/prettify-css) now also allows indenting with spaces. But tabs are still default.
 

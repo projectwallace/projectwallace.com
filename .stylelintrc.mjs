@@ -1,9 +1,6 @@
 /** @type {import('stylelint').Config} */
 export default {
-	extends: [
-		'stylelint-config-standard',
-		'@projectwallace/stylelint-plugin/configs/recommended'
-	],
+	extends: ['stylelint-config-standard', '@projectwallace/stylelint-plugin/configs/recommended'],
 	overrides: [
 		{
 			files: ['src/**/*.svelte'],
@@ -179,5 +176,5 @@ export default {
 				]
 			}
 		]
-	},
+	}
 }

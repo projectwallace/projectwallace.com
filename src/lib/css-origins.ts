@@ -42,7 +42,8 @@ type CSSInlineOrigin = {
 	url: string
 }
 
-export type CSSOrigin = CSSImportOrigin
+export type CSSOrigin =
+	| CSSImportOrigin
 	| CSSLinkOrigin
 	| CSSFileOrigin
 	| CSSStyleTagOrigin
