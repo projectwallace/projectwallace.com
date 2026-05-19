@@ -1,54 +1,60 @@
 <script lang="ts">
-	import type { CssLocation } from '$lib/css-location'
-	import Container from '$components/Container.svelte'
-	import Form from '$components/css-form/Form.svelte'
-	import Devtools from '$components/DevTools.svelte'
-	import Analysis from '$components/stats/Analysis.svelte'
-	import Seo from '$components/Seo.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import Colors from '$components/stats/Colors.svelte'
-	import Nav from '$components/stats/Nav.svelte'
-	import FontSizes from '$components/stats/FontSizes.svelte'
-	import GradientList from '$components/stats/GradientList.svelte'
-	import ValueCountList from '$components/stats/ValueCountList.svelte'
-	import Radiuses from '$components/stats/Radiuses.svelte'
-	import DefinitionList from '$components/stats/DefinitionList.svelte'
-	import { Panel, Header } from '$components/Panel'
-	import Empty from '$components/Empty.svelte'
-	import Heading from '$components/Heading.svelte'
-	import Hero from '$components/Hero.svelte'
-	import Units from '$components/stats/Units.svelte'
-	import { compare } from 'css-time-sort'
-	import { validate as validate_duration } from '$lib/sort-time'
-	import FontFaces from '$components/stats/FontFaces.svelte'
-	import JsonPanel from '$components/devtools/JsonPanel.svelte'
-	import CssPanel from '$components/devtools/CssPanel.svelte'
-	import NetworkPanel from '$components/NetworkPanel.svelte'
-	import ItemUsage from '$components/ItemUsage.svelte'
-	import { design_token_tabs, type TabId } from '$components/devtools/tabs'
-	import DesignTokensPanel from '$components/devtools/DesignTokensPanel.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { string_sort } from '$lib/string-sort'
-	import { normalize_line_height } from '$lib/sort-line-height'
-	import { nav as navigation } from './nav'
+	import type { CssLocation } from "$lib/css-location";
+	import Container from "$components/Container.svelte";
+	import Form from "$components/css-form/Form.svelte";
+	import Devtools from "$components/DevTools.svelte";
+	import Analysis from "$components/stats/Analysis.svelte";
+	import Seo from "$components/Seo.svelte";
+	import Markdown from "$components/Markdown.svelte";
+	import Colors from "$components/stats/Colors.svelte";
+	import Nav from "$components/stats/Nav.svelte";
+	import FontSizes from "$components/stats/FontSizes.svelte";
+	import GradientList from "$components/stats/GradientList.svelte";
+	import ValueCountList from "$components/stats/ValueCountList.svelte";
+	import Radiuses from "$components/stats/Radiuses.svelte";
+	import DefinitionList from "$components/stats/DefinitionList.svelte";
+	import { Panel, Header } from "$components/Panel";
+	import Empty from "$components/Empty.svelte";
+	import Heading from "$components/Heading.svelte";
+	import Hero from "$components/Hero.svelte";
+	import Units from "$components/stats/Units.svelte";
+	import { compare } from "@projectwallace/css-time-sort";
+	import { validate as validate_duration } from "$lib/sort-time";
+	import FontFaces from "$components/stats/FontFaces.svelte";
+	import JsonPanel from "$components/devtools/JsonPanel.svelte";
+	import CssPanel from "$components/devtools/CssPanel.svelte";
+	import NetworkPanel from "$components/NetworkPanel.svelte";
+	import ItemUsage from "$components/ItemUsage.svelte";
+	import { design_token_tabs, type TabId } from "$components/devtools/tabs";
+	import DesignTokensPanel from "$components/devtools/DesignTokensPanel.svelte";
+	import { get_css_state } from "$lib/css-state.svelte";
+	import { string_sort } from "$lib/string-sort";
+	import { normalize_line_height } from "$lib/sort-line-height";
+	import { nav as navigation } from "./nav";
 
-	let css_state = get_css_state()
+	let css_state = get_css_state();
 
-	function sort_font_sizes(a: [string, CssLocation[]], b: [string, CssLocation[]]) {
-		return normalize_line_height(a[0]) - normalize_line_height(b[0])
+	function sort_font_sizes(
+		a: [string, CssLocation[]],
+		b: [string, CssLocation[]],
+	) {
+		return normalize_line_height(a[0]) - normalize_line_height(b[0]);
 	}
 
-	function sort_by_duration(a: [string, CssLocation[]], b: [string, CssLocation[]]) {
-		return compare(a[0], b[0])
+	function sort_by_duration(
+		a: [string, CssLocation[]],
+		b: [string, CssLocation[]],
+	) {
+		return compare(a[0], b[0]);
 	}
 
 	let sort_az = {
-		label: 'Sort A-Z',
+		label: "Sort A-Z",
 		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
-			return string_sort(a[0], b[0])
+			return string_sort(a[0], b[0]);
 		},
-		id: 'alphabetical'
-	}
+		id: "alphabetical",
+	};
 </script>
 
 <Seo
@@ -65,7 +71,10 @@
 </Hero>
 
 {#if css_state.origins.length > 0}
-	<Analysis origins={css_state.origins} prettify_css_before_analyze={css_state.should_prettify}>
+	<Analysis
+		origins={css_state.origins}
+		prettify_css_before_analyze={css_state.should_prettify}
+	>
 		{#snippet nav()}
 			<Nav nav={navigation} />
 		{/snippet}
@@ -80,18 +89,20 @@
 							<Heading element="h3">Gradients</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.gradients.total },
+									{ name: "Total", value: analysis.values.gradients.total },
 									{
-										name: 'Unique',
+										name: "Unique",
 										value: analysis.values.gradients.totalUnique,
-										ratio: analysis.values.gradients.uniquenessRatio
-									}
+										ratio: analysis.values.gradients.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
 
 						{#if analysis.values.gradients.total > 0}
-							<GradientList items={analysis.values.gradients.uniqueWithLocations} />
+							<GradientList
+								items={analysis.values.gradients.uniqueWithLocations}
+							/>
 						{:else}
 							<Empty>No gradients found.</Empty>
 						{/if}
@@ -102,18 +113,20 @@
 							<Heading element="h3">Font-sizes</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.fontSizes.total },
+									{ name: "Total", value: analysis.values.fontSizes.total },
 									{
-										name: 'Unique',
+										name: "Unique",
 										value: analysis.values.fontSizes.totalUnique,
-										ratio: analysis.values.fontSizes.uniquenessRatio
-									}
+										ratio: analysis.values.fontSizes.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
 
 						{#if analysis.values.fontSizes.total > 0}
-							<FontSizes sizes={analysis.values.fontSizes.uniqueWithLocations} />
+							<FontSizes
+								sizes={analysis.values.fontSizes.uniqueWithLocations}
+							/>
 						{:else}
 							<Empty>No font-sizes found.</Empty>
 						{/if}
@@ -124,12 +137,12 @@
 							<Heading element="h3">Font-families</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.fontFamilies.total },
+									{ name: "Total", value: analysis.values.fontFamilies.total },
 									{
-										name: 'Unique',
+										name: "Unique",
 										value: analysis.values.fontFamilies.totalUnique,
-										ratio: analysis.values.fontFamilies.uniquenessRatio
-									}
+										ratio: analysis.values.fontFamilies.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
@@ -152,12 +165,12 @@
 							<Heading element="h3">Line-heights</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.lineHeights.total },
+									{ name: "Total", value: analysis.values.lineHeights.total },
 									{
-										name: 'Unique',
+										name: "Unique",
 										value: analysis.values.lineHeights.totalUnique,
-										ratio: analysis.values.lineHeights.uniquenessRatio
-									}
+										ratio: analysis.values.lineHeights.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
@@ -168,10 +181,10 @@
 								unique={analysis.values.lineHeights.uniqueWithLocations}
 								extra_sort_options={[
 									{
-										id: 'size',
-										label: 'Sort by size',
-										fn: sort_font_sizes
-									}
+										id: "size",
+										label: "Sort by size",
+										fn: sort_font_sizes,
+									},
 								]}
 							/>
 						{:else}
@@ -184,12 +197,12 @@
 							<Heading element="h3">Text-shadows</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.textShadows.total },
+									{ name: "Total", value: analysis.values.textShadows.total },
 									{
-										name: 'Unique',
+										name: "Unique",
 										value: analysis.values.textShadows.totalUnique,
-										ratio: analysis.values.textShadows.uniquenessRatio
-									}
+										ratio: analysis.values.textShadows.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
@@ -210,12 +223,12 @@
 							<Heading element="h3">Box-shadows</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.boxShadows.total },
+									{ name: "Total", value: analysis.values.boxShadows.total },
 									{
-										name: 'Unique',
+										name: "Unique",
 										value: analysis.values.boxShadows.totalUnique,
-										ratio: analysis.values.boxShadows.uniquenessRatio
-									}
+										ratio: analysis.values.boxShadows.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
@@ -236,12 +249,15 @@
 							<Heading element="h3">Border radius</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.borderRadiuses.total },
 									{
-										name: 'Unique',
+										name: "Total",
+										value: analysis.values.borderRadiuses.total,
+									},
+									{
+										name: "Unique",
 										value: analysis.values.borderRadiuses.totalUnique,
-										ratio: analysis.values.borderRadiuses.uniquenessRatio
-									}
+										ratio: analysis.values.borderRadiuses.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
@@ -257,12 +273,15 @@
 							<Heading element="h3">Animation durations</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.animations.durations.total },
 									{
-										name: 'Unique',
+										name: "Total",
+										value: analysis.values.animations.durations.total,
+									},
+									{
+										name: "Unique",
 										value: analysis.values.animations.durations.totalUnique,
-										ratio: analysis.values.animations.durations.uniquenessRatio
-									}
+										ratio: analysis.values.animations.durations.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
@@ -270,16 +289,17 @@
 							<ValueCountList
 								id="animation-durations-list"
 								node_type="value"
-								unique={analysis.values.animations.durations.uniqueWithLocations}
-								warnings={Object.keys(analysis.values.animations.durations.unique).filter(
-									(duration) => !validate_duration(duration)
-								)}
+								unique={analysis.values.animations.durations
+									.uniqueWithLocations}
+								warnings={Object.keys(
+									analysis.values.animations.durations.unique,
+								).filter((duration) => !validate_duration(duration))}
 								extra_sort_options={[
 									{
-										id: 'duration',
-										label: 'Sort by duration',
-										fn: sort_by_duration
-									}
+										id: "duration",
+										label: "Sort by duration",
+										fn: sort_by_duration,
+									},
 								]}
 							/>
 						{:else}
@@ -292,12 +312,18 @@
 							<Heading element="h3">Animation functions</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.animations.timingFunctions.total },
 									{
-										name: 'Unique',
-										value: analysis.values.animations.timingFunctions.totalUnique,
-										ratio: analysis.values.animations.timingFunctions.uniquenessRatio
-									}
+										name: "Total",
+										value: analysis.values.animations.timingFunctions.total,
+									},
+									{
+										name: "Unique",
+										value:
+											analysis.values.animations.timingFunctions.totalUnique,
+										ratio:
+											analysis.values.animations.timingFunctions
+												.uniquenessRatio,
+									},
 								]}
 							/>
 						</Header>
@@ -305,7 +331,8 @@
 							<ValueCountList
 								id="animation-functions-list"
 								node_type="value"
-								unique={analysis.values.animations.timingFunctions.uniqueWithLocations}
+								unique={analysis.values.animations.timingFunctions
+									.uniqueWithLocations}
 								extra_sort_options={[sort_az]}
 							/>
 						{:else}
@@ -321,15 +348,15 @@
 			<div>
 				<Devtools tabs={design_token_tabs}>
 					{#snippet children({ tab_id }: { tab_id: TabId })}
-						{#if tab_id === 'network'}
+						{#if tab_id === "network"}
 							<NetworkPanel />
-						{:else if tab_id === 'inspector'}
+						{:else if tab_id === "inspector"}
 							<ItemUsage />
-						{:else if tab_id === 'report'}
+						{:else if tab_id === "report"}
 							<JsonPanel json={analysis} />
-						{:else if tab_id === 'css'}
+						{:else if tab_id === "css"}
 							<CssPanel {css} />
-						{:else if tab_id === 'design_tokens'}
+						{:else if tab_id === "design_tokens"}
 							<DesignTokensPanel {analysis} />
 						{/if}
 					{/snippet}
@@ -342,8 +369,9 @@
 <Container size="lg">
 	<Markdown>
 		<p>
-			This analyzer statically analyzes your CSS and extracts all possible or potential design tokens out of it. This
-			analyzer focuses on the following token types:
+			This analyzer statically analyzes your CSS and extracts all possible or
+			potential design tokens out of it. This analyzer focuses on the following
+			token types:
 		</p>
 		<ul>
 			<li>Colors</li>
