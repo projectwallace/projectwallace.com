@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
-	import { is_selector, parse_selector_list } from '@projectwallace/css-parser'
+	import { is_selector, parse_selector } from '@projectwallace/css-parser'
 	import { selectorComplexity } from '@projectwallace/css-analyzer'
 	import Seo from '$components/Seo.svelte'
 	import Panel from '$components/Panel.svelte'
@@ -26,7 +26,7 @@
 		}
 
 		try {
-			let ast = parse_selector_list(value)
+			let ast = parse_selector(value)
 
 			if (ast.has_children) {
 				result = []
