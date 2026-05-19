@@ -1,4 +1,4 @@
-import { convert } from 'css-time-sort'
+import { convert } from '@projectwallace/css-time-sort'
 
 export function validate(time: string) {
 	let normalized = convert(time)

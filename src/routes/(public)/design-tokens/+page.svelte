@@ -18,7 +18,7 @@
 	import Heading from '$components/Heading.svelte'
 	import Hero from '$components/Hero.svelte'
 	import Units from '$components/stats/Units.svelte'
-	import { compare } from 'css-time-sort'
+	import { compare } from '@projectwallace/css-time-sort'
 	import { validate as validate_duration } from '$lib/sort-time'
 	import FontFaces from '$components/stats/FontFaces.svelte'
 	import JsonPanel from '$components/devtools/JsonPanel.svelte'
@@ -236,7 +236,10 @@
 							<Heading element="h3">Border radius</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.borderRadiuses.total },
+									{
+										name: 'Total',
+										value: analysis.values.borderRadiuses.total
+									},
 									{
 										name: 'Unique',
 										value: analysis.values.borderRadiuses.totalUnique,
@@ -257,7 +260,10 @@
 							<Heading element="h3">Animation durations</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.animations.durations.total },
+									{
+										name: 'Total',
+										value: analysis.values.animations.durations.total
+									},
 									{
 										name: 'Unique',
 										value: analysis.values.animations.durations.totalUnique,
@@ -292,7 +298,10 @@
 							<Heading element="h3">Animation functions</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.animations.timingFunctions.total },
+									{
+										name: 'Total',
+										value: analysis.values.animations.timingFunctions.total
+									},
 									{
 										name: 'Unique',
 										value: analysis.values.animations.timingFunctions.totalUnique,
