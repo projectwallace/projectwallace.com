@@ -5,9 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@projectwallace/css-analyzer': ^9.8.1
-  '@projectwallace/css-parser': ^0.15.0
-  '@projectwallace/format-css': ^3.1.1
+  '@projectwallace/css-analyzer': ^9.8.2
+  '@projectwallace/css-parser': ~0.16.0
+  '@projectwallace/format-css': ^3.1.2
   color-sorter: ^8.0.0
   runed: ^0.37.1
   sharp: 0.34.3
@@ -27,29 +27,29 @@ importers:
         specifier: ^0.6.1
         version: 0.6.1
       '@projectwallace/css-analyzer':
-        specifier: ^9.8.1
-        version: 9.8.1
+        specifier: ^9.8.2
+        version: 9.8.2
       '@projectwallace/css-code-coverage':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       '@projectwallace/css-code-quality':
-        specifier: ^3.1.2
-        version: 3.1.2
+        specifier: ^3.1.3
+        version: 3.1.3
       '@projectwallace/css-design-tokens':
-        specifier: ^0.11.5
-        version: 0.11.5
+        specifier: ^0.11.6
+        version: 0.11.6
       '@projectwallace/css-layer-tree':
-        specifier: ^2.1.3
-        version: 2.1.3
+        specifier: ^2.1.4
+        version: 2.1.4
       '@projectwallace/css-parser':
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ~0.16.0
+        version: 0.16.0
       '@projectwallace/css-time-sort':
         specifier: ^3.1.0
         version: 3.1.0
       '@projectwallace/format-css':
-        specifier: ^3.1.1
-        version: 3.1.1
+        specifier: ^3.1.2
+        version: 3.1.2
       '@sveltejs/enhanced-img':
         specifier: ^0.10.4
         version: 0.10.4(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.55.8)(vite@8.0.13(@types/node@25.9.1)))(svelte@5.55.8)(vite@8.0.13(@types/node@25.9.1))
@@ -851,36 +851,37 @@ packages:
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
-  '@projectwallace/css-analyzer@9.8.1':
-    resolution: {integrity: sha512-N+1Lkr8yZa7KBzUsfPwbLcFKtL5bXZnBNPSmEvSKihcHctlIf6+p9boNnLuxvw/PDf5w018M8kRf4UDvHotvkQ==}
+  '@projectwallace/css-analyzer@9.8.2':
+    resolution: {integrity: sha512-yBl4lhtCoRDxIxJq8SeTH1lfT8EP8W0D7SiXlLxoiBg40rVf8JjGLEZlrbVox5SZ5tPY070A1nyP61GApY83iQ==}
     engines: {node: '>=18.0.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/css-code-coverage@1.0.1':
-    resolution: {integrity: sha512-IaTHtGKqTnMnoj7G2OHz2zUffLjlqGJo5kwF9NWt2h9PlAfC8n+2/ZsU6QTNomxbPIBc5KtjTKauAQ/Qq2Fsyw==}
+  '@projectwallace/css-code-coverage@1.0.2':
+    resolution: {integrity: sha512-/GTAWwtXSSHPcDGCMxmjy8z3TTM1iIKvaX5Su6UsexoqlXn7uCaMLKZGHUGEavJ+SPDquHa1Yqg/xpygbBsZkw==}
     engines: {node: '>=20', pnpm: '>=10.0.0'}
     hasBin: true
 
-  '@projectwallace/css-code-quality@3.1.2':
-    resolution: {integrity: sha512-oiMa+4pYCuXF+ora4mGhXtRHDD8iHl1/9M7+vGeuhrLj/hsxH3dpsi3Iwee7MMAHbsZF/KiMz5VlNcD1Ms5oHQ==}
-    engines: {node: '>=16.0.0'}
+  '@projectwallace/css-code-quality@3.1.3':
+    resolution: {integrity: sha512-DNPYKWLe4S57/G8JDVSnKuIvEzdBqMIg6WTNH1FJQ3QdNYs6WEBj4pebksZq+GXcYv1gXgCCxauLPfkKEipJ9w==}
+    engines: {node: '>=16.0.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/css-design-tokens@0.11.5':
-    resolution: {integrity: sha512-TdsvpdBwUktpEXAE2iQNNmbSDenz79NRBo1xc8O+7LglTw3ur+kToYWsDCu0H36GuD9zhDNVGsNBojC0FW3etQ==}
+  '@projectwallace/css-design-tokens@0.11.6':
+    resolution: {integrity: sha512-SIDDkxGx43R22//XNqWsIHzN1U0r85U1L1t6v4DYk+TrZdHX+8ZzxvUJKFRTkYTUuGYZU/JCE0J83r4YTikiug==}
     engines: {node: '>=22', pnpm: '>=10.0.0'}
 
-  '@projectwallace/css-layer-tree@2.1.3':
-    resolution: {integrity: sha512-V+dw849hwspQUgM8KlU/6355kghgBEDWTzdrIaoPp9c3gbITvTVPCpqR6hDF4JpVqHH/hvIWPbfObI/QLSuoxQ==}
-    engines: {node: '>=18.0.0'}
+  '@projectwallace/css-layer-tree@2.1.4':
+    resolution: {integrity: sha512-r1dzEc5aNd7+TEDKv2gA0qLGIpIB16RD0hA1aSRxUIrhO4DSHdW6yTMj1t31m4nWJR/c5JGdJFTUpwm4xLfzsQ==}
+    engines: {node: '>=18.0.0', pnpm: '>=10.0.0'}
 
-  '@projectwallace/css-parser@0.15.0':
-    resolution: {integrity: sha512-93/+vgClR/Zb0m4cWQLGaNOLBzeLRPRXNSEaxW6ZAwEOnri48kcpiaB1uUBicLvt660DPvjNExFHINipdkOB1w==}
+  '@projectwallace/css-parser@0.16.0':
+    resolution: {integrity: sha512-4WJOIU/6Zbscp5snGGvqx2UobIgYOfBaZDGbx6Mj7b7PjcMz34fFufus7h3AbDFlS7nXEkHHlPDZJl/Qu5gumg==}
+    engines: {pnpm: '>=11.0.0'}
 
   '@projectwallace/css-time-sort@3.1.0':
     resolution: {integrity: sha512-hG6zILMK9OJpsvkCkbF9GIW+bAHAxKGB0AsyR5N5T+n8bCKPgWhZGwPlDMP1FrLsBkuRq7U7+fqB19qzUJq5hQ==}
     engines: {node: '>=18.0.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/format-css@3.1.1':
-    resolution: {integrity: sha512-jzDOp6EWRW0NLhhmQbWbFAXMj7edBQrI7GTXiNJPTdAuEWzFL+OlOJwETTHJun1EWxvHKSH8WxCl5cGNcQJT7w==}
+  '@projectwallace/format-css@3.1.2':
+    resolution: {integrity: sha512-qqONzYjIkBo3manondz8xwCvSJXeQ8W+oHfQufYuAnpaJZacBQPHEMKLlwpyY8U8sWS3igeGFWAjFtOR8ZVCJg==}
     engines: {node: '>=20.12.0', pnpm: '>=11.0.0'}
     hasBin: true
 
@@ -2607,43 +2608,43 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
-  '@projectwallace/css-analyzer@9.8.1':
+  '@projectwallace/css-analyzer@9.8.2':
     dependencies:
-      '@projectwallace/css-parser': 0.15.0
+      '@projectwallace/css-parser': 0.16.0
 
-  '@projectwallace/css-code-coverage@1.0.1':
+  '@projectwallace/css-code-coverage@1.0.2':
     dependencies:
-      '@projectwallace/css-parser': 0.15.0
-      '@projectwallace/format-css': 3.1.1
+      '@projectwallace/css-parser': 0.16.0
+      '@projectwallace/format-css': 3.1.2
 
-  '@projectwallace/css-code-quality@3.1.2':
+  '@projectwallace/css-code-quality@3.1.3':
     dependencies:
-      '@projectwallace/css-analyzer': 9.8.1
+      '@projectwallace/css-analyzer': 9.8.2
 
-  '@projectwallace/css-design-tokens@0.11.5':
+  '@projectwallace/css-design-tokens@0.11.6':
     dependencies:
-      '@projectwallace/css-analyzer': 9.8.1
-      '@projectwallace/css-parser': 0.15.0
+      '@projectwallace/css-analyzer': 9.8.2
+      '@projectwallace/css-parser': 0.16.0
       '@projectwallace/css-time-sort': 3.1.0
       color-sorter: 8.0.0
       colorjs.io: 0.6.1
 
-  '@projectwallace/css-layer-tree@2.1.3':
+  '@projectwallace/css-layer-tree@2.1.4':
     dependencies:
-      '@projectwallace/css-parser': 0.15.0
+      '@projectwallace/css-parser': 0.16.0
 
-  '@projectwallace/css-parser@0.15.0': {}
+  '@projectwallace/css-parser@0.16.0': {}
 
   '@projectwallace/css-time-sort@3.1.0': {}
 
-  '@projectwallace/format-css@3.1.1':
+  '@projectwallace/format-css@3.1.2':
     dependencies:
-      '@projectwallace/css-parser': 0.15.0
+      '@projectwallace/css-parser': 0.16.0
 
   '@projectwallace/stylelint-plugin@0.4.3(stylelint@17.11.1(typescript@6.0.3))':
     dependencies:
-      '@projectwallace/css-analyzer': 9.8.1
-      '@projectwallace/css-parser': 0.15.0
+      '@projectwallace/css-analyzer': 9.8.2
+      '@projectwallace/css-parser': 0.16.0
       stylelint: 17.11.1(typescript@6.0.3)
 
   '@rolldown/binding-android-arm64@1.0.1':
