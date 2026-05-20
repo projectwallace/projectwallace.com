@@ -20,7 +20,7 @@
 	let { css, use_spaces, indent_size } = $derived(state.current);
 	let result = $derived(
 		format(css, {
-			tab_size: use_spaces && indent_size >= 0 ? indent_size : undefined,
+			tab_size: use_spaces ? indent_size : undefined,
 		}),
 	);
 	let filesize_diff = $derived(format_filesize(result.length - css.length));
