@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
-	import { parse_selector } from '@projectwallace/css-parser'
+	import { parse_selector_list } from '@projectwallace/css-parser'
 	import { calculateSpecificity, type Specificity } from '@projectwallace/css-analyzer'
 	import Seo from '$components/Seo.svelte'
 	import Panel from '$components/Panel.svelte'
@@ -24,7 +24,7 @@
 
 	function calculate(value: string) {
 		try {
-			let ast = parse_selector(value)
+			let ast = parse_selector_list(value)
 			let specificities = calculateSpecificity(ast)
 			let calculated: typeof result = []
 
@@ -152,7 +152,8 @@
 						>@bramus/specificity</a
 					>. There are other specificity calculators available that offer explanations, like
 					<a href="https://polypane.app/css-specificity-calculator/" rel="external">the one from Polypane</a>. You
-					should use that one if you want to know more about <em>how</em> specificity is calculated.
+					should use that one if you want to know more about <em>how</em>
+					specificity is calculated.
 				</p>
 			</Markdown>
 		</Container>
