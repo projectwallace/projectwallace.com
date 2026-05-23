@@ -47,7 +47,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.60.0",
-		"@projectwallace/stylelint-plugin": "^0.4.4",
+		"@projectwallace/stylelint-plugin": "^0.4.6",
 		"@sveltejs/adapter-netlify": "^6.0.4",
 		"@types/node": "^25.9.1",
 		"oxfmt": "0.51.0",
