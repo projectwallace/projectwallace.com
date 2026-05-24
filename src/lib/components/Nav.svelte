@@ -251,7 +251,7 @@
 		background-color: var(--fg-900);
 		padding: var(--space-2);
 		border: 1px solid var(--fg-450);
-		transition: opacity 0.05s ease-out;
+		transition: opacity 50ms ease-out;
 		box-shadow: var(--shadow);
 
 		@supports not (right: anchor(end)) {

@@ -58,9 +58,9 @@
 		white-space: nowrap;
 		border: 1px solid transparent;
 		transition:
-			color 0.1s ease-out,
-			background-color 0.1s ease-out,
-			box-shadow 0.1s ease-out;
+			color 100ms ease-out,
+			background-color 100ms ease-out,
+			box-shadow 100ms ease-out;
 
 		@media print {
 			border: var(--space-1) solid;

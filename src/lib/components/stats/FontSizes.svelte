@@ -116,7 +116,7 @@
 	.example {
 		color: var(--fg-300);
 		font-weight: var(--font-medium);
-		line-height: 1.25;
+		line-height: var(--leading-snug);
 		align-self: center;
 		padding: var(--space-2);
 	}

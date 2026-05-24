@@ -24,11 +24,11 @@
 		</style>
 		<defs>
 			<pattern id="stripes-b" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
-				<rect width="3" height="6" class="stripe-1" />
-				<rect x="3" width="6" height="6" class="stripe-2" />
+				<rect width="3" height="6" class="stripe-1"></rect>
+				<rect x="3" width="6" height="6" class="stripe-2"></rect>
 			</pattern>
 		</defs>
-		<rect width="20" height="20" fill="url(#stripes-b)" />
+		<rect width="20" height="20" fill="url(#stripes-b)"></rect>
 	</svg>
 {/snippet}
 
@@ -45,7 +45,7 @@
 					}
 				]}
 			>
-				<!-- Some sensible content in case CSS doesn't work. Hiding it with `font-size: 0;` -->
+				<!-- Some sensible content in case CSS doesn't work. Hiding it with `font-size: 0.1px;` -->
 				{#if square === ADDED}
 					+
 				{:else if square === DELETED}
@@ -75,7 +75,7 @@
 		display: inline-block;
 		inline-size: var(--space-3);
 		block-size: var(--space-3);
-		font-size: 0;
+		font-size: 0.1px;
 		overflow: clip;
 		--wallace-diffstat-fg: transparent;
 

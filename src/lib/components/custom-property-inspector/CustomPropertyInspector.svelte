@@ -314,7 +314,7 @@
 		& :is(.list, .editor) {
 			position: relative;
 			overflow: hidden;
-			block-size: 80vh;
+			block-size: 80vb;
 		}
 	}
 

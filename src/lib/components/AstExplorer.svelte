@@ -168,7 +168,7 @@
 	.ast-explorer {
 		--wallace-ast-explorer-border-color: var(--bg-300);
 		--wallace-ast-explorer-border-width: var(--space-px);
-		--wallace-ast-explorer-pane-block-size: calc(100vh - 16rem);
+		--wallace-ast-explorer-pane-block-size: calc(100vb - 16rem);
 		container-type: inline-size;
 		container-name: --ast-explorer;
 		border-width: var(--wallace-ast-explorer-border-width);
@@ -203,7 +203,7 @@
 
 	.pane {
 		background-color: light-dark(transparent, var(--bg-200));
-		line-height: 2;
+		line-height: var(--leading-loose);
 		block-size: 100%;
 		display: grid;
 		grid-template-rows: auto 1fr;

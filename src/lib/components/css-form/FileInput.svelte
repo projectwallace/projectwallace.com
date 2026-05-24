@@ -100,7 +100,7 @@
 		border: 2px dashed var(--bg-400);
 		text-align: center;
 		background-color: var(--bg-100);
-		transition: border-color 0.1s ease-out;
+		transition: border-color 100ms ease-out;
 
 		&:hover {
 			border-color: var(--bg-500);

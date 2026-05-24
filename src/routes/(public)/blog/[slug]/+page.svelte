@@ -80,7 +80,7 @@
 		gap: var(--space-24);
 
 		@media (min-width: 66rem) {
-			font-size: 1.2em;
+			font-size: var(--size-larger);
 			line-height: var(--leading-base);
 		}
 	}

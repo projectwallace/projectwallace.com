@@ -11,7 +11,10 @@
 
 	function set_cursor_positions() {
 		if (!textarea) return
-		on_cursor_move?.({ start: textarea.selectionStart, end: textarea.selectionEnd })
+		on_cursor_move?.({
+			start: textarea.selectionStart,
+			end: textarea.selectionEnd
+		})
 	}
 </script>
 
@@ -41,8 +44,8 @@
 			grid-row: 1 / -1;
 			padding: 0;
 			margin: 0;
-			font-size: 0.8rem;
-			line-height: 2;
+			font-size: var(--size-sm);
+			line-height: var(--leading-loose);
 			font-family: var(--font-mono);
 			white-space: pre;
 			height: 100%;

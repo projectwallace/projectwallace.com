@@ -122,7 +122,7 @@
 	}
 
 	.body {
-		max-block-size: 85vh;
+		max-block-size: 85vb;
 		overflow-inline: auto;
 		scrollbar-gutter: stable;
 		overscroll-behavior: contain;

@@ -84,22 +84,26 @@
 	<ol role="group">
 		{#if show_types}
 			<li>
-				<span class="property" data-testid="type">type</span>: <span class="number">{node.type}</span>
+				<span class="property" data-testid="type">type</span>:
+				<span class="number">{node.type}</span>
 			</li>
 			<li>
-				<span class="property">type_name</span>: <span class="string">{JSON.stringify(node.type_name)}</span>
+				<span class="property">type_name</span>:
+				<span class="string">{JSON.stringify(node.type_name)}</span>
 			</li>
 		{/if}
 		{#if show_locations}
 			{#each ['line', 'column', 'start', 'end', 'length'] as prop (prop)}
 				<li data-testid="location">
-					<span class="property">{prop}</span>: <span class="number">{node[prop]}</span>
+					<span class="property">{prop}</span>:
+					<span class="number">{node[prop]}</span>
 				</li>
 			{/each}
 		{/if}
 		{#if node.type === RAW}
 			<li>
-				<span class="property">text</span>: <span class="string">{JSON.stringify(node.text)}</span>
+				<span class="property">text</span>:
+				<span class="string">{JSON.stringify(node.text)}</span>
 			</li>
 		{/if}
 		{#each filter_properties(plain_node) as key (key)}
@@ -148,7 +152,7 @@
 <style>
 	[role='treeitem'] {
 		font-family: var(--font-mono);
-		transition: background-color 0.1s;
+		transition: background-color 100ms;
 		scroll-margin: var(--space-12);
 
 		&[aria-selected='true'] {
