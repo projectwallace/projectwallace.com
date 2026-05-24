@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { SvelteHTMLElements } from "svelte/elements";
+	import type { SvelteHTMLElements } from 'svelte/elements'
 
-	type Props = SvelteHTMLElements["span"] & {
-		status?: "neutral" | "success" | "warning" | "error" | "info" | "secondary";
-	};
+	type Props = SvelteHTMLElements['span'] & {
+		status?: 'neutral' | 'success' | 'warning' | 'error' | 'info' | 'secondary'
+	}
 
-	let { children, status = "neutral", ...rest }: Props = $props();
+	let { children, status = 'neutral', ...rest }: Props = $props()
 </script>
 
-<span {...rest} class={["status-badge", status]}>
+<span {...rest} class={['status-badge', status]}>
 	{@render children?.()}
 </span>
 

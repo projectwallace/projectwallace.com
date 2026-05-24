@@ -1,55 +1,51 @@
 <script lang="ts">
-	import ComboBox from "./ComboBox.svelte";
-	import { afterNavigate } from "$app/navigation";
+	import ComboBox from './ComboBox.svelte'
+	import { afterNavigate } from '$app/navigation'
 
-	let open = $state(false);
-	let popover = $state<HTMLElement | undefined>(undefined);
+	let open = $state(false)
+	let popover = $state<HTMLElement | undefined>(undefined)
 
 	function hide_popover() {
 		if (open) {
-			popover?.hidePopover();
+			popover?.hidePopover()
 		}
 	}
 
 	function reset() {
-		hide_popover();
+		hide_popover()
 	}
 
 	function start() {
-		popover?.showPopover();
+		popover?.showPopover()
 	}
 
 	function on_window_keydown(event: KeyboardEvent) {
-		if (
-			!event.repeat &&
-			(event.metaKey || event.ctrlKey) &&
-			event.key === "k"
-		) {
+		if (!event.repeat && (event.metaKey || event.ctrlKey) && event.key === 'k') {
 			// Prevent browser focusing address bar
-			event.preventDefault();
-			start();
-			return;
+			event.preventDefault()
+			start()
+			return
 		}
 
-		if (open && event.key === "Escape") {
+		if (open && event.key === 'Escape') {
 			// Prevent default behavior of the Escape key: closing fullscreen mode in MacOS
-			event.preventDefault();
+			event.preventDefault()
 			// close the dialog
-			hide_popover();
+			hide_popover()
 		}
 	}
 
 	function ontoggle(event: ToggleEvent) {
-		open = event.newState === "open";
+		open = event.newState === 'open'
 
-		if (event.newState === "open") {
-			start();
+		if (event.newState === 'open') {
+			start()
 		} else {
-			reset();
+			reset()
 		}
 	}
 
-	afterNavigate(() => reset());
+	afterNavigate(() => reset())
 </script>
 
 <svelte:window onkeydown={on_window_keydown} />
@@ -105,7 +101,7 @@
 			display: none;
 		}
 
-		&[aria-expanded="true"] {
+		&[aria-expanded='true'] {
 			background-color: var(--bg-200);
 			border-color: var(--fg-450);
 			color: light-dark(var(--fg-0), var(--accent-500));

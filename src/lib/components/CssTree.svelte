@@ -1,41 +1,26 @@
 <script module lang="ts">
-	const IGNORED_KEYS = new Set([
-		"type",
-		"type_name",
-		"children",
-		"text",
-		"start",
-		"end",
-		"line",
-		"column",
-		"length",
-	]);
+	const IGNORED_KEYS = new Set(['type', 'type_name', 'children', 'text', 'start', 'end', 'line', 'column', 'length'])
 </script>
 
 <script lang="ts">
-	import {
-		DECLARATION,
-		RAW,
-		type CSSNode,
-		type PlainCSSNode,
-	} from "@projectwallace/css-parser";
+	import { DECLARATION, RAW, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
 
 	// Brute force type definition for CssNode so we can iterate over its keys
 	type Node = CSSNode & {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		[key: string]: any;
-	};
+		[key: string]: any
+	}
 
-	import CssTree from "./CssTree.svelte";
+	import CssTree from './CssTree.svelte'
 
 	type Props = {
-		node: Node;
-		depth?: number;
-		show_locations: boolean;
-		show_types: boolean;
-		highlighted_node?: PlainCSSNode;
-		scroll_container?: HTMLElement;
-	};
+		node: Node
+		depth?: number
+		show_locations: boolean
+		show_types: boolean
+		highlighted_node?: PlainCSSNode
+		scroll_container?: HTMLElement
+	}
 
 	let {
 		node,
@@ -43,27 +28,25 @@
 		show_locations = false,
 		show_types = false,
 		highlighted_node,
-		scroll_container,
-	}: Props = $props();
+		scroll_container
+	}: Props = $props()
 
 	// Convert the node to a plain object for easier iteration
-	let plain_node = $derived(
-		node.clone({ locations: true, deep: false }) as Node,
-	);
+	let plain_node = $derived(node.clone({ locations: true, deep: false }) as Node)
 
-	let node_element: HTMLElement | undefined = undefined;
+	let node_element: HTMLElement | undefined = undefined
 
 	function compare_nodes(a: Node, b: PlainCSSNode | undefined): boolean {
-		if (!b) return false;
-		return a.start === b.start && a.end === b.end && a.type === b.type;
+		if (!b) return false
+		return a.start === b.start && a.end === b.end && a.type === b.type
 	}
 
 	function filter_properties(obj: Node): string[] {
 		return Object.keys(obj).filter((key) => {
-			if (IGNORED_KEYS.has(key)) return false;
-			if (obj[key] === false) return false;
-			return true;
-		});
+			if (IGNORED_KEYS.has(key)) return false
+			if (obj[key] === false) return false
+			return true
+		})
 	}
 
 	$effect(() => {
@@ -76,32 +59,22 @@
 			scroll_container !== undefined &&
 			compare_nodes(node, highlighted_node)
 		) {
-			const container_rect = scroll_container.getBoundingClientRect();
-			const element_rect = node_element.getBoundingClientRect();
+			const container_rect = scroll_container.getBoundingClientRect()
+			const element_rect = node_element.getBoundingClientRect()
 
 			// Only scroll if the element is not fully visible within the scrollable container
-			if (
-				element_rect.top < container_rect.top ||
-				element_rect.bottom > container_rect.bottom
-			) {
+			if (element_rect.top < container_rect.top || element_rect.bottom > container_rect.bottom) {
 				const scroll_offset =
-					element_rect.top -
-					container_rect.top -
-					container_rect.height / 2 +
-					element_rect.height / 2;
+					element_rect.top - container_rect.top - container_rect.height / 2 + element_rect.height / 2
 				scroll_container.scrollTo({
-					top: scroll_container.scrollTop + scroll_offset,
-				});
+					top: scroll_container.scrollTop + scroll_offset
+				})
 			}
 		}
-	});
+	})
 </script>
 
-<li
-	bind:this={node_element}
-	role="treeitem"
-	aria-selected={compare_nodes(node, highlighted_node) ? "true" : "false"}
->
+<li bind:this={node_element} role="treeitem" aria-selected={compare_nodes(node, highlighted_node) ? 'true' : 'false'}>
 	<div class="name">
 		{node.type_name}
 		{#if !show_types}
@@ -120,7 +93,7 @@
 			</li>
 		{/if}
 		{#if show_locations}
-			{#each ["line", "column", "start", "end", "length"] as prop (prop)}
+			{#each ['line', 'column', 'start', 'end', 'length'] as prop (prop)}
 				<li data-testid="location">
 					<span class="property">{prop}</span>:
 					<span class="number">{node[prop]}</span>
@@ -135,7 +108,7 @@
 		{/if}
 		{#each filter_properties(plain_node) as key (key)}
 			{@const value = plain_node[key]}
-			{@const expandable = typeof value === "object" && value !== null}
+			{@const expandable = typeof value === 'object' && value !== null}
 			<li>
 				<span class="property">{key}</span>:
 				{#if expandable}
@@ -177,12 +150,12 @@
 </li>
 
 <style>
-	[role="treeitem"] {
+	[role='treeitem'] {
 		font-family: var(--font-mono);
 		transition: background-color 100ms;
 		scroll-margin: var(--space-12);
 
-		&[aria-selected="true"] {
+		&[aria-selected='true'] {
 			background-color: rgb(from var(--accent-400) r g b / 0.05);
 		}
 	}

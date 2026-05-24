@@ -1,55 +1,47 @@
 <script lang="ts">
-	import type {
-		HTMLButtonAttributes,
-		HTMLAnchorAttributes,
-	} from "svelte/elements";
-	import type { Variant } from "./Button";
-	import type { IconName } from "./Icon.svelte";
-	import Icon from "./Icon.svelte";
+	import type { HTMLButtonAttributes, HTMLAnchorAttributes } from 'svelte/elements'
+	import type { Variant } from './Button'
+	import type { IconName } from './Icon.svelte'
+	import Icon from './Icon.svelte'
 
-	type Size = "sm" | "md" | "lg";
+	type Size = 'sm' | 'md' | 'lg'
 
 	type GenericButtonProps = {
-		variant?: Variant;
-		size?: Size;
-		icon?: IconName | undefined;
-		on_click?: (event: MouseEvent) => void;
-	};
+		variant?: Variant
+		size?: Size
+		icon?: IconName | undefined
+		on_click?: (event: MouseEvent) => void
+	}
 
 	type AnchorProps = GenericButtonProps &
 		HTMLAnchorAttributes & {
-			element?: "a";
-		};
+			element?: 'a'
+		}
 	type ButtonProps = GenericButtonProps &
 		HTMLButtonAttributes & {
-			element?: "button";
-		};
+			element?: 'button'
+		}
 
-	type Props = AnchorProps | ButtonProps;
+	type Props = AnchorProps | ButtonProps
 
 	let {
-		class: classname = "",
-		element = "button",
-		variant = "primary",
-		size = "md",
+		class: classname = '',
+		element = 'button',
+		variant = 'primary',
+		size = 'md',
 		icon = undefined,
 		on_click = () => {},
 		children,
 		...rest
-	}: Props = $props();
+	}: Props = $props()
 </script>
 
 <!-- We know this is either a <a> or a <button> -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<svelte:element
-	this={element}
-	onclick={on_click}
-	class="btn {variant} {size} {classname}"
-	{...rest}
->
+<svelte:element this={element} onclick={on_click} class="btn {variant} {size} {classname}" {...rest}>
 	{@render children?.()}
 	{#if icon}
-		<Icon name={icon} size={size === "lg" ? 20 : 14} />
+		<Icon name={icon} size={size === 'lg' ? 20 : 14} />
 	{/if}
 </svelte:element>
 

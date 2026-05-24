@@ -1,86 +1,86 @@
 <script lang="ts">
-	import { useResizeObserver } from "runed";
-	import Logo from "$lib/components/Logo.svelte";
-	import Container from "$lib/components/Container.svelte";
-	import { page } from "$app/state";
-	import { onNavigate } from "$app/navigation";
-	import { items } from "./Nav.items";
-	import { get_css_state } from "$lib/css-state.svelte";
-	import { type Snippet } from "svelte";
-	import { on } from "svelte/events";
+	import { useResizeObserver } from 'runed'
+	import Logo from '$lib/components/Logo.svelte'
+	import Container from '$lib/components/Container.svelte'
+	import { page } from '$app/state'
+	import { onNavigate } from '$app/navigation'
+	import { items } from './Nav.items'
+	import { get_css_state } from '$lib/css-state.svelte'
+	import { type Snippet } from 'svelte'
+	import { on } from 'svelte/events'
 
-	let { children }: { children: Snippet } = $props();
+	let { children }: { children: Snippet } = $props()
 
-	let wrapper = $state<HTMLElement | undefined>(undefined);
-	let popover_open = $state(false);
-	let popover = $state<HTMLElement | undefined>(undefined);
+	let wrapper = $state<HTMLElement | undefined>(undefined)
+	let popover_open = $state(false)
+	let popover = $state<HTMLElement | undefined>(undefined)
 
 	onNavigate(() => {
-		hide_popover();
-	});
+		hide_popover()
+	})
 
 	function hide_popover() {
 		if (popover_open) {
-			popover?.hidePopover();
+			popover?.hidePopover()
 		}
 	}
 
 	function ontoggle(event: ToggleEvent) {
-		popover_open = event.newState === "open";
+		popover_open = event.newState === 'open'
 	}
 
-	let nodes: HTMLLIElement[] = $state([]);
-	let is_overflowing = $state(false);
-	let overflow_index = $state(-1);
-	let css_state = get_css_state();
+	let nodes: HTMLLIElement[] = $state([])
+	let is_overflowing = $state(false)
+	let overflow_index = $state(-1)
+	let css_state = get_css_state()
 	let rewritten_items = $derived.by(() => {
 		return items.map((item) => {
-			let url = new URL(item.url, page.url.origin);
+			let url = new URL(item.url, page.url.origin)
 			if (css_state.url !== undefined) {
-				url.searchParams.set("url", css_state.url);
-				url.searchParams.set("prettify", css_state.should_prettify ? "1" : "0");
+				url.searchParams.set('url', css_state.url)
+				url.searchParams.set('prettify', css_state.should_prettify ? '1' : '0')
 			}
 			return {
 				...item,
 				url: url.pathname + url.search + url.hash,
-				canonical: item.url,
-			};
-		});
-	});
+				canonical: item.url
+			}
+		})
+	})
 
 	function on_resize() {
-		if (document.documentElement.dataset.theme === "naked") return;
+		if (document.documentElement.dataset.theme === 'naked') return
 		// The first node that doesn't have the same top position as the previous one
 		// is the first node that's wrapped on a new line
-		let first_top = nodes[0].getBoundingClientRect().top;
-		let last_top = nodes[nodes.length - 1].getBoundingClientRect().top;
+		let first_top = nodes[0].getBoundingClientRect().top
+		let last_top = nodes[nodes.length - 1].getBoundingClientRect().top
 		if (last_top === first_top) {
-			is_overflowing = false;
-			overflow_index = -1;
-			popover?.hidePopover();
+			is_overflowing = false
+			overflow_index = -1
+			popover?.hidePopover()
 		} else {
-			is_overflowing = true;
+			is_overflowing = true
 
 			for (let i = 1; i < nodes.length; i++) {
-				let node = nodes[i];
+				let node = nodes[i]
 				if (node.getBoundingClientRect().top > first_top) {
-					overflow_index = nodes.indexOf(node);
-					break;
+					overflow_index = nodes.indexOf(node)
+					break
 				}
 			}
 		}
 	}
 
-	useResizeObserver(() => wrapper, on_resize);
+	useResizeObserver(() => wrapper, on_resize)
 
 	$effect(() => {
-		return on(window, "keydown", prevent_fullscreen_close);
-	});
+		return on(window, 'keydown', prevent_fullscreen_close)
+	})
 
 	function prevent_fullscreen_close(event: KeyboardEvent) {
-		if (event.key === "Escape" && popover_open) {
-			event.preventDefault();
-			hide_popover();
+		if (event.key === 'Escape' && popover_open) {
+			event.preventDefault()
+			hide_popover()
 		}
 	}
 </script>
@@ -92,17 +92,12 @@
 			<ul class="nav-list" role="list" bind:this={wrapper}>
 				{#each rewritten_items as item, index (item.url)}
 					{@const is_hidden = is_overflowing && index >= overflow_index}
-					<li
-						bind:this={nodes[index]}
-						aria-hidden={is_hidden ? "true" : undefined}
-					>
+					<li bind:this={nodes[index]} aria-hidden={is_hidden ? 'true' : undefined}>
 						<a
 							class="nav-item"
 							href={item.url}
 							tabindex={is_hidden ? -1 : undefined}
-							aria-current={page.url.pathname.startsWith(item.canonical)
-								? "page"
-								: undefined}
+							aria-current={page.url.pathname.startsWith(item.canonical) ? 'page' : undefined}
 						>
 							{item.title}
 						</a>
@@ -118,29 +113,21 @@
 						aria-label="Additional navigation items"
 						aria-haspopup="true"
 						aria-controls="nav-popover"
-						aria-expanded={popover_open ? "true" : "false"}
+						aria-expanded={popover_open ? 'true' : 'false'}
 						class="nav-popover-trigger"
 						class:invisible={!is_overflowing}
 					>
 						<span aria-hidden="true">&hellip;</span>
 						<span class="sr-only">Additional navigation items</span>
 					</button>
-					<div
-						popover="auto"
-						class="nav-popover"
-						id="nav-popover"
-						bind:this={popover}
-						{ontoggle}
-					>
+					<div popover="auto" class="nav-popover" id="nav-popover" bind:this={popover} {ontoggle}>
 						<ul class="nav-popover-list">
 							{#each items.slice(overflow_index) as item (item.url)}
 								<li>
 									<a
 										class="popover-item"
 										href={item.url}
-										aria-current={page.url.pathname.startsWith(item.url)
-											? "page"
-											: undefined}
+										aria-current={page.url.pathname.startsWith(item.url) ? 'page' : undefined}
 									>
 										{item.title}
 									</a>
@@ -187,8 +174,8 @@
 		align-items: baseline;
 		font-size: var(--nav-font-size);
 		height: calc(
-			var(--nav-font-size) * var(--leading-base) + var(--item-block-padding) +
-				var(--item-block-padding) + var(--nav-border-height)
+			var(--nav-font-size) * var(--leading-base) + var(--item-block-padding) + var(--item-block-padding) +
+				var(--nav-border-height)
 		);
 		overflow: hidden;
 
@@ -220,7 +207,7 @@
 		}
 	}
 
-	.nav-item[aria-current="page"] {
+	.nav-item[aria-current='page'] {
 		&,
 		&:hover,
 		&:focus {
@@ -243,7 +230,7 @@
 		border: 1px solid var(--fg-500);
 		anchor-name: --nav-popover-trigger;
 
-		&[aria-expanded="true"] {
+		&[aria-expanded='true'] {
 			background-color: var(--bg-200);
 			border-color: var(--fg-450);
 		}
@@ -286,7 +273,7 @@
 		border-inline-end: var(--space-1) solid transparent;
 		font-size: var(--nav-font-size);
 
-		&[aria-current="page"] {
+		&[aria-current='page'] {
 			color: var(--fg-200);
 			border-inline-start-color: var(--accent-500);
 

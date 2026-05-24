@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
+	import type { Snippet } from 'svelte'
 	type Props = {
-		href: string;
-		children?: Snippet;
-		show_creditcard: boolean;
-		cta: string;
-	};
-	let { children, href, cta, show_creditcard = false }: Props = $props();
+		href: string
+		children?: Snippet
+		show_creditcard: boolean
+		cta: string
+	}
+	let { children, href, cta, show_creditcard = false }: Props = $props()
 </script>
 
 <div class="component">

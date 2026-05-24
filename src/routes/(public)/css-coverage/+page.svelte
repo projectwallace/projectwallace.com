@@ -1,65 +1,58 @@
 <script lang="ts">
-	import {
-		parse_coverage,
-		type Coverage,
-	} from "@projectwallace/css-code-coverage";
-	import CoverageReport from "$components/coverage/Coverage.svelte";
-	import Label from "$components/Label.svelte";
-	import Icon from "$components/Icon.svelte";
-	import Seo from "$components/Seo.svelte";
-	import Content from "./content.md";
-	import Markdown from "$components/Markdown.svelte";
-	import Container from "$components/Container.svelte";
-	import Heading from "$components/Heading.svelte";
-	import { on } from "svelte/events";
-	import Hero from "$components/Hero.svelte";
+	import { parse_coverage, type Coverage } from '@projectwallace/css-code-coverage'
+	import CoverageReport from '$components/coverage/Coverage.svelte'
+	import Label from '$components/Label.svelte'
+	import Icon from '$components/Icon.svelte'
+	import Seo from '$components/Seo.svelte'
+	import Content from './content.md'
+	import Markdown from '$components/Markdown.svelte'
+	import Container from '$components/Container.svelte'
+	import Heading from '$components/Heading.svelte'
+	import { on } from 'svelte/events'
+	import Hero from '$components/Hero.svelte'
 
-	let data: Coverage[] = $state([]);
-	let input: HTMLInputElement;
+	let data: Coverage[] = $state([])
+	let input: HTMLInputElement
 
 	async function onchange(event: Event) {
-		let files = (event.target as HTMLInputElement)?.files;
-		let new_data: Coverage[] = [];
+		let files = (event.target as HTMLInputElement)?.files
+		let new_data: Coverage[] = []
 
-		if (!files) return;
+		if (!files) return
 
 		for (let file of files) {
 			// Skip non-JSON files
-			if (file.type !== "application/json") {
-				continue;
+			if (file.type !== 'application/json') {
+				continue
 			}
-			let text = await file.text();
-			let parsed = parse_coverage(text);
-			new_data.push(...parsed);
+			let text = await file.text()
+			let parsed = parse_coverage(text)
+			new_data.push(...parsed)
 		}
 
 		// only update state once to prevent hundreds of re-renders
-		data = new_data;
+		data = new_data
 	}
 
-	let drag_state: "idle" | "dragging" = $state("idle");
+	let drag_state: 'idle' | 'dragging' = $state('idle')
 
 	async function load_example() {
-		let { default: example_data } = await import("./example-coverage.json?raw");
-		data = parse_coverage(example_data);
+		let { default: example_data } = await import('./example-coverage.json?raw')
+		data = parse_coverage(example_data)
 	}
 
 	function on_keydown(event: KeyboardEvent) {
-		if (
-			!event.repeat &&
-			(event.metaKey || event.ctrlKey) &&
-			event.key === "o"
-		) {
+		if (!event.repeat && (event.metaKey || event.ctrlKey) && event.key === 'o') {
 			// Prevent the default browser dialog to open a regular file from opening
-			event.preventDefault();
+			event.preventDefault()
 			// Trigger our file input element to trigger it's dialog
-			input.click();
+			input.click()
 		}
 	}
 
 	$effect(() => {
-		return on(window, "keydown", on_keydown);
-	});
+		return on(window, 'keydown', on_keydown)
+	})
 </script>
 
 <Seo
@@ -68,10 +61,7 @@
 />
 
 <Hero title="Code Coverage">
-	<p class="lead">
-		View CSS Code coverage per file, prettified and marked which lines are
-		covered.
-	</p>
+	<p class="lead">View CSS Code coverage per file, prettified and marked which lines are covered.</p>
 </Hero>
 
 <div class="app">
@@ -85,10 +75,10 @@
 			multiple
 			{onchange}
 			bind:this={input}
-			ondragenter={() => (drag_state = "dragging")}
-			ondragleave={() => (drag_state = "idle")}
-			ondragend={() => (drag_state = "idle")}
-			ondrop={() => (drag_state = "idle")}
+			ondragenter={() => (drag_state = 'dragging')}
+			ondragleave={() => (drag_state = 'idle')}
+			ondragend={() => (drag_state = 'idle')}
+			ondrop={() => (drag_state = 'idle')}
 			data-drag-state={drag_state}
 		/>
 	</form>
@@ -101,21 +91,13 @@
 		<Markdown>
 			<p>
 				Learn how to
-				<a
-					href="https://developer.chrome.com/docs/devtools/coverage/"
-					rel="noreferrer external"
-					target="_blank"
-				>
+				<a href="https://developer.chrome.com/docs/devtools/coverage/" rel="noreferrer external" target="_blank">
 					record CSS coverage
 				</a>
 				<Icon name="external" size={16} /> in your browser, or
-				<a href="/blog/how-to-calculate-css-code-coverage-with-playwright"
-					>let your Playwright tests do it</a
-				>! After that, export the data as JSON and select or drop the file here.
-				Or
-				<button type="button" class="example" onclick={load_example}
-					>load an example file</button
-				>.
+				<a href="/blog/how-to-calculate-css-code-coverage-with-playwright">let your Playwright tests do it</a>! After
+				that, export the data as JSON and select or drop the file here. Or
+				<button type="button" class="example" onclick={load_example}>load an example file</button>.
 			</p>
 		</Markdown>
 
@@ -138,7 +120,7 @@
 		gap: var(--space-3);
 	}
 
-	input[type="file"] {
+	input[type='file'] {
 		display: flex;
 		width: 100%;
 		padding: var(--space-8);
@@ -151,7 +133,7 @@
 			border-color: var(--bg-400);
 		}
 
-		&[data-drag-state="dragging"] {
+		&[data-drag-state='dragging'] {
 			border-color: var(--accent);
 		}
 	}

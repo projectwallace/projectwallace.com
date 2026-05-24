@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { highlight_css } from "./use-css-highlight";
+	import { highlight_css } from './use-css-highlight'
 
-	type Props = Pick<HTMLTextAreaElement, "name" | "id"> & {
-		value?: string;
-		on_cursor_move?: ({ start, end }: { start: number; end: number }) => void;
-	};
+	type Props = Pick<HTMLTextAreaElement, 'name' | 'id'> & {
+		value?: string
+		on_cursor_move?: ({ start, end }: { start: number; end: number }) => void
+	}
 
-	let { value = $bindable(""), on_cursor_move, name, id }: Props = $props();
-	let textarea: HTMLTextAreaElement | undefined = undefined;
+	let { value = $bindable(''), on_cursor_move, name, id }: Props = $props()
+	let textarea: HTMLTextAreaElement | undefined = undefined
 
 	function set_cursor_positions() {
-		if (!textarea) return;
+		if (!textarea) return
 		on_cursor_move?.({
 			start: textarea.selectionStart,
-			end: textarea.selectionEnd,
-		});
+			end: textarea.selectionEnd
+		})
 	}
 </script>
 

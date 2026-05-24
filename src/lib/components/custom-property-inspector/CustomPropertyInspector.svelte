@@ -1,116 +1,102 @@
 <script lang="ts">
-	import { createTreeView } from "@melt-ui/svelte";
-	import { setContext } from "svelte";
-	import Tree from "./Tree.svelte";
-	import {
-		USED,
-		UNUSED,
-		UNDECLARED,
-		UNDECLARED_WITH_FALLBACK,
-		type TreeItem,
-	} from "./types";
-	import Icon from "$components/Icon.svelte";
-	import CopyButton from "$components/CopyButton.svelte";
-	import Pre from "$components/Pre.svelte";
-	import { analyze } from "./analyze-custom-properties";
-	import type { CssLocation } from "$lib/css-location";
-	import Empty from "$components/Empty.svelte";
-	import DevTools from "$components/DevTools.svelte";
-	import { network, properties, type TabId } from "$components/devtools/tabs";
-	import JsonPanel from "$components/devtools/JsonPanel.svelte";
-	import NetworkPanel from "$components/NetworkPanel.svelte";
-	import { get_css_state } from "$lib/css-state.svelte";
+	import { createTreeView } from '@melt-ui/svelte'
+	import { setContext } from 'svelte'
+	import Tree from './Tree.svelte'
+	import { USED, UNUSED, UNDECLARED, UNDECLARED_WITH_FALLBACK, type TreeItem } from './types'
+	import Icon from '$components/Icon.svelte'
+	import CopyButton from '$components/CopyButton.svelte'
+	import Pre from '$components/Pre.svelte'
+	import { analyze } from './analyze-custom-properties'
+	import type { CssLocation } from '$lib/css-location'
+	import Empty from '$components/Empty.svelte'
+	import DevTools from '$components/DevTools.svelte'
+	import { network, properties, type TabId } from '$components/devtools/tabs'
+	import JsonPanel from '$components/devtools/JsonPanel.svelte'
+	import NetworkPanel from '$components/NetworkPanel.svelte'
+	import { get_css_state } from '$lib/css-state.svelte'
 
-	let css_state = get_css_state();
-	let css = $derived(css_state.css);
-	let result = $derived(analyze(css));
-	let search_query: string = $state("");
-	let filter_unused: boolean = $state(false);
-	let filter_undefined: boolean = $state(false);
-	let filter_with_fallback: boolean = $state(false);
+	let css_state = get_css_state()
+	let css = $derived(css_state.css)
+	let result = $derived(analyze(css))
+	let search_query: string = $state('')
+	let filter_unused: boolean = $state(false)
+	let filter_undefined: boolean = $state(false)
+	let filter_with_fallback: boolean = $state(false)
 	let search_results = $derived.by<Map<string, CssLocation[]>>(() => {
-		let query = search_query.toLowerCase().trim();
-		if (query === "" || query === "!") return result.all;
-		let filtered = new Map<string, CssLocation[]>();
+		let query = search_query.toLowerCase().trim()
+		if (query === '' || query === '!') return result.all
+		let filtered = new Map<string, CssLocation[]>()
 		for (let [name, locations] of result.all) {
-			let searchable_name = name.toLowerCase();
+			let searchable_name = name.toLowerCase()
 			// Allow searching with `!` to exclude results
-			if (
-				query.charAt(0) === "!" &&
-				!searchable_name.includes(query.slice(1))
-			) {
-				filtered.set(name, locations);
-				continue;
+			if (query.charAt(0) === '!' && !searchable_name.includes(query.slice(1))) {
+				filtered.set(name, locations)
+				continue
 			}
 			// Normal search
 			if (searchable_name.includes(query)) {
-				filtered.set(name, locations);
+				filtered.set(name, locations)
 			}
 		}
-		return filtered;
-	});
-	let filtered_results = $derived.by<Map<string, CssLocation[]> | undefined>(
-		() => {
-			if (result) {
-				return filter_results(
-					search_results,
-					result.unused,
-					result.undeclared,
-					result.undeclared_with_fallback,
-					filter_unused,
-					filter_undefined,
-					filter_with_fallback,
-				);
-			}
-		},
-	);
+		return filtered
+	})
+	let filtered_results = $derived.by<Map<string, CssLocation[]> | undefined>(() => {
+		if (result) {
+			return filter_results(
+				search_results,
+				result.unused,
+				result.undeclared,
+				result.undeclared_with_fallback,
+				filter_unused,
+				filter_undefined,
+				filter_with_fallback
+			)
+		}
+	})
 
 	$effect(() => {
 		if (css) {
 			// Reset expanded items when CSS changes to avoid null-pointers
-			expanded.set([]);
+			expanded.set([])
 			// eslint-disable-next-line eslint-plugin-unicorn/no-null
-			$selectedItem = null;
-			search_query = "";
+			$selectedItem = null
+			search_query = ''
 		}
-	});
+	})
 
 	let tree_items = $derived.by<TreeItem[]>(() => {
-		if (!filtered_results) return [];
+		if (!filtered_results) return []
 		return Array.from(filtered_results, ([property_name, locations]) => {
-			let level: TreeItem["level"] = USED;
+			let level: TreeItem['level'] = USED
 			if (result.undeclared.has(property_name)) {
-				level = UNDECLARED;
+				level = UNDECLARED
 			} else if (result.unused.has(property_name)) {
-				level = UNUSED;
+				level = UNUSED
 			} else if (result.undeclared_with_fallback.has(property_name)) {
-				level = UNDECLARED_WITH_FALLBACK;
+				level = UNDECLARED_WITH_FALLBACK
 			}
 			return {
 				title: property_name,
 				name: property_name.slice(2),
 				count: locations.length,
-				type: "property",
+				type: 'property',
 				level,
 				search_query,
 				children: locations.map((location, index) => {
-					let name = css.slice(
-						location.offset,
-						location.offset + location.length,
-					);
+					let name = css.slice(location.offset, location.offset + location.length)
 					return {
 						title: name,
 						name,
 						index: index,
-						type: "location",
+						type: 'location',
 						parent: property_name,
 						location,
-						level,
-					};
-				}),
-			};
-		}) as TreeItem[];
-	});
+						level
+					}
+				})
+			}
+		}) as TreeItem[]
+	})
 
 	function filter_results(
 		items: Map<string, CssLocation[]>,
@@ -119,69 +105,65 @@
 		undeclared_with_fallback: Set<string>,
 		filter_unused: boolean,
 		filter_undefined: boolean,
-		filter_with_fallback: boolean,
+		filter_with_fallback: boolean
 	) {
-		if (
-			filter_unused === false &&
-			filter_undefined === false &&
-			filter_with_fallback === false
-		) {
-			return items;
+		if (filter_unused === false && filter_undefined === false && filter_with_fallback === false) {
+			return items
 		}
 
-		let filtered = new Map<string, CssLocation[]>();
+		let filtered = new Map<string, CssLocation[]>()
 
 		for (let [name, locations] of items) {
 			if (filter_unused === true && unused_properties.has(name)) {
-				filtered.set(name, locations);
-				continue;
+				filtered.set(name, locations)
+				continue
 			}
 
 			if (filter_undefined === true && undeclared_properties.has(name)) {
-				filtered.set(name, locations);
-				continue;
+				filtered.set(name, locations)
+				continue
 			}
 
 			if (filter_with_fallback === true && undeclared_with_fallback.has(name)) {
-				filtered.set(name, locations);
-				continue;
+				filtered.set(name, locations)
+				continue
 			}
 		}
 
-		return filtered;
+		return filtered
 	}
 
 	let ctx = createTreeView({
-		forceVisible: false,
-	});
-	setContext("tree", ctx);
+		forceVisible: false
+	})
+	setContext('tree', ctx)
 
 	let {
 		elements: { tree },
-		states: { selectedItem, expanded },
-	} = ctx;
+		states: { selectedItem, expanded }
+	} = ctx
 
 	let selected_item = $derived.by(() => {
 		if ($selectedItem !== null) {
-			const data = JSON.parse($selectedItem.dataset.item as string);
-			let locations = result.all.get(data.title);
+			const data = JSON.parse($selectedItem.dataset.item as string)
+			let locations = result.all.get(data.title)
 			if (locations !== undefined) {
 				return {
-					location: data.type === "property" ? locations.at(0) : data.location,
-					locations,
-				};
+					location: data.type === 'property' ? locations.at(0) : data.location,
+					locations
+				}
 			}
 		}
-	});
+	})
 
 	function onsearch(event: SubmitEvent) {
-		event.preventDefault();
+		event.preventDefault()
 	}
 
 	function reset_filters() {
-		filter_undefined = false;
-		filter_unused = false;
-		filter_with_fallback = false;
+		filter_undefined = false
+		filter_unused = false
+		filter_with_fallback = false
 	}
 </script>
 
@@ -201,22 +183,16 @@
 	<section class="list">
 		<header>
 			<h2>Properties</h2>
-			<button
-				type="button"
-				onclick={() => expanded.set([])}
-				class="collapse-all"
-			>
+			<button type="button" onclick={() => expanded.set([])} class="collapse-all">
 				<Icon name="fold" size={14} />
 				<div class="sr-only">Collapse all</div>
 			</button>
 			<search>
 				<form method="GET" onsubmit={onsearch}>
-					<label for="search-property" class="sr-only"
-						>Search property name</label
-					>
+					<label for="search-property" class="sr-only">Search property name</label>
 					<input
 						type="search"
-						placeholder={"search-my-property"}
+						placeholder={'search-my-property'}
 						name="propery"
 						id="search-property"
 						bind:value={search_query}
@@ -229,7 +205,7 @@
 					{#if filtered_results !== undefined && filtered_results.size > 0 && search_query.trim().length > 0}
 						<p class="search-info" data-testid="search-info">
 							{filtered_results.size}
-							{filtered_results.size === 1 ? "property" : "properties"} shown,
+							{filtered_results.size === 1 ? 'property' : 'properties'} shown,
 							{result.all.size - filtered_results.size} hidden by search
 						</p>
 						<button type="reset">Clear search</button>
@@ -245,8 +221,8 @@
 						<button
 							class="clear-search"
 							onclick={() => {
-								search_query = "";
-								reset_filters();
+								search_query = ''
+								reset_filters()
 							}}>Clear all</button
 						>?
 					</Empty>
@@ -268,8 +244,7 @@
 	<div class="summary">
 		{#if selected_item}
 			<div class="current-location">
-				Line {selected_item.location.line}, Column {selected_item.location
-					.column}
+				Line {selected_item.location.line}, Column {selected_item.location.column}
 			</div>
 		{/if}
 		<div class="filters">
@@ -304,17 +279,15 @@
 <div class="devtools">
 	<DevTools tabs={[network, properties]}>
 		{#snippet children({ tab_id }: { tab_id: TabId })}
-			{#if tab_id === "network"}
+			{#if tab_id === 'network'}
 				<NetworkPanel />
-			{:else if tab_id === "properties"}
+			{:else if tab_id === 'properties'}
 				<JsonPanel
 					json={{
-						"All Properties": Array.from(result.all.keys()),
-						"Unused Properties": Array.from(result.unused),
-						"Undefined Properties": Array.from(result.undeclared),
-						"Undefined with Fallback": Array.from(
-							result.undeclared_with_fallback,
-						),
+						'All Properties': Array.from(result.all.keys()),
+						'Unused Properties': Array.from(result.unused),
+						'Undefined Properties': Array.from(result.undeclared),
+						'Undefined with Fallback': Array.from(result.undeclared_with_fallback)
 					}}
 				/>
 			{/if}
@@ -324,26 +297,19 @@
 
 <style>
 	.wrapper {
-		--wallace-custom-property-inspector-bg-color: light-dark(
-			transparent,
-			var(--bg-200)
-		);
+		--wallace-custom-property-inspector-bg-color: light-dark(transparent, var(--bg-200));
 		--wallace-custom-property-inspector-border-color: var(--fg-600);
 		--wallace-custom-property-inspector-error-color: var(--red-400);
 		--wallace-custom-property-inspector-warning-color: var(--orange-400);
-		--wallace-custom-property-inspector-suggestion-color: light-dark(
-			var(--yellow-600),
-			var(--yellow-400)
-		);
+		--wallace-custom-property-inspector-suggestion-color: light-dark(var(--yellow-600), var(--yellow-400));
 		width: 100%;
-		border: var(--space-px) solid
-			var(--wallace-custom-property-inspector-border-color);
+		border: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
 		background-color: var(--wallace-custom-property-inspector-bg-color);
 		scroll-margin-block-start: var(--space-4);
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) minmax(16rem, 25%);
 		grid-template-rows: 1fr auto;
-		grid-template-areas: "editor list" "summary summary";
+		grid-template-areas: 'editor list' 'summary summary';
 
 		& :is(.list, .editor) {
 			position: relative;
@@ -354,8 +320,7 @@
 
 	.editor {
 		grid-template-rows: auto minmax(0, 1fr);
-		border-inline-end: 1px solid
-			var(--wallace-custom-property-inspector-border-color);
+		border-inline-end: 1px solid var(--wallace-custom-property-inspector-border-color);
 		grid-area: editor;
 	}
 
@@ -387,8 +352,7 @@
 		padding-inline: var(--space-2);
 		background-color: var(--wallace-custom-property-inspector-bg-color);
 		font-size: var(--size-sm);
-		border-block-end: var(--space-px) solid
-			var(--wallace-custom-property-inspector-border-color);
+		border-block-end: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
 
 		& h2 {
 			text-transform: uppercase;
@@ -403,8 +367,7 @@
 			margin-inline: calc(-1 * var(--space-2));
 			padding-inline: var(--space-2);
 			grid-column: 1 / -1;
-			border-block-start: var(--space-px) solid
-				var(--wallace-custom-property-inspector-border-color);
+			border-block-start: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
 		}
 
 		& input {
@@ -414,7 +377,7 @@
 			padding-inline: var(--space-2);
 		}
 
-		button[type="submit"] {
+		button[type='submit'] {
 			position: absolute;
 		}
 
@@ -424,7 +387,7 @@
 			display: inline;
 		}
 
-		button[type="reset"] {
+		button[type='reset'] {
 			text-decoration: underline;
 		}
 	}
@@ -448,8 +411,7 @@
 
 	.summary {
 		grid-area: summary;
-		border-block-start: 1px solid
-			var(--wallace-custom-property-inspector-border-color);
+		border-block-start: 1px solid var(--wallace-custom-property-inspector-border-color);
 		padding-inline: var(--space-2);
 		font-size: var(--size-sm);
 		color: var(--fg-200);
@@ -467,7 +429,7 @@
 		button {
 			padding-inline: var(--space-2);
 
-			&[aria-pressed="true"] {
+			&[aria-pressed='true'] {
 				background-color: var(--bg-300);
 			}
 		}
@@ -480,21 +442,15 @@
 		}
 
 		.warning {
-			text-decoration-color: var(
-				--wallace-custom-property-inspector-warning-color
-			);
+			text-decoration-color: var(--wallace-custom-property-inspector-warning-color);
 		}
 
 		.error {
-			text-decoration-color: var(
-				--wallace-custom-property-inspector-error-color
-			);
+			text-decoration-color: var(--wallace-custom-property-inspector-error-color);
 		}
 
 		.alert {
-			text-decoration-color: var(
-				--wallace-custom-property-inspector-suggestion-color
-			);
+			text-decoration-color: var(--wallace-custom-property-inspector-suggestion-color);
 		}
 	}
 </style>

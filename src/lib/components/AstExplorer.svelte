@@ -1,91 +1,83 @@
 <script lang="ts">
-	import {
-		walk,
-		parse,
-		type CSSNode,
-		type PlainCSSNode,
-	} from "@projectwallace/css-parser";
-	import pkg from "@projectwallace/css-parser/package.json" with { type: "json" };
-	import { PersistedState } from "runed";
-	import CssTree from "./CssTree.svelte";
-	import { format } from "@projectwallace/format-css";
-	import HighlightedTextarea from "./HighlightedTextarea.svelte";
-	import { HashState } from "$lib/url-hash-state.svelte";
-	import Button from "./Button.svelte";
-	import CopyButton from "./CopyButton.svelte";
+	import { walk, parse, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
+	import pkg from '@projectwallace/css-parser/package.json' with { type: 'json' }
+	import { PersistedState } from 'runed'
+	import CssTree from './CssTree.svelte'
+	import { format } from '@projectwallace/format-css'
+	import HighlightedTextarea from './HighlightedTextarea.svelte'
+	import { HashState } from '$lib/url-hash-state.svelte'
+	import Button from './Button.svelte'
+	import CopyButton from './CopyButton.svelte'
 
-	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined);
-	let show_locations = new PersistedState("ast-show-locations", false);
-	let autofocus = new PersistedState("ast-autofocus-node", true);
-	let show_types = new PersistedState("ast-show-types", false);
-	let scroll_container: HTMLElement | undefined = $state(undefined);
+	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined)
+	let show_locations = new PersistedState('ast-show-locations', false)
+	let autofocus = new PersistedState('ast-autofocus-node', true)
+	let show_types = new PersistedState('ast-show-types', false)
+	let scroll_container: HTMLElement | undefined = $state(undefined)
 
 	$effect(() => {
 		if (!autofocus.current) {
-			highlighted_node = undefined;
+			highlighted_node = undefined
 		}
-	});
+	})
 
 	const DEFAULT_CSS = format(
-		'a { color: red; background: blue !important; #test-nested { color: green; } } c + b[aria-selected^="true" i] { border: 3px solid rgb(0 30% 0 / 50%) } @media (min-width: 600px) or print { test { color: blue !ie; } }',
-	);
+		'a { color: red; background: blue !important; #test-nested { color: green; } } c + b[aria-selected^="true" i] { border: 3px solid rgb(0 30% 0 / 50%) } @media (min-width: 600px) or print { test { color: blue !ie; } }'
+	)
 
 	type UrlState = {
-		css: string;
-		parse_atrule_preludes: boolean;
-		parse_selectors: boolean;
-		parse_values: boolean;
-	};
+		css: string
+		parse_atrule_preludes: boolean
+		parse_selectors: boolean
+		parse_values: boolean
+	}
 
 	let url_state = new HashState<UrlState>({
 		css: DEFAULT_CSS,
 		parse_atrule_preludes: true,
 		parse_selectors: true,
-		parse_values: true,
-	});
+		parse_values: true
+	})
 
 	let ast = $derived.by(() => {
 		try {
 			return parse(url_state.current.css, {
 				parse_atrule_preludes: url_state.current.parse_atrule_preludes,
 				parse_selectors: url_state.current.parse_selectors,
-				parse_values: url_state.current.parse_values,
-			});
+				parse_values: url_state.current.parse_values
+			})
 		} catch (error) {
-			return undefined;
+			return undefined
 		}
-	});
+	})
 
 	function on_cursor_move({ start, end }: { start: number; end: number }) {
 		if (autofocus.current) {
-			let node = find_node_at_cursor(start, end);
+			let node = find_node_at_cursor(start, end)
 			if (node === undefined) {
-				highlighted_node = undefined;
+				highlighted_node = undefined
 			} else {
-				highlighted_node = node.clone({ deep: false, locations: true });
+				highlighted_node = node.clone({ deep: false, locations: true })
 			}
 		}
 	}
 
-	function find_node_at_cursor(
-		start: number,
-		end: number,
-	): CSSNode | undefined {
-		if (!ast) return;
-		let found = undefined;
+	function find_node_at_cursor(start: number, end: number): CSSNode | undefined {
+		if (!ast) return
+		let found = undefined
 		walk(ast, (node) => {
 			if (node.start <= start && node.end >= end) {
-				found = node;
+				found = node
 			}
-		});
-		return found;
+		})
+		return found
 	}
 
 	function prettify() {
 		url_state.current = {
 			...url_state.current,
-			css: format(url_state.current.css),
-		};
+			css: format(url_state.current.css)
+		}
 	}
 </script>
 
@@ -122,39 +114,19 @@
 					<label for="parse-selectors">Parse selectors</label>
 				</div>
 				<div>
-					<input
-						type="checkbox"
-						name="parse-values"
-						id="parse-values"
-						bind:checked={url_state.current.parse_values}
-					/>
+					<input type="checkbox" name="parse-values" id="parse-values" bind:checked={url_state.current.parse_values} />
 					<label for="parse-values">Parse values</label>
 				</div>
 				<div>
-					<input
-						type="checkbox"
-						name="show-locations"
-						id="show-locations"
-						bind:checked={show_locations.current}
-					/>
+					<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
 					<label for="show-locations">Show locations</label>
 				</div>
 				<div>
-					<input
-						type="checkbox"
-						name="show-types"
-						id="show-types"
-						bind:checked={show_types.current}
-					/>
+					<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
 					<label for="show-types">Show types</label>
 				</div>
 				<div>
-					<input
-						type="checkbox"
-						name="autofocus-node"
-						id="autofocus-node"
-						bind:checked={autofocus.current}
-					/>
+					<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
 					<label for="autofocus-node">Autofocus selected node</label>
 				</div>
 			</div>
@@ -162,36 +134,21 @@
 		<div class="pane">
 			<div class="pane-header">
 				<label for="input-css" class="pane-title">CSS input</label>
-				<Button size="sm" variant="secondary" icon="brush" on_click={prettify}
-					>Prettify CSS</Button
-				>
+				<Button size="sm" variant="secondary" icon="brush" on_click={prettify}>Prettify CSS</Button>
 			</div>
 			<div class="pane-content">
-				<HighlightedTextarea
-					id="input-css"
-					name="input-css"
-					bind:value={url_state.current.css}
-					{on_cursor_move}
-				/>
+				<HighlightedTextarea id="input-css" name="input-css" bind:value={url_state.current.css} {on_cursor_move} />
 			</div>
 		</div>
 		<div class="pane">
 			<div class="pane-header">
 				<label for="ast-output" class="pane-title">AST output</label>
-				<CopyButton
-					variant="secondary"
-					text={() => JSON.stringify(ast?.clone(), null, 2)}
-					>Copy JSON</CopyButton
-				>
+				<CopyButton variant="secondary" text={() => JSON.stringify(ast?.clone(), null, 2)}>Copy JSON</CopyButton>
 			</div>
 			<div class="pane-content">
 				{#if ast !== undefined}
 					<output id="ast-output">
-						<ol
-							bind:this={scroll_container}
-							class="pane scroller scroll-container"
-							role="tree"
-						>
+						<ol bind:this={scroll_container} class="pane scroller scroll-container" role="tree">
 							<CssTree
 								node={ast}
 								{highlighted_node}
@@ -226,7 +183,7 @@
 		gap: var(--space-6);
 		padding-block: var(--space-2);
 
-		a[rel="external" i] {
+		a[rel='external' i] {
 			margin-inline-start: auto;
 		}
 	}

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
+	import type { Snippet } from 'svelte'
 
 	interface Props {
-		class?: string;
-		children?: Snippet;
+		class?: string
+		children?: Snippet
 	}
 
-	let { class: className = "", children }: Props = $props();
+	let { class: className = '', children }: Props = $props()
 </script>
 
 <div class="[ markdown ] {className}">
@@ -60,7 +60,7 @@
 		max-width: 60ch;
 	}
 
-	:global(.markdown svg[role="img"]) {
+	:global(.markdown svg[role='img']) {
 		max-width: 80ch;
 	}
 
@@ -75,22 +75,7 @@
 	}
 
 	/* stylelint-disable-next-line projectwallace/max-selector-complexity -- This is just a big one */
-	:global(
-			.markdown
-				:is(
-					p,
-					pre,
-					img,
-					table,
-					ol,
-					ul,
-					blockquote,
-					figure,
-					iframe,
-					math,
-					.bar-chart
-				)
-		) {
+	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe, math, .bar-chart)) {
 		margin-block-start: var(--space-6);
 
 		@media (min-height: 44rem) {

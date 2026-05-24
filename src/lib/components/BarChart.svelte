@@ -1,72 +1,71 @@
 <script lang="ts">
-	import { format_number } from "$lib/format-number";
+	import { format_number } from '$lib/format-number'
 
 	type Props = {
-		data: Record<string, number>;
-		formatter?: (value: number) => string;
-		title: string;
-		alt: string;
-	};
+		data: Record<string, number>
+		formatter?: (value: number) => string
+		title: string
+		alt: string
+	}
 
-	let { data, formatter = format_number, title, alt }: Props = $props();
+	let { data, formatter = format_number, title, alt }: Props = $props()
 
 	// Chart dimensions
-	const width = 500;
-	const height = 200;
-	const margin = { top: 20, right: 30, bottom: 25, left: 60 };
-	const chart_width = width - margin.left - margin.right;
-	const chart_height = height - margin.top - margin.bottom;
-	const bar_width = 20;
-	const num_y_ticks = 10;
+	const width = 500
+	const height = 200
+	const margin = { top: 20, right: 30, bottom: 25, left: 60 }
+	const chart_width = width - margin.left - margin.right
+	const chart_height = height - margin.top - margin.bottom
+	const bar_width = 20
+	const num_y_ticks = 10
 
 	// Calculate scales - derived from data
-	const max_value = $derived(Math.max(...Object.values(data)));
+	const max_value = $derived(Math.max(...Object.values(data)))
 	const y_max = $derived.by(() => {
 		// Determine rounding magnitude based on max value
 		if (max_value === 0) {
-			return 1;
+			return 1
 		} else if (max_value < 1) {
-			return Math.ceil(max_value * 10) / 10; // Round to nearest 0.1
+			return Math.ceil(max_value * 10) / 10 // Round to nearest 0.1
 		} else if (max_value <= 100) {
-			return Math.ceil(max_value / 10) * 10; // Round to nearest 10
+			return Math.ceil(max_value / 10) * 10 // Round to nearest 10
 		}
-		return Math.ceil(max_value / 100) * 100; // Round to nearest 100
-	});
-	const y_scale = $derived(chart_height / y_max);
-	const bar_spacing = $derived(chart_width / Object.values(data).length);
+		return Math.ceil(max_value / 100) * 100 // Round to nearest 100
+	})
+	const y_scale = $derived(chart_height / y_max)
+	const bar_spacing = $derived(chart_width / Object.values(data).length)
 
 	// Generate y-axis ticks with nice round numbers
 	const y_ticks = $derived.by(() => {
 		// When all values are 0, only show a 0 tick
 		if (max_value === 0) {
-			return [{ value: 0, y: chart_height }];
+			return [{ value: 0, y: chart_height }]
 		}
 
 		// Calculate ideal step size
-		const ideal_step = y_max / (num_y_ticks - 1);
+		const ideal_step = y_max / (num_y_ticks - 1)
 
 		// Find magnitude and round to nice increment (1, 2, 5, 10, 20, 50, 100, etc.)
-		const magnitude = Math.pow(10, Math.floor(Math.log10(ideal_step)));
-		const normalized = ideal_step / magnitude;
-		const nice_step =
-			normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10;
-		const step = nice_step * magnitude;
+		const magnitude = Math.pow(10, Math.floor(Math.log10(ideal_step)))
+		const normalized = ideal_step / magnitude
+		const nice_step = normalized <= 1 ? 1 : normalized <= 2 ? 2 : normalized <= 5 ? 5 : 10
+		const step = nice_step * magnitude
 
 		// Generate ticks from 0 to yMax using the nice step
-		const ticks = [];
+		const ticks = []
 		for (let value = 0; value <= y_max; value += step) {
-			const y = chart_height - value * y_scale;
-			ticks.push({ value, y });
+			const y = chart_height - value * y_scale
+			ticks.push({ value, y })
 		}
-		return ticks;
-	});
+		return ticks
+	})
 
 	// Generate bars
 	const bars = $derived(
 		Object.entries(data).map(([label, value], i) => {
-			const x = i * bar_spacing + bar_spacing / 2 - bar_width / 2;
-			const bar_height = value * y_scale;
-			const y = chart_height - bar_height;
+			const x = i * bar_spacing + bar_spacing / 2 - bar_width / 2
+			const bar_height = value * y_scale
+			const y = chart_height - bar_height
 			return {
 				x,
 				y,
@@ -74,14 +73,14 @@
 				height: bar_height,
 				label: label,
 				value: value,
-				center_x: i * bar_spacing + bar_spacing / 2,
-			};
-		}),
-	);
+				center_x: i * bar_spacing + bar_spacing / 2
+			}
+		})
+	)
 
-	let uid = $props.id();
-	let title_id = `${uid}-title`;
-	let description_id = `${uid}-description`;
+	let uid = $props.id()
+	let title_id = `${uid}-title`
+	let description_id = `${uid}-description`
 </script>
 
 <div class="bar-chart">
@@ -101,17 +100,8 @@
 		<desc id={description_id}>{alt}</desc>
 		<g transform="translate({margin.left},{margin.top})">
 			<!-- Grid lines -->
-			<g
-				class="grid"
-				style="stroke: currentcolor; opacity: 0.2;"
-				fill="none"
-				text-anchor="end"
-			>
-				<path
-					class="domain"
-					stroke="currentColor"
-					d="M{chart_width},{chart_height}H0V0H{chart_width}"
-				></path>
+			<g class="grid" style="stroke: currentcolor; opacity: 0.2;" fill="none" text-anchor="end">
+				<path class="domain" stroke="currentColor" d="M{chart_width},{chart_height}H0V0H{chart_width}"></path>
 				{#each y_ticks as tick}
 					<g class="tick" opacity="1" transform="translate(0,{tick.y})">
 						<line stroke="currentColor" x2={chart_width}></line>
@@ -133,22 +123,12 @@
 			</g>
 
 			<!-- X-axis -->
-			<g
-				transform="translate(0,{chart_height})"
-				fill="none"
-				text-anchor="middle"
-			>
+			<g transform="translate(0,{chart_height})" fill="none" text-anchor="middle">
 				<path stroke="currentColor" d="M0,6V0H{chart_width}V6"></path>
 				{#each bars as bar}
 					<g class="tick" opacity="1" transform="translate({bar.center_x},0)">
 						<line stroke="currentColor" y2="6"></line>
-						<text
-							fill="currentColor"
-							y="9"
-							dy="0.7em"
-							text-anchor="middle"
-							class="axis-label"
-						>
+						<text fill="currentColor" y="9" dy="0.7em" text-anchor="middle" class="axis-label">
 							{bar.label}
 						</text>
 					</g>
@@ -157,21 +137,8 @@
 
 			<!-- Bars -->
 			{#each bars as bar}
-				<rect
-					x={bar.x}
-					y={bar.y}
-					width={bar.width}
-					height={bar.height}
-					fill="currentColor"
-					class="bar"
-				></rect>
-				<text
-					x={bar.center_x}
-					y={bar.y - 10}
-					text-anchor="middle"
-					fill="currentColor"
-					class="bar-label"
-				>
+				<rect x={bar.x} y={bar.y} width={bar.width} height={bar.height} fill="currentColor" class="bar"></rect>
+				<text x={bar.center_x} y={bar.y - 10} text-anchor="middle" fill="currentColor" class="bar-label">
 					{formatter(bar.value)}
 				</text>
 			{/each}

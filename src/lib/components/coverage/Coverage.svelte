@@ -1,126 +1,107 @@
 <script lang="ts">
-	import { PaneGroup, Pane, PaneResizer } from "paneforge";
-	import { format_filesize } from "$lib/format-filesize";
-	import { format_number, format_percentage } from "$lib/format-number";
-	import { create_keyboard_list } from "$components/use-keyboard-list.svelte";
-	import Panel from "$components/Panel.svelte";
-	import Meter from "$components/Meter.svelte";
-	import Pre from "$components/Pre.svelte";
-	import {
-		calculate_coverage,
-		type Coverage,
-	} from "@projectwallace/css-code-coverage";
-	import Empty from "$components/Empty.svelte";
-	import Table from "$components/Table.svelte";
-	import { string_sort } from "$lib/string-sort";
+	import { PaneGroup, Pane, PaneResizer } from 'paneforge'
+	import { format_filesize } from '$lib/format-filesize'
+	import { format_number, format_percentage } from '$lib/format-number'
+	import { create_keyboard_list } from '$components/use-keyboard-list.svelte'
+	import Panel from '$components/Panel.svelte'
+	import Meter from '$components/Meter.svelte'
+	import Pre from '$components/Pre.svelte'
+	import { calculate_coverage, type Coverage } from '@projectwallace/css-code-coverage'
+	import Empty from '$components/Empty.svelte'
+	import Table from '$components/Table.svelte'
+	import { string_sort } from '$lib/string-sort'
 
 	let {
-		browser_coverage,
+		browser_coverage
 	}: {
-		browser_coverage: Coverage[];
-	} = $props();
+		browser_coverage: Coverage[]
+	} = $props()
 
 	let {
-		elements: { root, item },
-	} = create_keyboard_list();
-	let selected_index = $state(0);
+		elements: { root, item }
+	} = create_keyboard_list()
+	let selected_index = $state(0)
 	// $state.snapshot() necessary to avoid "unsafe state mutation" errors
-	let calculated = $derived(
-		calculate_coverage($state.snapshot(browser_coverage)),
-	);
+	let calculated = $derived(calculate_coverage($state.snapshot(browser_coverage)))
 
 	let max_lines = $derived.by(() => {
-		if (!calculated) return 0;
-		let max = 0;
+		if (!calculated) return 0
+		let max = 0
 		for (let sheet of calculated.coverage_per_stylesheet) {
 			if (sheet.total_lines > max) {
-				max = sheet.total_lines;
+				max = sheet.total_lines
 			}
 		}
-		return max;
-	});
+		return max
+	})
 
 	function onchange({ active_index }: { active_index: number }) {
-		selected_index = active_index;
+		selected_index = active_index
 	}
 
-	type SortBy = "bytes" | "coverage" | "name" | "lines";
+	type SortBy = 'bytes' | 'coverage' | 'name' | 'lines'
 
-	let sort_by = $state<SortBy | undefined>(undefined);
-	let sort_direction = $state<"asc" | "desc">("asc");
+	let sort_by = $state<SortBy | undefined>(undefined)
+	let sort_direction = $state<'asc' | 'desc'>('asc')
 
 	let sorted_items = $derived.by(() => {
-		if (!calculated) return new Uint8Array();
+		if (!calculated) return new Uint8Array()
 
-		let item_indexes = Uint8Array.from(
-			{ length: calculated.coverage_per_stylesheet.length },
-			(_, i) => i,
-		);
+		let item_indexes = Uint8Array.from({ length: calculated.coverage_per_stylesheet.length }, (_, i) => i)
 
 		if (sort_by === undefined) {
-			return item_indexes;
+			return item_indexes
 		}
 
 		return item_indexes.sort((_a, _b) => {
-			let a = calculated!.coverage_per_stylesheet[_a];
-			let b = calculated!.coverage_per_stylesheet[_b];
+			let a = calculated!.coverage_per_stylesheet[_a]
+			let b = calculated!.coverage_per_stylesheet[_b]
 
-			if (sort_by === "bytes") {
-				return sort_direction === "asc"
-					? a.total_bytes - b.total_bytes
-					: b.total_bytes - a.total_bytes;
+			if (sort_by === 'bytes') {
+				return sort_direction === 'asc' ? a.total_bytes - b.total_bytes : b.total_bytes - a.total_bytes
 			}
-			if (sort_by === "coverage") {
-				return sort_direction === "asc"
+			if (sort_by === 'coverage') {
+				return sort_direction === 'asc'
 					? a.line_coverage_ratio - b.line_coverage_ratio
-					: b.line_coverage_ratio - a.line_coverage_ratio;
+					: b.line_coverage_ratio - a.line_coverage_ratio
 			}
-			if (sort_by === "name") {
-				return sort_direction === "asc"
-					? string_sort(a.url, b.url)
-					: string_sort(b.url, a.url);
+			if (sort_by === 'name') {
+				return sort_direction === 'asc' ? string_sort(a.url, b.url) : string_sort(b.url, a.url)
 			}
-			if (sort_by === "lines") {
-				return sort_direction === "asc"
-					? a.covered_lines - b.covered_lines
-					: b.covered_lines - a.covered_lines;
+			if (sort_by === 'lines') {
+				return sort_direction === 'asc' ? a.covered_lines - b.covered_lines : b.covered_lines - a.covered_lines
 			}
-			return 0;
-		});
-	});
+			return 0
+		})
+	})
 
 	// Reset the selected index when the coverage input or sorting changes
 	$effect(() => {
 		if (calculated) {
-			selected_index = 0;
+			selected_index = 0
 		}
-	});
+	})
 
 	let mapped_selected_index = $derived.by(() => {
-		return sorted_items[selected_index];
-	});
+		return sorted_items[selected_index]
+	})
 </script>
 
 {#snippet sorted_th(sort: SortBy | undefined, name: SortBy, label: string)}
-	{@const sort_by_attr =
-		sort === name
-			? sort_direction === "asc"
-				? "ascending"
-				: "descending"
-			: undefined}
+	{@const sort_by_attr = sort === name ? (sort_direction === 'asc' ? 'ascending' : 'descending') : undefined}
 	<th scope="col" aria-sort={sort_by_attr}>
 		<button
 			class="sort-button"
 			aria-pressed={sort_by === name}
 			onclick={() => {
-				sort_by = name;
-				sort_direction = sort_direction === "asc" ? "desc" : "asc";
+				sort_by = name
+				sort_direction = sort_direction === 'asc' ? 'desc' : 'asc'
 			}}
 		>
 			{label}
 			<span class="sort-indicator" aria-hidden="true">
 				{#if sort === name}
-					{sort_direction === "asc" ? "▲" : "▼"}
+					{sort_direction === 'asc' ? '▲' : '▼'}
 				{/if}
 			</span>
 		</button>
@@ -156,12 +137,7 @@
 	</header>
 
 	<h2 class="sr-only">Coverage per stylesheet</h2>
-	<div
-		class="devtools"
-		data-empty={calculated.coverage_per_stylesheet.length === 0
-			? "true"
-			: "false"}
-	>
+	<div class="devtools" data-empty={calculated.coverage_per_stylesheet.length === 0 ? 'true' : 'false'}>
 		{#if calculated.coverage_per_stylesheet.length > 0}
 			<PaneGroup direction="horizontal" autoSaveId="css-coverage">
 				<Pane defaultSize={50} minSize={20}>
@@ -169,42 +145,30 @@
 						<caption class="sr-only">Coverage per origin</caption>
 						<thead>
 							<tr>
-								{@render sorted_th(sort_by, "name", "URL")}
-								{@render sorted_th(sort_by, "bytes", "Total size")}
-								{@render sorted_th(sort_by, "lines", "Lines")}
-								{@render sorted_th(sort_by, "coverage", "Coverage")}
+								{@render sorted_th(sort_by, 'name', 'URL')}
+								{@render sorted_th(sort_by, 'bytes', 'Total size')}
+								{@render sorted_th(sort_by, 'lines', 'Lines')}
+								{@render sorted_th(sort_by, 'coverage', 'Coverage')}
 								<th scope="col">Coverage visualized</th>
 							</tr>
 						</thead>
 						{#key browser_coverage && sort_by && sort_direction}
 							<tbody use:root={{ onchange }} style:--meter-height="0.5rem">
 								{#each sorted_items as item_index, index}
-									{@const stylesheet =
-										calculated.coverage_per_stylesheet[item_index]}
-									{@const {
-										url,
-										total_bytes,
-										total_lines,
-										line_coverage_ratio,
-									} = stylesheet}
+									{@const stylesheet = calculated.coverage_per_stylesheet[item_index]}
+									{@const { url, total_bytes, total_lines, line_coverage_ratio } = stylesheet}
 									<tr
 										use:item={{ value: index.toString() }}
-										aria-selected={selected_index === index ? "true" : "false"}
+										aria-selected={selected_index === index ? 'true' : 'false'}
 									>
 										<td class="url">
 											{url}
 										</td>
 										<td class="numeric">{format_filesize(total_bytes)}</td>
 										<td class="numeric">{format_number(total_lines)}</td>
-										<td class="numeric"
-											>{format_percentage(line_coverage_ratio)}</td
-										>
+										<td class="numeric">{format_percentage(line_coverage_ratio)}</td>
 										<td>
-											<div
-												style:width={(stylesheet.total_lines / max_lines) *
-													100 +
-													"%"}
-											>
+											<div style:width={(stylesheet.total_lines / max_lines) * 100 + '%'}>
 												<Meter max={1} value={line_coverage_ratio} />
 											</div>
 										</td>
@@ -220,14 +184,8 @@
 				<Pane defaultSize={50} minSize={20}>
 					<div class="css-slide">
 						{#if selected_index !== -1}
-							{@const coverage = calculated.coverage_per_stylesheet.at(
-								mapped_selected_index,
-							)!}
-							<Pre
-								line_numbers
-								coverage_chunks={coverage.chunks}
-								css={coverage.text}
-							/>
+							{@const coverage = calculated.coverage_per_stylesheet.at(mapped_selected_index)!}
+							<Pre line_numbers coverage_chunks={coverage.chunks} css={coverage.text} />
 						{/if}
 					</div>
 				</Pane>
@@ -235,8 +193,7 @@
 		{:else}
 			<Empty>
 				Analyzed {calculated.total_files_found}
-				{calculated.total_files_found > 1 ? "entries" : "entry"} but no CSS coverage
-				found.
+				{calculated.total_files_found > 1 ? 'entries' : 'entry'} but no CSS coverage found.
 			</Empty>
 		{/if}
 	</div>
@@ -275,7 +232,7 @@
 		transition: opacity 200ms;
 	}
 
-	.devtools[data-empty="false"] {
+	.devtools[data-empty='false'] {
 		border: 1px solid var(--fg-450);
 	}
 

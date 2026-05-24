@@ -1,8 +1,8 @@
 <script>
-	import Container from "$components/Container.svelte";
-	import Heading from "$components/Heading.svelte";
-	import SEO from "$components/Seo.svelte";
-	import Image from "./2026/og-image-the-css-selection-2026.png";
+	import Container from '$components/Container.svelte'
+	import Heading from '$components/Heading.svelte'
+	import SEO from '$components/Seo.svelte'
+	import Image from './2026/og-image-the-css-selection-2026.png'
 </script>
 
 <SEO
@@ -21,9 +21,7 @@
 		<li>
 			<article class="css-selection-card">
 				<h2 class="card-title">
-					<a class="card-link" href="/the-css-selection/2026"
-						>The CSS Selection</a
-					>
+					<a class="card-link" href="/the-css-selection/2026">The CSS Selection</a>
 				</h2>
 				<div class="card-year">2026</div>
 				<ul class="card-stats">
@@ -56,11 +54,7 @@
 		background-color: var(--bg-100);
 		color: var(--fg-200);
 		font-family: var(--font-body);
-		background-image: radial-gradient(
-			circle at top,
-			light-dark(var(--teal-100), var(--teal-900)),
-			transparent 80%
-		);
+		background-image: radial-gradient(circle at top, light-dark(var(--teal-100), var(--teal-900)), transparent 80%);
 		border: 0.3rem solid var(--accent-400);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-12);
@@ -70,11 +64,7 @@
 
 		&:hover,
 		&:focus-within {
-			background-image: radial-gradient(
-				circle at top,
-				light-dark(var(--teal-200), var(--teal-800)),
-				transparent 100%
-			);
+			background-image: radial-gradient(circle at top, light-dark(var(--teal-200), var(--teal-800)), transparent 100%);
 
 			.card-link {
 				text-decoration: underline;
@@ -108,7 +98,7 @@
 	}
 
 	.card-link::after {
-		content: "";
+		content: '';
 		position: absolute;
 		inset: 0;
 	}
@@ -131,7 +121,7 @@
 			z-index: 1;
 
 			&::after {
-				content: "";
+				content: '';
 				position: absolute;
 				inset-block: -0.2em;
 				inset-inline: -0.1em;
@@ -147,7 +137,7 @@
 			position: relative;
 
 			&::after {
-				content: "";
+				content: '';
 				position: absolute;
 				bottom: -0.4cqb;
 				right: 0;

@@ -1,50 +1,46 @@
 <script lang="ts">
-	import { type Snippet } from "svelte";
-	import Report from "./Report.svelte";
-	import Nav from "./Nav.svelte";
-	import Devtools from "$components/DevTools.svelte";
-	import type { CSSOrigin } from "$lib/css-origins";
-	import type { CssAnalysis } from "$lib/analyze-css";
-	import NetworkPanel from "$components/NetworkPanel.svelte";
-	import ItemUsage from "$components/ItemUsage.svelte";
-	import JsonPanel from "$components/devtools/JsonPanel.svelte";
-	import CssPanel from "$components/devtools/CssPanel.svelte";
-	import { analyzer_tabs, type TabId } from "$components/devtools/tabs";
-	import { get_css_state } from "$lib/css-state.svelte";
-	import { analyze } from "@projectwallace/css-analyzer";
-	import { PersistedState } from "runed";
+	import { type Snippet } from 'svelte'
+	import Report from './Report.svelte'
+	import Nav from './Nav.svelte'
+	import Devtools from '$components/DevTools.svelte'
+	import type { CSSOrigin } from '$lib/css-origins'
+	import type { CssAnalysis } from '$lib/analyze-css'
+	import NetworkPanel from '$components/NetworkPanel.svelte'
+	import ItemUsage from '$components/ItemUsage.svelte'
+	import JsonPanel from '$components/devtools/JsonPanel.svelte'
+	import CssPanel from '$components/devtools/CssPanel.svelte'
+	import { analyzer_tabs, type TabId } from '$components/devtools/tabs'
+	import { get_css_state } from '$lib/css-state.svelte'
+	import { analyze } from '@projectwallace/css-analyzer'
+	import { PersistedState } from 'runed'
 
 	interface Props {
-		prettify_css_before_analyze?: boolean;
-		origins?: CSSOrigin[];
-		nav?: Snippet<[]>;
-		children?: Snippet<[{ analysis: CssAnalysis; css: string }]>;
-		devtools?: Snippet<[{ analysis: CssAnalysis; css: string }]>;
+		prettify_css_before_analyze?: boolean
+		origins?: CSSOrigin[]
+		nav?: Snippet<[]>
+		children?: Snippet<[{ analysis: CssAnalysis; css: string }]>
+		devtools?: Snippet<[{ analysis: CssAnalysis; css: string }]>
 	}
 
-	let { nav, children, devtools }: Props = $props();
-	let css_state = get_css_state();
+	let { nav, children, devtools }: Props = $props()
+	let css_state = get_css_state()
 	let analysis = $derived(
 		analyze(css_state.css, {
-			useLocations: true,
-		}),
-	);
-	let nav_visible = new PersistedState<boolean>("analyzer-nav-visible", true);
+			useLocations: true
+		})
+	)
+	let nav_visible = new PersistedState<boolean>('analyzer-nav-visible', true)
 
 	function on_keydown(event: KeyboardEvent) {
-		if ((event.metaKey || event.ctrlKey) && event.key === "\\") {
-			nav_visible.current = !nav_visible.current;
+		if ((event.metaKey || event.ctrlKey) && event.key === '\\') {
+			nav_visible.current = !nav_visible.current
 		}
 	}
 </script>
 
 <svelte:window onkeydown={on_keydown} />
 
-<div
-	data-testid="css-report"
-	class="analysis"
-	data-nav-visible={nav_visible.current}
->
+<div data-testid="css-report" class="analysis" data-nav-visible={nav_visible.current}>
 	<div class="nav print:hidden scroll-container">
 		{#if nav}
 			{@render nav()}
@@ -65,13 +61,13 @@
 		{:else}
 			<Devtools tabs={analyzer_tabs}>
 				{#snippet children({ tab_id }: { tab_id: TabId })}
-					{#if tab_id === "network"}
+					{#if tab_id === 'network'}
 						<NetworkPanel />
-					{:else if tab_id === "inspector"}
+					{:else if tab_id === 'inspector'}
 						<ItemUsage />
-					{:else if tab_id === "report"}
+					{:else if tab_id === 'report'}
 						<JsonPanel json={analysis} />
-					{:else if tab_id === "css"}
+					{:else if tab_id === 'css'}
 						<CssPanel css={css_state.css} />
 					{/if}
 				{/snippet}
@@ -83,7 +79,7 @@
 <style>
 	.analysis {
 		display: grid;
-		grid-template-areas: "nav" "report" "devtools";
+		grid-template-areas: 'nav' 'report' 'devtools';
 		position: relative;
 	}
 
@@ -109,16 +105,16 @@
 			grid-template-rows: 1fr auto;
 			column-gap: var(--space-8);
 
-			&[data-nav-visible="true"] {
+			&[data-nav-visible='true'] {
 				grid-template-columns: minmax(0, 1fr) clamp(12rem, 20%, 18rem);
 				grid-template-areas:
-					"report nav"
-					"devtools devtools";
+					'report nav'
+					'devtools devtools';
 			}
 
-			&[data-nav-visible="false"] {
+			&[data-nav-visible='false'] {
 				grid-template-columns: 1fr;
-				grid-template-areas: "report" "devtools";
+				grid-template-areas: 'report' 'devtools';
 
 				& .nav {
 					display: none;
