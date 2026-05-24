@@ -98,7 +98,13 @@ export default {
 			// HOLISTIC LINTING
 			files: ['.svelte-kit/**/*.css'],
 			rules: {
-				'projectwallace/max-declarations-per-rule': 28, // our @layer.html spacing scale; TODO: allow { ignore: ['html']}
+				'projectwallace/no-unused-custom-properties': [
+					true,
+					{
+						ignore: [/diffstat-\w+/]
+					}
+				],
+				'projectwallace/max-declarations-per-rule': 27, // our @layer.html spacing scale; TODO: allow { ignore: ['html']}
 				'projectwallace/max-spacing-resets': 17,
 				'projectwallace/max-unique-media-queries': [
 					11, // TODO: reduce and convert some to container queries
