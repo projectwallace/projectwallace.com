@@ -1,14 +1,14 @@
 <script>
-	import '$lib/css/prism.css'
-	import Hero from '$components/Hero.svelte'
-	import FormattedDate from '$components/FormattedDate.svelte'
-	import Seo from '$components/Seo.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
-	import avatar from '$lib/img/bartveneman.png'
+	import "$lib/css/prism.css";
+	import Hero from "$components/Hero.svelte";
+	import FormattedDate from "$components/FormattedDate.svelte";
+	import Seo from "$components/Seo.svelte";
+	import Markdown from "$components/Markdown.svelte";
+	import Container from "$components/Container.svelte";
+	import Heading from "$components/Heading.svelte";
+	import avatar from "$lib/img/bartveneman.png";
 
-	let { data } = $props()
+	let { data } = $props();
 </script>
 
 <Seo title="{data.post.title} - Blog" description={data.post.excerpt} />
@@ -16,7 +16,13 @@
 <Hero title={data.post.title}>
 	<FormattedDate date={data.post.date} />
 	<div class="author">
-		<img class="author-avatar" src={avatar} alt="User avatar for Bart Veneman" width="25" height="25" />
+		<img
+			class="author-avatar"
+			src={avatar}
+			alt="User avatar for Bart Veneman"
+			width="25"
+			height="25"
+		/>
 		<span>Bart Veneman in</span>
 		<a href="/blog">blog</a>
 	</div>
@@ -80,7 +86,7 @@
 		gap: var(--space-24);
 
 		@media (min-width: 66rem) {
-			font-size: 1.2em;
+			font-size: var(--size-larger);
 			line-height: var(--leading-base);
 		}
 	}

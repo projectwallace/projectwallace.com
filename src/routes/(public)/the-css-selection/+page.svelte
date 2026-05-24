@@ -137,7 +137,7 @@
 				inset-block: -0.2em;
 				inset-inline: -0.1em;
 				background-color: var(--teal-400);
-				rotate: -0.004turn;
+				rotate: -1.44deg;
 				z-index: -1;
 				opacity: 0.8;
 			}
@@ -154,7 +154,7 @@
 				right: 0;
 				left: 0;
 				border-block-end: 0.4cqb solid var(--purple-400);
-				rotate: -0.004turn;
+				rotate: -1.44deg;
 			}
 		}
 	}

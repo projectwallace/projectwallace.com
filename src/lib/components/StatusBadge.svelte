@@ -1,20 +1,20 @@
 <script lang="ts">
-	import type { SvelteHTMLElements } from 'svelte/elements'
+	import type { SvelteHTMLElements } from "svelte/elements";
 
-	type Props = SvelteHTMLElements['span'] & {
-		status?: 'neutral' | 'success' | 'warning' | 'error' | 'info' | 'secondary'
-	}
+	type Props = SvelteHTMLElements["span"] & {
+		status?: "neutral" | "success" | "warning" | "error" | "info" | "secondary";
+	};
 
-	let { children, status = 'neutral', ...rest }: Props = $props()
+	let { children, status = "neutral", ...rest }: Props = $props();
 </script>
 
-<span {...rest} class={['status-badge', status]}>
+<span {...rest} class={["status-badge", status]}>
 	{@render children?.()}
 </span>
 
 <style>
 	.status-badge {
-		font-size: 0.8rem;
+		font-size: var(--size-smaller);
 		line-height: var(--leading-none);
 		border-radius: 0;
 		max-block-size: max-content;
@@ -26,6 +26,7 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		display: inline-block;
+		text-decoration: none;
 	}
 
 	.neutral {

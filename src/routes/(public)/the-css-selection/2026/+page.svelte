@@ -1,24 +1,24 @@
 <script lang="ts">
-	import SEO from '$components/Seo.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import Intro from './0-intro.md'
-	import Composition from './1-composition.svx'
-	import Atrules from './2-atrules.svx'
-	import Rules from './3-rules.svx'
-	import Selectors from './4-selectors.svx'
-	import Declarations from './5-declarations.svx'
-	import Values from './6-values.svx'
-	import Conclusion from './7-conclusion.md'
-	import Accountability from './8-accountability.md'
-	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
-	import Nav from '$components/stats/Nav.svelte'
-	import avatar from '$lib/img/bartveneman.png'
+	import SEO from "$components/Seo.svelte";
+	import Markdown from "$components/Markdown.svelte";
+	import Intro from "./0-intro.md";
+	import Composition from "./1-composition.svx";
+	import Atrules from "./2-atrules.svx";
+	import Rules from "./3-rules.svx";
+	import Selectors from "./4-selectors.svx";
+	import Declarations from "./5-declarations.svx";
+	import Values from "./6-values.svx";
+	import Conclusion from "./7-conclusion.md";
+	import Accountability from "./8-accountability.md";
+	import Container from "$components/Container.svelte";
+	import Heading from "$components/Heading.svelte";
+	import Nav from "$components/stats/Nav.svelte";
+	import avatar from "$lib/img/bartveneman.png";
 	// @ts-expect-error No type definitions for importing images
-	import Image from './og-image-the-css-selection-2026.png?w=1200'
+	import Image from "./og-image-the-css-selection-2026.png?w=1200";
 
-	let { data } = $props()
-	let nav = $derived(data.nav)
+	let { data } = $props();
+	let nav = $derived(data.nav);
 </script>
 
 <SEO
@@ -33,7 +33,13 @@
 			<Heading element="h1" size={0}>The CSS Selection</Heading>
 			<p class="subtitle">The state of real-world CSS usage, 2026 edition.</p>
 			<p class="author">
-				<img class="author-avatar" src={avatar} alt="User avatar for Bart Veneman" width="25" height="25" />
+				<img
+					class="author-avatar"
+					src={avatar}
+					alt="User avatar for Bart Veneman"
+					width="25"
+					height="25"
+				/>
 				Bart Veneman
 			</p>
 		</header>
@@ -85,7 +91,7 @@
 				@media (min-width: 55rem) {
 					&::before,
 					&::after {
-						content: '';
+						content: "";
 						position: absolute;
 						aspect-ratio: 1;
 					}
@@ -114,7 +120,7 @@
 			.content {
 				grid-row: 2;
 				grid-column: 1;
-				font-size: 120%;
+				font-size: var(--size-larger);
 			}
 		}
 	}

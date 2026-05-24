@@ -1,43 +1,54 @@
 <script lang="ts">
-	import type { CssLocation } from '$lib/css-location'
-	import FilterGroup from '$lib/components/FilterGroup.svelte'
-	import FilterOption from '$components/FilterOption.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { IsInViewport } from 'runed'
-	import { string_sort } from '$lib/string-sort'
+	import type { CssLocation } from "$lib/css-location";
+	import FilterGroup from "$lib/components/FilterGroup.svelte";
+	import FilterOption from "$components/FilterOption.svelte";
+	import { get_css_state } from "$lib/css-state.svelte";
+	import { IsInViewport } from "runed";
+	import { string_sort } from "$lib/string-sort";
 
-	let css_state = get_css_state()
-	let selected_item = $derived(css_state.selected_item)
-	let wrapper = $state<HTMLElement | undefined>(undefined)
-	let is_in_viewport = new IsInViewport(() => wrapper, { rootMargin: '100px' })
+	let css_state = get_css_state();
+	let selected_item = $derived(css_state.selected_item);
+	let wrapper = $state<HTMLElement | undefined>(undefined);
+	let is_in_viewport = new IsInViewport(() => wrapper, { rootMargin: "100px" });
 
 	interface Props {
-		items?: Record<string, CssLocation[]>
+		items?: Record<string, CssLocation[]>;
 	}
 
-	let { items = Object.create(null) }: Props = $props()
+	let { items = Object.create(null) }: Props = $props();
 
-	let sorting: 'as-authored' | 'by-count' | 'alphabetical' = $state('as-authored')
-	let values = $derived(Object.entries(items))
+	let sorting: "as-authored" | "by-count" | "alphabetical" =
+		$state("as-authored");
+	let values = $derived(Object.entries(items));
 
 	let sorted = $derived.by(() => {
 		switch (sorting) {
-			case 'as-authored':
-				return values
-			case 'by-count':
-				return values.slice().sort((a, b) => b[1].length - a[1].length)
-			case 'alphabetical':
-				return values.slice().sort((a, b) => string_sort(a[0], b[0]))
+			case "as-authored":
+				return values;
+			case "by-count":
+				return values.slice().sort((a, b) => b[1].length - a[1].length);
+			case "alphabetical":
+				return values.slice().sort((a, b) => string_sort(a[0], b[0]));
 		}
-	})
+	});
 </script>
 
 <div class="grid gap-4">
 	<FilterGroup>
 		<legend class="sr-only">Sorting box-shadows</legend>
-		<FilterOption bind:group={sorting} name="gradient-sorting" value="as-authored">Sort by source order</FilterOption>
-		<FilterOption bind:group={sorting} name="gradient-sorting" value="by-count">Sort by count</FilterOption>
-		<FilterOption bind:group={sorting} name="gradient-sorting" value="alphabetical">Sort A-Z</FilterOption>
+		<FilterOption
+			bind:group={sorting}
+			name="gradient-sorting"
+			value="as-authored">Sort by source order</FilterOption
+		>
+		<FilterOption bind:group={sorting} name="gradient-sorting" value="by-count"
+			>Sort by count</FilterOption
+		>
+		<FilterOption
+			bind:group={sorting}
+			name="gradient-sorting"
+			value="alphabetical">Sort A-Z</FilterOption
+		>
 	</FilterGroup>
 
 	<ol class="list" data-testid="gradient-list" bind:this={wrapper}>
@@ -45,10 +56,15 @@
 			<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 			<li
 				class="item shadow [ coverable ]"
-				aria-selected={value === selected_item?.value && selected_item.type === 'gradient' ? 'true' : 'false'}
+				aria-selected={value === selected_item?.value &&
+				selected_item.type === "gradient"
+					? "true"
+					: "false"}
 			>
 				{#if is_in_viewport.current === true}
-					<div class="gradient" style:--gradient={value}>{locations.length}&times;</div>
+					<div class="gradient" style:--gradient={value}>
+						{locations.length}&times;
+					</div>
 				{:else}
 					<div class="gradient">{locations.length}&times;</div>
 				{/if}
@@ -56,13 +72,13 @@
 				<button
 					class="coverable-link"
 					onclick={(event) => {
-						event.preventDefault()
+						event.preventDefault();
 						css_state.select_item({
-							type: 'gradient',
-							node_type: 'value',
+							type: "gradient",
+							node_type: "value",
 							value,
-							locations
-						})
+							locations,
+						});
 					}}
 				>
 					<span class="sr-only">
@@ -117,14 +133,17 @@
 	}
 
 	.gradient::before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		right: 0;
 		bottom: 0;
 		left: 0;
 		z-index: -1;
-		background-image: var(--gradient, linear-gradient(0deg, transparent, transparent));
+		background-image: var(
+			--gradient,
+			linear-gradient(0deg, transparent, transparent)
+		);
 		background-repeat: repeat;
 
 		@media print {
@@ -137,7 +156,7 @@
 		display: block;
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
-		font-size: smaller;
+		font-size: var(--size-specimen);
 		background-color: var(--bg-400);
 		color: var(--fg-200);
 		word-break: break-word;

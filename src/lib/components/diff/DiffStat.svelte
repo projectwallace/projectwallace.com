@@ -1,18 +1,23 @@
 <script lang="ts">
-	import { diffstat_blocks, EMPTY, ADDED, DELETED } from './diffstat-blocks'
+	import { diffstat_blocks, EMPTY, ADDED, DELETED } from "./diffstat-blocks";
 	type Props = {
-		additions: number
-		deletions: number
-	}
+		additions: number;
+		deletions: number;
+	};
 
-	let { additions, deletions }: Props = $props()
+	let { additions, deletions }: Props = $props();
 
-	let total = $derived(deletions + additions)
-	let squares = $derived<Uint8Array>(diffstat_blocks(additions, deletions))
+	let total = $derived(deletions + additions);
+	let squares = $derived<Uint8Array>(diffstat_blocks(additions, deletions));
 </script>
 
 {#snippet icon()}
-	<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 20 20">
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="12"
+		height="12"
+		viewBox="0 0 20 20"
+	>
 		<style>
 			.stripe-1 {
 				fill: var(--wallace-diffstat-fg);
@@ -23,12 +28,18 @@
 			}
 		</style>
 		<defs>
-			<pattern id="stripes-b" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
-				<rect width="3" height="6" class="stripe-1" />
-				<rect x="3" width="6" height="6" class="stripe-2" />
+			<pattern
+				id="stripes-b"
+				patternUnits="userSpaceOnUse"
+				width="6"
+				height="6"
+				patternTransform="rotate(45)"
+			>
+				<rect width="3" height="6" class="stripe-1"></rect>
+				<rect x="3" width="6" height="6" class="stripe-2"></rect>
 			</pattern>
 		</defs>
-		<rect width="20" height="20" fill="url(#stripes-b)" />
+		<rect width="20" height="20" fill="url(#stripes-b)"></rect>
 	</svg>
 {/snippet}
 
@@ -37,15 +48,15 @@
 		{#each squares as square}
 			<i
 				class={[
-					'square',
+					"square",
 					{
 						added: square === ADDED,
 						deleted: square === DELETED,
-						empty: square === EMPTY
-					}
+						empty: square === EMPTY,
+					},
 				]}
 			>
-				<!-- Some sensible content in case CSS doesn't work. Hiding it with `font-size: 0;` -->
+				<!-- Some sensible content in case CSS doesn't work. Hiding it with `font-size: 0.1px;` -->
 				{#if square === ADDED}
 					+
 				{:else if square === DELETED}
@@ -75,7 +86,7 @@
 		display: inline-block;
 		inline-size: var(--space-3);
 		block-size: var(--space-3);
-		font-size: 0;
+		font-size: 0.1px;
 		overflow: clip;
 		--wallace-diffstat-fg: transparent;
 

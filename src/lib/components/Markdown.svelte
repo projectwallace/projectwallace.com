@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte'
+	import type { Snippet } from "svelte";
 
 	interface Props {
-		class?: string
-		children?: Snippet
+		class?: string;
+		children?: Snippet;
 	}
 
-	let { class: className = '', children }: Props = $props()
+	let { class: className = "", children }: Props = $props();
 </script>
 
 <div class="[ markdown ] {className}">
@@ -60,7 +60,7 @@
 		max-width: 60ch;
 	}
 
-	:global(.markdown svg[role='img']) {
+	:global(.markdown svg[role="img"]) {
 		max-width: 80ch;
 	}
 
@@ -75,7 +75,22 @@
 	}
 
 	/* stylelint-disable-next-line projectwallace/max-selector-complexity -- This is just a big one */
-	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe, math, .bar-chart)) {
+	:global(
+			.markdown
+				:is(
+					p,
+					pre,
+					img,
+					table,
+					ol,
+					ul,
+					blockquote,
+					figure,
+					iframe,
+					math,
+					.bar-chart
+				)
+		) {
 		margin-block-start: var(--space-6);
 
 		@media (min-height: 44rem) {
@@ -93,7 +108,7 @@
 		word-break: break-all;
 		white-space: pre;
 		tab-size: 2;
-		font-size: 1em;
+		font-size: inherit;
 		border: 1px solid var(--fg-700);
 	}
 
@@ -146,7 +161,6 @@
 		color: light-dark(var(--accent-800), var(--accent-300));
 		text-decoration: underline;
 		text-decoration-color: light-dark(var(--accent-700), var(--accent-300));
-		font-size: 1em;
 	}
 
 	:global(.markdown table) {
@@ -155,14 +169,14 @@
 		width: 100%;
 		border-block-start: 0.125rem solid var(--fg-300);
 		box-shadow: var(--shadow);
-		font-size: 0.8em;
+		font-size: var(--size-sm);
 	}
 
 	:global(.markdown th) {
 		text-align: left;
 		font-family: var(--font-body);
 		text-transform: uppercase;
-		font-size: 0.8em;
+		font-size: var(--size-sm);
 		font-weight: bold;
 		padding: var(--cell-spacing);
 	}
@@ -185,7 +199,7 @@
 	}
 
 	:global(.markdown code) {
-		font-size: 0.8em;
+		font-size: var(--size-smaller);
 	}
 
 	:global(.markdown :is(p, li, figcaption) code) {
