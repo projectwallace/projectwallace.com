@@ -16,7 +16,6 @@
 	.status-badge {
 		font-size: var(--size-smaller);
 		line-height: var(--leading-none);
-		border-radius: 0;
 		max-block-size: max-content;
 		max-inline-size: max-content;
 		padding-block: 0.3em;

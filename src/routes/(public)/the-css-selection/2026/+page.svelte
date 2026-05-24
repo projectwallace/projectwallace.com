@@ -61,7 +61,6 @@
 </Container>
 
 <style>
-	/* stylelint-disable projectwallace/max-nesting-depth -- Hacked together page, it's okay? */
 	.the-css-selection {
 		display: grid;
 		column-gap: var(--space-12);
