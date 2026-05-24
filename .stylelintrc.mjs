@@ -1,3 +1,5 @@
+const MAX_NESTING_DEPTH = 4
+
 /** @type {import('stylelint').Config} */
 export default {
 	extends: ['@projectwallace/stylelint-plugin/configs/recommended'],
@@ -6,44 +8,14 @@ export default {
 			files: ['src/**'],
 			extends: ['stylelint-config-standard'],
 			rules: {
-				/**
-				 * Avoid errors
-				 */
-
-				// Deprecated
-				'declaration-property-value-keyword-no-deprecated': [
-					true,
-					{
-						ignoreKeywords: ['break-word']
-					}
-				],
-				// Not needed
+				'declaration-property-value-keyword-no-deprecated': [true, { ignoreKeywords: ['break-word'] }],
 				'no-invalid-position-declaration': null,
-
-				// Descending
 				'no-descending-specificity': null,
-
-				// at-rule-prelude-no-invalid crashes on @container due to css-tree not supporting <container-query>
+				// crashes on @container due to css-tree not supporting <container-query>
 				'at-rule-prelude-no-invalid': [true, { ignoreAtRules: ['container'] }],
-
-				// Empty
 				'comment-no-empty': true,
-
-				// Unknown
-				'selector-pseudo-class-no-unknown': [
-					true,
-					{
-						ignorePseudoClasses: [
-							'global' // for Svelte
-						]
-					}
-				],
-				'function-no-unknown': [
-					true,
-					{
-						ignoreFunctions: ['anchor']
-					}
-				],
+				'selector-pseudo-class-no-unknown': [true, { ignorePseudoClasses: ['global'] }],
+				'function-no-unknown': [true, { ignoreFunctions: ['anchor'] }],
 				'declaration-property-value-no-unknown': [
 					true,
 					{
@@ -60,32 +32,18 @@ export default {
 						}
 					}
 				],
-
-				// Conventions
 				'property-no-vendor-prefix': [
 					true,
-					{
-						ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration']
-					}
+					{ ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration'] }
 				],
 				'length-zero-no-unit': null,
 				'custom-property-empty-line-before': 'never',
 				'declaration-empty-line-before': 'never',
-
-				// // Duplication
 				'declaration-block-no-duplicate-custom-properties': true,
 				'declaration-block-no-duplicate-properties': true,
 				'font-family-no-duplicate-names': true,
 				'no-duplicate-selectors': null,
-
-				/**
-				 * Enforce conventions
-				 */
-
-				// Allowed, disallowed & required
 				'color-named': 'never',
-
-				// Case
 				'value-keyword-case': [
 					'lower',
 					{
@@ -114,31 +72,20 @@ export default {
 					}
 				],
 				'selector-id-pattern': null,
-
-				// Empty lines
 				'comment-empty-line-before': null,
-
-				// Max & Min
-				'number-max-precision': null, // pretty useless rule
-
-				// Notation
+				'number-max-precision': null,
 				'alpha-value-notation': 'number',
-				'media-feature-range-notation': 'prefix', // because of Safari 16.4+ support
-
-				// Pattern
+				'media-feature-range-notation': 'prefix', // Safari 16.4+ support
 				'custom-property-pattern': [
+					// TODO: enfore --pw- as start
 					'^_?([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
 					{
 						message:
 							'Expected custom property name to be lowercase and hyphen-separated, optionally starting with an underscore to indicate a component-specific variable'
 					}
 				],
-
-				// Quotes
 				'font-family-name-quotes': 'always-unless-keyword',
 				'selector-attribute-quotes': 'always',
-
-				// Redundant
 				'declaration-block-no-redundant-longhand-properties': null, // Prefer explicit longhand properties
 				'shorthand-property-no-redundant-values': null
 			}
@@ -151,39 +98,30 @@ export default {
 			// HOLISTIC LINTING
 			files: ['.svelte-kit/**/*.css'],
 			rules: {
-				'projectwallace/max-declarations-per-rule': 28, // our @layer.html spacing scale
+				'projectwallace/max-declarations-per-rule': 28, // our @layer.html spacing scale; TODO: allow { ignore: ['html']}
 				'projectwallace/max-spacing-resets': 17,
 				'projectwallace/max-unique-media-queries': [
 					11, // TODO: reduce and convert some to container queries
 					{
 						ignore: [
-							/prefers-reduced-motion/,
-							/prefers-color-scheme/,
 							/forced-colors/,
-							/print/,
+							/hover/,
+							/prefers-color-scheme/,
 							/prefers-contrast/,
-							/hover/
+							/prefers-reduced-motion/,
+							/print/
 						]
 					}
 				],
-				'projectwallace/max-unique-units': [
-					16,
-					{
-						ignore: ['lh']
-					}
-				],
+				'projectwallace/max-unique-units': 17,
 				'projectwallace/max-unique-font-sizes': [
 					18,
 					{
 						ignore: [
-							// polypane callout font-sizes
-							'calc(14px + 0.5vw)',
-							'20px',
-							// relative sizing is hard
-							'1em',
-							// re-mappings of existing font-size scale
-							// --nav-font-size, --diff-font-size, etc.
-							/--\w+-font-size/
+							'calc(14px + 0.5vw)', // polypane callout
+							'20px', // polypane callout
+							'1em', // relative sizing is hard
+							/--\w+-font-size/ // re-mappings of existing font-size scale
 						]
 					}
 				],
@@ -196,64 +134,46 @@ export default {
 							/calc/,
 							'0.1px',
 							'0',
-							'1.5', // polypane
-							'1.25', // polypane
+							'1.5',
+							'1.25',
 							'26px' // polypane
 						]
 					}
 				],
-				'projectwallace/no-property-shorthand': null,
-				'projectwallace/max-nesting-depth': 4,
+				'projectwallace/no-property-shorthand': null, // already covered in source files
 				'projectwallace/no-prefixed-selectors': null, // already covered in source files
 				'projectwallace/no-prefixed-properties': null, // already covered in source files
-				'projectwallace/no-prefixed-values': [
-					true,
-					{
-						ignore: ['-apple-system']
-					}
-				], // already covered in source files
+				'projectwallace/no-prefixed-values': [true, { ignore: ['-apple-system'] }], // already covered in source files
 				'projectwallace/min-declaration-uniqueness-ratio': 0.38,
-				'projectwallace/no-unknown-custom-property': [
-					true,
-					{
-						allowFallback: true
-					}
-				]
+				'projectwallace/no-unknown-custom-property': [true, { allowFallback: true }]
 			}
 		}
 	],
 	ignoreFiles: ['**/*.js', '**/*.ts', '**/*.json', '**/*.md'],
 	defaultSeverity: 'warning',
 	rules: {
-		// Others / plugins
 		'projectwallace/no-unknown-custom-property': null,
 		'projectwallace/no-unused-custom-properties': null,
 		'projectwallace/no-property-shorthand': [
 			true,
 			{
 				ignore: [
-					// Special case: allow shorthands with a single value, like `0px` or `inherit`
 					'single-value',
-					// Often used shorthands that are fine
-					'border', // 1px solid transparent
+					'border',
 					'outline', // 1px solid transparent
-					/border-block/, // 1px solid transparent
+					/border-block/,
 					/border-inline/, // 1px solid transparent
-					'grid-column', // grid-column: 1 / -1
-					'grid-row', // grid-row: 1 / 2
-					'contain-intrinsic-size', // auto 28.8px
+					'grid-column',
+					'grid-row',
+					'contain-intrinsic-size',
 					'transition' // TODO: break down these shorthands
 				]
 			}
 		],
-		'projectwallace/max-nesting-depth': 3,
+		'projectwallace/max-nesting-depth': MAX_NESTING_DEPTH,
 		'projectwallace/no-prefixed-selectors': [
 			true,
-			{
-				ignore: [
-					/-meter-/ // -moz-meter-bar, -webkit-meter-optimum-value, etc.
-				]
-			}
+			{ ignore: [/-meter-/] } // -moz-meter-bar, -webkit-meter-optimum-value, etc.
 		]
 	}
 }
