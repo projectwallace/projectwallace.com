@@ -1,8 +1,8 @@
 <script>
-	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
-	import SEO from '$components/Seo.svelte'
-	import Image from './2026/og-image-the-css-selection-2026.png'
+	import Container from "$components/Container.svelte";
+	import Heading from "$components/Heading.svelte";
+	import SEO from "$components/Seo.svelte";
+	import Image from "./2026/og-image-the-css-selection-2026.png";
 </script>
 
 <SEO
@@ -21,16 +21,18 @@
 		<li>
 			<article class="css-selection-card">
 				<h2 class="card-title">
-					<a class="card-link" href="/the-css-selection/2026">The CSS Selection</a>
+					<a class="card-link" href="/the-css-selection/2026"
+						>The CSS Selection</a
+					>
 				</h2>
 				<div class="card-year">2026</div>
 				<ul class="card-stats">
 					<li>100+ metrics</li>
 					<li>100,000 websites</li>
 					<li class="break"></li>
-					<li><u>41%</u> use <code>:has()</code></li>
-					<li><u>9.61%</u> use <code>@container</code></li>
-					<li><u>1.89%</u> use <code>OkLCH</code></li>
+					<li><u>41%</u> use <code class="code">:has()</code></li>
+					<li><u>9.61%</u> use <code class="code">@container</code></li>
+					<li><u>1.89%</u> use <code class="code">OkLCH</code></li>
 				</ul>
 			</article>
 		</li>
@@ -54,7 +56,11 @@
 		background-color: var(--bg-100);
 		color: var(--fg-200);
 		font-family: var(--font-body);
-		background-image: radial-gradient(circle at top, var(--teal-900), transparent 80%);
+		background-image: radial-gradient(
+			circle at top,
+			light-dark(var(--teal-100), var(--teal-900)),
+			transparent 80%
+		);
 		border: 0.3rem solid var(--accent-400);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-12);
@@ -62,18 +68,13 @@
 		align-content: start;
 		gap: var(--space-6);
 
-		:global([data-theme='light']) & {
-			background-image: radial-gradient(circle at top, var(--teal-200), transparent 80%);
-
-			&:hover,
-			&:focus-within {
-				background-image: radial-gradient(circle at top, var(--teal-200), transparent 100%);
-			}
-		}
-
 		&:hover,
 		&:focus-within {
-			background-image: radial-gradient(circle at top, var(--teal-900), transparent 100%);
+			background-image: radial-gradient(
+				circle at top,
+				light-dark(var(--teal-200), var(--teal-800)),
+				transparent 100%
+			);
 
 			.card-link {
 				text-decoration: underline;
@@ -98,8 +99,7 @@
 		font-weight: 900;
 		color: var(--fg-100);
 		font-size: var(--size-4xl);
-		margin: 0;
-		line-height: 0.88;
+		line-height: var(--leading-tighter);
 
 		@container (width > 33rem) {
 			font-size: var(--size-6xl);
@@ -108,7 +108,7 @@
 	}
 
 	.card-link::after {
-		content: '';
+		content: "";
 		position: absolute;
 		inset: 0;
 	}
@@ -124,15 +124,14 @@
 			width: 100%;
 		}
 
-		code {
+		.code {
 			position: relative;
 			background-color: transparent;
 			color: var(--black);
 			z-index: 1;
-			margin: 0;
 
 			&::after {
-				content: '';
+				content: "";
 				position: absolute;
 				inset-block: -0.2em;
 				inset-inline: -0.1em;
@@ -148,7 +147,7 @@
 			position: relative;
 
 			&::after {
-				content: '';
+				content: "";
 				position: absolute;
 				bottom: -0.4cqb;
 				right: 0;

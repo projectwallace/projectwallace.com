@@ -123,7 +123,6 @@
 
 	:global(.markdown pre code) {
 		background-color: transparent;
-		padding: 0;
 	}
 
 	:global(.markdown ul) {
@@ -216,7 +215,6 @@
 
 	:global(.markdown aside) {
 		margin-block: var(--space-16);
-		margin-inline: 0;
 	}
 
 	:global(.markdown aside):not([class]) {

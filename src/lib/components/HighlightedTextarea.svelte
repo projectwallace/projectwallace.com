@@ -45,7 +45,7 @@
 			padding: 0;
 			margin: 0;
 			font-size: var(--size-sm);
-			line-height: 2;
+			line-height: var(--leading-loose);
 			font-family: var(--font-mono);
 			white-space: pre;
 			height: 100%;

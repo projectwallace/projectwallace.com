@@ -1,45 +1,51 @@
 <script lang="ts">
-	import { melt, type TreeView } from '@melt-ui/svelte'
-	import { getContext } from 'svelte'
-	import { format_number } from '$lib/format-number'
-	import { UNUSED, UNDECLARED, UNDECLARED_WITH_FALLBACK, type TreeItem, type Location } from './types'
-	import Tree from './Tree.svelte'
+	import { melt, type TreeView } from "@melt-ui/svelte";
+	import { getContext } from "svelte";
+	import { format_number } from "$lib/format-number";
+	import {
+		UNUSED,
+		UNDECLARED,
+		UNDECLARED_WITH_FALLBACK,
+		type TreeItem,
+		type Location,
+	} from "./types";
+	import Tree from "./Tree.svelte";
 
 	let {
 		items,
-		search_query
+		search_query,
 	}: {
-		items: TreeItem[] | Location[]
-		search_query: string
-	} = $props()
+		items: TreeItem[] | Location[];
+		search_query: string;
+	} = $props();
 
 	const {
 		elements: { item, group },
-		helpers: { isExpanded }
-	} = getContext<TreeView>('tree')
+		helpers: { isExpanded },
+	} = getContext<TreeView>("tree");
 </script>
 
 {#each items as { title, count, index, type, children, parent, location, level, name }}
-	{@const item_id = type === 'property' ? title : `${title}-${index}`}
-	{@const has_children = type == 'property'}
-	{@const matches = search_query === '' ? [name] : name.split(search_query)}
+	{@const item_id = type === "property" ? title : `${title}-${index}`}
+	{@const has_children = type == "property"}
+	{@const matches = search_query === "" ? [name] : name.split(search_query)}
 
 	<li class:is-expanded={$isExpanded(item_id)}>
 		<button
 			use:melt={$item({
 				id: item_id,
-				hasChildren: has_children
+				hasChildren: has_children,
 			})}
 			data-item={JSON.stringify({
 				type,
 				title: parent || title,
-				location
+				location,
 			})}
-			data-testid={type === 'property' ? 'property-name' : 'property-location'}
+			data-testid={type === "property" ? "property-name" : "property-location"}
 		>
-			{#if type === 'property'}
+			{#if type === "property"}
 				<span class="indicator">
-					{$isExpanded(item_id) ? '▼' : '▶'}
+					{$isExpanded(item_id) ? "▼" : "▶"}
 				</span>
 				<code
 					class="[ language-css ] property-name"
@@ -58,7 +64,11 @@
 					{format_number(count)}
 				</span>
 			{:else}
-				<code class="language-css property-use" class:warning={level === UNUSED} class:error={level === UNDECLARED}>
+				<code
+					class="language-css property-use"
+					class:warning={level === UNUSED}
+					class:error={level === UNDECLARED}
+				>
 					{title}
 				</code>
 				<span class="location">
@@ -76,13 +86,13 @@
 {/each}
 
 <style>
-	button[role='treeitem'] {
+	button[role="treeitem"] {
 		content-visibility: auto;
 		contain-intrinsic-size: auto 28.8px;
 		text-align: start;
 		padding-inline: var(--space-2);
 		padding-block: 0.25rem;
-		line-height: 1.4;
+		line-height: var(--leading-base);
 		width: 100%;
 		display: flex;
 		align-items: center;
@@ -91,7 +101,7 @@
 		background-color: transparent;
 		cursor: default;
 
-		@media (hover) {
+		@media (hover: hover) {
 			&:hover {
 				background-color: var(--bg-300);
 			}
@@ -101,7 +111,7 @@
 			outline: 1px solid var(--accent);
 		}
 
-		&[aria-selected='true'] {
+		&[aria-selected="true"] {
 			background-color: var(--bg-200);
 		}
 	}
@@ -145,7 +155,9 @@
 	}
 
 	.warning {
-		text-decoration-color: var(--wallace-custom-property-inspector-warning-color);
+		text-decoration-color: var(
+			--wallace-custom-property-inspector-warning-color
+		);
 	}
 
 	.error {
@@ -153,7 +165,9 @@
 	}
 
 	.alert {
-		text-decoration-color: var(--wallace-custom-property-inspector-suggestion-color);
+		text-decoration-color: var(
+			--wallace-custom-property-inspector-suggestion-color
+		);
 	}
 
 	.count {

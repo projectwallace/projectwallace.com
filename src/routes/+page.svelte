@@ -1,21 +1,21 @@
 <script lang="ts">
-	import Container from '$lib/components/Container.svelte'
-	import Seo from '$lib/components/Seo.svelte'
-	import Button from '$lib/components/Button.svelte'
-	import Heading from '$lib/components/Heading.svelte'
-	import StatusBadge from '$components/StatusBadge.svelte'
-	import Icon from '$components/Icon.svelte'
+	import Container from "$lib/components/Container.svelte";
+	import Seo from "$lib/components/Seo.svelte";
+	import Button from "$lib/components/Button.svelte";
+	import Heading from "$lib/components/Heading.svelte";
+	import StatusBadge from "$components/StatusBadge.svelte";
+	import Icon from "$components/Icon.svelte";
 	// @ts-expect-error No type definitions for importing images
-	import Image from './(public)/analyze-css/og-image.png?w=1200'
+	import Image from "./(public)/analyze-css/og-image.png?w=1200";
 
 	const tools: Record<string, string> = {
-		'CSS prettifier': '/prettify-css',
-		'CSS Minifier': '/minify-css',
-		'CSS diff viewer': '/css-diff',
-		'Coverage inspector': '/css-coverage',
-		'Specificity calculator': '/specificity-calculator',
-		'Selector complexity': '/selector-complexity'
-	}
+		"CSS prettifier": "/prettify-css",
+		"CSS Minifier": "/minify-css",
+		"CSS diff viewer": "/css-diff",
+		"Coverage inspector": "/css-coverage",
+		"Specificity calculator": "/specificity-calculator",
+		"Selector complexity": "/selector-complexity",
+	};
 </script>
 
 <Seo
@@ -25,14 +25,19 @@
 />
 
 <header>
-	<h1 class="font-heading">Your CSS has dirty secrets <br />and <em>Wallace knows them</em>.</h1>
+	<h1 class="font-heading">
+		Your CSS has dirty secrets <br />and <em>Wallace knows them</em>.
+	</h1>
 	<p class="lead">
-		47 shades of gray in your design tokens. Specificity wars you didn't know existed. 12 competing font stacks across
-		your codebase. 2MB of embedded images. Project Wallace reveals the big picture from every angle.
+		47 shades of gray in your design tokens. Specificity wars you didn't know
+		existed. 12 competing font stacks across your codebase. 2MB of embedded
+		images. Project Wallace reveals the big picture from every angle.
 	</p>
 
 	<div class="button-group">
-		<Button size="lg" icon="arrow-right" element="a" href="/analyze-css">Analyze your CSS</Button>
+		<Button size="lg" icon="arrow-right" element="a" href="/analyze-css"
+			>Analyze your CSS</Button
+		>
 	</div>
 </header>
 
@@ -44,8 +49,9 @@
 		The big picture becomes invisible.
 	</p>
 	<p class="lead">
-		Every team reviews components. Nobody reviews all stylesheets. Over time, small inconsistencies compound into
-		systemic problems that hide in plain sight.
+		Every team reviews components. Nobody reviews all stylesheets. Over time,
+		small inconsistencies compound into systemic problems that hide in plain
+		sight.
 	</p>
 
 	<Container size="3xl">
@@ -54,28 +60,37 @@
 				<Icon name="brush" />
 				<Heading element="h3">Colors multiply quietly</Heading>
 				<p>
-					What started as a clean palette becomes 140+ unique values. Off-brand grays, duplicate blues in different
-					formats, opacity hacks nobody remembers.
+					What started as a clean palette becomes 140+ unique values. Off-brand
+					grays, duplicate blues in different formats, opacity hacks nobody
+					remembers.
 				</p>
-				<StatusBadge status="warning" aria-hidden="true">invisible drift</StatusBadge>
+				<StatusBadge status="warning" aria-hidden="true"
+					>invisible drift</StatusBadge
+				>
 			</li>
 			<li>
 				<Icon name="code" />
 				<Heading element="h3">Specificity creeps upward</Heading>
 				<p>
-					Every quick fix adds another layer. Before you know it, selectors are fighting each other and overrides are
-					the norm instead of the exception.
+					Every quick fix adds another layer. Before you know it, selectors are
+					fighting each other and overrides are the norm instead of the
+					exception.
 				</p>
-				<StatusBadge status="error" aria-hidden="true">growing complexity</StatusBadge>
+				<StatusBadge status="error" aria-hidden="true"
+					>growing complexity</StatusBadge
+				>
 			</li>
 			<li>
 				<Icon name="layers" />
 				<Heading element="h3">Design systems drift silently</Heading>
 				<p>
-					Tokens get duplicated. Custom properties multiply. Font stacks diverge. Nobody notices until the bundle is
-					300kb and the design review falls apart.
+					Tokens get duplicated. Custom properties multiply. Font stacks
+					diverge. Nobody notices until the bundle is 300kb and the design
+					review falls apart.
 				</p>
-				<StatusBadge status="info" aria-hidden="true">system-level debt</StatusBadge>
+				<StatusBadge status="info" aria-hidden="true"
+					>system-level debt</StatusBadge
+				>
 			</li>
 		</ul>
 	</Container>
@@ -89,8 +104,8 @@
 		of your entire CSS codebase.
 	</p>
 	<p class="lead">
-		Paste a URL or your raw CSS. Get a complete x-ray of your stylesheets: from colors and typography to specificity and
-		cascade layers, in seconds.
+		Paste a URL or your raw CSS. Get a complete x-ray of your stylesheets: from
+		colors and typography to specificity and cascade layers, in seconds.
 	</p>
 
 	<Container size="3xl">
@@ -99,8 +114,9 @@
 				<StatusBadge status="success">Core analyzer</StatusBadge>
 				<Heading element="h3">Full CSS analysis</Heading>
 				<p>
-					Every selector, every media query, every property — surfaced, counted, and visualized. Understand the true
-					structure and complexity of your stylesheets.
+					Every selector, every media query, every property — surfaced, counted,
+					and visualized. Understand the true structure and complexity of your
+					stylesheets.
 				</p>
 				<a href="/analyze-css">Analyze CSS →</a>
 			</li>
@@ -108,8 +124,9 @@
 				<StatusBadge status="warning">Code quality</StatusBadge>
 				<Heading element="h3">Opinionated quality score</Heading>
 				<p>
-					Get a single, actionable score for your CSS health. Based on specificity distribution, redundancy, selector
-					complexity, and proven best practices.
+					Get a single, actionable score for your CSS health. Based on
+					specificity distribution, redundancy, selector complexity, and proven
+					best practices.
 				</p>
 				<a href="/css-code-quality">Check code quality →</a>
 			</li>
@@ -117,8 +134,9 @@
 				<StatusBadge status="secondary">Design tokens</StatusBadge>
 				<Heading element="h3">Design token audit</Heading>
 				<p>
-					Every color, font-size, shadow, and spacing value extracted and grouped. See where your design system is
-					consistent and where it's quietly drifting.
+					Every color, font-size, shadow, and spacing value extracted and
+					grouped. See where your design system is consistent and where it's
+					quietly drifting.
 				</p>
 				<a href="/css-code-quality">Check code quality →</a>
 			</li>
@@ -126,8 +144,8 @@
 				<StatusBadge status="info">Custom properties</StatusBadge>
 				<Heading element="h3">Custom property inspector</Heading>
 				<p>
-					Trace every CSS custom property. See which are declared, which are used, and which are quietly orphaned across
-					your stylesheets.
+					Trace every CSS custom property. See which are declared, which are
+					used, and which are quietly orphaned across your stylesheets.
 				</p>
 				<a href="/custom-property-inspector">Inspect properties →</a>
 			</li>
@@ -135,8 +153,8 @@
 				<StatusBadge status="neutral">Cascade layers</StatusBadge>
 				<Heading element="h3">@layer visualizer</Heading>
 				<p>
-					Visualize your cascade layer structure. Understand the order, nesting, and specificity implications of your
-					@layer declarations.
+					Visualize your cascade layer structure. Understand the order, nesting,
+					and specificity implications of your @layer declarations.
 				</p>
 				<a href="/css-layers-visualizer">View layers →</a>
 			</li>
@@ -147,7 +165,9 @@
 <section>
 	<h2 class="section-heading">Standalone tools</h2>
 	<p class="faux-heading font-heading">One-off tools for everyday CSS work</p>
-	<p class="lead">No signup. No paywall. Just paste your CSS and get your job done.</p>
+	<p class="lead">
+		No signup. No paywall. Just paste your CSS and get your job done.
+	</p>
 
 	<Container size="3xl">
 		<ul class="tools-list">
@@ -162,27 +182,39 @@
 
 <section>
 	<h2 class="section-heading">Trusted by the pros</h2>
-	<p class="lead">Don't take our word for it. These people <i>actually</i> know what they are talking about.</p>
+	<p class="lead">
+		Don't take our word for it. These people <i>actually</i> know what they are talking
+		about.
+	</p>
 	<Container size="2xl">
 		<ul class="testimonials">
 			<li class="testimonial">
 				<blockquote>
 					<p>
-						<q>If you need to get a handle on your CSS, <em>you need Project Wallace</em>.</q>
+						<q
+							>If you need to get a handle on your CSS, <em
+								>you need Project Wallace</em
+							>.</q
+						>
 					</p>
 				</blockquote>
-				<div class="author">Harry Roberts <span class="website">csswizardry.com</span></div>
+				<div class="author">
+					Harry Roberts <span class="website">csswizardry.com</span>
+				</div>
 			</li>
 			<li class="testimonial">
 				<blockquote>
 					<p>
 						<q>
-							I&rsquo;ve been using Wallace with my client and it is a <em>fantastic dashboard</em> to keep an eye on your
-							CSS.
+							I&rsquo;ve been using Wallace with my client and it is a <em
+								>fantastic dashboard</em
+							> to keep an eye on your CSS.
 						</q>
 					</p>
 				</blockquote>
-				<div class="author">Stuart Robson <span class="website">alwaystwisted.com</span></div>
+				<div class="author">
+					Stuart Robson <span class="website">alwaystwisted.com</span>
+				</div>
 			</li>
 		</ul>
 	</Container>
@@ -197,9 +229,16 @@
 		gap: var(--space-8);
 		justify-content: center;
 		overflow: clip;
-		background-image:
-			radial-gradient(circle at top right, rgb(from var(--accent-400) r g b / 0.1) 0%, transparent 80%),
-			radial-gradient(circle at center left, rgb(from var(--purple-500) r g b / 0.12) 0%, transparent 70%);
+		background-image: radial-gradient(
+				circle at top right,
+				rgb(from var(--accent-400) r g b / 0.1) 0%,
+				transparent 80%
+			),
+			radial-gradient(
+				circle at center left,
+				rgb(from var(--purple-500) r g b / 0.12) 0%,
+				transparent 70%
+			);
 	}
 
 	.section-heading {
@@ -332,14 +371,14 @@
 			padding-block: var(--space-4);
 			padding-inline: var(--space-6);
 			color: inherit;
-			transition: color 0.1s ease-out;
+			transition: color 100ms ease-out;
 
 			[aria-hidden] {
 				opacity: 0;
 				translate: -5px 0;
 				transition:
-					translate 0.1s ease-out,
-					opacity 0.1s ease-out;
+					translate 100ms ease-out,
+					opacity 100ms ease-out;
 			}
 
 			&:hover,
@@ -397,7 +436,7 @@
 			color: var(--fg-300);
 
 			&::before {
-				content: '—';
+				content: "—";
 				margin-inline: 1ch;
 			}
 		}

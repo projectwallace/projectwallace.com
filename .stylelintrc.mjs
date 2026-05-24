@@ -151,8 +151,29 @@ export default {
 			// HOLISTIC LINTING
 			files: ['.svelte-kit/**/*.css'],
 			rules: {
-				'projectwallace/max-unique-font-sizes': [
+				'projectwallace/max-declarations-per-rule': 28, // our @layer.html spacing scale
+				'projectwallace/max-spacing-resets': 17,
+				'projectwallace/max-unique-media-queries': [
+					11, // TODO: reduce and convert some to container queries
+					{
+						ignore: [
+							/prefers-reduced-motion/,
+							/prefers-color-scheme/,
+							/forced-colors/,
+							/print/,
+							/prefers-contrast/,
+							/hover/
+						]
+					}
+				],
+				'projectwallace/max-unique-units': [
 					16,
+					{
+						ignore: ['lh']
+					}
+				],
+				'projectwallace/max-unique-font-sizes': [
+					18,
 					{
 						ignore: [
 							// polypane callout font-sizes
@@ -163,6 +184,21 @@ export default {
 							// re-mappings of existing font-size scale
 							// --nav-font-size, --diff-font-size, etc.
 							/--\w+-font-size/
+						]
+					}
+				],
+				'projectwallace/max-unique-gradients': 11,
+				'projectwallace/max-unique-line-heights': [
+					7,
+					{
+						ignore: [
+							/--\w+-line-height/, // token remapping
+							/calc/,
+							'0.1px',
+							'0',
+							'1.5', // polypane
+							'1.25', // polypane
+							'26px' // polypane
 						]
 					}
 				],
@@ -180,11 +216,7 @@ export default {
 				'projectwallace/no-unknown-custom-property': [
 					true,
 					{
-						ignore: [
-							'--color-bar-height',
-							// '--wallace-diffstat-bg',
-							'--gradient'
-						]
+						allowFallback: true
 					}
 				]
 			}

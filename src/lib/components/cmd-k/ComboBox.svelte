@@ -1,59 +1,62 @@
 <script lang="ts">
-	import { afterNavigate } from '$app/navigation'
-	import Empty from '$components/Empty.svelte'
-	import Icon from '$components/Icon.svelte'
-	import { focusable_children, trap } from './actions.focus'
-	import { shortcuts } from './shortcuts'
+	import { afterNavigate } from "$app/navigation";
+	import Empty from "$components/Empty.svelte";
+	import Icon from "$components/Icon.svelte";
+	import { focusable_children, trap } from "./actions.focus";
+	import { shortcuts } from "./shortcuts";
 
-	let search_query = $state('')
-	let normalized_search_query = $derived(search_query.toLowerCase().trim())
+	let search_query = $state("");
+	let normalized_search_query = $derived(search_query.toLowerCase().trim());
 
 	let results = $derived.by(() => {
 		if (normalized_search_query.length === 0) {
-			return shortcuts
+			return shortcuts;
 		}
 
-		let new_results = structuredClone(shortcuts)
+		let new_results = structuredClone(shortcuts);
 		new_results.forEach((section) => {
 			section.items = section.items.filter((item) => {
 				return (
-					item.title.toLowerCase().includes(normalized_search_query) || item.keywords?.includes(normalized_search_query)
-				)
-			})
-		})
-		return new_results
-	})
-	let no_results = $derived(results.every((section) => section.items.length === 0))
+					item.title.toLowerCase().includes(normalized_search_query) ||
+					item.keywords?.includes(normalized_search_query)
+				);
+			});
+		});
+		return new_results;
+	});
+	let no_results = $derived(
+		results.every((section) => section.items.length === 0),
+	);
 
 	function onkeydown(event: KeyboardEvent & { currentTarget: HTMLElement }) {
-		if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-			event.preventDefault()
+		if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+			event.preventDefault();
 
-			let listbox = event.currentTarget
-			const group = focusable_children(listbox)
+			let listbox = event.currentTarget;
+			const group = focusable_children(listbox);
 
 			// when using arrow keys (as opposed to tab), don't focus buttons
-			const selector = 'a.shortcut, input'
+			const selector = "a.shortcut, input";
 
-			if (event.key === 'ArrowDown') {
+			if (event.key === "ArrowDown") {
 				if (event.metaKey || event.ctrlKey) {
-					group.last('a.shortcut')
+					group.last("a.shortcut");
 				} else {
-					group.next(selector)
+					group.next(selector);
 				}
 			} else {
 				if (event.metaKey || event.ctrlKey) {
-					group.first('a.shortcut')
+					group.first("a.shortcut");
 				} else {
-					group.prev(selector)
+					group.prev(selector);
 				}
 			}
 		}
 	}
 
 	afterNavigate(() => {
-		search_query = ''
-	})
+		search_query = "";
+	});
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -91,9 +94,9 @@
 									<li class="item">
 										<a class="shortcut" href={list_item.href}>
 											<span class="icon">
-												{#if section.title.includes('Website')}
+												{#if section.title.includes("Website")}
 													<Icon name="code-window" size={15} />
-												{:else if section.title.includes('One-off')}
+												{:else if section.title.includes("One-off")}
 													<Icon name="tools" size={15} />
 												{:else}
 													<Icon name="file" size={15} />
@@ -117,12 +120,12 @@
 		margin: var(--space-3);
 	}
 
-	input[type='search'] {
+	input[type="search"] {
 		inline-size: 100%;
 	}
 
 	.body {
-		max-block-size: 85vh;
+		max-block-size: 85vb;
 		overflow-inline: auto;
 		scrollbar-gutter: stable;
 		overscroll-behavior: contain;

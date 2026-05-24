@@ -1,66 +1,71 @@
 <script lang="ts">
-	import { format_filesize } from '$lib/format-filesize'
+	import { format_filesize } from "$lib/format-filesize";
 
 	interface Props {
-		name: string
-		id: string
+		name: string;
+		id: string;
 	}
 
-	let { name, id }: Props = $props()
+	let { name, id }: Props = $props();
 
 	type File = {
-		name: string
-		css: string
-		size: number
-	}
+		name: string;
+		css: string;
+		size: number;
+	};
 
 	function slice(str: string, maxLen: number, maxLines: number) {
-		let new_str = ''
+		let new_str = "";
 		for (let char of str) {
-			if (char === '\n' || char === '\r') {
-				maxLines--
+			if (char === "\n" || char === "\r") {
+				maxLines--;
 				if (maxLines === 0) {
-					break
+					break;
 				}
 			}
 			if (new_str.length >= maxLen) {
-				break
+				break;
 			}
-			new_str += char
+			new_str += char;
 		}
-		return new_str
+		return new_str;
 	}
 
-	let input: HTMLInputElement | undefined = $state()
-	let files: File[] = $state([])
-	let serialized_files = $state('')
+	let input: HTMLInputElement | undefined = $state();
+	let files: File[] = $state([]);
+	let serialized_files = $state("");
 
 	$effect(() => {
 		try {
-			serialized_files = JSON.stringify(files)
+			serialized_files = JSON.stringify(files);
 		} catch (error) {
-			console.error('Error serializing files:', error)
+			console.error("Error serializing files:", error);
 		}
-	})
+	});
 
 	async function update_file_list(event: Event) {
-		let input = event.target as HTMLInputElement
-		files = []
+		let input = event.target as HTMLInputElement;
+		files = [];
 
 		if (input.files) {
 			for (let file of input.files) {
-				if (!file.type.includes('css')) {
-					console.warn('File is not a CSS file:', file.type, file.name, file.size)
-					continue
+				if (!file.type.includes("css")) {
+					console.warn(
+						"File is not a CSS file:",
+						file.type,
+						file.name,
+						file.size,
+					);
+					continue;
 				}
 
-				let css = await file.text()
+				let css = await file.text();
 
 				files.push({
 					name: file.name,
 					css,
-					size: file.size
-				})
+					size: file.size,
+				});
 			}
 		}
 	}
@@ -68,7 +73,16 @@
 
 <div class="group">
 	<div>
-		<input type="file" multiple required accept=".css" bind:this={input} {name} {id} onchange={update_file_list} />
+		<input
+			type="file"
+			multiple
+			required
+			accept=".css"
+			bind:this={input}
+			{name}
+			{id}
+			onchange={update_file_list}
+		/>
 		<input type="hidden" name={`${name}-rendered`} value={serialized_files} />
 	</div>
 
@@ -80,7 +94,9 @@
 						<div class="file-name">{file.name}</div>
 						<b class="file-size">({format_filesize(file.size)})</b>
 					</div>
-					<pre dir="ltr" translate="no"><code class="language-css specimen">{slice(file.css, 200, 3)}</code></pre>
+					<pre dir="ltr" translate="no"><code class="language-css specimen"
+							>{slice(file.css, 200, 3)}</code
+						></pre>
 				</li>
 			{/each}
 		</ul>
@@ -93,14 +109,14 @@
 		gap: var(--space-4);
 	}
 
-	input[type='file'] {
+	input[type="file"] {
 		display: flex;
 		width: 100%;
 		padding: var(--space-8);
 		border: 2px dashed var(--bg-400);
 		text-align: center;
 		background-color: var(--bg-100);
-		transition: border-color 0.1s ease-out;
+		transition: border-color 100ms ease-out;
 
 		&:hover {
 			border-color: var(--bg-500);
