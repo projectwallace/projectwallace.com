@@ -49,10 +49,10 @@
 	textarea {
 		width: 100%;
 		min-height: var(--space-36);
-		max-height: 70vh;
+		max-height: 70vb;
 		font-family: var(--font-mono);
 		font-size: var(--size-sm);
-		line-height: var(--size-base);
+		line-height: var(--leading-snug);
 		white-space: pre;
 
 		&.wrap {

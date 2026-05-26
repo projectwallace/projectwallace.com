@@ -82,7 +82,7 @@
 		text-align: start;
 		padding-inline: var(--space-2);
 		padding-block: 0.25rem;
-		line-height: 1.4;
+		line-height: var(--leading-base);
 		width: 100%;
 		display: flex;
 		align-items: center;
@@ -91,7 +91,7 @@
 		background-color: transparent;
 		cursor: default;
 
-		@media (hover) {
+		@media (hover: hover) {
 			&:hover {
 				background-color: var(--bg-300);
 			}

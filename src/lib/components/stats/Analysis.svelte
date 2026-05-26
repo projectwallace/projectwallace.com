@@ -128,7 +128,7 @@
 			right: 0;
 			bottom: 0;
 			padding-top: var(--space-8);
-			max-height: 100vh;
+			max-height: 100vb;
 			overflow-y: auto;
 			padding-bottom: 4rem;
 		}

@@ -93,7 +93,7 @@
 		word-break: break-all;
 		white-space: pre;
 		tab-size: 2;
-		font-size: 1em;
+		font-size: inherit;
 		border: 1px solid var(--fg-700);
 	}
 
@@ -108,7 +108,6 @@
 
 	:global(.markdown pre code) {
 		background-color: transparent;
-		padding: 0;
 	}
 
 	:global(.markdown ul) {
@@ -146,7 +145,6 @@
 		color: light-dark(var(--accent-800), var(--accent-300));
 		text-decoration: underline;
 		text-decoration-color: light-dark(var(--accent-700), var(--accent-300));
-		font-size: 1em;
 	}
 
 	:global(.markdown table) {
@@ -155,14 +153,14 @@
 		width: 100%;
 		border-block-start: 0.125rem solid var(--fg-300);
 		box-shadow: var(--shadow);
-		font-size: 0.8em;
+		font-size: var(--size-sm);
 	}
 
 	:global(.markdown th) {
 		text-align: left;
 		font-family: var(--font-body);
 		text-transform: uppercase;
-		font-size: 0.8em;
+		font-size: var(--size-sm);
 		font-weight: bold;
 		padding: var(--cell-spacing);
 	}
@@ -185,7 +183,7 @@
 	}
 
 	:global(.markdown code) {
-		font-size: 0.8em;
+		font-size: var(--size-smaller);
 	}
 
 	:global(.markdown :is(p, li, figcaption) code) {
@@ -202,7 +200,6 @@
 
 	:global(.markdown aside) {
 		margin-block: var(--space-16);
-		margin-inline: 0;
 	}
 
 	:global(.markdown aside):not([class]) {

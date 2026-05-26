@@ -123,7 +123,7 @@
 		padding-top: 9px;
 		cursor: ns-resize;
 		opacity: 0;
-		transition: opacity 0.1s ease-out;
+		transition: opacity 100ms ease-out;
 		display: block;
 		width: 100%;
 
@@ -204,7 +204,7 @@
 		background-color: var(--bg-100);
 		height: calc(20rem + var(--panel-offset, 0));
 		min-height: 1rem;
-		max-height: calc(50vh - var(--space-16));
+		max-height: calc(50vb - var(--space-16));
 		width: 100%;
 		overflow-y: auto;
 		contain: strict;

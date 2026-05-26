@@ -14,9 +14,8 @@
 
 <style>
 	.status-badge {
-		font-size: 0.8rem;
+		font-size: var(--size-smaller);
 		line-height: var(--leading-none);
-		border-radius: 0;
 		max-block-size: max-content;
 		max-inline-size: max-content;
 		padding-block: 0.3em;
@@ -26,6 +25,7 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		display: inline-block;
+		text-decoration: none;
 	}
 
 	.neutral {

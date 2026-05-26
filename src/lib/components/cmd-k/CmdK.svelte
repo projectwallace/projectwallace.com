@@ -94,7 +94,7 @@
 		}
 
 		& kbd:first-of-type {
-			font-size: 1.2em;
+			font-size: var(--size-larger);
 		}
 
 		@media (max-width: 44rem) {
@@ -118,7 +118,7 @@
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
-		width: 90vw;
+		width: 90vi;
 		max-width: 48rem;
 		background-color: var(--bg-200);
 		border: 1px solid var(--fg-450);

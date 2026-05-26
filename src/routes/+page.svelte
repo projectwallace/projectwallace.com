@@ -25,7 +25,9 @@
 />
 
 <header>
-	<h1 class="font-heading">Your CSS has dirty secrets <br />and <em>Wallace knows them</em>.</h1>
+	<h1 class="font-heading">
+		Your CSS has dirty secrets <br />and <em>Wallace knows them</em>.
+	</h1>
 	<p class="lead">
 		47 shades of gray in your design tokens. Specificity wars you didn't know existed. 12 competing font stacks across
 		your codebase. 2MB of embedded images. Project Wallace reveals the big picture from every angle.
@@ -162,7 +164,9 @@
 
 <section>
 	<h2 class="section-heading">Trusted by the pros</h2>
-	<p class="lead">Don't take our word for it. These people <i>actually</i> know what they are talking about.</p>
+	<p class="lead">
+		Don't take our word for it. These people <i>actually</i> know what they are talking about.
+	</p>
 	<Container size="2xl">
 		<ul class="testimonials">
 			<li class="testimonial">
@@ -171,7 +175,9 @@
 						<q>If you need to get a handle on your CSS, <em>you need Project Wallace</em>.</q>
 					</p>
 				</blockquote>
-				<div class="author">Harry Roberts <span class="website">csswizardry.com</span></div>
+				<div class="author">
+					Harry Roberts <span class="website">csswizardry.com</span>
+				</div>
 			</li>
 			<li class="testimonial">
 				<blockquote>
@@ -182,7 +188,9 @@
 						</q>
 					</p>
 				</blockquote>
-				<div class="author">Stuart Robson <span class="website">alwaystwisted.com</span></div>
+				<div class="author">
+					Stuart Robson <span class="website">alwaystwisted.com</span>
+				</div>
 			</li>
 		</ul>
 	</Container>
@@ -332,14 +340,14 @@
 			padding-block: var(--space-4);
 			padding-inline: var(--space-6);
 			color: inherit;
-			transition: color 0.1s ease-out;
+			transition: color 100ms ease-out;
 
 			[aria-hidden] {
 				opacity: 0;
 				translate: -5px 0;
 				transition:
-					translate 0.1s ease-out,
-					opacity 0.1s ease-out;
+					translate 100ms ease-out,
+					opacity 100ms ease-out;
 			}
 
 			&:hover,

@@ -83,6 +83,9 @@ jobs:
       - name: Lint CSS
         run: pnpm stylelint
 
+      - name: Holistic CSS lint
+        run: pnpm stylelint-full
+
   check:
     name: Typescript Check
     runs-on: ubuntu-latest

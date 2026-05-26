@@ -15,6 +15,7 @@
 		"format:check": "oxfmt --check",
 		"lint": "svelte-kit sync && oxlint --config oxlintrc.json",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore --report-needless-disables --report-descriptionless-disables --report-unscoped-disables",
+		"stylelint-full": "vite build >/dev/null 2>&1 && find .svelte-kit/output/server/_app/immutable/assets -name '*.css' -exec cat {} + > .svelte-kit/holistic.css 2>/dev/null && format-css .svelte-kit/holistic.css > .svelte-kit/holistic-formatted.css 2>/dev/null && stylelint .svelte-kit/holistic-formatted.css --config=.stylelintrc.mjs",
 		"css-coverage": "css-coverage ./css-coverage --min-coverage=.9  --min-file-coverage=.66 --show-uncovered=all"
 	},
 	"dependencies": {
@@ -28,7 +29,7 @@
 		"@projectwallace/css-layer-tree": "^2.1.4",
 		"@projectwallace/css-parser": "~0.16.0",
 		"@projectwallace/css-time-sort": "^3.1.0",
-		"@projectwallace/format-css": "^3.1.2",
+		"@projectwallace/format-css": "^3.1.3",
 		"@sveltejs/enhanced-img": "^0.10.4",
 		"@sveltejs/kit": "^2.60.1",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",

@@ -9,7 +9,12 @@
 		css?: string
 		selected_location?: CssLocation
 		locations?: CssLocation[]
-		coverage_chunks?: { start_line: number; is_covered: boolean; end_line: number; total_lines: number }[]
+		coverage_chunks?: {
+			start_line: number
+			is_covered: boolean
+			end_line: number
+			total_lines: number
+		}[]
 	}
 
 	type WrappingProps = BaseProps & {
@@ -308,7 +313,7 @@
 
 		& > * {
 			padding-block: var(--space-2);
-			line-height: var(--pre-line-height);
+			line-height: var(--pre-line-height, 20px);
 			font-family: var(--font-mono);
 			font-size: var(--size-specimen);
 			min-height: 100%; /* Push horizontal scrollbar to the bottom of container */

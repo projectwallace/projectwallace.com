@@ -48,7 +48,9 @@
 				aria-selected={value === selected_item?.value && selected_item.type === 'gradient' ? 'true' : 'false'}
 			>
 				{#if is_in_viewport.current === true}
-					<div class="gradient" style:--gradient={value}>{locations.length}&times;</div>
+					<div class="gradient" style:--gradient={value}>
+						{locations.length}&times;
+					</div>
 				{:else}
 					<div class="gradient">{locations.length}&times;</div>
 				{/if}
@@ -137,7 +139,7 @@
 		display: block;
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
-		font-size: smaller;
+		font-size: var(--size-specimen);
 		background-color: var(--bg-400);
 		color: var(--fg-200);
 		word-break: break-word;

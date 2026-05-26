@@ -1,4 +1,4 @@
-/* stylelint-disable projectwallace/max-comments, projectwallace/max-comment-size, projectwallace/no-prefixed-properties, projectwallace/no-prefixed-selectors, projectwallace/no-property-shorthand -- Comments here are nicely descriptive */
+/* stylelint-disable projectwallace/max-comment-size, projectwallace/no-prefixed-properties, projectwallace/no-prefixed-selectors, projectwallace/no-property-shorthand -- Comments here are nicely descriptive */
 
 @layer normalize {
 	/*
@@ -29,7 +29,7 @@
 
 	html,
 	:host {
-		line-height: 1.5; /* 1 */
+		line-height: var(--leading-base); /* 1 */
 		-webkit-text-size-adjust: 100%; /* 2 */
 		tab-size: 4; /* 3 */
 		font-family:
@@ -102,8 +102,6 @@
 	kbd,
 	samp,
 	pre {
-		font-family:
-			ui-monospace, 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace; /* 1 */
 		font-feature-settings: normal; /* 2 */
 		font-variation-settings: normal; /* 3 */
 		font-size: 1em; /* 4 */
@@ -114,7 +112,7 @@
 	*/
 
 	small {
-		font-size: 80%;
+		font-size: var(--size-smaller);
 	}
 
 	/*
@@ -123,7 +121,7 @@
 
 	sub,
 	sup {
-		font-size: 75%;
+		font-size: var(--size-smaller);
 		line-height: 0;
 		position: relative;
 		vertical-align: baseline;
@@ -293,44 +291,6 @@
 	::-webkit-search-decoration {
 		/* stylelint-disable-next-line property-no-vendor-prefix -- That's the point of the reset */
 		-webkit-appearance: none;
-	}
-
-	/*
-		1. Ensure date/time inputs have the same height when empty in iOS Safari.
-		2. Ensure text alignment can be changed on date/time inputs in iOS Safari.
-	*/
-
-	::-webkit-date-and-time-value {
-		min-height: 1lh; /* 1 */
-		text-align: inherit; /* 2 */
-	}
-
-	/*
-		Prevent height from changing on date/time inputs in macOS Safari when the input is set to `display: block`.
-	*/
-
-	::-webkit-datetime-edit {
-		display: inline-flex;
-	}
-
-	/*
-		Remove excess padding from pseudo-elements in date/time inputs to ensure consistent height across browsers.
-	*/
-
-	::-webkit-datetime-edit-fields-wrapper {
-		padding: 0;
-	}
-
-	::-webkit-datetime-edit,
-	::-webkit-datetime-edit-year-field,
-	::-webkit-datetime-edit-month-field,
-	::-webkit-datetime-edit-day-field,
-	::-webkit-datetime-edit-hour-field,
-	::-webkit-datetime-edit-minute-field,
-	::-webkit-datetime-edit-second-field,
-	::-webkit-datetime-edit-millisecond-field,
-	::-webkit-datetime-edit-meridiem-field {
-		padding-block: 0;
 	}
 
 	/*

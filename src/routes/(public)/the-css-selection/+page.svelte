@@ -28,9 +28,9 @@
 					<li>100+ metrics</li>
 					<li>100,000 websites</li>
 					<li class="break"></li>
-					<li><u>41%</u> use <code>:has()</code></li>
-					<li><u>9.61%</u> use <code>@container</code></li>
-					<li><u>1.89%</u> use <code>OkLCH</code></li>
+					<li><u>41%</u> use <code class="code">:has()</code></li>
+					<li><u>9.61%</u> use <code class="code">@container</code></li>
+					<li><u>1.89%</u> use <code class="code">OkLCH</code></li>
 				</ul>
 			</article>
 		</li>
@@ -54,7 +54,7 @@
 		background-color: var(--bg-100);
 		color: var(--fg-200);
 		font-family: var(--font-body);
-		background-image: radial-gradient(circle at top, var(--teal-900), transparent 80%);
+		background-image: radial-gradient(circle at top, light-dark(var(--teal-100), var(--teal-900)), transparent 80%);
 		border: 0.3rem solid var(--accent-400);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-12);
@@ -62,18 +62,9 @@
 		align-content: start;
 		gap: var(--space-6);
 
-		:global([data-theme='light']) & {
-			background-image: radial-gradient(circle at top, var(--teal-200), transparent 80%);
-
-			&:hover,
-			&:focus-within {
-				background-image: radial-gradient(circle at top, var(--teal-200), transparent 100%);
-			}
-		}
-
 		&:hover,
 		&:focus-within {
-			background-image: radial-gradient(circle at top, var(--teal-900), transparent 100%);
+			background-image: radial-gradient(circle at top, light-dark(var(--teal-200), var(--teal-800)), transparent 100%);
 
 			.card-link {
 				text-decoration: underline;
@@ -98,8 +89,7 @@
 		font-weight: 900;
 		color: var(--fg-100);
 		font-size: var(--size-4xl);
-		margin: 0;
-		line-height: 0.88;
+		line-height: var(--leading-tighter);
 
 		@container (width > 33rem) {
 			font-size: var(--size-6xl);
@@ -124,12 +114,11 @@
 			width: 100%;
 		}
 
-		code {
+		.code {
 			position: relative;
 			background-color: transparent;
 			color: var(--black);
 			z-index: 1;
-			margin: 0;
 
 			&::after {
 				content: '';
@@ -137,7 +126,7 @@
 				inset-block: -0.2em;
 				inset-inline: -0.1em;
 				background-color: var(--teal-400);
-				rotate: -0.004turn;
+				rotate: -1.44deg;
 				z-index: -1;
 				opacity: 0.8;
 			}
@@ -154,7 +143,7 @@
 				right: 0;
 				left: 0;
 				border-block-end: 0.4cqb solid var(--purple-400);
-				rotate: -0.004turn;
+				rotate: -1.44deg;
 			}
 		}
 	}

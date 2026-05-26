@@ -202,7 +202,7 @@
 <style>
 	:global {
 		[data-pane-group] {
-			--coverage-pane-height: calc(100vh - 24rem);
+			--coverage-pane-height: calc(100vb - 24rem);
 			min-height: var(--coverage-pane-height);
 			max-height: var(--coverage-pane-height);
 		}

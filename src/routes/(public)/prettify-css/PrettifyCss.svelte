@@ -1,29 +1,29 @@
 <script lang="ts">
-	import CopyButton from "$lib/components/CopyButton.svelte";
-	import Textarea from "$components/css-form/Textarea.svelte";
-	import Label from "$lib/components/Label.svelte";
-	import Button from "$lib/components/Button.svelte";
-	import { format_filesize } from "$lib/format-filesize";
-	import { format } from "@projectwallace/format-css";
-	import Pre from "$components/Pre.svelte";
-	import { HashState } from "$lib/url-hash-state.svelte";
+	import CopyButton from '$lib/components/CopyButton.svelte'
+	import Textarea from '$components/css-form/Textarea.svelte'
+	import Label from '$lib/components/Label.svelte'
+	import Button from '$lib/components/Button.svelte'
+	import { format_filesize } from '$lib/format-filesize'
+	import { format } from '@projectwallace/format-css'
+	import Pre from '$components/Pre.svelte'
+	import { HashState } from '$lib/url-hash-state.svelte'
 
 	let state = new HashState<{
-		css: string;
-		use_spaces: boolean;
-		indent_size: number;
+		css: string
+		use_spaces: boolean
+		indent_size: number
 	}>({
-		css: "",
+		css: '',
 		use_spaces: false,
-		indent_size: 2,
-	});
-	let { css, use_spaces, indent_size } = $derived(state.current);
+		indent_size: 2
+	})
+	let { css, use_spaces, indent_size } = $derived(state.current)
 	let result = $derived(
 		format(css, {
-			tab_size: use_spaces ? Math.max(indent_size, 1) : undefined,
-		}),
-	);
-	let filesize_diff = $derived(format_filesize(result.length - css.length));
+			tab_size: use_spaces ? Math.max(indent_size, 1) : undefined
+		})
+	)
+	let filesize_diff = $derived(format_filesize(result.length - css.length))
 </script>
 
 <div class="page">
@@ -48,11 +48,7 @@
 
 		<div class="indent-size">
 			<div class="indent-size-toggle">
-				<input
-					type="checkbox"
-					id="use-spaces"
-					bind:checked={state.current.use_spaces}
-				/>
+				<input type="checkbox" id="use-spaces" bind:checked={state.current.use_spaces} />
 				<label for="use-spaces">Use spaces for indentation</label>
 			</div>
 
