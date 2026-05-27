@@ -25,7 +25,7 @@
 />
 
 <header>
-	<h1 class="font-heading">
+	<h1 class="title">
 		Your CSS has dirty secrets <br />and <em>Wallace knows them</em>.
 	</h1>
 	<p class="lead">
