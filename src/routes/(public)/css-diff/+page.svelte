@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { FileDiff } from '@pierre/diffs'
+	import { format } from '@projectwallace/format-css'
 	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
 	import Seo from '$lib/components/Seo.svelte'
-	import Diff from '$lib/components/diff/CssDiff.svelte'
 	import FormGroup from '$components/FormGroup.svelte'
 	import Label from '$components/Label.svelte'
 	import Textarea from '$components/css-form/Textarea.svelte'
@@ -10,7 +10,6 @@
 	import Markdown from '$components/Markdown.svelte'
 	import Button from '$components/Button.svelte'
 	import Icon from '$components/Icon.svelte'
-	import { format } from '@projectwallace/format-css'
 	import { HashState } from '$lib/url-hash-state.svelte'
 	import Hero from '$components/Hero.svelte'
 
@@ -45,6 +44,39 @@
 			new_css: css_state.current.old_css
 		}
 	}
+
+	let diff_container = $state<HTMLElement | undefined>()
+
+	$effect(() => {
+		const container = diff_container
+		const _old = old_css
+		const _new = new_css
+
+		if (!container || !_old || !_new) return
+
+		let formatted_old: string
+		let formatted_new: string
+		try {
+			formatted_old = format(_old)
+			formatted_new = format(_new)
+		} catch {
+			return
+		}
+
+		const instance = new FileDiff({
+			theme: { dark: 'pierre-dark', light: 'pierre-light' },
+			themeType: 'system',
+			diffStyle: 'split',
+		})
+
+		instance.render({
+			oldFile: { name: 'style.css', contents: formatted_old },
+			newFile: { name: 'style.css', contents: formatted_new },
+			containerWrapper: container,
+		})
+
+		return () => instance.cleanUp()
+	})
 </script>
 
 <Seo
@@ -90,7 +122,7 @@
 		</div>
 		<output>
 			{#if old_css.length > 0 && new_css.length > 0}
-				<Diff {old_css} {new_css} />
+				<div bind:this={diff_container}></div>
 			{:else}
 				<div data-testid="empty-diff">
 					<Empty>Fill in before and after CSS to view the diff</Empty>
