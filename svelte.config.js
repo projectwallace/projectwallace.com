@@ -22,7 +22,7 @@ const config = {
 		},
 		csp: {
 			directives: {
-				'script-src': ['counterscale.bartveneman.workers.dev', 'self'],
+				'script-src': ['counterscale.bartveneman.workers.dev', 'self', 'sha256-i711g134ddjh7/AVqzinfA+vmpz5El3oRK6Z+QRNcq4='],
 				'connect-src': ['self', 'counterscale.bartveneman.workers.dev'],
 				'style-src': ['self', 'unsafe-inline', 'blob:'],
 				'img-src': ['self'],
