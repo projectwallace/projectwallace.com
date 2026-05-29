@@ -67,11 +67,7 @@ const set_theme: Handle = async function ({ event, resolve }) {
 
 	event.locals.theme = theme
 
-	let response = await resolve(event, {
-		transformPageChunk: ({ html }) => {
-			return html.replace('%sveltekit.theme%', theme)
-		}
-	})
+	let response = await resolve(event)
 	return response
 }
 
