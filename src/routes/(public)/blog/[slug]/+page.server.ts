@@ -2,6 +2,12 @@ import { error } from '@sveltejs/kit'
 import { getPost, getPostList } from '$lib/blog'
 import type { PageServerLoad } from './$types'
 
+export const prerender = true
+
+export function entries() {
+	return getPostList().map(({ slug }) => ({ slug }))
+}
+
 export const load: PageServerLoad = ({ params }) => {
 	let post = getPost(params.slug)
 
