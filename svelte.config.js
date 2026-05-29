@@ -21,6 +21,7 @@ const config = {
 			$components: 'src/lib/components'
 		},
 		csp: {
+			mode: 'hash',
 			directives: {
 				'script-src': ['counterscale.bartveneman.workers.dev', 'self'],
 				'connect-src': ['self', 'counterscale.bartveneman.workers.dev'],
