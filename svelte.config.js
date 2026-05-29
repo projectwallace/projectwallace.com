@@ -14,7 +14,9 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			edge: true
+			// We don't generate enough traffic to keep edge workers ready,
+			// so disable edge to avoid cold-starts
+			edge: false
 		}),
 		serviceWorker: {
 			register: false
