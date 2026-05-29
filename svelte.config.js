@@ -13,9 +13,7 @@ const config = {
 	preprocess: [vitePreprocess(), mdsvex(mdsvexConfig), preprocessMeltUI()],
 
 	kit: {
-		adapter: adapter({
-			edge: true
-		}),
+		adapter: adapter(),
 		serviceWorker: {
 			register: false
 		},
