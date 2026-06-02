@@ -100,8 +100,8 @@ importers:
         specifier: ^1.60.0
         version: 1.60.0
       '@projectwallace/stylelint-plugin':
-        specifier: ^0.4.6
-        version: 0.4.6(stylelint@17.11.1(typescript@6.0.3))
+        specifier: ^0.5.0
+        version: 0.5.0(stylelint@17.11.1(typescript@6.0.3))
       '@sveltejs/adapter-netlify':
         specifier: ^6.0.4
         version: 6.0.4(@sveltejs/kit@2.60.1(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.55.8)(vite@8.0.13(@types/node@25.9.1)))(svelte@5.55.8)(typescript@6.0.3)(vite@8.0.13(@types/node@25.9.1)))
@@ -885,8 +885,8 @@ packages:
     engines: {node: '>=20.12.0', pnpm: '>=11.0.0'}
     hasBin: true
 
-  '@projectwallace/stylelint-plugin@0.4.6':
-    resolution: {integrity: sha512-50Vu8GHa4e1aRfGZiOI2LDwsE4Qo+RRaqQ/v98OriBri0ESf3vRXGpI6nv6uZJVf8AEipEFGv2M7wNPk4PRP3A==}
+  '@projectwallace/stylelint-plugin@0.5.0':
+    resolution: {integrity: sha512-ksH8PGE7eVJiTaigt6so0GptoWBM3cVyAl3gOPehxcbcOcg7XUE0YEzNYwrO30RlQA/J49hjOtc3l7Z89SyZvw==}
     engines: {node: '>=22'}
     peerDependencies:
       stylelint: ^16.0.0 || ^17.0.0
@@ -2642,7 +2642,7 @@ snapshots:
     dependencies:
       '@projectwallace/css-parser': 0.16.0
 
-  '@projectwallace/stylelint-plugin@0.4.6(stylelint@17.11.1(typescript@6.0.3))':
+  '@projectwallace/stylelint-plugin@0.5.0(stylelint@17.11.1(typescript@6.0.3))':
     dependencies:
       '@projectwallace/css-analyzer': 9.8.2
       '@projectwallace/css-parser': 0.16.0
