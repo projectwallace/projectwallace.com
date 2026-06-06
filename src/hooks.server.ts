@@ -2,52 +2,55 @@ import { sequence } from '@sveltejs/kit/hooks'
 import { redirect, type Handle } from '@sveltejs/kit'
 import { type Theme, validate_theme } from '$lib/theme'
 
-export const handle_redirects: Handle = async function ({ event, resolve }) {
-	const redirects = [
-		{ source: '/blog/new-libraries-released', destination: '/blog' },
-		{ source: '/blog/php-library', destination: '/blog' },
-		{ source: '/blog/automatically-analyze-css-on-every-push', destination: '/blog' },
-		{ source: '/blog/cancel-subscription', destination: '/blog' },
-		{ source: '/blog/privacy-by-default', destination: '/blog' },
-		{ source: '/blog/delete-account', destination: '/blog' },
-		{ source: '/blog/private-projects', destination: '/blog' },
-		{ source: '/docs/recipes/automatically-push-css-with-webhook', destination: '/docs' },
-		{ source: '/docs/recipes/preview-css-diff', destination: '/docs' },
-		{ source: '/security.txt', destination: '/.well-known/security.txt' },
-		{ source: '/blog/feed', destination: '/blog/feed.xml' },
-		{ source: '/pricing', destination: '/funding' },
-		{ source: '/blog/tiny-css-prettifier', destination: '/blog/tiny-css-formatter' },
-		{ source: '/custom-property-linter', destination: '/custom-property-inspector' },
-		// Common 404s found in Sentry and Counterscale
-		{ source: '/analyze', destination: '/analyze-css' },
-		{ source: '/css-analysis', destination: '/analyze-css' },
-		{ source: '/register', destination: '/' },
-		{ source: '/dashboard', destination: '/' },
-		{ source: '/projects-coming-soon', destination: '/' }
-	]
+const redirects = new Map<string, string>([
+	['/blog/new-libraries-released', '/blog'],
+	['/blog/php-library', '/blog'],
+	['/blog/automatically-analyze-css-on-every-push', '/blog'],
+	['/blog/cancel-subscription', '/blog'],
+	['/blog/privacy-by-default', '/blog'],
+	['/blog/delete-account', '/blog'],
+	['/blog/private-projects', '/blog'],
+	['/docs/recipes/automatically-push-css-with-webhook', '/docs'],
+	['/docs/recipes/preview-css-diff', '/docs'],
+	['/security.txt', '/.well-known/security.txt'],
+	['/blog/feed', '/blog/feed.xml'],
+	['/pricing', '/'],
+	['/funding', '/'],
+	['/sponsor', '/'],
+	['/blog/tiny-css-prettifier', '/blog/tiny-css-formatter'],
+	['/custom-property-linter', '/custom-property-inspector'],
+	// Common 404s found in Sentry and Counterscale
+	['/analyze', '/analyze-css'],
+	['/css-analysis', '/analyze-css'],
+	['/register', '/'],
+	['/dashboard', '/'],
+	['/projects-coming-soon', '/']
+])
 
+export const handle_redirects: Handle = async function ({ event, resolve }) {
 	// Redirect old /~username to the home page
 	if (event.url.pathname.startsWith('/~')) {
 		redirect(301, '/')
 	}
 
-	let route = redirects.find((item) => item.source === event.url.pathname)
+	const destination = redirects.get(event.url.pathname)
 
-	if (route) {
-		redirect(301, route.destination)
+	if (destination) {
+		redirect(301, destination)
 	}
 
 	let response = await resolve(event)
 	return response
 }
 
+const security_headers: Record<string, string> = Object.freeze({
+	'referrer-policy': 'strict-origin-when-cross-origin',
+	'x-content-type-options': 'nosniff',
+	'x-frame-options': 'DENY',
+	'x-xss-protection': '1; mode=block'
+})
+
 const apply_security_headers: Handle = async function ({ event, resolve }) {
-	let security_headers: Record<string, string> = {
-		'referrer-policy': 'strict-origin-when-cross-origin',
-		'x-content-type-options': 'nosniff',
-		'x-frame-options': 'DENY',
-		'x-xss-protection': '1; mode=block'
-	}
 	let response = await resolve(event)
 
 	for (let header in security_headers) {

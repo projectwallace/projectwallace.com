@@ -68,6 +68,7 @@ test.describe('URL hash state', () => {
 
 	test('opening page with hash shows prefilled input and minified output', async ({ page }) => {
 		let hash = encodeHash(fixture)
+		await page.goto('about:blank')
 		await page.goto(`/minify-css#${hash}`, { waitUntil: 'domcontentloaded' })
 
 		let input = page.getByLabel('CSS input')
@@ -78,6 +79,7 @@ test.describe('URL hash state', () => {
 	})
 
 	test('corrupted hash shows page in default state', async ({ page }) => {
+		await page.goto('about:blank')
 		await page.goto('/minify-css#invalid-base64-!!!', { waitUntil: 'domcontentloaded' })
 
 		let input = page.getByLabel('CSS input')

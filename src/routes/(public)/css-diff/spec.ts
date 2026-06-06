@@ -100,6 +100,7 @@ test.describe('URL hash state', () => {
 		let old_css = 'old { color: red; }'
 		let new_css = 'new { color: blue; }'
 		let hash = encodeHash({ old_css, new_css })
+		await page.goto('about:blank')
 		await page.goto(`/css-diff#${hash}`, { waitUntil: 'load' })
 
 		await expect.soft(page.getByLabel('CSS Before')).toHaveValue(old_css)
@@ -110,6 +111,7 @@ test.describe('URL hash state', () => {
 	})
 
 	test('corrupted hash shows page in default state with placeholders', async ({ page }) => {
+		await page.goto('about:blank')
 		await page.goto('/css-diff#invalid-base64-!!!', { waitUntil: 'domcontentloaded' })
 
 		// Should fall back to placeholder values
