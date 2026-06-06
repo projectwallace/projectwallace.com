@@ -1,10 +1,10 @@
 import { test, expect } from '../../../tests/fixtures'
 
-test.beforeEach(async ({ page }) => {
-	await page.goto('/ast-explorer')
-})
-
 test.describe('initial state', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/ast-explorer')
+	})
+
 	test('shows the CSS input', async ({ page }) => {
 		await expect(page.getByLabel('CSS input')).not.toHaveValue(``)
 	})
@@ -27,6 +27,10 @@ test.describe('initial state', () => {
 })
 
 test.describe('locations', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/ast-explorer')
+	})
+
 	test('show location data is turned off by default', async ({ page }) => {
 		let input = page.getByLabel('Show locations')
 		await expect(input).not.toBeChecked()
@@ -45,6 +49,10 @@ test.describe('locations', () => {
 })
 
 test.describe('node types', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/ast-explorer')
+	})
+
 	test('show node types is turned off by default', async ({ page }) => {
 		let input = page.getByLabel('Show types')
 		await expect(input).not.toBeChecked()
@@ -63,6 +71,10 @@ test.describe('node types', () => {
 })
 
 test.describe('Atrule prelude parsing', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/ast-explorer')
+	})
+
 	test('enabled by default', async ({ page }) => {
 		await expect(page.getByLabel('Parse atrule preludes')).toBeChecked()
 		let treeitem = page.getByRole('treeitem', { name: 'MediaQuery (32)' })
@@ -81,6 +93,10 @@ test.describe('Atrule prelude parsing', () => {
 })
 
 test.describe('Selector parsing', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/ast-explorer')
+	})
+
 	test('enabled by default', async ({ page }) => {
 		await expect(page.getByLabel('Parse selectors')).toBeChecked()
 		let treeitem = page.getByRole('treeitem', { name: 'Selector (5)' }).first()
@@ -103,6 +119,10 @@ test.describe('Selector parsing', () => {
 })
 
 test.describe('Value parsing', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/ast-explorer')
+	})
+
 	test('enabled by default', async ({ page }) => {
 		await expect(page.getByLabel('Parse values')).toBeChecked()
 		let treeitem = page
@@ -131,6 +151,7 @@ test.describe('Value parsing', () => {
 })
 
 test('location data is visible when the checkbox is checked', async ({ page }) => {
+	await page.goto('/ast-explorer')
 	let input = page.getByLabel('Show locations')
 	await input.check()
 	let locations = page.getByTestId('location')
@@ -140,6 +161,9 @@ test('location data is visible when the checkbox is checked', async ({ page }) =
 })
 
 test.describe('autofocus', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto('/ast-explorer')
+	})
 	test('auto scrolls to the selected node', async ({ page }) => {
 		let input = page.getByLabel('CSS input')
 		await input.focus()
@@ -174,6 +198,7 @@ test.describe('autofocus', () => {
 
 // Super broken for some reason, but it actually just works
 test.skip('prettifies the CSS when button is clicked', async ({ page }) => {
+	await page.goto('/ast-explorer')
 	let input = page.getByLabel('CSS input')
 	await input.clear()
 	await input.fill('a{color:blue}')
@@ -187,13 +212,21 @@ test.describe('URL hash state', () => {
 		return btoa(encodeURIComponent(JSON.stringify(value)))
 	}
 
+	// Navigate away so any subsequent goto('/ast-explorer#hash') triggers a full reload,
+	// not a same-page hash change (which Playwright resolves without re-mounting the page)
+	test.beforeEach(async ({ page }) => {
+		await page.goto('about:blank')
+	})
+
 	test('no hash shows default CSS input', async ({ page }) => {
+		await page.goto('/ast-explorer')
 		// Page has default CSS, not empty
 		let input = page.getByLabel('CSS input')
 		await expect(input).not.toHaveValue('')
 	})
 
 	test('changing input updates hash', async ({ page }) => {
+		await page.goto('/ast-explorer')
 		let input = page.getByLabel('CSS input')
 		let css = 'test { color: red; }'
 		await input.fill(css)

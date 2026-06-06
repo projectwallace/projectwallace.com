@@ -3,29 +3,29 @@
 		{
 			title: 'Website CSS analysis',
 			items: [
-				{ title: 'CSS Analyzer', href: '/analyze-css' },
-				{ title: 'CSS Code Quality Calculator', href: '/css-code-quality' },
-				{ title: 'CSS Design Tokens', href: '/design-tokens' },
-				{ title: 'CSS Layers Visualizer', href: '/css-layers-visualizer' },
-				{ title: 'CSS Custom Property inspector', href: '/custom-property-inspector' },
-				{ title: 'CSS Scraper', href: '/get-css' }
+				{ href: '/analyze-css', title: 'CSS Analyzer' },
+				{ href: '/css-code-quality', title: 'CSS Code Quality Calculator' },
+				{ href: '/design-tokens', title: 'CSS Design Tokens' },
+				{ href: '/css-layers-visualizer', title: 'CSS Layers Visualizer' },
+				{ href: '/custom-property-inspector', title: 'CSS Custom Property inspector' },
+				{ href: '/get-css', title: 'CSS Scraper' }
 			]
 		},
 		{
 			title: 'One-off CSS tools',
 			items: [
-				{ title: 'CSS Specificity Calculator', href: '/specificity-calculator' },
-				{ title: 'CSS Selector Complexity Calculator', href: '/selector-complexity' },
-				{ title: 'CSS Prettifier', href: '/prettify-css' },
-				{ title: 'CSS Minifier', href: '/minify-css' },
-				{ title: 'CSS Diff viewer', href: '/css-diff' },
-				{ title: 'CSS Coverage inspector', href: '/css-coverage' },
-				{ title: 'CSS AST Explorer', href: '/ast-explorer' }
+				{ href: '/specificity-calculator', title: 'CSS Specificity Calculator' },
+				{ href: '/selector-complexity', title: 'CSS Selector Complexity Calculator' },
+				{ href: '/prettify-css', title: 'CSS Prettifier' },
+				{ href: '/minify-css', title: 'CSS Minifier' },
+				{ href: '/css-diff', title: 'CSS Diff viewer' },
+				{ href: '/css-coverage', title: 'CSS Coverage inspector' },
+				{ href: '/ast-explorer', title: 'CSS AST Explorer' }
 			]
 		},
 		{
 			title: 'CSS Games',
-			items: [{ title: 'CSS Units memory', href: '/css-units-game' }]
+			items: [{ href: '/css-units-game', title: 'CSS Units memory' }]
 		},
 		{
 			title: 'Documentation',
@@ -38,18 +38,25 @@
 		{
 			title: 'About Project Wallace',
 			items: [
-				{ title: 'About', href: '/about' },
-				{ title: 'Become a sponsor', href: '/funding' },
-				{ title: 'Open Source Software', href: '/oss' },
+				{ href: '/about', title: 'About' },
+				{ href: '/oss', title: 'Open Source Software' },
 				{ href: '/about/terms-of-service', title: 'Terms of Service' },
 				{ href: '/about/privacy-policy', title: 'Privacy Policy' },
 				{
-					title: 'Code of Conduct',
 					href: 'https://github.com/projectwallace/projectwallace.com/blob/main/CODE_OF_CONDUCT.md',
+					title: 'Code of Conduct',
 					rel: 'external'
 				},
-				{ title: 'Bluesky', href: 'https://bsky.app/profile/projectwallace.com', rel: 'external' },
-				{ title: 'GitHub', href: 'https://github.com/projectwallace', rel: 'external' }
+				{
+					href: 'https://bsky.app/profile/projectwallace.com',
+					title: 'Bluesky',
+					rel: 'external'
+				},
+				{
+					href: 'https://github.com/projectwallace',
+					title: 'GitHub',
+					rel: 'external'
+				}
 			]
 		}
 	]
@@ -69,7 +76,9 @@
 		</div>
 	{/each}
 
-	<p>This site is powered by <a href="https://www.netlify.com/" rel="external">Netlify</a></p>
+	<p>
+		This site is powered by <a href="https://www.netlify.com/" rel="external">Netlify</a>
+	</p>
 </footer>
 
 <style>

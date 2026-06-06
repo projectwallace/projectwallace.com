@@ -11,7 +11,7 @@ test('does homepage SEO', async ({ page }) => {
 
 test('generic redirects', async ({ page }) => {
 	await page.goto('/pricing', { waitUntil: 'domcontentloaded' })
-	await expect(page).toHaveURL(/\/funding$/)
+	await expect(page).toHaveURL('/')
 })
 
 test('outdated docs/blog', async ({ page }) => {
