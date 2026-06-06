@@ -1,4 +1,3 @@
-import { sequence } from '@sveltejs/kit/hooks'
 import { redirect, type Handle } from '@sveltejs/kit'
 
 const redirects = new Map<string, string>([
@@ -42,21 +41,4 @@ export const handle_redirects: Handle = async function ({ event, resolve }) {
 	return response
 }
 
-const security_headers: Record<string, string> = Object.freeze({
-	'referrer-policy': 'strict-origin-when-cross-origin',
-	'x-content-type-options': 'nosniff',
-	'x-frame-options': 'DENY',
-	'x-xss-protection': '1; mode=block'
-})
-
-const apply_security_headers: Handle = async function ({ event, resolve }) {
-	let response = await resolve(event)
-
-	for (let header in security_headers) {
-		response.headers.set(header, security_headers[header])
-	}
-
-	return response
-}
-
-export const handle: Handle = sequence(handle_redirects, apply_security_headers)
+export const handle: Handle = handle_redirects
