@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
+	import { browser } from '$app/environment'
 	import type { FormSuccessEvent } from './types'
 	import FormGroup from '$components/FormGroup.svelte'
 	import Label from '$components/Label.svelte'
@@ -29,7 +30,9 @@
 	let error: Error | undefined = $state()
 	let url = $state('')
 	let css_state = get_css_state()
-	let prettify = $state(page.url.searchParams.has('prettify') ? page.url.searchParams.get('prettify') === '1' : true)
+	let prettify = $state(
+		!browser || !page.url.searchParams.has('prettify') || page.url.searchParams.get('prettify') === '1'
+	)
 	let is_online = new IsOnline()
 
 	$effect(() => {

@@ -22,13 +22,15 @@
 
 	$effect(() => {
 		if (!initial_theme) {
-			// If no initial theme is provided, we need to check the system preference
-			if (prefers_light.current) {
-				theme = 'light'
+			// Respect cookie-based theme already set by the inline script in <head>
+			const dom_theme = document.documentElement.dataset.theme as Theme | undefined
+			if (dom_theme && dom_theme !== 'system') {
+				theme = dom_theme
 			} else {
-				theme = 'dark'
+				// No cookie preference — resolve system to actual light/dark
+				theme = prefers_light.current ? 'light' : 'dark'
+				set_theme(theme)
 			}
-			set_theme(theme)
 		}
 	})
 

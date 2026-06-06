@@ -1,10 +1,22 @@
 <!doctype html>
-<html lang="en" data-theme="%sveltekit.theme%">
+<html lang="en" data-theme="system">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<meta name="text-scale" content="scale" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
+		<!-- oxfmt-ignore -->
+		<script>
+			!(function () {
+				try {
+					var m = document.cookie.match(/(?:^|;\s*)theme=([^;]+)/),
+						t = m && m[1]
+					t === 'light' || t === 'dark' || t === 'system' || t === 'naked'
+						? (document.documentElement.dataset.theme = t)
+						: 0
+				} catch (e) {}
+			})()
+		</script>
 		%sveltekit.head%
 		<link
 			rel="alternate"
