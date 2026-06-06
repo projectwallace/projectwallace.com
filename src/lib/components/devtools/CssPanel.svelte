@@ -1,13 +1,13 @@
 <script lang="ts">
-	import CopyButton from "$components/CopyButton.svelte";
-	import Pre from "$components/Pre.svelte";
-	import Button from "$components/Button.svelte";
+	import CopyButton from '$components/CopyButton.svelte'
+	import Pre from '$components/Pre.svelte'
+	import Button from '$components/Button.svelte'
 
 	interface Props {
-		css?: string;
+		css?: string
 	}
 
-	let { css = "" }: Props = $props();
+	let { css = '' }: Props = $props()
 </script>
 
 <div class="toolbar">

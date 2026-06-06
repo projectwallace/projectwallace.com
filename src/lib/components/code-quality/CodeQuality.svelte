@@ -1,33 +1,29 @@
 <script lang="ts">
-	import { fade } from "svelte/transition";
-	import { calculate } from "@projectwallace/css-code-quality/core";
-	import type { calculate as Calculate } from "@projectwallace/css-code-quality";
-	import { analyze } from "@projectwallace/css-analyzer";
-	import CopyButton from "$components/CopyButton.svelte";
-	import CodeQualityDetails from "./CodeQualityDetails.svelte";
-	import Panel from "$components/Panel.svelte";
-	import FilterGroup from "$components/FilterGroup.svelte";
-	import FilterOption from "$components/FilterOption.svelte";
-	import Heading from "$components/Heading.svelte";
-	import Container from "$components/Container.svelte";
-	import type { CodeQualityDoc } from "$lib/code-quality";
-	import Textarea from "$components/css-form/Textarea.svelte";
-	import Button from "$components/Button.svelte";
+	import { fade } from 'svelte/transition'
+	import { calculate } from '@projectwallace/css-code-quality/core'
+	import type { calculate as Calculate } from '@projectwallace/css-code-quality'
+	import { analyze } from '@projectwallace/css-analyzer'
+	import CopyButton from '$components/CopyButton.svelte'
+	import CodeQualityDetails from './CodeQualityDetails.svelte'
+	import Panel from '$components/Panel.svelte'
+	import FilterGroup from '$components/FilterGroup.svelte'
+	import FilterOption from '$components/FilterOption.svelte'
+	import Heading from '$components/Heading.svelte'
+	import Container from '$components/Container.svelte'
+	import type { CodeQualityDoc } from '$lib/code-quality'
+	import Textarea from '$components/css-form/Textarea.svelte'
+	import Button from '$components/Button.svelte'
 
 	type Props = {
-		css?: string;
-		docs: Record<string, CodeQualityDoc>;
-	};
+		css?: string
+		docs: Record<string, CodeQualityDoc>
+	}
 
-	let { css = "", docs }: Props = $props();
+	let { css = '', docs }: Props = $props()
 
-	let actuals = $derived(analyze(css, { useLocations: true }));
-	let result = $derived<ReturnType<typeof Calculate>>(calculate(actuals));
-	let category_filter:
-		| "all"
-		| "maintainability"
-		| "complexity"
-		| "performance" = $state("all");
+	let actuals = $derived(analyze(css, { useLocations: true }))
+	let result = $derived<ReturnType<typeof Calculate>>(calculate(actuals))
+	let category_filter: 'all' | 'maintainability' | 'complexity' | 'performance' = $state('all')
 </script>
 
 {#snippet stat(score: number, name: string)}
@@ -36,12 +32,12 @@
 		<dd
 			data-testid="{name.toLowerCase()}-score"
 			class={[
-				"stat-value",
+				'stat-value',
 				{
-					"stat-value-bad": score <= 50,
-					"stat-value-medium": score > 50 && score < 80,
-					"stat-value-good": score >= 80,
-				},
+					'stat-value-bad': score <= 50,
+					'stat-value-medium': score > 50 && score < 80,
+					'stat-value-good': score >= 80
+				}
 			]}
 		>
 			{score}
@@ -54,9 +50,9 @@
 	<div class="layout">
 		<header>
 			<dl data-testid="css-quality-report" class="stats" in:fade>
-				{@render stat(result.maintainability.score, "Maintainability")}
-				{@render stat(result.complexity.score, "Complexity")}
-				{@render stat(result.performance.score, "Performance")}
+				{@render stat(result.maintainability.score, 'Maintainability')}
+				{@render stat(result.complexity.score, 'Complexity')}
+				{@render stat(result.performance.score, 'Performance')}
 			</dl>
 
 			<dl class="score-indication">
@@ -84,27 +80,13 @@
 				<span>Show only metrics for</span>
 				<FilterGroup>
 					<legend class="sr-only">Sorting box-shadows</legend>
-					<FilterOption
-						value="all"
-						name="category-filter"
-						bind:group={category_filter}>All</FilterOption
-					>
-					<FilterOption
-						value="maintainability"
-						name="category-filter"
-						bind:group={category_filter}
-					>
+					<FilterOption value="all" name="category-filter" bind:group={category_filter}>All</FilterOption>
+					<FilterOption value="maintainability" name="category-filter" bind:group={category_filter}>
 						Maintainability
 					</FilterOption>
-					<FilterOption
-						value="complexity"
-						name="category-filter"
-						bind:group={category_filter}>Complexity</FilterOption
-					>
-					<FilterOption
-						value="performance"
-						name="category-filter"
-						bind:group={category_filter}>Performance</FilterOption
+					<FilterOption value="complexity" name="category-filter" bind:group={category_filter}>Complexity</FilterOption>
+					<FilterOption value="performance" name="category-filter" bind:group={category_filter}
+						>Performance</FilterOption
 					>
 				</FilterGroup>
 			</div>
@@ -114,10 +96,10 @@
 					.sort((a, b) => b.score - a.score)
 					.concat(result.passes)
 					.filter((item) => {
-						if (category_filter === "all") return true;
-						if (category_filter === "maintainability") return docs[item.id].category === category_filter;
-						if (category_filter === "complexity") return docs[item.id].category === category_filter;
-						if (category_filter === "performance") return docs[item.id].category === category_filter;
+						if (category_filter === 'all') return true
+						if (category_filter === 'maintainability') return docs[item.id].category === category_filter
+						if (category_filter === 'complexity') return docs[item.id].category === category_filter
+						if (category_filter === 'performance') return docs[item.id].category === category_filter
 					}) as rule (rule.id)}
 					{@const doc = docs[rule.id]}
 					{#if doc}
@@ -159,13 +141,7 @@
 						</Button>
 						<CopyButton text={css}>Copy CSS</CopyButton>
 					</header>
-					<Textarea
-						name="css-output"
-						id="css-output"
-						value={css}
-						wrap_lines
-						readonly
-					/>
+					<Textarea name="css-output" id="css-output" value={css} wrap_lines readonly />
 				</section>
 
 				<section>
@@ -181,16 +157,9 @@
 						>
 							Download JSON
 						</Button>
-						<CopyButton text={() => JSON.stringify(result, undefined, 2)}>
-							Copy JSON
-						</CopyButton>
+						<CopyButton text={() => JSON.stringify(result, undefined, 2)}>Copy JSON</CopyButton>
 					</header>
-					<Textarea
-						name="json-output"
-						id="json-output"
-						value={JSON.stringify(result, undefined, 2)}
-						readonly
-					/>
+					<Textarea name="json-output" id="json-output" value={JSON.stringify(result, undefined, 2)} readonly />
 				</section>
 			</aside>
 		</Panel>

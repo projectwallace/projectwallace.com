@@ -1,32 +1,26 @@
 <script lang="ts">
-	import { pretty_json } from "$lib/pretty-json";
-	import PrettyJson from "$components/PrettyJson.svelte";
-	import CopyButton from "$components/CopyButton.svelte";
-	import Button from "$components/Button.svelte";
+	import { pretty_json } from '$lib/pretty-json'
+	import PrettyJson from '$components/PrettyJson.svelte'
+	import CopyButton from '$components/CopyButton.svelte'
+	import Button from '$components/Button.svelte'
 
-	let { json }: { json: unknown } = $props();
+	let { json }: { json: unknown } = $props()
 
 	function replacer(key: string, value: unknown): unknown {
 		// Replace 'unique' with the data from 'uniqueWithLocations' but only their counts
-		if (
-			typeof value === "object" &&
-			value !== null &&
-			"uniqueWithLocations" in value
-		) {
-			const { uniqueWithLocations, ...rest } = value as Record<string, unknown>;
+		if (typeof value === 'object' && value !== null && 'uniqueWithLocations' in value) {
+			const { uniqueWithLocations, ...rest } = value as Record<string, unknown>
 			return {
 				...rest,
 				unique: Object.fromEntries(
-					Object.entries(uniqueWithLocations as Record<string, unknown[]>).map(
-						([k, v]) => [k, v.length],
-					),
-				),
-			};
+					Object.entries(uniqueWithLocations as Record<string, unknown[]>).map(([k, v]) => [k, v.length])
+				)
+			}
 		}
-		return value;
+		return value
 	}
 
-	let pretty = $derived(pretty_json(json, replacer, 2));
+	let pretty = $derived(pretty_json(json, replacer, 2))
 </script>
 
 <div class="panel scroll-container">
