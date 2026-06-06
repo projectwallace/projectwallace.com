@@ -100,6 +100,7 @@ test.describe('URL hash state', () => {
 
 	test('opening page with hash shows prefilled input and prettified output', async ({ page }) => {
 		let hash = encodeHash({ css: fixture, use_spaces: false, indent_size: 2 })
+		await page.goto('about:blank')
 		await page.goto(`/prettify-css#${hash}`, { waitUntil: 'domcontentloaded' })
 
 		let input = page.getByLabel('CSS input')
@@ -110,6 +111,7 @@ test.describe('URL hash state', () => {
 	})
 
 	test('corrupted hash shows page in default state', async ({ page }) => {
+		await page.goto('about:blank')
 		await page.goto('/prettify-css#invalid-base64-!!!', { waitUntil: 'domcontentloaded' })
 
 		let input = page.getByLabel('CSS input')

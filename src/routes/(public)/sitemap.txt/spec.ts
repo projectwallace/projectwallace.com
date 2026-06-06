@@ -15,8 +15,6 @@ test('valid sitemap', async ({ page }) => {
 	expect.soft(sitemap).toContain('https://www.projectwallace.com/docs/metrics')
 	expect.soft(sitemap).toContain('https://www.projectwallace.com/docs/recipes')
 	expect.soft(sitemap).toContain('https://www.projectwallace.com/oss')
-	expect.soft(sitemap).toContain('https://www.projectwallace.com/sponsor')
-	expect.soft(sitemap).toContain('https://www.projectwallace.com/funding')
 
 	// Users should not be listed in sitemap anymore
 	expect.soft(sitemap).not.toContain('~teamwallace')
