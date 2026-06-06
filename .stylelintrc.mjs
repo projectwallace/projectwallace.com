@@ -151,14 +151,14 @@ export default {
 				'projectwallace/no-prefixed-properties': null, // already covered in source files
 				'projectwallace/no-prefixed-values': [true, { ignore: ['-apple-system'] }], // already covered in source files
 				'projectwallace/min-declaration-uniqueness-ratio': 0.38,
-				'projectwallace/no-unknown-custom-property': [true, { allowFallback: true }]
+				'projectwallace/no-unknown-custom-properties': [true, { allowFallback: true }]
 			}
 		}
 	],
 	ignoreFiles: ['**/*.js', '**/*.ts', '**/*.json', '**/*.md'],
 	defaultSeverity: 'warning',
 	rules: {
-		'projectwallace/no-unknown-custom-property': null,
+		'projectwallace/no-unknown-custom-properties': null,
 		'projectwallace/no-unused-custom-properties': null,
 		'projectwallace/no-property-shorthand': [
 			true,

@@ -13,7 +13,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"format": "oxfmt",
 		"format:check": "oxfmt --check",
-		"lint": "svelte-kit sync && oxlint --config oxlintrc.json",
+		"lint": "svelte-kit sync && oxlint --config oxlintrc.json; pnpm format:check; pnpm stylelint",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore --report-needless-disables --report-descriptionless-disables --report-unscoped-disables",
 		"stylelint-full": "vite build >/dev/null 2>&1 && find .svelte-kit/output/server/_app/immutable/assets -name '*.css' -exec cat {} + > .svelte-kit/holistic.css 2>/dev/null && format-css .svelte-kit/holistic.css > .svelte-kit/holistic-formatted.css 2>/dev/null && stylelint .svelte-kit/holistic-formatted.css --config=.stylelintrc.mjs",
 		"css-coverage": "css-coverage ./css-coverage --min-coverage=.9  --min-file-coverage=.66 --show-uncovered=all"
@@ -22,7 +22,7 @@
 		"@melt-ui/pp": "^0.3.2",
 		"@melt-ui/svelte": "^0.86.6",
 		"@oddbird/popover-polyfill": "^0.6.1",
-		"@projectwallace/css-analyzer": "^9.8.2",
+		"@projectwallace/css-analyzer": "^9.9.0",
 		"@projectwallace/css-code-coverage": "^1.0.2",
 		"@projectwallace/css-code-quality": "^3.1.3",
 		"@projectwallace/css-design-tokens": "^0.11.6",
@@ -48,7 +48,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.60.0",
-		"@projectwallace/stylelint-plugin": "^0.4.6",
+		"@projectwallace/stylelint-plugin": "^0.6.0",
 		"@sveltejs/adapter-netlify": "^6.0.4",
 		"@types/node": "^25.9.1",
 		"oxfmt": "0.51.0",

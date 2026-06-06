@@ -48,6 +48,16 @@
 			</Button>
 		{/if}
 		{#if allow_copy}
+			<Button
+				element="a"
+				variant="secondary"
+				size="sm"
+				icon="file"
+				href={`data:text/css;charset=utf-8,${encodeURIComponent(css)}`}
+				download="projectwallace-css.css"
+			>
+				Download CSS
+			</Button>
 			<CopyButton text={css}>Copy CSS</CopyButton>
 		{/if}
 		{#if allow_copy_highlighted && highlight_location}

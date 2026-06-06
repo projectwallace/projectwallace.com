@@ -2,6 +2,7 @@
 	import { pretty_json } from '$lib/pretty-json'
 	import PrettyJson from '$components/PrettyJson.svelte'
 	import CopyButton from '$components/CopyButton.svelte'
+	import Button from '$components/Button.svelte'
 
 	let { json }: { json: unknown } = $props()
 
@@ -24,6 +25,16 @@
 
 <div class="panel scroll-container">
 	<div class="toolbar">
+		<Button
+			element="a"
+			variant="secondary"
+			size="sm"
+			icon="file"
+			href={`data:application/json;charset=utf-8,${encodeURIComponent(pretty)}`}
+			download="projectwallace-css-analysis.json"
+		>
+			Download JSON
+		</Button>
 		<CopyButton text={pretty}>Copy JSON</CopyButton>
 	</div>
 

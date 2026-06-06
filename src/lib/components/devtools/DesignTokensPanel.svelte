@@ -27,7 +27,7 @@
 		variant="secondary"
 		size="sm"
 		icon="file"
-		href={`data:text/json;charset=utf-8,${encodeURIComponent(pretty)}`}
+		href={`data:application/json;charset=utf-8,${encodeURIComponent(pretty)}`}
 		download="projectwallace-css.tokens.json"
 	>
 		Download tokens

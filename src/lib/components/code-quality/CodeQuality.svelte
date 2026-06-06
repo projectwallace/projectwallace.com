@@ -12,6 +12,7 @@
 	import Container from '$components/Container.svelte'
 	import type { CodeQualityDoc } from '$lib/code-quality'
 	import Textarea from '$components/css-form/Textarea.svelte'
+	import Button from '$components/Button.svelte'
 
 	type Props = {
 		css?: string
@@ -128,6 +129,16 @@
 				<section>
 					<header>
 						<Heading element="h3">Raw CSS</Heading>
+						<Button
+							element="a"
+							variant="secondary"
+							size="sm"
+							icon="file"
+							href={`data:text/css;charset=utf-8,${encodeURIComponent(css)}`}
+							download="projectwallace-css-code-quality.css"
+						>
+							Download CSS
+						</Button>
 						<CopyButton text={css}>Copy CSS</CopyButton>
 					</header>
 					<Textarea name="css-output" id="css-output" value={css} wrap_lines readonly />
@@ -136,6 +147,16 @@
 				<section>
 					<header>
 						<Heading element="h3">Report JSON</Heading>
+						<Button
+							element="a"
+							variant="secondary"
+							size="sm"
+							icon="file"
+							href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(result, null, 2))}`}
+							download="projectwallace-css-code-quality.json"
+						>
+							Download JSON
+						</Button>
 						<CopyButton text={() => JSON.stringify(result, undefined, 2)}>Copy JSON</CopyButton>
 					</header>
 					<Textarea name="json-output" id="json-output" value={JSON.stringify(result, undefined, 2)} readonly />
@@ -253,9 +274,15 @@
 
 		header {
 			display: flex;
-			gap: var(--space-4);
+			flex-wrap: wrap;
+			column-gap: var(--space-4);
+			row-gap: var(--space-2);
 			justify-content: space-between;
 			align-items: baseline;
+
+			& > :global(:first-child) {
+				margin-inline-end: auto;
+			}
 		}
 	}
 </style>
