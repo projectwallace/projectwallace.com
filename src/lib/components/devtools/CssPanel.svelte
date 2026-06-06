@@ -1,15 +1,26 @@
 <script lang="ts">
-	import CopyButton from '$components/CopyButton.svelte'
-	import Pre from '$components/Pre.svelte'
+	import CopyButton from "$components/CopyButton.svelte";
+	import Pre from "$components/Pre.svelte";
+	import Button from "$components/Button.svelte";
 
 	interface Props {
-		css?: string
+		css?: string;
 	}
 
-	let { css = '' }: Props = $props()
+	let { css = "" }: Props = $props();
 </script>
 
 <div class="toolbar">
+	<Button
+		element="a"
+		variant="secondary"
+		size="sm"
+		icon="file"
+		href={`data:text/css;charset=utf-8,${encodeURIComponent(css)}`}
+		download="projectwallace-css.css"
+	>
+		Download CSS
+	</Button>
 	<CopyButton text={css}>Copy CSS</CopyButton>
 </div>
 

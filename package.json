@@ -22,7 +22,7 @@
 		"@melt-ui/pp": "^0.3.2",
 		"@melt-ui/svelte": "^0.86.6",
 		"@oddbird/popover-polyfill": "^0.6.1",
-		"@projectwallace/css-analyzer": "^9.8.2",
+		"@projectwallace/css-analyzer": "^9.9.0",
 		"@projectwallace/css-code-coverage": "^1.0.2",
 		"@projectwallace/css-code-quality": "^3.1.3",
 		"@projectwallace/css-design-tokens": "^0.11.6",
@@ -48,7 +48,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.60.0",
-		"@projectwallace/stylelint-plugin": "^0.4.6",
+		"@projectwallace/stylelint-plugin": "^0.6.0",
 		"@sveltejs/adapter-netlify": "^6.0.4",
 		"@types/node": "^25.9.1",
 		"oxfmt": "0.51.0",
