@@ -176,14 +176,11 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 
 	let body: string
 	let headers: Headers
-	let abort_controller = new AbortController()
-	let timeout_id = setTimeout(() => {
-		abort_controller.abort()
-	}, timeout)
+	let timeout_signal = AbortSignal.timeout(timeout)
 
 	try {
 		let response = await fetch(resolved_url, {
-			signal: abort_controller.signal,
+			signal: timeout_signal,
 			headers: {
 				'User-Agent': USER_AGENT,
 				Accept: 'text/html,*/*;q=0.1'
@@ -224,8 +221,6 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 
 		// Generic error handling (TODO: add test case)
 		return make_error(url, 500, 'something went wrong')
-	} finally {
-		clearTimeout(timeout_id)
 	}
 
 	// Return early if our response was a CSS file already
@@ -275,7 +270,7 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 				if (file_url === undefined) {
 					continue
 				}
-				item.css = await get_css_file(file_url, abort_controller.signal)
+				item.css = await get_css_file(file_url, timeout_signal)
 				// Set the URL to the resolved URL to fix relative URLs
 				// e.g. ./styles.css -> https://example.com/styles.css
 				item.url = file_url.toString()
@@ -293,9 +288,7 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 			// And c'mon, don't @import inside your @import.
 			let importUrls = get_import_urls(item.css)
 			if (importUrls.length > 0) {
-				let cssRequests = importUrls.map((importUrl) =>
-					get_css_file(resolve_url(importUrl, url)!, abort_controller.signal)
-				)
+				let cssRequests = importUrls.map((importUrl) => get_css_file(resolve_url(importUrl, url)!, timeout_signal))
 				let importedFiles = await Promise.all(cssRequests)
 				importedFiles.forEach((css, index) => {
 					result.push({
