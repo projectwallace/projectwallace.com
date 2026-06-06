@@ -57,7 +57,7 @@
 		"postcss-html": "^1.8.1",
 		"stylelint": "~17.11.1",
 		"stylelint-config-standard": "~40.0.0",
-		"svelte-check": "^4.4.8",
+		"svelte-check": "^4.6.0",
 		"vitest": "^4.1.6"
 	},
 	"engines": {
