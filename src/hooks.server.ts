@@ -1,6 +1,5 @@
 import { sequence } from '@sveltejs/kit/hooks'
 import { redirect, type Handle } from '@sveltejs/kit'
-import { type Theme, validate_theme } from '$lib/theme'
 
 const redirects = new Map<string, string>([
 	['/blog/new-libraries-released', '/blog'],
@@ -60,22 +59,4 @@ const apply_security_headers: Handle = async function ({ event, resolve }) {
 	return response
 }
 
-const set_theme: Handle = async function ({ event, resolve }) {
-	let cookie_theme = event.cookies.get('theme')
-	let theme: Theme = 'system'
-
-	if (validate_theme(cookie_theme)) {
-		theme = cookie_theme
-	}
-
-	event.locals.theme = theme
-
-	let response = await resolve(event, {
-		transformPageChunk: ({ html }) => {
-			return html.replace('%sveltekit.theme%', theme)
-		}
-	})
-	return response
-}
-
-export const handle: Handle = sequence(set_theme, handle_redirects, apply_security_headers)
+export const handle: Handle = sequence(handle_redirects, apply_security_headers)

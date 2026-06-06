@@ -1,3 +1,5 @@
+export const prerender = false
+
 import { error, json } from '@sveltejs/kit'
 import { get_css } from './get-css'
 import type { RequestHandler } from './$types'

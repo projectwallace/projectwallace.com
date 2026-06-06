@@ -11,9 +11,7 @@ interface Window {
 // and what to do when importing types
 namespace App {
 	// interface Error {}
-	interface Locals {
-		theme: 'dark' | 'light' | 'system' | 'naked' | undefined
-	}
+	// interface Locals {}
 	// interface PageData {}
 	// interface Platform {}
 
