@@ -30,10 +30,7 @@ const config = {
 				],
 				'connect-src': ['self', 'counterscale.bartveneman.workers.dev'],
 				'style-src': ['self', 'unsafe-inline', 'blob:'],
-				'img-src': ['self'],
-				'frame-src': ['codepen.io'],
 				'worker-src': ['self', 'blob:'],
-				'font-src': ['self', 'https://www.projectwallace.com'],
 				'default-src': ['self']
 			}
 		}
