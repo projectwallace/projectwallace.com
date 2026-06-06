@@ -5,7 +5,9 @@ export class IsOnline {
 	private is_online: boolean
 
 	constructor() {
-		this.is_online = $state(typeof navigator === 'undefined' ? true : navigator.onLine)
+		// We assume we're starting out online, otherwise the page with this Class couldn't have loaded at all.
+		// This assumption prevents a quick online/offline/online jump on page loading, causing layout shifts.
+		this.is_online = $state(true)
 
 		$effect(() => {
 			if (browser) {
