@@ -18,9 +18,6 @@ const config = {
 			// so disable edge to avoid cold-starts
 			edge: false
 		}),
-		serviceWorker: {
-			register: false
-		},
 		alias: {
 			$components: 'src/lib/components'
 		},
