@@ -510,7 +510,8 @@
 			html {
 				--highlight-code-background-color: light-dark(var(--yellow-300), var(--yellow-700));
 				/* Mimics the 'Highlight' CSS system color keyword. Needs to work against several background-colors, hence the opacity */
-				--highlight-code: rgb(from var(--highlight-code-background-color) r g b / 0.4);
+				--highlight-code: rgb(from var(--highlight-code-background-color) r g b / 0.6);
+				--highlight-code-selected: rgb(from var(--blue-100) r g b / 0.2);
 				--highlight-property: light-dark(var(--blue-400), var(--blue-100));
 				--highlight-number: light-dark(var(--blue-300), var(--blue-200));
 				--highlight-string: light-dark(var(--orange-500), var(--orange-300));
