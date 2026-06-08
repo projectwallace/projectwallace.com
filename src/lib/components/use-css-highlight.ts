@@ -122,16 +122,30 @@ export function highlight_css(
 		ranges.clear()
 	}
 
-	requestIdleCallback(() => do_highlight(css, node_type))
+	let idle_id: number | undefined
+
+	function schedule(fn: () => void) {
+		if (idle_id !== undefined) cancelIdleCallback(idle_id)
+		idle_id = requestIdleCallback(() => {
+			idle_id = undefined
+			fn()
+		})
+	}
+
+	schedule(() => do_highlight(css, node_type))
 
 	return {
 		update({ css: updated_css, node_type: updated_node_type }: { css: string; node_type?: string }) {
-			// Clean up old ranges before applying new highlights
-			requestIdleCallback(cleanup)
-			// Then apply the new ones
-			requestIdleCallback(() => do_highlight(updated_css, updated_node_type))
+			schedule(() => {
+				cleanup()
+				do_highlight(updated_css, updated_node_type)
+			})
 		},
 		destroy: () => {
+			if (idle_id !== undefined) {
+				cancelIdleCallback(idle_id)
+				idle_id = undefined
+			}
 			requestIdleCallback(cleanup)
 		}
 	}

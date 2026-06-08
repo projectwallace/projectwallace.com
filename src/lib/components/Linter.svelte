@@ -1,16 +1,13 @@
 <script lang="ts">
 	import { format } from '@projectwallace/format-css'
-	import HighlightedTextarea from '$components/HighlightedTextarea.svelte'
 	import CopyButton from '$components/CopyButton.svelte'
-	import { enhance } from '$app/forms'
-	import { onMount } from 'svelte'
-	import type { actions } from '../../routes/(public)/lint-css/+page.server'
 	import { debounce } from '$lib/debounce'
 	import Empty from './Empty.svelte'
 	import Table from './Table.svelte'
 	import Pre from './Pre.svelte'
 	import { create_keyboard_list, type OnChange } from './use-keyboard-list.svelte'
 	import type { Warning } from 'stylelint'
+	import Button from './Button.svelte'
 
 	let {
 		elements: { root, item }
@@ -18,7 +15,14 @@
 		scroll_selected_item_into_view: false
 	})
 
-	type LintResult = Awaited<ReturnType<(typeof actions)['default']>>
+	type LintResult = {
+		result: {
+			errored: boolean
+			parse_error: string | null
+			warnings: Warning[]
+		}
+		duration: number
+	}
 
 	type Props = {
 		css?: string
@@ -55,52 +59,135 @@
 
 	let form = $state<HTMLFormElement>()
 	let lint_result = $state<LintResult | null>(null)
+	let loading = $state(false)
 	let active_item = $state<number | undefined>()
 
+	// One O(n) scan per CSS change; all warning→offset lookups are then O(1)
+	let line_offsets = $derived.by(() => {
+		const offsets = [0]
+		let idx = 0
+		while ((idx = css.indexOf('\n', idx)) !== -1) {
+			offsets.push(++idx)
+		}
+		return offsets
+	})
+
+	let css_line_count = $derived(line_offsets.length)
+
+	let locations = $derived(
+		lint_result?.result.warnings
+			.filter((warning) => {
+				// Guard against stale warnings whose line numbers exceed the current CSS —
+				// css prop updates synchronously but lint_result clears in a later effect tick
+				if (warning.line > css_line_count) return false
+				if (warning.column === 1 && warning.line === 1 && typeof warning.endLine === 'number' && warning.endLine > 1) {
+					return false
+				}
+				return true
+			})
+			.map((warning) => warning_to_css_location(warning)) ?? []
+	)
+
+	let coverage_chunks = $derived(
+		lint_result?.result.warnings?.length
+			? warnings_to_coverage_chunks(lint_result.result.warnings.filter((w) => w.line <= css_line_count))
+			: undefined
+	)
+
+	let selected_location = $derived(
+		active_item === undefined || !lint_result?.result.warnings.at(active_item)
+			? undefined
+			: warning_to_css_location(lint_result.result.warnings.at(active_item)!)
+	)
+
+	async function run_lint() {
+		lint_result = null
+		loading = true
+		const form_data = new FormData(form!)
+		const response = await fetch('/api/lint-css', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				css: form_data.get('input-css')?.toString(),
+				preset: form_data.get('preset')?.toString()
+			})
+		})
+		if (response.ok) {
+			lint_result = await response.json()
+		}
+		loading = false
+	}
+
 	const oninput = debounce(() => {
-		form?.requestSubmit()
+		run_lint()
 		active_item = undefined
 	}, 150)
 
 	$effect(() => {
 		if (css.length > 0) {
-			form?.requestSubmit()
+			run_lint()
 			active_item = undefined
 		}
 	})
 
-	function warning_to_css_location(source: string, warning: Warning) {
-		const lines = source.split('\n')
-		function line_offset(line: number, column: number) {
-			let offset = 0
-			for (let i = 0; i < line - 1; i++) offset += lines[i].length + 1
-			return offset + column - 1
+	function warnings_to_coverage_chunks(warnings: Warning[]) {
+		const total_lines = css_line_count
+		const warning_lines = new Set<number>()
+
+		for (const warning of warnings) {
+			if (warning.column === 1 && warning.line === 1 && typeof warning.endLine === 'number' && warning.endLine > 1) {
+				continue
+			}
+			const end = typeof warning.endLine === 'number' ? warning.endLine : warning.line
+			for (let line = warning.line; line <= end; line++) {
+				warning_lines.add(line)
+			}
 		}
-		const start = line_offset(warning.line, warning.column)
+
+		const chunks: { start_line: number; end_line: number; is_covered: boolean; total_lines: number }[] = []
+		if (total_lines === 0) return chunks
+
+		let chunk_start = 1
+		let current_covered = !warning_lines.has(1)
+
+		for (let line = 2; line <= total_lines; line++) {
+			const is_covered = !warning_lines.has(line)
+			if (is_covered !== current_covered) {
+				chunks.push({
+					start_line: chunk_start,
+					end_line: line - 1,
+					is_covered: current_covered,
+					total_lines: line - chunk_start
+				})
+				chunk_start = line
+				current_covered = is_covered
+			}
+		}
+		chunks.push({
+			start_line: chunk_start,
+			end_line: total_lines,
+			is_covered: current_covered,
+			total_lines: total_lines - chunk_start + 1
+		})
+
+		return chunks
+	}
+
+	function warning_to_css_location(warning: Warning) {
+		const start = line_offsets[warning.line - 1] + warning.column - 1
 		let length = 1
 		if (typeof warning.endLine === 'number' && typeof warning.endColumn === 'number') {
-			length = line_offset(warning.endLine, warning.endColumn) - start
+			length = line_offsets[warning.endLine - 1] + warning.endColumn - 1 - start
 		}
 		return { line: warning.line, column: warning.column, offset: start, length }
 	}
 
-	const on_change: OnChange = ({ value, active_index }) => {
+	const on_change: OnChange = ({ active_index }) => {
 		active_item = active_index
 	}
 </script>
 
-<form
-	method="POST"
-	action="/lint-css"
-	bind:this={form}
-	{oninput}
-	use:enhance={() =>
-		async ({ result }) => {
-			if (result.type === 'success') {
-				lint_result = result.data as LintResult
-			}
-		}}
->
+<form bind:this={form} {oninput}>
 	<div class="ast-explorer">
 		<div class="panes">
 			<div class="pane options">
@@ -129,93 +216,77 @@
 					</fieldset>
 				</div>
 			</div>
-			<div class="pane">
-				<div class="pane-header">
-					<label for="input-css" class="pane-title">CSS input</label>
+			{#key lint_result}
+				<div class="pane">
+					<div class="pane-header">
+						<label for="input-css" class="pane-title">CSS input</label>
+					</div>
+					<div class="pane-content">
+						<input type="hidden" name="input-css" id="input-css" value={css} />
+						<Pre {css} {selected_location} {locations} {coverage_chunks} />
+					</div>
 				</div>
-				<div class="pane-content">
-					<input type="hidden" name="input-css" id="input-css" value={css} />
-					<Pre
-						{css}
-						selected_location={active_item === undefined
-							? undefined
-							: warning_to_css_location(css, lint_result?.result.warnings.at(active_item))}
-						locations={lint_result?.result.warnings
-							.filter((warning) => {
-								if (
-									warning.column === 1 &&
-									warning.line === 1 &&
-									typeof warning.endLine === 'number' &&
-									warning.endLine > 1
-								) {
-									return false
-								}
-								return true
-							})
-							.map((warning) => warning_to_css_location(css, warning))}
-					/>
-				</div>
-			</div>
-			<div class="pane">
-				<div class="pane-header">
-					<label for="ast-output" class="pane-title">Stylelint output</label>
-					<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>
-						Copy JSON
-					</CopyButton>
-				</div>
-				<div class="pane-content">
-					<output>
-						{#if Array.isArray(lint_result?.result.warnings)}
-							{#if lint_result.result.warnings.length === 0}
-								<Empty>No stylelint issues found! 🎉</Empty>
-							{:else}
-								<Table>
-									<caption class="sr-only">Stylelint errors</caption>
-									<thead>
-										<tr>
-											<th class="numeric">Location</th>
-											<!-- <th>Severity</th> -->
-											<th>Message</th>
-											<th>Rule</th>
-										</tr>
-									</thead>
-									<tbody
-										use:root={{
-											onchange: on_change
-										}}
-									>
-										{#each lint_result?.result.warnings as issue, index}
-											<tr use:item={{ value: index }} aria-selected={active_item === index}>
-												<td class="numeric">{issue.line}:{issue.column}</td>
-												<!-- <td>
-													<span class="severity">{issue.severity}</span>
-												</td> -->
-												<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
-												<td>{issue.rule}</td>
+				<div class="pane">
+					<div class="pane-header">
+						<label for="ast-output" class="pane-title">Stylelint output</label>
+						<Button
+							element="a"
+							variant="secondary"
+							size="sm"
+							icon="file"
+							href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
+							download="projectwallace-stylelint-result.json"
+						>
+							Download JSON
+						</Button>
+						<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>
+							Copy JSON
+						</CopyButton>
+					</div>
+					<div class="pane-content">
+						<output>
+							{#if loading}
+								<Empty>Analyzing…</Empty>
+							{:else if lint_result?.result.parse_error}
+								<Empty>Could not parse CSS: {lint_result.result.parse_error}</Empty>
+							{:else if Array.isArray(lint_result?.result.warnings)}
+								{#if lint_result.result.warnings.length === 0}
+									<Empty>No stylelint issues found! 🎉</Empty>
+								{:else}
+									<Table>
+										<caption class="sr-only">Stylelint errors</caption>
+										<thead>
+											<tr>
+												<th class="numeric">Location</th>
+												<th>Message</th>
+												<th>Rule</th>
 											</tr>
-										{/each}
-									</tbody>
-								</Table>
+										</thead>
+										<tbody
+											use:root={{
+												onchange: on_change
+											}}
+										>
+											{#each lint_result?.result.warnings as issue, index}
+												<tr use:item={{ value: index }} aria-selected={active_item === index}>
+													<td class="numeric">{issue.line}:{issue.column}</td>
+													<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
+													<td>{issue.rule}</td>
+												</tr>
+											{/each}
+										</tbody>
+									</Table>
+								{/if}
 							{/if}
-						{/if}
-					</output>
+						</output>
+					</div>
 				</div>
-			</div>
+			{/key}
 		</div>
 	</div>
 </form>
 
-<p>
-	active_item: {JSON.stringify(active_item)}
-</p>
-
 <style>
-	/*
-		Changes:
-		- Spacing inside panel header
-		- Margin in between panel header to decide where to split
-		- added type=button to prettify css
-	*/
 	.ast-explorer {
 		--wallace-pane-background-color: var(--bg-200);
 		--wallace-ast-explorer-border-color: var(--bg-300);
@@ -273,6 +344,7 @@
 
 	.pane-title {
 		font-weight: var(--font-bold);
+		margin-inline-end: auto;
 	}
 
 	.pane-content {
@@ -292,13 +364,6 @@
 			white-space: nowrap;
 			font-family: var(--font-mono);
 			font-size: var(--size-specimen);
-		}
-
-		.severity {
-			background-color: var(--error);
-			color: var(--white);
-			padding-inline: 1ch;
-			padding-block: var(--space-1);
 		}
 	}
 </style>
