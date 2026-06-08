@@ -19,12 +19,14 @@
 	interface Props {
 		on_success?: (result: FormSuccessEvent) => void
 		on_error?: (error: Error) => void
+		on_url_submit?: (url: string, prettify: boolean) => false | void
+		external_loading?: boolean
 		title?: Snippet
 	}
 
 	function noop() {}
 
-	let { on_success = noop, on_error = noop, title: title_snippet }: Props = $props()
+	let { on_success = noop, on_error = noop, on_url_submit = undefined, external_loading = false, title: title_snippet }: Props = $props()
 
 	let status: 'idle' | 'fetching' | 'error' = $state('idle')
 	let error: Error | undefined = $state()
@@ -67,24 +69,33 @@
 	async function on_submit_url(event: SubmitEvent) {
 		event.preventDefault()
 		if (status === 'fetching') return
-		status = 'fetching'
 
 		let form_data = new FormData(event.target as HTMLFormElement)
 		let url = String(form_data.get('url'))
 		if (!url) return
 
+		let prettify_val = form_data.get('prettify') === '1'
+
 		// Always update the URL, so people can share the URL
 		let page_url = page.url
 		page_url.searchParams.set('url', url)
-		page_url.searchParams.set('prettify', form_data.get('prettify') === '1' ? '1' : '0')
+		page_url.searchParams.set('prettify', prettify_val ? '1' : '0')
 		page_url.hash = ''
 		await goto(page_url, { replaceState: true })
 
+		if (on_url_submit?.(url, prettify_val) === false) {
+			prettify = prettify_val
+			css_state.prettify(prettify_val)
+			css_state.url = url
+			return
+		}
+
+		status = 'fetching'
 		try {
 			let origins = await get_css(url)
 			status = 'idle'
 
-			prettify = form_data.get('prettify') === '1'
+			prettify = prettify_val
 			css_state.prettify(prettify)
 			css_state.set_origins(origins)
 			css_state.url = url
@@ -186,7 +197,7 @@
 					described_by={status === 'error' ? 'invalid-url-error-msg' : undefined}
 					bind:url
 				/>
-				{#if status === 'fetching'}
+				{#if status === 'fetching' || external_loading}
 					<div class="loader">
 						<CssLoadingProgressBar />
 					</div>
@@ -198,7 +209,7 @@
 			{@render prettify_option()}
 			<div class="submit">
 				<Button type="submit" size="lg">
-					{#if status === 'fetching'}
+					{#if status === 'fetching' || external_loading}
 						Fetching CSS&hellip;
 					{:else}
 						Analyze URL
