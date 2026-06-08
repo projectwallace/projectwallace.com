@@ -382,6 +382,7 @@
 		max-height: 100%;
 		height: 100%;
 		color: var(--fg-200);
+		scrollbar-width: thin;
 
 		/* Regular outline not visible because of scroll containers */
 		&:focus-visible {

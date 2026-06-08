@@ -1,19 +1,22 @@
 <script lang="ts">
 	import { format } from '@projectwallace/format-css'
 	import CopyButton from '$components/CopyButton.svelte'
-	import { debounce } from '$lib/debounce'
 	import Empty from './Empty.svelte'
 	import Table from './Table.svelte'
 	import Pre from './Pre.svelte'
 	import { create_keyboard_list, type OnChange } from './use-keyboard-list.svelte'
 	import type { Warning } from 'stylelint'
 	import Button from './Button.svelte'
+	import { page } from '$app/state'
+	import { goto } from '$app/navigation'
 
 	let {
 		elements: { root, item }
 	} = create_keyboard_list({
 		scroll_selected_item_into_view: false
 	})
+
+	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability'
 
 	type LintResult = {
 		result: {
@@ -22,43 +25,24 @@
 			warnings: Warning[]
 		}
 		duration: number
+		css?: string
 	}
 
 	type Props = {
 		css?: string
+		url?: string
+		prettify?: boolean
+		onloading?: (loading: boolean) => void
 	}
 
-	const DEFAULT_CSS = format(`
-		@layer reset, components;
+	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
-		@layer components {
-			.my-component {
-				-webkit-mask-image: url(data:image/svg+xml,%3Csvg%3E%3C/svg%3E);
-				mask-image: url(data:image/svg+xml,%3Csvg%3E%3C/svg%3E);
-			}
-
-			.nav-desktop .nav-list:has(.nav-link:hover) .nav-link.active:not(:hover) {
-				anchor-name: none;
-			}
-
-			.my-dialog {
-				z-index: 2147483648;
-			}
-
-			@media (min-width: 1000px) and (max-width: 500px) {
-				/* ... */
-			}
-
-			@media (width: 300px) {
-				/* ... */
-			}
-		}
-	`)
-
-	let { css = DEFAULT_CSS }: Props = $props()
-
-	let form = $state<HTMLFormElement>()
+	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability']
+	const preset_param = page.url.searchParams.get('preset') as Preset | null
+	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : 'recommended')
 	let lint_result = $state<LintResult | null>(null)
+	let api_css = $state<string | null>(null)
+	let display_css = $derived(url && api_css ? api_css : css)
 	let loading = $state(false)
 	let active_item = $state<number | undefined>()
 
@@ -66,7 +50,7 @@
 	let line_offsets = $derived.by(() => {
 		const offsets = [0]
 		let idx = 0
-		while ((idx = css.indexOf('\n', idx)) !== -1) {
+		while ((idx = display_css.indexOf('\n', idx)) !== -1) {
 			offsets.push(++idx)
 		}
 		return offsets
@@ -103,28 +87,25 @@
 	async function run_lint() {
 		lint_result = null
 		loading = true
-		const form_data = new FormData(form!)
+		onloading?.(true)
+		const body = url ? { url, preset, prettify } : { css, preset }
 		const response = await fetch('/api/lint-css', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				css: form_data.get('input-css')?.toString(),
-				preset: form_data.get('preset')?.toString()
-			})
+			body: JSON.stringify(body)
 		})
 		if (response.ok) {
 			lint_result = await response.json()
+			if (lint_result?.css) {
+				api_css = lint_result.css
+			}
 		}
 		loading = false
+		onloading?.(false)
 	}
 
-	const oninput = debounce(() => {
-		run_lint()
-		active_item = undefined
-	}, 150)
-
 	$effect(() => {
-		if (css.length > 0) {
+		if (url || css.length > 0) {
 			run_lint()
 			active_item = undefined
 		}
@@ -185,106 +166,118 @@
 	const on_change: OnChange = ({ active_index }) => {
 		active_item = active_index
 	}
+
+	function on_preset_change() {
+		run_lint()
+		active_item = undefined
+		const u = page.url
+		u.searchParams.set('preset', preset)
+		goto(u, { replaceState: true })
+	}
 </script>
 
-<form bind:this={form} {oninput}>
-	<div class="ast-explorer">
-		<div class="panes">
-			<div class="pane options">
+<div class="ast-explorer">
+	<div class="panes">
+		<div class="pane options">
+			<div class="pane-header">
+				<div class="pane-title">Options</div>
+			</div>
+			<div class="pane-content">
+				<fieldset onchange={on_preset_change}>
+					<legend>Preset</legend>
+					<div>
+						<input type="radio" id="preset-recommended" name="preset" value="recommended" bind:group={preset} />
+						<label for="preset-recommended">Recommended</label>
+					</div>
+					<div>
+						<input type="radio" id="preset-correctness" name="preset" value="correctness" bind:group={preset} />
+						<label for="preset-correctness">Correctness</label>
+					</div>
+					<div>
+						<input type="radio" id="preset-performance" name="preset" value="performance" bind:group={preset} />
+						<label for="preset-performance">Performance</label>
+					</div>
+					<div>
+						<input type="radio" id="preset-maintainability" name="preset" value="maintainability" bind:group={preset} />
+						<label for="preset-maintainability">Maintainability</label>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+		{#key lint_result}
+			<div class="pane">
 				<div class="pane-header">
-					<div class="pane-title">Options</div>
+					<div class="pane-title">CSS input</div>
+					<Button
+						element="a"
+						variant="secondary"
+						size="sm"
+						icon="file"
+						href={`data:text/css;charset=utf-8,${encodeURIComponent(display_css)}`}
+						download="projectwallace-stylelint-css.css"
+					>
+						Download CSS
+					</Button>
+					<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
 				</div>
 				<div class="pane-content">
-					<fieldset>
-						<legend>Preset</legend>
-						<div>
-							<input type="radio" id="preset-recommended" name="preset" value="recommended" checked />
-							<label for="preset-recommended">Recommended</label>
-						</div>
-						<div>
-							<input type="radio" id="preset-correctness" name="preset" value="correctness" />
-							<label for="preset-correctness">Correctness</label>
-						</div>
-						<div>
-							<input type="radio" id="preset-performance" name="preset" value="performance" />
-							<label for="preset-performance">Performance</label>
-						</div>
-						<div>
-							<input type="radio" id="preset-maintainability" name="preset" value="maintainability" />
-							<label for="preset-maintainability">Maintainability</label>
-						</div>
-					</fieldset>
+					<Pre css={display_css} {selected_location} {locations} {coverage_chunks} />
 				</div>
 			</div>
-			{#key lint_result}
-				<div class="pane">
-					<div class="pane-header">
-						<label for="input-css" class="pane-title">CSS input</label>
-					</div>
-					<div class="pane-content">
-						<input type="hidden" name="input-css" id="input-css" value={css} />
-						<Pre {css} {selected_location} {locations} {coverage_chunks} />
-					</div>
+			<div class="pane">
+				<div class="pane-header">
+					<label for="ast-output" class="pane-title">Stylelint output</label>
+					<Button
+						element="a"
+						variant="secondary"
+						size="sm"
+						icon="file"
+						href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
+						download="projectwallace-stylelint-result.json"
+					>
+						Download JSON
+					</Button>
+					<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>
+						Copy JSON
+					</CopyButton>
 				</div>
-				<div class="pane">
-					<div class="pane-header">
-						<label for="ast-output" class="pane-title">Stylelint output</label>
-						<Button
-							element="a"
-							variant="secondary"
-							size="sm"
-							icon="file"
-							href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
-							download="projectwallace-stylelint-result.json"
-						>
-							Download JSON
-						</Button>
-						<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>
-							Copy JSON
-						</CopyButton>
-					</div>
-					<div class="pane-content">
-						<output>
-							{#if loading}
-								<Empty>Analyzing…</Empty>
-							{:else if lint_result?.result.parse_error}
-								<Empty>Could not parse CSS: {lint_result.result.parse_error}</Empty>
-							{:else if Array.isArray(lint_result?.result.warnings)}
-								{#if lint_result.result.warnings.length === 0}
-									<Empty>No stylelint issues found! 🎉</Empty>
-								{:else}
-									<Table>
-										<caption class="sr-only">Stylelint errors</caption>
-										<thead>
-											<tr>
-												<th class="numeric">Location</th>
-												<th>Message</th>
-												<th>Rule</th>
+				<div class="pane-content">
+					<output>
+						{#if loading}
+							<Empty>Linting, please wait&hellip;</Empty>
+						{:else if lint_result?.result.parse_error}
+							<Empty>Could not parse CSS: {lint_result.result.parse_error}</Empty>
+						{:else if Array.isArray(lint_result?.result.warnings)}
+							{#if lint_result.result.warnings.length === 0}
+								<Empty>No stylelint issues found! 🎉</Empty>
+							{:else}
+								<Table>
+									<caption class="sr-only">Stylelint errors</caption>
+									<thead>
+										<tr>
+											<th class="numeric">Location</th>
+											<th>Message</th>
+											<th>Rule</th>
+										</tr>
+									</thead>
+									<tbody use:root={{ onchange: on_change }}>
+										{#each lint_result?.result.warnings as issue, index}
+											<tr use:item={{ value: index }} aria-selected={active_item === index}>
+												<td class="numeric">{issue.line}:{issue.column}</td>
+												<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
+												<td>{issue.rule}</td>
 											</tr>
-										</thead>
-										<tbody
-											use:root={{
-												onchange: on_change
-											}}
-										>
-											{#each lint_result?.result.warnings as issue, index}
-												<tr use:item={{ value: index }} aria-selected={active_item === index}>
-													<td class="numeric">{issue.line}:{issue.column}</td>
-													<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
-													<td>{issue.rule}</td>
-												</tr>
-											{/each}
-										</tbody>
-									</Table>
-								{/if}
+										{/each}
+									</tbody>
+								</Table>
 							{/if}
-						</output>
-					</div>
+						{/if}
+					</output>
 				</div>
-			{/key}
-		</div>
+			</div>
+		{/key}
 	</div>
-</form>
+</div>
 
 <style>
 	.ast-explorer {
@@ -364,6 +357,24 @@
 			white-space: nowrap;
 			font-family: var(--font-mono);
 			font-size: var(--size-specimen);
+
+			&:first-of-type {
+				color: var(--fg-300);
+			}
+		}
+
+		:global(::highlight(lines), ::highlight(selected_line)) {
+			text-decoration-color: var(--red-300);
+			text-decoration-style: wavy;
+			text-decoration-line: underline;
+		}
+
+		:global(::highlight(lines)) {
+			background-color: transparent !important;
+		}
+
+		:global(::highlight(selected_line)) {
+			background-color: var(--highlight-code) !important;
 		}
 	}
 </style>
