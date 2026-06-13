@@ -150,6 +150,7 @@
 	.status {
 		text-align: center;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 	}
 
@@ -167,6 +168,7 @@
 		list-style-type: decimal;
 		list-style-position: inside;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-2);
 	}
 
@@ -182,6 +184,7 @@
 		box-shadow: var(--shadow-lg);
 		margin-block: var(--space-16);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 		justify-items: center;
 
@@ -203,6 +206,7 @@
 		margin-block: var(--space-16);
 		text-align: center;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 
 		a {

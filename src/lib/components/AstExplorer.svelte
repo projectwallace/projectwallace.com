@@ -206,6 +206,7 @@
 		line-height: var(--leading-loose);
 		block-size: 100%;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: auto 1fr;
 
 		&:not(:first-child) {

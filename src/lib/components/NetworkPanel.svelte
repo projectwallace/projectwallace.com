@@ -303,6 +303,7 @@
 		position: relative;
 		height: 100%;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: 1fr auto;
 		max-height: 100%;
 	}

@@ -202,6 +202,7 @@
 		padding-inline: var(--space-2);
 		text-align: center;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		justify-content: center;
 		overflow: clip;
@@ -261,6 +262,7 @@
 		container-type: inline-size;
 		padding-block: min(var(--space-16), 18cqb);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		place-content: center;
 		border-block-start: 1px solid var(--fg-500);
@@ -274,12 +276,14 @@
 
 	.panel-grid {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-px);
 		background-color: light-dark(var(--bg-200), var(--bg-300));
 
 		li {
 			background-color: light-dark(var(--bg-100), var(--bg-200));
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			place-content: start;
 			gap: var(--space-4);
 			padding-inline: var(--space-4);
@@ -362,11 +366,13 @@
 
 	.testimonials {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 
 		li {
 			background-color: var(--bg-200);
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-4);
 			padding-inline: var(--space-4);
 			padding-block: var(--space-8);

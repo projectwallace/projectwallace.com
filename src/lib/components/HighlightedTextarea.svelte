@@ -35,6 +35,7 @@
 <style>
 	.wrapper {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		height: 100%;
 		max-height: 100%;
 		overflow: auto;

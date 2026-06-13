@@ -13,6 +13,7 @@
 <style>
 	.form-group {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-2);
 		width: 100%;
 		position: relative;

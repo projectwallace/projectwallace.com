@@ -64,11 +64,13 @@
 
 	ol {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 	}
 
 	article {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-2);
 		background-color: var(--bg-200);
 		padding-block: var(--space-12);

@@ -73,6 +73,7 @@
 
 	.polypane-callout {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		place-items: center;
 		row-gap: 0.66rem;
 		column-gap: 0.5rem;

@@ -243,12 +243,14 @@
 <style>
 	form {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
 		font-size: var(--size-base);
 	}
 
 	.form {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
 	}
 

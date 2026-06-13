@@ -69,15 +69,18 @@
 <style>
 	section {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		row-gap: var(--space-5);
 	}
 
 	ol {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		row-gap: var(--space-5);
 
 		& > li {
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			row-gap: var(--space-4);
 		}
 	}

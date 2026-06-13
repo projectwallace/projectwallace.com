@@ -58,6 +58,7 @@
 			padding-inline: var(--space-1);
 			padding-block: var(--space-4);
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-4);
 
 			@media (min-width: 44rem) {

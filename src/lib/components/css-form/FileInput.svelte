@@ -90,6 +90,7 @@
 <style>
 	.group {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 	}
 
@@ -109,6 +110,7 @@
 
 	ul {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
 		max-height: var(--space-72);
 		overflow: auto;
@@ -117,6 +119,7 @@
 
 	li {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-2);
 		background-color: var(--bg-100);
 	}
