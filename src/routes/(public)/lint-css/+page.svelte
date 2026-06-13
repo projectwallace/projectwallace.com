@@ -24,7 +24,12 @@
 </Hero>
 
 <Container>
-	<Linter css={effective_url ? undefined : (css_state.css || undefined)} url={effective_url} prettify={css_state.should_prettify} onloading={(v) => (lint_loading = v)} />
+	<Linter
+		css={effective_url ? undefined : css_state.css || undefined}
+		url={effective_url}
+		prettify={css_state.should_prettify}
+		onloading={(v) => (lint_loading = v)}
+	/>
 </Container>
 
 <style>
