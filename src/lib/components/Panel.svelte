@@ -16,6 +16,7 @@
 <style>
 	.panel {
 		contain: layout paint;
+		min-width: 0;
 		background-color: light-dark(transparent, var(--bg-200));
 		padding-block: var(--space-4);
 		padding-inline: var(--space-2);
