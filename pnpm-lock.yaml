@@ -7,7 +7,7 @@ settings:
 overrides:
   '@projectwallace/css-analyzer': ^9.9.0
   '@projectwallace/css-parser': ~0.16.0
-  '@projectwallace/format-css': ^3.1.3
+  '@projectwallace/format-css': ^3.1.4
   color-sorter: ^8.0.0
   runed: ^0.37.1
   sharp: 0.34.3
@@ -48,8 +48,11 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       '@projectwallace/format-css':
-        specifier: ^3.1.3
-        version: 3.1.3
+        specifier: ^3.1.4
+        version: 3.1.4
+      '@projectwallace/stylelint-plugin':
+        specifier: ^0.6.6
+        version: 0.6.6(stylelint@17.13.0(typescript@6.0.3))
       '@sveltejs/enhanced-img':
         specifier: ^0.10.4
         version: 0.10.4(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.55.8)(vite@8.0.13(@types/node@25.9.1)))(svelte@5.55.8)(vite@8.0.13(@types/node@25.9.1))
@@ -86,6 +89,9 @@ importers:
       runed:
         specifier: ^0.37.1
         version: 0.37.1(@sveltejs/kit@2.60.1(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.55.8)(vite@8.0.13(@types/node@25.9.1)))(svelte@5.55.8)(typescript@6.0.3)(vite@8.0.13(@types/node@25.9.1)))(svelte@5.55.8)
+      stylelint:
+        specifier: ~17.13.0
+        version: 17.13.0(typescript@6.0.3)
       svelte:
         specifier: ^5.55.8
         version: 5.55.8
@@ -99,9 +105,6 @@ importers:
       '@playwright/test':
         specifier: ^1.60.0
         version: 1.60.0
-      '@projectwallace/stylelint-plugin':
-        specifier: ^0.6.0
-        version: 0.6.0(stylelint@17.13.0(typescript@6.0.3))
       '@sveltejs/adapter-netlify':
         specifier: ^6.0.4
         version: 6.0.4(@sveltejs/kit@2.60.1(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.55.8)(vite@8.0.13(@types/node@25.9.1)))(svelte@5.55.8)(typescript@6.0.3)(vite@8.0.13(@types/node@25.9.1)))
@@ -120,9 +123,6 @@ importers:
       postcss-html:
         specifier: ^1.8.1
         version: 1.8.1
-      stylelint:
-        specifier: ~17.13.0
-        version: 17.13.0(typescript@6.0.3)
       stylelint-config-standard:
         specifier: ~40.0.0
         version: 40.0.0(stylelint@17.13.0(typescript@6.0.3))
@@ -880,13 +880,13 @@ packages:
     resolution: {integrity: sha512-hG6zILMK9OJpsvkCkbF9GIW+bAHAxKGB0AsyR5N5T+n8bCKPgWhZGwPlDMP1FrLsBkuRq7U7+fqB19qzUJq5hQ==}
     engines: {node: '>=18.0.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/format-css@3.1.3':
-    resolution: {integrity: sha512-VNdB6dqI5+sKciB/w7H4u6f5v6VT/4s2WZ9EywbDz/RsvYYuzlw7Z9p+I8MFKSaphD3cVvyx75YAZCq7xcIDzQ==}
+  '@projectwallace/format-css@3.1.4':
+    resolution: {integrity: sha512-xCRrin47fKotLs77xlA/Tbtul2WDZv10AbdqdW93Zx26dvH0AaBvzBrgFoDKRlEXmNGQDQPexZ6MNBxu8ek6kg==}
     engines: {node: '>=20.12.0', pnpm: '>=11.0.0'}
     hasBin: true
 
-  '@projectwallace/stylelint-plugin@0.6.0':
-    resolution: {integrity: sha512-YXqdZazyi4Ir15xv+6a+KOGLuaycaN+2qqv/NxusV/X3G0OAwQEjMq+Gm45Nr7PFoFgLBVsWAi5R0GcfipQR8w==}
+  '@projectwallace/stylelint-plugin@0.6.6':
+    resolution: {integrity: sha512-BxqXM+NAxMXqk+Yap/HtLUPUKT5YkKo2UIQA667i0+ZGET9e61vPtJqm8fqg1iYMNq+MEGHRhe4uyKtBgoH0cA==}
     engines: {node: '>=18'}
     peerDependencies:
       stylelint: ^16.0.0 || ^17.0.0
@@ -2626,7 +2626,7 @@ snapshots:
   '@projectwallace/css-code-coverage@1.0.2':
     dependencies:
       '@projectwallace/css-parser': 0.16.0
-      '@projectwallace/format-css': 3.1.3
+      '@projectwallace/format-css': 3.1.4
 
   '@projectwallace/css-code-quality@3.1.3':
     dependencies:
@@ -2648,11 +2648,11 @@ snapshots:
 
   '@projectwallace/css-time-sort@3.1.0': {}
 
-  '@projectwallace/format-css@3.1.3':
+  '@projectwallace/format-css@3.1.4':
     dependencies:
       '@projectwallace/css-parser': 0.16.0
 
-  '@projectwallace/stylelint-plugin@0.6.0(stylelint@17.13.0(typescript@6.0.3))':
+  '@projectwallace/stylelint-plugin@0.6.6(stylelint@17.13.0(typescript@6.0.3))':
     dependencies:
       '@projectwallace/css-analyzer': 9.9.0
       '@projectwallace/css-parser': 0.16.0

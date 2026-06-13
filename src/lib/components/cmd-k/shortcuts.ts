@@ -20,7 +20,8 @@ export const shortcuts: Shortcuts = [
 			{ title: 'CSS Design Tokens', href: '/design-tokens', keywords: 'dtcg color' },
 			{ title: 'CSS Layers Visualizer', href: '/css-layers-visualizer', keywords: 'nesting cascade' },
 			{ title: 'CSS Custom Property inspector', href: '/custom-property-inspector', keywords: 'variables' },
-			{ title: 'CSS Scraper', href: '/get-css', keywords: 'extract' }
+			{ title: 'CSS Scraper', href: '/get-css', keywords: 'extract' },
+			{ title: 'CSS Linter', href: '/lint-css', keywords: 'stylelint linter' }
 		]
 	},
 	{
