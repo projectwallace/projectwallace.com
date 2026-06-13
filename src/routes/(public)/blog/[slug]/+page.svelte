@@ -79,7 +79,6 @@
 		display: grid;
 		gap: var(--space-24);
 		grid-template-columns: minmax(0, 1fr);
-		overflow-x: clip;
 
 		@media (min-width: 66rem) {
 			font-size: var(--size-larger);
