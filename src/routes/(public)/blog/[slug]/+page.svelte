@@ -86,6 +86,10 @@
 		}
 	}
 
+	.content > :global(.container) {
+		min-width: 0;
+	}
+
 	ul {
 		display: grid;
 		gap: var(--space-8);
