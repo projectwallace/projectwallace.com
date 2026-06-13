@@ -16,7 +16,7 @@
 		scroll_selected_item_into_view: false
 	})
 
-	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability'
+	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability' | 'custom'
 
 	type LintResult = {
 		result: {
@@ -42,6 +42,9 @@
 	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : PRESETS.at(0)!)
 	let lint_result = $state<LintResult | null>(null)
 	let api_css = $state<string | null>(null)
+	let custom_config_json = $state('{}')
+	let custom_config_error = $state<string | null>(null)
+	let custom_dialog = $state<HTMLDialogElement | undefined>()
 	let display_css = $derived(url && api_css ? api_css : css)
 	let loading = $state(false)
 	let active_item = $state<number | undefined>()
@@ -88,7 +91,9 @@
 		lint_result = null
 		loading = true
 		onloading?.(true)
-		const body = url ? { url, preset, prettify } : { css, preset }
+		const body = url
+			? { url, preset, prettify, ...(preset === 'custom' && { custom_config: custom_config_json }) }
+			: { css, preset, ...(preset === 'custom' && { custom_config: custom_config_json }) }
 		const response = await fetch('/api/lint-css', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -168,11 +173,28 @@
 	}
 
 	function on_preset_change() {
+		if (preset === 'custom') {
+			custom_dialog?.showModal()
+			return
+		}
 		run_lint()
 		active_item = undefined
 		const u = page.url
 		u.searchParams.set('preset', preset)
 		goto(u, { replaceState: true })
+	}
+
+	function apply_custom_config() {
+		try {
+			JSON.parse(custom_config_json)
+			custom_config_error = null
+		} catch {
+			custom_config_error = 'Invalid JSON — please check your config.'
+			return
+		}
+		custom_dialog?.close()
+		run_lint()
+		active_item = undefined
 	}
 </script>
 
@@ -201,7 +223,15 @@
 						<input type="radio" id="preset-maintainability" name="preset" value="maintainability" bind:group={preset} />
 						<label for="preset-maintainability">Maintainability</label>
 					</div>
+					<div>
+						<input type="radio" id="preset-custom" name="preset" value="custom" bind:group={preset} />
+						<label for="preset-custom">Custom</label>
+					</div>
 				</fieldset>
+
+				{#if preset === 'custom'}
+					<button type="button" onclick={() => custom_dialog?.showModal()}>Edit config</button>
+				{/if}
 			</div>
 		</div>
 		{#key lint_result}
@@ -282,6 +312,26 @@
 		{/key}
 	</div>
 </div>
+
+<dialog bind:this={custom_dialog}>
+	<form method="dialog" onsubmit={(e) => e.preventDefault()}>
+		<h2>Custom stylelint config</h2>
+		<p>Enter a stylelint <a href="https://stylelint.io/user-guide/configure#rules" target="_blank" rel="noopener">rules</a> object as JSON.</p>
+		<textarea
+			rows="16"
+			spellcheck="false"
+			autocomplete="off"
+			bind:value={custom_config_json}
+		></textarea>
+		{#if custom_config_error}
+			<p class="config-error">{custom_config_error}</p>
+		{/if}
+		<div class="dialog-actions">
+			<button type="button" onclick={() => { preset = PRESETS[0]; custom_dialog?.close() }}>Cancel</button>
+			<button type="button" onclick={apply_custom_config}>Apply</button>
+		</div>
+	</form>
+</dialog>
 
 <style>
 	.ast-explorer {

@@ -33,19 +33,34 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 			error(400, origins.error.message)
 		}
 		css = origins.map((o) => o.css).join('\n')
-		if (body.prettify) css = format(css)
+		if (body.prettify) {
+			css = format(css)
+		}
 		url_css = css
 	} else {
 		css = body.css?.toString() ?? ''
 	}
+	const is_custom = raw_preset === 'custom'
 	const preset: Preset =
 		raw_preset && (presets as readonly string[]).includes(raw_preset) ? (raw_preset as Preset) : DEFAULT_PRESET
+
+	let rules: NonNullable<Config['rules']>
+	if (is_custom) {
+		// TODO: validate custom_config against stylelint's Config['rules'] schema
+		try {
+			rules = JSON.parse(body.custom_config ?? '{}')
+		} catch {
+			rules = {}
+		}
+	} else {
+		rules = PRESET_MAP[preset] ?? {}
+	}
 
 	const start = performance.now()
 	const lint_result = await stylelint.lint({
 		config: {
 			plugins: stylelintPlugin,
-			rules: PRESET_MAP[preset] ?? []
+			rules
 		},
 		code: css?.toString(),
 		configBasedir: process.cwd()
