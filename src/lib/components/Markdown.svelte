@@ -218,8 +218,9 @@
 
 	:global(.markdown figcaption) {
 		text-align: center;
-		font-size: var(--size-sm);
+		font-size: var(--size-base);
 		margin-top: var(--space-2);
+		text-wrap: balance;
 	}
 
 	:global(.markdown hr) {
