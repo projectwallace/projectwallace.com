@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { format } from '@projectwallace/format-css'
 	import CopyButton from '$components/CopyButton.svelte'
 	import Empty from './Empty.svelte'
 	import Table from './Table.svelte'
@@ -9,6 +8,7 @@
 	import Button from './Button.svelte'
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
+	import { format_number } from '$lib/format-number'
 
 	let {
 		elements: { root, item }
@@ -21,7 +21,7 @@
 	type LintResult = {
 		result: {
 			errored: boolean
-			parse_error: string | null
+			parse_error: Warning | null
 			warnings: Warning[]
 		}
 		duration: number
@@ -39,7 +39,7 @@
 
 	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability']
 	const preset_param = page.url.searchParams.get('preset') as Preset | null
-	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : 'recommended')
+	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : PRESETS.at(0)!)
 	let lint_result = $state<LintResult | null>(null)
 	let api_css = $state<string | null>(null)
 	let display_css = $derived(url && api_css ? api_css : css)
@@ -246,7 +246,11 @@
 						{#if loading}
 							<Empty>Linting, please wait&hellip;</Empty>
 						{:else if lint_result?.result.parse_error}
-							<Empty>Could not parse CSS: {lint_result.result.parse_error}</Empty>
+							<Empty
+								>Could not lint CSS: {lint_result.result.parse_error.text} (line {format_number(
+									lint_result.result.parse_error.line
+								)})</Empty
+							>
 						{:else if Array.isArray(lint_result?.result.warnings)}
 							{#if lint_result.result.warnings.length === 0}
 								<Empty>No stylelint issues found! 🎉</Empty>
