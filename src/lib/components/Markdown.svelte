@@ -88,9 +88,7 @@
 		padding-block: 1rem;
 		padding-inline: 0.5rem;
 		overflow-x: auto;
-		max-width: 100%;
 		color: var(--fg-100);
-		word-break: break-all;
 		white-space: pre;
 		tab-size: 2;
 		font-size: inherit;
@@ -101,8 +99,15 @@
 		:global(.markdown pre) {
 			padding-block: 0.75rem;
 			padding-inline: 1rem;
-			margin-right: -1rem;
-			margin-left: -1rem;
+			margin-right: calc(-1 * var(--space-4));
+			margin-left: calc(-1 * var(--space-4));
+		}
+	}
+
+	@media (min-width: 66rem) {
+		:global(.markdown pre) {
+			margin-right: calc(-1 * var(--space-8));
+			margin-left: calc(-1 * var(--space-8));
 		}
 	}
 
