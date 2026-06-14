@@ -26,11 +26,7 @@
 		align-items: center;
 		justify-content: center;
 
-		@media print {
-			border-width: 1px;
-		}
-
-		@media (forced-colors: active) {
+		@media (forced-colors: active), print {
 			border-color: GrayText;
 			border-width: 2px;
 			color: GrayText;

@@ -67,8 +67,8 @@
 		}
 
 		@media (forced-colors: active) {
-			background-color: ButtonFace;
-			color: ButtonText;
+			background-color: ButtonFace !important;
+			color: ButtonText !important;
 		}
 	}
 
@@ -88,11 +88,6 @@
 			background-color: var(--accent-300);
 			color: var(--black);
 		}
-
-		@media (forced-colors: active) {
-			background-color: ButtonFace;
-			color: ButtonText;
-		}
 	}
 
 	.secondary {
@@ -108,11 +103,6 @@
 			background-color: var(--bg-400);
 			border-color: var(--fg-400);
 		}
-
-		@media (forced-colors: active) {
-			background-color: ButtonFace;
-			color: ButtonText;
-		}
 	}
 
 	.minimal {
@@ -126,11 +116,6 @@
 		&:hover {
 			background-color: var(--bg-200);
 			color: var(--fg-100);
-		}
-
-		@media (forced-colors: active) {
-			background-color: ButtonFace;
-			color: ButtonText;
 		}
 	}
 
