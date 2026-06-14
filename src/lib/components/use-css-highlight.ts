@@ -28,6 +28,11 @@ export function highlight_css(
 		return
 	}
 
+	if (window.matchMedia('(forced-colors: active)')) {
+		// skip highlighting in forced colors mode because the results are usually quite unexpected
+		return
+	}
+
 	if (node_type === 'selector' || node_type === 'selectorList' || node_type === 'value') {
 		// Skip highlighting for some type
 		return

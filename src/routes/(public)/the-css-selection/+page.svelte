@@ -131,6 +131,11 @@
 				z-index: -1;
 				opacity: 0.8;
 			}
+
+			@media (forced-colors: active) {
+				background: Mark;
+				color: MarkText;
+			}
 		}
 
 		u {

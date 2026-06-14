@@ -359,6 +359,10 @@
 			color: inherit;
 			transition: color 100ms ease-out;
 
+			@media (forced-colors: active), print {
+				border: 1px solid;
+			}
+
 			[aria-hidden] {
 				opacity: 0;
 				translate: -5px 0;

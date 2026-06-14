@@ -26,6 +26,10 @@
 		font-weight: 700;
 		display: inline-block;
 		text-decoration: none;
+
+		@media (forced-colors: active), print {
+			border: 1px solid;
+		}
 	}
 
 	.neutral {

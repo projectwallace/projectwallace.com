@@ -83,9 +83,8 @@
 			</FormGroup>
 		</div>
 		<div class="swap">
-			<Button type="button" variant="secondary" onclick={swap} aria-labelledby="css-diff-swap-button">
+			<Button type="button" variant="secondary" onclick={swap} aria-labelledby="css-diff-swap-button" icon="swap">
 				<span class="sr-only" id="css-diff-swap-button">Swap before/after</span>
-				<Icon name="swap" size={16} />
 			</Button>
 		</div>
 		<output>

@@ -84,6 +84,10 @@
 		stroke-linecap: round;
 		stroke-width: 4px;
 		fill: none;
+
+		@media (forced-colors: active) {
+			stroke: CanvasText;
+		}
 	}
 
 	@media print {

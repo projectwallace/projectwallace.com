@@ -29,5 +29,11 @@
 		@media print {
 			border-width: 1px;
 		}
+
+		@media (forced-colors: active) {
+			border-color: GrayText;
+			border-width: 2px;
+			color: GrayText;
+		}
 	}
 </style>

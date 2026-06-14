@@ -42,10 +42,7 @@
 			<Icon size={16} name="minimize" />
 		</button>
 		{#if allow_prettify}
-			<Button size="sm" variant="secondary" onclick={format_css}>
-				<Icon size={16} name="brush" />
-				Format CSS
-			</Button>
+			<Button size="sm" variant="secondary" onclick={format_css} icon="brush">Format CSS</Button>
 		{/if}
 		{#if allow_copy}
 			<Button
