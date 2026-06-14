@@ -109,7 +109,7 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
-		max-height: var(--space-72);
+		max-height: 18rem;
 		overflow: auto;
 		overscroll-behavior: contain;
 	}

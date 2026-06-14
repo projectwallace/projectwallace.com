@@ -113,6 +113,7 @@
 
 	.footer-title {
 		font-weight: var(--font-medium);
+		color: var(--fg-200);
 	}
 
 	.footer-list {
@@ -127,13 +128,13 @@
 	}
 
 	p {
-		grid-column: 1 / -1;
-		padding-block: var(--space-4);
+		flex-basis: 100%;
+		/* padding-block: var(--space-4); */
 		text-align: center;
 
 		& a {
 			--netlify: #32e6e2;
-			text-decoration: underline;
+			text-decoration-line: underline;
 			text-decoration-color: var(--netlify);
 		}
 	}

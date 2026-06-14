@@ -9,6 +9,10 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { format_number } from '$lib/format-number'
+	import Heading from './Heading.svelte'
+	import { PersistedState } from 'runed'
+	import { untrack } from 'svelte'
+	import recommended_config from '@projectwallace/stylelint-plugin/configs/recommended'
 
 	let {
 		elements: { root, item }
@@ -26,6 +30,7 @@
 		}
 		duration: number
 		css?: string
+		rules?: Record<string, unknown>
 	}
 
 	type Props = {
@@ -37,12 +42,12 @@
 
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
-	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability']
+	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability', 'custom']
 	const preset_param = page.url.searchParams.get('preset') as Preset | null
 	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : PRESETS.at(0)!)
 	let lint_result = $state<LintResult | null>(null)
 	let api_css = $state<string | null>(null)
-	let custom_config_json = $state('{}')
+	let custom_config_json = new PersistedState('linter-custom-config', JSON.stringify(recommended_config.rules, null, 2))
 	let custom_config_error = $state<string | null>(null)
 	let custom_dialog = $state<HTMLDialogElement | undefined>()
 	let display_css = $derived(url && api_css ? api_css : css)
@@ -66,7 +71,9 @@
 			.filter((warning) => {
 				// Guard against stale warnings whose line numbers exceed the current CSS —
 				// css prop updates synchronously but lint_result clears in a later effect tick
-				if (warning.line > css_line_count) return false
+				if (warning.line > css_line_count) {
+					return false
+				}
 				if (warning.column === 1 && warning.line === 1 && typeof warning.endLine === 'number' && warning.endLine > 1) {
 					return false
 				}
@@ -91,9 +98,10 @@
 		lint_result = null
 		loading = true
 		onloading?.(true)
+		const custom_config = untrack(() => custom_config_json.current)
 		const body = url
-			? { url, preset, prettify, ...(preset === 'custom' && { custom_config: custom_config_json }) }
-			: { css, preset, ...(preset === 'custom' && { custom_config: custom_config_json }) }
+			? { url, preset, prettify, ...(preset === 'custom' && { custom_config }) }
+			: { css, preset, ...(preset === 'custom' && { custom_config }) }
 		const response = await fetch('/api/lint-css', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -173,23 +181,36 @@
 	}
 
 	function on_preset_change() {
+		const u = page.url
+		u.searchParams.set('preset', preset)
+		goto(u, { replaceState: true })
 		if (preset === 'custom') {
 			custom_dialog?.showModal()
 			return
 		}
 		run_lint()
 		active_item = undefined
-		const u = page.url
-		u.searchParams.set('preset', preset)
-		goto(u, { replaceState: true })
 	}
 
 	function apply_custom_config() {
 		try {
-			JSON.parse(custom_config_json)
+			JSON.parse(custom_config_json.current)
 			custom_config_error = null
-		} catch {
-			custom_config_error = 'Invalid JSON — please check your config.'
+		} catch (e) {
+			const msg = e instanceof SyntaxError ? e.message : String(e)
+			const v8_match = msg.match(/at position (\d+)/)
+			const ff_match = msg.match(/at line (\d+) column (\d+)/)
+			if (v8_match) {
+				const pos = parseInt(v8_match[1], 10)
+				const before = custom_config_json.current.slice(0, pos)
+				const line = (before.match(/\n/g) ?? []).length + 1
+				const col = pos - before.lastIndexOf('\n')
+				custom_config_error = `Invalid JSON at line ${line}, column ${col}`
+			} else if (ff_match) {
+				custom_config_error = `Invalid JSON at line ${ff_match[1]}, column ${ff_match[2]}`
+			} else {
+				custom_config_error = `Invalid JSON — ${msg}`
+			}
 			return
 		}
 		custom_dialog?.close()
@@ -251,7 +272,7 @@
 					<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
 				</div>
 				<div class="pane-content">
-					<Pre css={display_css} {selected_location} {locations} {coverage_chunks} />
+					<Pre css={display_css} {selected_location} {locations} {coverage_chunks} line_numbers />
 				</div>
 			</div>
 			<div class="pane">
@@ -315,20 +336,21 @@
 
 <dialog bind:this={custom_dialog}>
 	<form method="dialog" onsubmit={(e) => e.preventDefault()}>
-		<h2>Custom stylelint config</h2>
-		<p>Enter a stylelint <a href="https://stylelint.io/user-guide/configure#rules" target="_blank" rel="noopener">rules</a> object as JSON.</p>
+		<Heading element="h2" size={3} id="dialog-title">Custom stylelint config</Heading>
 		<textarea
+			aria-labelledby="dialog-title"
 			rows="16"
 			spellcheck="false"
 			autocomplete="off"
-			bind:value={custom_config_json}
+			bind:value={custom_config_json.current}
+			class="scroll-container"
 		></textarea>
 		{#if custom_config_error}
 			<p class="config-error">{custom_config_error}</p>
 		{/if}
 		<div class="dialog-actions">
-			<button type="button" onclick={() => { preset = PRESETS[0]; custom_dialog?.close() }}>Cancel</button>
-			<button type="button" onclick={apply_custom_config}>Apply</button>
+			<Button variant="minimal" type="button" onclick={() => custom_dialog?.close()}>Cancel</Button>
+			<Button type="button" onclick={apply_custom_config}>Apply</Button>
 		</div>
 	</form>
 </dialog>
@@ -338,7 +360,7 @@
 		--wallace-pane-background-color: var(--bg-200);
 		--wallace-ast-explorer-border-color: var(--bg-300);
 		--wallace-ast-explorer-border-width: var(--space-px);
-		--wallace-ast-explorer-pane-block-size: calc(100vh - 24rem);
+		--wallace-ast-explorer-pane-block-size: calc(100vb - 24rem);
 		container-type: inline-size;
 		container-name: --ast-explorer;
 		border-width: var(--wallace-ast-explorer-border-width);
@@ -350,7 +372,7 @@
 		align-items: stretch;
 
 		@container --ast-explorer (min-width: 50rem) {
-			grid-template-columns: max-content 1fr 1fr;
+			grid-template-columns: max-content minmax(auto, 68ch) 1fr;
 		}
 	}
 
@@ -430,5 +452,44 @@
 		:global(::highlight(selected_line)) {
 			background-color: var(--highlight-code) !important;
 		}
+	}
+
+	/* Dialog styles here */
+	dialog {
+		margin-inline: auto;
+		width: min(48rem, 90%);
+		background-color: var(--bg-200);
+		margin-block: var(--space-12);
+		box-shadow: var(--shadow-2xl);
+
+		& form {
+			padding-inline: var(--space-12);
+			padding-block: var(--space-6);
+
+			:global(*) + * {
+				margin-top: var(--space-8);
+			}
+		}
+
+		& textarea {
+			background-color: var(--bg-300);
+			padding-inline: var(--space-4);
+			padding-block: var(--space-4);
+			field-sizing: content;
+			max-block-size: 50vb;
+		}
+	}
+
+	::backdrop {
+		background-color: var(--bg-0);
+		opacity: 0.5;
+	}
+
+	.dialog-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: end;
+		column-gap: var(--space-2);
+		row-gap: var(--space-3);
 	}
 </style>

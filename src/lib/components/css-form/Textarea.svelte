@@ -48,7 +48,7 @@
 <style>
 	textarea {
 		width: 100%;
-		min-height: var(--space-36);
+		min-height: var(--space-32);
 		max-height: 70vb;
 		font-family: var(--font-mono);
 		font-size: var(--size-sm);

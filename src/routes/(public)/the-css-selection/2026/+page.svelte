@@ -125,7 +125,7 @@
 
 		@media (min-width: 48rem) {
 			margin-block-start: var(--space-24);
-			margin-block-end: var(--space-36);
+			margin-block-end: var(--space-32);
 		}
 	}
 

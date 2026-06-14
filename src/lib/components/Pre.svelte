@@ -50,9 +50,11 @@
 	// code_node is used to highlight the code (highlighting only works on TextNodes)
 	// reactive so effects re-run after {#key css} rebuilds the DOM
 	let code_node = $state<HTMLElement | undefined>(undefined)
+	// pre_node is the horizontal scroll container; body only scrolls vertically
+	let pre_node = $state<HTMLElement | undefined>(undefined)
 	// Line height is used to scroll to the highlighted location
 	const LINE_HEIGHT = 20
-	const CHAR_WIDTH = 7.9 // measured by the width of 100 monospace `a` characters
+	const CHAR_WIDTH = 7.953580311708464 // measured by the width of tenthousands monospace characters
 	// Lines of context to keep visible above the target line when scrolling.
 	// scroll-margin/scroll-padding have no effect on our overflow container, so we subtract
 	// this manually from every scrollTo() call and add it back when finding the "next" chunk.
@@ -61,11 +63,9 @@
 	let total_lines = $derived(css.split('\n').length)
 	let line_number_width = $derived(total_lines.toString().length)
 	// Only show when coverage data is actually present
-	let show_line_numbers = $derived(
-		(coverage_chunks !== undefined && coverage_chunks.length > 0) ||
-			(line_numbers && total_lines > 1 && total_lines < 10_000)
-	)
-	let show_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
+	let has_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
+	let show_line_numbers = $derived(has_coverage || line_numbers)
+	let show_coverage = $derived(has_coverage)
 	let uncovered_blocks_count = $derived((coverage_chunks ?? []).filter((c) => !c.is_covered).length)
 	let coverage_line_numbers = $derived(
 		(coverage_chunks ?? []).map((chunk) =>
@@ -111,7 +111,9 @@
 		if (selected_location !== undefined && body !== undefined) {
 			body.scrollTo({
 				// oxfmt-ignore
-				top: (selected_location.line * LINE_HEIGHT) - margin_top,
+				top: (selected_location.line * LINE_HEIGHT) - margin_top
+			})
+			pre_node?.scrollTo({
 				// oxfmt-ignore
 				left: selected_location.column < 50 ? 0 : (selected_location.column * CHAR_WIDTH) - margin_left
 			})
@@ -145,8 +147,12 @@
 				if (!sel || sel.offset >= end || sel.offset + sel.length <= start) {
 					punched.push({ start, end })
 				} else {
-					if (start < sel.offset) punched.push({ start, end: sel.offset })
-					if (end > sel.offset + sel.length) punched.push({ start: sel.offset + sel.length, end })
+					if (start < sel.offset) {
+						punched.push({ start, end: sel.offset })
+					}
+					if (end > sel.offset + sel.length) {
+						punched.push({ start: sel.offset + sel.length, end })
+					}
 				}
 			}
 
@@ -274,7 +280,12 @@
 				{/if}
 			</div>
 		{/if}
-		<pre dir="ltr" translate="no" class:wrap style:height="calc({total_lines + 1} * var(--pre-line-height))"><code
+		<pre
+			bind:this={pre_node}
+			dir="ltr"
+			translate="no"
+			class:wrap
+			style:height="calc({total_lines + 1} * var(--pre-line-height))"><code
 				class="language-css"
 				bind:this={code_node}
 				use:highlight_css={{ css }}
