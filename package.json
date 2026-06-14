@@ -29,7 +29,7 @@
 		"@projectwallace/css-layer-tree": "^2.1.4",
 		"@projectwallace/css-parser": "~0.16.0",
 		"@projectwallace/css-time-sort": "^3.1.0",
-		"@projectwallace/format-css": "^3.1.4",
+		"@projectwallace/format-css": "^3.1.5",
 		"@projectwallace/stylelint-plugin": "^0.6.7",
 		"@sveltejs/enhanced-img": "^0.10.4",
 		"@sveltejs/kit": "^2.60.1",

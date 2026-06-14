@@ -349,6 +349,11 @@
 			<p class="config-error">{custom_config_error}</p>
 		{/if}
 		<div class="dialog-actions">
+			<Button
+				variant="minimal"
+				type="button"
+				onclick={() => (custom_config_json.current = JSON.stringify(recommended_config.rules, null, 2))}>Reset</Button
+			>
 			<Button variant="minimal" type="button" onclick={() => custom_dialog?.close()}>Cancel</Button>
 			<Button type="button" onclick={apply_custom_config}>Apply</Button>
 		</div>

@@ -98,5 +98,10 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	const duration = performance.now() - start
 	setHeaders({ 'Server-Timing': `lint;dur=${duration.toFixed(1)}` })
 
-	return json({ result: return_data, duration: parseFloat(duration.toFixed(1)), css: url_css, rules: is_custom ? undefined : rules })
+	return json({
+		result: return_data,
+		duration: parseFloat(duration.toFixed(1)),
+		css: url_css,
+		rules: is_custom ? undefined : rules
+	})
 }
