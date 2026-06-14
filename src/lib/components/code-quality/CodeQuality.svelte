@@ -75,7 +75,7 @@
 		</header>
 
 		<Container size="2xl">
-			<Heading element="h3">Score breakdown</Heading>
+			<Heading element="h2">Score breakdown</Heading>
 			<div class="filters">
 				<span>Show only metrics for</span>
 				<FilterGroup>

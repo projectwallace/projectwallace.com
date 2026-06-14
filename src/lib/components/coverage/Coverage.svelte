@@ -110,8 +110,8 @@
 
 {#if calculated}
 	<header data-testid="coverage-summary">
-		<Panel element="dl" aria-label="Coverage summary">
-			<div class="coverage-summary">
+		<Panel aria-label="Coverage summary">
+			<dl class="coverage-summary">
 				<div>
 					<dt>Coverage</dt>
 					<dd>{format_percentage(calculated.byte_coverage_ratio)}</dd>
@@ -132,7 +132,7 @@
 					<dd>{format_filesize(calculated.uncovered_bytes)}</dd>
 					<dd>{format_number(calculated.uncovered_lines)} lines</dd>
 				</div>
-			</div>
+			</dl>
 		</Panel>
 	</header>
 

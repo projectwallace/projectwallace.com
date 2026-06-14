@@ -5,7 +5,7 @@ Use this visualizer to make sure the architecture of your CSS `@layer`s is corre
 - Inspect where layers are defined and used
 - Powered by [@projectwallace/css-layer-tree](https://github.com/projectwallace/css-layer-tree)
 
-### Read more about CSS Cascade Layers
+## Read more about CSS Cascade Layers
 
 - [Cascade layers](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers) on MDN
 - [Cascade Layers Guide](https://css-tricks.com/css-cascade-layers/) by Miriam Suzanne for CSS-Tricks
