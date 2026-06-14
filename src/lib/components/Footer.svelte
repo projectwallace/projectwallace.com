@@ -83,8 +83,10 @@
 
 <style>
 	.footer {
-		display: grid;
-		gap: var(--space-4);
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--space-12);
+		row-gap: var(--space-8);
 		margin-top: var(--space-8);
 		margin-bottom: var(--space-4);
 		padding-block: var(--space-8);
@@ -93,8 +95,6 @@
 		color: var(--fg-300);
 
 		@media (min-width: 66rem) {
-			gap: var(--space-12);
-			grid-template-columns: repeat(4, fit-content(100%)) 1fr;
 			padding-inline: var(--space-8);
 		}
 
