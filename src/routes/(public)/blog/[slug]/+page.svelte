@@ -86,7 +86,6 @@
 		}
 	}
 
-
 	ul {
 		display: grid;
 		gap: var(--space-8);

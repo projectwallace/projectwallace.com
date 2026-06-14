@@ -21,8 +21,6 @@
 		padding-block: var(--space-4);
 		padding-inline: var(--space-2);
 		border: 1px solid light-dark(var(--fg-800), transparent);
-		/* Usually contains expensive elements to render, so content-visibility:auto makes sense */
-		content-visibility: auto;
 
 		@media (min-width: 44rem) {
 			padding-right: var(--space-4);
