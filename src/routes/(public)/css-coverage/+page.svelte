@@ -143,5 +143,9 @@
 	.example {
 		text-decoration: underline;
 		color: var(--accent);
+
+		@media (forced-colors: active) {
+			color: LinkText;
+		}
 	}
 </style>

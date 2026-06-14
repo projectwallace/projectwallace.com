@@ -99,6 +99,10 @@
 			grid-template-columns: 4rem minmax(0, 1fr);
 			align-items: center;
 		}
+
+		@media (forced-colors: active) {
+			border: 1px solid;
+		}
 	}
 
 	.gradient {
@@ -121,13 +125,11 @@
 	.gradient::before {
 		content: '';
 		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		inset: 0;
 		z-index: -1;
 		background-image: var(--gradient, linear-gradient(0deg, transparent, transparent));
 		background-repeat: repeat;
+		forced-color-adjust: none;
 
 		@media print {
 			display: none;

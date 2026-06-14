@@ -65,6 +65,11 @@
 		@media print {
 			border: var(--space-1) solid;
 		}
+
+		@media (forced-colors: active) {
+			background-color: ButtonFace !important;
+			color: ButtonText !important;
+		}
 	}
 
 	.primary {

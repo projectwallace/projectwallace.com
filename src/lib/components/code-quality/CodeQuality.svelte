@@ -194,6 +194,7 @@
 		font-size: var(--size-6xl);
 		line-height: var(--leading-none);
 		font-weight: var(--font-ultrabold);
+		forced-color-adjust: none;
 
 		@media (min-width: 44rem) {
 			font-size: var(--size-7xl);
@@ -226,6 +227,7 @@
 		display: inline-block;
 		aspect-ratio: 1;
 		width: 0.825em;
+		forced-color-adjust: none;
 	}
 
 	.score-indicator-bad {

@@ -27,6 +27,7 @@
 	function highlight_line(node: HTMLElement, { value }: { value: string }) {
 		if (value.length === 0) return
 		if (!supports_highlights) return
+		if (window.matchMedia('(forced-colors: active)').matches) return
 
 		let text_node = node.firstChild!
 		let end_char_pos = value.length - 1
@@ -155,6 +156,10 @@
 
 		& .line-number-new {
 			color: rgb(0 0 0 / 0);
+		}
+
+		@media (forced-colors: active) {
+			text-decoration-line: line-through;
 		}
 	}
 

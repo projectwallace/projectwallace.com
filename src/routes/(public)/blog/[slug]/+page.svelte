@@ -112,5 +112,9 @@
 		& p {
 			font-size: var(--size-lg);
 		}
+
+		@media (forced-colors: active), print {
+			border: 1px solid;
+		}
 	}
 </style>

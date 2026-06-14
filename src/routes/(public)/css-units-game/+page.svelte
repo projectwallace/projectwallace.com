@@ -161,6 +161,10 @@
 		justify-content: space-between;
 		margin-block-start: var(--space-4);
 		white-space: nowrap;
+
+		@media (forced-colors: active), print {
+			border: 1px solid;
+		}
 	}
 
 	.guesses {
@@ -175,6 +179,10 @@
 	.guess {
 		background-color: var(--bg-200);
 		padding-inline: var(--space-2);
+
+		@media (forced-colors: active), print {
+			border: 1px solid;
+		}
 	}
 
 	.share {
