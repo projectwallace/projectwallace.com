@@ -170,6 +170,7 @@
 	.layout {
 		display: grid;
 		gap: var(--space-16);
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.stats {
@@ -245,6 +246,7 @@
 
 	.result-list {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		margin-top: var(--space-8);
 		background-color: light-dark(transparent, var(--gray-800));
 	}
@@ -265,10 +267,12 @@
 
 	aside {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 
 		section {
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-4);
 		}
 

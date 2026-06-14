@@ -167,6 +167,7 @@
 
 	.content {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-12);
 		margin-block-end: var(--space-16);
 	}
@@ -184,6 +185,7 @@
 
 	ol {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 	}
 

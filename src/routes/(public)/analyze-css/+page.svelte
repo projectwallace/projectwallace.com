@@ -96,6 +96,7 @@
 		border: 2px solid var(--teal-500);
 		padding: var(--space-12);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 		margin-block: var(--space-4);
 	}
@@ -108,6 +109,7 @@
 		padding-block: var(--space-4);
 		padding-inline: var(--space-2);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		margin-block: var(--space-16);
 	}

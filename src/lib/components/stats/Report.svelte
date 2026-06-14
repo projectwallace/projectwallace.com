@@ -30,6 +30,7 @@
 <style>
 	.group {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		container-type: inline-size;
 

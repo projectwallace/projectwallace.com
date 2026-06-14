@@ -63,6 +63,7 @@
 <style>
 	.the-css-selection {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		column-gap: var(--space-12);
 
 		@media (min-height: 33rem) {

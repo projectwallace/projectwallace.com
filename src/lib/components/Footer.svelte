@@ -105,6 +105,7 @@
 
 	.section {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-1);
 		align-content: start;
 	}
@@ -115,6 +116,7 @@
 
 	.footer-list {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-1);
 	}
 

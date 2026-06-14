@@ -26,7 +26,7 @@
 
 <header>
 	<h1 class="title">
-		Your CSS has dirty secrets <br />and <em>Wallace knows them</em>.
+		Your CSS has dirty secrets <br />and <mark>Wallace knows them</mark>.
 	</h1>
 	<p class="lead">
 		47 shades of gray in your design tokens. Specificity wars you didn't know existed. 12 competing font stacks across
@@ -202,6 +202,7 @@
 		padding-inline: var(--space-2);
 		text-align: center;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		justify-content: center;
 		overflow: clip;
@@ -218,15 +219,27 @@
 	}
 
 	h1 {
-		font-size: var(--size-7xl);
+		font-size: var(--size-4xl);
 		line-height: var(--leading-none);
 		text-wrap: balance;
 		text-align: center;
 		color: var(--fg-100);
 
-		em {
+		mark {
 			color: var(--accent-300);
 			font-style: normal;
+
+			@media (forced-colors: none) {
+				background-color: transparent;
+			}
+		}
+
+		@media (min-width: 30rem) {
+			font-size: var(--size-6xl);
+		}
+
+		@media (min-width: 44rem) {
+			font-size: var(--size-7xl);
 		}
 	}
 
@@ -248,6 +261,7 @@
 		max-width: 66ch;
 		text-wrap: balance;
 		line-height: var(--leading-relaxed);
+		margin-inline: auto;
 	}
 
 	.button-group {
@@ -261,6 +275,7 @@
 		container-type: inline-size;
 		padding-block: min(var(--space-16), 18cqb);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		place-content: center;
 		border-block-start: 1px solid var(--fg-500);
@@ -274,12 +289,14 @@
 
 	.panel-grid {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-px);
 		background-color: light-dark(var(--bg-200), var(--bg-300));
 
 		li {
 			background-color: light-dark(var(--bg-100), var(--bg-200));
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			place-content: start;
 			gap: var(--space-4);
 			padding-inline: var(--space-4);
@@ -362,11 +379,13 @@
 
 	.testimonials {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 
 		li {
 			background-color: var(--bg-200);
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-4);
 			padding-inline: var(--space-4);
 			padding-block: var(--space-8);

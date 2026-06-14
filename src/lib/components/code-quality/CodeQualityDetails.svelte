@@ -112,7 +112,7 @@
 				<ol>
 					{#each locations as loc}
 						<li>
-							<pre dir="ltr" translate="no" style="overflow: auto;"><code class="language-css"
+							<pre dir="ltr" translate="no" style="overflow: auto; max-width: 100%;"><code class="language-css"
 									>{css.substring(loc.offset, loc.offset + loc.length)}</code
 								></pre>
 						</li>

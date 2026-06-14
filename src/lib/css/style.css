@@ -652,12 +652,6 @@
 		.report-section {
 			display: grid;
 
-			/* Only apply when no target inside, otherwise :target styles get clipped */
-			&:not(:has(:target)) {
-				/* Expensive elements to render, so enable content-visibility */
-				content-visibility: auto;
-			}
-
 			/* Making this larger than 24rem will cause horizontal overflows */
 			grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 			gap: var(--space-4);

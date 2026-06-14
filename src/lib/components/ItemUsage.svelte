@@ -115,7 +115,6 @@
 
 	tbody tr {
 		cursor: pointer;
-		content-visibility: auto;
 
 		&:nth-child(even) {
 			background-color: var(--uneven-tr-bg);

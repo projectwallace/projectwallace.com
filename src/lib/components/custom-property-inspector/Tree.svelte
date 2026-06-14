@@ -77,7 +77,6 @@
 
 <style>
 	button[role='treeitem'] {
-		content-visibility: auto;
 		contain-intrinsic-size: auto 28.8px;
 		text-align: start;
 		padding-inline: var(--space-2);

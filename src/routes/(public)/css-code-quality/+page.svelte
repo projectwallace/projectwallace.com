@@ -81,12 +81,14 @@
 		color: var(--white);
 		padding: var(--space-8);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 
 		& ol {
 			padding-left: var(--space-6);
 			list-style-type: disc;
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-2);
 		}
 

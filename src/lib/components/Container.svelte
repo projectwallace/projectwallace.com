@@ -19,6 +19,8 @@
 	.container {
 		margin-inline: auto;
 		padding-inline: var(--space-2);
+		min-width: 0;
+		width: 100%;
 
 		@media (min-width: 44rem) {
 			padding-inline: var(--space-4);

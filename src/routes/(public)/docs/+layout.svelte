@@ -107,6 +107,7 @@
 		border-width: 0;
 		padding-block: var(--space-6);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 		align-items: start;
 
@@ -118,6 +119,7 @@
 	.content {
 		order: 2;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 
 		@media (min-width: 44rem) {
@@ -144,6 +146,7 @@
 
 	[role='list'].level-1 {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 	}
 
