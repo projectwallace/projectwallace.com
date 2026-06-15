@@ -192,6 +192,7 @@ test('does SEO well', async ({ page }) => {
 	await expect.soft(page).toHaveCanonical()
 	await expect.soft(page).toHaveMetaDescription()
 	await expect.soft(page).toHaveH1()
+	await expect.soft(page).not.toHaveHorizontalOverflow()
 })
 
 test('analyzes direct CSS input without @layers', async ({ page }) => {

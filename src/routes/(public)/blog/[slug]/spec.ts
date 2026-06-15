@@ -11,6 +11,7 @@ test('does SEO well', async ({ page }) => {
 	// Has a date
 	await expect.soft(page.locator('time').first()).toHaveAttribute('datetime', '2022-11-09T00:00:00.000Z')
 	await expect.soft(page.locator('time').first()).toHaveText('9 November 2022')
+	await expect.soft(page).not.toHaveHorizontalOverflow()
 })
 
 test('has link to blog index', async ({ page }) => {

@@ -16,6 +16,7 @@ test('does SEO well', async ({ page }) => {
 	await expect.soft(page).toHaveH1()
 
 	await expect.soft(page.getByTestId('explainer')).toBeVisible()
+	await expect.soft(page).not.toHaveHorizontalOverflow()
 })
 
 test('Initially shows placeholders and no empty state', async ({ page }) => {

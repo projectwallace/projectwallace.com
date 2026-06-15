@@ -65,7 +65,7 @@
 
 <div class="group">
 	<div>
-		<input type="file" multiple required accept=".css"{name} {id} onchange={update_file_list} />
+		<input type="file" multiple required accept=".css" {name} {id} onchange={update_file_list} />
 		<input type="hidden" name={`${name}-rendered`} value={serialized_files} />
 	</div>
 

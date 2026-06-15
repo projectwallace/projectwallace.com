@@ -194,5 +194,24 @@ export const expect = base_expect.extend({
 			pass: true,
 			message: () => 'success'
 		}
+	},
+
+	async toHaveHorizontalOverflow(page: Page) {
+		const { scrollWidth, clientWidth } = await page.evaluate(() => ({
+			scrollWidth: document.documentElement.scrollWidth,
+			clientWidth: document.documentElement.clientWidth
+		}))
+
+		if (scrollWidth > clientWidth) {
+			return {
+				pass: false,
+				message: () => `Page has horizontal overflow: scrollWidth (${scrollWidth}) > clientWidth (${clientWidth})`
+			}
+		}
+
+		return {
+			pass: true,
+			message: () => 'success'
+		}
 	}
 })
