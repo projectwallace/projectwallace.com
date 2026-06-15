@@ -205,6 +205,10 @@
 		&:focus {
 			border-bottom-color: var(--fg-700);
 		}
+
+		@media (forced-colors: active) {
+			border-color: Canvas; /* Background of application content or documents. */
+		}
 	}
 
 	.nav-item[aria-current='page'] {
@@ -233,6 +237,10 @@
 		&[aria-expanded='true'] {
 			background-color: var(--bg-200);
 			border-color: var(--fg-450);
+
+			@media (forced-colors: active) {
+				border-color: AccentColor;
+			}
 		}
 
 		&.invisible {
@@ -263,6 +271,7 @@
 
 	.nav-popover-list {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-2);
 	}
 
@@ -273,18 +282,30 @@
 		border-inline-end: var(--space-1) solid transparent;
 		font-size: var(--nav-font-size);
 
+		@media (forced-colors: active) {
+			border-inline-color: Canvas; /* Background of application content or documents. */
+		}
+
 		&[aria-current='page'] {
 			color: var(--fg-200);
 			border-inline-start-color: var(--accent-500);
 
 			&:hover {
 				border-inline-start-color: var(--accent-400);
+
+				@media (forced-colors: active) {
+					border-inline-start-color: AccentColor;
+				}
 			}
 		}
 
 		&:hover,
 		&:focus {
 			background-color: var(--bg-300);
+
+			@media (forced-colors: active) {
+				border-inline-start-color: AccentColor;
+			}
 		}
 	}
 </style>

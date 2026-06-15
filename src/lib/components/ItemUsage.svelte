@@ -81,7 +81,7 @@
 <style>
 	.panes {
 		display: grid;
-		grid-template-columns: 1fr minmax(0, 50ch);
+		grid-template-columns: minmax(10px, 1fr) min(50ch, 50%);
 		height: 100%;
 		max-height: 100%;
 	}
@@ -115,7 +115,6 @@
 
 	tbody tr {
 		cursor: pointer;
-		content-visibility: auto;
 
 		&:nth-child(even) {
 			background-color: var(--uneven-tr-bg);

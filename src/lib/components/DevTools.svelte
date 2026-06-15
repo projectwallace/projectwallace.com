@@ -163,12 +163,13 @@
 		}
 	}
 
-	ul {
+	[role='tablist'] {
 		position: sticky;
 		top: 0;
 		left: 0;
 		width: 100%;
 		display: flex;
+		flex-wrap: wrap;
 	}
 
 	[role='tab'] {

@@ -52,6 +52,7 @@
 <style>
 	.input-mode-switcher {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
 		--_input-mode-switcher-spacing: 0.25rem;
 	}

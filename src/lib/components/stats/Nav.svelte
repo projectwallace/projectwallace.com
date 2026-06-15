@@ -67,8 +67,7 @@
 	<div id="report-nav-title" class="title">Navigate this page</div>
 
 	<div class="compact">
-		<label for="report-nav" aria-labelledby="report-nav-title"></label>
-		<select name="report-nav" id="report-nav" onchange={on_select}>
+		<select name="report-nav" id="report-nav" onchange={on_select} aria-labelledby="report-nav-title">
 			{#each nav as { id, title, items } (id)}
 				{#if items}
 					<optgroup label={title}>

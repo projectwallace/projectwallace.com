@@ -37,6 +37,7 @@
 		container-type: inline-size;
 		contain: layout paint;
 		width: 100%;
+		forced-color-adjust: none;
 
 		&[data-theme='dark'] {
 			color-scheme: dark;

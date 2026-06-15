@@ -61,6 +61,10 @@
 		box-shadow: var(--shadow);
 		border-block-start: 2px solid var(--fg-700);
 		position: relative;
+
+		@media (forced-colors: active), print {
+			border: 1px solid;
+		}
 	}
 
 	.icon {

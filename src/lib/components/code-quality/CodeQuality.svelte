@@ -75,7 +75,7 @@
 		</header>
 
 		<Container size="2xl">
-			<Heading element="h3">Score breakdown</Heading>
+			<Heading element="h2">Score breakdown</Heading>
 			<div class="filters">
 				<span>Show only metrics for</span>
 				<FilterGroup>
@@ -170,6 +170,7 @@
 	.layout {
 		display: grid;
 		gap: var(--space-16);
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.stats {
@@ -193,6 +194,7 @@
 		font-size: var(--size-6xl);
 		line-height: var(--leading-none);
 		font-weight: var(--font-ultrabold);
+		forced-color-adjust: none;
 
 		@media (min-width: 44rem) {
 			font-size: var(--size-7xl);
@@ -225,6 +227,7 @@
 		display: inline-block;
 		aspect-ratio: 1;
 		width: 0.825em;
+		forced-color-adjust: none;
 	}
 
 	.score-indicator-bad {
@@ -245,6 +248,7 @@
 
 	.result-list {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		margin-top: var(--space-8);
 		background-color: light-dark(transparent, var(--gray-800));
 	}
@@ -265,10 +269,12 @@
 
 	aside {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 
 		section {
 			display: grid;
+			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-4);
 		}
 

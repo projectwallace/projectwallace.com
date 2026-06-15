@@ -150,6 +150,7 @@
 	.status {
 		text-align: center;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 	}
 
@@ -160,6 +161,10 @@
 		justify-content: space-between;
 		margin-block-start: var(--space-4);
 		white-space: nowrap;
+
+		@media (forced-colors: active), print {
+			border: 1px solid;
+		}
 	}
 
 	.guesses {
@@ -167,12 +172,17 @@
 		list-style-type: decimal;
 		list-style-position: inside;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-2);
 	}
 
 	.guess {
 		background-color: var(--bg-200);
 		padding-inline: var(--space-2);
+
+		@media (forced-colors: active), print {
+			border: 1px solid;
+		}
 	}
 
 	.share {
@@ -182,6 +192,7 @@
 		box-shadow: var(--shadow-lg);
 		margin-block: var(--space-16);
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 		justify-items: center;
 
@@ -203,6 +214,7 @@
 		margin-block: var(--space-16);
 		text-align: center;
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 
 		a {

@@ -110,6 +110,7 @@
 <style>
 	.app {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		padding-block: var(--space-4);
 		padding-inline: var(--space-8);
@@ -117,6 +118,7 @@
 
 	form {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
 	}
 
@@ -141,5 +143,9 @@
 	.example {
 		text-decoration: underline;
 		color: var(--accent);
+
+		@media (forced-colors: active) {
+			color: LinkText;
+		}
 	}
 </style>

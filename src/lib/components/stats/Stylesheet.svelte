@@ -20,8 +20,8 @@
 
 	<div class="report-section">
 		<div class="report-section-full-width">
-			<Panel element="dl">
-				<div class="stylesheet-report-stats">
+			<Panel>
+				<dl class="stylesheet-report-stats">
 					<div>
 						<dt>Lines of Code</dt>
 						<dd>{format_number(sourceLinesOfCode)}</dd>
@@ -42,7 +42,7 @@
 						<dt>Declarations</dt>
 						<dd>{format_number(declarations.total)}</dd>
 					</div>
-				</div>
+				</dl>
 			</Panel>
 		</div>
 

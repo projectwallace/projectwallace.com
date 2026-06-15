@@ -15,23 +15,20 @@
 	}
 
 	function slice(str: string, maxLen: number, maxLines: number) {
-		let new_str = ''
-		for (let char of str) {
-			if (char === '\n' || char === '\r') {
-				maxLines--
-				if (maxLines === 0) {
-					break
-				}
-			}
-			if (new_str.length >= maxLen) {
+		let pos = 0
+		while (pos < str.length && pos < maxLen) {
+			const next = str.indexOf('\n', pos)
+			if (next === -1 || next >= maxLen) {
 				break
 			}
-			new_str += char
+			if (--maxLines === 0) {
+				return str.slice(0, next)
+			}
+			pos = next + 1
 		}
-		return new_str
+		return str.slice(0, Math.min(pos || str.length, maxLen))
 	}
 
-	let input: HTMLInputElement | undefined = $state()
 	let files: File[] = $state([])
 	let serialized_files = $state('')
 
@@ -44,11 +41,11 @@
 	})
 
 	async function update_file_list(event: Event) {
-		let input = event.target as HTMLInputElement
+		const el = event.target as HTMLInputElement
 		files = []
 
-		if (input.files) {
-			for (let file of input.files) {
+		if (el.files) {
+			for (let file of el.files) {
 				if (!file.type.includes('css')) {
 					console.warn('File is not a CSS file:', file.type, file.name, file.size)
 					continue
@@ -68,7 +65,7 @@
 
 <div class="group">
 	<div>
-		<input type="file" multiple required accept=".css" bind:this={input} {name} {id} onchange={update_file_list} />
+		<input type="file" multiple required accept=".css"{name} {id} onchange={update_file_list} />
 		<input type="hidden" name={`${name}-rendered`} value={serialized_files} />
 	</div>
 
@@ -90,6 +87,7 @@
 <style>
 	.group {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
 	}
 
@@ -109,6 +107,7 @@
 
 	ul {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
 		max-height: var(--space-72);
 		overflow: auto;
@@ -117,6 +116,7 @@
 
 	li {
 		display: grid;
+		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-2);
 		background-color: var(--bg-100);
 	}

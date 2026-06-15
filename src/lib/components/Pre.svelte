@@ -327,7 +327,6 @@
 		pointer-events: none;
 		/* force newlines when not using thousands of <li>'s but plaintext instead */
 		white-space: pre;
-		content-visibility: auto;
 	}
 
 	.line-number-range {
