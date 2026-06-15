@@ -7,6 +7,7 @@ test('does homepage SEO', async ({ page }) => {
 	await expect.soft(page).toHaveCanonical({ trailing_slash: true })
 	await expect.soft(page).toHaveMetaDescription()
 	await expect.soft(page).toHaveH1()
+	await expect.soft(page).not.toHaveHorizontalOverflow()
 })
 
 test('generic redirects', async ({ page }) => {

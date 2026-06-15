@@ -20,6 +20,7 @@ test('does SEO well', async ({ page }) => {
 	await expect.soft(page).toHaveCanonical()
 	await expect.soft(page).toHaveMetaDescription()
 	await expect.soft(page).toHaveH1()
+	await expect.soft(page).not.toHaveHorizontalOverflow()
 })
 
 test.describe('navigation', () => {
@@ -326,20 +327,12 @@ test('does not have horizontal scrollbars', async ({ page }) => {
 
 	await page.goto('/analyze-css', { waitUntil: 'domcontentloaded' })
 	await expect(page).toBeHydrated()
-
-	// Fill in a URL
 	await page.getByLabel('Website URL').fill(`example.com/`)
-
-	// click 'Analyze URL'
 	await page.getByRole('button', { name: 'Analyze URL' }).click()
-
 	// Verify that Report is shown
 	await expect.soft(page.getByTestId('report')).toBeVisible()
 
-	// Verify that the body isn't wider than the window
-	let window_width = (await page.evaluate('window.innerWidth')) as number
-	let body_width = (await page.evaluate('document.body.scrollWidth')) as number
-	expect(body_width - 10).toBeLessThanOrEqual(window_width)
+	await expect(page).not.toHaveHorizontalOverflow()
 })
 
 test.describe('URL preloading', () => {
