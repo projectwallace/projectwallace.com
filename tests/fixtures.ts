@@ -204,14 +204,14 @@ export const expect = base_expect.extend({
 
 		if (scrollWidth > clientWidth) {
 			return {
-				pass: false,
+				pass: true,
 				message: () => `Page has horizontal overflow: scrollWidth (${scrollWidth}) > clientWidth (${clientWidth})`
 			}
 		}
 
 		return {
-			pass: true,
-			message: () => 'success'
+			pass: false,
+			message: () => 'Page has no horizontal overflow'
 		}
 	}
 })
