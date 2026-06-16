@@ -36,6 +36,7 @@
 		"color-sorter": "^8.0.0",
 		"diff": "^9.0.0",
 		"github-slugger": "^2.0.0",
+		"lightningcss": "^1.32.0",
 		"linkedom": "^0.18.12",
 		"mdsvex": "^0.12.7",
 		"paneforge": "^1.0.2",

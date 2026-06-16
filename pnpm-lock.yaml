@@ -68,6 +68,9 @@ importers:
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
+      lightningcss:
+        specifier: ^1.32.0
+        version: 1.32.0
       linkedom:
         specifier: ^0.18.12
         version: 0.18.12
