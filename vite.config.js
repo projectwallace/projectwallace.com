@@ -4,6 +4,17 @@ import { enhancedImages } from '@sveltejs/enhanced-img'
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [enhancedImages(), sveltekit()],
+	css: {
+		transformer: 'lightningcss',
+		lightningcss: {
+			targets: {
+				chrome: 123 << 16,
+				edge: 123 << 16,
+				firefox: 120 << 16,
+				safari: (17 << 16) | (5 << 8),
+			}
+		}
+	},
 	build: {
 		// Prevent base64 inlining of images (to avoid running into unexpected CSP issues)
 		// https://vite.dev/config/build-options.html#build-assetsinlinelimit
