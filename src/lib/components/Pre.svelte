@@ -130,8 +130,7 @@
 
 	function scroll_to_line(line: number) {
 		body?.scrollTo({
-			top: line * LINE_HEIGHT,
-			behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+			top: line * LINE_HEIGHT
 		})
 	}
 
@@ -292,6 +291,10 @@
 		--pre-ch-width: calc(1ch * var(--pre-line-number-width, 4));
 		contain: strict;
 		overscroll-behavior: contain;
+
+		@media (prefers-reduced-motion: no-preference) {
+			scroll-behavior: smooth;
+		}
 
 		&.with-line-numbers {
 			grid-template-columns: calc(var(--pre-ch-width) + 1ch) 1fr;

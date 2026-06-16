@@ -31,47 +31,45 @@
 		--pw-table-padding-block: 0.33rem;
 		font-size: var(--pw-table-font-size);
 
-		:global {
-			thead tr {
-				position: sticky;
-				top: 0;
-				z-index: 2;
-				inset-inline: 0;
-				/* Double border-width because it otherwise doesn't show */
-				border-block-end: 2px solid var(--fg-450);
-			}
+		& :global(thead tr) {
+			position: sticky;
+			top: 0;
+			z-index: 2;
+			inset-inline: 0;
+			/* Double border-width because it otherwise doesn't show */
+			border-block-end: 2px solid var(--fg-450);
+		}
 
-			:is(th, td) {
-				text-align: start;
-				padding-block: var(--pw-table-padding-block);
-				padding-inline: var(--space-2);
-			}
+		& :global(:is(th, td)) {
+			text-align: start;
+			padding-block: var(--pw-table-padding-block);
+			padding-inline: var(--space-2);
+		}
 
-			td:not(:first-child) {
-				border-inline-start: 1px solid var(--fg-450);
-			}
+		& :global(td:not(:first-child)) {
+			border-inline-start: 1px solid var(--fg-450);
+		}
 
-			th,
-			td:first-child {
-				white-space: nowrap;
-			}
+		& :global(th),
+		& :global(td:first-child) {
+			white-space: nowrap;
+		}
 
-			:where(tr:nth-child(even)) {
-				background-color: var(--uneven-tr-bg);
-			}
+		& :global(:where(tr:nth-child(even))) {
+			background-color: var(--uneven-tr-bg);
+		}
 
-			td {
-				line-height: var(--leading-snug);
-				vertical-align: baseline;
-			}
+		& :global(td) {
+			line-height: var(--leading-snug);
+			vertical-align: baseline;
+		}
 
-			.numeric {
-				text-align: end;
-				white-space: nowrap;
-				font-variant-numeric: tabular-nums;
-				/* "Looks about right" */
-				letter-spacing: -0.1ch;
-			}
+		& :global(.numeric) {
+			text-align: end;
+			white-space: nowrap;
+			font-variant-numeric: tabular-nums;
+			/* "Looks about right" */
+			letter-spacing: -0.1ch;
 		}
 	}
 </style>
