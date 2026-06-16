@@ -268,27 +268,25 @@
 </div>
 
 <style>
-	:global {
-		[data-pane-group] {
-			height: 100%;
-		}
+	:global([data-pane-group]) {
+		height: 100%;
+	}
 
-		[data-pane] {
-			will-change: flex;
-			height: 100%;
-			contain: strict;
-		}
+	:global([data-pane]) {
+		will-change: flex;
+		height: 100%;
+		contain: strict;
+	}
 
-		[data-pane-resizer] {
-			width: var(--space-1);
-			display: flex;
-			align-items: center;
-			justify-content: center;
+	:global([data-pane-resizer]) {
+		width: var(--space-1);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-			&:is(:hover, :focus) .pane-resizer {
-				opacity: 1;
-			}
-		}
+	:global([data-pane-resizer]:is(:hover, :focus)) .pane-resizer {
+		opacity: 1;
 	}
 
 	.pane-resizer {
