@@ -9,10 +9,6 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { format_number } from '$lib/format-number'
-	import Heading from './Heading.svelte'
-	import { PersistedState } from 'runed'
-	import { untrack } from 'svelte'
-	import recommended_config from '@projectwallace/stylelint-plugin/configs/recommended'
 
 	let {
 		elements: { root, item }
@@ -20,7 +16,7 @@
 		scroll_selected_item_into_view: false
 	})
 
-	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability' | 'custom'
+	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability'
 
 	type LintResult = {
 		result: {
@@ -42,14 +38,11 @@
 
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
-	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability', 'custom']
+	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability']
 	const preset_param = page.url.searchParams.get('preset') as Preset | null
 	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : PRESETS.at(0)!)
 	let lint_result = $state<LintResult | null>(null)
 	let api_css = $state<string | null>(null)
-	let custom_config_json = new PersistedState('linter-custom-config', JSON.stringify(recommended_config.rules, null, 2))
-	let custom_config_error = $state<string | null>(null)
-	let custom_dialog = $state<HTMLDialogElement | undefined>()
 	let display_css = $derived(url && api_css ? api_css : css)
 	let loading = $state(false)
 	let active_item = $state<number | undefined>()
@@ -98,10 +91,7 @@
 		lint_result = null
 		loading = true
 		onloading?.(true)
-		const custom_config = untrack(() => custom_config_json.current)
-		const body = url
-			? { url, preset, prettify, ...(preset === 'custom' && { custom_config }) }
-			: { css, preset, ...(preset === 'custom' && { custom_config }) }
+		const body = url ? { url, preset, prettify } : { css, preset }
 		const response = await fetch('/api/lint-css', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
@@ -184,36 +174,6 @@
 		const u = page.url
 		u.searchParams.set('preset', preset)
 		goto(u, { replaceState: true })
-		if (preset === 'custom') {
-			custom_dialog?.showModal()
-			return
-		}
-		run_lint()
-		active_item = undefined
-	}
-
-	function apply_custom_config() {
-		try {
-			JSON.parse(custom_config_json.current)
-			custom_config_error = null
-		} catch (e) {
-			const msg = e instanceof SyntaxError ? e.message : String(e)
-			const v8_match = msg.match(/at position (\d+)/)
-			const ff_match = msg.match(/at line (\d+) column (\d+)/)
-			if (v8_match) {
-				const pos = parseInt(v8_match[1], 10)
-				const before = custom_config_json.current.slice(0, pos)
-				const line = (before.match(/\n/g) ?? []).length + 1
-				const col = pos - before.lastIndexOf('\n')
-				custom_config_error = `Invalid JSON at line ${line}, column ${col}`
-			} else if (ff_match) {
-				custom_config_error = `Invalid JSON at line ${ff_match[1]}, column ${ff_match[2]}`
-			} else {
-				custom_config_error = `Invalid JSON — ${msg}`
-			}
-			return
-		}
-		custom_dialog?.close()
 		run_lint()
 		active_item = undefined
 	}
@@ -228,7 +188,7 @@
 			<div class="pane-content">
 				<fieldset onchange={on_preset_change}>
 					<legend>Preset</legend>
-					<div>
+					<div class="radio-field">
 						<input type="radio" id="preset-recommended" name="preset" value="recommended" bind:group={preset} />
 						<label for="preset-recommended">Recommended</label>
 					</div>
@@ -244,15 +204,7 @@
 						<input type="radio" id="preset-maintainability" name="preset" value="maintainability" bind:group={preset} />
 						<label for="preset-maintainability">Maintainability</label>
 					</div>
-					<div>
-						<input type="radio" id="preset-custom" name="preset" value="custom" bind:group={preset} />
-						<label for="preset-custom">Custom</label>
-					</div>
 				</fieldset>
-
-				{#if preset === 'custom'}
-					<button type="button" onclick={() => custom_dialog?.showModal()}>Edit config</button>
-				{/if}
 			</div>
 		</div>
 		{#key lint_result}
@@ -334,32 +286,6 @@
 	</div>
 </div>
 
-<dialog bind:this={custom_dialog}>
-	<form method="dialog" onsubmit={(e) => e.preventDefault()}>
-		<Heading element="h2" size={3} id="dialog-title">Custom stylelint config</Heading>
-		<textarea
-			aria-labelledby="dialog-title"
-			rows="16"
-			spellcheck="false"
-			autocomplete="off"
-			bind:value={custom_config_json.current}
-			class="scroll-container"
-		></textarea>
-		{#if custom_config_error}
-			<p class="config-error">{custom_config_error}</p>
-		{/if}
-		<div class="dialog-actions">
-			<Button
-				variant="minimal"
-				type="button"
-				onclick={() => (custom_config_json.current = JSON.stringify(recommended_config.rules, null, 2))}>Reset</Button
-			>
-			<Button variant="minimal" type="button" onclick={() => custom_dialog?.close()}>Cancel</Button>
-			<Button type="button" onclick={apply_custom_config}>Apply</Button>
-		</div>
-	</form>
-</dialog>
-
 <style>
 	.ast-explorer {
 		--wallace-pane-background-color: var(--bg-200);
@@ -386,7 +312,7 @@
 		line-height: 2;
 		block-size: 100%;
 		display: grid;
-		grid-template-rows: auto 1fr;
+		grid-template-rows: auto minmax(0, 1fr);
 
 		&:not(:first-child) {
 			border-inline-start-width: var(--wallace-ast-explorer-border-width);
@@ -457,44 +383,5 @@
 		:global(::highlight(selected_line)) {
 			background-color: var(--highlight-code) !important;
 		}
-	}
-
-	/* Dialog styles here */
-	dialog {
-		margin-inline: auto;
-		width: min(48rem, 90%);
-		background-color: var(--bg-200);
-		margin-block: var(--space-12);
-		box-shadow: var(--shadow-2xl);
-
-		& form {
-			padding-inline: var(--space-12);
-			padding-block: var(--space-6);
-
-			:global(*) + * {
-				margin-top: var(--space-8);
-			}
-		}
-
-		& textarea {
-			background-color: var(--bg-300);
-			padding-inline: var(--space-4);
-			padding-block: var(--space-4);
-			field-sizing: content;
-			max-block-size: 50vb;
-		}
-	}
-
-	::backdrop {
-		background-color: var(--bg-0);
-		opacity: 0.5;
-	}
-
-	.dialog-actions {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: end;
-		column-gap: var(--space-2);
-		row-gap: var(--space-3);
 	}
 </style>

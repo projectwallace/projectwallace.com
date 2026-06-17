@@ -1,6 +1,5 @@
 import { error, json } from '@sveltejs/kit'
-import stylelint from 'stylelint'
-import type { Config } from 'stylelint'
+import { lint, type Config } from 'stylelint'
 import recommendedConfig from '@projectwallace/stylelint-plugin/configs/recommended'
 import performanceConfig from '@projectwallace/stylelint-plugin/configs/performance'
 import maintainabilityConfig from '@projectwallace/stylelint-plugin/configs/maintainability'
@@ -40,24 +39,13 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	} else {
 		css = body.css?.toString() ?? ''
 	}
-	const is_custom = raw_preset === 'custom'
 	const preset: Preset =
 		raw_preset && (presets as readonly string[]).includes(raw_preset) ? (raw_preset as Preset) : DEFAULT_PRESET
 
-	let rules: NonNullable<Config['rules']>
-	if (is_custom) {
-		// TODO: validate custom_config against stylelint's Config['rules'] schema
-		try {
-			rules = JSON.parse(body.custom_config ?? '{}')
-		} catch {
-			rules = {}
-		}
-	} else {
-		rules = PRESET_MAP[preset] ?? {}
-	}
+	let rules: NonNullable<Config['rules']> = PRESET_MAP[preset] ?? {}
 
 	const start = performance.now()
-	const lint_result = await stylelint.lint({
+	const lint_result = await lint({
 		config: {
 			plugins: stylelintPlugin,
 			rules
@@ -102,6 +90,6 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 		result: return_data,
 		duration: parseFloat(duration.toFixed(1)),
 		css: url_css,
-		rules: is_custom ? undefined : rules
+		rules
 	})
 }
