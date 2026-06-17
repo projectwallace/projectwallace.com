@@ -16,6 +16,7 @@
 </div>
 
 <style>
+	/* stylelint-disable projectwallace/max-average-selector-complexity -- the :global() pseudos make this more complex */
 	.scroller {
 		overflow-x: auto;
 		height: 100%;
