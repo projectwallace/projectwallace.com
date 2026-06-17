@@ -21,7 +21,6 @@
 	import { compare } from '@projectwallace/css-time-sort'
 	import { validate as validate_duration } from '$lib/sort-time'
 	import FontFaces from '$components/stats/FontFaces.svelte'
-	import JsonPanel from '$components/devtools/JsonPanel.svelte'
 	import CssPanel from '$components/devtools/CssPanel.svelte'
 	import NetworkPanel from '$components/NetworkPanel.svelte'
 	import ItemUsage from '$components/ItemUsage.svelte'
@@ -334,8 +333,6 @@
 							<NetworkPanel />
 						{:else if tab_id === 'inspector'}
 							<ItemUsage />
-						{:else if tab_id === 'report'}
-							<JsonPanel json={analysis} />
 						{:else if tab_id === 'css'}
 							<CssPanel {css} />
 						{:else if tab_id === 'design_tokens'}

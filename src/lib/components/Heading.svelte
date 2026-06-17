@@ -72,8 +72,4 @@
 		font-weight: var(--font-medium);
 		font-size: var(--size-lg);
 	}
-
-	.heading :global(em) {
-		color: var(--teal-400);
-	}
 </style>

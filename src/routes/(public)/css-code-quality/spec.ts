@@ -24,7 +24,7 @@ test.describe('interaction', () => {
 						href: 'https://example.com/fixture.css',
 						url: 'https://example.com/fixture.css',
 						rel: 'stylesheet',
-						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); }`
+						css: `body { background: rgb(238, 238, 238); width: 60vw; margin: 15vh auto; font-family: system-ui, sans-serif; }h1 { font-size: 1.5em; }div { opacity: 0.8; }a:link, a:visited { color: rgb(51, 68, 136); ${Array.from({ length: 1000 }, () => `color: red;`).join('')} }`
 					}
 				] satisfies CSSOrigin[]
 			})
@@ -45,6 +45,36 @@ test.describe('interaction', () => {
 		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
 		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
 		await expect.soft(page.getByTestId('maintainability-score')).toBeVisible()
+	})
+
+	test('Shows a helpful error if the URL is blocked', async ({ page }) => {
+		await page.route('**/api/get-css*', async (route) => {
+			await route.fulfill({
+				status: 200,
+				json: {
+					error: {
+						url: 'chatgpt.com',
+						statusCode: 403,
+						original_status_code: 'ERR_NON_2XX_3XX_RESPONSE',
+						message:
+							'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?',
+						originalMessage: 'Response code 403 (Forbidden)'
+					}
+				}
+			})
+		})
+		// Fill in an invalid URL
+		await page.getByLabel('Website URL').fill(`chatgpt.com`)
+		// click 'Analyze URL'
+		await page.getByRole('button', { name: 'Analyze URL' }).click()
+
+		// Verify that the error message is shown
+		await expect.soft(page.getByTestId('form-url-error')).toBeVisible()
+		await expect
+			.soft(page.getByTestId('form-url-error'))
+			.toContainText(
+				'The origin server responded with a 403 Forbidden status code which means that scraping CSS is blocked. Is the URL publicly accessible?'
+			)
 	})
 
 	test('analyzes raw input', async ({ page }) => {

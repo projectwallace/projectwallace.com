@@ -29,10 +29,4 @@
 	meter::-moz-meter-bar {
 		background: var(--_meter-color);
 	}
-
-	@media print {
-		meter {
-			border: 1px solid;
-		}
-	}
 </style>

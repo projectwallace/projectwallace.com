@@ -50,21 +50,6 @@ test.describe('DevTools Panel', () => {
 		await expect.soft(panels.nth(0)).toBeVisible()
 	})
 
-	// TODO: bring this back at some point...
-	// test.fail() doesn't seem to work, so we're skipping this test for now
-	test.fixme("Clicking a tab when it's open closes the devtools", async ({ page }) => {
-		let devtools = page.getByTestId('devtools')
-		let tabs = devtools.getByRole('tab')
-		let panels = devtools.getByRole('tabpanel', { includeHidden: true })
-		// Click to open
-		await tabs.nth(0).click()
-		// Click to close
-		await tabs.nth(0).click()
-
-		await expect(tabs.nth(0)).toHaveAttribute('data-state', 'inactive')
-		await expect(panels.nth(0)).not.toBeVisible()
-	})
-
 	test('Clicking a not-current tab switches to that tab', async ({ page }) => {
 		let devtools = page.getByTestId('devtools')
 		let tabs = devtools.getByRole('tab')
@@ -161,4 +146,6 @@ test.describe('DevTools Panel', () => {
 		let new_size = await devtools.boundingBox()
 		expect.soft(new_size!.y).toBeGreaterThan(initial_size!.y)
 	})
+
+	// TODO: implement test to do resize with keyboard
 })

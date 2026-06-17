@@ -101,11 +101,7 @@
 				</p>
 			{:else if id == 'AverageSelectorsPerRule'}
 				<h3>Selectors per rule</h3>
-				<ScatterPlot
-					threshold={actuals.rules.selectors.mean}
-					max={actuals.rules.selectors.max!}
-					items={actuals.rules.selectors.items}
-				/>
+				<ScatterPlot max={actuals.rules.selectors.max!} items={actuals.rules.selectors.items} />
 			{:else if id == 'MaxSelectorsPerRule'}
 				{@const max = actuals.rules.selectors.max}
 				{@const locations = actuals.rules.selectors.uniqueWithLocations![max!]}
@@ -122,18 +118,10 @@
 				<ScatterPlot max={actuals.rules.selectors.max!} items={actuals.rules.selectors.items} />
 			{:else if id == 'MoreThanMostCommonSelectorsPerRule'}
 				<h3>Selectors per rule</h3>
-				<ScatterPlot
-					threshold={actuals.rules.selectors.mode}
-					max={actuals.rules.selectors.max!}
-					items={actuals.rules.selectors.items}
-				/>
+				<ScatterPlot max={actuals.rules.selectors.max!} items={actuals.rules.selectors.items} />
 			{:else if id == 'MoreThanMostCommonSelectorComplexity'}
 				<h3>Selector complexity</h3>
-				<ScatterPlot
-					threshold={actuals.selectors.complexity.mode}
-					max={actuals.selectors.complexity.max!}
-					items={actuals.selectors.complexity.items}
-				/>
+				<ScatterPlot max={actuals.selectors.complexity.max!} items={actuals.selectors.complexity.items} />
 			{:else if id == 'MaxSelectorComplexity'}
 				{@const max = actuals.selectors.complexity.max}
 				{@const locations = actuals.selectors.complexity.uniqueWithLocations![max!]}
@@ -149,11 +137,7 @@
 				<ScatterPlot max={actuals.selectors.complexity.max!} items={actuals.selectors.complexity.items} />
 			{:else if id == 'AverageSelectorComplexity'}
 				<h3>Selector complexity</h3>
-				<ScatterPlot
-					threshold={actuals.selectors.complexity.mean}
-					max={actuals.selectors.complexity.max!}
-					items={actuals.selectors.complexity.items}
-				/>
+				<ScatterPlot max={actuals.selectors.complexity.max!} items={actuals.selectors.complexity.items} />
 			{:else if id == 'IdSelectorRatio' && actuals.selectors.id.total > 0}
 				<h3>Discovered ID selectors</h3>
 				<p>Found {actuals.selectors.id.total} ID selectors.</p>
@@ -166,11 +150,7 @@
 				</ol>
 			{:else if id == 'AverageDeclarationsPerRule'}
 				<h3>Declarations per rule</h3>
-				<ScatterPlot
-					threshold={actuals.rules.declarations.mean}
-					max={actuals.rules.declarations.max!}
-					items={actuals.rules.declarations.items}
-				/>
+				<ScatterPlot max={actuals.rules.declarations.max!} items={actuals.rules.declarations.items} />
 			{:else if id == 'MaxDeclarationsPerRule'}
 				{@const max = actuals.rules.declarations.max}
 				{@const locations = actuals.rules.declarations.uniqueWithLocations![max!]}
@@ -187,11 +167,7 @@
 				<ScatterPlot max={actuals.rules.declarations.max!} items={actuals.rules.declarations.items} />
 			{:else if id == 'MoreThanMostCommonDeclarationsPerRule'}
 				<h3>Selectors per rule distribution</h3>
-				<ScatterPlot
-					threshold={actuals.rules.declarations.mode}
-					max={actuals.rules.declarations.max!}
-					items={actuals.rules.declarations.items}
-				/>
+				<ScatterPlot max={actuals.rules.declarations.max!} items={actuals.rules.declarations.items} />
 			{:else if id === 'MoreThanMostCommonSelectorSpecificity'}
 				<h3>Your top specificity selectors</h3>
 				{@const max = actuals.selectors.specificity.max.toString()}

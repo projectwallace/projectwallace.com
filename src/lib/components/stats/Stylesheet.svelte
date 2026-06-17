@@ -171,11 +171,16 @@
 
 <style>
 	.stylesheet-report-stats {
-		gap: var(--space-4);
+		column-gap: var(--space-8);
+		row-gap: var(--space-4);
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
 
 		@media print, (min-width: 33rem) {
-			display: flex;
+			flex-direction: row;
 			flex-wrap: wrap;
+			row-gap: var(--space-6);
 		}
 
 		@media (min-width: 66rem) {

@@ -82,7 +82,7 @@
 		aria-valuemax={Math.floor(max_height)}
 		aria-orientation="horizontal"
 	>
-		<span class="sr-only"> Resize devtools: press arrow up or down to resize. Press escape to stop resizing. </span>
+		<span class="sr-only">Resize devtools: press arrow up or down to resize. Press escape to stop resizing.</span>
 	</button>
 
 	<div class="toolbar">
