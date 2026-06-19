@@ -1,11 +1,11 @@
 <script lang="ts">
-	import CopyButton from '$components/CopyButton.svelte'
 	import Empty from './Empty.svelte'
 	import Table from './Table.svelte'
-	import Pre from './Pre.svelte'
+	import LintPre from './LintPre.svelte'
 	import { create_keyboard_list, type OnChange } from './use-keyboard-list.svelte'
 	import type { Warning } from 'stylelint'
 	import Button from './Button.svelte'
+	import CopyButton from '$components/CopyButton.svelte'
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { format_number } from '$lib/format-number'
@@ -47,46 +47,6 @@
 	let loading = $state(false)
 	let active_item = $state<number | undefined>()
 
-	// One O(n) scan per CSS change; all warning→offset lookups are then O(1)
-	let line_offsets = $derived.by(() => {
-		const offsets = [0]
-		let idx = 0
-		while ((idx = display_css.indexOf('\n', idx)) !== -1) {
-			offsets.push(++idx)
-		}
-		return offsets
-	})
-
-	let css_line_count = $derived(line_offsets.length)
-
-	let locations = $derived(
-		lint_result?.result.warnings
-			.filter((warning) => {
-				// Guard against stale warnings whose line numbers exceed the current CSS —
-				// css prop updates synchronously but lint_result clears in a later effect tick
-				if (warning.line > css_line_count) {
-					return false
-				}
-				if (warning.column === 1 && warning.line === 1 && typeof warning.endLine === 'number' && warning.endLine > 1) {
-					return false
-				}
-				return true
-			})
-			.map((warning) => warning_to_css_location(warning)) ?? []
-	)
-
-	let coverage_chunks = $derived(
-		lint_result?.result.warnings?.length
-			? warnings_to_coverage_chunks(lint_result.result.warnings.filter((w) => w.line <= css_line_count))
-			: undefined
-	)
-
-	let selected_location = $derived(
-		active_item === undefined || !lint_result?.result.warnings.at(active_item)
-			? undefined
-			: warning_to_css_location(lint_result.result.warnings.at(active_item)!)
-	)
-
 	async function run_lint() {
 		lint_result = null
 		loading = true
@@ -113,58 +73,6 @@
 			active_item = undefined
 		}
 	})
-
-	function warnings_to_coverage_chunks(warnings: Warning[]) {
-		const total_lines = css_line_count
-		const warning_lines = new Set<number>()
-
-		for (const warning of warnings) {
-			if (warning.column === 1 && warning.line === 1 && typeof warning.endLine === 'number' && warning.endLine > 1) {
-				continue
-			}
-			const end = typeof warning.endLine === 'number' ? warning.endLine : warning.line
-			for (let line = warning.line; line <= end; line++) {
-				warning_lines.add(line)
-			}
-		}
-
-		const chunks: { start_line: number; end_line: number; is_covered: boolean; total_lines: number }[] = []
-		if (total_lines === 0) return chunks
-
-		let chunk_start = 1
-		let current_covered = !warning_lines.has(1)
-
-		for (let line = 2; line <= total_lines; line++) {
-			const is_covered = !warning_lines.has(line)
-			if (is_covered !== current_covered) {
-				chunks.push({
-					start_line: chunk_start,
-					end_line: line - 1,
-					is_covered: current_covered,
-					total_lines: line - chunk_start
-				})
-				chunk_start = line
-				current_covered = is_covered
-			}
-		}
-		chunks.push({
-			start_line: chunk_start,
-			end_line: total_lines,
-			is_covered: current_covered,
-			total_lines: total_lines - chunk_start + 1
-		})
-
-		return chunks
-	}
-
-	function warning_to_css_location(warning: Warning) {
-		const start = line_offsets[warning.line - 1] + warning.column - 1
-		let length = 1
-		if (typeof warning.endLine === 'number' && typeof warning.endColumn === 'number') {
-			length = line_offsets[warning.endLine - 1] + warning.endColumn - 1 - start
-		}
-		return { line: warning.line, column: warning.column, offset: start, length }
-	}
 
 	const on_change: OnChange = ({ active_index }) => {
 		active_item = active_index
@@ -224,7 +132,11 @@
 					<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
 				</div>
 				<div class="pane-content">
-					<Pre css={display_css} {selected_location} {locations} {coverage_chunks} line_numbers />
+					<LintPre
+						css={display_css}
+						warnings={lint_result?.result.warnings ?? []}
+						selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
+					/>
 				</div>
 			</div>
 			<div class="pane">
@@ -375,20 +287,6 @@
 			&:first-of-type {
 				color: var(--fg-300);
 			}
-		}
-
-		:global(::highlight(lines), ::highlight(selected_line)) {
-			text-decoration-color: var(--red-300);
-			text-decoration-style: wavy;
-			text-decoration-line: underline;
-		}
-
-		:global(::highlight(lines)) {
-			background-color: transparent !important;
-		}
-
-		:global(::highlight(selected_line)) {
-			background-color: var(--highlight-code) !important;
 		}
 
 		:global(.empty) {

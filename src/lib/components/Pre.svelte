@@ -1,3 +1,12 @@
+<script module lang="ts">
+	export type CoverageChunk = {
+		start_line: number
+		end_line: number
+		is_covered: boolean
+		total_lines: number
+	}
+</script>
+
 <script lang="ts">
 	import { onMount, onDestroy, untrack } from 'svelte'
 	import { browser } from '$app/environment'
@@ -9,12 +18,7 @@
 		css?: string
 		selected_location?: CssLocation
 		locations?: CssLocation[]
-		coverage_chunks?: {
-			start_line: number
-			is_covered: boolean
-			end_line: number
-			total_lines: number
-		}[]
+		coverage_chunks?: CoverageChunk[]
 	}
 
 	type WrappingProps = BaseProps & {
