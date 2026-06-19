@@ -1,5 +1,5 @@
 import { error, json } from '@sveltejs/kit'
-import { lint, type Config } from 'stylelint'
+import stylelint, { type Config } from 'stylelint'
 import recommendedConfig from '@projectwallace/stylelint-plugin/configs/recommended'
 import performanceConfig from '@projectwallace/stylelint-plugin/configs/performance'
 import maintainabilityConfig from '@projectwallace/stylelint-plugin/configs/maintainability'
@@ -45,7 +45,7 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	let rules: NonNullable<Config['rules']> = PRESET_MAP[preset] ?? {}
 
 	const start = performance.now()
-	const lint_result = await lint({
+	const lint_result = await stylelint.lint({
 		config: {
 			plugins: stylelintPlugin,
 			rules
