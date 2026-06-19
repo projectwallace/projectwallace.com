@@ -303,7 +303,7 @@
 		align-items: stretch;
 
 		@container --ast-explorer (min-width: 50rem) {
-			grid-template-columns: max-content minmax(auto, 68ch) 1fr;
+			grid-template-columns: max-content minmax(auto, 60ch) 1fr;
 		}
 	}
 
@@ -324,6 +324,13 @@
 	.pane-content {
 		padding-block: var(--space-2);
 		padding-inline: var(--space-3);
+	}
+
+	.pane-content {
+		:not(:first-child) & {
+			padding-inline: 0;
+			padding-block: 0;
+		}
 	}
 
 	.pane-header {
@@ -382,6 +389,11 @@
 
 		:global(::highlight(selected_line)) {
 			background-color: var(--highlight-code) !important;
+		}
+
+		:global(.empty) {
+			margin-block: var(--space-2);
+			margin-inline: var(--space-3);
 		}
 	}
 </style>
