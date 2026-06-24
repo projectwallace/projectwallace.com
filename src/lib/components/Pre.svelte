@@ -125,9 +125,11 @@
 	})
 
 	$effect(() => {
-		if (css.length > 0 && code_node?.firstChild && supports_highlights && lines !== undefined) {
+		if (code_node?.firstChild && supports_highlights && lines !== undefined) {
 			let node = code_node.firstChild
 			lines.clear()
+
+			if (css.length === 0) return
 
 			// Browsers have a bug where a contained range (one entirely inside another) in the same
 			// Highlight causes painting to stop at the inner range's end rather than continuing to
@@ -168,12 +170,12 @@
 	})
 
 	// separate effect so changing locations doesn't unnecessarily touch selected_line
-	// tracks reactive code_node so this re-runs after {#key css} DOM rebuild
+	// reading css.length establishes tracking so the effect re-runs when content changes in-place
 	$effect(() => {
 		if (code_node?.firstChild && supports_highlights && selected_line !== undefined) {
 			let node = code_node.firstChild
 			selected_line.clear()
-			if (selected_location !== undefined) {
+			if (css.length > 0 && selected_location !== undefined) {
 				selected_line.add(
 					new StaticRange({
 						startContainer: node,

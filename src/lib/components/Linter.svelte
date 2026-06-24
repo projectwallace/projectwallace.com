@@ -44,33 +44,40 @@
 	let lint_result = $state<LintResult | null>(null)
 	let api_css = $state<string | null>(null)
 	let display_css = $derived(url && api_css ? api_css : css)
-	let loading = $state(false)
+	let status = $state<'idle' | 'loading' | 'error'>('idle')
 	let active_item = $state<number | undefined>()
 
 	async function run_lint() {
 		lint_result = null
-		loading = true
+		active_item = undefined
+		status = 'loading'
 		onloading?.(true)
-		const body = url ? { url, preset, prettify } : { css, preset }
-		const response = await fetch('/api/lint-css', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(body)
-		})
-		if (response.ok) {
-			lint_result = await response.json()
-			if (lint_result?.css) {
-				api_css = lint_result.css
+		try {
+			const body = url ? { url, preset, prettify } : { css, preset }
+			const response = await fetch('/api/lint-css', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(body)
+			})
+			if (response.ok) {
+				lint_result = await response.json()
+				if (lint_result?.css) {
+					api_css = lint_result.css
+				}
+				status = 'idle'
+			} else {
+				status = 'error'
 			}
+		} catch {
+			status = 'error'
+		} finally {
+			onloading?.(false)
 		}
-		loading = false
-		onloading?.(false)
 	}
 
 	$effect(() => {
 		if (url || css.length > 0) {
 			run_lint()
-			active_item = undefined
 		}
 	})
 
@@ -79,11 +86,10 @@
 	}
 
 	function on_preset_change() {
-		const updated_url = page.url
+		const updated_url = new URL(page.url)
 		updated_url.searchParams.set('preset', preset)
 		goto(updated_url, { replaceState: true, noScroll: true })
 		run_lint()
-		active_item = undefined
 	}
 </script>
 
@@ -123,86 +129,84 @@
 				</fieldset>
 			</div>
 		</div>
-		{#key lint_result}
-			<div class="pane">
-				<div class="pane-header">
-					<div class="pane-title">CSS input</div>
-					<Button
-						element="a"
-						variant="secondary"
-						size="sm"
-						icon="file"
-						href={`data:text/css;charset=utf-8,${encodeURIComponent(display_css)}`}
-						download="projectwallace-stylelint-css.css"
-					>
-						Download CSS
-					</Button>
-					<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
-				</div>
-				<div class="pane-content">
-					<LintPre
-						css={display_css}
-						warnings={lint_result?.result.warnings ?? []}
-						selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
-					/>
-				</div>
+		<div class="pane">
+			<div class="pane-header">
+				<div class="pane-title">CSS input</div>
+				<Button
+					element="a"
+					variant="secondary"
+					size="sm"
+					icon="file"
+					href={`data:text/css;charset=utf-8,${encodeURIComponent(display_css)}`}
+					download="projectwallace-stylelint-css.css"
+				>
+					Download CSS
+				</Button>
+				<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
 			</div>
-			<div class="pane">
-				<div class="pane-header">
-					<label for="ast-output" class="pane-title">Stylelint output</label>
-					<Button
-						element="a"
-						variant="secondary"
-						size="sm"
-						icon="file"
-						href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
-						download="projectwallace-stylelint-result.json"
-					>
-						Download JSON
-					</Button>
-					<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>
-						Copy JSON
-					</CopyButton>
-				</div>
-				<div class="pane-content">
-					<output>
-						{#if loading}
-							<Empty>Linting, please wait&hellip;</Empty>
-						{:else if lint_result?.result.parse_error}
-							<Empty
-								>Could not lint CSS: {lint_result.result.parse_error.text} (line {format_number(
-									lint_result.result.parse_error.line
-								)})</Empty
-							>
-						{:else if Array.isArray(lint_result?.result.warnings)}
-							{#if lint_result.result.warnings.length === 0}
-								<Empty>No stylelint issues found! 🎉</Empty>
-							{:else}
-								<Table>
-									<caption class="sr-only">Stylelint errors</caption>
-									<thead>
-										<tr>
-											<th class="numeric">Location</th>
-											<th>Message</th>
-											<th>Rule</th>
+			<div class="pane-content">
+				<LintPre
+					css={display_css}
+					warnings={lint_result?.result.warnings ?? []}
+					selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
+				/>
+			</div>
+		</div>
+		<div class="pane">
+			<div class="pane-header">
+				<label for="lint-output" class="pane-title">Stylelint output</label>
+				<Button
+					element="a"
+					variant="secondary"
+					size="sm"
+					icon="file"
+					href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
+					download="projectwallace-stylelint-result.json"
+				>
+					Download JSON
+				</Button>
+				<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>Copy JSON</CopyButton>
+			</div>
+			<div class="pane-content">
+				<output id="lint-output">
+					{#if status === 'loading'}
+						<Empty>Linting, please wait&hellip;</Empty>
+					{:else if status === 'error'}
+						<Empty>Could not reach the linter. Please try again.</Empty>
+					{:else if lint_result?.result.parse_error}
+						<Empty
+							>Could not lint CSS: {lint_result.result.parse_error.text} (line {format_number(
+								lint_result.result.parse_error.line
+							)})</Empty
+						>
+					{:else if Array.isArray(lint_result?.result.warnings)}
+						{#if lint_result.result.warnings.length === 0}
+							<Empty>No stylelint issues found! 🎉</Empty>
+						{:else}
+							<Table>
+								<caption class="sr-only">Stylelint errors</caption>
+								<thead>
+									<tr>
+										<th class="numeric">Location</th>
+										<th>Message</th>
+										<th>Rule</th>
+									</tr>
+								</thead>
+								<tbody use:root={{ onchange: on_change }}>
+									{#each lint_result?.result.warnings as issue, index}
+										<tr use:item={{ value: index }} aria-selected={active_item === index}>
+											<td class="numeric">{issue.line}:{issue.column}</td>
+											<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
+											<td>{issue.rule}</td>
 										</tr>
-									</thead>
-									<tbody use:root={{ onchange: on_change }}>
-										{#each lint_result?.result.warnings as issue, index}
-											<tr use:item={{ value: index }} aria-selected={active_item === index}>
-												<td class="numeric">{issue.line}:{issue.column}</td>
-												<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
-												<td>{issue.rule}</td>
-											</tr>
-										{/each}
-									</tbody>
-								</Table>
-							{/if}
+									{/each}
+								</tbody>
+							</Table>
 						{/if}
-					</output>
-				</div>
+					{/if}
+				</output>
 			</div>
-		{/key}
+		</div>
 	</div>
 </div>
 
@@ -248,6 +252,12 @@
 	}
 
 	.pane-content {
+		overflow-x: auto;
+
+		@container --ast-explorer (min-width: 50rem) {
+			block-size: var(--wallace-ast-explorer-pane-block-size);
+		}
+
 		.pane:first-child & {
 			padding-inline-end: var(--space-6);
 		}
@@ -277,14 +287,6 @@
 	.pane-title {
 		font-weight: var(--font-bold);
 		margin-inline-end: auto;
-	}
-
-	.pane-content {
-		overflow-x: auto;
-
-		@container --ast-explorer (min-width: 50rem) {
-			block-size: var(--wallace-ast-explorer-pane-block-size);
-		}
 	}
 
 	legend {
