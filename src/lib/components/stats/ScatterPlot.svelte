@@ -3,17 +3,15 @@
 	import Grid from '$lib/components/pancake/Grid.svelte'
 	import Svg from '$lib/components/pancake/Svg.svelte'
 	import SvgScatterplot from '$lib/components/pancake/SvgScatterplot.svelte'
-	import SvgLine from '$lib/components/pancake/SvgLine.svelte'
 	import { format_number } from '$lib/format-number'
 	import { IsInViewport } from 'runed'
 
 	interface Props {
 		items: number[]
 		max: number
-		threshold?: number
 	}
 
-	let { items, max, threshold = -1 }: Props = $props()
+	let { items, max }: Props = $props()
 	let points = $derived(items.map((item, index) => ({ x: index, y: item })))
 	let wrapper = $state<HTMLElement | undefined>(undefined)
 	let is_in_viewport = new IsInViewport(() => wrapper)
@@ -41,18 +39,6 @@
 							<path class="dot" {d} />
 						{/snippet}
 					</SvgScatterplot>
-					{#if threshold != -1}
-						<SvgLine
-							data={[
-								{ x: 0, y: threshold },
-								{ x: items.length, y: threshold }
-							]}
-						>
-							{#snippet children({ d }: { d: string })}
-								<path class="threshold" {d} />
-							{/snippet}
-						</SvgLine>
-					{/if}
 				</Svg>
 			{/if}
 		</Chart>
@@ -94,11 +80,6 @@
 		.dot {
 			stroke: var(--black);
 		}
-	}
-
-	.threshold {
-		stroke: var(--red-400);
-		stroke-width: 3px;
 	}
 
 	.horizontal-ruler {

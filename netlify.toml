@@ -3,9 +3,9 @@ command = "pnpm run build"
 publish = "build"
 
 [[headers]]
-  for = "/*"
-  [headers.values]
-    referrer-policy = "strict-origin-when-cross-origin"
-    x-content-type-options = "nosniff"
-    x-frame-options = "DENY"
-    x-xss-protection = "1; mode=block"
+for = "/*"
+[headers.values]
+referrer-policy = "strict-origin-when-cross-origin"
+x-content-type-options = "nosniff"
+x-frame-options = "DENY"
+x-xss-protection = "1; mode=block"

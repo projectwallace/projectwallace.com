@@ -17,10 +17,10 @@
 	.empty {
 		padding-block: var(--space-4);
 		padding-inline: var(--space-6);
-		border: 3px dashed var(--fg-700);
+		border: 2px dashed light-dark(var(--fg-850), var(--fg-700));
 		text-align: center;
 		font-weight: var(--font-medium);
-		color: light-dark(var(--fg-700), var(--fg-400));
+		color: light-dark(var(--fg-600), var(--fg-400));
 		text-wrap: balance;
 		display: flex;
 		align-items: center;

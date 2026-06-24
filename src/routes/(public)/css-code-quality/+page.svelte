@@ -44,26 +44,12 @@
 </Hero>
 
 {#if css_state.origins.length > 0 && status !== 'error'}
-	<svelte:boundary onerror={on_render_error}><CodeQuality docs={data.docs} css={css_state.css} /></svelte:boundary>
+	<svelte:boundary onerror={on_render_error}>
+		<CodeQuality docs={data.docs} css={css_state.css} />
+	</svelte:boundary>
 {/if}
 
 <Container size="xl">
-	{#if status === 'error'}
-		<div class="error">
-			<p>An error happened. Here is what you should do:</p>
-			<ol>
-				<li>Check that your URL is correct (if using the url input)</li>
-				<li>Check that the URL you are pointing to is publicly accessible</li>
-				<li>Try again</li>
-				<li>
-					<a href="https://bsky.app/profile/projectwallace.com" target="_blank" rel="noreferrer">
-						Send me a friendly ping on Bluesky @projectwallace
-					</a>
-				</li>
-			</ol>
-		</div>
-	{/if}
-
 	<Markdown>
 		<p>
 			The best way to analyze your CSS is to use the <a href="/analyze-css">CSS analyzer</a>, but if you're in a hurry
@@ -76,27 +62,6 @@
 </Container>
 
 <style>
-	.error {
-		background-color: var(--red-700);
-		color: var(--white);
-		padding: var(--space-8);
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-8);
-
-		& ol {
-			padding-left: var(--space-6);
-			list-style-type: disc;
-			display: grid;
-			grid-template-columns: minmax(0, 1fr);
-			gap: var(--space-2);
-		}
-
-		& a {
-			text-decoration: underline;
-		}
-	}
-
 	.font-heading {
 		font-size: var(--size-5xl);
 	}

@@ -22,6 +22,7 @@ test('does SEO well', async ({ page }) => {
 	await expect.soft(page).toHaveCanonical()
 	await expect.soft(page).toHaveMetaDescription()
 	await expect.soft(page).toHaveH1()
+	await expect.soft(page).not.toHaveHorizontalOverflow()
 })
 
 test('CSS without custom properties', async ({ page }) => {

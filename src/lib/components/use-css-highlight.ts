@@ -28,7 +28,7 @@ export function highlight_css(
 		return
 	}
 
-	if (window.matchMedia('(forced-colors: active)')) {
+	if (window.matchMedia('(forced-colors: active)').matches) {
 		// skip highlighting in forced colors mode because the results are usually quite unexpected
 		return
 	}

@@ -200,28 +200,26 @@
 {/if}
 
 <style>
-	:global {
-		[data-pane-group] {
-			--coverage-pane-height: calc(100vb - 24rem);
-			min-height: var(--coverage-pane-height);
-			max-height: var(--coverage-pane-height);
-		}
+	:global([data-pane-group]) {
+		--coverage-pane-height: calc(100vb - 24rem);
+		min-height: var(--coverage-pane-height);
+		max-height: var(--coverage-pane-height);
+	}
 
-		[data-pane] {
-			will-change: flex;
-			height: 100%;
-		}
+	:global([data-pane]) {
+		will-change: flex;
+		height: 100%;
+	}
 
-		[data-pane-resizer] {
-			width: var(--space-1);
-			display: flex;
-			align-items: center;
-			justify-content: center;
+	:global([data-pane-resizer]) {
+		width: var(--space-1);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-			&:is(:hover, :focus) .pane-resizer {
-				opacity: 1;
-			}
-		}
+	:global([data-pane-resizer]:is(:hover, :focus)) .pane-resizer {
+		opacity: 1;
 	}
 
 	.pane-resizer {
