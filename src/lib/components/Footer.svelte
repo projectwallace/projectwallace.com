@@ -41,7 +41,6 @@
 			items: [
 				{ href: '/about', title: 'About' },
 				{ href: '/oss', title: 'Open Source Software' },
-				{ href: '/about/terms-of-service', title: 'Terms of Service' },
 				{ href: '/about/privacy-policy', title: 'Privacy Policy' },
 				{
 					href: 'https://github.com/projectwallace/projectwallace.com/blob/main/CODE_OF_CONDUCT.md',
