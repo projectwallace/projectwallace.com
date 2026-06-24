@@ -322,7 +322,8 @@
 
 		button {
 			padding-inline: var(--space-2);
-			padding-block: var(--space-1);
+			padding-block: var(--space-2);
+			line-height: var(--leading-none);
 			background-color: transparent;
 
 			&:hover,

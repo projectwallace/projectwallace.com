@@ -128,7 +128,6 @@
 
 	p {
 		flex-basis: 100%;
-		/* padding-block: var(--space-4); */
 		text-align: center;
 
 		& a {

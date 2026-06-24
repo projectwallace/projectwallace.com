@@ -9,14 +9,13 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { format_number } from '$lib/format-number'
+	import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
 
 	let {
 		elements: { root, item }
 	} = create_keyboard_list({
 		scroll_selected_item_into_view: false
 	})
-
-	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability' | 'designtokens'
 
 	type LintResult = {
 		result: {
@@ -38,9 +37,10 @@
 
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
-	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability', 'designtokens']
 	const preset_param = page.url.searchParams.get('preset') as Preset | null
-	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : PRESETS.at(0)!)
+	let preset = $state<Preset>(
+		preset_param && (presets as readonly string[]).includes(preset_param) ? preset_param : DEFAULT_PRESET
+	)
 	let lint_result = $state<LintResult | null>(null)
 	let api_css = $state<string | null>(null)
 	let display_css = $derived(url && api_css ? api_css : css)
@@ -206,10 +206,6 @@
 	</div>
 </div>
 
-{#if lint_result?.rules}
-	<pre>{JSON.stringify(lint_result.rules, null, 2)}</pre>
-{/if}
-
 <style>
 	.ast-explorer {
 		--wallace-pane-background-color: var(--bg-200);
@@ -237,10 +233,11 @@
 		block-size: 100%;
 		display: grid;
 		grid-template-rows: auto minmax(0, 1fr);
+		border-color: var(--wallace-ast-explorer-border-color);
+		border-style: solid;
 
 		&:not(:first-child) {
 			border-inline-start-width: var(--wallace-ast-explorer-border-width);
-			border-inline-start-color: var(--wallace-ast-explorer-border-color);
 		}
 	}
 

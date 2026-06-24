@@ -10,10 +10,10 @@ import stylelintPlugin from '@projectwallace/stylelint-plugin'
 import { get_css } from '../get-css/get-css'
 import { format } from '@projectwallace/format-css'
 import type { RequestHandler } from './$types'
+import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
 
-const presets = ['recommended', 'performance', 'maintainability', 'correctness', 'designtokens', 'holistic'] as const
-export type Preset = (typeof presets)[number]
-const DEFAULT_PRESET = presets[0]
+export type { Preset }
+
 const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | null> = {
 	recommended: recommendedConfig.rules,
 	performance: performanceConfig.rules,
@@ -46,7 +46,7 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	const preset: Preset =
 		raw_preset && (presets as readonly string[]).includes(raw_preset) ? (raw_preset as Preset) : DEFAULT_PRESET
 
-	let rules: NonNullable<Config['rules']> = PRESET_MAP[preset] ?? {}
+	let rules: NonNullable<Config['rules']> = PRESET_MAP[preset] ?? Object.create(null)
 
 	const start = performance.now()
 	const lint_result = await stylelint.lint({
@@ -93,7 +93,6 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	return json({
 		result: return_data,
 		duration: parseFloat(duration.toFixed(1)),
-		css: url_css,
-		rules
+		css: url_css
 	})
 }
