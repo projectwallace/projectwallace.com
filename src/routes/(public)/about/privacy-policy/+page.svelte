@@ -5,56 +5,18 @@
 	import Markdown from '$lib/components/Markdown.svelte'
 </script>
 
-<Seo title="Privacy Policy" description="TLDR; No trackers, no selling of personal information." />
+<Seo title="Privacy Policy" description="No personal data is collected or stored." />
 
-<Hero title="Privacy Policy">
-	<p class="lead">TLDR; No trackers, no selling of personal information.</p>
-</Hero>
+<Hero title="Privacy Policy" />
 
 <section>
 	<Container size="xl">
 		<Markdown>
-			<h2>The short version</h2>
 			<p>
-				We only collect the information that you provide us with. We only need a very minimal set of information to
-				create an account for you and let you work on our website. We don't sell your data to any third party.
+				This site uses localStorage to remember your preferences (such as color scheme). This data
+				never leaves your browser. Visitor statistics are collected anonymously via Counterscale and
+				contain no personal information. No other data is collected or stored.
 			</p>
-
-			<h2>The full version</h2>
-			<p>
-				Your privacy is important to us. It is Project Wallace&rsquo;s policy to respect your privacy regarding any
-				information we may collect from you across our website, https://www.projectwallace.com, and other sites we own
-				and operate.
-			</p>
-			<p>
-				We only ask for personal information when we truly need it to provide a service to you. We collect it by fair
-				and lawful means, with your knowledge and consent. We also let you know why we&rsquo;re collecting it and how it
-				will be used.
-			</p>
-			<p>
-				We only retain collected information for as long as necessary to provide you with your requested service. What
-				data we store, we&rsquo;ll protect within commercially acceptable means to prevent loss and theft, as well as
-				unauthorised access, disclosure, copying, use or modification.
-			</p>
-			<p>
-				We don&rsquo;t share any personally identifying information publicly or with third-parties, except when required
-				to by law.
-			</p>
-			<p>
-				Our website may link to external sites that are not operated by us. Please be aware that we have no control over
-				the content and practices of these sites, and cannot accept responsibility or liability for their respective
-				privacy policies.
-			</p>
-			<p>
-				You are free to refuse our request for your personal information, with the understanding that we may be unable
-				to provide you with some of your desired services.
-			</p>
-			<p>
-				Your continued use of our website will be regarded as acceptance of our practices around privacy and personal
-				information. If you have any questions about how we handle user data and personal information, feel free to
-				contact us.
-			</p>
-			<p>This policy is effective as of 19 June 2018.</p>
 		</Markdown>
 	</Container>
 </section>
