@@ -10,6 +10,8 @@
 	import { goto } from '$app/navigation'
 	import { format_number } from '$lib/format-number'
 	import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
+	import PanedLayout from './PanedLayout.svelte'
+	import Pane from './Pane.svelte'
 
 	let {
 		elements: { root, item }
@@ -93,224 +95,121 @@
 	}
 </script>
 
-<div class="ast-explorer">
-	<div class="panes">
-		<div class="pane options">
-			<div class="pane-header">
-				<div class="pane-title">Options</div>
+<PanedLayout columns="max-content minmax(auto, 60ch) minmax(2rem, 1fr)" pane_block_size="calc(100vb - 24rem)">
+	<Pane>
+		{#snippet pane_header()}
+			<div class="pane-title">Options</div>
+		{/snippet}
+		<fieldset onchange={on_preset_change}>
+			<legend>Preset</legend>
+			<div class="radio-field">
+				<input type="radio" id="preset-recommended" name="preset" value="recommended" bind:group={preset} />
+				<label for="preset-recommended">Recommended</label>
 			</div>
-			<div class="pane-content">
-				<fieldset onchange={on_preset_change}>
-					<legend>Preset</legend>
-					<div class="radio-field">
-						<input type="radio" id="preset-recommended" name="preset" value="recommended" bind:group={preset} />
-						<label for="preset-recommended">Recommended</label>
-					</div>
-					<div>
-						<input type="radio" id="preset-correctness" name="preset" value="correctness" bind:group={preset} />
-						<label for="preset-correctness">Correctness</label>
-					</div>
-					<div>
-						<input type="radio" id="preset-performance" name="preset" value="performance" bind:group={preset} />
-						<label for="preset-performance">Performance</label>
-					</div>
-					<div>
-						<input type="radio" id="preset-maintainability" name="preset" value="maintainability" bind:group={preset} />
-						<label for="preset-maintainability">Maintainability</label>
-					</div>
-					<div>
-						<input type="radio" id="preset-design-tokens" name="preset" value="designtokens" bind:group={preset} />
-						<label for="preset-design-tokens">Design tokens</label>
-					</div>
-					<div>
-						<input type="radio" id="preset-holistic" name="preset" value="holistic" bind:group={preset} />
-						<label for="preset-holistic">Holistic</label>
-					</div>
-				</fieldset>
+			<div>
+				<input type="radio" id="preset-correctness" name="preset" value="correctness" bind:group={preset} />
+				<label for="preset-correctness">Correctness</label>
 			</div>
-		</div>
-		<div class="pane">
-			<div class="pane-header">
-				<div class="pane-title">CSS input</div>
-				<Button
-					element="a"
-					variant="secondary"
-					size="sm"
-					icon="file"
-					href={`data:text/css;charset=utf-8,${encodeURIComponent(display_css)}`}
-					download="projectwallace-stylelint-css.css"
+			<div>
+				<input type="radio" id="preset-performance" name="preset" value="performance" bind:group={preset} />
+				<label for="preset-performance">Performance</label>
+			</div>
+			<div>
+				<input type="radio" id="preset-maintainability" name="preset" value="maintainability" bind:group={preset} />
+				<label for="preset-maintainability">Maintainability</label>
+			</div>
+			<div>
+				<input type="radio" id="preset-design-tokens" name="preset" value="designtokens" bind:group={preset} />
+				<label for="preset-design-tokens">Design tokens</label>
+			</div>
+			<div>
+				<input type="radio" id="preset-holistic" name="preset" value="holistic" bind:group={preset} />
+				<label for="preset-holistic">Holistic</label>
+			</div>
+		</fieldset>
+	</Pane>
+	<Pane flush>
+		{#snippet pane_header()}
+			<div class="pane-title">CSS input</div>
+			<Button
+				element="a"
+				variant="secondary"
+				size="sm"
+				icon="file"
+				href={`data:text/css;charset=utf-8,${encodeURIComponent(display_css)}`}
+				download="projectwallace-stylelint-css.css"
+			>
+				Download CSS
+			</Button>
+			<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
+		{/snippet}
+		<LintPre
+			css={display_css}
+			warnings={lint_result?.result.warnings ?? []}
+			selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
+		/>
+	</Pane>
+	<Pane flush={status === 'loading' || lint_result?.result.warnings.length !== 0}>
+		{#snippet pane_header()}
+			<label for="lint-output" class="pane-title">Stylelint output</label>
+			<Button
+				element="a"
+				variant="secondary"
+				size="sm"
+				icon="file"
+				href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
+				download="projectwallace-stylelint-result.json"
+			>
+				Download JSON
+			</Button>
+			<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>Copy JSON</CopyButton>
+		{/snippet}
+		<output id="lint-output">
+			{#if status === 'loading'}
+				<Empty>Linting, please wait&hellip;</Empty>
+			{:else if status === 'error'}
+				<Empty>Could not reach the linter. Please try again.</Empty>
+			{:else if lint_result?.result.parse_error}
+				<Empty
+					>Could not lint CSS: {lint_result.result.parse_error.text} (line {format_number(
+						lint_result.result.parse_error.line
+					)})</Empty
 				>
-					Download CSS
-				</Button>
-				<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
-			</div>
-			<div class="pane-content">
-				<LintPre
-					css={display_css}
-					warnings={lint_result?.result.warnings ?? []}
-					selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
-				/>
-			</div>
-		</div>
-		<div class="pane">
-			<div class="pane-header">
-				<label for="lint-output" class="pane-title">Stylelint output</label>
-				<Button
-					element="a"
-					variant="secondary"
-					size="sm"
-					icon="file"
-					href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
-					download="projectwallace-stylelint-result.json"
-				>
-					Download JSON
-				</Button>
-				<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>Copy JSON</CopyButton>
-			</div>
-			<div class="pane-content">
-				<output id="lint-output">
-					{#if status === 'loading'}
-						<Empty>Linting, please wait&hellip;</Empty>
-					{:else if status === 'error'}
-						<Empty>Could not reach the linter. Please try again.</Empty>
-					{:else if lint_result?.result.parse_error}
-						<Empty
-							>Could not lint CSS: {lint_result.result.parse_error.text} (line {format_number(
-								lint_result.result.parse_error.line
-							)})</Empty
-						>
-					{:else if Array.isArray(lint_result?.result.warnings)}
-						{#if lint_result.result.warnings.length === 0}
-							<Empty>No stylelint issues found! 🎉</Empty>
-						{:else}
-							<Table>
-								<caption class="sr-only">Stylelint errors</caption>
-								<thead>
-									<tr>
-										<th class="numeric">Location</th>
-										<th>Message</th>
-										<th>Rule</th>
-									</tr>
-								</thead>
-								<tbody use:root={{ onchange: on_change }}>
-									{#each lint_result?.result.warnings as issue, index}
-										<tr use:item={{ value: index }} aria-selected={active_item === index}>
-											<td class="numeric">{issue.line}:{issue.column}</td>
-											<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
-											<td>{issue.rule}</td>
-										</tr>
-									{/each}
-								</tbody>
-							</Table>
-						{/if}
-					{/if}
-				</output>
-			</div>
-		</div>
-	</div>
-</div>
+			{:else if Array.isArray(lint_result?.result.warnings)}
+				{#if lint_result.result.warnings.length === 0}
+					<Empty>No stylelint issues found! 🎉</Empty>
+				{:else}
+					<Table>
+						<caption class="sr-only">Stylelint errors</caption>
+						<thead>
+							<tr>
+								<th class="numeric">Location</th>
+								<th>Message</th>
+								<th>Rule</th>
+							</tr>
+						</thead>
+						<tbody use:root={{ onchange: on_change }}>
+							{#each lint_result?.result.warnings as issue, index}
+								<tr use:item={{ value: index }} aria-selected={active_item === index}>
+									<td class="numeric">{issue.line}:{issue.column}</td>
+									<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
+									<td>{issue.rule}</td>
+								</tr>
+							{/each}
+						</tbody>
+					</Table>
+				{/if}
+			{/if}
+		</output>
+	</Pane>
+</PanedLayout>
 
 <style>
-	.ast-explorer {
-		--wallace-pane-background-color: var(--bg-200);
-		--wallace-ast-explorer-border-color: var(--bg-300);
-		--wallace-ast-explorer-border-width: var(--space-px);
-		--wallace-ast-explorer-pane-block-size: calc(100vb - 24rem);
-		container-type: inline-size;
-		container-name: --ast-explorer;
-		border-width: var(--wallace-ast-explorer-border-width);
-		border-color: var(--wallace-ast-explorer-border-color);
-	}
-
-	.panes {
-		display: grid;
-		align-items: stretch;
-
-		@container --ast-explorer (min-width: 50rem) {
-			grid-template-columns: max-content minmax(auto, 60ch) 1fr;
-		}
-	}
-
-	.pane {
-		background-color: light-dark(transparent, var(--wallace-pane-background-color));
-		line-height: 2;
-		block-size: 100%;
-		display: grid;
-		grid-template-rows: auto minmax(0, 1fr);
-		border-color: var(--wallace-ast-explorer-border-color);
-		border-style: solid;
-
-		&:not(:first-child) {
-			border-inline-start-width: var(--wallace-ast-explorer-border-width);
-		}
-	}
-
-	.pane-header,
-	.pane-content {
-		padding-block: var(--space-2);
-		padding-inline: var(--space-3);
-	}
-
-	.pane-content {
-		overflow-x: auto;
-
-		@container --ast-explorer (min-width: 50rem) {
-			block-size: var(--wallace-ast-explorer-pane-block-size);
-		}
-
-		.pane:first-child & {
-			padding-inline-end: var(--space-6);
-		}
-
-		.pane:not(:first-child) & {
-			padding-inline: 0;
-			padding-block: 0;
-		}
-	}
-
-	.pane-header {
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: var(--space-3);
-		row-gap: var(--space-2);
-		justify-content: space-between;
-		border-block-end-width: var(--wallace-ast-explorer-border-width);
-		border-color: var(--wallace-ast-explorer-border-color);
-
-		&:not(.pane:first-child &) {
-			@container --ast-explorer (max-width: 50rem) {
-				border-block-start-width: var(--wallace-ast-explorer-border-width);
-			}
-		}
-	}
-
-	.pane-title {
-		font-weight: var(--font-bold);
-		margin-inline-end: auto;
-	}
-
 	legend {
 		font-weight: var(--font-bold);
 	}
 
-	@layer linter {
-		th {
-			background-color: var(--wallace-pane-background-color);
-		}
-
-		td {
-			white-space: nowrap;
-			font-family: var(--font-mono);
-			font-size: var(--size-specimen);
-
-			&:first-of-type {
-				color: var(--fg-300);
-			}
-		}
-
-		:global(.empty) {
-			margin-block: var(--space-2);
-			margin-inline: var(--space-3);
-		}
+	th {
+		background-color: var(--bg-200);
 	}
 </style>
