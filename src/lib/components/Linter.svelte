@@ -16,7 +16,7 @@
 		scroll_selected_item_into_view: false
 	})
 
-	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability'
+	type Preset = 'recommended' | 'correctness' | 'performance' | 'maintainability' | 'designtokens'
 
 	type LintResult = {
 		result: {
@@ -38,7 +38,7 @@
 
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
-	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability']
+	const PRESETS: Preset[] = ['recommended', 'correctness', 'performance', 'maintainability', 'designtokens']
 	const preset_param = page.url.searchParams.get('preset') as Preset | null
 	let preset = $state<Preset>(preset_param && PRESETS.includes(preset_param) ? preset_param : PRESETS.at(0)!)
 	let lint_result = $state<LintResult | null>(null)
@@ -111,6 +111,14 @@
 					<div>
 						<input type="radio" id="preset-maintainability" name="preset" value="maintainability" bind:group={preset} />
 						<label for="preset-maintainability">Maintainability</label>
+					</div>
+					<div>
+						<input type="radio" id="preset-design-tokens" name="preset" value="designtokens" bind:group={preset} />
+						<label for="preset-design-tokens">Design tokens</label>
+					</div>
+					<div>
+						<input type="radio" id="preset-holistic" name="preset" value="holistic" bind:group={preset} />
+						<label for="preset-holistic">Holistic</label>
 					</div>
 				</fieldset>
 			</div>
@@ -198,6 +206,10 @@
 	</div>
 </div>
 
+{#if lint_result?.rules}
+	<pre>{JSON.stringify(lint_result.rules, null, 2)}</pre>
+{/if}
+
 <style>
 	.ast-explorer {
 		--wallace-pane-background-color: var(--bg-200);
@@ -276,6 +288,10 @@
 		@container --ast-explorer (min-width: 50rem) {
 			block-size: var(--wallace-ast-explorer-pane-block-size);
 		}
+	}
+
+	legend {
+		font-weight: var(--font-bold);
 	}
 
 	@layer linter {

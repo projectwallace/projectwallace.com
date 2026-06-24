@@ -4,19 +4,23 @@ import recommendedConfig from '@projectwallace/stylelint-plugin/configs/recommen
 import performanceConfig from '@projectwallace/stylelint-plugin/configs/performance'
 import maintainabilityConfig from '@projectwallace/stylelint-plugin/configs/maintainability'
 import correctnessConfig from '@projectwallace/stylelint-plugin/configs/correctness'
+import designTokensConfig from '@projectwallace/stylelint-plugin/configs/design-tokens'
+import holisticConfig from '@projectwallace/stylelint-plugin/configs/holistic'
 import stylelintPlugin from '@projectwallace/stylelint-plugin'
 import { get_css } from '../get-css/get-css'
 import { format } from '@projectwallace/format-css'
 import type { RequestHandler } from './$types'
 
-const presets = ['recommended', 'performance', 'maintainability', 'correctness'] as const
+const presets = ['recommended', 'performance', 'maintainability', 'correctness', 'designtokens', 'holistic'] as const
 export type Preset = (typeof presets)[number]
 const DEFAULT_PRESET = presets[0]
 const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | null> = {
 	recommended: recommendedConfig.rules,
 	performance: performanceConfig.rules,
 	maintainability: maintainabilityConfig.rules,
-	correctness: correctnessConfig.rules
+	correctness: correctnessConfig.rules,
+	designtokens: designTokensConfig.rules,
+	holistic: holisticConfig.rules
 }
 
 export const POST: RequestHandler = async ({ request, setHeaders }) => {
