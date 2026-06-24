@@ -55,7 +55,7 @@ test.describe('URL input mode', () => {
 		await page.getByLabel('Website URL').fill('example.com')
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
-		await expect.soft(page.getByText('colour')).toBeVisible()
+		await expect.soft(page.getByRole('cell', { name: /Unexpected unknown property/ })).toBeVisible()
 	})
 })
 
@@ -74,15 +74,15 @@ test.describe('Raw CSS input mode', () => {
 	})
 
 	test('shows warnings for CSS with violations', async ({ page }) => {
-		await page.getByLabel('CSS to analyze').fill('a { colour: red; }')
+		await page.getByLabel('CSS to analyze').fill('a { colour: red !important; }')
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
 		await expect.soft(page.getByRole('table')).toBeVisible()
-		await expect.soft(page.getByRole('table')).toContainText('property-no-unknown')
+		await expect.soft(page.getByRole('table')).toContainText('max-important-ratio')
 	})
 
 	test('shows a parse error for invalid CSS', async ({ page }) => {
-		await page.getByLabel('CSS to analyze').fill('a { {{{{ invalid')
+		await page.getByLabel('CSS to analyze').fill(`a { background: url('")}`)
 		await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
 		await expect(page.getByText('Could not lint CSS:')).toBeVisible()
