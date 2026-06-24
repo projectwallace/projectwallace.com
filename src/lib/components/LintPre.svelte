@@ -43,7 +43,7 @@
 	)
 
 	let coverage_chunks = $derived.by(() => {
-		if (!warnings.length) {
+		if (warnings.length === 0) {
 			return undefined
 		}
 
@@ -103,6 +103,7 @@
 <Pre {css} {selected_location} {locations} {coverage_chunks} line_numbers />
 
 <style>
+	/* stylelint-disable projectwallace/max-average-selector-complexity, projectwallace/max-important-ratio -- This is a tricky file */
 	:global(::highlight(lines), ::highlight(selected_line)) {
 		text-decoration-color: var(--red-300);
 		text-decoration-style: wavy;

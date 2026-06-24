@@ -14,7 +14,7 @@ import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
 
 export type { Preset }
 
-const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | null> = {
+const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | undefined> = {
 	recommended: recommendedConfig.rules,
 	performance: performanceConfig.rules,
 	maintainability: maintainabilityConfig.rules,
@@ -23,8 +23,10 @@ const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | null> = {
 	holistic: holisticConfig.rules
 }
 
+type RequestBody = { url?: string; css?: string; preset?: string; prettify?: boolean }
+
 export const POST: RequestHandler = async ({ request, setHeaders }) => {
-	const body = await request.json()
+	const body = (await request.json()) as RequestBody
 	const raw_preset = body.preset?.toString()
 
 	let css: string
@@ -46,7 +48,7 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	const preset: Preset =
 		raw_preset && (presets as readonly string[]).includes(raw_preset) ? (raw_preset as Preset) : DEFAULT_PRESET
 
-	let rules: NonNullable<Config['rules']> = PRESET_MAP[preset] ?? Object.create(null)
+	let rules: NonNullable<Config['rules']> = PRESET_MAP[preset] ?? (Object.create(null) as NonNullable<Config['rules']>)
 
 	const start = performance.now()
 	const lint_result = await stylelint.lint({
@@ -69,7 +71,7 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 
 	const return_data = {
 		errored: file.invalidOptionWarnings.length > 0 || lint_warnings.some((w) => w.severity === 'error'),
-		parse_error: parse_error ? parse_error : null,
+		parse_error,
 		warnings: lint_warnings
 			.toSorted((a, b) => {
 				if (a.line === b.line) {

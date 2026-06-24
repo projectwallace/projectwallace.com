@@ -55,7 +55,7 @@
 		if (item && item.locations) {
 			css_state.select_item({
 				type: context,
-				value,
+				value: String(value),
 				locations: item.locations,
 				node_type
 			})

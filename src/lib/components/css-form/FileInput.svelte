@@ -26,6 +26,7 @@
 			}
 			pos = next + 1
 		}
+		// oxlint-disable-next-line explicit-length-check -- false positive
 		return str.slice(0, Math.min(pos || str.length, maxLen))
 	}
 

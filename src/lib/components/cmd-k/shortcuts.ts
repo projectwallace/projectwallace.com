@@ -16,12 +16,12 @@ export const shortcuts: Shortcuts = [
 		title: 'Website CSS analysis',
 		items: [
 			{ title: 'CSS Analyzer', href: '/analyze-css', keywords: 'complexity sonar quality' },
-			{ title: 'CSS Code Quality Calculator', href: '/css-code-quality', keywords: 'lighthouse' },
+			{ title: 'CSS Linter', href: '/lint-css', keywords: 'stylelint linter' },
 			{ title: 'CSS Design Tokens', href: '/design-tokens', keywords: 'dtcg color' },
+			{ title: 'CSS Code Quality Calculator', href: '/css-code-quality', keywords: 'lighthouse' },
 			{ title: 'CSS Layers Visualizer', href: '/css-layers-visualizer', keywords: 'nesting cascade' },
 			{ title: 'CSS Custom Property inspector', href: '/custom-property-inspector', keywords: 'variables' },
-			{ title: 'CSS Scraper', href: '/get-css', keywords: 'extract' },
-			{ title: 'CSS Linter', href: '/lint-css', keywords: 'stylelint linter' }
+			{ title: 'CSS Scraper', href: '/get-css', keywords: 'extract' }
 		]
 	},
 	{

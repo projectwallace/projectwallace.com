@@ -5,7 +5,7 @@ const LINT_CSS_API = '**/api/lint-css'
 const mock_lint_response = {
 	result: {
 		errored: false,
-		parse_error: null,
+		parse_error: undefined,
 		warnings: [
 			{
 				line: 1,

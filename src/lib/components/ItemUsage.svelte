@@ -22,7 +22,7 @@
 		}
 	})
 
-	function onchange({ active_index }: { value: string; active_index: number }) {
+	function onchange({ active_index }: { value: string | number; active_index: number }) {
 		css_state.select_location_at(active_index)
 	}
 </script>

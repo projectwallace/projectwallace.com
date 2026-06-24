@@ -23,6 +23,7 @@
 </div>
 
 <style>
+	/* stylelint-disable projectwallace/no-unknown-container-names -- Should be fixed our stylelint-plugin */
 	.pane {
 		background-color: light-dark(transparent, var(--bg-200));
 		line-height: var(--leading-loose);

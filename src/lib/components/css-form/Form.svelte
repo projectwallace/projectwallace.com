@@ -26,7 +26,13 @@
 
 	function noop() {}
 
-	let { on_success = noop, on_error = noop, on_url_submit = undefined, external_loading = false, title: title_snippet }: Props = $props()
+	let {
+		on_success = noop,
+		on_error = noop,
+		on_url_submit = undefined,
+		external_loading = false,
+		title: title_snippet
+	}: Props = $props()
 
 	let status: 'idle' | 'fetching' | 'error' = $state('idle')
 	let error: Error | undefined = $state()

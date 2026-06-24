@@ -22,7 +22,7 @@
 	type LintResult = {
 		result: {
 			errored: boolean
-			parse_error: Warning | null
+			parse_error: Warning | undefined
 			warnings: Warning[]
 		}
 		duration: number
@@ -43,14 +43,14 @@
 	let preset = $state<Preset>(
 		preset_param && (presets as readonly string[]).includes(preset_param) ? preset_param : DEFAULT_PRESET
 	)
-	let lint_result = $state<LintResult | null>(null)
-	let api_css = $state<string | null>(null)
+	let lint_result = $state<LintResult | undefined>()
+	let api_css = $state<string | undefined>()
 	let display_css = $derived(url && api_css ? api_css : css)
 	let status = $state<'idle' | 'loading' | 'error'>('idle')
 	let active_item = $state<number | undefined>()
 
 	async function run_lint() {
-		lint_result = null
+		lint_result = undefined
 		active_item = undefined
 		status = 'loading'
 		onloading?.(true)
@@ -157,12 +157,14 @@
 				variant="secondary"
 				size="sm"
 				icon="file"
-				href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, null, 2))}`}
+				href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, undefined, 2))}`}
 				download="projectwallace-stylelint-result.json"
 			>
 				Download JSON
 			</Button>
-			<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, null, 2)}>Copy JSON</CopyButton>
+			<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, undefined, 2)}
+				>Copy JSON</CopyButton
+			>
 		{/snippet}
 		<output id="lint-output">
 			{#if status === 'loading'}

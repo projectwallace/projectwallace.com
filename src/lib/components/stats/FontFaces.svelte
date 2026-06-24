@@ -112,7 +112,7 @@
 			css_state.select_item({
 				type: 'font-face',
 				node_type: 'atrule',
-				value,
+				value: String(value),
 				locations: item[1] as Location[]
 			})
 		}
