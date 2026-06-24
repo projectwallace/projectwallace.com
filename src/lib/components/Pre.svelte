@@ -313,6 +313,7 @@
 		gap: var(--space-2);
 		padding-inline: var(--space-2);
 		padding-block: var(--space-2);
+		border-block-end: 1px solid var(--bg-300);
 
 		p {
 			margin-inline-end: auto;

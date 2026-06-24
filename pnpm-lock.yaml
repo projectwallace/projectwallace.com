@@ -6,7 +6,7 @@ settings:
 
 overrides:
   '@projectwallace/css-analyzer': ^9.9.0
-  '@projectwallace/css-parser': ~0.16.0
+  '@projectwallace/css-parser': ~0.16.1
   '@projectwallace/format-css': ^3.1.5
   color-sorter: ^8.0.0
   cookie@<0.7.0: '>=0.7.0'
@@ -45,8 +45,8 @@ importers:
         specifier: ^2.1.4
         version: 2.1.4
       '@projectwallace/css-parser':
-        specifier: ~0.16.0
-        version: 0.16.0
+        specifier: ~0.16.1
+        version: 0.16.1
       '@projectwallace/css-time-sort':
         specifier: ^3.1.0
         version: 3.1.0
@@ -878,8 +878,8 @@ packages:
     resolution: {integrity: sha512-r1dzEc5aNd7+TEDKv2gA0qLGIpIB16RD0hA1aSRxUIrhO4DSHdW6yTMj1t31m4nWJR/c5JGdJFTUpwm4xLfzsQ==}
     engines: {node: '>=18.0.0', pnpm: '>=10.0.0'}
 
-  '@projectwallace/css-parser@0.16.0':
-    resolution: {integrity: sha512-4WJOIU/6Zbscp5snGGvqx2UobIgYOfBaZDGbx6Mj7b7PjcMz34fFufus7h3AbDFlS7nXEkHHlPDZJl/Qu5gumg==}
+  '@projectwallace/css-parser@0.16.1':
+    resolution: {integrity: sha512-MWFDQkQoD3sy0vN/xUp0zhGoV5gCj9HLJ6kFLfUW/a2RiKYb8XK0WsxURfI7eSpHNj9dYIfwMTbaXXXf+VRsvw==}
     engines: {pnpm: '>=11.0.0'}
 
   '@projectwallace/css-time-sort@3.1.0':
@@ -2631,11 +2631,11 @@ snapshots:
 
   '@projectwallace/css-analyzer@9.9.0':
     dependencies:
-      '@projectwallace/css-parser': 0.16.0
+      '@projectwallace/css-parser': 0.16.1
 
   '@projectwallace/css-code-coverage@1.0.2':
     dependencies:
-      '@projectwallace/css-parser': 0.16.0
+      '@projectwallace/css-parser': 0.16.1
       '@projectwallace/format-css': 3.1.5
 
   '@projectwallace/css-code-quality@3.1.3':
@@ -2645,27 +2645,27 @@ snapshots:
   '@projectwallace/css-design-tokens@0.11.6':
     dependencies:
       '@projectwallace/css-analyzer': 9.9.0
-      '@projectwallace/css-parser': 0.16.0
+      '@projectwallace/css-parser': 0.16.1
       '@projectwallace/css-time-sort': 3.1.0
       color-sorter: 8.0.0
       colorjs.io: 0.6.1
 
   '@projectwallace/css-layer-tree@2.1.4':
     dependencies:
-      '@projectwallace/css-parser': 0.16.0
+      '@projectwallace/css-parser': 0.16.1
 
-  '@projectwallace/css-parser@0.16.0': {}
+  '@projectwallace/css-parser@0.16.1': {}
 
   '@projectwallace/css-time-sort@3.1.0': {}
 
   '@projectwallace/format-css@3.1.5':
     dependencies:
-      '@projectwallace/css-parser': 0.16.0
+      '@projectwallace/css-parser': 0.16.1
 
   '@projectwallace/stylelint-plugin@0.6.7(stylelint@17.13.0(typescript@6.0.3))':
     dependencies:
       '@projectwallace/css-analyzer': 9.9.0
-      '@projectwallace/css-parser': 0.16.0
+      '@projectwallace/css-parser': 0.16.1
       stylelint: 17.13.0(typescript@6.0.3)
 
   '@rolldown/binding-android-arm64@1.0.3':

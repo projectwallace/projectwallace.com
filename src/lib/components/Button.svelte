@@ -123,6 +123,7 @@
 		padding-block: 0.3em;
 		padding-inline: var(--space-2);
 		font-size: var(--size-sm);
+		line-height: var(--leading-base);
 	}
 
 	.md {

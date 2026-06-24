@@ -79,9 +79,9 @@
 	}
 
 	function on_preset_change() {
-		const u = page.url
-		u.searchParams.set('preset', preset)
-		goto(u, { replaceState: true })
+		const updated_url = page.url
+		updated_url.searchParams.set('preset', preset)
+		goto(updated_url, { replaceState: true, noScroll: true })
 		run_lint()
 		active_item = undefined
 	}
@@ -239,7 +239,11 @@
 	}
 
 	.pane-content {
-		:not(:first-child) & {
+		.pane:first-child & {
+			padding-inline-end: var(--space-6);
+		}
+
+		.pane:not(:first-child) & {
 			padding-inline: 0;
 			padding-block: 0;
 		}
