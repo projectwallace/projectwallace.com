@@ -2,7 +2,8 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { browser } from '$app/environment'
-	import type { FormSuccessEvent } from './types'
+	import { onMount } from 'svelte'
+	import type { FormSuccessEvent, CssFormHashState } from './types'
 	import FormGroup from '$components/FormGroup.svelte'
 	import Label from '$components/Label.svelte'
 	import Button from '$components/Button.svelte'
@@ -11,8 +12,10 @@
 	import Textarea from './Textarea.svelte'
 	import UrlInput from './UrlInput.svelte'
 	import FileInput from './FileInput.svelte'
+	import ShareButton from './ShareButton.svelte'
 	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '$lib/get-css'
 	import { get_css_state } from '$lib/css-state.svelte'
+	import { decodeHashState, encodeHashState } from '$lib/url-hash-state.svelte'
 	import { IsOnline } from '$lib/is-online.svelte'
 	import type { Snippet } from 'svelte'
 
@@ -26,7 +29,7 @@
 
 	let { on_success = noop, on_error = noop, title: title_snippet }: Props = $props()
 
-	let status: 'idle' | 'fetching' | 'error' = $state('idle')
+	let status: 'idle' | 'fetching' | 'done' | 'error' = $state('idle')
 	let error: Error | undefined = $state()
 	let url = $state('')
 	let css_state = get_css_state()
@@ -34,6 +37,22 @@
 		!browser || !page.url.searchParams.has('prettify') || page.url.searchParams.get('prettify') === '1'
 	)
 	let is_online = new IsOnline()
+
+	onMount(async () => {
+		if (!window.location.hash) return
+		status = 'fetching'
+		const state = await decodeHashState<CssFormHashState>(window.location.hash)
+		if (!state?.origins?.length) {
+			status = 'idle'
+			return
+		}
+
+		css_state.set_origins(state.origins)
+		css_state.prettify(state.prettify)
+		prettify = state.prettify
+		status = 'done'
+		on_success({ origins: state.origins, prettify: state.prettify, submit_type: state.submit_type })
+	})
 
 	$effect(() => {
 		css_state.prettify(prettify)
@@ -45,6 +64,8 @@
 		let input_val = form_data.get('raw-css')
 		let val = String(input_val)
 
+		history.replaceState(null, '', window.location.pathname + window.location.search)
+
 		// Remove ?url= and prettify= query parameters from the URL
 		let cleaned_url = page.url
 		cleaned_url.searchParams.delete('url')
@@ -55,19 +76,22 @@
 		status = 'idle'
 
 		prettify = form_data.get('prettify') === '1'
-		on_success({
-			origins: [{ css: val, type: 'raw' }],
-			submit_type: 'raw',
-			prettify
-		})
-		css_state.set_origins([{ css: val, type: 'raw' }])
+		status = 'done'
+		const raw_origins = [{ css: val, type: 'raw' as const }]
+		on_success({ origins: raw_origins, submit_type: 'raw', prettify })
+		css_state.set_origins(raw_origins)
 		css_state.url = undefined
+		encodeHashState<CssFormHashState>({ submit_type: 'raw', origins: raw_origins, prettify }).then(
+			(encoded) => { window.location.hash = encoded }
+		)
 	}
 
 	async function on_submit_url(event: SubmitEvent) {
 		event.preventDefault()
 		if (status === 'fetching') return
 		status = 'fetching'
+
+		history.replaceState(null, '', window.location.pathname + window.location.search)
 
 		let form_data = new FormData(event.target as HTMLFormElement)
 		let url = String(form_data.get('url'))
@@ -85,14 +109,14 @@
 			status = 'idle'
 
 			prettify = form_data.get('prettify') === '1'
+			status = 'done'
 			css_state.prettify(prettify)
 			css_state.set_origins(origins)
 			css_state.url = url
-			on_success({
-				origins,
-				submit_type: 'url',
-				prettify
-			})
+			on_success({ origins, submit_type: 'url', prettify })
+			encodeHashState<CssFormHashState>({ submit_type: 'url', origins, prettify }).then(
+				(encoded) => { window.location.hash = encoded }
+			)
 		} catch (err: unknown) {
 			status = 'error'
 			error = err as CssFetchNetworkError | CssFetchApiError | CssFetchRemoteError
@@ -115,6 +139,8 @@
 			// fail silently
 		}
 
+		history.replaceState(null, '', window.location.pathname + window.location.search)
+
 		// Remove ?url= and prettify= query parameters from the URL
 		let cleaned_url = page.url
 		cleaned_url.searchParams.delete('url')
@@ -125,13 +151,13 @@
 		status = 'idle'
 
 		prettify = form_data.get('prettify') === '1'
-		on_success({
-			origins,
-			submit_type: 'file',
-			prettify
-		})
+		status = 'done'
+		on_success({ origins, submit_type: 'file', prettify })
 		css_state.set_origins(origins)
 		css_state.url = undefined
+		encodeHashState<CssFormHashState>({ submit_type: 'file', origins, prettify }).then(
+			(encoded) => { window.location.hash = encoded }
+		)
 	}
 
 	$effect(() => {
@@ -239,6 +265,10 @@
 		</form>
 	{/snippet}
 </InputModeSwitcher>
+
+{#if status === 'done'}
+	<ShareButton />
+{/if}
 
 <style>
 	form {

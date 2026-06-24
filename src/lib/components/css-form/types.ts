@@ -5,3 +5,9 @@ export type FormSuccessEvent = {
 	prettify: boolean
 	submit_type: 'raw' | 'url' | 'file'
 }
+
+export type CssFormHashState = {
+	submit_type: 'raw' | 'url' | 'file'
+	origins: CSSOrigin[]
+	prettify: boolean
+}
