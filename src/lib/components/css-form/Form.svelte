@@ -43,6 +43,8 @@
 	)
 	let is_online = new IsOnline()
 
+	let navigation_options = { replaceState: true, noScroll: true }
+
 	$effect(() => {
 		css_state.prettify(prettify)
 	})
@@ -58,7 +60,7 @@
 		cleaned_url.searchParams.delete('url')
 		cleaned_url.searchParams.delete('prettify')
 		cleaned_url.hash = ''
-		await goto(cleaned_url, { replaceState: true })
+		await goto(cleaned_url, navigation_options)
 
 		status = 'idle'
 
@@ -83,11 +85,11 @@
 		let prettify_val = form_data.get('prettify') === '1'
 
 		// Always update the URL, so people can share the URL
-		let page_url = page.url
+		let page_url = new URL(page.url)
 		page_url.searchParams.set('url', url)
 		page_url.searchParams.set('prettify', prettify_val ? '1' : '0')
 		page_url.hash = ''
-		await goto(page_url, { replaceState: true })
+		await goto(page_url, navigation_options)
 
 		if (on_url_submit?.(url, prettify_val) === false) {
 			prettify = prettify_val
@@ -133,11 +135,11 @@
 		}
 
 		// Remove ?url= and prettify= query parameters from the URL
-		let cleaned_url = page.url
+		let cleaned_url = new URL(page.url)
 		cleaned_url.searchParams.delete('url')
 		cleaned_url.searchParams.delete('prettify')
 		cleaned_url.hash = ''
-		await goto(cleaned_url, { replaceState: true })
+		await goto(cleaned_url, navigation_options)
 
 		status = 'idle'
 
@@ -167,8 +169,9 @@
 
 	async function on_prettify_change(event: Event) {
 		prettify = (event.target as HTMLInputElement).checked
-		page.url.searchParams.set('prettify', prettify ? '1' : '0')
-		await goto(page.url, { replaceState: true })
+		let new_url = new URL(page.url)
+		new_url.searchParams.set('prettify', prettify ? '1' : '0')
+		await goto(new_url, navigation_options)
 	}
 </script>
 
