@@ -37,6 +37,18 @@
 		onloading?: (loading: boolean) => void
 	}
 
+	type Status =
+		// Nothing happened yet
+		| 'idle'
+		// Fetching CSS and lint result from server
+		| 'loading'
+		// Fetching and linting worked
+		| 'success'
+		// Fetch worked, but linting gave an error
+		| 'lint_error'
+		// Fetch may have failed, or some other generic error
+		| 'error'
+
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
 	const preset_param = page.url.searchParams.get('preset') as Preset | null
@@ -46,7 +58,7 @@
 	let lint_result = $state<LintResult | undefined>()
 	let api_css = $state<string | undefined>()
 	let display_css = $derived(url && api_css ? api_css : css)
-	let status = $state<'idle' | 'loading' | 'error'>('idle')
+	let status = $state<Status>('idle')
 	let active_item = $state<number | undefined>()
 
 	async function run_lint() {
@@ -66,7 +78,7 @@
 				if (lint_result?.css) {
 					api_css = lint_result.css
 				}
-				status = 'idle'
+				status = lint_result?.result.parse_error ? 'lint_error' : 'success'
 			} else {
 				status = 'error'
 			}
@@ -131,17 +143,19 @@
 	<Pane flush>
 		{#snippet pane_header()}
 			<div class="pane-title">CSS input</div>
-			<Button
-				element="a"
-				variant="secondary"
-				size="sm"
-				icon="file"
-				href={`data:text/css;charset=utf-8,${encodeURIComponent(display_css)}`}
-				download="projectwallace-stylelint-css.css"
-			>
-				Download CSS
-			</Button>
-			<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
+			{#if status === 'success' || status === 'lint_error'}
+				<Button
+					element="a"
+					variant="secondary"
+					size="sm"
+					icon="file"
+					href={`data:text/css;charset=utf-8,${encodeURIComponent(display_css)}`}
+					download="projectwallace-stylelint-css.css"
+				>
+					Download CSS
+				</Button>
+				<CopyButton variant="secondary" text={() => display_css}>Copy CSS</CopyButton>
+			{/if}
 		{/snippet}
 		<LintPre
 			css={display_css}
@@ -149,34 +163,38 @@
 			selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
 		/>
 	</Pane>
-	<Pane flush={status !== 'loading' && status !== 'error' && lint_result?.result.warnings.length !== 0}>
+	<Pane flush={status === 'success'}>
 		{#snippet pane_header()}
 			<label for="lint-output" class="pane-title">Stylelint output</label>
-			<Button
-				element="a"
-				variant="secondary"
-				size="sm"
-				icon="file"
-				href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, undefined, 2))}`}
-				download="projectwallace-stylelint-result.json"
-			>
-				Download JSON
-			</Button>
-			<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, undefined, 2)}
-				>Copy JSON</CopyButton
-			>
+			{#if status === 'success' || status === 'lint_error'}
+				<Button
+					element="a"
+					variant="secondary"
+					size="sm"
+					icon="file"
+					href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(lint_result?.result, undefined, 2))}`}
+					download="projectwallace-stylelint-result.json"
+				>
+					Download JSON
+				</Button>
+				<CopyButton variant="secondary" text={() => JSON.stringify(lint_result?.result, undefined, 2)}>
+					Copy JSON
+				</CopyButton>
+			{/if}
 		{/snippet}
 		<output id="lint-output">
 			{#if status === 'loading'}
-				<Empty>Linting, please wait&hellip;</Empty>
+				<Empty aria-live="polite">Linting, please wait&hellip;</Empty>
 			{:else if status === 'error'}
-				<Empty>Could not reach the linter. Please try again.</Empty>
-			{:else if lint_result?.result.parse_error}
-				<Empty
-					>Could not lint CSS: {lint_result.result.parse_error.text} (line {format_number(
-						lint_result.result.parse_error.line
-					)})</Empty
-				>
+				<Empty aria-live="assertive">
+					Something went wrong. Check if the CSS you're analyzing is correct and maybe try again.
+				</Empty>
+			{:else if status === 'lint_error'}
+				<Empty aria-live="assertive">
+					Could not lint CSS: {lint_result?.result.parse_error?.text} (line {format_number(
+						lint_result?.result.parse_error?.line ?? 0
+					)})
+				</Empty>
 			{:else if Array.isArray(lint_result?.result.warnings)}
 				{#if lint_result.result.warnings.length === 0}
 					<Empty>No stylelint issues found! 🎉</Empty>
@@ -195,7 +213,7 @@
 								<tr use:item={{ value: index }} aria-selected={active_item === index}>
 									<td class="numeric">{issue.line}:{issue.column}</td>
 									<td>{issue.text.slice(0, issue.text.lastIndexOf('('))}</td>
-									<td>{issue.rule}</td>
+									<td>{issue.rule.slice('projectwallace/'.length)}</td>
 								</tr>
 							{/each}
 						</tbody>
