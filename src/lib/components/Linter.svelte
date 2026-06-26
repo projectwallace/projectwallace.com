@@ -149,7 +149,7 @@
 			selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
 		/>
 	</Pane>
-	<Pane flush={status === 'loading' || lint_result?.result.warnings.length !== 0}>
+	<Pane flush={status !== 'loading' && status !== 'error' && lint_result?.result.warnings.length !== 0}>
 		{#snippet pane_header()}
 			<label for="lint-output" class="pane-title">Stylelint output</label>
 			<Button
