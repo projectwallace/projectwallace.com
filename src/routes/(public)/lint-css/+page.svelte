@@ -6,6 +6,8 @@
 	import Form from '$components/css-form/Form.svelte'
 	import { get_css_state } from '$lib/css-state.svelte'
 	import { page } from '$app/state'
+	import Markdown from '$components/Markdown.svelte'
+	import Content from './content.md'
 
 	let css_state = get_css_state()
 	let lint_loading = $state(false)
@@ -28,10 +30,14 @@
 		css={effective_url ? undefined : css_state.css || undefined}
 		url={effective_url}
 		prettify={css_state.should_prettify}
-		onloading={(v) => (lint_loading = v)}
+		onloading={(is_loading) => (lint_loading = is_loading)}
 	/>
+</Container>
 
-	TODO: add some markdown content here
+<Container size="xl">
+	<Markdown>
+		<Content />
+	</Markdown>
 </Container>
 
 <style>
