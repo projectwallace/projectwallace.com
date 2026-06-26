@@ -57,8 +57,8 @@
 	function onchange({ value }: Parameters<OnChange>[0]) {
 		css_state.select_item({
 			type: id,
-			value: String(value),
-			locations: unique[String(value)],
+			value,
+			locations: unique[value],
 			node_type
 		})
 	}

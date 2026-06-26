@@ -100,21 +100,29 @@
 	let selected_location = $derived(selected_warning ? warning_to_css_location(selected_warning) : undefined)
 </script>
 
-<Pre {css} {selected_location} {locations} {coverage_chunks} line_numbers />
+<Pre
+	{css}
+	{selected_location}
+	{locations}
+	{coverage_chunks}
+	line_numbers
+	lines_highlight_name="lint_lines"
+	selected_highlight_name="lint_selected_line"
+/>
 
 <style>
-	/* stylelint-disable projectwallace/max-average-selector-complexity, projectwallace/max-important-ratio -- This is a tricky file */
-	:global(::highlight(lines), ::highlight(selected_line)) {
+	/* stylelint-disable projectwallace/max-average-selector-complexity -- highlight pseudo-elements inflate complexity */
+	:global(::highlight(lint_lines), ::highlight(lint_selected_line)) {
 		text-decoration-color: var(--red-300);
 		text-decoration-style: wavy;
 		text-decoration-line: underline;
 	}
 
-	:global(::highlight(lines)) {
-		background-color: transparent !important;
+	:global(::highlight(lint_lines)) {
+		background-color: transparent;
 	}
 
-	:global(::highlight(selected_line)) {
-		background-color: var(--highlight-code) !important;
+	:global(::highlight(lint_selected_line)) {
+		background-color: var(--highlight-code);
 	}
 </style>

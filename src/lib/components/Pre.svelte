@@ -19,6 +19,8 @@
 		selected_location?: CssLocation
 		locations?: CssLocation[]
 		coverage_chunks?: CoverageChunk[]
+		lines_highlight_name?: string
+		selected_highlight_name?: string
 	}
 
 	type WrappingProps = BaseProps & {
@@ -41,7 +43,9 @@
 		wrap = false,
 		// Used in MinifyCss
 		line_numbers = false,
-		coverage_chunks = undefined // FIX #1: was [], which made show_line_numbers always true
+		coverage_chunks = undefined,
+		lines_highlight_name = 'lines',
+		selected_highlight_name = 'selected_line'
 	}: Props = $props()
 
 	// Keep track of whether the browser supports the Highlight API
@@ -52,7 +56,6 @@
 	// svelte-ignore non_reactive_update
 	let body: HTMLElement | undefined = undefined
 	// code_node is used to highlight the code (highlighting only works on TextNodes)
-	// reactive so effects re-run after {#key css} rebuilds the DOM
 	let code_node = $state<HTMLElement | undefined>(undefined)
 	// pre_node is the horizontal scroll container; body only scrolls vertically
 	let pre_node = $state<HTMLElement | undefined>(undefined)
@@ -87,16 +90,16 @@
 	onMount(function () {
 		supports_highlights = browser && 'highlights' in window.CSS
 		if (supports_highlights) {
-			lines = window.CSS.highlights.get('lines') || new Highlight()
-			selected_line = window.CSS.highlights.get('selected_line') || new Highlight()
+			lines = window.CSS.highlights.get(lines_highlight_name) || new Highlight()
+			selected_line = window.CSS.highlights.get(selected_highlight_name) || new Highlight()
 		}
 	})
 
 	onDestroy(function () {
 		if (supports_highlights) {
-			window.CSS.highlights.get('lines')?.clear()
-			window.CSS.highlights.delete('lines')
-			window.CSS.highlights.delete('selected_line')
+			window.CSS.highlights.get(lines_highlight_name)?.clear()
+			window.CSS.highlights.delete(lines_highlight_name)
+			window.CSS.highlights.delete(selected_highlight_name)
 		}
 	})
 
@@ -165,7 +168,7 @@
 			for (const { start, end } of punched) {
 				lines.add(new StaticRange({ startContainer: node, startOffset: start, endContainer: node, endOffset: end }))
 			}
-			window.CSS.highlights.set('lines', lines)
+			window.CSS.highlights.set(lines_highlight_name, lines)
 		}
 	})
 
@@ -185,7 +188,7 @@
 					})
 				)
 			}
-			window.CSS.highlights.set('selected_line', selected_line)
+			window.CSS.highlights.set(selected_highlight_name, selected_line)
 		}
 	})
 
