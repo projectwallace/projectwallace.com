@@ -15,7 +15,10 @@
 	let effective_url = $derived(css_state.url ?? page.url.searchParams.get('url') ?? undefined)
 </script>
 
-<Seo title="Lint CSS" description="Lint your entire CSS and spot quality issues hidden in plain sight." />
+<Seo
+	title="CSS Linter"
+	description="Lint your CSS for bugs, complexity, design token drift, and performance issues using 60+ specialized rules."
+/>
 
 <Hero>
 	<Form on_url_submit={() => false} external_loading={lint_loading}>

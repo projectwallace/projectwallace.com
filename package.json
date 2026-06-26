@@ -30,7 +30,7 @@
 		"@projectwallace/css-parser": "~0.16.2",
 		"@projectwallace/css-time-sort": "^3.1.0",
 		"@projectwallace/format-css": "^3.1.5",
-		"@projectwallace/stylelint-plugin": "^0.6.10",
+		"@projectwallace/stylelint-plugin": "^0.6.11",
 		"@sveltejs/enhanced-img": "^0.10.4",
 		"@sveltejs/kit": "^2.60.1",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",

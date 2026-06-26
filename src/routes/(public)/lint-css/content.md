@@ -1,6 +1,6 @@
 ## About this linter
 
-This linter uses the [`@projectwallace/stylelint-plugin`](https://github.com/projectwallace/stylelint-plugin) package to lint your CSS. Use the preset radio buttons to select a preset that is relevant to you. Our Stylelint is unique in that it lints some very unique things as well as doing holistic linting.
+This linter uses the [@projectwallace/stylelint-plugin](https://github.com/projectwallace/stylelint-plugin) package to lint your CSS. Use the preset radio buttons to select a preset that is relevant to you. Our Stylelint is unique in that it lints some very unique things as well as doing holistic linting. Note: your project should not rely on this plugin alone: use Stylelint's built-in rules and you should also use the [Defensive CSS plugin](https://github.com/yuschick/stylelint-plugin-defensive-css/) to avoid many common mistakes.
 
 ## Presets
 
