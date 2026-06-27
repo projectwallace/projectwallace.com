@@ -52,7 +52,7 @@
 
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
-	const preset_param = browser ? (page.url.searchParams.get('preset') as Preset | null) : null
+	const preset_param = browser ? (page.url.searchParams.get('preset') as Preset | undefined) : undefined
 	let preset = $state<Preset>(
 		preset_param && (presets as readonly string[]).includes(preset_param) ? preset_param : DEFAULT_PRESET
 	)
