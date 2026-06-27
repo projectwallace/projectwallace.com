@@ -5,14 +5,13 @@
 	import Hero from '$components/Hero.svelte'
 	import Form from '$components/css-form/Form.svelte'
 	import { get_css_state } from '$lib/css-state.svelte'
-	import { page } from '$app/state'
 	import Markdown from '$components/Markdown.svelte'
 	import Content from './content.md'
 
 	let css_state = get_css_state()
 	let lint_loading = $state(false)
 
-	let effective_url = $derived(css_state.url ?? page.url.searchParams.get('url') ?? undefined)
+	let effective_url = $derived(css_state.url)
 </script>
 
 <Seo

@@ -8,6 +8,7 @@
 	import CopyButton from '$components/CopyButton.svelte'
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
+	import { browser } from '$app/environment'
 	import { format_number } from '$lib/format-number'
 	import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
 	import PanedLayout from './PanedLayout.svelte'
@@ -51,7 +52,7 @@
 
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
-	const preset_param = page.url.searchParams.get('preset') as Preset | null
+	const preset_param = browser ? (page.url.searchParams.get('preset') as Preset | null) : null
 	let preset = $state<Preset>(
 		preset_param && (presets as readonly string[]).includes(preset_param) ? preset_param : DEFAULT_PRESET
 	)
