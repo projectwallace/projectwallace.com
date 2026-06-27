@@ -14,9 +14,9 @@
 	// One O(n) scan per CSS change; all warning→offset lookups are then O(1)
 	let line_offsets = $derived.by(() => {
 		const offsets = [0]
-		let idx = 0
-		while ((idx = css.indexOf('\n', idx)) !== -1) {
-			offsets.push(++idx)
+		let index = 0
+		while ((index = css.indexOf('\n', index)) !== -1) {
+			offsets.push(++index)
 		}
 		return offsets
 	})
@@ -36,23 +36,21 @@
 		return warning.column === 1 && warning.line === 1 && typeof warning.endLine === 'number' && warning.endLine > 1
 	}
 
-	let locations = $derived(
-		warnings
-			.filter((warning) => warning.line <= css_line_count && !is_whole_file_warning(warning))
-			.map((warning) => warning_to_css_location(warning))
-	)
-
-	let coverage_chunks = $derived.by(() => {
+	let { locations, coverage_chunks } = $derived.by(() => {
 		if (warnings.length === 0) {
-			return undefined
+			return { locations: [] as ReturnType<typeof warning_to_css_location>[], coverage_chunks: undefined }
 		}
 
-		const intervals = warnings.reduce<[number, number][]>((acc, warning) => {
-			if (!is_whole_file_warning(warning) && warning.line <= css_line_count) {
-				acc.push([warning.line, warning.endLine ?? warning.line])
+		const locations: ReturnType<typeof warning_to_css_location>[] = []
+		const intervals: [number, number][] = []
+
+		for (const warning of warnings) {
+			if (is_whole_file_warning(warning) || warning.line > css_line_count) {
+				continue
 			}
-			return acc
-		}, [])
+			locations.push(warning_to_css_location(warning))
+			intervals.push([warning.line, warning.endLine ?? warning.line])
+		}
 
 		const chunks: CoverageChunk[] = []
 		let current_position = 1
@@ -94,7 +92,7 @@
 			})
 		}
 
-		return chunks
+		return { locations, coverage_chunks: chunks }
 	})
 
 	let selected_location = $derived(selected_warning ? warning_to_css_location(selected_warning) : undefined)

@@ -67,25 +67,29 @@
 	// this manually from every scrollTo() call and add it back when finding the "next" chunk.
 	const SCROLL_MARGIN_LINES = 3
 
-	let total_lines = $derived(css.split('\n').length)
+	let total_lines = $derived.by(() => {
+		let count = 1
+		let index = 0
+		while ((index = css.indexOf('\n', index)) !== -1) {
+			count++
+			index++
+		}
+		return count
+	})
 	let line_number_width = $derived(total_lines.toString().length)
 	// Only show when coverage data is actually present
 	let has_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
 	let show_line_numbers = $derived(has_coverage || line_numbers)
 	let show_coverage = $derived(has_coverage)
-	let uncovered_blocks_count = $derived((coverage_chunks ?? []).filter((c) => !c.is_covered).length)
+	let uncovered_blocks_count = $derived((coverage_chunks ?? []).reduce((n, c) => n + (c.is_covered ? 0 : 1), 0))
+	let first_uncovered_chunk = $derived(coverage_chunks?.find((c) => !c.is_covered))
+	let last_uncovered_chunk = $derived(coverage_chunks?.findLast((c) => !c.is_covered))
 	let coverage_line_numbers = $derived(
 		(coverage_chunks ?? []).map((chunk) =>
-			Array.from({ length: chunk.total_lines }, (_, i) => i + chunk.start_line)
-				.join('\n')
-				.trim()
+			Array.from({ length: chunk.total_lines }, (_, i) => i + chunk.start_line).join('\n')
 		)
 	)
-	let plain_line_numbers = $derived(
-		Array.from({ length: total_lines }, (_, i) => i + 1)
-			.join('\n')
-			.trim()
-	)
+	let plain_line_numbers = $derived(Array.from({ length: total_lines }, (_, i) => i + 1).join('\n'))
 
 	onMount(function () {
 		supports_highlights = browser && 'highlights' in window.CSS
@@ -210,7 +214,6 @@
 			return chunk_top > current_scroll_offset + SCROLL_MARGIN_LINES * LINE_HEIGHT
 		})
 		let next_chunk = next_uncovered_chunk
-		let first_uncovered_chunk = coverage_chunks.find((chunk) => !chunk.is_covered)
 		// subpixel rounding means scrollHeight - clientHeight may not be an integer
 		let is_scrolled_to_bottom = body.scrollTop >= body.scrollHeight - body.clientHeight - 1
 
@@ -234,7 +237,6 @@
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top < current_scroll_offset
 		})
-		let last_uncovered_chunk = coverage_chunks.findLast((chunk) => !chunk.is_covered)
 		let next_chunk = previous_uncovered_chunk
 		let is_scrolled_to_top = body.scrollTop === 0
 
@@ -361,12 +363,13 @@
 		}
 
 		&.with-line-numbers.with-coverage {
-			grid-template-columns: calc(var(--pre-ch-width) + 1.5ch) 1fr;
+			--pre-chunk-border-width: 0.5ch;
+			grid-template-columns: calc(var(--pre-ch-width) + var(--pre-chunk-border-width)) 1fr;
 			gap: 0;
 
 			.line-number-range {
-				border-inline-end: 0.5ch solid transparent;
-				padding-right: 0.5ch;
+				border-inline-end: var(--pre-chunk-border-width) solid transparent;
+				padding-right: var(--pre-chunk-border-width);
 			}
 
 			.uncovered {
