@@ -91,7 +91,7 @@
 	}
 
 	$effect(() => {
-		if (url || css.length > 0) {
+		if (browser && (url || css.length > 0)) {
 			run_lint()
 		}
 	})
