@@ -8,6 +8,8 @@
 	import { HashState } from '$lib/url-hash-state.svelte'
 	import Button from './Button.svelte'
 	import CopyButton from './CopyButton.svelte'
+	import PanedLayout from './PanedLayout.svelte'
+	import Pane from './Pane.svelte'
 
 	let highlighted_node: PlainCSSNode | undefined = $state.raw(undefined)
 	let show_locations = new PersistedState('ast-show-locations', false)
@@ -89,92 +91,76 @@
 </header>
 
 <div class="ast-explorer">
-	<div class="panes">
-		<div class="pane options">
-			<div class="pane-header">
+	<PanedLayout columns="max-content 1fr 1fr" pane_block_size="calc(100vb - 16rem)">
+		<Pane fixed_height={false}>
+			{#snippet pane_header()}
 				<div class="pane-title">Options</div>
+			{/snippet}
+			<div>
+				<input
+					type="checkbox"
+					name="parse-atrule-preludes"
+					id="parse-atrule-preludes"
+					bind:checked={url_state.current.parse_atrule_preludes}
+				/>
+				<label for="parse-atrule-preludes">Parse atrule preludes</label>
 			</div>
-			<div class="pane-content">
-				<div>
-					<input
-						type="checkbox"
-						name="parse-atrule-preludes"
-						id="parse-atrule-preludes"
-						bind:checked={url_state.current.parse_atrule_preludes}
-					/>
-					<label for="parse-atrule-preludes">Parse atrule preludes</label>
-				</div>
-				<div>
-					<input
-						type="checkbox"
-						name="parse-selectors"
-						id="parse-selectors"
-						bind:checked={url_state.current.parse_selectors}
-					/>
-					<label for="parse-selectors">Parse selectors</label>
-				</div>
-				<div>
-					<input type="checkbox" name="parse-values" id="parse-values" bind:checked={url_state.current.parse_values} />
-					<label for="parse-values">Parse values</label>
-				</div>
-				<div>
-					<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
-					<label for="show-locations">Show locations</label>
-				</div>
-				<div>
-					<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
-					<label for="show-types">Show types</label>
-				</div>
-				<div>
-					<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
-					<label for="autofocus-node">Autofocus selected node</label>
-				</div>
+			<div>
+				<input
+					type="checkbox"
+					name="parse-selectors"
+					id="parse-selectors"
+					bind:checked={url_state.current.parse_selectors}
+				/>
+				<label for="parse-selectors">Parse selectors</label>
 			</div>
-		</div>
-		<div class="pane">
-			<div class="pane-header">
+			<div>
+				<input type="checkbox" name="parse-values" id="parse-values" bind:checked={url_state.current.parse_values} />
+				<label for="parse-values">Parse values</label>
+			</div>
+			<div>
+				<input type="checkbox" name="show-locations" id="show-locations" bind:checked={show_locations.current} />
+				<label for="show-locations">Show locations</label>
+			</div>
+			<div>
+				<input type="checkbox" name="show-types" id="show-types" bind:checked={show_types.current} />
+				<label for="show-types">Show types</label>
+			</div>
+			<div>
+				<input type="checkbox" name="autofocus-node" id="autofocus-node" bind:checked={autofocus.current} />
+				<label for="autofocus-node">Autofocus selected node</label>
+			</div>
+		</Pane>
+		<Pane>
+			{#snippet pane_header()}
 				<label for="input-css" class="pane-title">CSS input</label>
 				<Button size="sm" variant="secondary" icon="brush" on_click={prettify}>Prettify CSS</Button>
-			</div>
-			<div class="pane-content">
-				<HighlightedTextarea id="input-css" name="input-css" bind:value={url_state.current.css} {on_cursor_move} />
-			</div>
-		</div>
-		<div class="pane">
-			<div class="pane-header">
+			{/snippet}
+			<HighlightedTextarea id="input-css" name="input-css" bind:value={url_state.current.css} {on_cursor_move} />
+		</Pane>
+		<Pane>
+			{#snippet pane_header()}
 				<label for="ast-output" class="pane-title">AST output</label>
 				<CopyButton variant="secondary" text={() => JSON.stringify(ast?.clone(), null, 2)}>Copy JSON</CopyButton>
-			</div>
-			<div class="pane-content">
-				{#if ast !== undefined}
-					<output id="ast-output">
-						<ol bind:this={scroll_container} class="pane scroller scroll-container" role="tree">
-							<CssTree
-								node={ast}
-								{highlighted_node}
-								show_locations={show_locations.current}
-								show_types={show_types.current}
-								{scroll_container}
-							/>
-						</ol>
-					</output>
-				{/if}
-			</div>
-		</div>
-	</div>
+			{/snippet}
+			{#if ast !== undefined}
+				<output id="ast-output" class="ast-output">
+					<ol bind:this={scroll_container} class="scroller scroll-container" role="tree">
+						<CssTree
+							node={ast}
+							{highlighted_node}
+							show_locations={show_locations.current}
+							show_types={show_types.current}
+							{scroll_container}
+						/>
+					</ol>
+				</output>
+			{/if}
+		</Pane>
+	</PanedLayout>
 </div>
 
 <style>
-	.ast-explorer {
-		--wallace-ast-explorer-border-color: var(--bg-300);
-		--wallace-ast-explorer-border-width: var(--space-px);
-		--wallace-ast-explorer-pane-block-size: calc(100vb - 16rem);
-		container-type: inline-size;
-		container-name: --ast-explorer;
-		border-width: var(--wallace-ast-explorer-border-width);
-		border-color: var(--wallace-ast-explorer-border-color);
-	}
-
 	.header {
 		display: flex;
 		flex-wrap: wrap;
@@ -192,72 +178,21 @@
 		font-weight: var(--font-bold);
 	}
 
-	.panes {
-		display: grid;
-		align-items: stretch;
-
-		@container --ast-explorer (min-width: 50rem) {
-			grid-template-columns: max-content 1fr 1fr;
-		}
-	}
-
-	.pane {
-		background-color: light-dark(transparent, var(--bg-200));
-		line-height: var(--leading-loose);
+	.ast-output {
+		display: block;
 		block-size: 100%;
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		grid-template-rows: auto 1fr;
-
-		&:not(:first-child) {
-			border-inline-start-width: var(--wallace-ast-explorer-border-width);
-			border-inline-start-color: var(--wallace-ast-explorer-border-color);
-		}
 	}
 
-	.pane.scroller {
+	.scroller {
 		overflow: auto;
+		block-size: 100%;
 
 		@media (prefers-reduced-motion: no-preference) {
 			scroll-behavior: smooth;
 		}
 	}
 
-	.pane-header,
-	.pane-content {
-		padding-block: var(--space-2);
-		padding-inline: var(--space-3);
-	}
-
-	.pane-header {
-		display: flex;
-		flex-wrap: wrap;
-		column-gap: var(--space-3);
-		row-gap: var(--space-2);
-		justify-content: space-between;
-		border-block-end-width: var(--wallace-ast-explorer-border-width);
-		border-color: var(--wallace-ast-explorer-border-color);
-
-		&:not(.pane:first-child &) {
-			@container --ast-explorer (max-width: 50rem) {
-				border-block-start-width: var(--wallace-ast-explorer-border-width);
-			}
-		}
-	}
-
-	.pane-title {
-		font-weight: var(--font-bold);
-	}
-
-	.pane-content {
-		overflow-x: auto;
-
-		&:not(.options &) {
-			font-size: var(--size-specimen);
-
-			@container --ast-explorer (min-width: 50rem) {
-				block-size: var(--wallace-ast-explorer-pane-block-size);
-			}
-		}
+	.ast-explorer :global(.pane:not(:first-child) .pane-content) {
+		font-size: var(--size-specimen);
 	}
 </style>

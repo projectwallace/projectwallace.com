@@ -26,6 +26,7 @@
 			}
 			pos = next + 1
 		}
+		// oxlint-disable-next-line explicit-length-check -- false positive
 		return str.slice(0, Math.min(pos || str.length, maxLen))
 	}
 
@@ -109,7 +110,7 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
-		max-height: var(--space-72);
+		max-height: 18rem;
 		overflow: auto;
 		overscroll-behavior: contain;
 	}

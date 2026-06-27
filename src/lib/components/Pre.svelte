@@ -1,5 +1,14 @@
+<script module lang="ts">
+	export type CoverageChunk = {
+		start_line: number
+		end_line: number
+		is_covered: boolean
+		total_lines: number
+	}
+</script>
+
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte'
+	import { onMount, onDestroy, untrack } from 'svelte'
 	import { browser } from '$app/environment'
 	import type { CssLocation } from '$lib/css-location'
 	import { highlight_css } from './use-css-highlight'
@@ -9,12 +18,9 @@
 		css?: string
 		selected_location?: CssLocation
 		locations?: CssLocation[]
-		coverage_chunks?: {
-			start_line: number
-			is_covered: boolean
-			end_line: number
-			total_lines: number
-		}[]
+		coverage_chunks?: CoverageChunk[]
+		lines_highlight_name?: string
+		selected_highlight_name?: string
 	}
 
 	type WrappingProps = BaseProps & {
@@ -37,100 +43,162 @@
 		wrap = false,
 		// Used in MinifyCss
 		line_numbers = false,
-		coverage_chunks = []
+		coverage_chunks = undefined,
+		lines_highlight_name = 'lines',
+		selected_highlight_name = 'selected_line'
 	}: Props = $props()
 
 	// Keep track of whether the browser supports the Highlight API
 	let supports_highlights = $state(false)
 	let lines: Highlight | undefined
+	let selected_line: Highlight | undefined
 	// body element is used to scroll to the highlighted location
 	// svelte-ignore non_reactive_update
 	let body: HTMLElement | undefined = undefined
 	// code_node is used to highlight the code (highlighting only works on TextNodes)
-	// svelte-ignore non_reactive_update
-	let code_node: HTMLElement | undefined = undefined
+	let code_node = $state<HTMLElement | undefined>(undefined)
+	// pre_node is the horizontal scroll container; body only scrolls vertically
+	let pre_node = $state<HTMLElement | undefined>(undefined)
 	// Line height is used to scroll to the highlighted location
 	const LINE_HEIGHT = 20
-	// CHAR_WIDTH is used to scroll to the highlighted location
-	const CHAR_WIDTH = 7.9 // measured by the width of 100 monospace `a` characters
+	const CHAR_WIDTH = 7.953580311708464 // measured by the width of tenthousands monospace characters
+	// Lines of context to keep visible above the target line when scrolling.
+	// scroll-margin/scroll-padding have no effect on our overflow container, so we subtract
+	// this manually from every scrollTo() call and add it back when finding the "next" chunk.
+	const SCROLL_MARGIN_LINES = 3
 
-	let total_lines = $derived(css.split('\n').length)
+	let total_lines = $derived.by(() => {
+		let count = 1
+		let index = 0
+		while ((index = css.indexOf('\n', index)) !== -1) {
+			count++
+			index++
+		}
+		return count
+	})
 	let line_number_width = $derived(total_lines.toString().length)
-	let show_line_numbers = $derived(
-		coverage_chunks !== undefined || (line_numbers && total_lines > 1 && total_lines < 10_000)
+	// Only show when coverage data is actually present
+	let has_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
+	let show_line_numbers = $derived(has_coverage || line_numbers)
+	let show_coverage = $derived(has_coverage)
+	let uncovered_blocks_count = $derived((coverage_chunks ?? []).reduce((n, c) => n + (c.is_covered ? 0 : 1), 0))
+	let first_uncovered_chunk = $derived(coverage_chunks?.find((c) => !c.is_covered))
+	let last_uncovered_chunk = $derived(coverage_chunks?.findLast((c) => !c.is_covered))
+	let coverage_line_numbers = $derived(
+		(coverage_chunks ?? []).map((chunk) =>
+			Array.from({ length: chunk.total_lines }, (_, i) => i + chunk.start_line).join('\n')
+		)
 	)
-	let show_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
+	let plain_line_numbers = $derived(Array.from({ length: total_lines }, (_, i) => i + 1).join('\n'))
 
 	onMount(function () {
 		supports_highlights = browser && 'highlights' in window.CSS
 		if (supports_highlights) {
-			lines = window.CSS.highlights.get('lines') || new Highlight()
+			lines = window.CSS.highlights.get(lines_highlight_name) || new Highlight()
+			selected_line = window.CSS.highlights.get(selected_highlight_name) || new Highlight()
 		}
 	})
 
 	onDestroy(function () {
 		if (supports_highlights) {
-			window.CSS.highlights.get('lines')?.clear()
-			window.CSS.highlights.delete('lines')
+			window.CSS.highlights.get(lines_highlight_name)?.clear()
+			window.CSS.highlights.delete(lines_highlight_name)
+			window.CSS.highlights.delete(selected_highlight_name)
+		}
+	})
+
+	// read selected_location without tracking it so this effect only fires on css changes,
+	// and won't fight the scroll-to-selection effect when both fire in the same tick
+	$effect(() => {
+		if (css && css.length > 0 && body !== undefined && untrack(() => selected_location) === undefined) {
+			body.scrollTo({ top: 0, left: 0 })
 		}
 	})
 
 	$effect(() => {
-		// Scroll <pre> back to top when the CSS changes
-		if (css && css.length > 0 && body !== undefined) {
-			body.scrollTo({
-				top: 0,
-				left: 0
-			})
-		}
-	})
-
-	$effect(() => {
-		// scroll to highlighted location
-		let margin_top = 3 * LINE_HEIGHT
+		let margin_top = SCROLL_MARGIN_LINES * LINE_HEIGHT
 		let margin_left = 3 * CHAR_WIDTH
 
 		if (selected_location !== undefined && body !== undefined) {
 			body.scrollTo({
-				// prettier-ignore
-				top: (selected_location.line * LINE_HEIGHT) - margin_top,
-				// Scroll right if CSS is minified (longer than 32 characters per line is usually an indicator of minification)
-				// prettier-ignore
+				// oxfmt-ignore
+				top: (selected_location.line * LINE_HEIGHT) - margin_top
+			})
+			pre_node?.scrollTo({
+				// oxfmt-ignore
 				left: selected_location.column < 50 ? 0 : (selected_location.column * CHAR_WIDTH) - margin_left
 			})
 		}
+	})
 
-		// Highlight the selected location
-		if (
-			css.length > 0 &&
-			code_node !== undefined &&
-			code_node.firstChild &&
-			supports_highlights &&
-			lines !== undefined &&
-			selected_location !== undefined
-		) {
-			// Ranges only work on TextNodes
+	$effect(() => {
+		if (code_node?.firstChild && supports_highlights && lines !== undefined) {
 			let node = code_node.firstChild
-
-			// Clear previous highlights
 			lines.clear()
 
-			// Highlight the location
-			let range = new StaticRange({
-				startContainer: node,
-				startOffset: selected_location.offset,
-				endContainer: node,
-				endOffset: selected_location.offset + selected_location.length
-			})
-			lines.add(range)
+			if (css.length === 0) return
 
-			window.CSS.highlights.set('lines', lines)
+			// Browsers have a bug where a contained range (one entirely inside another) in the same
+			// Highlight causes painting to stop at the inner range's end rather than continuing to
+			// the outer range's end. Merge overlapping ranges into their union as a workaround.
+			const sorted = [...locations].sort((a, b) => a.offset - b.offset)
+			const merged: { start: number; end: number }[] = []
+			for (const loc of sorted) {
+				const end = loc.offset + loc.length
+				const last = merged.at(-1)
+				if (!last || loc.offset > last.end) {
+					merged.push({ start: loc.offset, end })
+				} else {
+					last.end = Math.max(last.end, end)
+				}
+			}
+
+			// Subtract the selected_location span so its Highlight background doesn't mix with ours.
+			const sel = selected_location
+			const punched: { start: number; end: number }[] = []
+			for (const { start, end } of merged) {
+				if (!sel || sel.offset >= end || sel.offset + sel.length <= start) {
+					punched.push({ start, end })
+				} else {
+					if (start < sel.offset) {
+						punched.push({ start, end: sel.offset })
+					}
+					if (end > sel.offset + sel.length) {
+						punched.push({ start: sel.offset + sel.length, end })
+					}
+				}
+			}
+
+			for (const { start, end } of punched) {
+				lines.add(new StaticRange({ startContainer: node, startOffset: start, endContainer: node, endOffset: end }))
+			}
+			window.CSS.highlights.set(lines_highlight_name, lines)
+		}
+	})
+
+	// separate effect so changing locations doesn't unnecessarily touch selected_line
+	// reading css.length establishes tracking so the effect re-runs when content changes in-place
+	$effect(() => {
+		if (code_node?.firstChild && supports_highlights && selected_line !== undefined) {
+			let node = code_node.firstChild
+			selected_line.clear()
+			if (css.length > 0 && selected_location !== undefined) {
+				selected_line.add(
+					new StaticRange({
+						startContainer: node,
+						startOffset: selected_location.offset,
+						endContainer: node,
+						endOffset: selected_location.offset + selected_location.length
+					})
+				)
+			}
+			window.CSS.highlights.set(selected_highlight_name, selected_line)
 		}
 	})
 
 	function scroll_to_line(line: number) {
 		body?.scrollTo({
-			top: line * LINE_HEIGHT
+			top: (line - SCROLL_MARGIN_LINES) * LINE_HEIGHT
 		})
 	}
 
@@ -143,15 +211,13 @@
 		let next_uncovered_chunk = coverage_chunks.find((chunk) => {
 			if (chunk.is_covered) return false
 			let chunk_top = chunk.start_line * LINE_HEIGHT
-			return chunk_top > current_scroll_offset
+			return chunk_top > current_scroll_offset + SCROLL_MARGIN_LINES * LINE_HEIGHT
 		})
 		let next_chunk = next_uncovered_chunk
-		let first_uncovered_chunk = coverage_chunks.find((chunk) => !chunk.is_covered)
-		let is_scrolled_to_bottom = body.scrollTop === body.scrollHeight - body.clientHeight
+		// subpixel rounding means scrollHeight - clientHeight may not be an integer
+		let is_scrolled_to_bottom = body.scrollTop >= body.scrollHeight - body.clientHeight - 1
 
 		if (!next_uncovered_chunk || is_scrolled_to_bottom) {
-			// If there are no more uncovered chunks below the current scroll position,
-			// jump to the first uncovered chunk
 			next_chunk = first_uncovered_chunk
 		}
 
@@ -171,13 +237,10 @@
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top < current_scroll_offset
 		})
-		let last_uncovered_chunk = coverage_chunks.findLast((chunk) => !chunk.is_covered)
 		let next_chunk = previous_uncovered_chunk
 		let is_scrolled_to_top = body.scrollTop === 0
 
 		if (!previous_uncovered_chunk || is_scrolled_to_top) {
-			// If there are no more uncovered chunks above the current scroll position,
-			// jump to the last uncovered chunk
 			next_chunk = last_uncovered_chunk
 		}
 
@@ -187,63 +250,60 @@
 	}
 </script>
 
-<!-- TODO: get rid of #key (only needed because of buggy use:highlight_css)
- but also throwing away this node and recreating it each time is *way* faster -->
-{#key css}
-	<div class="window">
-		{#if show_coverage}
-			{@const uncovered_blocks_count = coverage_chunks.filter((c) => !c.is_covered).length}
-			{#if uncovered_blocks_count > 0}
-				<div class="toolbar">
-					<p>
-						{uncovered_blocks_count} un-covered {uncovered_blocks_count === 1 ? 'block' : 'blocks'}
-					</p>
-					<button type="button" onclick={jump_to_previous_uncovered} title="Go to the previous un-covered block">
-						<span class="sr-only">Go to the previous un-covered block</span>
-						<Icon name="chevron-up" size={12} />
-					</button>
-					<button type="button" onclick={jump_to_next_uncovered} title="Go to the next un-covered block">
-						<span class="sr-only">Go to the next un-covered block</span>
-						<Icon name="chevron-down" size={12} />
-					</button>
-				</div>
-			{/if}
+<div class="window">
+	{#if show_coverage}
+		{#if uncovered_blocks_count > 0}
+			<div class="toolbar">
+				<p>
+					{uncovered_blocks_count}
+					{uncovered_blocks_count === 1 ? 'block' : 'blocks'}
+				</p>
+				<button type="button" onclick={jump_to_previous_uncovered} title="Go to the previous block">
+					<span class="sr-only">Go to the previous block</span>
+					<Icon name="chevron-up" size={12} />
+				</button>
+				<button type="button" onclick={jump_to_next_uncovered} title="Go to the next block">
+					<span class="sr-only">Go to the next block</span>
+					<Icon name="chevron-down" size={12} />
+				</button>
+			</div>
 		{/if}
-		<div
-			bind:this={body}
-			class="body scroll-container"
-			class:with-line-numbers={show_line_numbers}
-			class:with-coverage={show_coverage}
-			style:--pre-line-height="{LINE_HEIGHT}px"
-			style:--pre-line-number-width={line_number_width}
-			style:height="calc({total_lines + 1} * var(--pre-line-height))"
-		>
-			{#if show_line_numbers}
-				<div class="line-numbers" aria-hidden="true">
-					{#if show_coverage === true}
-						{#each coverage_chunks as chunk (chunk.start_line)}
-							<div class={['line-number-range', { uncovered: !chunk.is_covered }]}>
-								{Array.from({ length: chunk.total_lines }, (_, i) => i + chunk.start_line)
-									.join('\n')
-									.trim()}
-							</div>
-						{/each}
-					{:else}
-						{Array.from({ length: total_lines }, (_, i) => i + 1)
-							.join('\n')
-							.trim()}
-					{/if}
-				</div>
-			{/if}
-			<pre dir="ltr" translate="no" class:wrap style:height="calc({total_lines + 1} * var(--pre-line-height))"><code
-					class="language-css"
-					bind:this={code_node}
-					use:highlight_css={{ css }}
-					data-testid="pre-css">{css}</code
-				></pre>
-		</div>
+	{/if}
+	<div
+		bind:this={body}
+		class="body scroll-container"
+		class:with-line-numbers={show_line_numbers}
+		class:with-coverage={show_coverage}
+		style:--pre-line-height="{LINE_HEIGHT}px"
+		style:--pre-line-number-width={line_number_width}
+		style:height="calc({total_lines + 1} * var(--pre-line-height))"
+	>
+		{#if show_line_numbers}
+			<div class="line-numbers" aria-hidden="true">
+				{#if show_coverage === true}
+					{#each coverage_chunks ?? [] as chunk, i (chunk.start_line)}
+						<div class={['line-number-range', { uncovered: !chunk.is_covered }]}>
+							{coverage_line_numbers[i]}
+						</div>
+					{/each}
+				{:else}
+					{plain_line_numbers}
+				{/if}
+			</div>
+		{/if}
+		<pre
+			bind:this={pre_node}
+			dir="ltr"
+			translate="no"
+			class:wrap
+			style:height="calc({total_lines + 1} * var(--pre-line-height))"><code
+				class="language-css"
+				bind:this={code_node}
+				use:highlight_css={{ css }}
+				data-testid="pre-css">{css}</code
+			></pre>
 	</div>
-{/key}
+</div>
 
 <style>
 	.window {
@@ -260,6 +320,7 @@
 		gap: var(--space-2);
 		padding-inline: var(--space-2);
 		padding-block: var(--space-2);
+		border-block-end: 1px solid var(--bg-300);
 
 		p {
 			margin-inline-end: auto;
@@ -268,7 +329,8 @@
 
 		button {
 			padding-inline: var(--space-2);
-			padding-block: var(--space-1);
+			padding-block: var(--space-2);
+			line-height: var(--leading-none);
 			background-color: transparent;
 
 			&:hover,
@@ -301,12 +363,13 @@
 		}
 
 		&.with-line-numbers.with-coverage {
-			grid-template-columns: calc(var(--pre-ch-width) + 1.5ch) 1fr;
+			--pre-chunk-border-width: 0.5ch;
+			grid-template-columns: calc(var(--pre-ch-width) + var(--pre-chunk-border-width)) 1fr;
 			gap: 0;
 
 			.line-number-range {
-				border-inline-end: 0.5ch solid transparent;
-				padding-right: 0.5ch;
+				border-inline-end: var(--pre-chunk-border-width) solid transparent;
+				padding-right: var(--pre-chunk-border-width);
 			}
 
 			.uncovered {
@@ -343,6 +406,7 @@
 		max-height: 100%;
 		height: 100%;
 		color: var(--fg-200);
+		scrollbar-width: thin;
 
 		/* Regular outline not visible because of scroll containers */
 		&:focus-visible {
@@ -362,5 +426,9 @@
 
 	::highlight(lines) {
 		background-color: var(--highlight-code);
+	}
+
+	::highlight(selected_line) {
+		background-color: var(--highlight-code-selected);
 	}
 </style>

@@ -108,7 +108,7 @@ test.describe('navigating the list', () => {
 	})
 })
 
-test('pressing Enter selects the focused item', async ({ page }) => {
+test('pressing Enter selects the focused item', async ({ page: _page }) => {
 	let row = table.getByRole('row').first()
 	await row.click()
 	await row.press('ArrowDown')
@@ -117,7 +117,7 @@ test('pressing Enter selects the focused item', async ({ page }) => {
 	await expect.soft(table.getByRole('row').nth(1)).toHaveAttribute('aria-selected', 'true')
 })
 
-test('pressing Space selects the focused item', async ({ page }) => {
+test('pressing Space selects the focused item', async ({ page: _page }) => {
 	let row = table.getByRole('row').first()
 	await row.click()
 	await row.press(' ')

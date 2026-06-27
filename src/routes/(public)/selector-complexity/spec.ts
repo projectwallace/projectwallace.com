@@ -20,7 +20,7 @@ test.describe('without preloading', () => {
 		await expect.soft(page).not.toHaveHorizontalOverflow()
 	})
 
-	test('auto focuses the input', async ({ page }) => {
+	test('auto focuses the input', async ({ page: _page }) => {
 		await expect.soft(input).toBeFocused()
 	})
 

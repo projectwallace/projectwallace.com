@@ -184,7 +184,7 @@
 	.child {
 		padding-block: var(--py);
 		padding-inline-end: var(--px);
-		padding-inline-start: var(--space-7);
+		padding-inline-start: var(--space-6);
 
 		&::before {
 			content: '';

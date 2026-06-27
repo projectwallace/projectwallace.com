@@ -53,7 +53,7 @@
 	.projects {
 		display: grid;
 		gap: var(--space-4);
-		grid-template-columns: repeat(auto-fit, minmax(var(--space-72), 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
 	}
 
 	.project {

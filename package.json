@@ -16,7 +16,7 @@
 		"lint": "svelte-kit sync && oxlint --config oxlintrc.json; pnpm format:check; pnpm stylelint",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore --report-needless-disables --report-descriptionless-disables --report-unscoped-disables",
 		"stylelint-full": "vite build >/dev/null 2>&1 && find .svelte-kit/output/server/_app/immutable/assets -name '*.css' -exec cat {} + > .svelte-kit/holistic.css 2>/dev/null && format-css .svelte-kit/holistic.css > .svelte-kit/holistic-formatted.css 2>/dev/null && stylelint .svelte-kit/holistic-formatted.css --config=.stylelintrc.mjs",
-		"css-coverage": "css-coverage ./css-coverage --min-coverage=.9  --min-file-coverage=.65 --show-uncovered=all"
+		"css-coverage": "css-coverage ./css-coverage --min-coverage=.95  --min-file-coverage=.85 --show-uncovered=all"
 	},
 	"dependencies": {
 		"@melt-ui/pp": "^0.3.2",
@@ -27,9 +27,10 @@
 		"@projectwallace/css-code-quality": "^3.1.3",
 		"@projectwallace/css-design-tokens": "^0.11.6",
 		"@projectwallace/css-layer-tree": "^2.1.4",
-		"@projectwallace/css-parser": "~0.16.0",
+		"@projectwallace/css-parser": "~0.16.2",
 		"@projectwallace/css-time-sort": "^3.1.0",
-		"@projectwallace/format-css": "^3.1.3",
+		"@projectwallace/format-css": "^3.1.5",
+		"@projectwallace/stylelint-plugin": "^0.6.11",
 		"@sveltejs/enhanced-img": "^0.10.4",
 		"@sveltejs/kit": "^2.60.1",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",

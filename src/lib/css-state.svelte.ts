@@ -8,7 +8,7 @@ import { type NodeType } from '$components/use-css-highlight'
 type Selectable = {
 	type: string
 	node_type?: NodeType
-	value: string
+	value: string | number
 	locations: CssLocation[]
 }
 

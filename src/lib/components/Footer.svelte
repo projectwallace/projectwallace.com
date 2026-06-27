@@ -4,8 +4,9 @@
 			title: 'Website CSS analysis',
 			items: [
 				{ href: '/analyze-css', title: 'CSS Analyzer' },
-				{ href: '/css-code-quality', title: 'CSS Code Quality Calculator' },
+				{ href: '/lint-css', title: 'CSS Linter' },
 				{ href: '/design-tokens', title: 'CSS Design Tokens' },
+				{ href: '/css-code-quality', title: 'CSS Code Quality Calculator' },
 				{ href: '/css-layers-visualizer', title: 'CSS Layers Visualizer' },
 				{ href: '/custom-property-inspector', title: 'CSS Custom Property inspector' },
 				{ href: '/get-css', title: 'CSS Scraper' }
@@ -90,7 +91,7 @@
 		margin-bottom: var(--space-4);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-3);
-		border-block-start: 1px solid var(--fg-600);
+		border-block-start: 1px solid var(--fg-800);
 		color: var(--fg-300);
 
 		@media (min-width: 66rem) {
@@ -111,6 +112,7 @@
 
 	.footer-title {
 		font-weight: var(--font-medium);
+		color: var(--fg-200);
 	}
 
 	.footer-list {
@@ -125,13 +127,12 @@
 	}
 
 	p {
-		grid-column: 1 / -1;
-		padding-block: var(--space-4);
+		flex-basis: 100%;
 		text-align: center;
 
 		& a {
 			--netlify: #32e6e2;
-			text-decoration: underline;
+			text-decoration-line: underline;
 			text-decoration-color: var(--netlify);
 		}
 	}

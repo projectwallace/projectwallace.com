@@ -19,12 +19,20 @@
 	interface Props {
 		on_success?: (result: FormSuccessEvent) => void
 		on_error?: (error: Error) => void
+		on_url_submit?: (url: string, prettify: boolean) => false | void
+		external_loading?: boolean
 		title?: Snippet
 	}
 
 	function noop() {}
 
-	let { on_success = noop, on_error = noop, title: title_snippet }: Props = $props()
+	let {
+		on_success = noop,
+		on_error = noop,
+		on_url_submit = undefined,
+		external_loading = false,
+		title: title_snippet
+	}: Props = $props()
 
 	let status: 'idle' | 'fetching' | 'error' = $state('idle')
 	let error: Error | undefined = $state()
@@ -34,6 +42,8 @@
 		!browser || !page.url.searchParams.has('prettify') || page.url.searchParams.get('prettify') === '1'
 	)
 	let is_online = new IsOnline()
+
+	let navigation_options = { replaceState: true, noScroll: true }
 
 	$effect(() => {
 		css_state.prettify(prettify)
@@ -50,7 +60,7 @@
 		cleaned_url.searchParams.delete('url')
 		cleaned_url.searchParams.delete('prettify')
 		cleaned_url.hash = ''
-		await goto(cleaned_url, { replaceState: true })
+		await goto(cleaned_url, navigation_options)
 
 		status = 'idle'
 
@@ -67,24 +77,33 @@
 	async function on_submit_url(event: SubmitEvent) {
 		event.preventDefault()
 		if (status === 'fetching') return
-		status = 'fetching'
 
 		let form_data = new FormData(event.target as HTMLFormElement)
 		let url = String(form_data.get('url'))
 		if (!url) return
 
-		// Always update the URL, so people can share the URL
-		let page_url = page.url
-		page_url.searchParams.set('url', url)
-		page_url.searchParams.set('prettify', form_data.get('prettify') === '1' ? '1' : '0')
-		page_url.hash = ''
-		await goto(page_url, { replaceState: true })
+		let prettify_val = form_data.get('prettify') === '1'
 
+		// Always update the URL, so people can share the URL
+		let page_url = new URL(page.url)
+		page_url.searchParams.set('url', url)
+		page_url.searchParams.set('prettify', prettify_val ? '1' : '0')
+		page_url.hash = ''
+		await goto(page_url, navigation_options)
+
+		if (on_url_submit?.(url, prettify_val) === false) {
+			prettify = prettify_val
+			css_state.prettify(prettify_val)
+			css_state.url = url
+			return
+		}
+
+		status = 'fetching'
 		try {
 			let origins = await get_css(url)
 			status = 'idle'
 
-			prettify = form_data.get('prettify') === '1'
+			prettify = prettify_val
 			css_state.prettify(prettify)
 			css_state.set_origins(origins)
 			css_state.url = url
@@ -116,11 +135,11 @@
 		}
 
 		// Remove ?url= and prettify= query parameters from the URL
-		let cleaned_url = page.url
+		let cleaned_url = new URL(page.url)
 		cleaned_url.searchParams.delete('url')
 		cleaned_url.searchParams.delete('prettify')
 		cleaned_url.hash = ''
-		await goto(cleaned_url, { replaceState: true })
+		await goto(cleaned_url, navigation_options)
 
 		status = 'idle'
 
@@ -150,8 +169,9 @@
 
 	async function on_prettify_change(event: Event) {
 		prettify = (event.target as HTMLInputElement).checked
-		page.url.searchParams.set('prettify', prettify ? '1' : '0')
-		await goto(page.url, { replaceState: true })
+		let new_url = new URL(page.url)
+		new_url.searchParams.set('prettify', prettify ? '1' : '0')
+		await goto(new_url, navigation_options)
 	}
 </script>
 
@@ -186,7 +206,7 @@
 					described_by={status === 'error' ? 'invalid-url-error-msg' : undefined}
 					bind:url
 				/>
-				{#if status === 'fetching'}
+				{#if status === 'fetching' || external_loading}
 					<div class="loader">
 						<CssLoadingProgressBar />
 					</div>
@@ -198,7 +218,7 @@
 			{@render prettify_option()}
 			<div class="submit">
 				<Button type="submit" size="lg">
-					{#if status === 'fetching'}
+					{#if status === 'fetching' || external_loading}
 						Fetching CSS&hellip;
 					{:else}
 						Analyze URL

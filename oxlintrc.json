@@ -21,6 +21,8 @@
 		"prefer-code-point": "off",
 		"no-lonely-if": "off",
 		"no-unused-vars": "off",
+		"no-unassigned-vars": "off",
+		"eslint/no-unassigned-vars": "off",
 		"no-await-in-loop": "off",
 		"prefer-query-selector": "off",
 		"max-dependencies": "off",
@@ -50,7 +52,7 @@
 		"default-case": "off",
 		"no-rest-spread-properties": "off",
 		"require-await": "warn",
-		"no-warning-comments": "warn",
+		"no-warning-comments": "off",
 		"no-inline-comments": "off",
 		"prefer-at": "off",
 		"no-map-spread": "off",
@@ -61,7 +63,7 @@
 	},
 	"overrides": [
 		{
-			"files": ["*.svelte"],
+			"files": ["**/*.svelte"],
 			"rules": {
 				"no-unassigned-vars": "off"
 			}

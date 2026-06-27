@@ -43,7 +43,7 @@ export function getMetrics() {
 export function groupBySection(metrics: MetricDoc[]) {
 	return metrics
 		.map((metric) => {
-			let { html, meta, id, ...rest } = metric
+			let { html: _html, meta: _meta, id, ...rest } = metric
 			let [group] = id.split('.')
 			return {
 				...rest,
