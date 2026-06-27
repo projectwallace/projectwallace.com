@@ -48,14 +48,15 @@ test.describe('URL input mode', () => {
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 		await expect.soft(page.getByRole('table')).toBeVisible()
-		await expect.soft(page.getByRole('table')).toContainText('property-no-unknown')
+		expect.soft(await page.getByRole('table').getByRole('row').count()).toBeGreaterThanOrEqual(2)
+		await expect.soft(page.getByRole('cell', { name: /Unexpected unknown property/ })).toBeVisible()
 	})
 
 	test('shows the fetched CSS in the CSS input pane', async ({ page }) => {
 		await page.getByLabel('Website URL').fill('example.com')
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
-		await expect.soft(page.getByRole('cell', { name: /Unexpected unknown property/ })).toBeVisible()
+		await expect.soft(page.getByTestId('pre-css')).toContainText(mock_lint_response.css)
 	})
 })
 
