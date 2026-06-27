@@ -164,7 +164,7 @@
 			selected_warning={active_item !== undefined ? lint_result?.result.warnings?.at(active_item) : undefined}
 		/>
 	</Pane>
-	<Pane flush={status === 'success'}>
+	<Pane flush={status === 'success' && (lint_result?.result.warnings.length ?? 0) > 0}>
 		{#snippet pane_header()}
 			<label for="lint-output" class="pane-title">Stylelint output</label>
 			{#if status === 'success' || status === 'lint_error'}
