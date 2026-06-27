@@ -134,39 +134,8 @@
 
 			if (css.length === 0) return
 
-			// Browsers have a bug where a contained range (one entirely inside another) in the same
-			// Highlight causes painting to stop at the inner range's end rather than continuing to
-			// the outer range's end. Merge overlapping ranges into their union as a workaround.
-			const sorted = [...locations].sort((a, b) => a.offset - b.offset)
-			const merged: { start: number; end: number }[] = []
-			for (const loc of sorted) {
-				const end = loc.offset + loc.length
-				const last = merged.at(-1)
-				if (!last || loc.offset > last.end) {
-					merged.push({ start: loc.offset, end })
-				} else {
-					last.end = Math.max(last.end, end)
-				}
-			}
-
-			// Subtract the selected_location span so its Highlight background doesn't mix with ours.
-			const sel = selected_location
-			const punched: { start: number; end: number }[] = []
-			for (const { start, end } of merged) {
-				if (!sel || sel.offset >= end || sel.offset + sel.length <= start) {
-					punched.push({ start, end })
-				} else {
-					if (start < sel.offset) {
-						punched.push({ start, end: sel.offset })
-					}
-					if (end > sel.offset + sel.length) {
-						punched.push({ start: sel.offset + sel.length, end })
-					}
-				}
-			}
-
-			for (const { start, end } of punched) {
-				lines.add(new StaticRange({ startContainer: node, startOffset: start, endContainer: node, endOffset: end }))
+			for (const loc of locations) {
+				lines.add(new StaticRange({ startContainer: node, startOffset: loc.offset, endContainer: node, endOffset: loc.offset + loc.length }))
 			}
 			window.CSS.highlights.set(lines_highlight_name, lines)
 		}
