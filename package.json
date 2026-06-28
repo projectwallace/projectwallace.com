@@ -60,7 +60,7 @@
 		"stylelint": "~17.13.0",
 		"stylelint-config-standard": "~40.0.0",
 		"svelte-check": "^4.6.0",
-		"vitest": "^4.1.6"
+		"vitest": "^4.1.9"
 	},
 	"engines": {
 		"node": ">=24",
