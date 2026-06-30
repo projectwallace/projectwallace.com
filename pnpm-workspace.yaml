@@ -3,11 +3,12 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
+  # Pinned versions to make sure we always only bundle 1 version of each
   '@projectwallace/css-analyzer': $@projectwallace/css-analyzer
   '@projectwallace/css-parser': $@projectwallace/css-parser
   '@projectwallace/format-css': $@projectwallace/format-css
   color-sorter: $color-sorter
-  cookie@<0.7.0: '>=0.7.0'
+  # Security-based pinned versions
   esbuild@>=0.17.0 <0.28.1: '>=0.28.1'
   runed: $runed
   sharp: 0.34.3
