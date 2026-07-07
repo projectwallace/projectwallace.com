@@ -1,6 +1,7 @@
 import { parseHTML } from 'linkedom'
 import { AT_RULE, AT_RULE_PRELUDE, parse, URL, walk } from '@projectwallace/css-parser'
 import { resolve_url } from '../../../lib/resolve-url.js'
+import { render_with_browserless } from '../../../lib/browserless.js'
 import type { CSSOrigin } from '../../../lib/css-origins.js'
 
 export const USER_AGENT = 'Project Wallace CSS Scraper/1.1 (+https://www.projectwallace.com/docs/css-scraper)'
@@ -179,20 +180,24 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 	let timeout_signal = AbortSignal.timeout(timeout)
 
 	try {
-		let response = await fetch(resolved_url, {
-			signal: timeout_signal,
-			headers: {
-				'User-Agent': USER_AGENT,
-				Accept: 'text/html,*/*;q=0.1'
-			}
+		let rendered = await render_with_browserless(resolved_url.toString(), {
+			timeout,
+			userAgent: USER_AGENT
 		})
 
-		if (!response.ok) {
-			throw new Error(response.statusText)
-		}
+		headers = rendered.headers
 
-		body = await response.text()
-		headers = response.headers
+		if (headers.get('content-type')?.includes('text/css')) {
+			// Directly-linked CSS files don't need JS execution, a plain fetch is cheaper
+			// and avoids Chromium wrapping the raw text in its own viewer markup.
+			let response = await fetch(resolved_url, {
+				signal: timeout_signal,
+				headers: { 'User-Agent': USER_AGENT, Accept: 'text/css' }
+			})
+			body = await response.text()
+		} else {
+			body = rendered.html
+		}
 	} catch (error: unknown) {
 		if (typeof error === 'object' && error !== null && 'message' in error) {
 			// Examples: chatgpt.com
