@@ -1,6 +1,12 @@
 import { parse, walk, parse_selector_list, STYLE_RULE, DECLARATION } from '@projectwallace/css-parser'
-import { calculateSpecificity, compareSpecificity, type Specificity } from '@projectwallace/css-analyzer'
-import { COMPONENT_PRESETS, DESIGN_TOKEN_PROPERTY_PREFIXES, STATE_PSEUDO_CLASSES, type Component } from './component-presets'
+import { calculateSpecificity, type Specificity } from '@projectwallace/css-analyzer'
+import { compareSpecificity } from '@projectwallace/css-analyzer/selectors'
+import {
+	COMPONENT_PRESETS,
+	DESIGN_TOKEN_PROPERTY_PREFIXES,
+	STATE_PSEUDO_CLASSES,
+	type Component
+} from './component-presets'
 
 export type TokenDeclaration = {
 	property: string
@@ -98,7 +104,9 @@ export function strip_state_pseudo_classes(selector: string): { structural: stri
 }
 
 export function filter_design_tokens(declarations: TokenDeclaration[]): TokenDeclaration[] {
-	return declarations.filter((decl) => DESIGN_TOKEN_PROPERTY_PREFIXES.some((prefix) => decl.property.startsWith(prefix)))
+	return declarations.filter((decl) =>
+		DESIGN_TOKEN_PROPERTY_PREFIXES.some((prefix) => decl.property.startsWith(prefix))
+	)
 }
 
 export type PropertyMatch = {
@@ -170,15 +178,16 @@ export function resolve_tokens(matches: PropertyMatch[]): ResolvedTokens {
 	}
 
 	function resolve_for(predicate: (match: PropertyMatch) => boolean): Record<string, string> {
-		let sorted = matches.filter(predicate).toSorted((a, b) => {
-			if (a.important !== b.important) return a.important ? 1 : -1
-			// compareSpecificity(x, y) is negative when x is MORE specific than y (descending
-			// comparator), so args are flipped here to get ascending order - least specific
-			// first, most specific last, so the last entry in the sorted array "wins".
-			let specificity_comparison = compareSpecificity(b.specificity, a.specificity)
-			if (specificity_comparison !== 0) return specificity_comparison
-			return a.order_index - b.order_index
-		})
+		let sorted = matches
+			.filter((match) => predicate(match))
+			.toSorted((a, b) => {
+				if (a.important !== b.important) return a.important ? 1 : -1
+				// Ascending order: least specific first, most specific last, so the
+				// last entry in the sorted array "wins" the cascade.
+				let specificity_comparison = compareSpecificity(a.specificity, b.specificity)
+				if (specificity_comparison !== 0) return specificity_comparison
+				return a.order_index - b.order_index
+			})
 
 		let resolved: Record<string, string> = {}
 		for (let entry of sorted) {
@@ -251,4 +260,21 @@ export function group_suggestions(results: ComponentTokenResult[]): Suggestion[]
 	}
 
 	return Array.from(groups.values()).toSorted((a, b) => b.count - a.count)
+}
+
+export type ComponentReport = { elements: number; suggestions: Suggestion[] }
+
+/** Run the full extraction pipeline for every known component preset, keyed by component name. */
+export function extract_all_design_tokens(document: Document, css: string): Record<Component, ComponentReport> {
+	let report = {} as Record<Component, ComponentReport>
+
+	for (let component of Object.keys(COMPONENT_PRESETS) as Component[]) {
+		let results = extract_design_tokens(document, css, component)
+		report[component] = {
+			elements: results.length,
+			suggestions: group_suggestions(results)
+		}
+	}
+
+	return report
 }

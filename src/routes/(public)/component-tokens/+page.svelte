@@ -24,7 +24,9 @@
 			if (!response.ok || (data && typeof data === 'object' && 'error' in data)) {
 				let api_error = (data as { error?: unknown })?.error
 				error =
-					typeof api_error === 'string' ? api_error : ((api_error as { message?: string })?.message ?? 'Something went wrong.')
+					typeof api_error === 'string'
+						? api_error
+						: ((api_error as { message?: string })?.message ?? 'Something went wrong.')
 			} else {
 				result = data
 			}
@@ -44,7 +46,7 @@
 
 <Seo
 	title="Component Design Tokens"
-	description="Inspect suggested design token combinations for button-like components on any URL."
+	description="Inspect suggested design token combinations for common components on any URL."
 />
 
 <Hero>

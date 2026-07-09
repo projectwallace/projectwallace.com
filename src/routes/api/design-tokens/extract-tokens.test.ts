@@ -1,6 +1,6 @@
 import { test, expect } from 'vitest'
 import { parseHTML } from 'linkedom'
-import { extract_design_tokens, group_suggestions } from './extract-tokens'
+import { extract_design_tokens, extract_all_design_tokens, group_suggestions } from './extract-tokens'
 
 function make_document(html: string) {
 	return parseHTML(html).document
@@ -88,6 +88,37 @@ test('finds button-like elements via the button/.button/.btn/[role=button] prese
 	let results = extract_design_tokens(document, css, 'button')
 
 	expect(results).toHaveLength(4)
+})
+
+test('finds heading-like elements via the h1/.h1/.heading-1 preset', () => {
+	let document = make_document(`
+		<h1>Native</h1>
+		<div class="h1">Div heading</div>
+		<span class="heading-1">Span heading</span>
+		<h2>Not an h1</h2>
+	`)
+	let css = 'h1, .h1, .heading-1 { color: black; }'
+
+	let results = extract_design_tokens(document, css, 'heading')
+
+	expect(results).toHaveLength(3)
+})
+
+test('extract_all_design_tokens reports every component preset in a single pass', () => {
+	let document = make_document(`
+		<h1 class="h1">Title</h1>
+		<button class="btn">Buy</button>
+		<button class="btn">Sell</button>
+	`)
+	let css = '.h1 { color: black; } .btn { background: blue; }'
+
+	let report = extract_all_design_tokens(document, css)
+
+	expect(Object.keys(report)).toEqual(['button', 'heading'])
+	expect(report.button.elements).toBe(2)
+	expect(report.button.suggestions[0].tokens.base).toEqual({ background: 'blue' })
+	expect(report.heading.elements).toBe(1)
+	expect(report.heading.suggestions[0].tokens.base).toEqual({ color: 'black' })
 })
 
 test('group_suggestions dedupes structurally identical buttons', () => {

@@ -2,7 +2,6 @@ export const prerender = false
 
 import { error, json } from '@sveltejs/kit'
 import { get_design_tokens } from './design-tokens'
-import { COMPONENT_PRESETS, type Component } from './component-presets'
 import type { RequestHandler } from './$types'
 
 export const GET: RequestHandler = async ({ setHeaders, url }) => {
@@ -12,14 +11,8 @@ export const GET: RequestHandler = async ({ setHeaders, url }) => {
 		return json({ error: 'Missing URL' }, { status: 400 })
 	}
 
-	let component = url.searchParams.get('component') ?? 'button'
-
-	if (!(component in COMPONENT_PRESETS)) {
-		return json({ error: `Unsupported component: ${component}` }, { status: 400 })
-	}
-
 	try {
-		let result = await get_design_tokens(analyzeUrl, component as Component)
+		let result = await get_design_tokens(analyzeUrl)
 
 		if ('error' in result) {
 			return json({ error: result.error })

@@ -1,5 +1,6 @@
 export const COMPONENT_PRESETS = {
-	button: ['button', '.button', '.btn', '[role="button"]']
+	button: ['button', '.button', '.btn', '[role="button"]'],
+	heading: ['h1', '.h1', '.heading-1']
 } as const
 
 export type Component = keyof typeof COMPONENT_PRESETS
