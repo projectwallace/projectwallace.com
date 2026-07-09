@@ -6,13 +6,13 @@ function make_document(html: string) {
 	return parseHTML(html).document
 }
 
-test('only design-token properties are extracted, not spacing', () => {
+test('design-token properties are extracted, layout properties like margin are not', () => {
 	let document = make_document('<button class="btn">Buy</button>')
 	let css = '.btn { background: red; padding: 8px; margin: 4px; }'
 
 	let [result] = extract_design_tokens(document, css, 'button')
 
-	expect(result.tokens.base).toEqual({ background: 'red' })
+	expect(result.tokens.base).toEqual({ background: 'red', padding: '8px' })
 })
 
 test('higher specificity wins regardless of source order', () => {

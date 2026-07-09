@@ -6,7 +6,7 @@ export const COMPONENT_PRESETS = {
 export type Component = keyof typeof COMPONENT_PRESETS
 
 // Prefix-matched against declaration.property. Intentionally excludes
-// spacing/layout props (margin, padding, width, gap, position, display, ...).
+// layout props (margin, width, gap, position, display, ...).
 export const DESIGN_TOKEN_PROPERTY_PREFIXES = [
 	'background',
 	'color',
@@ -19,7 +19,8 @@ export const DESIGN_TOKEN_PROPERTY_PREFIXES = [
 	'fill',
 	'stroke',
 	'accent-color',
-	'caret-color'
+	'caret-color',
+	'padding'
 ]
 
 // Dynamic/interaction pseudo-classes that never structurally "match" a static
