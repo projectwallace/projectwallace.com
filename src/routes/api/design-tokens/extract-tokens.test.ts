@@ -97,6 +97,20 @@ test('finds button-like elements via the button preset, but not a plain <button>
 	expect(results).toHaveLength(7)
 })
 
+test('excludes elements whose class also says "link", even if it also looks like a button', () => {
+	let document = make_document(`
+		<div class="primary-button">Real button</div>
+		<a class="cta-button nav-link">Link styled as a button</a>
+		<div class="primary-btn footer-link">Also a link</div>
+	`)
+	let css = '[class*="-button"], [class*="-btn"] { color: black; }'
+
+	let results = extract_design_tokens(document, css, 'button')
+
+	expect(results).toHaveLength(1)
+	expect(results[0].class_name).toBe('primary-button')
+})
+
 test('finds heading-like elements via the h1/.h1/.heading-1 preset', () => {
 	let document = make_document(`
 		<h1>Native</h1>

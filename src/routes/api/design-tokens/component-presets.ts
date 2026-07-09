@@ -1,14 +1,9 @@
 export const COMPONENT_PRESETS = {
-	button: [
-		'button[type="submit"]',
-		'input[type="button"]',
-		'.button',
-		'.btn',
-		'[role="button"]',
-		'[class*="-button"]',
-		'[class*="-btn"]'
-	],
-	heading: ['h1', '.h1', '.heading-1']
+	// [class*="-button"]/[class*="-btn"] are broad enough to also catch links styled
+	// as buttons, so exclude anything whose class also says it's a link (e.g. "nav-link").
+	button:
+		':is(button[type="submit"], input[type="button"], .button, .btn, [role="button"], [class*="-button"], [class*="-btn"]):not([class*="-link"])',
+	heading: 'h1, .h1, .heading-1'
 } as const
 
 export type Component = keyof typeof COMPONENT_PRESETS

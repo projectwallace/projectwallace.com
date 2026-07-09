@@ -213,7 +213,7 @@ export type ComponentTokenResult = {
 }
 
 export function extract_design_tokens(document: Document, css: string, component: Component): ComponentTokenResult[] {
-	let selector = COMPONENT_PRESETS[component].join(', ')
+	let selector = COMPONENT_PRESETS[component]
 	let elements = Array.from(document.querySelectorAll(selector)) as Element[]
 	if (elements.length === 0) return []
 
