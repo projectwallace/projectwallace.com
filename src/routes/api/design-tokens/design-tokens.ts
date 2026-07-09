@@ -2,6 +2,7 @@ import { parseHTML } from 'linkedom'
 import { get_css, USER_AGENT } from '../get-css/get-css'
 import { extract_all_design_tokens } from './extract-tokens'
 import { resolve_url } from '../../../lib/resolve-url.js'
+import { extract_root_custom_properties } from '../../../lib/resolve-css-variables.js'
 
 export async function get_design_tokens(url: string) {
 	let resolved_url = resolve_url(url)
@@ -34,5 +35,8 @@ export async function get_design_tokens(url: string) {
 	let { document } = parseHTML(await html_response.text())
 	let css = css_origins.map((origin) => origin.css).join('\n')
 
-	return extract_all_design_tokens(document, css)
+	return {
+		components: extract_all_design_tokens(document, css),
+		root_custom_properties: Object.fromEntries(extract_root_custom_properties(css))
+	}
 }
