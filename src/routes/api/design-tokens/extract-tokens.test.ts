@@ -97,11 +97,12 @@ test('finds button-like elements via the button preset, but not a plain <button>
 	expect(results).toHaveLength(7)
 })
 
-test('excludes elements whose class also says "link", even if it also looks like a button', () => {
+test('excludes elements whose class also says "link", hyphen- or colon-delimited', () => {
 	let document = make_document(`
 		<div class="primary-button">Real button</div>
-		<a class="cta-button nav-link">Link styled as a button</a>
-		<div class="primary-btn footer-link">Also a link</div>
+		<a class="cta-button nav-link">Hyphen-delimited link</a>
+		<div class="primary-btn footer-link">Also a hyphen-delimited link</div>
+		<div class="cta-btn pd:link">Colon-delimited link</div>
 	`)
 	let css = '[class*="-button"], [class*="-btn"] { color: black; }'
 
