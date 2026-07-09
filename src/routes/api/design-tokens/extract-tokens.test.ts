@@ -75,19 +75,26 @@ test('pseudo-element rules are excluded entirely', () => {
 	expect(result.tokens.base).toEqual({ color: 'black' })
 })
 
-test('finds button-like elements via the button/.button/.btn/[role=button] preset', () => {
+test('finds button-like elements via the button preset, but not a plain <button>', () => {
 	let document = make_document(`
-		<button>Native</button>
+		<button>Native, no type attribute</button>
+		<button type="submit">Submit</button>
+		<input type="button" value="Click" />
 		<div class="button">Div button</div>
 		<span class="btn">Span btn</span>
 		<a role="button">Link button</a>
+		<div class="primary-button">Primary</div>
+		<div class="cta-btn">CTA</div>
 		<div>Not a button</div>
 	`)
-	let css = 'button, .button, .btn, [role="button"] { color: black; }'
+	let css = `
+		button[type="submit"], input[type="button"], .button, .btn, [role="button"],
+		[class*="-button"], [class*="-btn"] { color: black; }
+	`
 
 	let results = extract_design_tokens(document, css, 'button')
 
-	expect(results).toHaveLength(4)
+	expect(results).toHaveLength(7)
 })
 
 test('finds heading-like elements via the h1/.h1/.heading-1 preset', () => {

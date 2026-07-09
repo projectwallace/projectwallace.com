@@ -1,5 +1,13 @@
 export const COMPONENT_PRESETS = {
-	button: ['button', '.button', '.btn', '[role="button"]'],
+	button: [
+		'button[type="submit"]',
+		'input[type="button"]',
+		'.button',
+		'.btn',
+		'[role="button"]',
+		'[class*="-button"]',
+		'[class*="-btn"]'
+	],
 	heading: ['h1', '.h1', '.heading-1']
 } as const
 
