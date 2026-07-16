@@ -4,6 +4,7 @@ import type { CSSOrigin } from './css-origins'
 import { SvelteSet } from 'svelte/reactivity'
 import type { CssLocation } from './css-location'
 import { type NodeType } from '$components/use-css-highlight'
+import type { Coverage } from '@projectwallace/css-code-coverage'
 
 type Selectable = {
 	type: string
@@ -23,6 +24,9 @@ class CssState {
 	selected_location = $state<number | undefined>()
 	run_id = $state<string | undefined>()
 	url = $state<string | undefined>()
+	// Populated once a page (e.g. the Overview page or /css-coverage) has coverage
+	// data for the current CSS, e.g. from an uploaded DevTools coverage export.
+	coverage: Coverage[] | undefined = $state(undefined)
 
 	#join_origins() {
 		let blob = ''
