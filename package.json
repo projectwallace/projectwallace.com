@@ -33,7 +33,7 @@
 		"@projectwallace/format-css": "^3.1.5",
 		"@projectwallace/stylelint-plugin": "^0.6.12",
 		"@sveltejs/enhanced-img": "^0.11.0",
-		"@sveltejs/kit": "^2.66.0",
+		"@sveltejs/kit": "^2.70.1",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"color-sorter": "^8.0.0",
 		"diff": "^9.0.0",
@@ -65,7 +65,7 @@
 	},
 	"engines": {
 		"node": ">=24",
-		"pnpm": ">=10"
+		"pnpm": ">=11"
 	},
-	"packageManager": "pnpm@10.30.3"
+	"packageManager": "pnpm@11.17.0"
 }
