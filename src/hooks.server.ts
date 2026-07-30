@@ -42,15 +42,22 @@ export const handle_redirects: Handle = async function ({ event, resolve }) {
 	return response
 }
 
-// SvelteKit always renders the prerendered `<head>` in this fixed order:
+// SvelteKit always renders the head in this fixed internal order:
 // [CSP meta] [modulepreload links] [rendered <svelte:head>, incl. <title>] [stylesheets]
-// That buries the CSP meta and <title> tag behind dozens of low-priority
-// preload hints, which Capo (https://rviscomi.github.io/capo.js/) flags as a
-// performance issue since the browser can't act on them until much later.
-// Hoist both back up to the top of <head>, right after the viewport meta.
+// That buries the CSP meta, <title>, and the real stylesheets behind dozens
+// of low-priority preload hints and meta tags, which Capo
+// (https://rviscomi.github.io/capo.js/) flags as a performance issue since
+// the browser can't act on higher-priority elements until much later.
+//
+// CSP meta, <title>, and the stylesheet <link> tags are all appended by
+// SvelteKit's renderer directly (not part of the Svelte-compiled
+// `<svelte:head>` output), so none of them carry hydration boundary
+// comments and they're safe to relocate as standalone strings.
 const CSP_META = /<meta http-equiv="content-security-policy"[^>]*>/i
 const TITLE_TAG = /<title>[\s\S]*?<\/title>/i
 const VIEWPORT_META = /<meta name="viewport"[^>]*>/i
+const STYLESHEET_LINKS = /(?:<link href="[^"]+"\s+rel="stylesheet"[^>]*>\s*)+/i
+const FONT_PRELOAD = /<link rel="preload" href="\/teko-500[^>]*>/i
 
 function reorder_head(html: string): string {
 	const head_start = html.indexOf('<head')
@@ -60,13 +67,8 @@ function reorder_head(html: string): string {
 		return html
 	}
 
-	const head = html.slice(head_start, head_end)
-	const csp_match = head.match(CSP_META)
-	const title_match = head.match(TITLE_TAG)
-
-	if (!csp_match && !title_match) {
-		return html
-	}
+	let head = html.slice(head_start, head_end)
+	const original_head = head
 
 	const viewport_match = head.match(VIEWPORT_META)
 
@@ -76,13 +78,37 @@ function reorder_head(html: string): string {
 		return html
 	}
 
-	const hoisted = (csp_match?.[0] ?? '') + (title_match?.[0] ?? '')
-	let new_head = head
-	if (csp_match) new_head = new_head.replace(csp_match[0], '')
-	if (title_match) new_head = new_head.replace(title_match[0], '')
-	new_head = new_head.replace(viewport_match[0], viewport_match[0] + hoisted)
+	// Hoist the CSP meta and <title> to right after the viewport meta.
+	const csp_match = head.match(CSP_META)
+	const title_match = head.match(TITLE_TAG)
+	let hoisted_top = ''
+	if (csp_match) {
+		hoisted_top += csp_match[0]
+		head = head.replace(csp_match[0], '')
+	}
+	if (title_match) {
+		hoisted_top += title_match[0]
+		head = head.replace(title_match[0], '')
+	}
+	if (hoisted_top) {
+		head = head.replace(viewport_match[0], viewport_match[0] + hoisted_top)
+	}
 
-	return html.slice(0, head_start) + new_head + html.slice(head_end)
+	// Hoist the stylesheet links to right before the font preload, so they
+	// outrank the modulepreload hints and meta tags SvelteKit places ahead
+	// of them.
+	const stylesheets_match = head.match(STYLESHEET_LINKS)
+	const font_preload_match = head.match(FONT_PRELOAD)
+	if (stylesheets_match && font_preload_match) {
+		head = head.replace(stylesheets_match[0], '')
+		head = head.replace(font_preload_match[0], stylesheets_match[0] + font_preload_match[0])
+	}
+
+	if (head === original_head) {
+		return html
+	}
+
+	return html.slice(0, head_start) + head + html.slice(head_end)
 }
 
 export const handle_head_order: Handle = function ({ event, resolve }) {
