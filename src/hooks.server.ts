@@ -1,6 +1,5 @@
 import { redirect, type Handle } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
-import teko_500_font_url from '$lib/fonts/teko-500.woff2'
 
 const redirects = new Map<string, string>([
 	['/blog/new-libraries-released', '/blog'],
@@ -63,14 +62,8 @@ const STYLESHEET_LINKS = /(?:<link href="[^"]+"\s+rel="stylesheet"[^>]*>\s*)+/i
 // Matches on rel/as rather than a specific filename so this keeps working
 // however Vite ends up hashing the versioned font asset.
 const FONT_PRELOAD = /<link rel="preload" href="[^"]+" as="font"[^>]*>/i
-const FONT_PRELOAD_PLACEHOLDER = '__FONT_TEKO_500__'
 
 function reorder_head(html: string): string {
-	// app.html can't reach into Vite's build output for the versioned font's
-	// hashed filename, so it ships a placeholder href that we swap for the
-	// real (content-hashed, cache-busted) URL here.
-	html = html.replace(FONT_PRELOAD_PLACEHOLDER, teko_500_font_url)
-
 	const head_start = html.indexOf('<head')
 	const head_end = html.indexOf('</head>')
 

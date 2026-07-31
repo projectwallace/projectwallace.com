@@ -6,6 +6,7 @@
 	import SkipLink from '$components/SkipLink.svelte'
 	import '$lib/css/reset.css'
 	import '$lib/css/style.css'
+	import teko_500_font_url from '$lib/fonts/teko-500.woff2'
 	import { set_css_state } from '$lib/css-state.svelte'
 	import type { LayoutProps } from './$types'
 	import ThemeSwitch from '$components/ThemeSwitch.svelte'
@@ -22,6 +23,7 @@
 </script>
 
 <svelte:head>
+	<link rel="preload" href={teko_500_font_url} as="font" type="font/woff2" crossorigin="anonymous" />
 	<meta name="hydration-status" content={hydrated.toString()} />
 	{#if data.allow_analytics}
 		<script
