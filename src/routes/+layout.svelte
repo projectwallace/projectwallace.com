@@ -23,7 +23,6 @@
 </script>
 
 <svelte:head>
-	<link rel="preload" href={teko_500_font_url} as="font" type="font/woff2" crossorigin="anonymous" />
 	<meta name="hydration-status" content={hydrated.toString()} />
 	{#if data.allow_analytics}
 		<script
@@ -33,6 +32,7 @@
 			defer
 		></script>
 	{/if}
+	<link rel="preload" href={teko_500_font_url} as="font" type="font/woff2" crossorigin="anonymous" />
 </svelte:head>
 
 <SkipLink href="#main">Skip to main content</SkipLink>
