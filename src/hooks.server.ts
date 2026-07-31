@@ -42,7 +42,9 @@ export const handle_redirects: Handle = async function ({ event, resolve }) {
 	return response
 }
 
-// SvelteKit always renders the head in this fixed internal order:
+// SvelteKit always renders the head in this fixed internal order (hardcoded
+// in `Head.build()`, see the `@sveltejs/kit@2.70.1` source we're pinned to:
+// https://github.com/sveltejs/kit/blob/%40sveltejs/kit%402.70.1/packages/kit/src/runtime/server/page/render.js#L708-L717):
 // [CSP meta] [modulepreload links] [rendered <svelte:head>, incl. <title>] [stylesheets]
 // That buries the CSP meta, <title>, and the real stylesheets behind dozens
 // of low-priority preload hints and meta tags, which Capo
