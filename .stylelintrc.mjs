@@ -160,6 +160,7 @@ export default {
 	rules: {
 		'projectwallace/no-unknown-custom-properties': null,
 		'projectwallace/no-unused-custom-properties': null,
+		'projectwallace/no-duplicate-custom-properties': null,
 		'projectwallace/no-property-shorthand': [
 			true,
 			{
