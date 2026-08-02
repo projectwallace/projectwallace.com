@@ -33,7 +33,7 @@
 		"@projectwallace/format-css": "^3.1.6",
 		"@projectwallace/stylelint-plugin": "^0.6.15",
 		"@sveltejs/enhanced-img": "^0.11.0",
-		"@sveltejs/kit": "^2.70.2",
+		"@sveltejs/kit": "^2.70.1",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",
 		"color-sorter": "^8.0.0",
 		"diff": "^9.0.0",
@@ -50,17 +50,17 @@
 		"vite": "8.0.16"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.62.1",
+		"@playwright/test": "^1.62.0",
 		"@projectwallace/stylelint-plugin": "^0.6.0",
 		"@sveltejs/adapter-netlify": "^6.0.4",
 		"@types/node": "^25.9.5",
 		"oxfmt": "0.55.0",
-		"oxlint": "^1.76.0",
+		"oxlint": "^1.75.0",
 		"oxlint-tsgolint": "^0.23.0",
 		"postcss-html": "^1.8.1",
 		"stylelint": "~17.13.0",
 		"stylelint-config-standard": "~40.0.0",
-		"svelte-check": "^4.7.4",
+		"svelte-check": "^4.7.3",
 		"vitest": "^4.1.10"
 	},
 	"engines": {
