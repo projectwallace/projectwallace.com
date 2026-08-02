@@ -19,5 +19,7 @@ overrides:
   runed: $runed
   sharp: 0.35.0
   vite: $vite
+  # 1.33.0 breaks the build on ::search-text:current (see style.css); pin until fixed upstream
+  lightningcss: 1.32.0
   # svelte-check still declares ^4.0.1, but 4.0.3 lost provenance; v5 has it restored
   chokidar: 5.0.0
