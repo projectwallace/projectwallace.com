@@ -2,13 +2,11 @@ allowBuilds:
   esbuild: true
   sharp: true
 
+blockExoticSubdeps: true
+minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
-  - cookie@0.7.0
-  - js-yaml@4.3.0
-  - fast-uri@3.1.3 || 3.1.4
-  - sharp@0.35.0
-  - postcss@8.5.18
-  - '@sveltejs/kit@2.69.1'
+  - '@projectwallace/*'
+trustPolicy: no-downgrade
 
 overrides:
   # Pinned versions to make sure we always only bundle 1 version of each
@@ -21,10 +19,7 @@ overrides:
   runed: $runed
   sharp: 0.35.0
   vite: $vite
-
-settings:
-  blockExoticSubdeps: true
-  minimumReleaseAge: 10080
-  minimumReleaseAgeExclude:
-    - '@projectwallace/*'
-  trustPolicy: no-downgrade
+  # 1.33.0 breaks the build on ::search-text:current (see style.css); pin until fixed upstream
+  lightningcss: 1.32.0
+  # svelte-check still declares ^4.0.1, but 4.0.3 lost provenance; v5 has it restored
+  chokidar: 5.0.0
