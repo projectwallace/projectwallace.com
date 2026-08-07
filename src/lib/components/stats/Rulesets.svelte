@@ -117,107 +117,110 @@
 	{/if}
 {/snippet}
 
-<Panel id="rulesets">
-	<Header>
-		<Heading element="h2">Rulesets</Heading>
-		<DefinitionList
-			stats={[
-				{ name: 'Total', value: format_number(rules.total) },
-				{ name: 'Empty', value: format_number(rules.empty.total) }
-			]}
-		/>
-	</Header>
-
-	<div class="ui-group">
-		<FilterGroup>
-			<legend class="sr-only">Show rulesets</legend>
-			<FilterOption bind:group={display} name="rulesets-display" value="sizes">Ruleset sizes</FilterOption>
-			<FilterOption bind:group={display} name="rulesets-display" value="selectors">Selectors per ruleset</FilterOption>
-			<FilterOption bind:group={display} name="rulesets-display" value="declarations">
-				Declarations per ruleset
-			</FilterOption>
-		</FilterGroup>
-
-		{#if display === 'sizes'}
-			{@render ruleset_stats({
-				label: 'Sizes per ruleset',
-				node_type: 'rule',
-				size_set: sizes,
-				node_name: 'Rule'
-			})}
-		{/if}
-
-		{#if display === 'selectors'}
-			{@render ruleset_stats({
-				label: 'Selectors per ruleset',
-				node_type: 'selectorList',
-				size_set: rule_selectors,
-				node_name: 'Selector'
-			})}
-		{/if}
-
-		{#if display === 'declarations'}
-			{@render ruleset_stats({
-				label: 'Declarations per ruleset',
-				node_type: 'declaration',
-				size_set: rule_declarations,
-				node_name: 'Declaration'
-			})}
-		{/if}
-	</div>
-</Panel>
-
-{#if nesting.max !== undefined && nesting.max > 0}
-	<Panel id="nesting">
+<div class="report-section">
+	<Panel id="rulesets">
 		<Header>
-			<Heading element="h3">Nesting</Heading>
+			<Heading element="h2">Rulesets</Heading>
+			<DefinitionList
+				stats={[
+					{ name: 'Total', value: format_number(rules.total) },
+					{ name: 'Empty', value: format_number(rules.empty.total) }
+				]}
+			/>
 		</Header>
 
 		<div class="ui-group">
 			<FilterGroup>
-				<legend class="sr-only">Show nesting</legend>
-				<FilterOption bind:group={nesting_display} name="nesting-display" value="atrules">Atrules</FilterOption>
-				<FilterOption bind:group={nesting_display} name="nesting-display" value="rules">Rules</FilterOption>
-				<FilterOption bind:group={nesting_display} name="nesting-display" value="selectors">Selectors</FilterOption>
-				<FilterOption bind:group={nesting_display} name="nesting-display" value="declarations">
-					Declarations
+				<legend class="sr-only">Show rulesets</legend>
+				<FilterOption bind:group={display} name="rulesets-display" value="sizes">Ruleset sizes</FilterOption>
+				<FilterOption bind:group={display} name="rulesets-display" value="selectors">Selectors per ruleset</FilterOption
+				>
+				<FilterOption bind:group={display} name="rulesets-display" value="declarations">
+					Declarations per ruleset
 				</FilterOption>
 			</FilterGroup>
 
-			{#if nesting_display === 'atrules'}
-				{@render nesting_stats({
-					label: 'Atrule nesting depth',
-					node_type: 'atrule',
-					nesting: atrules.nesting
-				})}
-			{/if}
-
-			{#if nesting_display === 'rules'}
-				{@render nesting_stats({
-					label: 'Rule nesting depth',
+			{#if display === 'sizes'}
+				{@render ruleset_stats({
+					label: 'Sizes per ruleset',
 					node_type: 'rule',
-					nesting: rules.nesting
+					size_set: sizes,
+					node_name: 'Rule'
 				})}
 			{/if}
 
-			{#if nesting_display === 'selectors'}
-				{@render nesting_stats({
-					label: 'Selector nesting depth',
-					node_type: 'selector',
-					nesting: selectors.nesting
+			{#if display === 'selectors'}
+				{@render ruleset_stats({
+					label: 'Selectors per ruleset',
+					node_type: 'selectorList',
+					size_set: rule_selectors,
+					node_name: 'Selector'
 				})}
 			{/if}
 
-			{#if nesting_display === 'declarations'}
-				{@render nesting_stats({
-					label: 'Declaration nesting depth',
+			{#if display === 'declarations'}
+				{@render ruleset_stats({
+					label: 'Declarations per ruleset',
 					node_type: 'declaration',
-					nesting: declarations.nesting
+					size_set: rule_declarations,
+					node_name: 'Declaration'
 				})}
 			{/if}
 		</div>
 	</Panel>
-{/if}
+
+	{#if nesting.max !== undefined && nesting.max > 0}
+		<Panel id="nesting">
+			<Header>
+				<Heading element="h3">Nesting</Heading>
+			</Header>
+
+			<div class="ui-group">
+				<FilterGroup>
+					<legend class="sr-only">Show nesting</legend>
+					<FilterOption bind:group={nesting_display} name="nesting-display" value="atrules">Atrules</FilterOption>
+					<FilterOption bind:group={nesting_display} name="nesting-display" value="rules">Rules</FilterOption>
+					<FilterOption bind:group={nesting_display} name="nesting-display" value="selectors">Selectors</FilterOption>
+					<FilterOption bind:group={nesting_display} name="nesting-display" value="declarations">
+						Declarations
+					</FilterOption>
+				</FilterGroup>
+
+				{#if nesting_display === 'atrules'}
+					{@render nesting_stats({
+						label: 'Atrule nesting depth',
+						node_type: 'atrule',
+						nesting: atrules.nesting
+					})}
+				{/if}
+
+				{#if nesting_display === 'rules'}
+					{@render nesting_stats({
+						label: 'Rule nesting depth',
+						node_type: 'rule',
+						nesting: rules.nesting
+					})}
+				{/if}
+
+				{#if nesting_display === 'selectors'}
+					{@render nesting_stats({
+						label: 'Selector nesting depth',
+						node_type: 'selector',
+						nesting: selectors.nesting
+					})}
+				{/if}
+
+				{#if nesting_display === 'declarations'}
+					{@render nesting_stats({
+						label: 'Declaration nesting depth',
+						node_type: 'declaration',
+						nesting: declarations.nesting
+					})}
+				{/if}
+			</div>
+		</Panel>
+	{/if}
+</div>
 
 <style>
 	.ui-group {
