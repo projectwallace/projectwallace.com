@@ -8,7 +8,7 @@ overrides:
   '@projectwallace/css-analyzer': ^9.9.3
   '@projectwallace/css-parser': ^0.18.2
   '@projectwallace/format-css': ^3.1.6
-  color-sorter: ^8.0.0
+  color-sorter: ^8.0.2
   esbuild@>=0.17.0 <0.28.1: '>=0.28.1'
   runed: ^0.37.1
   sharp: 0.35.0
@@ -66,8 +66,8 @@ importers:
         specifier: ^7.1.2
         version: 7.2.0(svelte@5.56.8)(vite@8.0.16(@types/node@25.9.5)(esbuild@0.28.1))
       color-sorter:
-        specifier: ^8.0.0
-        version: 8.0.0
+        specifier: ^8.0.2
+        version: 8.0.2
       diff:
         specifier: ^9.0.0
         version: 9.0.0
@@ -1231,15 +1231,12 @@ packages:
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
 
-  color-sorter@8.0.0:
-    resolution: {integrity: sha512-r/z8JVApp28hQ0zrFfzKFlKC+hplWg9sEbu0lYXivsaiqYU/HXri4wIvs9zCf09E0h5wUM9Tith580J9iUcsbQ==}
+  color-sorter@8.0.2:
+    resolution: {integrity: sha512-6PVyJu6ufP/Buv4I5NhSjKzH0mWe0wJjPOQWIM98lC+XPtNK9NWWoP0DqQxVOTjLI2gK5lceYDhjnugo3byUZA==}
     engines: {node: '>=18.0.0'}
 
   colord@2.9.3:
     resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
-
-  colorjs.io@0.6.1:
-    resolution: {integrity: sha512-8lyR2wHzuIykCpqHKgluGsqQi5iDm3/a2IgP2GBZrasn2sBRkE4NOGsglZxWLs/jZQoNkmA/KM/8NV16rLUdBg==}
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
@@ -2714,7 +2711,7 @@ snapshots:
       '@projectwallace/css-analyzer': 9.9.3
       '@projectwallace/css-parser': 0.18.2
       '@projectwallace/css-time-sort': 3.1.1
-      color-sorter: 8.0.0
+      color-sorter: 8.0.2
 
   '@projectwallace/css-layer-tree@2.1.5':
     dependencies:
@@ -2989,13 +2986,11 @@ snapshots:
 
   color-name@1.1.4: {}
 
-  color-sorter@8.0.0:
+  color-sorter@8.0.2:
     dependencies:
-      colorjs.io: 0.6.1
+      '@colordx/core': 5.5.0
 
   colord@2.9.3: {}
-
-  colorjs.io@0.6.1: {}
 
   convert-source-map@2.0.0: {}
 
