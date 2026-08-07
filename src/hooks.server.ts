@@ -59,7 +59,9 @@ const CSP_META = /<meta http-equiv="content-security-policy"[^>]*>/i
 const TITLE_TAG = /<title>[\s\S]*?<\/title>/i
 const VIEWPORT_META = /<meta name="viewport"[^>]*>/i
 const STYLESHEET_LINKS = /(?:<link href="[^"]+"\s+rel="stylesheet"[^>]*>\s*)+/i
-const FONT_PRELOAD = /<link rel="preload" href="\/teko-500[^>]*>/i
+// Matches on rel/as rather than a specific filename so this keeps working
+// however Vite ends up hashing the versioned font asset.
+const FONT_PRELOAD = /<link rel="preload" href="[^"]+" as="font"[^>]*>/i
 
 function reorder_head(html: string): string {
 	const head_start = html.indexOf('<head')

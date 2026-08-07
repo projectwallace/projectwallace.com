@@ -6,6 +6,7 @@
 	import SkipLink from '$components/SkipLink.svelte'
 	import '$lib/css/reset.css'
 	import '$lib/css/style.css'
+	import teko_500_font_url from '$lib/fonts/teko-500.woff2'
 	import { set_css_state } from '$lib/css-state.svelte'
 	import type { LayoutProps } from './$types'
 	import ThemeSwitch from '$components/ThemeSwitch.svelte'
@@ -31,6 +32,7 @@
 			defer
 		></script>
 	{/if}
+	<link rel="preload" href={teko_500_font_url} as="font" type="font/woff2" crossorigin="anonymous" />
 </svelte:head>
 
 <SkipLink href="#main">Skip to main content</SkipLink>
