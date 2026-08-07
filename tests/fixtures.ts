@@ -14,7 +14,10 @@ export const test = base_test.extend<Fixtures>({
 			await page.coverage.startCSSCoverage()
 			await use()
 			// stop after test
-			let coverage = await page.coverage.stopCSSCoverage()
+			// Chromium's coverage collector also reports non-stylesheet resources
+			// loaded via <link rel="preload">, e.g. our self-hosted font — filter
+			// down to actual stylesheets so their raw bytes don't get scored as CSS.
+			let coverage = (await page.coverage.stopCSSCoverage()).filter((entry) => entry.url.endsWith('.css'))
 			// build unique human-readable file name
 			// titlePath gives [file, describe, test]
 			let parts = testInfo.titlePath.map(
