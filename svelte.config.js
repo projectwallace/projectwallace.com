@@ -16,6 +16,10 @@ const config = {
 		adapter: adapter({
 			// We don't generate enough traffic to keep edge workers ready, so disable edge to avoid cold-starts
 			// Also cannot run on edge because stylelint requires NodeJS-specific APIs
+			// Side effect: also rules out HTTP 103 Early Hints, since that needs a layer that can send
+			// an informational response before the final one, which Netlify Functions can't do (edge might,
+			// but Netlify has no documented support for it either way, unlike e.g. Cloudflare). SvelteKit
+			// itself has no early-hints API, only an auto Link:rel=preload header on the final response.
 			edge: false,
 			// We split the bundles to not impact other routes with Stylelint's slow start
 			split: true
