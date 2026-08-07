@@ -54,8 +54,11 @@ test.describe('switching to a specific theme', () => {
 		await page.goto('/', { waitUntil: 'domcontentloaded' })
 		await expect(page).toBeHydrated()
 		await page.getByRole('button', { name: 'Choose website theme' }).click()
-		await page.getByRole('radio', { name: 'Dark' }).click()
-		await page.waitForRequest('/api/theme')
+		let [response] = await Promise.all([
+			page.waitForResponse('/api/theme'),
+			page.getByRole('radio', { name: 'Dark' }).click()
+		])
+		expect(response.ok()).toBe(true)
 	})
 
 	test('sets the theme to dark', async ({ page }) => {
