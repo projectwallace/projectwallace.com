@@ -20,6 +20,12 @@ importers:
 
   .:
     dependencies:
+      '@csstools/css-syntax-patches-for-csstree':
+        specifier: ^1.1.4
+        version: 1.1.7(css-tree@3.2.1)
+      '@csstools/css-tokenizer':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@melt-ui/pp':
         specifier: ^0.3.2
         version: 0.3.2(@melt-ui/svelte@0.86.6(svelte@5.56.8))(svelte@5.56.8)
@@ -68,9 +74,15 @@ importers:
       color-sorter:
         specifier: ^8.0.2
         version: 8.0.2
+      css-tree:
+        specifier: ^3.2.1
+        version: 3.2.1
       diff:
         specifier: ^9.0.0
         version: 9.0.0
+      fastest-levenshtein:
+        specifier: ^1.0.16
+        version: 1.0.16
       github-slugger:
         specifier: ^2.0.0
         version: 2.0.0
@@ -86,6 +98,9 @@ importers:
       paneforge:
         specifier: ^1.0.2
         version: 1.0.2(@sveltejs/kit@2.70.1(@sveltejs/vite-plugin-svelte@7.2.0(svelte@5.56.8)(vite@8.0.16(@types/node@25.9.5)(esbuild@0.28.1)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.0.16(@types/node@25.9.5)(esbuild@0.28.1)))(svelte@5.56.8)
+      postcss:
+        specifier: ^8.5.15
+        version: 8.5.23
       rehype-autolink-headings:
         specifier: ^7.1.0
         version: 7.1.0
@@ -95,6 +110,9 @@ importers:
       runed:
         specifier: ^0.37.1
         version: 0.37.1(@sveltejs/kit@2.70.1(@sveltejs/vite-plugin-svelte@7.2.0(svelte@5.56.8)(vite@8.0.16(@types/node@25.9.5)(esbuild@0.28.1)))(svelte@5.56.8)(typescript@6.0.3)(vite@8.0.16(@types/node@25.9.5)(esbuild@0.28.1)))(svelte@5.56.8)
+      stylelint:
+        specifier: ~17.13.0
+        version: 17.13.0(supports-color@10.2.2)(typescript@6.0.3)
       svelte:
         specifier: ^5.56.8
         version: 5.56.8
@@ -126,9 +144,6 @@ importers:
       postcss-html:
         specifier: ^1.8.1
         version: 1.8.1
-      stylelint:
-        specifier: ~17.13.0
-        version: 17.13.0(supports-color@10.2.2)(typescript@6.0.3)
       stylelint-config-standard:
         specifier: ~40.0.0
         version: 40.0.0(stylelint@17.13.0(supports-color@10.2.2)(typescript@6.0.3))

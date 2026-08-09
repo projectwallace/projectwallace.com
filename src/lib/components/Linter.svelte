@@ -13,6 +13,11 @@
 	import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
 	import PanedLayout from './PanedLayout.svelte'
 	import Pane from './Pane.svelte'
+	import { get_css } from '$lib/get-css'
+	import { format } from '@projectwallace/format-css'
+	import stylelintPlugin from '@projectwallace/stylelint-plugin'
+	import { lint } from '$lib/stylelint-browser/lint'
+	import { PRESET_MAP } from '$lib/stylelint-browser/presets'
 
 	let {
 		elements: { root, item }
@@ -28,7 +33,6 @@
 		}
 		duration: number
 		css?: string
-		rules?: Record<string, unknown>
 	}
 
 	type Props = {
@@ -68,21 +72,41 @@
 		status = 'loading'
 		onloading?.(true)
 		try {
-			const body = url ? { url, preset, prettify } : { css, preset }
-			const response = await fetch('/api/lint-css', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(body)
-			})
-			if (response.ok) {
-				lint_result = await response.json()
-				if (lint_result?.css) {
-					api_css = lint_result.css
+			let text: string
+			if (url) {
+				const origins = await get_css(url)
+				text = origins.map((o) => o.css).join('\n')
+				if (prettify) {
+					text = format(text)
 				}
-				status = lint_result?.result.parse_error ? 'lint_error' : 'success'
+				api_css = text
 			} else {
-				status = 'error'
+				text = css
 			}
+
+			const start = performance.now()
+			const linter_result = await lint([{ id: url ?? 'input.css', code: text }], {
+				plugins: stylelintPlugin,
+				rules: PRESET_MAP[preset]
+			})
+			const duration = performance.now() - start
+
+			const file = linter_result.results.at(0)
+			if (!file) throw new Error('No lint result')
+
+			const lint_warnings = file.warnings.filter((w) => w.rule !== 'CssSyntaxError')
+			const parse_error = file.warnings.find((w) => w.rule === 'CssSyntaxError')
+
+			lint_result = {
+				result: {
+					errored: file.invalidOptionWarnings.length > 0 || lint_warnings.some((w) => w.severity === 'error'),
+					parse_error,
+					warnings: lint_warnings.toSorted((a, b) => (a.line === b.line ? a.column - b.column : a.line - b.line))
+				},
+				duration: parseFloat(duration.toFixed(1)),
+				css: url ? text : undefined
+			}
+			status = lint_result.result.parse_error ? 'lint_error' : 'success'
 		} catch {
 			status = 'error'
 		} finally {
