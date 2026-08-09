@@ -17,6 +17,9 @@ import jsonFormatter from 'stylelint/lib/formatters/jsonFormatter.mjs'
 // `lib/utils/*` is publicly exported by stylelint, so this one needs no alias.
 import getLexer from 'stylelint/lib/utils/getLexer.mjs'
 import type { Config, LinterResult, PostcssResult, Rule } from 'stylelint'
+// Pins package.json deps that only stylelint's own internals above import by
+// name - see that file's header comment for why this needs to exist at all.
+import './pinned-transitive-deps.js'
 
 export type LintSource = {
 	/** Cosmetic label only (becomes `result.source`); a file path or URL both work. */

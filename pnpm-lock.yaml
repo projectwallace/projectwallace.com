@@ -116,9 +116,6 @@ importers:
       svelte:
         specifier: ^5.56.8
         version: 5.56.8
-      table:
-        specifier: ^6.9.0
-        version: 6.9.0
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
