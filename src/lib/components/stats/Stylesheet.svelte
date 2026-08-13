@@ -1,13 +1,13 @@
 <script lang="ts">
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import { format_number } from '$lib/format-number'
-	import { format_filesize } from '$lib/format-filesize'
-	import BarChart from '$lib/components/stats/BarChart.svelte'
-	import { Panel, Header } from '$lib/components/Panel/index'
-	import Heading from '$lib/components/Heading.svelte'
+	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import { format_number } from '#lib/format-number.js'
+	import { format_filesize } from '#lib/format-filesize.js'
+	import BarChart from '#lib/components/stats/BarChart.svelte'
+	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import Heading from '#lib/components/Heading.svelte'
 	import DefinitionList from './DefinitionList.svelte'
 	import Empty from '../Empty.svelte'
-	import { StatsList, Item } from '$lib/components/stats-list/index'
+	import { StatsList, Item } from '#lib/components/stats-list/index.js'
 
 	let { result = Object.create(null) }: { result: CssAnalysis } = $props()
 

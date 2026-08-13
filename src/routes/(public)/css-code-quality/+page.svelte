@@ -1,13 +1,13 @@
 <script lang="ts">
-	import Container from '$lib/components/Container.svelte'
-	import Form from '$components/css-form/Form.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import Seo from '$lib/components/Seo.svelte'
-	import CodeQuality from '$lib/components/code-quality/CodeQuality.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Form from '#lib/components/css-form/Form.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import CodeQuality from '#lib/components/code-quality/CodeQuality.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import Hero from '$components/Hero.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import Hero from '#lib/components/Hero.svelte'
 	let { data } = $props()
 
 	type Status = 'initial' | 'fetching' | 'analyzing' | 'done' | 'error'

@@ -4,17 +4,17 @@ excerpt: "'Only' 20 releases on the website this month but also lots of releases
 ---
 
 <script>
-	import BlogImage from '$components/BlogImage.svelte'
-	import counterscale from '$lib/img/blog/2025-06-30-june-2025-release-notes/counterscale.png?enhanced'
-  import counterscale_full from '$lib/img/blog/2025-06-30-june-2025-release-notes/counterscale.png'
-	import resets from '$lib/img/blog/2025-06-30-june-2025-release-notes/resets.png?enhanced'
-  import resets_full from '$lib/img/blog/2025-06-30-june-2025-release-notes/resets.png'
-	import nesting from '$lib/img/blog/2025-06-30-june-2025-release-notes/nesting.png?enhanced'
-  import nesting_full from '$lib/img/blog/2025-06-30-june-2025-release-notes/nesting.png'
-	import atrules from '$lib/img/blog/2025-06-30-june-2025-release-notes/atrules.png?enhanced'
-  import atrules_full from '$lib/img/blog/2025-06-30-june-2025-release-notes/atrules.png'
-	import complexity from '$lib/img/blog/2025-06-30-june-2025-release-notes/complexity.png?enhanced'
-  import complexity_full from '$lib/img/blog/2025-06-30-june-2025-release-notes/complexity.png'
+	import BlogImage from '#lib/components/BlogImage.svelte'
+	import counterscale from '#lib/img/blog/2025-06-30-june-2025-release-notes/counterscale.png?enhanced'
+  import counterscale_full from '#lib/img/blog/2025-06-30-june-2025-release-notes/counterscale.png'
+	import resets from '#lib/img/blog/2025-06-30-june-2025-release-notes/resets.png?enhanced'
+  import resets_full from '#lib/img/blog/2025-06-30-june-2025-release-notes/resets.png'
+	import nesting from '#lib/img/blog/2025-06-30-june-2025-release-notes/nesting.png?enhanced'
+  import nesting_full from '#lib/img/blog/2025-06-30-june-2025-release-notes/nesting.png'
+	import atrules from '#lib/img/blog/2025-06-30-june-2025-release-notes/atrules.png?enhanced'
+  import atrules_full from '#lib/img/blog/2025-06-30-june-2025-release-notes/atrules.png'
+	import complexity from '#lib/img/blog/2025-06-30-june-2025-release-notes/complexity.png?enhanced'
+  import complexity_full from '#lib/img/blog/2025-06-30-june-2025-release-notes/complexity.png'
 </script>
 
 'Only' 20 releases on the website this month but also lots of releases outside in our open source projects. Strap yourself in for a big list!

@@ -1,4 +1,4 @@
-import { error, json } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 import stylelint, { type Config } from 'stylelint'
 import recommendedConfig from '@projectwallace/stylelint-plugin/configs/recommended'
 import performanceConfig from '@projectwallace/stylelint-plugin/configs/performance'
@@ -10,7 +10,7 @@ import stylelintPlugin from '@projectwallace/stylelint-plugin'
 import { get_css } from '../get-css/get-css'
 import { format } from '@projectwallace/format-css'
 import type { RequestHandler } from './$types'
-import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
+import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.js'
 
 export type { Preset }
 
@@ -92,7 +92,7 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	const duration = performance.now() - start
 	setHeaders({ 'Server-Timing': `lint;dur=${duration.toFixed(1)}` })
 
-	return json({
+	return Response.json({
 		result: return_data,
 		duration: parseFloat(duration.toFixed(1)),
 		css: url_css

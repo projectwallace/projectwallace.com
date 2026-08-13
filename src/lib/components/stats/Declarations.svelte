@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { format_number } from '$lib/format-number'
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import { Panel } from '$lib/components/Panel/index'
-	import Heading from '$lib/components/Heading.svelte'
-	import { StatsList, Item } from '$lib/components/stats-list/index'
+	import { format_number } from '#lib/format-number.js'
+	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import { Panel } from '#lib/components/Panel/index.js'
+	import Heading from '#lib/components/Heading.svelte'
+	import { StatsList, Item } from '#lib/components/stats-list/index.js'
 
 	interface Props {
 		declarations?: CssAnalysis['declarations']

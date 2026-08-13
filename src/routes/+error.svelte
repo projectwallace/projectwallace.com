@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import Container from '$lib/components/Container.svelte'
-	import Hero from '$lib/components/Hero.svelte'
-	import { dev } from '$app/environment'
+	import Container from '#lib/components/Container.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import { dev } from '$app/env'
 </script>
 
 <svelte:head>

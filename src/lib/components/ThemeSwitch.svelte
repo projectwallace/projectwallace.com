@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { on } from 'svelte/events'
-	import type { Theme } from '$lib/theme'
-	import Icon from '$components/Icon.svelte'
+	import type { Theme } from '#lib/theme.js'
+	import Icon from '#lib/components/Icon.svelte'
 	import ThemePreview from './ThemePreview.svelte'
 	import { MediaQuery } from 'svelte/reactivity'
 

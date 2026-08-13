@@ -8,7 +8,8 @@ minimumReleaseAgeExclude:
   - '@projectwallace/*'
   - color-sorter
   - cookie@0.7.0
-  - '@sveltejs/kit@2.70.2'
+  - '@sveltejs/*'
+  - 'svelte-check'
   - nanoid@3.3.18
 trustPolicy: no-downgrade
 

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { pretty_json } from '$lib/pretty-json'
-	import PrettyJson from '$components/PrettyJson.svelte'
-	import CopyButton from '$components/CopyButton.svelte'
-	import Button from '$components/Button.svelte'
+	import { pretty_json } from '#lib/pretty-json.js'
+	import PrettyJson from '#lib/components/PrettyJson.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
+	import Button from '#lib/components/Button.svelte'
 
 	let { json }: { json: unknown } = $props()
 

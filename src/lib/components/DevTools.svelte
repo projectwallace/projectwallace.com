@@ -2,10 +2,10 @@
 	import { type Snippet } from 'svelte'
 	import { innerHeight } from 'svelte/reactivity/window'
 	import { createTabs, melt } from '@melt-ui/svelte'
-	import Icon from '$lib/components/Icon.svelte'
-	import { resize } from '$lib/components/use-resize'
-	import type { DevtoolsTab, TabId } from '$components/devtools/tabs'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import Icon from '#lib/components/Icon.svelte'
+	import { resize } from '#lib/components/use-resize.js'
+	import type { DevtoolsTab, TabId } from '#lib/components/devtools/tabs.js'
+	import { get_css_state } from '#lib/css-state.svelte.js'
 
 	let css_state = get_css_state()
 	let selected_item = $derived(css_state.selected_item)

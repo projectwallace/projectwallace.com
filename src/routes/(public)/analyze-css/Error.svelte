@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { CssAnalysisError } from '$lib/analyze-css.js'
-	import Markdown from '$components/Markdown.svelte'
+	import { CssAnalysisError } from '#lib/analyze-css.js'
+	import Markdown from '#lib/components/Markdown.svelte'
 
 	interface Props {
 		error: CssAnalysisError | Error | unknown | undefined

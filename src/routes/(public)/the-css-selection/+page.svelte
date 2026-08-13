@@ -1,7 +1,7 @@
 <script>
-	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
-	import SEO from '$components/Seo.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Heading from '#lib/components/Heading.svelte'
+	import SEO from '#lib/components/Seo.svelte'
 	import Image from './2026/og-image-the-css-selection-2026.png'
 </script>
 

@@ -19,7 +19,7 @@ The basic idea is that you give us your CSS and we will come up with a code qual
 **So here it is: Project Wallace's Code Quality Analyzer.**
 
 <script>
-	import screenshot from '$lib/img/blog/2022-01-29-css-code-quality-analysis/screenshot.png'
+	import screenshot from '#lib/img/blog/2022-01-29-css-code-quality-analysis/screenshot.png'
 </script>
 <img src={screenshot} alt="Example CSS Code Quality output from https://www.projectwallace.com/css-code-quality" loading="lazy" width="904" height="1282">
 

@@ -4,13 +4,13 @@ excerpt: It has been quite the month with 40+ releases. Many changes happened in
 ---
 
 <script>
-  import BlogImage from '$components/BlogImage.svelte'
-  import coverage from '$lib/img/blog/2025-01-31-january-2025-release-notes/css-coverage.png?enhanced'
-  import coverage_full from '$lib/img/blog/2025-01-31-january-2025-release-notes/css-coverage.png'
-  import ast from '$lib/img/blog/2025-01-31-january-2025-release-notes/ast-explorer.png?enhanced'
-  import ast_full from '$lib/img/blog/2025-01-31-january-2025-release-notes/ast-explorer.png'
-  import list_sort from '$lib/img/blog/2025-01-31-january-2025-release-notes/list-sorting.png?enhanced'
-  import list_sort_full from '$lib/img/blog/2025-01-31-january-2025-release-notes/list-sorting.png'
+  import BlogImage from '#lib/components/BlogImage.svelte'
+  import coverage from '#lib/img/blog/2025-01-31-january-2025-release-notes/css-coverage.png?enhanced'
+  import coverage_full from '#lib/img/blog/2025-01-31-january-2025-release-notes/css-coverage.png'
+  import ast from '#lib/img/blog/2025-01-31-january-2025-release-notes/ast-explorer.png?enhanced'
+  import ast_full from '#lib/img/blog/2025-01-31-january-2025-release-notes/ast-explorer.png'
+  import list_sort from '#lib/img/blog/2025-01-31-january-2025-release-notes/list-sorting.png?enhanced'
+  import list_sort_full from '#lib/img/blog/2025-01-31-january-2025-release-notes/list-sorting.png'
 </script>
 
 January has been a very busy month with over 40+ PR's merged to production and two new major features added. Here are the most important changes for you.

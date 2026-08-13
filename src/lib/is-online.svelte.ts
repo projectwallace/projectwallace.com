@@ -1,5 +1,5 @@
 import { on } from 'svelte/events'
-import { browser } from '$app/environment'
+import { browser } from '$app/env'
 
 export class IsOnline {
 	private is_online: boolean

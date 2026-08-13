@@ -4,14 +4,14 @@
 	import { page } from '$app/state'
 	import { parse_selector_list } from '@projectwallace/css-parser'
 	import { calculateSpecificity, type Specificity } from '@projectwallace/css-analyzer'
-	import Seo from '$components/Seo.svelte'
-	import Panel from '$components/Panel.svelte'
-	import Label from '$components/Label.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import FormGroup from '$components/FormGroup.svelte'
-	import Container from '$components/Container.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Panel from '#lib/components/Panel.svelte'
+	import Label from '#lib/components/Label.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import FormGroup from '#lib/components/FormGroup.svelte'
+	import Container from '#lib/components/Container.svelte'
 	import SpecificityItem from './SpecificityItem.svelte'
-	import Hero from '$components/Hero.svelte'
+	import Hero from '#lib/components/Hero.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
 
@@ -57,7 +57,7 @@
 	 * the URL.
 	 */
 	async function update_url(value: string) {
-		let new_params = new URLSearchParams(page.url.searchParams)
+		let new_params = new URLSearchParams(page.url.searchParams.toString())
 		if (value.trim() === '') {
 			new_params.delete(PARAM)
 		} else {
@@ -65,8 +65,7 @@
 		}
 		await goto(`?${new_params.toString()}`, {
 			replaceState: true,
-			keepFocus: true,
-			noScroll: true
+			reset: false
 		})
 	}
 
@@ -78,7 +77,7 @@
 	}
 
 	onMount(async () => {
-		let param_input = new URLSearchParams(page.url.searchParams).get(PARAM)
+		let param_input = new URLSearchParams(page.url.searchParams.toString()).get(PARAM)
 
 		if (param_input) {
 			input_ref.value = param_input

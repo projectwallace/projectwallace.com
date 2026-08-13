@@ -1,16 +1,16 @@
 <script lang="ts">
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import type { CssLocation } from '$lib/css-location'
-	import { format_number } from '$lib/format-number'
-	import ScatterPlot from '$components/stats/ScatterPlot.svelte'
-	import BarChart from '$components/stats/BarChart.svelte'
-	import { Panel, Header } from '$components/Panel/index'
-	import Heading from '$components/Heading.svelte'
-	import Empty from '$components/Empty.svelte'
-	import FilterGroup from '$components/FilterGroup.svelte'
-	import FilterOption from '$components/FilterOption.svelte'
+	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import type { CssLocation } from '#lib/css-location.js'
+	import { format_number } from '#lib/format-number.js'
+	import ScatterPlot from '#lib/components/stats/ScatterPlot.svelte'
+	import BarChart from '#lib/components/stats/BarChart.svelte'
+	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import Heading from '#lib/components/Heading.svelte'
+	import Empty from '#lib/components/Empty.svelte'
+	import FilterGroup from '#lib/components/FilterGroup.svelte'
+	import FilterOption from '#lib/components/FilterOption.svelte'
 	import DefinitionList from './DefinitionList.svelte'
-	import type { NodeType } from '$components/use-css-highlight'
+	import type { NodeType } from '#lib/components/use-css-highlight.js'
 
 	type Props = Pick<CssAnalysis, 'rules' | 'atrules' | 'selectors' | 'declarations'>
 

@@ -5,12 +5,12 @@
 	import { create_keyboard_list, type OnChange } from './use-keyboard-list.svelte'
 	import type { Warning } from 'stylelint'
 	import Button from './Button.svelte'
-	import CopyButton from '$components/CopyButton.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
-	import { browser } from '$app/environment'
-	import { format_number } from '$lib/format-number'
-	import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
+	import { browser } from '$app/env'
+	import { format_number } from '#lib/format-number.js'
+	import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.js'
 	import PanedLayout from './PanedLayout.svelte'
 	import Pane from './Pane.svelte'
 
@@ -38,8 +38,7 @@
 		onloading?: (loading: boolean) => void
 	}
 
-	type Status =
-		// Nothing happened yet
+	type Status = // Nothing happened yet
 		| 'idle'
 		// Fetching CSS and lint result from server
 		| 'loading'
@@ -53,6 +52,7 @@
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
 	const preset_param = browser ? (page.url.searchParams.get('preset') as Preset | undefined) : undefined
+
 	let preset = $state<Preset>(
 		preset_param && (presets as readonly string[]).includes(preset_param) ? preset_param : DEFAULT_PRESET
 	)
@@ -101,9 +101,9 @@
 	}
 
 	function on_preset_change() {
-		const updated_url = new URL(page.url)
+		const updated_url = new URL(page.url.href)
 		updated_url.searchParams.set('preset', preset)
-		goto(updated_url, { replaceState: true, noScroll: true })
+		goto(updated_url, { replaceState: true, reset: false })
 		run_lint()
 	}
 </script>
@@ -185,7 +185,7 @@
 		{/snippet}
 		<output id="lint-output">
 			{#if status === 'loading'}
-				<Empty aria-live="polite">Linting, please wait&hellip;</Empty>
+				<Empty aria-live="polite">Linting, please wait…</Empty>
 			{:else if status === 'error'}
 				<Empty aria-live="assertive">
 					Something went wrong. Check if the CSS you're analyzing is correct and maybe try again.

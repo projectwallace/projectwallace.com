@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { tick } from 'svelte'
 	import { SvelteMap } from 'svelte/reactivity'
-	import type { CssLocation } from '$lib/css-location'
-	import FilterGroup from '$lib/components/FilterGroup.svelte'
-	import FilterOption from '$components/FilterOption.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { string_sort } from '$lib/string-sort'
+	import type { CssLocation } from '#lib/css-location.js'
+	import FilterGroup from '#lib/components/FilterGroup.svelte'
+	import FilterOption from '#lib/components/FilterOption.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { string_sort } from '#lib/string-sort.js'
 
 	let css_state = get_css_state()
 	let selected_item = $derived(css_state.selected_item)

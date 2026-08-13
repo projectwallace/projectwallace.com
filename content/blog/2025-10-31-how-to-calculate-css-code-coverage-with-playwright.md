@@ -4,9 +4,9 @@ excerpt: Collect and analyze CSS coverage using Playwright tests to detect and p
 ---
 
 <script>
-	import BlogImage from '$components/BlogImage.svelte'
-	import cli from '$lib/img/blog/2025-10-31-how-to-calculate-css-code-coverage-with-playwright/css-code-coverage-linter-cli.png?enhanced'
-  import cli_full from '$lib/img/blog/2025-10-31-how-to-calculate-css-code-coverage-with-playwright/css-code-coverage-linter-cli.png'
+	import BlogImage from '#lib/components/BlogImage.svelte'
+	import cli from '#lib/img/blog/2025-10-31-how-to-calculate-css-code-coverage-with-playwright/css-code-coverage-linter-cli.png?enhanced'
+  import cli_full from '#lib/img/blog/2025-10-31-how-to-calculate-css-code-coverage-with-playwright/css-code-coverage-linter-cli.png'
 </script>
 
 One of the most common questions around analyzing CSS quality is how to detect unused CSS. Shipping unused CSS to the browser is a waste so we want to avoid it! This post shows how to collect CSS code coverage data with the help of [`@playwright/test`](https://playwright.dev/docs/intro).

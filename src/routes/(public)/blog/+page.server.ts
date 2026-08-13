@@ -1,4 +1,4 @@
-import { getPostList } from '$lib/blog'
+import { getPostList } from '#lib/blog.js'
 
 export function load() {
 	return {

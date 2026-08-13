@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Chart from '$lib/components/pancake/Chart.svelte'
-	import Grid from '$lib/components/pancake/Grid.svelte'
-	import Svg from '$lib/components/pancake/Svg.svelte'
-	import SvgScatterplot from '$lib/components/pancake/SvgScatterplot.svelte'
-	import { format_number } from '$lib/format-number'
+	import Chart from '#lib/components/pancake/Chart.svelte'
+	import Grid from '#lib/components/pancake/Grid.svelte'
+	import Svg from '#lib/components/pancake/Svg.svelte'
+	import SvgScatterplot from '#lib/components/pancake/SvgScatterplot.svelte'
+	import { format_number } from '#lib/format-number.js'
 	import { IsInViewport } from 'runed'
 
 	interface Props {

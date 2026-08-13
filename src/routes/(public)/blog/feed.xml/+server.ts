@@ -1,4 +1,4 @@
-import { getPostList, type Post } from '$lib/blog'
+import { getPostList, type Post } from '#lib/blog.js'
 
 export const prerender = true
 

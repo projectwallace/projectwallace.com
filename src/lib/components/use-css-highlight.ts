@@ -1,4 +1,4 @@
-import { browser } from '$app/environment'
+import { browser } from '$app/env'
 import {
 	parse,
 	parse_selector,
@@ -40,7 +40,6 @@ export function highlight_css(
 
 	let highlights = window.CSS.highlights
 	let text_node = node.firstChild!
-
 	let ranges = new Set<StaticRange>()
 
 	function add_range(token_type: string, start: number, end: number) {

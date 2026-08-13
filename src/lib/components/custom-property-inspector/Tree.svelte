@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { melt, type TreeView } from '@melt-ui/svelte'
 	import { getContext } from 'svelte'
-	import { format_number } from '$lib/format-number'
+	import { format_number } from '#lib/format-number.js'
 	import { UNUSED, UNDECLARED, UNDECLARED_WITH_FALLBACK, type TreeItem, type Location } from './types'
 	import Tree from './Tree.svelte'
 

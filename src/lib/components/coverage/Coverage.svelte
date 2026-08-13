@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { PaneGroup, Pane, PaneResizer } from 'paneforge'
-	import { format_filesize } from '$lib/format-filesize'
-	import { format_number, format_percentage } from '$lib/format-number'
-	import { create_keyboard_list } from '$components/use-keyboard-list.svelte'
-	import Panel from '$components/Panel.svelte'
-	import Meter from '$components/Meter.svelte'
-	import Pre from '$components/Pre.svelte'
+	import { format_filesize } from '#lib/format-filesize.js'
+	import { format_number, format_percentage } from '#lib/format-number.js'
+	import { create_keyboard_list } from '#lib/components/use-keyboard-list.svelte.js'
+	import Panel from '#lib/components/Panel.svelte'
+	import Meter from '#lib/components/Meter.svelte'
+	import Pre from '#lib/components/Pre.svelte'
 	import { calculate_coverage, type Coverage } from '@projectwallace/css-code-coverage'
-	import Empty from '$components/Empty.svelte'
-	import Table from '$components/Table.svelte'
-	import { string_sort } from '$lib/string-sort'
+	import Empty from '#lib/components/Empty.svelte'
+	import Table from '#lib/components/Table.svelte'
+	import { string_sort } from '#lib/string-sort.js'
 
 	let {
 		browser_coverage

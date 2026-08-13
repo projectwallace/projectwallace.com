@@ -4,9 +4,9 @@ excerpt: 35 releases but hardly anything that you will notice. Read on to learn 
 ---
 
 <script>
-  import BlogImage from '$components/BlogImage.svelte'
-  import layers from '$lib/img/blog/2025-03-31-march-2025-release-notes/layers.png?enhanced'
-  import layers_full from '$lib/img/blog/2025-03-31-march-2025-release-notes/layers.png'
+  import BlogImage from '#lib/components/BlogImage.svelte'
+  import layers from '#lib/img/blog/2025-03-31-march-2025-release-notes/layers.png?enhanced'
+  import layers_full from '#lib/img/blog/2025-03-31-march-2025-release-notes/layers.png'
 </script>
 
 35 production releases this month, 4 less than [last month](/blog/february-2025-release-notes). And almost half of those were related to replacing Tailwind CSS with 'plain' CSS and Svelte component-based styles. Yup I finally did it.

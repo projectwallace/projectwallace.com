@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { format_filesize } from '$lib/format-filesize'
+	import { format_filesize } from '#lib/format-filesize.js'
 
 	interface Props {
 		name: string

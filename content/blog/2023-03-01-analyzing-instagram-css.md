@@ -5,11 +5,11 @@ series: deep-dive-2023
 ---
 
 <script>
-	import color_formats from '$lib/img/blog/2023-03-01-analyzing-instagram-css/color-formats.png'
-	import colors from '$lib/img/blog/2023-03-01-analyzing-instagram-css/colors.png'
-	import complexity from '$lib/img/blog/2023-03-01-analyzing-instagram-css/complexity.png'
-	import properties from '$lib/img/blog/2023-03-01-analyzing-instagram-css/properties.png'
-	import rules from '$lib/img/blog/2023-03-01-analyzing-instagram-css/rules.png'
+	import color_formats from '#lib/img/blog/2023-03-01-analyzing-instagram-css/color-formats.png'
+	import colors from '#lib/img/blog/2023-03-01-analyzing-instagram-css/colors.png'
+	import complexity from '#lib/img/blog/2023-03-01-analyzing-instagram-css/complexity.png'
+	import properties from '#lib/img/blog/2023-03-01-analyzing-instagram-css/properties.png'
+	import rules from '#lib/img/blog/2023-03-01-analyzing-instagram-css/rules.png'
 
 </script>
 

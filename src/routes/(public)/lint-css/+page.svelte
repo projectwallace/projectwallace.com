@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Seo from '$components/Seo.svelte'
-	import Linter from '$components/Linter.svelte'
-	import Container from '$components/Container.svelte'
-	import Hero from '$components/Hero.svelte'
-	import Form from '$components/css-form/Form.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import Markdown from '$components/Markdown.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Linter from '#lib/components/Linter.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import Form from '#lib/components/css-form/Form.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import Markdown from '#lib/components/Markdown.svelte'
 	import Content from './content.md'
 
 	let css_state = get_css_state()

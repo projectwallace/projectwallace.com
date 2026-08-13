@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition'
-	import Container from '$lib/components/Container.svelte'
-	import Seo from '$lib/components/Seo.svelte'
-	import Hero from '$lib/components/Hero.svelte'
-	import Meter from '$lib/components/Meter.svelte'
-	import Label from '$lib/components/Label.svelte'
-	import FormGroup from '$lib/components/FormGroup.svelte'
-	import Button from '$lib/components/Button.svelte'
-	import { all as units } from '$lib/css-units'
+	import Container from '#lib/components/Container.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import Meter from '#lib/components/Meter.svelte'
+	import Label from '#lib/components/Label.svelte'
+	import FormGroup from '#lib/components/FormGroup.svelte'
+	import Button from '#lib/components/Button.svelte'
+	import { all as units } from '#lib/css-units.js'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
-	import Heading from '$components/Heading.svelte'
+	import Heading from '#lib/components/Heading.svelte'
 
 	let interaction_started = false
 	let currentGuess = $state('')

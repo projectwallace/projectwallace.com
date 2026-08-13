@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit'
-import { getRecipes } from '$lib/recipes'
+import { getRecipes } from '#lib/recipes.js'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = ({ params }) => {

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Seo from '$components/Seo.svelte'
-	import Container from '$components/Container.svelte'
-	import Markdown from '$components/Markdown.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
 	import MinifyCss from './MinifyCss.svelte'
-	import Hero from '$components/Hero.svelte'
+	import Hero from '#lib/components/Hero.svelte'
 </script>
 
 <Seo title="Online CSS Minifier" description="Minify your CSS online" />

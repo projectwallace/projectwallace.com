@@ -9,10 +9,10 @@
 
 <script lang="ts">
 	import { onMount, onDestroy, untrack } from 'svelte'
-	import { browser } from '$app/environment'
-	import type { CssLocation } from '$lib/css-location'
+	import { browser } from '$app/env'
+	import type { CssLocation } from '#lib/css-location.js'
 	import { highlight_css } from './use-css-highlight'
-	import Icon from '$components/Icon.svelte'
+	import Icon from '#lib/components/Icon.svelte'
 
 	type BaseProps = {
 		css?: string
@@ -23,16 +23,8 @@
 		selected_highlight_name?: string
 	}
 
-	type WrappingProps = BaseProps & {
-		wrap?: true
-		line_numbers?: false
-	}
-
-	type LineNumberProps = BaseProps & {
-		wrap?: false
-		line_numbers: true
-	}
-
+	type WrappingProps = BaseProps & { wrap?: true; line_numbers?: false }
+	type LineNumberProps = BaseProps & { wrap?: false; line_numbers: true }
 	type Props = WrappingProps | LineNumberProps
 
 	let {
@@ -79,6 +71,7 @@
 	let line_number_width = $derived(total_lines.toString().length)
 	// Only show when coverage data is actually present
 	let has_coverage = $derived(coverage_chunks !== undefined && coverage_chunks.length > 0)
+
 	let show_line_numbers = $derived(has_coverage || line_numbers)
 	let show_coverage = $derived(has_coverage)
 	let uncovered_blocks_count = $derived((coverage_chunks ?? []).reduce((n, c) => n + (c.is_covered ? 0 : 1), 0))
@@ -122,11 +115,13 @@
 		if (selected_location !== undefined && body !== undefined) {
 			body.scrollTo({
 				// oxfmt-ignore
-				top: (selected_location.line * LINE_HEIGHT) - margin_top
+				top: selected_location.line * LINE_HEIGHT - margin_top
 			})
 			pre_node?.scrollTo({
 				// oxfmt-ignore
-				left: selected_location.column < 50 ? 0 : (selected_location.column * CHAR_WIDTH) - margin_left
+				left: selected_location.column < 50
+					? 0
+					: selected_location.column * CHAR_WIDTH - margin_left
 			})
 		}
 	})
@@ -134,6 +129,7 @@
 	$effect(() => {
 		if (code_node?.firstChild && supports_highlights && lines !== undefined) {
 			let node = code_node.firstChild
+
 			lines.clear()
 
 			if (css.length === 0) return
@@ -234,9 +230,12 @@
 
 		let previous_uncovered_chunk = coverage_chunks.findLast((chunk) => {
 			if (chunk.is_covered) return false
+
 			let chunk_top = chunk.start_line * LINE_HEIGHT
+
 			return chunk_top < current_scroll_offset
 		})
+
 		let next_chunk = previous_uncovered_chunk
 		let is_scrolled_to_top = body.scrollTop === 0
 

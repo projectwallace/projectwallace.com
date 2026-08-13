@@ -1,5 +1,5 @@
 import { goto } from '$app/navigation'
-import { browser } from '$app/environment'
+import { browser } from '$app/env'
 
 /**
  * Utilities for storing state in the URL hash using base64 encoding.
@@ -16,6 +16,7 @@ import { browser } from '$app/environment'
  */
 export function decodeHashState<T>(hash: string): T | undefined {
 	const value = hash.startsWith('#') ? hash.slice(1) : hash
+
 	if (!value) return
 
 	try {
@@ -76,7 +77,7 @@ export class HashState<T> {
 			// JSON.stringify forces deep tracking of all nested properties
 			const serialized = JSON.stringify(this.#value)
 			const timeout = setTimeout(() => {
-				void goto(`#${btoa(encodeURIComponent(serialized))}`, { replaceState: true, noScroll: true, keepFocus: true })
+				void goto(`#${btoa(encodeURIComponent(serialized))}`, { replaceState: true, reset: false })
 			}, this.#debounceMs)
 			return () => {
 				clearTimeout(timeout)

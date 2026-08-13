@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Seo from '$components/Seo.svelte'
-	import Hero from '$components/Hero.svelte'
-	import Container from '$components/Container.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import Form from '$components/css-form/Form.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import Form from '#lib/components/css-form/Form.svelte'
 	import Content from './content.md'
-	import CustomPropertyInspector from '$components/custom-property-inspector/CustomPropertyInspector.svelte'
+	import CustomPropertyInspector from '#lib/components/custom-property-inspector/CustomPropertyInspector.svelte'
 </script>
 
 <Seo

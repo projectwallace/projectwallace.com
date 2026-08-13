@@ -1,8 +1,8 @@
 <script>
-	import Hero from '$lib/components/Hero.svelte'
-	import Container from '$lib/components/Container.svelte'
-	import Seo from '$lib/components/Seo.svelte'
-	import Markdown from '$lib/components/Markdown.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
 </script>
 
 <Seo title="Privacy Policy" description="No personal data is collected or stored." />
