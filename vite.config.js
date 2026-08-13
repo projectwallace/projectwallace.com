@@ -19,18 +19,16 @@ const config = {
 			adapter: adapter({
 				// We don't generate enough traffic to keep edge workers ready, so disable edge to avoid cold-starts
 				// Also cannot run on edge because stylelint requires NodeJS-specific APIs
-				edge: false
+				edge: false,
 
 				// We split the bundles to not impact other routes with Stylelint's slow start
-				// Prevent base64 inlining of images (to avoid running into unexpected CSP issues) split: true
-
-				// https://vite.dev/config/build-options.html#build-assetsinlinelimit
+				split: true
 			}),
 			csp: {
 				directives: {
 					'script-src': [
-						// Allow serving files from one level up to the project root "'sha256-szIw4XmtuyhpgMdFVs5O/R2m7k/FGTZj2yRT8ddh/aI='",
-						// content 'counterscale.bartveneman.workers.dev',
+						"'sha256-szIw4XmtuyhpgMdFVs5O/R2m7k/FGTZj2yRT8ddh/aI='",
+						'counterscale.bartveneman.workers.dev',
 						'self'
 					],
 					'connect-src': ['self', 'counterscale.bartveneman.workers.dev'],
