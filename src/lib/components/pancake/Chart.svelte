@@ -1,26 +1,49 @@
-<script module>
+<script module lang="ts">
 	import { getContext } from 'svelte'
 
 	const key = {}
 
-	export function getChartContext() {
+	export interface ChartContext {
+		x1: number
+		y1: number
+		x2: number
+		y2: number
+		x_scale: (num: number) => number
+		y_scale: (num: number) => number
+		width: number
+		height: number
+	}
+
+	export function getChartContext(): ChartContext {
 		return getContext(key)
 	}
 </script>
 
-<script>
-	import { setContext } from 'svelte'
+<script lang="ts">
+	import { setContext, type Snippet } from 'svelte'
 
-	let { x1 = 0, y1 = 0, x2 = 1, y2 = 1, children } = $props()
+	let {
+		x1 = 0,
+		y1 = 0,
+		x2 = 1,
+		y2 = 1,
+		children
+	}: {
+		x1?: number
+		y1?: number
+		x2?: number
+		y2?: number
+		children?: Snippet
+	} = $props()
 
-	function linear_scale(domain, range) {
+	function linear_scale(domain: [number, number], range: [number, number]) {
 		const d0 = domain[0]
 		const r0 = range[0]
 		const m = (range[1] - r0) / (domain[1] - d0)
-		return Object.assign((num) => r0 + (num - d0) * m)
+		return Object.assign((num: number) => r0 + (num - d0) * m)
 	}
 
-	let chart = $state()
+	let chart: HTMLDivElement | undefined = $state()
 	let width = $state(0)
 	let height = $state(0)
 
