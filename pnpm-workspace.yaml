@@ -7,6 +7,9 @@ minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@projectwallace/*'
   - color-sorter
+  - cookie@0.7.0
+  - '@sveltejs/kit@2.70.2'
+  - nanoid@3.3.18
 trustPolicy: no-downgrade
 
 catalog:
@@ -32,3 +35,5 @@ overrides:
   lightningcss: 1.32.0
   # svelte-check still declares ^4.0.1, but 4.0.3 lost provenance; v5 has it restored
   chokidar: 5.0.0
+  cookie@<0.7.0: ^0.7.0
+  nanoid@<3.3.18: ^3.3.18
