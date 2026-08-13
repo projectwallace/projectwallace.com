@@ -33,7 +33,7 @@
 		"@projectwallace/format-css": "^3.1.6",
 		"@projectwallace/stylelint-plugin": "^0.6.15",
 		"@sveltejs/enhanced-img": "^0.11.0",
-		"@sveltejs/kit": "^2.70.1",
+		"@sveltejs/kit": "^2.70.2",
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"color-sorter": "^8.0.2",
 		"diff": "^9.0.0",
