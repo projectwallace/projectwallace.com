@@ -38,7 +38,8 @@
 		onloading?: (loading: boolean) => void
 	}
 
-	type Status = // Nothing happened yet
+	type Status =
+		// Nothing happened yet
 		| 'idle'
 		// Fetching CSS and lint result from server
 		| 'loading'
@@ -185,7 +186,7 @@
 		{/snippet}
 		<output id="lint-output">
 			{#if status === 'loading'}
-				<Empty aria-live="polite">Linting, please wait…</Empty>
+				<Empty aria-live="polite">Linting, please wait&hellip;</Empty>
 			{:else if status === 'error'}
 				<Empty aria-live="assertive">
 					Something went wrong. Check if the CSS you're analyzing is correct and maybe try again.

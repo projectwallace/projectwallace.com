@@ -118,7 +118,7 @@
 						class="nav-popover-trigger"
 						class:invisible={!is_overflowing}
 					>
-						<span aria-hidden="true">…</span>
+						<span aria-hidden="true">&hellip;</span>
 						<span class="sr-only">Additional navigation items</span>
 					</button>
 
