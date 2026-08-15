@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { PaneGroup, Pane, PaneResizer } from 'paneforge'
-	import { format_filesize } from '$lib/format-filesize'
-	import { format_number } from '$lib/format-number'
+	import { format_filesize } from '#lib/format-filesize.js'
+	import { format_number } from '#lib/format-number.js'
 	import CssSlide from './CssSlide.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { string_sort } from '$lib/string-sort'
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { string_sort } from '#lib/string-sort.js'
 
 	let css_state = get_css_state()
 

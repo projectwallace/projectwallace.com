@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SEO from '$components/Seo.svelte'
-	import Markdown from '$components/Markdown.svelte'
+	import SEO from '#lib/components/Seo.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
 	import Intro from './0-intro.md'
 	import Composition from './1-composition.svx'
 	import Atrules from './2-atrules.svx'
@@ -10,10 +10,10 @@
 	import Values from './6-values.svx'
 	import Conclusion from './7-conclusion.md'
 	import Accountability from './8-accountability.md'
-	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
-	import Nav from '$components/stats/Nav.svelte'
-	import avatar from '$lib/img/bartveneman.png'
+	import Container from '#lib/components/Container.svelte'
+	import Heading from '#lib/components/Heading.svelte'
+	import Nav from '#lib/components/stats/Nav.svelte'
+	import avatar from '#lib/img/bartveneman.png'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image-the-css-selection-2026.png?w=1200'
 

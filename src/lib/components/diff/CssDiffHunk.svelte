@@ -1,5 +1,5 @@
 <script module lang="ts">
-	import { browser } from '$app/environment'
+	import { browser } from '$app/env'
 
 	export const supports_highlights = browser && 'highlights' in window.CSS
 
@@ -16,7 +16,7 @@
 </script>
 
 <script lang="ts">
-	import type { Hunk } from '$lib/diff-css'
+	import type { Hunk } from '#lib/diff-css.js'
 
 	interface Props {
 		hunk: Hunk

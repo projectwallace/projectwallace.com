@@ -1,5 +1,5 @@
 import { test, expect } from '../../../tests/fixtures'
-import type { Theme } from '$lib/theme'
+import type { Theme } from '#lib/theme.js'
 
 type StoredTheme = Theme
 type PreferedColorScheme = 'light' | 'dark'

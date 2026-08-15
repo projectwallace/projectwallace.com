@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import Nav from '$lib/components/Nav.svelte'
-	import Footer from '$lib/components/Footer.svelte'
-	import CmdK from '$components/cmd-k/CmdK.svelte'
-	import SkipLink from '$components/SkipLink.svelte'
-	import '$lib/css/reset.css'
-	import '$lib/css/style.css'
-	import { set_css_state } from '$lib/css-state.svelte'
+	import Nav from '#lib/components/Nav.svelte'
+	import Footer from '#lib/components/Footer.svelte'
+	import CmdK from '#lib/components/cmd-k/CmdK.svelte'
+	import SkipLink from '#lib/components/SkipLink.svelte'
+	import '#lib/css/reset.css'
+	import '#lib/css/style.css'
+	import { set_css_state } from '#lib/css-state.svelte.js'
 	import type { LayoutProps } from './$types'
-	import ThemeSwitch from '$components/ThemeSwitch.svelte'
+	import ThemeSwitch from '#lib/components/ThemeSwitch.svelte'
 
 	set_css_state()
 

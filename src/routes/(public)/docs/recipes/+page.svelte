@@ -1,7 +1,7 @@
 <script>
-	import Seo from '$components/Seo.svelte'
-	import MarkdownContent from '$components/MarkdownContent.svelte'
-	import Heading from '$components/Heading.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import MarkdownContent from '#lib/components/MarkdownContent.svelte'
+	import Heading from '#lib/components/Heading.svelte'
 
 	let { data } = $props()
 </script>

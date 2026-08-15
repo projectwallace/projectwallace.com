@@ -1,9 +1,9 @@
 <script>
-	import Hero from '$components/Hero.svelte'
-	import Icon from '$components/Icon.svelte'
-	import Container from '$components/Container.svelte'
-	import Seo from '$components/Seo.svelte'
-	import Heading from '$components/Heading.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import Icon from '#lib/components/Icon.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Heading from '#lib/components/Heading.svelte'
 
 	let { data } = $props()
 </script>

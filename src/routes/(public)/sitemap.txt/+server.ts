@@ -1,6 +1,6 @@
-import { getPostList } from '$lib/blog'
-import { getMetrics } from '$lib/metrics'
-import { getRecipes } from '$lib/recipes'
+import { getPostList } from '#lib/blog.js'
+import { getMetrics } from '#lib/metrics.js'
+import { getRecipes } from '#lib/recipes.js'
 
 export const prerender = true
 

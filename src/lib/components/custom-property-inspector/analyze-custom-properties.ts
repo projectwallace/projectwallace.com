@@ -7,7 +7,7 @@ import {
 	is_identifier,
 	is_declaration
 } from '@projectwallace/css-parser'
-import type { CssLocation } from '$lib/css-location'
+import type { CssLocation } from '#lib/css-location.js'
 
 function to_loc(node: CSSNode): CssLocation {
 	return {

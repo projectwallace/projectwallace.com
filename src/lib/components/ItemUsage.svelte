@@ -1,10 +1,10 @@
 <script lang="ts">
-	import CssSlide from '$components/CssSlide.svelte'
-	import { format_number } from '$lib/format-number'
-	import Empty from '$components/Empty.svelte'
+	import CssSlide from '#lib/components/CssSlide.svelte'
+	import { format_number } from '#lib/format-number.js'
+	import Empty from '#lib/components/Empty.svelte'
 	import { create_keyboard_list } from './use-keyboard-list.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { highlight_css } from '$components/use-css-highlight'
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { highlight_css } from '#lib/components/use-css-highlight.js'
 
 	// svelte-ignore non_reactive_update
 	let table_scroller: HTMLDivElement

@@ -1,21 +1,22 @@
 <script lang="ts">
 	import { useResizeObserver } from 'runed'
-	import Logo from '$lib/components/Logo.svelte'
-	import Container from '$lib/components/Container.svelte'
+	import Logo from '#lib/components/Logo.svelte'
+	import Container from '#lib/components/Container.svelte'
 	import { page } from '$app/state'
 	import { onNavigate } from '$app/navigation'
 	import { items } from './Nav.items'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
 	import { type Snippet } from 'svelte'
 	import { on } from 'svelte/events'
 
 	let { children }: { children: Snippet } = $props()
-
 	let wrapper = $state<HTMLElement | undefined>(undefined)
 	let popover_open = $state(false)
 	let popover = $state<HTMLElement | undefined>(undefined)
 
-	onNavigate(() => {
+	onNavigate(({ shallow }) => {
+		if (shallow) return
+
 		hide_popover()
 	})
 
@@ -120,6 +121,7 @@
 						<span aria-hidden="true">&hellip;</span>
 						<span class="sr-only">Additional navigation items</span>
 					</button>
+
 					<div popover="auto" class="nav-popover" id="nav-popover" bind:this={popover} {ontoggle}>
 						<ul class="nav-popover-list">
 							{#each items.slice(overflow_index) as item (item.url)}

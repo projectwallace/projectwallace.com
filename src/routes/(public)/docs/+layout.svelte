@@ -1,9 +1,9 @@
 <script lang="ts">
-	import '$lib/css/prism.css'
+	import '#lib/css/prism.css'
 	import { page } from '$app/state'
 	import { MediaQuery } from 'svelte/reactivity'
-	import Icon from '$components/Icon.svelte'
-	import Container from '$components/Container.svelte'
+	import Icon from '#lib/components/Icon.svelte'
+	import Container from '#lib/components/Container.svelte'
 
 	let { data, children } = $props()
 

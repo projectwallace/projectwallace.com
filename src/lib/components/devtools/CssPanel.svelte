@@ -1,7 +1,7 @@
 <script lang="ts">
-	import CopyButton from '$components/CopyButton.svelte'
-	import Pre from '$components/Pre.svelte'
-	import Button from '$components/Button.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
+	import Pre from '#lib/components/Pre.svelte'
+	import Button from '#lib/components/Button.svelte'
 
 	interface Props {
 		css?: string

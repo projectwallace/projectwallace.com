@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { normalize_z_index, MAX, INVALID } from '$lib/sort-z-index'
+import { normalize_z_index, MAX, INVALID } from '#lib/sort-z-index.js'
 
 test('valid numbers', () => {
 	expect.soft(normalize_z_index('10')).toBe(10)

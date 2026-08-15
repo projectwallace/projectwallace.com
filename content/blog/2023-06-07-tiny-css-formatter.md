@@ -4,7 +4,7 @@ excerpt: After using Prettier for a while it became apparent that both speed and
 ---
 
 <script>
-	import example from '$lib/img/blog/2023-06-07-tiny-css-formatter/example.png'
+	import example from '#lib/img/blog/2023-06-07-tiny-css-formatter/example.png'
 </script>
 
 Last year we introduced a prettifier to this website because it's one of those things you often want to do when auditing CSS. Then, not long after that, we added the option to prettify your CSS before analyzing it. Because we have a DevTools panel now on the analyzer page, it makes sense to view the CSS usage in a formatted manner. But this came at a cost: prettifying the CSS took up to twice as long analyzing the CSS! Time to look at a more performant alternative.

@@ -1,6 +1,6 @@
 export const prerender = false
 
-import { type Theme, validate_theme } from '$lib/theme'
+import { type Theme, validate_theme } from '#lib/theme.js'
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({ request, cookies }) => {

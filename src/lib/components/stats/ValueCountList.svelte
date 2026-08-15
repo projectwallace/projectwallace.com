@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { CssLocation } from '$lib/css-location'
-	import FilterGroup from '$lib/components/FilterGroup.svelte'
-	import FilterOption from '$components/FilterOption.svelte'
-	import { create_keyboard_list, type OnChange } from '$components/use-keyboard-list.svelte'
-	import Table from '$components/Table.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { type NodeType } from '$components/use-css-highlight'
+	import type { CssLocation } from '#lib/css-location.js'
+	import FilterGroup from '#lib/components/FilterGroup.svelte'
+	import FilterOption from '#lib/components/FilterOption.svelte'
+	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.js'
+	import Table from '#lib/components/Table.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { type NodeType } from '#lib/components/use-css-highlight.js'
 
 	type UniqueWithLocations = Record<string, CssLocation[]>
 

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Seo from '$lib/components/Seo.svelte'
-	import Container from '$lib/components/Container.svelte'
-	import Form from '$components/css-form/Form.svelte'
-	import LayersVisualizer from '$components/css-layers-visualizer/LayersVisualizer.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Form from '#lib/components/css-form/Form.svelte'
+	import LayersVisualizer from '#lib/components/css-layers-visualizer/LayersVisualizer.svelte'
 	import Content from './content.md'
-	import Markdown from '$components/Markdown.svelte'
-	import Hero from '$components/Hero.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
 
 	let css_state = get_css_state()
 </script>

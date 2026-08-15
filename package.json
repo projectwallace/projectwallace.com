@@ -4,6 +4,10 @@
 	"private": true,
 	"description": "Svelte Kit project for projectwallace.com",
 	"type": "module",
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -32,9 +36,6 @@
 		"@projectwallace/css-time-sort": "^3.1.1",
 		"@projectwallace/format-css": "^3.1.6",
 		"@projectwallace/stylelint-plugin": "^0.6.15",
-		"@sveltejs/enhanced-img": "^0.11.0",
-		"@sveltejs/kit": "^2.70.2",
-		"@sveltejs/vite-plugin-svelte": "^7.2.0",
 		"color-sorter": "^8.0.2",
 		"diff": "^9.0.0",
 		"github-slugger": "^2.0.0",
@@ -47,12 +48,15 @@
 		"runed": "^0.37.1",
 		"svelte": "^5.56.8",
 		"typescript": "^6.0.3",
-		"vite": "8.0.16"
+		"vite": "catalog:"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.62.0",
 		"@projectwallace/stylelint-plugin": "^0.6.0",
-		"@sveltejs/adapter-netlify": "^6.0.4",
+		"@sveltejs/adapter-netlify": "next",
+		"@sveltejs/enhanced-img": "^0.11.0",
+		"@sveltejs/kit": "next",
+		"@sveltejs/vite-plugin-svelte": "^7.3.0",
 		"@types/node": "^25.9.5",
 		"oxfmt": "0.55.0",
 		"oxlint": "^1.75.0",
@@ -60,7 +64,7 @@
 		"postcss-html": "^1.8.1",
 		"stylelint": "~17.13.0",
 		"stylelint-config-standard": "~40.0.0",
-		"svelte-check": "^4.7.3",
+		"svelte-check": "^4.7.5",
 		"vitest": "^4.1.10"
 	},
 	"engines": {

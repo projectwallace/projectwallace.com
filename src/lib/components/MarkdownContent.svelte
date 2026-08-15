@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
-	import Markdown from '$lib/components/Markdown.svelte'
-	import Panel from '$lib/components/Panel.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import Panel from '#lib/components/Panel.svelte'
 
 	interface Props {
 		children?: Snippet

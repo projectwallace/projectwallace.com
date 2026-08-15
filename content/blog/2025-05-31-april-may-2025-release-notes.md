@@ -4,13 +4,13 @@ excerpt: Close your eyes! Or not. We have a light theme now. And no theme at all
 ---
 
 <script>
-  import BlogImage from '$components/BlogImage.svelte'
-  import light_theme from '$lib/img/blog/2025-05-31-april-may-2025-release-notes/light-theme.png?enhanced'
-  import light_theme_full from '$lib/img/blog/2025-05-31-april-may-2025-release-notes/light-theme.png'
-	import naked_theme from '$lib/img/blog/2025-05-31-april-may-2025-release-notes/naked-theme.png?enhanced'
-  import naked_theme_full from '$lib/img/blog/2025-05-31-april-may-2025-release-notes/naked-theme.png'
-	import counterscale from '$lib/img/blog/2025-05-31-april-may-2025-release-notes/counterscale.png?enhanced'
-  import counterscale_full from '$lib/img/blog/2025-05-31-april-may-2025-release-notes/counterscale.png'
+  import BlogImage from '#lib/components/BlogImage.svelte'
+  import light_theme from '#lib/img/blog/2025-05-31-april-may-2025-release-notes/light-theme.png?enhanced'
+  import light_theme_full from '#lib/img/blog/2025-05-31-april-may-2025-release-notes/light-theme.png'
+	import naked_theme from '#lib/img/blog/2025-05-31-april-may-2025-release-notes/naked-theme.png?enhanced'
+  import naked_theme_full from '#lib/img/blog/2025-05-31-april-may-2025-release-notes/naked-theme.png'
+	import counterscale from '#lib/img/blog/2025-05-31-april-may-2025-release-notes/counterscale.png?enhanced'
+  import counterscale_full from '#lib/img/blog/2025-05-31-april-may-2025-release-notes/counterscale.png'
 </script>
 
 ## New features

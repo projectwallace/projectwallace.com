@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LayerTree from './LayerTree.svelte'
 	import type { TreeNode } from '@projectwallace/css-layer-tree'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
 
 	interface Props {
 		tree?: TreeNode[]

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Content from './content.md'
-	import Markdown from '$components/Markdown.svelte'
-	import Seo from '$components/Seo.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import Seo from '#lib/components/Seo.svelte'
 </script>
 
 <Seo

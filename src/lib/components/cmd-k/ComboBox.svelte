@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { afterNavigate } from '$app/navigation'
-	import Empty from '$components/Empty.svelte'
-	import Icon from '$components/Icon.svelte'
+	import Empty from '#lib/components/Empty.svelte'
+	import Icon from '#lib/components/Icon.svelte'
 	import { focusable_children, trap } from './actions.focus'
 	import { shortcuts } from './shortcuts'
 
@@ -21,8 +21,10 @@
 				)
 			})
 		})
+
 		return new_results
 	})
+
 	let no_results = $derived(results.every((section) => section.items.length === 0))
 
 	function onkeydown(event: KeyboardEvent & { currentTarget: HTMLElement }) {
@@ -51,7 +53,9 @@
 		}
 	}
 
-	afterNavigate(() => {
+	afterNavigate(({ shallow }) => {
+		if (shallow) return
+
 		search_query = ''
 	})
 </script>

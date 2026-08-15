@@ -4,11 +4,11 @@ excerpt: Masonry and grid-lanes aren't just for creative, editorial layouts. A f
 ---
 
 <script>
-	import BlogImage from '$components/BlogImage.svelte'
-	import grid_before from '$lib/img/blog/2026-06-13-using-grid-lanes/before-grid.png?enhanced'
-	import grid_before_full from '$lib/img/blog/2026-06-13-using-grid-lanes/before-grid.png'
-	import grid_after from '$lib/img/blog/2026-06-13-using-grid-lanes/after-grid-lanes.png?enhanced'
-	import grid_after_full from '$lib/img/blog/2026-06-13-using-grid-lanes/after-grid-lanes.png'
+	import BlogImage from '#lib/components/BlogImage.svelte'
+	import grid_before from '#lib/img/blog/2026-06-13-using-grid-lanes/before-grid.png?enhanced'
+	import grid_before_full from '#lib/img/blog/2026-06-13-using-grid-lanes/before-grid.png'
+	import grid_after from '#lib/img/blog/2026-06-13-using-grid-lanes/after-grid-lanes.png?enhanced'
+	import grid_after_full from '#lib/img/blog/2026-06-13-using-grid-lanes/after-grid-lanes.png'
 </script>
 
 CSS Day 2026 was again full of excellent talks and [Patrick Brosset](https://patrickbrosset.com/)'s talk about `grid-lanes` was no exception. He gave plenty of examples of how grid-lanes can enhance a layout to be more playful/newspaper-like, but I was missing one very practical use case: fitting more information in dynamic information-dense interfaces!

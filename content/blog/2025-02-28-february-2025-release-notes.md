@@ -4,15 +4,15 @@ excerpt: A new feature on the site that has been on the list for years and it's 
 ---
 
 <script>
-  import BlogImage from '$components/BlogImage.svelte'
-  import item_highlight from '$lib/img/blog/2025-02-28-february-2025-release-notes/item-usage-highlight.png?enhanced'
-  import item_highlight_full from '$lib/img/blog/2025-02-28-february-2025-release-notes/item-usage-highlight.png'
-  import diffstat from '$lib/img/blog/2025-02-28-february-2025-release-notes/diffstat.png?enhanced'
-  import diffstat_full from '$lib/img/blog/2025-02-28-february-2025-release-notes/diffstat.png'
-  import resize from '$lib/img/blog/2025-02-28-february-2025-release-notes/resize.png?enhanced'
-  import resize_full from '$lib/img/blog/2025-02-28-february-2025-release-notes/resize.png'
-  import pseudo_classes from '$lib/img/blog/2025-02-28-february-2025-release-notes/pseudo-classes.png?enhanced'
-  import pseudo_classes_full from '$lib/img/blog/2025-02-28-february-2025-release-notes/pseudo-classes.png'
+  import BlogImage from '#lib/components/BlogImage.svelte'
+  import item_highlight from '#lib/img/blog/2025-02-28-february-2025-release-notes/item-usage-highlight.png?enhanced'
+  import item_highlight_full from '#lib/img/blog/2025-02-28-february-2025-release-notes/item-usage-highlight.png'
+  import diffstat from '#lib/img/blog/2025-02-28-february-2025-release-notes/diffstat.png?enhanced'
+  import diffstat_full from '#lib/img/blog/2025-02-28-february-2025-release-notes/diffstat.png'
+  import resize from '#lib/img/blog/2025-02-28-february-2025-release-notes/resize.png?enhanced'
+  import resize_full from '#lib/img/blog/2025-02-28-february-2025-release-notes/resize.png'
+  import pseudo_classes from '#lib/img/blog/2025-02-28-february-2025-release-notes/pseudo-classes.png?enhanced'
+  import pseudo_classes_full from '#lib/img/blog/2025-02-28-february-2025-release-notes/pseudo-classes.png'
 </script>
 
 39 production releases with performance improvements, bug fixes and a couple of new features. Let's start with an absolute banger!

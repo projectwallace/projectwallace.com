@@ -1,19 +1,21 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
-	import { browser } from '$app/environment'
+	import { browser } from '$app/env'
 	import type { FormSuccessEvent } from './types'
-	import FormGroup from '$components/FormGroup.svelte'
-	import Label from '$components/Label.svelte'
-	import Button from '$components/Button.svelte'
-	import CssLoadingProgressBar from '$components/CssLoadingProgressBar.svelte'
+	import FormGroup from '#lib/components/FormGroup.svelte'
+	import Label from '#lib/components/Label.svelte'
+	import Button from '#lib/components/Button.svelte'
+	import CssLoadingProgressBar from '#lib/components/CssLoadingProgressBar.svelte'
 	import InputModeSwitcher from './InputModeSwitcher.svelte'
 	import Textarea from './Textarea.svelte'
 	import UrlInput from './UrlInput.svelte'
 	import FileInput from './FileInput.svelte'
-	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '$lib/get-css'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { IsOnline } from '$lib/is-online.svelte'
+
+	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '#lib/get-css.js'
+
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { IsOnline } from '#lib/is-online.svelte.js'
 	import type { Snippet } from 'svelte'
 
 	interface Props {
@@ -42,8 +44,7 @@
 		!browser || !page.url.searchParams.has('prettify') || page.url.searchParams.get('prettify') === '1'
 	)
 	let is_online = new IsOnline()
-
-	let navigation_options = { replaceState: true, noScroll: true }
+	let navigation_options = { replaceState: true, reset: false }
 
 	$effect(() => {
 		css_state.prettify(prettify)
@@ -51,20 +52,21 @@
 
 	async function on_submit_raw(event: SubmitEvent) {
 		event.preventDefault()
+
 		let form_data = new FormData(event.target as HTMLFormElement)
 		let input_val = form_data.get('raw-css')
 		let val = String(input_val)
 
 		// Remove ?url= and prettify= query parameters from the URL
-		let cleaned_url = page.url
+		let cleaned_url = new URL(page.url.href)
+
 		cleaned_url.searchParams.delete('url')
 		cleaned_url.searchParams.delete('prettify')
 		cleaned_url.hash = ''
 		await goto(cleaned_url, navigation_options)
-
 		status = 'idle'
-
 		prettify = form_data.get('prettify') === '1'
+
 		on_success({
 			origins: [{ css: val, type: 'raw' }],
 			submit_type: 'raw',
@@ -76,16 +78,19 @@
 
 	async function on_submit_url(event: SubmitEvent) {
 		event.preventDefault()
+
 		if (status === 'fetching') return
 
 		let form_data = new FormData(event.target as HTMLFormElement)
 		let url = String(form_data.get('url'))
+
 		if (!url) return
 
 		let prettify_val = form_data.get('prettify') === '1'
 
 		// Always update the URL, so people can share the URL
-		let page_url = new URL(page.url)
+		let page_url = new URL(page.url.href)
+
 		page_url.searchParams.set('url', url)
 		page_url.searchParams.set('prettify', prettify_val ? '1' : '0')
 		page_url.hash = ''
@@ -101,17 +106,13 @@
 		status = 'fetching'
 		try {
 			let origins = await get_css(url)
-			status = 'idle'
 
+			status = 'idle'
 			prettify = prettify_val
 			css_state.prettify(prettify)
 			css_state.set_origins(origins)
 			css_state.url = url
-			on_success({
-				origins,
-				submit_type: 'url',
-				prettify
-			})
+			on_success({ origins, submit_type: 'url', prettify })
 		} catch (err: unknown) {
 			status = 'error'
 			error = err as CssFetchNetworkError | CssFetchApiError | CssFetchRemoteError
@@ -121,6 +122,7 @@
 
 	async function on_submit_file(event: SubmitEvent) {
 		event.preventDefault()
+
 		let form_data = new FormData(event.target as HTMLFormElement)
 		let input_json = form_data.get('file-css-rendered')
 		let input_files = JSON.parse(String(input_json))
@@ -135,20 +137,16 @@
 		}
 
 		// Remove ?url= and prettify= query parameters from the URL
-		let cleaned_url = new URL(page.url)
+		let cleaned_url = new URL(page.url.href)
+
 		cleaned_url.searchParams.delete('url')
+
 		cleaned_url.searchParams.delete('prettify')
 		cleaned_url.hash = ''
 		await goto(cleaned_url, navigation_options)
-
 		status = 'idle'
-
 		prettify = form_data.get('prettify') === '1'
-		on_success({
-			origins,
-			submit_type: 'file',
-			prettify
-		})
+		on_success({ origins, submit_type: 'file', prettify })
 		css_state.set_origins(origins)
 		css_state.url = undefined
 	}
@@ -169,7 +167,7 @@
 
 	async function on_prettify_change(event: Event) {
 		prettify = (event.target as HTMLInputElement).checked
-		let new_url = new URL(page.url)
+		let new_url = new URL(page.url.href)
 		new_url.searchParams.set('prettify', prettify ? '1' : '0')
 		await goto(new_url, navigation_options)
 	}
@@ -219,7 +217,7 @@
 			<div class="submit">
 				<Button type="submit" size="lg">
 					{#if status === 'fetching' || external_loading}
-						Fetching CSS&hellip;
+						Fetching CSS…
 					{:else}
 						Analyze URL
 					{/if}

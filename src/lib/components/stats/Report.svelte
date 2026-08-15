@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Rulesets from '$components/stats/Rulesets.svelte'
-	import Properties from '$components/stats/Properties.svelte'
-	import Selectors from '$components/stats/Selectors.svelte'
-	import Stylesheet from '$components/stats/Stylesheet.svelte'
-	import AtRules from '$components/stats/AtRules.svelte'
-	import Declarations from '$components/stats/Declarations.svelte'
-	import Values from '$components/stats/Values.svelte'
-	import type { CssAnalysis } from '$lib/analyze-css'
+	import Rulesets from '#lib/components/stats/Rulesets.svelte'
+	import Properties from '#lib/components/stats/Properties.svelte'
+	import Selectors from '#lib/components/stats/Selectors.svelte'
+	import Stylesheet from '#lib/components/stats/Stylesheet.svelte'
+	import AtRules from '#lib/components/stats/AtRules.svelte'
+	import Declarations from '#lib/components/stats/Declarations.svelte'
+	import Values from '#lib/components/stats/Values.svelte'
+	import type { CssAnalysis } from '#lib/analyze-css.js'
 
 	interface Props {
 		result?: CssAnalysis

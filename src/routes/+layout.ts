@@ -1,5 +1,5 @@
-import { browser } from '$app/environment'
-import type { Theme } from '$lib/theme'
+import { browser } from '$app/env'
+import type { Theme } from '#lib/theme.js'
 
 export const prerender = true
 export const trailingSlash = 'never'

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import CopyButton from '$lib/components/CopyButton.svelte'
-	import Textarea from '$components/css-form/Textarea.svelte'
-	import Label from '$lib/components/Label.svelte'
-	import Button from '$lib/components/Button.svelte'
-	import { format_filesize } from '$lib/format-filesize'
+	import CopyButton from '#lib/components/CopyButton.svelte'
+	import Textarea from '#lib/components/css-form/Textarea.svelte'
+	import Label from '#lib/components/Label.svelte'
+	import Button from '#lib/components/Button.svelte'
+	import { format_filesize } from '#lib/format-filesize.js'
 	import { minify } from '@projectwallace/format-css'
-	import { highlight_css } from '$components/use-css-highlight'
-	import { HashState } from '$lib/url-hash-state.svelte'
+	import { highlight_css } from '#lib/components/use-css-highlight.js'
+	import { HashState } from '#lib/url-hash-state.svelte.js'
 
 	let state = new HashState<string>('')
 	let css = $derived(state.current)

@@ -4,9 +4,9 @@ excerpt: Excitement all around as Project Wallace is featured in the State of CS
 ---
 
 <script>
-	import survey from '$lib/img/blog/2023-10-13-in-the-news/survey.png'
-	import polypane from '$lib/img/blog/2023-10-13-in-the-news/polypane.png'
-	import syntax from '$lib/img/blog/2023-10-13-in-the-news/syntax.png'
+	import survey from '#lib/img/blog/2023-10-13-in-the-news/survey.png'
+	import polypane from '#lib/img/blog/2023-10-13-in-the-news/polypane.png'
+	import syntax from '#lib/img/blog/2023-10-13-in-the-news/syntax.png'
 </script>
 
 Just a short post to share my excitement that Project Wallace has been mentioned in public by some pretty cool people!

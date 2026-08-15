@@ -8,7 +8,13 @@ minimumReleaseAgeExclude:
   - '@projectwallace/*'
   - color-sorter
   - cookie@0.7.0
-  - '@sveltejs/kit@2.70.2'
+  - '@sveltejs/acorn-typescript@1.0.13'
+  - '@sveltejs/adapter-netlify@7.0.0-next.8'
+  - '@sveltejs/kit@3.0.0-next.23'
+  - '@sveltejs/load-config@0.2.3'
+  - '@sveltejs/enhanced-img@0.11.0'
+  - '@sveltejs/vite-plugin-svelte@7.2.0'
+  - 'svelte-check@4.7.6'
   - nanoid@3.3.18
 trustPolicy: no-downgrade
 
@@ -18,7 +24,7 @@ catalog:
   '@projectwallace/format-css': ^3.1.6
   color-sorter: ^8.0.2
   runed: ^0.37.1
-  vite: 8.0.16
+  vite: 8.2.1
 
 overrides:
   # Pinned versions to make sure we always only bundle 1 version of each

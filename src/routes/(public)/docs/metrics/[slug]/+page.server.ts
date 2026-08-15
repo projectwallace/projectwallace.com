@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit'
-import { getMetrics } from '$lib/metrics'
+import { getMetrics } from '#lib/metrics.js'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = ({ params }) => {

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import Heading from '$components/Heading.svelte'
-	import { group_colors } from '$lib/group-colors'
-	import ColorExample from '$components/ColorExample.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import Heading from '#lib/components/Heading.svelte'
+	import { group_colors } from '#lib/group-colors.js'
+	import ColorExample from '#lib/components/ColorExample.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
 	import { IsInViewport } from 'runed'
 
 	type Colors = CssAnalysis['values']['colors']

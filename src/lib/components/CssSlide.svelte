@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { format } from '@projectwallace/format-css'
-	import type { CssLocation } from '$lib/css-location'
-	import Icon from '$lib/components/Icon.svelte'
-	import CopyButton from '$lib/components/CopyButton.svelte'
-	import Button from '$lib/components/Button.svelte'
-	import Pre from '$components/Pre.svelte'
+	import type { CssLocation } from '#lib/css-location.js'
+	import Icon from '#lib/components/Icon.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
+	import Button from '#lib/components/Button.svelte'
+	import Pre from '#lib/components/Pre.svelte'
 
 	interface Props {
 		css?: string

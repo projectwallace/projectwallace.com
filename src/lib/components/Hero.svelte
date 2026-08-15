@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
-	import Container from '$lib/components/Container.svelte'
+	import Container from '#lib/components/Container.svelte'
 
 	interface Props {
 		children?: Snippet

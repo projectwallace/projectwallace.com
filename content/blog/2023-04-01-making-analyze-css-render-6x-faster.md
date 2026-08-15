@@ -4,14 +4,14 @@ excerpt: A deep-dive in how the Analyze CSS page renders 6 times faster by apply
 ---
 
 <script>
-	import color_bar from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/color-bar.png'
-	import color_list from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/color-list.png'
-	import devtools_before from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/devtools-before.png'
-	import devtools_after from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/devtools-after.png'
-	import font_sizes from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/font-sizes.png'
-	import properties from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/properties.png'
-	import scatterplot_graph from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/scatterplot-flamegraph.png'
-	import scatterplot from '$lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/scatterplot.png'
+	import color_bar from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/color-bar.png'
+	import color_list from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/color-list.png'
+	import devtools_before from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/devtools-before.png'
+	import devtools_after from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/devtools-after.png'
+	import font_sizes from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/font-sizes.png'
+	import properties from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/properties.png'
+	import scatterplot_graph from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/scatterplot-flamegraph.png'
+	import scatterplot from '#lib/img/blog/2023-04-01-making-analyze-css-render-6x-faster/scatterplot.png'
 </script>
 
 One of the main drivers for Project Wallace is performance. Not just analyzing the performance of CSS as you can see in our code quality tools, but also doing the work in a fast and efficient way. With all the extra analysis that we've added over the last year, the analyzer page started to become a little slow. Even though the analysis happens completely off the main thread using a WebWorker. But rendering the results on the page sometimes took longer than parsing and analyzing the CSS itself! So I set out to fix that and the result is that the CSS report now renders more than 6 times faster than before! Here's what I found.

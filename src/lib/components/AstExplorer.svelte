@@ -5,7 +5,7 @@
 	import CssTree from './CssTree.svelte'
 	import { format } from '@projectwallace/format-css'
 	import HighlightedTextarea from './HighlightedTextarea.svelte'
-	import { HashState } from '$lib/url-hash-state.svelte'
+	import { HashState } from '#lib/url-hash-state.svelte.js'
 	import Button from './Button.svelte'
 	import CopyButton from './CopyButton.svelte'
 	import PanedLayout from './PanedLayout.svelte'

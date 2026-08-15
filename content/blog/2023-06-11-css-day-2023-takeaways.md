@@ -4,12 +4,12 @@ excerpt: CSS Day 2023 was once again an amazing conference! So many new things c
 ---
 
 <script>
-	import cascade_layers_bramus_visual from '$lib/img/blog/2023-06-11-css-day-2023-takeaways/cascade-layers-bramus-visual.png'
-	import cascade_layers_devtools from '$lib/img/blog/2023-06-11-css-day-2023-takeaways/cascade-layers-devtools.png'
-	import cascade_layers_devtools2 from '$lib/img/blog/2023-06-11-css-day-2023-takeaways/cascade-layers-devtools2.png'
-	import nested_selector_devtools from '$lib/img/blog/2023-06-11-css-day-2023-takeaways/nested-selector-devtools.png'
-	import container_query1 from '$lib/img/blog/2023-06-11-css-day-2023-takeaways/container-queries-devtools.png'
-	import container_query2 from '$lib/img/blog/2023-06-11-css-day-2023-takeaways/container-queries-devtools2.png'
+	import cascade_layers_bramus_visual from '#lib/img/blog/2023-06-11-css-day-2023-takeaways/cascade-layers-bramus-visual.png'
+	import cascade_layers_devtools from '#lib/img/blog/2023-06-11-css-day-2023-takeaways/cascade-layers-devtools.png'
+	import cascade_layers_devtools2 from '#lib/img/blog/2023-06-11-css-day-2023-takeaways/cascade-layers-devtools2.png'
+	import nested_selector_devtools from '#lib/img/blog/2023-06-11-css-day-2023-takeaways/nested-selector-devtools.png'
+	import container_query1 from '#lib/img/blog/2023-06-11-css-day-2023-takeaways/container-queries-devtools.png'
+	import container_query2 from '#lib/img/blog/2023-06-11-css-day-2023-takeaways/container-queries-devtools2.png'
 </script>
 
 Imagine a conference completely dedicated to CSS. And a former church filled with over 300 CSS enthusiasts. It exists! It's the amazing [CSS Day conference](https://cssday.nl/2023) and I was lucky enough to attend again this year. During the talks I've been taking notes to see **what all the new trends and techniques mean for authoring and auditing CSS**. Note: while it may seem skeptical at many points I do think we're living in a golden era of CSS as Una proved in [the opening talk](https://www.youtube.com/watch?v=TVkwiUFbtyQ) this year.

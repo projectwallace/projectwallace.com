@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { layer_tree, type TreeNode } from '@projectwallace/css-layer-tree'
-	import Empty from '$components/Empty.svelte'
+	import Empty from '#lib/components/Empty.svelte'
 	import LayerTree from './LayerTree.svelte'
-	import type { CSSOrigin } from '$lib/css-origins'
-	import DevTools from '$components/DevTools.svelte'
-	import ItemUsage from '$components/ItemUsage.svelte'
-	import Container from '$components/Container.svelte'
-	import NetworkPanel from '$components/NetworkPanel.svelte'
-	import CssPanel from '$components/devtools/CssPanel.svelte'
-	import JsonPanel from '$components/devtools/JsonPanel.svelte'
-	import { layers_tabs, type TabId } from '$components/devtools/tabs'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import type { CSSOrigin } from '#lib/css-origins.js'
+	import DevTools from '#lib/components/DevTools.svelte'
+	import ItemUsage from '#lib/components/ItemUsage.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import NetworkPanel from '#lib/components/NetworkPanel.svelte'
+	import CssPanel from '#lib/components/devtools/CssPanel.svelte'
+	import JsonPanel from '#lib/components/devtools/JsonPanel.svelte'
+	import { layers_tabs, type TabId } from '#lib/components/devtools/tabs.js'
+	import { get_css_state } from '#lib/css-state.svelte.js'
 
 	interface Props {
 		origins?: CSSOrigin[]

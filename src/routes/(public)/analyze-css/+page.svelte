@@ -1,13 +1,13 @@
 <script lang="ts">
-	import Analysis from '$components/stats/Analysis.svelte'
-	import Container from '$components/Container.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import Form from '$components/css-form/Form.svelte'
-	import Heading from '$components/Heading.svelte'
-	import Button from '$components/Button.svelte'
-	import Seo from '$components/Seo.svelte'
-	import Hero from '$components/Hero.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import Analysis from '#lib/components/stats/Analysis.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import Form from '#lib/components/css-form/Form.svelte'
+	import Heading from '#lib/components/Heading.svelte'
+	import Button from '#lib/components/Button.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
 

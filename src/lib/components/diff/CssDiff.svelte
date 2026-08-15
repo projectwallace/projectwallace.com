@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Empty from '$lib/components/Empty.svelte'
+	import Empty from '#lib/components/Empty.svelte'
 	import Hunk from './CssDiffHunk.svelte'
 	import DiffStat from './DiffStat.svelte'
-	import { diff_css, type StructuredPatch } from '$lib/diff-css'
+	import { diff_css, type StructuredPatch } from '#lib/diff-css.js'
 
 	interface Props {
 		old_css?: string

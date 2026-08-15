@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { CssLocation } from '$lib/css-location'
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import Empty from '$lib/components/Empty.svelte'
-	import { Panel, Header } from '$lib/components/Panel/index'
-	import Heading from '$lib/components/Heading.svelte'
-	import ValueCountList from '$lib/components/stats/ValueCountList.svelte'
-	import DefinitionList from '$lib/components/stats/DefinitionList.svelte'
-	import { string_sort } from '$lib/string-sort'
+	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import Empty from '#lib/components/Empty.svelte'
+	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import Heading from '#lib/components/Heading.svelte'
+	import ValueCountList from '#lib/components/stats/ValueCountList.svelte'
+	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
+	import { string_sort } from '#lib/string-sort.js'
 
 	type AtRules = CssAnalysis['atrules']
 	type AtRule =

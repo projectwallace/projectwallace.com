@@ -1,5 +1,5 @@
 import { expect, test } from '../../../../tests/fixtures'
-import type { CSSOrigin } from '$lib/css-origins'
+import type { CSSOrigin } from '#lib/css-origins.js'
 
 let fixture = [
 	{
