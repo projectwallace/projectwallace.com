@@ -24,7 +24,7 @@ catalog:
   '@projectwallace/format-css': ^3.1.6
   color-sorter: ^8.0.2
   runed: ^0.37.1
-  vite: 8.0.16
+  vite: 8.2.1
 
 overrides:
   # Pinned versions to make sure we always only bundle 1 version of each
