@@ -74,7 +74,7 @@
 
 		.fixed-height & {
 			@container --paned-layout (min-width: 50rem) {
-				block-size: var(--paned-layout-block-size);
+				block-size: var(--paned-layout-block-size, calc(100vb - 20rem));
 			}
 		}
 	}

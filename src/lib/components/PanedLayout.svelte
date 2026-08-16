@@ -31,7 +31,7 @@
 		align-items: stretch;
 
 		@container --paned-layout (min-width: 50rem) {
-			grid-template-columns: var(--paned-layout-columns);
+			grid-template-columns: var(--paned-layout-columns, max-content 1fr 1fr);
 		}
 	}
 </style>
