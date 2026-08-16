@@ -1,5 +1,3 @@
-const MAX_NESTING_DEPTH = 4
-
 /** @type {import('stylelint').Config} */
 export default {
 	extends: ['@projectwallace/stylelint-plugin/configs/recommended'],
@@ -8,6 +6,7 @@ export default {
 			files: ['src/**'],
 			extends: ['stylelint-config-standard'],
 			rules: {
+				'max-nesting-depth': 4,
 				'declaration-property-value-keyword-no-deprecated': [true, { ignoreKeywords: ['break-word'] }],
 				'no-invalid-position-declaration': null,
 				'no-descending-specificity': null,
@@ -36,6 +35,7 @@ export default {
 					true,
 					{ ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration'] }
 				],
+				'no-unknown-custom-properties': null,
 				'length-zero-no-unit': null,
 				'custom-property-empty-line-before': 'never',
 				'declaration-empty-line-before': 'never',
@@ -158,7 +158,6 @@ export default {
 	ignoreFiles: ['**/*.js', '**/*.ts', '**/*.json', '**/*.md'],
 	defaultSeverity: 'warning',
 	rules: {
-		'projectwallace/no-unknown-custom-properties': null,
 		'projectwallace/no-unused-custom-properties': null,
 		'projectwallace/no-duplicate-custom-properties': null,
 		'projectwallace/no-property-shorthand': [
@@ -176,11 +175,6 @@ export default {
 					'transition' // TODO: break down these shorthands
 				]
 			}
-		],
-		'projectwallace/max-nesting-depth': MAX_NESTING_DEPTH,
-		'projectwallace/no-prefixed-selectors': [
-			true,
-			{ ignore: [/-meter-/] } // -moz-meter-bar, -webkit-meter-optimum-value, etc.
 		]
 	}
 }
