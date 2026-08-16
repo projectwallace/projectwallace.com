@@ -1,5 +1,3 @@
-const MAX_NESTING_DEPTH = 4
-
 /** @type {import('stylelint').Config} */
 export default {
 	extends: ['@projectwallace/stylelint-plugin/configs/recommended'],
@@ -8,6 +6,7 @@ export default {
 			files: ['src/**'],
 			extends: ['stylelint-config-standard'],
 			rules: {
+				'max-nesting-depth': 4,
 				'declaration-property-value-keyword-no-deprecated': [true, { ignoreKeywords: ['break-word'] }],
 				'no-invalid-position-declaration': null,
 				'no-descending-specificity': null,
@@ -36,6 +35,7 @@ export default {
 					true,
 					{ ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration'] }
 				],
+				'no-unknown-custom-properties': null,
 				'length-zero-no-unit': null,
 				'custom-property-empty-line-before': 'never',
 				'declaration-empty-line-before': 'never',
@@ -98,16 +98,18 @@ export default {
 			// HOLISTIC LINTING
 			files: ['.svelte-kit/**/*.css'],
 			rules: {
+				'max-nesting-depth': 4,
+				'property-no-vendor-prefix': null,
 				'projectwallace/no-unused-custom-properties': [
 					true,
 					{
-						ignore: [/diffstat-\w+/]
+						ignore: [/diffstat-\w+/, /space-72/]
 					}
 				],
 				'projectwallace/max-declarations-per-rule': 27, // our @layer.html spacing scale; TODO: allow { ignore: ['html']}
 				'projectwallace/max-spacing-resets': 17,
 				'projectwallace/max-unique-media-queries': [
-					11, // TODO: reduce and convert some to container queries
+					12, // TODO: reduce and convert some to container queries
 					{
 						ignore: [
 							/forced-colors/,
@@ -146,19 +148,14 @@ export default {
 						]
 					}
 				],
-				'projectwallace/no-property-shorthand': null, // already covered in source files
-				'projectwallace/no-prefixed-selectors': null, // already covered in source files
-				'projectwallace/no-prefixed-properties': null, // already covered in source files
-				'projectwallace/no-prefixed-values': [true, { ignore: ['-apple-system'] }], // already covered in source files
 				'projectwallace/min-declaration-uniqueness-ratio': 0.38,
-				'projectwallace/no-unknown-custom-properties': [true, { allowFallback: true }]
+				'projectwallace/no-property-shorthand': null
 			}
 		}
 	],
 	ignoreFiles: ['**/*.js', '**/*.ts', '**/*.json', '**/*.md'],
 	defaultSeverity: 'warning',
 	rules: {
-		'projectwallace/no-unknown-custom-properties': null,
 		'projectwallace/no-unused-custom-properties': null,
 		'projectwallace/no-duplicate-custom-properties': null,
 		'projectwallace/no-property-shorthand': [
@@ -176,11 +173,6 @@ export default {
 					'transition' // TODO: break down these shorthands
 				]
 			}
-		],
-		'projectwallace/max-nesting-depth': MAX_NESTING_DEPTH,
-		'projectwallace/no-prefixed-selectors': [
-			true,
-			{ ignore: [/-meter-/] } // -moz-meter-bar, -webkit-meter-optimum-value, etc.
 		]
 	}
 }

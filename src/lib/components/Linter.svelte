@@ -104,7 +104,7 @@
 	function on_preset_change() {
 		const updated_url = new URL(page.url.href)
 		updated_url.searchParams.set('preset', preset)
-		goto(updated_url, { replaceState: true, reset: false })
+		goto(updated_url, { replace: true, reset: false })
 		run_lint()
 	}
 </script>

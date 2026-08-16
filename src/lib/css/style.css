@@ -223,9 +223,7 @@
 
 	body {
 		/* TODO: remove anti-aliasing https://github.com/projectwallace/projectwallace.com/issues/285 */
-		/* stylelint-disable-next-line projectwallace/no-prefixed-properties -- TODO: remove this line later */
 		-webkit-font-smoothing: antialiased;
-		/* stylelint-disable-next-line projectwallace/no-prefixed-properties -- TODO: remove this line later */
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeSpeed;
 	}

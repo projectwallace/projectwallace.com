@@ -60,7 +60,7 @@
 		let new_url = new URL(page.url.href)
 		new_url.searchParams.set('url', value)
 		await goto(new_url, {
-			replaceState: true
+			replace: true
 		})
 
 		try {
@@ -78,7 +78,7 @@
 		css_state.prettify(prettify)
 		let new_url = new URL(page.url.href)
 		new_url.searchParams.set('prettify', prettify ? '1' : '0')
-		await goto(new_url, { replaceState: true })
+		await goto(new_url, { replace: true })
 	}
 </script>
 

@@ -4,10 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@projectwallace/stylelint-plugin':
+      specifier: ^0.7.0
+      version: 0.7.0
+
 overrides:
   '@projectwallace/css-analyzer': ^9.9.3
-  '@projectwallace/css-parser': ^0.18.2
-  '@projectwallace/format-css': ^3.1.6
+  '@projectwallace/css-parser': ^0.18.6
+  '@projectwallace/format-css': ^3.2.0
   color-sorter: ^8.0.2
   esbuild@>=0.17.0 <0.28.1: '>=0.28.1'
   runed: ^0.37.1
@@ -47,17 +53,17 @@ importers:
         specifier: ^2.1.5
         version: 2.1.5
       '@projectwallace/css-parser':
-        specifier: ^0.18.2
-        version: 0.18.2
+        specifier: ^0.18.6
+        version: 0.18.6
       '@projectwallace/css-time-sort':
         specifier: ^3.1.1
         version: 3.1.1
       '@projectwallace/format-css':
-        specifier: ^3.1.6
-        version: 3.1.6
+        specifier: ^3.2.0
+        version: 3.2.0
       '@projectwallace/stylelint-plugin':
-        specifier: ^0.6.15
-        version: 0.6.15(stylelint@17.13.0(supports-color@10.2.2)(typescript@6.0.3))
+        specifier: 'catalog:'
+        version: 0.7.0(stylelint@17.13.0(supports-color@10.2.2)(typescript@6.0.3))
       color-sorter:
         specifier: ^8.0.2
         version: 8.0.2
@@ -901,21 +907,21 @@ packages:
     resolution: {integrity: sha512-yQqXazSwOEdeciSesyTvNNzSSrQSOFg5sxu6htfPQKm0RVcNjFLZ3aIhPAv2aXtVisQje8Fa6K6Z7B5vkCypyw==}
     engines: {node: '>=18.0.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/css-parser@0.18.2':
-    resolution: {integrity: sha512-CqOpnkzvHDqjaQ8SqOQf3PCy7EtEVAOQpgXbdcneV8u0YEdKH34JSAUVDxsQzm0SlpBjf0fi0MbkIML1Q6Iphg==}
+  '@projectwallace/css-parser@0.18.6':
+    resolution: {integrity: sha512-o/3Q5YHs28nq5APCR73w/nUC9hr67nU229cbo611T1U72QeCBti11xkLwk7aMmUTzpSKnqqZib1o4bq7QEgapw==}
     engines: {pnpm: '>=11.0.0'}
 
   '@projectwallace/css-time-sort@3.1.1':
     resolution: {integrity: sha512-0fVzVSQ3vwypAnxLtfgpd8TZrtkGp/D20V1/DzJbo3cEaSDibgBG3C/sVabzQzjfnbi3pUmhw/FduIvq+DD3Kg==}
     engines: {node: '>=18.0.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/format-css@3.1.6':
-    resolution: {integrity: sha512-+o6GyH++F0eKVOTCjo4mk6aSbBQTZNqw3alapbZJ8wfbOFKknjkQuQmx6oL7C82mGUHjI8KIfcgPimt3B18Clg==}
+  '@projectwallace/format-css@3.2.0':
+    resolution: {integrity: sha512-iwPr7GtrHcgCFNF8ncsQ5qUk1zgnQ9UlTdt6w9QZwyWl1+7+r2MmgNLroBhDRpCkvEv2Tvy4Bkq+8lYnhhz9Ig==}
     engines: {node: '>=20.12.0', pnpm: '>=11.0.0'}
     hasBin: true
 
-  '@projectwallace/stylelint-plugin@0.6.15':
-    resolution: {integrity: sha512-ULOnQ8MFWKtZ4Vw0O5d6+JbSsXCAyTEk9tua6SelRp7kWo5mqHHhi7IndbqsCjYLPtLGB3JhNxa9a/CbrPPTwQ==}
+  '@projectwallace/stylelint-plugin@0.7.0':
+    resolution: {integrity: sha512-SwScadNaA/Cm0uW+bdCMDDpOgk6SK3OwSQZ+9CzwUaY4+r5wfxJcGnK80Bql0n7ubbaeyf4xCfS0CL0vN6IiCw==}
     engines: {node: '>=18'}
     peerDependencies:
       stylelint: ^16.0.0 || ^17.0.0
@@ -2666,12 +2672,12 @@ snapshots:
 
   '@projectwallace/css-analyzer@9.9.3':
     dependencies:
-      '@projectwallace/css-parser': 0.18.2
+      '@projectwallace/css-parser': 0.18.6
 
   '@projectwallace/css-code-coverage@1.0.4':
     dependencies:
-      '@projectwallace/css-parser': 0.18.2
-      '@projectwallace/format-css': 3.1.6
+      '@projectwallace/css-parser': 0.18.6
+      '@projectwallace/format-css': 3.2.0
 
   '@projectwallace/css-code-quality@3.1.4':
     dependencies:
@@ -2681,26 +2687,26 @@ snapshots:
     dependencies:
       '@colordx/core': 5.5.0
       '@projectwallace/css-analyzer': 9.9.3
-      '@projectwallace/css-parser': 0.18.2
+      '@projectwallace/css-parser': 0.18.6
       '@projectwallace/css-time-sort': 3.1.1
       color-sorter: 8.0.2
 
   '@projectwallace/css-layer-tree@2.1.5':
     dependencies:
-      '@projectwallace/css-parser': 0.18.2
+      '@projectwallace/css-parser': 0.18.6
 
-  '@projectwallace/css-parser@0.18.2': {}
+  '@projectwallace/css-parser@0.18.6': {}
 
   '@projectwallace/css-time-sort@3.1.1': {}
 
-  '@projectwallace/format-css@3.1.6':
+  '@projectwallace/format-css@3.2.0':
     dependencies:
-      '@projectwallace/css-parser': 0.18.2
+      '@projectwallace/css-parser': 0.18.6
 
-  '@projectwallace/stylelint-plugin@0.6.15(stylelint@17.13.0(supports-color@10.2.2)(typescript@6.0.3))':
+  '@projectwallace/stylelint-plugin@0.7.0(stylelint@17.13.0(supports-color@10.2.2)(typescript@6.0.3))':
     dependencies:
       '@projectwallace/css-analyzer': 9.9.3
-      '@projectwallace/css-parser': 0.18.2
+      '@projectwallace/css-parser': 0.18.6
       stylelint: 17.13.0(supports-color@10.2.2)(typescript@6.0.3)
 
   '@rolldown/binding-android-arm64@1.2.3':

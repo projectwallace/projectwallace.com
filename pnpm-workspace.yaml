@@ -20,8 +20,9 @@ trustPolicy: no-downgrade
 
 catalog:
   '@projectwallace/css-analyzer': ^9.9.3
-  '@projectwallace/css-parser': ^0.18.2
-  '@projectwallace/format-css': ^3.1.6
+  '@projectwallace/css-parser': ^0.18.6
+  '@projectwallace/format-css': ^3.2.0
+  '@projectwallace/stylelint-plugin': ^0.7.0
   color-sorter: ^8.0.2
   runed: ^0.37.1
   vite: 8.2.1
