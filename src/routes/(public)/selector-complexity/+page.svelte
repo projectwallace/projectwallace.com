@@ -64,7 +64,7 @@
 			new_params.set(PARAM, value)
 		}
 		await goto(`?${new_params.toString()}`, {
-			replaceState: true,
+			replace: true,
 			reset: false
 		})
 	}

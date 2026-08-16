@@ -77,7 +77,7 @@ export class HashState<T> {
 			// JSON.stringify forces deep tracking of all nested properties
 			const serialized = JSON.stringify(this.#value)
 			const timeout = setTimeout(() => {
-				void goto(`#${btoa(encodeURIComponent(serialized))}`, { replaceState: true, reset: false })
+				void goto(`#${btoa(encodeURIComponent(serialized))}`, { replace: true, reset: false })
 			}, this.#debounceMs)
 			return () => {
 				clearTimeout(timeout)

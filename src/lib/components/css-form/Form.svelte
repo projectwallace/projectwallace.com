@@ -44,7 +44,7 @@
 		!browser || !page.url.searchParams.has('prettify') || page.url.searchParams.get('prettify') === '1'
 	)
 	let is_online = new IsOnline()
-	let navigation_options = { replaceState: true, reset: false }
+	let navigation_options = { replace: true, reset: false }
 
 	$effect(() => {
 		css_state.prettify(prettify)

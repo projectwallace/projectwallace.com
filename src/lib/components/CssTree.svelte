@@ -31,8 +31,12 @@
 		scroll_container
 	}: Props = $props()
 
-	// Convert the node to a plain object for easier iteration
-	let plain_node = $derived(node.clone({ locations: true, deep: false }) as Node)
+	// Convert the node to a plain object for easier iteration.
+	// Nested CSSNode properties (e.g. a Declaration's `value`) are already
+	// plain objects once cloned by a parent, so only clone actual CSSNode instances.
+	let plain_node = $derived(
+		(typeof node.clone === 'function' ? node.clone({ locations: true, deep: false }) : node) as Node
+	)
 
 	let node_element: HTMLElement | undefined = undefined
 
@@ -114,7 +118,7 @@
 				{#if expandable}
 					<ol role="group">
 						<CssTree
-							node={value}
+							node={node[key]}
 							depth={depth + 1}
 							{show_locations}
 							{show_types}
