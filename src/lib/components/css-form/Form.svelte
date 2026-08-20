@@ -215,7 +215,7 @@
 			{/if}
 			{@render prettify_option()}
 			<div class="submit">
-				<Button type="submit" size="lg">
+				<Button type="submit">
 					{#if status === 'fetching' || external_loading}
 						Fetching CSS…
 					{:else}
@@ -239,7 +239,7 @@
 			</FormGroup>
 			{@render prettify_option()}
 			<div class="submit">
-				<Button type="submit" size="lg">Analyze CSS</Button>
+				<Button type="submit">Analyze CSS</Button>
 			</div>
 		</form>
 	{/snippet}
@@ -252,7 +252,7 @@
 			</FormGroup>
 			{@render prettify_option()}
 			<div class="submit">
-				<Button type="submit" size="lg">Analyze CSS</Button>
+				<Button type="submit">Analyze CSS</Button>
 			</div>
 		</form>
 	{/snippet}

@@ -73,10 +73,10 @@
 	}
 
 	.primary {
-		font-family: var(--font-display);
-		font-weight: var(--font-medium);
-		letter-spacing: var(--tracking-wider);
-		line-height: var(--leading-none);
+		font-family: var(--font-body);
+		font-weight: var(--font-ultrabold);
+		letter-spacing: var(--tracking-tightest);
+		line-height: var(--leading-tight);
 		font-style: normal;
 		text-transform: uppercase;
 		background-color: var(--accent);
@@ -133,7 +133,7 @@
 	}
 
 	.lg {
-		padding-block: 0.8em;
+		padding-block: var(--space-3);
 		padding-inline: var(--space-5);
 		font-size: var(--size-lg);
 

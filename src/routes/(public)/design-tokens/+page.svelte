@@ -379,6 +379,6 @@
 	}
 
 	.font-heading {
-		font-size: var(--size-5xl);
+		font-size: var(--size-4xl);
 	}
 </style>

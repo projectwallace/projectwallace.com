@@ -22,7 +22,7 @@
 	let calculated_size = $derived(size ?? SIZE_MAP[element])
 </script>
 
-<svelte:element this={element} class={[`heading heading-size-${calculated_size}`, className]} {...rest}>
+<svelte:element this={element} class={[`font-heading heading heading-size-${calculated_size}`, className]} {...rest}>
 	{@render children?.()}
 </svelte:element>
 

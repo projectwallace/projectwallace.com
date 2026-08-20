@@ -165,8 +165,16 @@
 
 	.nav-inner {
 		display: flex;
-		gap: var(--nav-gap);
-		align-items: baseline;
+		column-gap: var(--space-1);
+		align-items: center;
+
+		@media (min-width: 44rem) {
+			column-gap: var(--space-2);
+		}
+
+		@media (min-width: 66rem) {
+			column-gap: var(--space-6);
+		}
 	}
 
 	.nav-list {
