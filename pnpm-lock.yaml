@@ -103,6 +103,9 @@ importers:
       vite:
         specifier: 8.2.1
         version: 8.2.1(@types/node@25.9.5)(esbuild@0.28.1)
+      web-features:
+        specifier: ^3.34.3
+        version: 3.34.3
     devDependencies:
       '@playwright/test':
         specifier: ^1.62.0
@@ -2196,6 +2199,9 @@ packages:
       jsdom:
         optional: true
 
+  web-features@3.34.3:
+    resolution: {integrity: sha512-eXdaGO8JSiLLC5/tLOeDiH0EVIbuD8NExMDAziU0frr9JRdiEKqyOsTeEZDtmCXbazEI3mB+plYO4oMYOj1/Dg==}
+
   which@1.3.1:
     resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
     hasBin: true
@@ -3942,6 +3948,8 @@ snapshots:
       '@types/node': 25.9.5
     transitivePeerDependencies:
       - msw
+
+  web-features@3.34.3: {}
 
   which@1.3.1:
     dependencies:

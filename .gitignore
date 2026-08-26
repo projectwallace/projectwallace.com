@@ -17,6 +17,8 @@ package-lock.json
 /playwright-report/
 /playwright/.cache/
 /css-coverage
+/src/lib/data/css-features.generated.json
+/src/lib/data/compat-keys.generated.json
 
 # Sentry Config File
 .env.sentry-build-plugin
