@@ -16,8 +16,18 @@
 	import Image from './og-image.png?w=1200'
 
 	let input_ref: HTMLInputElement | undefined = $state()
+	let input_value = $state('')
 	let has_error = $state(false)
 	let result: { selector: string; specificity: Specificity }[] | undefined = $state()
+	let polypane_url = $derived.by(() => {
+		let base_url = new URL('https://polypane.app/css-specificity-calculator/')
+
+		if (input_value) {
+			base_url.searchParams.set('selector', encodeURIComponent(input_value))
+		}
+
+		return base_url.toString()
+	})
 
 	const DEFAULT_INPUT = '.kid :has(.friend) ~ :where(.treehouse) :is(#gross)'
 	const PARAM = 'selectors'
@@ -71,6 +81,7 @@
 
 	async function on_input() {
 		let input = input_ref!.value
+		input_value = input
 
 		calculate(input)
 		await update_url(input)
@@ -87,6 +98,7 @@
 			input_ref.value = DEFAULT_INPUT
 		}
 
+		input_value = input_ref.value
 		calculate(input_ref.value)
 		await update_url(input_ref.value)
 	})
@@ -152,8 +164,8 @@
 					This analyzer is powered by <a rel="external" href="https://github.com/bramus/specificity"
 						>@bramus/specificity</a
 					>. There are other specificity calculators available that offer explanations, like
-					<a href="https://polypane.app/css-specificity-calculator/" rel="external">the one from Polypane</a>. You
-					should use that one if you want to know more about <em>how</em>
+					<a href={polypane_url} rel="external">the one from Polypane</a>. You should use that one if you want to know
+					more about <em>how</em>
 					specificity is calculated.
 				</p>
 			</Markdown>

@@ -65,6 +65,7 @@ test.describe('without preloading', () => {
 			index++
 		}
 	})
+
 	test('shows an error message for invalid selectors', async ({ page }) => {
 		await expect(page).toBeHydrated()
 		await input.fill(`1234`)
@@ -88,6 +89,20 @@ test.describe('without preloading', () => {
 		await expect(page).toBeHydrated()
 		await input.fill(`#my-selector .myClass, :is(second)`)
 		await expect(page).toHaveURL('/specificity-calculator?selectors=%23my-selector+.myClass%2C+%3Ais%28second%29')
+	})
+
+	test('deep links to Polypane when selector is filled', async ({ page }) => {
+		await expect(page).toBeHydrated()
+		await input.fill(`#my-selector .myClass, :is(second)`)
+		const link = page.getByRole('link', { name: 'the one from Polypane' })
+		await expect(link).toHaveAttribute(
+			'href',
+			'https://polypane.app/css-specificity-calculator/?selector=%2523my-selector%2520.myClass%252C%2520%253Ais%28second%29'
+		)
+
+		// and updates after changing selector
+		await input.fill(`a`)
+		await expect(link).toHaveAttribute('href', 'https://polypane.app/css-specificity-calculator/?selector=a')
 	})
 })
 
