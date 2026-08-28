@@ -15,7 +15,7 @@
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
 
-	let input_ref: HTMLInputElement
+	let input_ref: HTMLInputElement | undefined = $state()
 	let has_error = $state(false)
 	let result: { selector: string; specificity: Specificity }[] | undefined = $state()
 
@@ -70,7 +70,7 @@
 	}
 
 	async function on_input() {
-		let input = input_ref.value
+		let input = input_ref!.value
 
 		calculate(input)
 		await update_url(input)
@@ -78,6 +78,8 @@
 
 	onMount(async () => {
 		let param_input = new URLSearchParams(page.url.searchParams.toString()).get(PARAM)
+
+		if (!input_ref) return
 
 		if (param_input) {
 			input_ref.value = param_input
