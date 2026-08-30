@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { highlight_css } from './use-css-highlight'
 	import type { HTMLTextareaAttributes } from 'svelte/elements'
+	import HighlightCssCode from '#lib/components/HighlightCssCode.svelte'
 
 	type Props = Omit<HTMLTextareaAttributes, 'value'> & {
 		value?: string
@@ -28,7 +28,7 @@
 		{...rest}
 	></textarea>
 	<!-- This output contains the highlighted CSS -->
-	<output aria-hidden="true" use:highlight_css={{ css: value }}>{value}</output>
+	<output aria-hidden="true"><HighlightCssCode css={value} /></output>
 </div>
 
 <style>

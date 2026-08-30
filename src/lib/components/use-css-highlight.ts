@@ -7,7 +7,7 @@ import {
 	walk,
 	SKIP,
 	AT_RULE,
-	SELECTOR_LIST,
+	STYLE_RULE,
 	DECLARATION
 } from '@projectwallace/css-parser'
 
@@ -39,23 +39,30 @@ export function highlight_css(
 	}
 
 	let highlights = window.CSS.highlights
-	let text_node = node.firstChild!
-	let ranges = new Set<StaticRange>()
+	// Own ranges, grouped by token type, so cleanup() can clear each type's set directly
+	// instead of checking every range against every type's shared Highlight object.
+	let ranges = new Map<string, Set<StaticRange>>(token_types.map((token_type) => [token_type, new Set()]))
+	// Re-read on every do_highlight() call rather than captured once, since the text node
+	// can be replaced (e.g. css toggling empty/non-empty) — a stale reference would silently
+	// highlight a detached node while leaving old ranges registered until destroy.
+	let text_node: Node | null = null
 
 	function add_range(token_type: string, start: number, end: number) {
 		let range = new StaticRange({
-			startContainer: text_node,
+			startContainer: text_node!,
 			startOffset: start,
-			endContainer: text_node,
+			endContainer: text_node!,
 			endOffset: end
 		})
 
-		// Keep track of all ranges within scope to remove them later to prevent memory leaks
-		ranges.add(range)
+		ranges.get(token_type)!.add(range)
 		window.CSS.highlights.get(token_type)?.add(range)
 	}
 
 	function do_highlight(css: string, node_type?: string) {
+		text_node = node.firstChild
+		if (!text_node) return
+
 		try {
 			let ast
 
@@ -92,9 +99,14 @@ export function highlight_css(
 				if (node.type === AT_RULE) {
 					let name = node.name!
 					add_range('AtruleName', start, start + name.length + 1)
-				} else if (node.type === SELECTOR_LIST) {
-					add_range('SelectorList', start, end)
-					return SKIP
+				} else if (node.type === STYLE_RULE) {
+					// With parse_selectors disabled, node.prelude is an untyped RAW span rather
+					// than a SELECTOR_LIST node, but it still gives us the exact selector range —
+					// no need to pay for full selector parsing just to get a typed node here.
+					if (node.has_prelude) {
+						let prelude = node.prelude
+						add_range('SelectorList', prelude.start, prelude.end)
+					}
 				} else if (node.type === DECLARATION) {
 					add_range('Property', start, start + node.property!.length)
 
@@ -111,19 +123,14 @@ export function highlight_css(
 	}
 
 	function cleanup() {
-		for (let token_type of token_types) {
+		for (let [token_type, own_ranges] of ranges) {
 			let items = highlights.get(token_type)
-			if (items) {
-				for (let range of ranges) {
-					if (items.has(range)) {
-						// Remove the range from the Highlight to prevent memory leaks
-						items.delete(range)
-					}
-				}
+			for (let range of own_ranges) {
+				// Remove the range from the Highlight to prevent memory leaks
+				items?.delete(range)
 			}
+			own_ranges.clear()
 		}
-		// Clear the ranges to prevent memory leaks
-		ranges.clear()
 	}
 
 	let idle_id: number | undefined
@@ -150,7 +157,7 @@ export function highlight_css(
 				cancelIdleCallback(idle_id)
 				idle_id = undefined
 			}
-			requestIdleCallback(cleanup)
+			cleanup()
 		}
 	}
 }
