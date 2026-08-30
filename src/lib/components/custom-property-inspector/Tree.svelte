@@ -19,7 +19,7 @@
 	} = getContext<TreeView>('tree')
 </script>
 
-{#each items as { title, count, index, type, children, parent, location, level, name }}
+{#each items as { title, count, index, type, children, parent, location, level, name } (type === 'property' ? title : `${title}-${index}`)}
 	{@const item_id = type === 'property' ? title : `${title}-${index}`}
 	{@const has_children = type == 'property'}
 	{@const matches = search_query === '' ? [name] : name.split(search_query)}
@@ -67,7 +67,7 @@
 			{/if}
 		</button>
 
-		{#if has_children && children}
+		{#if has_children && children && $isExpanded(item_id)}
 			<ul use:melt={$group({ id: item_id })}>
 				<Tree items={children} {search_query} />
 			</ul>
@@ -77,7 +77,8 @@
 
 <style>
 	button[role='treeitem'] {
-		contain-intrinsic-size: auto 28.8px;
+		content-visibility: auto;
+		contain-intrinsic-size: auto 1.8rem;
 		text-align: start;
 		padding-inline: var(--space-2);
 		padding-block: 0.25rem;
