@@ -8,11 +8,10 @@
 </script>
 
 <script lang="ts">
-	import { onMount, onDestroy, untrack } from 'svelte'
-	import { browser } from '$app/env'
+	import { untrack } from 'svelte'
 	import type { CssLocation } from '#lib/css-location.js'
-	import { highlight_css } from './use-css-highlight'
 	import Icon from '#lib/components/Icon.svelte'
+	import HighlightCssCode from '#lib/components/HighlightCssCode.svelte'
 
 	type BaseProps = {
 		css?: string
@@ -40,15 +39,9 @@
 		selected_highlight_name = 'selected_line'
 	}: Props = $props()
 
-	// Keep track of whether the browser supports the Highlight API
-	let supports_highlights = $state(false)
-	let lines: Highlight | undefined
-	let selected_line: Highlight | undefined
 	// body element is used to scroll to the highlighted location
 	// svelte-ignore non_reactive_update
 	let body: HTMLElement | undefined = undefined
-	// code_node is used to highlight the code (highlighting only works on TextNodes)
-	let code_node = $state<HTMLElement | undefined>(undefined)
 	// pre_node is the horizontal scroll container; body only scrolls vertically
 	let pre_node = $state<HTMLElement | undefined>(undefined)
 	// Line height is used to scroll to the highlighted location
@@ -84,22 +77,6 @@
 	)
 	let plain_line_numbers = $derived(Array.from({ length: total_lines }, (_, i) => i + 1).join('\n'))
 
-	onMount(function () {
-		supports_highlights = browser && 'highlights' in window.CSS
-		if (supports_highlights) {
-			lines = window.CSS.highlights.get(lines_highlight_name) || new Highlight()
-			selected_line = window.CSS.highlights.get(selected_highlight_name) || new Highlight()
-		}
-	})
-
-	onDestroy(function () {
-		if (supports_highlights) {
-			window.CSS.highlights.get(lines_highlight_name)?.clear()
-			window.CSS.highlights.delete(lines_highlight_name)
-			window.CSS.highlights.delete(selected_highlight_name)
-		}
-	})
-
 	// read selected_location without tracking it so this effect only fires on css changes,
 	// and won't fight the scroll-to-selection effect when both fire in the same tick
 	$effect(() => {
@@ -123,72 +100,6 @@
 					? 0
 					: selected_location.column * CHAR_WIDTH - margin_left
 			})
-		}
-	})
-
-	$effect(() => {
-		if (code_node?.firstChild && supports_highlights && lines !== undefined) {
-			let node = code_node.firstChild
-
-			lines.clear()
-
-			if (css.length === 0) return
-
-			// Browsers have a bug where a contained range (one entirely inside another) in the same
-			// Highlight causes painting to stop at the inner range's end rather than continuing to
-			// the outer range's end. Merge overlapping ranges into their union as a workaround.
-			const sorted = [...locations].sort((a, b) => a.offset - b.offset)
-			const merged: { start: number; end: number }[] = []
-			for (const loc of sorted) {
-				const end = loc.offset + loc.length
-				const last = merged.at(-1)
-				if (!last || loc.offset > last.end) {
-					merged.push({ start: loc.offset, end })
-				} else {
-					last.end = Math.max(last.end, end)
-				}
-			}
-
-			// Subtract the selected_location span so its Highlight background doesn't mix with ours.
-			const sel = selected_location
-			const punched: { start: number; end: number }[] = []
-			for (const { start, end } of merged) {
-				if (!sel || sel.offset >= end || sel.offset + sel.length <= start) {
-					punched.push({ start, end })
-				} else {
-					if (start < sel.offset) {
-						punched.push({ start, end: sel.offset })
-					}
-					if (end > sel.offset + sel.length) {
-						punched.push({ start: sel.offset + sel.length, end })
-					}
-				}
-			}
-
-			for (const { start, end } of punched) {
-				lines.add(new StaticRange({ startContainer: node, startOffset: start, endContainer: node, endOffset: end }))
-			}
-			window.CSS.highlights.set(lines_highlight_name, lines)
-		}
-	})
-
-	// separate effect so changing locations doesn't unnecessarily touch selected_line
-	// reading css.length establishes tracking so the effect re-runs when content changes in-place
-	$effect(() => {
-		if (code_node?.firstChild && supports_highlights && selected_line !== undefined) {
-			let node = code_node.firstChild
-			selected_line.clear()
-			if (css.length > 0 && selected_location !== undefined) {
-				selected_line.add(
-					new StaticRange({
-						startContainer: node,
-						startOffset: selected_location.offset,
-						endContainer: node,
-						endOffset: selected_location.offset + selected_location.length
-					})
-				)
-			}
-			window.CSS.highlights.set(selected_highlight_name, selected_line)
 		}
 	})
 
@@ -295,12 +206,13 @@
 			dir="ltr"
 			translate="no"
 			class:wrap
-			style:height="calc({total_lines + 1} * var(--pre-line-height))"><code
-				class="language-css"
-				bind:this={code_node}
-				use:highlight_css={{ css }}
-				data-testid="pre-css">{css}</code
-			></pre>
+			style:height="calc({total_lines + 1} * var(--pre-line-height))"><HighlightCssCode
+				{css}
+				{selected_location}
+				{locations}
+				{lines_highlight_name}
+				{selected_highlight_name}
+			/></pre>
 	</div>
 </div>
 
@@ -419,15 +331,4 @@
 		}
 	}
 
-	.language-css {
-		contain: strict;
-	}
-
-	::highlight(lines) {
-		background-color: var(--highlight-code);
-	}
-
-	::highlight(selected_line) {
-		background-color: var(--highlight-code-selected);
-	}
 </style>
