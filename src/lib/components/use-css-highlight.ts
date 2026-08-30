@@ -10,8 +10,21 @@ import {
 	STYLE_RULE,
 	DECLARATION
 } from '@projectwallace/css-parser'
+import {
+	build_line_offsets,
+	line_range_to_char_range,
+	FULL_LINE_RANGE,
+	VIRTUALIZE_THRESHOLD_CHARS,
+	type LineRange,
+	type CharRange,
+	type ViewportWindowChangeEvent
+} from './highlight-viewport'
 
 const token_types = ['AtruleName', 'SelectorList', 'Property', 'Comment', 'Important']
+
+function intersects(char_range: CharRange, start: number, end: number) {
+	return start < char_range.end && end > char_range.start
+}
 
 export type NodeType = 'selector' | 'declaration' | 'selectorList' | 'atrule' | 'value' | 'rule'
 
@@ -46,6 +59,10 @@ export function highlight_css(
 	// can be replaced (e.g. css toggling empty/non-empty) — a stale reference would silently
 	// highlight a detached node while leaving old ranges registered until destroy.
 	let text_node: Node | null = null
+	// Reported by the track_viewport_window action (a separate `use:` directive on the same
+	// node - see highlight-viewport.ts). Defaults to "everything" until the first event
+	// arrives, or forever for files below the virtualization threshold.
+	let visible_range: LineRange = FULL_LINE_RANGE
 
 	function add_range(token_type: string, start: number, end: number) {
 		let range = new StaticRange({
@@ -74,6 +91,16 @@ export function highlight_css(
 				}
 			}
 
+			let virtualize = css.length > VIRTUALIZE_THRESHOLD_CHARS
+			let char_range: CharRange = virtualize
+				? line_range_to_char_range(
+						build_line_offsets(css),
+						visible_range.start_line,
+						visible_range.end_line,
+						css.length
+					)
+				: { start: 0, end: css.length }
+
 			// Use appropriate parser based on node_type
 			if (node_type === 'selector' || node_type === 'selectorList') {
 				ast = parse_selector(css)
@@ -88,7 +115,9 @@ export function highlight_css(
 					parse_values: false,
 					parse_selectors: false,
 					on_comment: (comment) => {
-						add_range('Comment', comment.start, comment.end)
+						if (intersects(char_range, comment.start, comment.end)) {
+							add_range('Comment', comment.start, comment.end)
+						}
 					}
 				})
 			}
@@ -99,9 +128,14 @@ export function highlight_css(
 				let end = node.end
 
 				if (node.type === AT_RULE) {
+					// An at-rule with a body (e.g. @media) is a container - skip its whole subtree
+					// when it doesn't overlap the visible window, instead of only skipping the
+					// range registration, so the walker doesn't pay to descend into off-screen rules.
+					if (!intersects(char_range, start, end)) return SKIP
 					let name = node.name!
 					add_range('AtruleName', start, start + name.length + 1)
 				} else if (node.type === STYLE_RULE) {
+					if (!intersects(char_range, start, end)) return SKIP
 					// With parse_selectors disabled, node.prelude is an untyped RAW span rather
 					// than a SELECTOR_LIST node, but it still gives us the exact selector range —
 					// no need to pay for full selector parsing just to get a typed node here.
@@ -110,10 +144,12 @@ export function highlight_css(
 						add_range('SelectorList', prelude.start, prelude.end)
 					}
 				} else if (node.type === DECLARATION) {
-					add_range('Property', start, start + node.property!.length)
+					if (intersects(char_range, start, end)) {
+						add_range('Property', start, start + node.property!.length)
 
-					if (node.is_important) {
-						add_range('Important', end - 11, end - 1)
+						if (node.is_important) {
+							add_range('Important', end - 11, end - 1)
+						}
 					}
 
 					return SKIP
@@ -147,10 +183,25 @@ export function highlight_css(
 		})
 	}
 
+	let current_css: string = css
+	let current_node_type: string | undefined = node_type
+
+	function on_viewport_window_change(event: Event) {
+		visible_range = (event as ViewportWindowChangeEvent).detail
+		schedule(() => {
+			cleanup()
+			do_highlight(current_css, current_node_type)
+		})
+	}
+
+	node.addEventListener('viewportwindowchange', on_viewport_window_change)
+
 	schedule(() => do_highlight(css, node_type))
 
 	return {
 		update({ css: updated_css, node_type: updated_node_type }: { css: string; node_type?: string }) {
+			current_css = updated_css
+			current_node_type = updated_node_type
 			schedule(() => {
 				cleanup()
 				do_highlight(updated_css, updated_node_type)
@@ -161,6 +212,7 @@ export function highlight_css(
 				cancelIdleCallback(idle_id)
 				idle_id = undefined
 			}
+			node.removeEventListener('viewportwindowchange', on_viewport_window_change)
 			cleanup()
 		}
 	}
