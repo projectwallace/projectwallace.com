@@ -54,11 +54,13 @@
 		}
 	})
 
-	$effect(() => {
+	$effect.pre(() => {
 		if (css) {
 			// Reset expanded items when CSS changes to avoid null-pointers
+			// Runs pre-commit so this reset lands in the same render as the new
+			// tree_items, instead of a second full-tree render pass right after.
 			expanded.set([])
-			// eslint-disable-next-line eslint-plugin-unicorn/no-null
+			// eslint-disable-next-line eslint-plugin-unicorn/no-null -- null is what Melt UI wants
 			$selectedItem = null
 			search_query = ''
 		}
@@ -183,10 +185,12 @@
 	<section class="list">
 		<header>
 			<h2>Properties</h2>
-			<button type="button" onclick={() => expanded.set([])} class="collapse-all">
-				<Icon name="fold" size={14} />
-				<div class="sr-only">Collapse all</div>
-			</button>
+			{#if filtered_results !== undefined && filtered_results.size > 0}
+				<button type="button" onclick={() => expanded.set([])} class="collapse-all">
+					<Icon name="fold" size={14} />
+					<div class="sr-only">Collapse all</div>
+				</button>
+			{/if}
 			<search>
 				<form method="GET" onsubmit={onsearch}>
 					<label for="search-property" class="sr-only">Search property name</label>
