@@ -120,7 +120,9 @@ export function highlight_css(
 	}
 
 	function add_range(token_type: string, start: number, end: number) {
-		if (!in_view(start, end)) return
+		if (!in_view(start, end)) {
+			return
+		}
 
 		let range = new StaticRange({
 			startContainer: text_node!,
@@ -166,11 +168,15 @@ export function highlight_css(
 					// An at-rule with a body (e.g. @media) is a container - skip its whole subtree
 					// when it doesn't overlap the visible window, instead of only skipping the
 					// range registration, so the walker doesn't pay to descend into off-screen rules.
-					if (!in_view(start, end)) return SKIP
+					if (!in_view(start, end)) {
+						return SKIP
+					}
 					let name = node.name!
 					add_range('AtruleName', start, start + name.length + 1)
 				} else if (node.type === STYLE_RULE) {
-					if (!in_view(start, end)) return SKIP
+					if (!in_view(start, end)) {
+						return SKIP
+					}
 					// With parse_selectors disabled, node.prelude is an untyped RAW span rather
 					// than a SELECTOR_LIST node, but it still gives us the exact selector range —
 					// no need to pay for full selector parsing just to get a typed node here.

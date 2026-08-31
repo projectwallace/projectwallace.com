@@ -50,7 +50,9 @@
 	let visible_range = $state<LineRange>(FULL_LINE_RANGE)
 	let virtualize = $derived(css.length > VIRTUALIZE_THRESHOLD_CHARS)
 	let visible_char_range: CharRange | undefined = $derived.by(() => {
-		if (!virtualize) return undefined
+		if (!virtualize) {
+			return undefined
+		}
 		return line_range_to_char_range(
 			build_line_offsets(css),
 			visible_range.start_line,
