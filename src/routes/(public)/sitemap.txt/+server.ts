@@ -18,8 +18,12 @@ function getSystemPages() {
 				.replace('/+error.svelte', '')
 		)
 		.filter((route) => {
-			if (route.includes('[')) return false // urls with placeholders
-			if (route.includes('/_')) return false // private routes, _error, or _layout
+			if (route.includes('[')) {
+				return false
+			} // urls with placeholders
+			if (route.includes('/_')) {
+				return false
+			} // private routes, _error, or _layout
 			return true
 		})
 }

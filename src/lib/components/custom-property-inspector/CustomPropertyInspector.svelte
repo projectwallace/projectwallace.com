@@ -24,7 +24,9 @@
 	let filter_with_fallback: boolean = $state(false)
 	let search_results = $derived.by<Map<string, CssLocation[]>>(() => {
 		let query = search_query.toLowerCase().trim()
-		if (query === '' || query === '!') return result.all
+		if (query === '' || query === '!') {
+			return result.all
+		}
 		let filtered = new Map<string, CssLocation[]>()
 		for (let [name, locations] of result.all) {
 			let searchable_name = name.toLowerCase()
@@ -67,7 +69,9 @@
 	})
 
 	let tree_items = $derived.by<TreeItem[]>(() => {
-		if (!filtered_results) return []
+		if (!filtered_results) {
+			return []
+		}
 		return Array.from(filtered_results, ([property_name, locations]) => {
 			let level: TreeItem['level'] = USED
 			if (result.undeclared.has(property_name)) {

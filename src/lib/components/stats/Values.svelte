@@ -30,8 +30,12 @@
 	function is_valid_z_index(z_index: string) {
 		// If it's a number, it should be a 2^32 integer:
 		let index = normalize_z_index(z_index)
-		if (index === INVALID) return false
-		if (index === MAX) return true
+		if (index === INVALID) {
+			return false
+		}
+		if (index === MAX) {
+			return true
+		}
 		return index >= -2147483648 && index <= 2147483647
 	}
 

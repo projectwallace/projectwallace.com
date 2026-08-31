@@ -52,7 +52,9 @@
 			return
 		}
 
-		if (status === STATUS.PENDING) return
+		if (status === STATUS.PENDING) {
+			return
+		}
 
 		status = STATUS.PENDING
 

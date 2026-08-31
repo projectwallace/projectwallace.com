@@ -15,7 +15,9 @@
 	let popover = $state<HTMLElement | undefined>(undefined)
 
 	onNavigate(({ shallow }) => {
-		if (shallow) return
+		if (shallow) {
+			return
+		}
 
 		hide_popover()
 	})
@@ -50,7 +52,9 @@
 	})
 
 	function on_resize() {
-		if (document.documentElement.dataset.theme === 'naked') return
+		if (document.documentElement.dataset.theme === 'naked') {
+			return
+		}
 		// The first node that doesn't have the same top position as the previous one
 		// is the first node that's wrapped on a new line
 		let first_top = nodes[0].getBoundingClientRect().top

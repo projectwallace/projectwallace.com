@@ -13,7 +13,9 @@
 		let ticks: number[]
 		let step
 
-		if (start === stop && count > 0) return [start]
+		if (start === stop && count > 0) {
+			return [start]
+		}
 
 		if ((reverse = stop < start)) {
 			;[start, stop] = [stop, start]
@@ -27,15 +29,21 @@
 			start = Math.ceil(start / step)
 			stop = Math.floor(stop / step)
 			ticks = Array.from({ length: (n = Math.ceil(stop - start + 1)) })
-			while (++i < n) ticks[i] = (start + i) * step
+			while (++i < n) {
+				ticks[i] = (start + i) * step
+			}
 		} else {
 			start = Math.floor(start * step)
 			stop = Math.ceil(stop * step)
 			ticks = Array.from({ length: (n = Math.ceil(start - stop + 1)) })
-			while (++i < n) ticks[i] = (start - i) / step
+			while (++i < n) {
+				ticks[i] = (start - i) / step
+			}
 		}
 
-		if (reverse) ticks.reverse()
+		if (reverse) {
+			ticks.reverse()
+		}
 
 		return ticks
 	}

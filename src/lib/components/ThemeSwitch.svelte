@@ -35,7 +35,9 @@
 	})
 
 	$effect(() => {
-		if (!popover) return
+		if (!popover) {
+			return
+		}
 		return on(popover, 'keydown', prevent_fullscreen_close)
 	})
 

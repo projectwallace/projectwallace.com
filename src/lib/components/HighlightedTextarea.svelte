@@ -11,7 +11,9 @@
 	let textarea: HTMLTextAreaElement | undefined = undefined
 
 	function set_cursor_positions() {
-		if (!textarea || !on_cursor_move) return
+		if (!textarea || !on_cursor_move) {
+			return
+		}
 		on_cursor_move({ start: textarea.selectionStart, end: textarea.selectionEnd })
 	}
 </script>

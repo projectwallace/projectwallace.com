@@ -35,8 +35,11 @@ export function analyze(css: string) {
 				let loc = to_loc(node)
 				declared_properties.add(name)
 				let locs = all_properties.get(name)
-				if (locs) locs.push(loc)
-				else all_properties.set(name, [loc])
+				if (locs) {
+					locs.push(loc)
+				} else {
+					all_properties.set(name, [loc])
+				}
 			}
 		} else if (is_function(node) && node.name === 'var') {
 			let first_child = node.first_child
@@ -47,8 +50,11 @@ export function analyze(css: string) {
 				let name = first_child.name
 				used_properties.add(name)
 				let locs = all_properties.get(name)
-				if (locs) locs.push(loc)
-				else all_properties.set(name, [loc])
+				if (locs) {
+					locs.push(loc)
+				} else {
+					all_properties.set(name, [loc])
+				}
 
 				// check if it has a fallback value that is a custom property
 				if (second_child && !(is_function(second_child) && second_child.name === 'var')) {
@@ -60,8 +66,11 @@ export function analyze(css: string) {
 			let loc = to_loc(node)
 			declared_properties.add(name)
 			let locs = all_properties.get(name)
-			if (locs) locs.push(loc)
-			else all_properties.set(name, [loc])
+			if (locs) {
+				locs.push(loc)
+			} else {
+				all_properties.set(name, [loc])
+			}
 		}
 	})
 

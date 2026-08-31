@@ -54,7 +54,9 @@
 	}
 
 	afterNavigate(({ shallow }) => {
-		if (shallow) return
+		if (shallow) {
+			return
+		}
 
 		search_query = ''
 	})

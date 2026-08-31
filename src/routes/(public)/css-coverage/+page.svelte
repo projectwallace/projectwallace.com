@@ -18,7 +18,9 @@
 		let files = (event.target as HTMLInputElement)?.files
 		let new_data: Coverage[] = []
 
-		if (!files) return
+		if (!files) {
+			return
+		}
 
 		for (let file of files) {
 			// Skip non-JSON files

@@ -17,7 +17,9 @@ import { browser } from '$app/env'
 export function decodeHashState<T>(hash: string): T | undefined {
 	const value = hash.startsWith('#') ? hash.slice(1) : hash
 
-	if (!value) return
+	if (!value) {
+		return
+	}
 
 	try {
 		// TODO: use Uint8Array.fromBase64() when browsers support it
@@ -72,7 +74,9 @@ export class HashState<T> {
 		}
 
 		$effect(() => {
-			if (!browser) return
+			if (!browser) {
+				return
+			}
 
 			// JSON.stringify forces deep tracking of all nested properties
 			const serialized = JSON.stringify(this.#value)

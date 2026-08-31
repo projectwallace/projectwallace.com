@@ -99,7 +99,9 @@
 		}
 
 		let tr = target.closest('tr')
-		if (tr === null) return
+		if (tr === null) {
+			return
+		}
 
 		let index = tr.sectionRowIndex
 
@@ -110,10 +112,14 @@
 		}
 
 		let mapped_index = sorted[index]
-		if (mapped_index === undefined) return
+		if (mapped_index === undefined) {
+			return
+		}
 
 		let origin = css_state.origins.at(mapped_index)
-		if (origin === undefined) return
+		if (origin === undefined) {
+			return
+		}
 
 		if (event.metaKey || event.shiftKey || event.ctrlKey) {
 			if (origin.type === 'local-file') {

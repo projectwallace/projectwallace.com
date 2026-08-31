@@ -90,7 +90,9 @@
 	onMount(async () => {
 		let param_input = new URLSearchParams(page.url.searchParams.toString()).get(PARAM)
 
-		if (!input_ref) return
+		if (!input_ref) {
+			return
+		}
 
 		if (param_input) {
 			input_ref.value = param_input
