@@ -139,7 +139,7 @@ export function track_viewport_window(node: Element, params: TrackViewportWindow
 	let unsubscribe: (() => void) | undefined
 	let resize_observer: ResizeObserver | undefined
 	let window_resize_handler: (() => void) | undefined
-	let raf_id: number | undefined
+	let frame_id: number | undefined
 	let last_range: LineRange | undefined
 
 	function dispatch(range: LineRange) {
@@ -163,16 +163,20 @@ export function track_viewport_window(node: Element, params: TrackViewportWindow
 			const moved =
 				Math.abs(range.start_line - last_range.start_line) >= hysteresis ||
 				Math.abs(range.end_line - last_range.end_line) >= hysteresis
-			if (!moved) return
+			if (!moved) {
+				return
+			}
 		}
 
 		dispatch(range)
 	}
 
 	function schedule_recompute(source: ScrollPositionSource) {
-		if (raf_id !== undefined) cancelAnimationFrame(raf_id)
-		raf_id = requestAnimationFrame(() => {
-			raf_id = undefined
+		if (frame_id !== undefined) {
+			cancelAnimationFrame(frame_id)
+		}
+		frame_id = requestAnimationFrame(() => {
+			frame_id = undefined
 			recompute(source)
 		})
 	}
@@ -194,20 +198,26 @@ export function track_viewport_window(node: Element, params: TrackViewportWindow
 		unsubscribe = source.subscribe(() => schedule_recompute(source))
 
 		resize_observer = new ResizeObserver(() => schedule_recompute(source))
-		if (node.parentElement) resize_observer.observe(node.parentElement)
+		if (node.parentElement) {
+			resize_observer.observe(node.parentElement)
+		}
 
 		window_resize_handler = () => schedule_recompute(source)
 		window.addEventListener('resize', window_resize_handler, { passive: true })
 	}
 
 	function teardown() {
-		if (raf_id !== undefined) cancelAnimationFrame(raf_id)
-		raf_id = undefined
+		if (frame_id !== undefined) {
+			cancelAnimationFrame(frame_id)
+		}
+		frame_id = undefined
 		unsubscribe?.()
 		unsubscribe = undefined
 		resize_observer?.disconnect()
 		resize_observer = undefined
-		if (window_resize_handler) window.removeEventListener('resize', window_resize_handler)
+		if (window_resize_handler) {
+			window.removeEventListener('resize', window_resize_handler)
+		}
 		window_resize_handler = undefined
 		last_range = undefined
 	}
