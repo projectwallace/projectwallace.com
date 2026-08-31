@@ -22,10 +22,6 @@ import {
 
 const token_types = ['AtruleName', 'SelectorList', 'Property', 'Comment', 'Important']
 
-function intersects(char_range: CharRange, start: number, end: number) {
-	return start < char_range.end && end > char_range.start
-}
-
 export type NodeType = 'selector' | 'declaration' | 'selectorList' | 'atrule' | 'value' | 'rule'
 
 export function highlight_css(
@@ -63,8 +59,16 @@ export function highlight_css(
 	// node - see highlight-viewport.ts). Defaults to "everything" until the first event
 	// arrives, or forever for files below the virtualization threshold.
 	let visible_range: LineRange = FULL_LINE_RANGE
+	// undefined means "not virtualizing" (small file) - every token is in view.
+	let char_range: CharRange | undefined
+
+	function in_view(start: number, end: number): boolean {
+		return char_range === undefined || (start < char_range.end && end > char_range.start)
+	}
 
 	function add_range(token_type: string, start: number, end: number) {
+		if (!in_view(start, end)) return
+
 		let range = new StaticRange({
 			startContainer: text_node!,
 			startOffset: start,
@@ -82,6 +86,16 @@ export function highlight_css(
 			return
 		}
 
+		char_range =
+			css.length > VIRTUALIZE_THRESHOLD_CHARS
+				? line_range_to_char_range(
+						build_line_offsets(css),
+						visible_range.start_line,
+						visible_range.end_line,
+						css.length
+					)
+				: undefined
+
 		try {
 			let ast
 
@@ -90,16 +104,6 @@ export function highlight_css(
 					highlights.set(token_type, new Highlight())
 				}
 			}
-
-			let virtualize = css.length > VIRTUALIZE_THRESHOLD_CHARS
-			let char_range: CharRange = virtualize
-				? line_range_to_char_range(
-						build_line_offsets(css),
-						visible_range.start_line,
-						visible_range.end_line,
-						css.length
-					)
-				: { start: 0, end: css.length }
 
 			// Use appropriate parser based on node_type
 			if (node_type === 'selector' || node_type === 'selectorList') {
@@ -114,11 +118,7 @@ export function highlight_css(
 					parse_atrule_preludes: false,
 					parse_values: false,
 					parse_selectors: false,
-					on_comment: (comment) => {
-						if (intersects(char_range, comment.start, comment.end)) {
-							add_range('Comment', comment.start, comment.end)
-						}
-					}
+					on_comment: (comment) => add_range('Comment', comment.start, comment.end)
 				})
 			}
 
@@ -131,11 +131,11 @@ export function highlight_css(
 					// An at-rule with a body (e.g. @media) is a container - skip its whole subtree
 					// when it doesn't overlap the visible window, instead of only skipping the
 					// range registration, so the walker doesn't pay to descend into off-screen rules.
-					if (!intersects(char_range, start, end)) return SKIP
+					if (!in_view(start, end)) return SKIP
 					let name = node.name!
 					add_range('AtruleName', start, start + name.length + 1)
 				} else if (node.type === STYLE_RULE) {
-					if (!intersects(char_range, start, end)) return SKIP
+					if (!in_view(start, end)) return SKIP
 					// With parse_selectors disabled, node.prelude is an untyped RAW span rather
 					// than a SELECTOR_LIST node, but it still gives us the exact selector range —
 					// no need to pay for full selector parsing just to get a typed node here.
@@ -144,12 +144,10 @@ export function highlight_css(
 						add_range('SelectorList', prelude.start, prelude.end)
 					}
 				} else if (node.type === DECLARATION) {
-					if (intersects(char_range, start, end)) {
-						add_range('Property', start, start + node.property!.length)
+					add_range('Property', start, start + node.property!.length)
 
-						if (node.is_important) {
-							add_range('Important', end - 11, end - 1)
-						}
+					if (node.is_important) {
+						add_range('Important', end - 11, end - 1)
 					}
 
 					return SKIP
@@ -186,26 +184,26 @@ export function highlight_css(
 	let current_css: string = css
 	let current_node_type: string | undefined = node_type
 
-	function on_viewport_window_change(event: Event) {
-		visible_range = (event as ViewportWindowChangeEvent).detail
+	function rehighlight() {
 		schedule(() => {
 			cleanup()
 			do_highlight(current_css, current_node_type)
 		})
 	}
 
-	node.addEventListener('viewportwindowchange', on_viewport_window_change)
+	function on_viewport_window_change(event: Event) {
+		visible_range = (event as ViewportWindowChangeEvent).detail
+		rehighlight()
+	}
 
-	schedule(() => do_highlight(css, node_type))
+	node.addEventListener('viewportwindowchange', on_viewport_window_change)
+	rehighlight()
 
 	return {
 		update({ css: updated_css, node_type: updated_node_type }: { css: string; node_type?: string }) {
 			current_css = updated_css
 			current_node_type = updated_node_type
-			schedule(() => {
-				cleanup()
-				do_highlight(updated_css, updated_node_type)
-			})
+			rehighlight()
 		},
 		destroy: () => {
 			if (idle_id !== undefined) {
