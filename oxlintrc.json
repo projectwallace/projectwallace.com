@@ -23,6 +23,7 @@
 		"no-unused-vars": "off",
 		"no-unassigned-vars": "off",
 		"eslint/no-unassigned-vars": "off",
+		"curly": "error",
 		"no-await-in-loop": "off",
 		"prefer-query-selector": "off",
 		"max-dependencies": "off",

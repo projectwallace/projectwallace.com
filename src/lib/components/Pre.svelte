@@ -110,13 +110,19 @@
 	}
 
 	function jump_to_next_uncovered() {
-		if (!coverage_chunks) return
-		if (!body) return
+		if (!coverage_chunks) {
+			return
+		}
+		if (!body) {
+			return
+		}
 
 		let current_scroll_offset = body?.scrollTop || 0
 
 		let next_uncovered_chunk = coverage_chunks.find((chunk) => {
-			if (chunk.is_covered) return false
+			if (chunk.is_covered) {
+				return false
+			}
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 			return chunk_top > current_scroll_offset + SCROLL_MARGIN_LINES * LINE_HEIGHT
 		})
@@ -134,13 +140,19 @@
 	}
 
 	function jump_to_previous_uncovered() {
-		if (!coverage_chunks) return
-		if (!body) return
+		if (!coverage_chunks) {
+			return
+		}
+		if (!body) {
+			return
+		}
 
 		let current_scroll_offset = body?.scrollTop || 0
 
 		let previous_uncovered_chunk = coverage_chunks.findLast((chunk) => {
-			if (chunk.is_covered) return false
+			if (chunk.is_covered) {
+				return false
+			}
 
 			let chunk_top = chunk.start_line * LINE_HEIGHT
 
@@ -330,5 +342,4 @@
 			overflow-x: clip;
 		}
 	}
-
 </style>

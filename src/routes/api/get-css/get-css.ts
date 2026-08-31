@@ -125,7 +125,9 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 			})
 		} else if (node.hasAttribute('style')) {
 			let declarations = (node.getAttribute('style') ?? '').trim()
-			if (declarations.length === 0) continue
+			if (declarations.length === 0) {
+				continue
+			}
 
 			// I forgot why I added this, but it's apparently important
 			if (!declarations.endsWith(';')) {
@@ -140,8 +142,12 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 				class_name += class_attr
 					.split(/\s+/g)
 					.filter((s) => {
-						if (s.length === 0) return false
-						if (s.length === 1 && !/^[a-zA-Z0-9_-]$/.test(s)) return false
+						if (s.length === 0) {
+							return false
+						}
+						if (s.length === 1 && !/^[a-zA-Z0-9_-]$/.test(s)) {
+							return false
+						}
 						return true
 					})
 					.map((s) => s.replaceAll(/(\[|\]|:|\.|\/)/g, '\\$1'))

@@ -8,8 +8,12 @@ export function normalize(selector: string) {
 	}
 
 	let value = selector.toLowerCase()
-	if (value === 'from') return 0
-	if (value === 'to') return 100
+	if (value === 'from') {
+		return 0
+	}
+	if (value === 'to') {
+		return 100
+	}
 	// Unknown value
 	return Infinity
 }
@@ -19,8 +23,12 @@ export function sort(a: string, b: string) {
 	let B = normalize(b)
 
 	if (A === B) {
-		if (a.toLowerCase() === 'from') return -1
-		if (a.toLowerCase() === 'to') return 1
+		if (a.toLowerCase() === 'from') {
+			return -1
+		}
+		if (a.toLowerCase() === 'to') {
+			return 1
+		}
 		return string_sort(b, a)
 	}
 

@@ -19,7 +19,9 @@
 	let activeIds = $state<Set<string>>(new Set())
 
 	$effect(() => {
-		if (!scroll_spy || nav.length === 0) return
+		if (!scroll_spy || nav.length === 0) {
+			return
+		}
 
 		// Collect all section IDs from nav in order
 		const sectionIds: string[] = []

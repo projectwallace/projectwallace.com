@@ -79,12 +79,16 @@
 	async function on_submit_url(event: SubmitEvent) {
 		event.preventDefault()
 
-		if (status === 'fetching') return
+		if (status === 'fetching') {
+			return
+		}
 
 		let form_data = new FormData(event.target as HTMLFormElement)
 		let url = String(form_data.get('url'))
 
-		if (!url) return
+		if (!url) {
+			return
+		}
 
 		let prettify_val = form_data.get('prettify') === '1'
 

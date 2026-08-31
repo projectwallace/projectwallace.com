@@ -61,7 +61,9 @@ export function highlight_css(
 
 	function do_highlight(css: string, node_type?: string) {
 		text_node = node.firstChild
-		if (!text_node) return
+		if (!text_node) {
+			return
+		}
 
 		try {
 			let ast
@@ -136,7 +138,9 @@ export function highlight_css(
 	let idle_id: number | undefined
 
 	function schedule(fn: () => void) {
-		if (idle_id !== undefined) cancelIdleCallback(idle_id)
+		if (idle_id !== undefined) {
+			cancelIdleCallback(idle_id)
+		}
 		idle_id = requestIdleCallback(() => {
 			idle_id = undefined
 			fn()

@@ -18,7 +18,9 @@
 	let ctx: CanvasRenderingContext2D | null
 
 	$effect(() => {
-		if (!canvas) return
+		if (!canvas) {
+			return
+		}
 
 		// Multiplier to make sure numbers are large enough to provide
 		// crisp edges between the colors
@@ -32,7 +34,9 @@
 		canvas.width = sizing === 'relative' ? total * MULTIPLIER : totalUnique * MULTIPLIER
 		ctx = canvas.getContext('2d')
 
-		if (ctx === null) return
+		if (ctx === null) {
+			return
+		}
 
 		let offset = 0
 		let height = canvas.height

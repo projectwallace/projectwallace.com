@@ -29,7 +29,9 @@ export function create_keyboard_list({
 	let onchange_handler: OnChange = noop
 
 	function scroll_into_view_if_necessary(node: HTMLElement, scroll_options: ScrollIntoViewOptions) {
-		if (!scroll_selected_item_into_view) return
+		if (!scroll_selected_item_into_view) {
+			return
+		}
 		if (is_in_bottom_screen_half(node)) {
 			node.scrollIntoView(scroll_options)
 		}

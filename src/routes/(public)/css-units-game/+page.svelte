@@ -25,7 +25,9 @@
 			interaction_started = true
 		}
 
-		if (guessed.includes(guess)) return
+		if (guessed.includes(guess)) {
+			return
+		}
 
 		if (guess === '!important') {
 			guessed = [...units]

@@ -46,7 +46,9 @@
 	}
 
 	afterNavigate(({ shallow }) => {
-		if (shallow) return
+		if (shallow) {
+			return
+		}
 
 		return reset()
 	})

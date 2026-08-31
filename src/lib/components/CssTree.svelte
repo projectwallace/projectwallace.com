@@ -41,14 +41,20 @@
 	let node_element: HTMLElement | undefined = undefined
 
 	function compare_nodes(a: Node, b: PlainCSSNode | undefined): boolean {
-		if (!b) return false
+		if (!b) {
+			return false
+		}
 		return a.start === b.start && a.end === b.end && a.type === b.type
 	}
 
 	function filter_properties(obj: Node): string[] {
 		return Object.keys(obj).filter((key) => {
-			if (IGNORED_KEYS.has(key)) return false
-			if (obj[key] === false) return false
+			if (IGNORED_KEYS.has(key)) {
+				return false
+			}
+			if (obj[key] === false) {
+				return false
+			}
 			return true
 		})
 	}

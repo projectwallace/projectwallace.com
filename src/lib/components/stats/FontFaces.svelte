@@ -35,14 +35,26 @@
 	const required_descriptors = [font_family, 'src']
 
 	function normalize_font_weight(weight: string | undefined): number {
-		if (weight === undefined) return 400
-		if (weight === 'normal') return 400
-		if (weight === 'bold') return 700
-		if (weight === 'lighter') return 100
-		if (weight === 'bolder') return 700
+		if (weight === undefined) {
+			return 400
+		}
+		if (weight === 'normal') {
+			return 400
+		}
+		if (weight === 'bold') {
+			return 700
+		}
+		if (weight === 'lighter') {
+			return 100
+		}
+		if (weight === 'bolder') {
+			return 700
+		}
 
 		let parsed = parseInt(weight, 10)
-		if (Number.isFinite(parsed)) return parsed
+		if (Number.isFinite(parsed)) {
+			return parsed
+		}
 		return 0
 	}
 

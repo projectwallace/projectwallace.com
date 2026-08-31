@@ -65,7 +65,9 @@
 	}
 
 	function find_node_at_cursor(start: number, end: number): CSSNode | undefined {
-		if (!ast) return
+		if (!ast) {
+			return
+		}
 		let found = undefined
 		walk(ast, (node) => {
 			if (node.start <= start && node.end >= end) {

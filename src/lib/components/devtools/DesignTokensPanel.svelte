@@ -14,7 +14,9 @@
 
 	function replacer(key: string, value: unknown): unknown {
 		// Stringification is super slow with this, so skip it
-		if (key === 'uniqueWithLocations') return undefined
+		if (key === 'uniqueWithLocations') {
+			return undefined
+		}
 		return value
 	}
 
