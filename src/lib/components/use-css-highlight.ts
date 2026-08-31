@@ -8,7 +8,8 @@ import {
 	SKIP,
 	AT_RULE,
 	STYLE_RULE,
-	DECLARATION
+	DECLARATION,
+	type CSSNode
 } from '@projectwallace/css-parser'
 import {
 	build_line_offsets,
@@ -21,6 +22,13 @@ import {
 } from './highlight-viewport'
 
 const token_types = ['AtruleName', 'SelectorList', 'Property', 'Comment', 'Important']
+
+type ParsedCss = {
+	css: string
+	node_type: string | undefined
+	ast: CSSNode
+	comments: CharRange[]
+}
 
 export type NodeType = 'selector' | 'declaration' | 'selectorList' | 'atrule' | 'value' | 'rule'
 
@@ -66,6 +74,51 @@ export function highlight_css(
 		return char_range === undefined || (start < char_range.end && end > char_range.start)
 	}
 
+	// Parsing the whole document is the one cost virtualization doesn't bound - the walk
+	// below is cheap once pruned by in_view(), but re-parsing on every scroll-triggered
+	// rehighlight would redo that work for content that hasn't changed. Cache the parse
+	// result (and the line-offset table used to compute char_range) and only redo them
+	// when `css`/`node_type` actually change, not when only the visible window moves.
+	let parsed: ParsedCss | undefined
+	let line_offsets: { css: string; offsets: Uint32Array } | undefined
+
+	function get_line_offsets(css: string): Uint32Array {
+		if (line_offsets?.css !== css) {
+			line_offsets = { css, offsets: build_line_offsets(css) }
+		}
+		return line_offsets.offsets
+	}
+
+	function get_parsed(css: string, node_type?: string): ParsedCss {
+		if (parsed?.css === css && parsed.node_type === node_type) {
+			return parsed
+		}
+
+		let ast: CSSNode
+		let comments: CharRange[] = []
+
+		if (node_type === 'selector' || node_type === 'selectorList') {
+			ast = parse_selector(css)
+		} else if (node_type === 'value') {
+			ast = parse_value(css)
+		} else if (node_type === 'declaration') {
+			ast = parse_declaration(css)
+		} else {
+			// Default: parse as full stylesheet
+			ast = parse(css, {
+				parse_atrule_preludes: false,
+				parse_values: false,
+				parse_selectors: false,
+				on_comment: (comment) => {
+					comments.push({ start: comment.start, end: comment.end })
+				}
+			})
+		}
+
+		parsed = { css, node_type, ast, comments }
+		return parsed
+	}
+
 	function add_range(token_type: string, start: number, end: number) {
 		if (!in_view(start, end)) return
 
@@ -88,38 +141,20 @@ export function highlight_css(
 
 		char_range =
 			css.length > VIRTUALIZE_THRESHOLD_CHARS
-				? line_range_to_char_range(
-						build_line_offsets(css),
-						visible_range.start_line,
-						visible_range.end_line,
-						css.length
-					)
+				? line_range_to_char_range(get_line_offsets(css), visible_range.start_line, visible_range.end_line, css.length)
 				: undefined
 
 		try {
-			let ast
-
 			for (let token_type of token_types) {
 				if (!highlights.has(token_type)) {
 					highlights.set(token_type, new Highlight())
 				}
 			}
 
-			// Use appropriate parser based on node_type
-			if (node_type === 'selector' || node_type === 'selectorList') {
-				ast = parse_selector(css)
-			} else if (node_type === 'value') {
-				ast = parse_value(css)
-			} else if (node_type === 'declaration') {
-				ast = parse_declaration(css)
-			} else {
-				// Default: parse as full stylesheet
-				ast = parse(css, {
-					parse_atrule_preludes: false,
-					parse_values: false,
-					parse_selectors: false,
-					on_comment: (comment) => add_range('Comment', comment.start, comment.end)
-				})
+			const { ast, comments } = get_parsed(css, node_type)
+
+			for (const comment of comments) {
+				add_range('Comment', comment.start, comment.end)
 			}
 
 			// Walk handles both single nodes and arrays
