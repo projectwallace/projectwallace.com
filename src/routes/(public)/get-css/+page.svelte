@@ -15,7 +15,7 @@
 	import { get_css_state } from '#lib/css-state.svelte.js'
 	import NetworkPanel from '#lib/components/NetworkPanel.svelte'
 	import Markdown from '#lib/components/Markdown.svelte'
-	import { IsOnline } from '#lib/is-online.svelte.js'
+	import { online } from 'svelte/reactivity/window'
 
 	const STATUS = {
 		INITIAL: 'initial',
@@ -29,7 +29,6 @@
 	let errorMessage = ''
 	let value = $state('')
 	let status = $state(css_state.css.length > 0 ? STATUS.DONE : STATUS.INITIAL)
-	let is_online = new IsOnline()
 
 	onMount(() => {
 		let url_settings = page.url.searchParams
@@ -114,7 +113,7 @@
 			{/if}
 		</Button>
 
-		{#if !is_online.current}
+		{#if !online.current}
 			<p class="error-msg" data-testid="offline-message">You are offline.</p>
 		{/if}
 	</form>

@@ -2,21 +2,19 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { browser } from '$app/env'
+	import type { Snippet } from 'svelte'
+	import { online } from 'svelte/reactivity/window'
 	import type { FormSuccessEvent } from './types'
 	import FormGroup from '#lib/components/FormGroup.svelte'
 	import Label from '#lib/components/Label.svelte'
 	import Button from '#lib/components/Button.svelte'
 	import CssLoadingProgressBar from '#lib/components/CssLoadingProgressBar.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '#lib/get-css.js'
 	import InputModeSwitcher from './InputModeSwitcher.svelte'
 	import Textarea from './Textarea.svelte'
 	import UrlInput from './UrlInput.svelte'
 	import FileInput from './FileInput.svelte'
-
-	import { get_css, type CssFetchNetworkError, type CssFetchApiError, type CssFetchRemoteError } from '#lib/get-css.js'
-
-	import { get_css_state } from '#lib/css-state.svelte.js'
-	import { IsOnline } from '#lib/is-online.svelte.js'
-	import type { Snippet } from 'svelte'
 
 	interface Props {
 		on_success?: (result: FormSuccessEvent) => void
@@ -43,7 +41,6 @@
 	let prettify = $state(
 		!browser || !page.url.searchParams.has('prettify') || page.url.searchParams.get('prettify') === '1'
 	)
-	let is_online = new IsOnline()
 	let navigation_options = { replace: true, reset: false }
 
 	$effect(() => {
@@ -227,7 +224,7 @@
 					{/if}
 				</Button>
 			</div>
-			{#if !is_online.current}
+			{#if !online.current}
 				<p class="error-msg" data-testid="offline-message">
 					You are offline. Analyzing a URL will not work, but you can still analyze files or input directly.
 				</p>
