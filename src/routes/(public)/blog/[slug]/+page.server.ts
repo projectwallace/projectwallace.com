@@ -1,12 +1,12 @@
 import { error } from '@sveltejs/kit'
-import { getPost, getPostList } from '#lib/blog.js'
+import { get_post, get_post_list } from '../posts.js'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = ({ params }) => {
-	let post = getPost(params.slug)
+	let post = get_post(params.slug)
 
 	if (post) {
-		let posts = getPostList()
+		let posts = get_post_list()
 		let popular = posts
 			.filter(({ slug }) => ['css-complexity', 'making-analyze-css-render-6x-faster'].includes(slug))
 			.map((post) => ({

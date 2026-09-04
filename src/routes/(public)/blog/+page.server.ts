@@ -1,7 +1,7 @@
-import { getPostList } from '#lib/blog.js'
+import { get_post_list } from './posts.js'
 
 export function load() {
 	return {
-		posts: getPostList()
+		posts: get_post_list()
 	}
 }

@@ -1,4 +1,4 @@
-import { getPostList, type Post } from '#lib/blog.js'
+import { get_all_posts_with_html, type Post } from '../posts.js'
 
 export const prerender = true
 
@@ -34,7 +34,7 @@ function createFeed(posts: Post[]) {
 }
 
 export function GET() {
-	const posts = getPostList()
+	const posts = get_all_posts_with_html()
 	const feed = createFeed(posts)
 
 	return new Response(feed, {
