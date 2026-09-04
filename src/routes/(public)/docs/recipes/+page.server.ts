@@ -1,6 +1,6 @@
-import { getRecipes } from '#lib/recipes.js'
+import { get_recipe_list } from './recipes.js'
 
 export function load() {
-	const recipes = getRecipes()
+	const recipes = get_recipe_list()
 	return { recipes }
 }

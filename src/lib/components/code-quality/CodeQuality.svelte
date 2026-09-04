@@ -10,7 +10,7 @@
 	import FilterOption from '#lib/components/FilterOption.svelte'
 	import Heading from '#lib/components/Heading.svelte'
 	import Container from '#lib/components/Container.svelte'
-	import type { CodeQualityDoc } from '#lib/code-quality.js'
+	import type { CodeQualityDoc } from '../../../routes/(public)/css-code-quality/code-quality.js'
 	import Textarea from '#lib/components/css-form/Textarea.svelte'
 	import Button from '#lib/components/Button.svelte'
 

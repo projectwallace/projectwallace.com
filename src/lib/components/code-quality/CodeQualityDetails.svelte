@@ -10,7 +10,7 @@
 	interface Props {
 		id: string
 		title: string
-		unit: string
+		unit?: string
 		format: 'number' | 'percentage' | 'size'
 		category: string
 		score?: number
