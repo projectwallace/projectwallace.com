@@ -277,10 +277,6 @@
 		contain: strict;
 		overscroll-behavior: contain;
 
-		@media (prefers-reduced-motion: no-preference) {
-			scroll-behavior: smooth;
-		}
-
 		&.with-line-numbers {
 			grid-template-columns: calc(var(--pre-ch-width) + 1ch) 1fr;
 		}
