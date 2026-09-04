@@ -7,6 +7,7 @@ import 'prismjs/components/prism-css.js'
 import 'prismjs/components/prism-scss.js'
 import 'prismjs/components/prism-json.js'
 import 'prismjs/components/prism-bash.js'
+import 'prism-svelte' // extends markup/css/javascript, must load after them
 import { defineMDSveXConfig as defineConfig, escapeSvelte } from 'mdsvex'
 import autolinkHeadings from 'rehype-autolink-headings'
 import slugPlugin from 'rehype-slug'
