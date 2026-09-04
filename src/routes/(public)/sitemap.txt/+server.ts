@@ -1,4 +1,4 @@
-import { getPostList } from '#lib/blog.js'
+import { get_post_list } from '../blog/posts.js'
 import { getMetrics } from '#lib/metrics.js'
 import { getRecipes } from '#lib/recipes.js'
 
@@ -30,7 +30,7 @@ function getSystemPages() {
 
 export function GET() {
 	let systemPages = getSystemPages()
-	let posts = getPostList().map((post) => post.path)
+	let posts = get_post_list().map((post) => post.path)
 	let docs = getMetrics()
 		.concat(getRecipes())
 		.map((p) => p.path)
