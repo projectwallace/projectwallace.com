@@ -3,6 +3,16 @@
 	import { browser } from '$app/env'
 	import type { CssLocation } from '#lib/css-location.js'
 	import { highlight_css } from './use-css-highlight'
+	import {
+		track_viewport_window,
+		build_line_offsets,
+		line_range_to_char_range,
+		FULL_LINE_RANGE,
+		VIRTUALIZE_THRESHOLD_CHARS,
+		type LineRange,
+		type CharRange,
+		type ViewportWindowChangeEvent
+	} from './highlight-viewport'
 
 	type Props = {
 		css?: string
@@ -34,15 +44,38 @@
 	let own_lines_ranges = new Set<StaticRange>()
 	let own_selected_ranges = new Set<StaticRange>()
 
+	// Reported by the track_viewport_window action below - a separate `use:` directive on the
+	// same element, decoupled from this component's own highlighting via a DOM CustomEvent
+	// rather than any direct reference between the two.
+	let visible_range = $state<LineRange>(FULL_LINE_RANGE)
+	let virtualize = $derived(css.length > VIRTUALIZE_THRESHOLD_CHARS)
+	let visible_char_range: CharRange | undefined = $derived.by(() => {
+		if (!virtualize) {
+			return undefined
+		}
+		return line_range_to_char_range(
+			build_line_offsets(css),
+			visible_range.start_line,
+			visible_range.end_line,
+			css.length
+		)
+	})
+
+	function on_viewport_window_change(event: Event) {
+		visible_range = (event as ViewportWindowChangeEvent).detail
+	}
+
 	onMount(function () {
 		supports_highlights = browser && 'highlights' in window.CSS
 		if (supports_highlights) {
 			lines = window.CSS.highlights.get(lines_highlight_name) || new Highlight()
 			selected_line = window.CSS.highlights.get(selected_highlight_name) || new Highlight()
 		}
+		code_node?.addEventListener('viewportwindowchange', on_viewport_window_change)
 	})
 
 	onDestroy(function () {
+		code_node?.removeEventListener('viewportwindowchange', on_viewport_window_change)
 		if (supports_highlights) {
 			for (const range of own_lines_ranges) {
 				lines?.delete(range)
@@ -100,7 +133,11 @@
 					}
 				}
 
+				const window_range = visible_char_range
 				for (const { start, end } of punched) {
+					if (window_range && (start >= window_range.end || end <= window_range.start)) {
+						continue
+					}
 					let range = new StaticRange({
 						startContainer: node,
 						startOffset: start,
@@ -141,7 +178,13 @@
 	})
 </script>
 
-<code class="language-css" bind:this={code_node} use:highlight_css={{ css }} data-testid="pre-css">{css}</code>
+<code
+	class="language-css"
+	bind:this={code_node}
+	use:track_viewport_window={{ enabled: virtualize }}
+	use:highlight_css={{ css }}
+	data-testid="pre-css">{css}</code
+>
 
 <style>
 	.language-css {
