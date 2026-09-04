@@ -39,6 +39,7 @@
 		"color-sorter": "catalog:",
 		"diff": "^9.0.0",
 		"github-slugger": "^2.0.0",
+		"layerchart": "^2.3.1",
 		"lightningcss": "1.32.0",
 		"linkedom": "^0.18.13",
 		"mdsvex": "^0.12.8",

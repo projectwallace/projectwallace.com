@@ -1,8 +1,5 @@
 <script lang="ts">
-	import Chart from '#lib/components/pancake/Chart.svelte'
-	import Grid from '#lib/components/pancake/Grid.svelte'
-	import Svg from '#lib/components/pancake/Svg.svelte'
-	import SvgScatterplot from '#lib/components/pancake/SvgScatterplot.svelte'
+	import { ScatterChart, Tooltip } from 'layerchart'
 	import { format_number } from '#lib/format-number.js'
 	import { IsInViewport } from 'runed'
 
@@ -12,36 +9,49 @@
 	}
 
 	let { items, max }: Props = $props()
-	let points = $derived(items.map((item, index) => ({ x: index, y: item })))
+	let data = $derived(items.map((value, index) => ({ x: index, y: value })))
 	let wrapper = $state<HTMLElement | undefined>(undefined)
 	let is_in_viewport = new IsInViewport(() => wrapper)
+
+	// Only show whole numbers on the y-axis, similar to the old Grid setup
+	let y_ticks = $derived.by(() => {
+		let count = Math.min(3, max)
+		let ticks = new Set<number>([0])
+		for (let i = 1; i <= count; i++) {
+			ticks.add(Math.round((max / count) * i))
+		}
+		return [...ticks]
+	})
 </script>
 
 <div class="chart" bind:this={wrapper}>
-	{#if is_in_viewport.current === true}
-		<Chart x1={0} x2={items.length} y1={0} y2={max}>
-			<Grid vertical={false} count={3}>
-				{#snippet children({ value }: { value: number })}
-					<!-- Only show whole numbers on the y-axis -->
-					{#if Number.isInteger(value)}
-						<div class="horizontal-ruler"></div>
-						<span class="label-y">
-							{format_number(value)}
-						</span>
-					{/if}
-				{/snippet}
-			</Grid>
-
-			{#if points.length > 0}
-				<Svg>
-					<SvgScatterplot data={points}>
-						{#snippet children({ d }: { d: string })}
-							<path class="dot" {d} />
-						{/snippet}
-					</SvgScatterplot>
-				</Svg>
-			{/if}
-		</Chart>
+	{#if is_in_viewport.current === true && data.length > 0}
+		<ScatterChart
+			{data}
+			x="x"
+			y="y"
+			xDomain={[0, Math.max(items.length - 1, 1)]}
+			yDomain={[0, max]}
+			padding={{ left: 28, top: 8, bottom: 4 }}
+			axis="y"
+			grid={{ y: true, yTicks: y_ticks }}
+			props={{
+				yAxis: { ticks: y_ticks, format: (value: number) => format_number(value) },
+				points: { class: 'dot', r: 3 },
+				highlight: { points: { class: 'dot-highlight', r: 5 }, lines: false }
+			}}
+		>
+			{#snippet tooltip()}
+				<Tooltip.Root class="tooltip" y="data" anchor="top" xOffset={0} yOffset={-8}>
+					{#snippet children({ data }: { data: { x: number; y: number } })}
+						<Tooltip.Header>{format_number(data.y)}</Tooltip.Header>
+						<Tooltip.List>
+							<Tooltip.Item label="Position" value="{data.x + 1} / {items.length}" />
+						</Tooltip.List>
+					{/snippet}
+				</Tooltip.Root>
+			{/snippet}
+		</ScatterChart>
 	{/if}
 </div>
 
@@ -49,44 +59,48 @@
 	.chart {
 		height: 8rem;
 		margin-top: var(--space-2);
-		padding-left: var(--space-2);
-		padding-bottom: var(--space-1);
 		width: 100%;
 	}
 
-	.label-y {
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		margin-left: calc(-1 * var(--space-2));
-		line-height: var(--leading-none);
-		white-space: nowrap;
+	.chart :global(.dot) {
+		fill: var(--teal-400);
+		stroke: none;
+	}
+
+	.chart :global(.dot-highlight) {
+		fill: var(--teal-400);
+		stroke: var(--bg-100);
+		stroke-width: 2px;
+	}
+
+	.chart :global(.tick) {
 		font-size: var(--size-xs);
 	}
 
-	.dot {
-		stroke: var(--teal-400);
-		stroke-linejoin: round;
-		stroke-linecap: round;
-		stroke-width: 4px;
-		fill: none;
+	.chart :global(.grid line) {
+		stroke: var(--gray-500);
+	}
 
-		@media (forced-colors: active) {
-			stroke: CanvasText;
+	.chart :global(.tooltip) {
+		background: var(--bg-200);
+		border: 1px solid var(--gray-500);
+		border-radius: var(--space-1);
+		padding-block: var(--space-1);
+		padding-inline: var(--space-2);
+		font-size: var(--size-xs);
+		white-space: nowrap;
+	}
+
+	@media (forced-colors: active) {
+		.chart :global(.dot),
+		.chart :global(.dot-highlight) {
+			fill: CanvasText;
 		}
 	}
 
 	@media print {
-		.dot {
-			stroke: var(--black);
+		.chart :global(.dot) {
+			fill: var(--black);
 		}
-	}
-
-	.horizontal-ruler {
-		position: relative;
-		display: block;
-		width: 100%;
-		left: 0;
-		border-block-end: 1px solid var(--gray-500);
 	}
 </style>
