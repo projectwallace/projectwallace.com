@@ -1,9 +1,9 @@
 import { error } from '@sveltejs/kit'
-import { getMetrics } from '#lib/metrics.js'
+import { get_metric } from '../metrics.js'
 import type { PageServerLoad } from './$types'
 
 export const load: PageServerLoad = ({ params }) => {
-	const page = getMetrics().find((doc) => params.slug === doc.slug)
+	const page = get_metric(params.slug)
 
 	if (page === undefined) {
 		error(404, 'Metric not found')

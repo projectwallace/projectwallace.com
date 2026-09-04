@@ -1,12 +1,12 @@
-import { getRecipes } from '#lib/recipes.js'
-import { groupBySection, getMetrics } from '#lib/metrics.js'
+import { get_recipe_list } from './recipes/recipes.js'
+import { group_by_section, get_metric_list } from './metrics/metrics.js'
 import { getGroups } from '#lib/metric-groups.js'
 
 export function load() {
-	const metrics = getMetrics()
+	const metrics = get_metric_list()
 	return {
-		allRecipes: getRecipes(),
-		groupedBySection: groupBySection(metrics),
+		allRecipes: get_recipe_list(),
+		groupedBySection: group_by_section(metrics),
 		allGroups: getGroups()
 	}
 }

@@ -1,6 +1,6 @@
 import { get_post_list } from '../blog/posts.js'
-import { getMetrics } from '#lib/metrics.js'
-import { getRecipes } from '#lib/recipes.js'
+import { get_metric_list } from '../docs/metrics/metrics.js'
+import { get_recipe_list } from '../docs/recipes/recipes.js'
 
 export const prerender = true
 
@@ -31,9 +31,9 @@ function getSystemPages() {
 export function GET() {
 	let systemPages = getSystemPages()
 	let posts = get_post_list().map((post) => post.path)
-	let docs = getMetrics()
-		.concat(getRecipes())
+	let docs = get_metric_list()
 		.map((p) => p.path)
+		.concat(get_recipe_list().map((p) => p.path))
 
 	let allUrls = ['/']
 		.concat(systemPages, posts, docs)
