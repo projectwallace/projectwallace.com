@@ -18,6 +18,7 @@
 	import { browsers } from '#lib/data/browsers.js'
 	import Heading from '#lib/components/Heading.svelte'
 	import BaselineStatus from '#lib/components/BaselineStatus.svelte'
+	import BaselineSupportMatrix from '#lib/components/BaselineSupportMatrix.svelte'
 	import { Header as PanelHeader, Panel } from '#lib/components/Panel/index.js'
 	import { format_number } from '#lib/format-number.js'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
@@ -233,13 +234,14 @@
 								<tr>
 									<th scope="col" aria-sort={sorting === 'feature' ? 'ascending' : undefined}>Feature</th>
 									<th scope="col" aria-sort={sorting === 'count' ? 'descending' : undefined} class="numeric">Count</th>
+									<th scope="col">Baseline status</th>
+									<th scope="col">Browser support</th>
 									<th scope="col" aria-sort={sorting === 'widely-available-since' ? 'ascending' : undefined}>
 										Widely available since
 									</th>
 									<th scope="col" aria-sort={sorting === 'newly-available-since' ? 'ascending' : undefined}>
 										Newly available since
 									</th>
-									<th scope="col">Browser support</th>
 								</tr>
 							</thead>
 							<tbody use:feature_rows_root={{ onchange: on_feature_row_change }}>
@@ -252,11 +254,14 @@
 									>
 										<td>{row.display_name}</td>
 										<td class="numeric">{format_number(row.count)}</td>
-										<td>{row.widely_available_since ?? 'N/A'}</td>
-										<td>{row.newly_available_since ?? 'N/A'}</td>
 										<td>
 											<BaselineStatus feature={row.feature} />
 										</td>
+										<td>
+											<BaselineSupportMatrix feature={row.feature} />
+										</td>
+										<td>{row.widely_available_since ?? 'N/A'}</td>
+										<td>{row.newly_available_since ?? 'N/A'}</td>
 									</tr>
 								{/each}
 							</tbody>

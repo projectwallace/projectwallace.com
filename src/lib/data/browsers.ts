@@ -11,3 +11,10 @@ export const browsers: Record<string, string> = {
 	safari: 'Safari',
 	safari_ios: 'Safari iOS'
 }
+
+export type BrowserDevice = 'desktop' | 'mobile'
+
+export const browsers_by_device: Record<BrowserDevice, string[]> = {
+	desktop: ['chrome', 'edge', 'firefox', 'safari'],
+	mobile: ['chrome_android', 'firefox_android', 'safari_ios']
+}
