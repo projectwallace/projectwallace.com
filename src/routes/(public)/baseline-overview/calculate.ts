@@ -1,4 +1,4 @@
-import { parse, walk, type CSSNode } from '@projectwallace/css-parser'
+import { parse, traverse, type AnyNode, type CSSNode } from '@projectwallace/css-parser'
 import type { CssLocation } from '#lib/css-location.js'
 import compat_keys from '#lib/data/compat-keys.generated.json'
 import { match_node } from './match-node.js'
@@ -24,21 +24,29 @@ export function analyze(css: string): Map<string, CssLocation[]> {
 		parse_values: true
 	})
 	let usages = new Map<string, CssLocation[]>()
+	let ancestors: AnyNode[] = []
 
-	walk(ast, (node) => {
-		for (let compat_key of match_node(node)) {
-			let feature_id = (compat_keys as Record<string, string>)[compat_key]
-			if (!feature_id) {
-				continue
-			}
+	traverse(ast, {
+		enter(node) {
+			let parent = ancestors[ancestors.length - 1]
+			for (let compat_key of match_node(node, parent)) {
+				let feature_id = (compat_keys as Record<string, string>)[compat_key]
+				if (!feature_id) {
+					continue
+				}
 
-			let loc = to_loc(node)
-			let locations = usages.get(feature_id)
-			if (locations) {
-				locations.push(loc)
-			} else {
-				usages.set(feature_id, [loc])
+				let loc = to_loc(node)
+				let locations = usages.get(feature_id)
+				if (locations) {
+					locations.push(loc)
+				} else {
+					usages.set(feature_id, [loc])
+				}
 			}
+			ancestors.push(node)
+		},
+		leave() {
+			ancestors.pop()
 		}
 	})
 
