@@ -26,6 +26,10 @@
 		| 'target'
 		| 'tools'
 		| 'warning'
+		| 'chrome'
+		| 'edge'
+		| 'firefox'
+		| 'safari'
 </script>
 
 <script lang="ts">
