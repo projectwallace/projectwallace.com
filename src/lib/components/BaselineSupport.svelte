@@ -1,32 +1,16 @@
 <script lang="ts">
 	import type { CssFeature } from '#lib/data/css-feature.js'
-	import { browsers, browsers_by_device, type BrowserDevice } from '#lib/data/browsers.js'
+	import { browser_families } from '#lib/data/browsers.js'
 	import { get_baseline_availability, is_browser_supported } from '#lib/baseline-status.js'
 
-	let { feature, device }: { feature: CssFeature; device: BrowserDevice } = $props()
+	let { feature }: { feature: CssFeature } = $props()
 
 	let availability = $derived(get_baseline_availability(feature))
-	let browser_ids = $derived(browsers_by_device[device])
-
-	// Desktop browsers stand in for their mobile counterpart's logo (Chrome
-	// Android reuses the Chrome mark, etc.) - same simplification the
-	// original Google element makes when it groups desktop + mobile support.
-	let logo_families: Record<string, 'chrome' | 'edge' | 'firefox' | 'safari'> = {
-		chrome: 'chrome',
-		chrome_android: 'chrome',
-		edge: 'edge',
-		firefox: 'firefox',
-		firefox_android: 'firefox',
-		safari: 'safari',
-		safari_ios: 'safari'
-	}
 </script>
 
 <ul class="matrix status-{availability}">
-	{#each browser_ids as id (id)}
-		{@const name = browsers[id]}
-		{@const supported = is_browser_supported(feature, availability, id)}
-		{@const family = logo_families[id]}
+	{#each Object.entries(browser_families) as [family, { name, ids }] (family)}
+		{@const supported = is_browser_supported(feature, availability, ids)}
 		<li class="browser" class:is-unsupported={!supported} title="{name}: {supported ? 'Supported' : 'Not supported'}">
 			<span class="browser-logo" aria-hidden="true">
 				{#if family === 'chrome'}

@@ -12,9 +12,16 @@ export const browsers: Record<string, string> = {
 	safari_ios: 'Safari iOS'
 }
 
-export type BrowserDevice = 'desktop' | 'mobile'
+export type BrowserFamily = 'chrome' | 'edge' | 'firefox' | 'safari'
 
-export const browsers_by_device: Record<BrowserDevice, string[]> = {
-	desktop: ['chrome', 'edge', 'firefox', 'safari'],
-	mobile: ['chrome_android', 'firefox_android', 'safari_ios']
+/**
+ * One entry per browser logo. Desktop and mobile variants of the same
+ * vendor (Chrome/Chrome Android, etc.) share a single icon and support
+ * indicator, matching the original Baseline status web component.
+ */
+export const browser_families: Record<BrowserFamily, { name: string; ids: string[] }> = {
+	chrome: { name: 'Chrome', ids: ['chrome', 'chrome_android'] },
+	edge: { name: 'Edge', ids: ['edge'] },
+	firefox: { name: 'Firefox', ids: ['firefox', 'firefox_android'] },
+	safari: { name: 'Safari', ids: ['safari', 'safari_ios'] }
 }

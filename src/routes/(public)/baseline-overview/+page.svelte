@@ -260,8 +260,8 @@
 										<td>
 											<BaselineSupportMatrix feature={row.feature} />
 										</td>
-										<td>{row.widely_available_since ?? 'N/A'}</td>
-										<td>{row.newly_available_since ?? 'N/A'}</td>
+										<td>{row.widely_available_since ?? ''}</td>
+										<td>{row.newly_available_since ?? ''}</td>
 									</tr>
 								{/each}
 							</tbody>
