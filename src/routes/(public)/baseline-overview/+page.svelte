@@ -230,6 +230,7 @@
 						show_table={false}
 					/>
 					<Table>
+						<caption class="sr-only">Baseline status summary</caption>
 						<thead>
 							<tr>
 								<th scope="col">Status</th>
@@ -295,6 +296,7 @@
 							</FilterOption>
 						</FilterGroup>
 						<Table>
+							<caption class="sr-only">Usage per Baseline feature</caption>
 							<thead>
 								<tr>
 									{@render sorted_th('feature', 'Feature')}
