@@ -10,7 +10,7 @@
 	let availability = $derived(get_baseline_availability(feature))
 </script>
 
-<ul class="matrix status-{availability}">
+<ul class="matrix status-{availability}" role="list">
 	{#each Object.entries(browser_families) as [family, { name, ids }] (family)}
 		{@const supported = is_browser_supported(feature, availability, ids)}
 		<li class="browser" class:is-supported={supported}>

@@ -30,6 +30,7 @@
 	import { analyzer_tabs, type TabId } from '#lib/components/devtools/tabs.js'
 	import type { CssLocation } from '#lib/css-location.js'
 	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.js'
+	import Content from './content.md'
 
 	let css_state = get_css_state()
 	let usages = $derived(css_state.css.length > 0 ? analyze(css_state.css) : new Map())
@@ -220,6 +221,7 @@
 				<Panel>
 					<PanelHeader>
 						<Heading element="h2" size={3}>Baseline status summary</Heading>
+						<DefinitionList stats={[{ name: 'Total features', value: feature_rows.length }]} />
 					</PanelHeader>
 					<BarChart
 						data={summary_chart_data}
@@ -274,7 +276,7 @@
 				<Panel>
 					<PanelHeader>
 						<Heading element="h2" size={3}>Feature usage</Heading>
-						<DefinitionList stats={[{ name: 'Total features', value: filtered_feature_rows.length }]} />
+						<DefinitionList stats={[{ name: 'Total features', value: feature_rows.length }]} />
 					</PanelHeader>
 					<div class="stack">
 						<FilterGroup>
@@ -350,7 +352,7 @@
 
 <Container size="lg">
 	<Markdown class="my-16">
-		<h2>TODO: Content here</h2>
+		<Content></Content>
 	</Markdown>
 </Container>
 
