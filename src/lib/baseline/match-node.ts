@@ -9,15 +9,10 @@ import {
 	is_value
 } from '@projectwallace/css-parser'
 
-/**
- * Maps a single AST node to the web-features `compat_features` key(s) it could
- * represent, e.g. a `gap` declaration maps to `css.properties.gap`. Deeper
- * compat keys (e.g. function-argument shapes like `css.types.attr.type_function.angle`)
- * aren't matched here - this only covers the top-level properties, at-rules,
- * selectors and functions that can be read directly off a node, plus the
- * `type()` type-hint function which needs its immediate parent to disambiguate
- * from `@function`'s identically-named `type()` syntax.
- */
+const NO_MATCH: string[] = []
+
+/** Maps an AST node to the web-features `compat_features` key(s) it represents (e.g. `gap` → `css.properties.gap`).
+ * Covers only top-level properties, at-rules, selectors and functions readable directly off the node. */
 export function match_node(node: AnyNode, parent?: AnyNode): string[] {
 	if (is_declaration(node)) {
 		let property = node.property.toLowerCase()
@@ -51,5 +46,5 @@ export function match_node(node: AnyNode, parent?: AnyNode): string[] {
 		return [`css.types.${name}`]
 	}
 
-	return []
+	return NO_MATCH
 }

@@ -50,7 +50,9 @@ export function summarize_usages(usages: Map<string, CssLocation[]>): UsageSumma
 
 		bucket.features++
 		bucket.count += locations.length
-		bucket.locations = bucket.locations.concat(locations)
+		for (let location of locations) {
+			bucket.locations.push(location)
+		}
 	}
 
 	return summary

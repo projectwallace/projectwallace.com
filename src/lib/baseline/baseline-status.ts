@@ -1,4 +1,5 @@
 import type { CssFeature } from './css-feature.js'
+import type { BrowserId } from './browsers.js'
 
 export type BaselineAvailability = 'widely' | 'newly' | 'limited'
 
@@ -21,7 +22,7 @@ export function get_baseline_availability(feature: CssFeature): BaselineAvailabi
 export function is_browser_supported(
 	feature: CssFeature,
 	availability: BaselineAvailability,
-	browser_ids: string[]
+	browser_ids: BrowserId[]
 ): boolean {
 	if (availability === 'limited') {
 		return browser_ids.some((id) => feature.support?.includes(id))

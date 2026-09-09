@@ -4,13 +4,8 @@ import type { CssLocation } from '#lib/css-location.js'
 import type { UsageCounts } from './summarize-usages.js'
 
 /**
- * Baseline's "newly available" date is when the last of the 5 tracked
- * browsers gained support. For CSS that predates Microsoft Edge, that
- * browser didn't exist yet - so Edge's own release date gets used as a
- * stand-in "last browser" date instead of a real support date. That's not
- * when the feature actually became available, just an artifact of Edge's
- * launch, so features carrying this date are excluded wherever exact years
- * matter (the chart here, and the usage table's date columns).
+ * Stand-in "last browser" date for CSS predating Microsoft Edge - not a real support date, so features
+ * carrying it are excluded wherever exact years matter.
  */
 export const EDGE_LAUNCH_DATE = '2015-07-29'
 
@@ -21,15 +16,9 @@ export const EDGE_LAUNCH_DATE = '2015-07-29'
 export const FIRST_BASELINE_YEAR = 2018
 
 /**
- * Counts distinct widely-available features per year (`features`) and their
- * total occurrences in the stylesheet (`usages`), using the year they became
- * widely available (`baseline_high_date`). Features that aren't widely
- * available yet, that have no Baseline status, or whose date is just the
- * Edge-launch artifact (see above) are dropped. Every year from
- * FIRST_BASELINE_YEAR through the latest year with data is included, even
- * when its counts are 0. Returns a Map (not a plain object) so callers
- * control bar order - object keys that look like numbers get sorted before
- * non-numeric ones regardless of insertion order.
+ * Counts widely-available features (`features`) and their total usages (`count`) per year, keyed by
+ * `baseline_high_date`, dropping non-widely/no-status/Edge-artifact features. Includes every year from
+ * FIRST_BASELINE_YEAR onward (even at 0) as a Map, so numeric-looking keys keep insertion order.
  */
 export function group_by_year(usages: Map<string, CssLocation[]>): Map<string, UsageCounts> {
 	let year_counts = new Map<number, UsageCounts>()
@@ -48,7 +37,10 @@ export function group_by_year(usages: Map<string, CssLocation[]>): Map<string, U
 		let counts = year_counts.get(year) ?? { features: 0, count: 0, locations: [] }
 		counts.features++
 		counts.count += locations.length
-		counts.locations = counts.locations.concat(locations)
+		// .push() instead of .concat() to avoid new Array allocations all the time
+		for (let location of locations) {
+			counts.locations.push(location)
+		}
 		year_counts.set(year, counts)
 	}
 

@@ -2,6 +2,7 @@ import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import data from 'web-features/data.json' with { type: 'json' }
 import type { Baseline, CssFeature } from '../src/lib/baseline/css-feature.js'
+import { browsers, type BrowserId } from '../src/lib/baseline/browsers.ts'
 
 type WebFeaturesData = {
 	features: typeof import('web-features').features
@@ -47,7 +48,12 @@ for (const [id, feature] of Object.entries(features)) {
 		baseline_high_date: feature.status.baseline_high_date,
 		// Only features with limited availability need this - for
 		// newly/widely-available ones, the baseline dates already say enough.
-		support: baseline === false ? Object.keys(feature.status.support ?? {}) : undefined
+		// web-features tracks far more browsers than we display, so this is
+		// filtered down to the ones in browsers.ts.
+		support:
+			baseline === false
+				? (Object.keys(feature.status.support ?? {}).filter((id) => id in browsers) as BrowserId[])
+				: undefined
 	}
 
 	// Only `css.*` compat keys can be matched against a parsed stylesheet,

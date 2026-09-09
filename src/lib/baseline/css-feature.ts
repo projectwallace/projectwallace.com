@@ -1,3 +1,5 @@
+import type { browsers } from './browsers.js'
+
 export type Baseline = false | 'low' | 'high'
 
 export type CssFeature = {
@@ -6,9 +8,8 @@ export type CssFeature = {
 	baseline_low_date?: string
 	baseline_high_date?: string
 	/**
-	 * Browser ids (see `#lib/baseline/browsers.js`) that have added support, for
-	 * features with limited availability. Only present when `baseline` is
-	 * `false` - tracked/newly/widely-available features don't need it.
+	 * Browser ids (see `#lib/baseline/browsers.js`) that have added support, for features with limited availability.
+	 * Only present when `baseline` is `false` - tracked/newly/widely-available features don't need it.
 	 */
-	support?: string[]
+	support?: (keyof typeof browsers)[]
 }

@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest'
-import { browsers, browser_families } from './browsers'
+import { browsers, browser_families, type BrowserId } from './browsers'
 
 describe('browsers', () => {
 	test('every browser has a display name', () => {
-		for (let id of Object.keys(browsers)) {
+		for (let id of Object.keys(browsers) as BrowserId[]) {
 			expect(typeof browsers[id]).toBe('string')
 			expect(browsers[id].length).toBeGreaterThan(0)
 		}
