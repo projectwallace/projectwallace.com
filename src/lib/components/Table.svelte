@@ -19,6 +19,7 @@
 	/* stylelint-disable projectwallace/max-average-selector-complexity -- the :global() pseudos make this more complex */
 	.scroller {
 		overflow-x: auto;
+		overflow-y: clip;
 		height: 100%;
 		max-height: 100%;
 		max-width: 100%;

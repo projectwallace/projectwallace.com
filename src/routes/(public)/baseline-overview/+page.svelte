@@ -15,7 +15,6 @@
 	import { summarize_usages } from './summarize-usages.js'
 	import css_features from '#lib/data/css-features.generated.json'
 	import type { CssFeature } from '#lib/data/css-feature.js'
-	import { browsers } from '#lib/data/browsers.js'
 	import { get_baseline_availability, type BaselineAvailability } from '#lib/baseline-status.js'
 	import Heading from '#lib/components/Heading.svelte'
 	import BaselineStatus from '#lib/components/BaselineStatus.svelte'
@@ -31,14 +30,6 @@
 	import { analyzer_tabs, type TabId } from '#lib/components/devtools/tabs.js'
 	import type { CssLocation } from '#lib/css-location.js'
 	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.js'
-
-	const browser_count = Object.keys(browsers).length
-
-	function format_support(support: string[] | undefined) {
-		if (!support) return undefined
-		let names = support.map((id) => browsers[id] ?? id).join(', ')
-		return `${support.length}/${browser_count}: ${names}`
-	}
 
 	let css_state = get_css_state()
 	let usages = $derived(css_state.css.length > 0 ? analyze(css_state.css) : new Map())
@@ -57,7 +48,6 @@
 		locations: CssLocation[]
 		widely_available_since: string | undefined
 		newly_available_since: string | undefined
-		support: string | undefined
 		support_count: number
 		feature: CssFeature
 		availability: BaselineAvailability
@@ -118,7 +108,6 @@
 				locations,
 				widely_available_since: feature?.baseline === 'high' ? feature.baseline_high_date : undefined,
 				newly_available_since: feature?.baseline_low_date,
-				support: format_support(feature?.support),
 				support_count: feature?.support?.length ?? 0,
 				feature,
 				availability: get_baseline_availability(feature)
