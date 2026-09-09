@@ -6,9 +6,10 @@
 		formatter?: (value: number) => string
 		title: string
 		alt: string
+		show_table?: boolean
 	}
 
-	let { data, formatter = format_number, title, alt }: Props = $props()
+	let { data, formatter = format_number, title, alt, show_table = true }: Props = $props()
 
 	// Chart dimensions
 	const width = 500
@@ -145,26 +146,28 @@
 		</g>
 	</svg>
 
-	<details>
-		<summary>View chart as table</summary>
-		<table>
-			<caption>{title}</caption>
-			<thead>
-				<tr>
-					<th scope="col">Percentile</th>
-					<th scope="col">Value</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each bars as bar}
+	{#if show_table}
+		<details>
+			<summary>View chart as table</summary>
+			<table>
+				<caption>{title}</caption>
+				<thead>
 					<tr>
-						<th scope="row">{bar.label}</th>
-						<td>{formatter(bar.value)}</td>
+						<th scope="col">Percentile</th>
+						<th scope="col">Value</th>
 					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</details>
+				</thead>
+				<tbody>
+					{#each bars as bar}
+						<tr>
+							<th scope="row">{bar.label}</th>
+							<td>{formatter(bar.value)}</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</details>
+	{/if}
 </div>
 
 <style>

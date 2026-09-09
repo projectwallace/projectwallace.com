@@ -33,7 +33,7 @@
 		css_state.unselect_item()
 	}
 
-	let devtools_element: HTMLDivElement
+	let devtools_element: HTMLDivElement | undefined = $state()
 	let resize_offset = $state(0)
 	let current_height = $state(0)
 	let max_height = $state(0)

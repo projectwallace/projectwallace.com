@@ -19,6 +19,7 @@
 	/* stylelint-disable projectwallace/max-average-selector-complexity -- the :global() pseudos make this more complex */
 	.scroller {
 		overflow-x: auto;
+		overflow-y: clip;
 		height: 100%;
 		max-height: 100%;
 		max-width: 100%;
@@ -40,6 +41,14 @@
 				inset-inline: 0;
 				/* Double border-width because it otherwise doesn't show */
 				border-block-end: 2px solid var(--fg-500);
+			}
+
+			& :global(th:not([scope='row' i])) {
+				font-weight: var(--font-bold);
+			}
+
+			& :global(th[scope='row' i]) {
+				font-weight: var(--font-normal);
 			}
 
 			& :global(:is(th, td)) {

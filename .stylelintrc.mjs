@@ -77,7 +77,6 @@ export default {
 				'alpha-value-notation': 'number',
 				'media-feature-range-notation': 'prefix', // Safari 16.4+ support
 				'custom-property-pattern': [
-					// TODO: enfore --pw- as start
 					'^_?([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
 					{
 						message:
