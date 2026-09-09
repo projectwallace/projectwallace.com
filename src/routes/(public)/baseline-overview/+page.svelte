@@ -232,7 +232,7 @@
 							<tr>
 								<th scope="col">Status</th>
 								<th scope="col" class="numeric">Features</th>
-								<th scope="col" class="numeric">Usages</th>
+								<th scope="col" class="numeric">Usage</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -311,7 +311,7 @@
 										class="clickable"
 										aria-selected={is_selected ? 'true' : 'false'}
 									>
-										<td>{row.display_name}</td>
+										<th scope="row">{row.display_name}</th>
 										<td class="numeric">{format_number(row.count)}</td>
 										<td>
 											<BaselineStatus feature={row.feature} />

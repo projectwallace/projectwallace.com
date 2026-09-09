@@ -43,6 +43,14 @@
 				border-block-end: 2px solid var(--fg-500);
 			}
 
+			& :global(th:not([scope='row' i])) {
+				font-weight: var(--font-bold);
+			}
+
+			& :global(th[scope='row' i]) {
+				font-weight: var(--font-normal);
+			}
+
 			& :global(:is(th, td)) {
 				text-align: start;
 				padding-block: var(--pw-table-padding-block);
