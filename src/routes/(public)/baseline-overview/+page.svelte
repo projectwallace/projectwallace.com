@@ -122,6 +122,10 @@
 	const FILTER_NAME = 'baseline-status-filter'
 
 	let availability_filter: AvailabilityFilter = $state(show_all)
+	$effect(() => {
+		void availability_filter
+		css_state.unselect_item()
+	})
 	let filtered_feature_rows = $derived(
 		availability_filter === show_all
 			? feature_rows
