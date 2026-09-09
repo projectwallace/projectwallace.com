@@ -13,9 +13,8 @@ function to_loc(node: CSSNode): CssLocation {
 }
 
 /**
- * Every occurrence of a Baseline-tracked feature in the CSS, keyed by
- * web-features id. `locations.length` is the usage count; the locations
- * themselves are kept so a DevTools-style panel can jump to each occurrence.
+ * Every occurrence of a Baseline-tracked feature in the CSS, keyed by web-features id.
+ * The locations themselves are kept so a DevTools-style panel can jump to each occurrence.
  */
 export function analyze(css: string): Map<string, CssLocation[]> {
 	let ast = parse(css, {
@@ -28,7 +27,7 @@ export function analyze(css: string): Map<string, CssLocation[]> {
 
 	traverse(ast, {
 		enter(node) {
-			let parent = ancestors[ancestors.length - 1]
+			let parent = ancestors.at(-1)
 			for (let compat_key of match_node(node, parent)) {
 				let feature_id = (compat_keys as Record<string, string>)[compat_key]
 				if (!feature_id) {
