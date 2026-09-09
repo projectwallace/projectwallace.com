@@ -11,7 +11,7 @@
 	"scripts": {
 		"prepare": "pnpm generate:css-features",
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "pnpm generate:css-features && vite build",
 		"generate:css-features": "node scripts/generate-css-features.ts",
 		"preview": "vite preview",
 		"test": "svelte-kit sync && playwright test",
