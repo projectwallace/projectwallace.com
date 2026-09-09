@@ -6,25 +6,9 @@ import { browsers, type BrowserId } from '../src/lib/baseline/browsers.ts'
 
 type WebFeaturesData = {
 	features: typeof import('web-features').features
-	groups: Record<string, { name: string; parent?: string }>
 }
 
-const { features, groups } = data as WebFeaturesData
-
-// The "css" group is just the root of a tree (css > selectors, css >
-// container-queries, etc). A feature belongs to CSS if its group is "css"
-// or descends from it, so walk the parent chain to collect every group id
-// under that root.
-const css_group_ids = new Set(['css'])
-for (let added = true; added; ) {
-	added = false
-	for (const [id, group] of Object.entries(groups)) {
-		if (group.parent && css_group_ids.has(group.parent) && !css_group_ids.has(id)) {
-			css_group_ids.add(id)
-			added = true
-		}
-	}
-}
+const { features } = data as WebFeaturesData
 
 const css_features: Record<string, CssFeature> = {}
 const compat_keys: Record<string, string> = {}
@@ -34,8 +18,13 @@ for (const [id, feature] of Object.entries(features)) {
 		continue
 	}
 
-	let feature_groups = Array.isArray(feature.group) ? feature.group : [feature.group]
-	if (!feature_groups.some((group) => css_group_ids.has(group))) {
+	// A feature's `group` (e.g. "view-transitions", "scrolling") doesn't
+	// reliably nest under a "css" root in web-features' taxonomy, so group
+	// membership can't tell CSS features apart from JS/HTML/SVG ones. Its
+	// `compat_features` can though: any feature with at least one `css.*`
+	// key genuinely has CSS surface worth tracking.
+	let css_compat_keys = (feature.compat_features ?? []).filter((key) => key.startsWith('css.'))
+	if (css_compat_keys.length === 0) {
 		continue
 	}
 
@@ -56,12 +45,8 @@ for (const [id, feature] of Object.entries(features)) {
 				: undefined
 	}
 
-	// Only `css.*` compat keys can be matched against a parsed stylesheet,
-	// so `api.*`/`html.*`/`svg.*` entries are dropped here.
-	for (const compat_feature of feature.compat_features ?? []) {
-		if (compat_feature.startsWith('css.')) {
-			compat_keys[compat_feature] = id
-		}
+	for (const compat_feature of css_compat_keys) {
+		compat_keys[compat_feature] = id
 	}
 }
 
