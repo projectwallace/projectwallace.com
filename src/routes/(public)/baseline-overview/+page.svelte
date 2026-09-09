@@ -16,6 +16,7 @@
 	import css_features from '#lib/data/css-features.generated.json'
 	import type { CssFeature } from '#lib/data/css-feature.js'
 	import { browsers } from '#lib/data/browsers.js'
+	import { get_baseline_availability, type BaselineAvailability } from '#lib/baseline-status.js'
 	import Heading from '#lib/components/Heading.svelte'
 	import BaselineStatus from '#lib/components/BaselineStatus.svelte'
 	import BaselineSupportMatrix from '#lib/components/BaselineSupportMatrix.svelte'
@@ -57,25 +58,47 @@
 		widely_available_since: string | undefined
 		newly_available_since: string | undefined
 		support: string | undefined
+		support_count: number
 		feature: CssFeature
+		availability: BaselineAvailability
 	}
 
-	let sortings = [
-		{ id: 'feature', label: 'Sort by feature', fn: (a: FeatureRow, b: FeatureRow) => a.name.localeCompare(b.name) },
-		{ id: 'count', label: 'Sort by count', fn: (a: FeatureRow, b: FeatureRow) => b.count - a.count },
-		{
-			id: 'widely-available-since',
-			label: 'Sort by widely available since',
-			fn: (a: FeatureRow, b: FeatureRow) => compare_dates(a.widely_available_since, b.widely_available_since)
-		},
-		{
-			id: 'newly-available-since',
-			label: 'Sort by newly available since',
-			fn: (a: FeatureRow, b: FeatureRow) => compare_dates(a.newly_available_since, b.newly_available_since)
-		}
-	]
+	type SortBy = 'feature' | 'count' | 'status' | 'support' | 'widely-available-since' | 'newly-available-since'
+	type SortDirection = 'ascending' | 'descending'
 
-	let sorting = $state(sortings[1].id)
+	function availability_rank(availability: BaselineAvailability) {
+		return availability === 'widely' ? 2 : availability === 'newly' ? 1 : 0
+	}
+
+	let sort_by = $state<SortBy>('count')
+	let sort_direction = $state<SortDirection>('descending')
+
+	function sort_feature_rows(a: FeatureRow, b: FeatureRow) {
+		let result = 0
+
+		switch (sort_by) {
+			case 'feature':
+				result = a.display_name.localeCompare(b.display_name)
+				break
+			case 'count':
+				result = a.count - b.count
+				break
+			case 'status':
+				result = availability_rank(a.availability) - availability_rank(b.availability)
+				break
+			case 'support':
+				result = a.support_count - b.support_count
+				break
+			case 'widely-available-since':
+				result = compare_dates(a.widely_available_since, b.widely_available_since)
+				break
+			case 'newly-available-since':
+				result = compare_dates(a.newly_available_since, b.newly_available_since)
+				break
+		}
+
+		return sort_direction === 'descending' ? -result : result
+	}
 
 	let feature_rows = $derived.by(() => {
 		let rows: FeatureRow[] = []
@@ -96,12 +119,31 @@
 				widely_available_since: feature?.baseline === 'high' ? feature.baseline_high_date : undefined,
 				newly_available_since: feature?.baseline_low_date,
 				support: format_support(feature?.support),
-				feature
+				support_count: feature?.support?.length ?? 0,
+				feature,
+				availability: get_baseline_availability(feature)
 			})
 		}
 
-		let sort = sortings.find((s) => s.id === sorting) ?? sortings[1]
-		return rows.sort(sort.fn)
+		return rows.sort(sort_feature_rows)
+	})
+
+	const show_all = 'all' as const
+	type AvailabilityFilter = typeof show_all | BaselineAvailability
+	const FILTER_NAME = 'baseline-status-filter'
+
+	let availability_filter: AvailabilityFilter = $state(show_all)
+	let filtered_feature_rows = $derived(
+		availability_filter === show_all
+			? feature_rows
+			: feature_rows.filter((row) => row.availability === availability_filter)
+	)
+	let availability_counts = $derived.by(() => {
+		let counts: Record<BaselineAvailability, number> = { widely: 0, newly: 0, limited: 0 }
+		for (let row of feature_rows) {
+			counts[row.availability]++
+		}
+		return counts
 	})
 
 	let widely_available_by_year = $derived(
@@ -135,7 +177,7 @@
 	})
 
 	function on_feature_row_change({ value, active_index }: Parameters<OnChange>[0]) {
-		let row = feature_rows[active_index]
+		let row = filtered_feature_rows[active_index]
 		if (row) {
 			css_state.select_item({
 				type: 'feature-usage',
@@ -146,6 +188,27 @@
 		}
 	}
 </script>
+
+{#snippet sorted_th(name: SortBy, label: string)}
+	{@const sort_by_attr = sort_by === name ? (sort_direction === 'ascending' ? 'ascending' : 'descending') : undefined}
+	<th scope="col" aria-sort={sort_by_attr}>
+		<button
+			class="sort-button"
+			aria-pressed={sort_by === name}
+			onclick={() => {
+				sort_by = name
+				sort_direction = sort_direction === 'ascending' ? 'descending' : 'ascending'
+			}}
+		>
+			{label}
+			<span class="sort-indicator" aria-hidden="true">
+				{#if sort_by === name}
+					{sort_direction === 'ascending' ? '▲' : '▼'}
+				{/if}
+			</span>
+		</button>
+	</th>
+{/snippet}
 
 <Seo title="CSS Baseline overview" description="See the composition of your CSS based on Baseline features." />
 
@@ -218,34 +281,37 @@
 				<Panel>
 					<PanelHeader>
 						<Heading element="h2" size={3}>Feature usage</Heading>
-						<DefinitionList stats={[{ name: 'Total features', value: feature_rows.length }]} />
+						<DefinitionList stats={[{ name: 'Total features', value: filtered_feature_rows.length }]} />
 					</PanelHeader>
 					<div class="stack">
 						<FilterGroup>
-							<legend class="sr-only">Sorting</legend>
-							{#each sortings as sort (sort.id)}
-								<FilterOption bind:group={sorting} value={sort.id} id="sort-{sort.id}" name="feature-usage-sorting">
-									{sort.label}
-								</FilterOption>
-							{/each}
+							<legend class="sr-only">Filter by Baseline status</legend>
+							<FilterOption bind:group={availability_filter} value={show_all} id="filter-all" name={FILTER_NAME}>
+								All ({feature_rows.length})
+							</FilterOption>
+							<FilterOption bind:group={availability_filter} value="widely" id="filter-widely" name={FILTER_NAME}>
+								Widely available ({availability_counts.widely})
+							</FilterOption>
+							<FilterOption bind:group={availability_filter} value="newly" id="filter-newly" name={FILTER_NAME}>
+								Newly available ({availability_counts.newly})
+							</FilterOption>
+							<FilterOption bind:group={availability_filter} value="limited" id="filter-limited" name={FILTER_NAME}>
+								Limited availability ({availability_counts.limited})
+							</FilterOption>
 						</FilterGroup>
 						<Table>
 							<thead>
 								<tr>
-									<th scope="col" aria-sort={sorting === 'feature' ? 'ascending' : undefined}>Feature</th>
-									<th scope="col" aria-sort={sorting === 'count' ? 'descending' : undefined} class="numeric">Count</th>
-									<th scope="col">Baseline status</th>
-									<th scope="col">Browser support</th>
-									<th scope="col" aria-sort={sorting === 'widely-available-since' ? 'ascending' : undefined}>
-										Widely available since
-									</th>
-									<th scope="col" aria-sort={sorting === 'newly-available-since' ? 'ascending' : undefined}>
-										Newly available since
-									</th>
+									{@render sorted_th('feature', 'Feature')}
+									{@render sorted_th('count', 'Count')}
+									{@render sorted_th('status', 'Baseline status')}
+									{@render sorted_th('support', 'Browser support')}
+									{@render sorted_th('widely-available-since', 'Widely available since')}
+									{@render sorted_th('newly-available-since', 'Newly available since')}
 								</tr>
 							</thead>
 							<tbody use:feature_rows_root={{ onchange: on_feature_row_change }}>
-								{#each feature_rows as row (row.name)}
+								{#each filtered_feature_rows as row (row.name)}
 									{@const is_selected = selected_item?.type === 'feature-usage' && selected_item.value === row.name}
 									<tr
 										use:feature_rows_item={{ value: row.name }}
@@ -328,5 +394,17 @@
 
 	tbody tr.clickable {
 		cursor: pointer;
+	}
+
+	.sort-button {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		gap: var(--space-2);
+	}
+
+	.sort-indicator {
+		font-size: var(--size-xs);
+		color: var(--fg-400);
 	}
 </style>

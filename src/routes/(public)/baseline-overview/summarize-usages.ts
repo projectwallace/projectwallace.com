@@ -1,6 +1,7 @@
 import css_features from '#lib/data/css-features.generated.json'
 import type { CssFeature } from '#lib/data/css-feature.js'
 import type { CssLocation } from '#lib/css-location.js'
+import { EDGE_LAUNCH_DATE } from './group-by-year.js'
 
 export type UsageCounts = {
 	features: number
@@ -29,6 +30,12 @@ export function summarize_usages(usages: Map<string, CssLocation[]>): UsageSumma
 	for (let [feature_id, locations] of usages) {
 		let feature = (css_features as Record<string, CssFeature>)[feature_id]
 		if (!feature) {
+			continue
+		}
+		// Edge's own launch stands in for a real support date on CSS old
+		// enough to predate it - not a real "since" date, so drop the row
+		// (matches the exclusion in group_by_year and the feature table).
+		if (feature.baseline_low_date === EDGE_LAUNCH_DATE) {
 			continue
 		}
 
