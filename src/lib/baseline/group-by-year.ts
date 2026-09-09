@@ -1,5 +1,5 @@
-import css_features from '#lib/data/css-features.generated.json'
-import type { CssFeature } from '#lib/data/css-feature.js'
+import css_features from './css-features.generated.json'
+import type { CssFeature } from './css-feature.js'
 import type { CssLocation } from '#lib/css-location.js'
 import type { UsageCounts } from './summarize-usages.js'
 

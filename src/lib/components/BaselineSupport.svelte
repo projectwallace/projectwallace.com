@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { CssFeature } from '#lib/data/css-feature.js'
-	import { browser_families } from '#lib/data/browsers.js'
-	import { get_baseline_availability, is_browser_supported } from '#lib/baseline-status.js'
+	import type { CssFeature } from '#lib/baseline/css-feature.js'
+	import { browser_families } from '#lib/baseline/browsers.js'
+	import { get_baseline_availability, is_browser_supported } from '#lib/baseline/baseline-status.js'
 	import type { IconName } from '#lib/components/Icon.svelte'
 	import Icon from '#lib/components/Icon.svelte'
 

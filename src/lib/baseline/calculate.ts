@@ -1,6 +1,6 @@
 import { parse, traverse, type AnyNode, type CSSNode } from '@projectwallace/css-parser'
 import type { CssLocation } from '#lib/css-location.js'
-import compat_keys from '#lib/data/compat-keys.generated.json'
+import compat_keys from './compat-keys.generated.json'
 import { match_node } from './match-node.js'
 
 function to_loc(node: CSSNode): CssLocation {

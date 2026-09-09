@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import data from 'web-features/data.json' with { type: 'json' }
-import type { Baseline, CssFeature } from '../src/lib/data/css-feature.js'
+import type { Baseline, CssFeature } from '../src/lib/baseline/css-feature.js'
 
 type WebFeaturesData = {
 	features: typeof import('web-features').features
@@ -65,8 +65,8 @@ function write(relative_path: string, contents: unknown) {
 	return out
 }
 
-const features_path = write('../src/lib/data/css-features.generated.json', css_features)
-const compat_keys_path = write('../src/lib/data/compat-keys.generated.json', compat_keys)
+const features_path = write('../src/lib/baseline/css-features.generated.json', css_features)
+const compat_keys_path = write('../src/lib/baseline/compat-keys.generated.json', compat_keys)
 
 console.log(`Wrote ${Object.keys(css_features).length} CSS features to ${features_path}`)
 console.log(`Wrote ${Object.keys(compat_keys).length} compat keys to ${compat_keys_path}`)

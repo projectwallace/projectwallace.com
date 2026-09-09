@@ -1,4 +1,4 @@
-import type { CssFeature } from '#lib/data/css-feature.js'
+import type { CssFeature } from './css-feature.js'
 
 export type BaselineAvailability = 'widely' | 'newly' | 'limited'
 

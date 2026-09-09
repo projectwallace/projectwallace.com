@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { CssFeature } from '#lib/data/css-feature.js'
-	import { get_baseline_availability } from '#lib/baseline-status.js'
+	import type { CssFeature } from '#lib/baseline/css-feature.js'
+	import { get_baseline_availability } from '#lib/baseline/baseline-status.js'
 
 	let { feature }: { feature: CssFeature } = $props()
 
