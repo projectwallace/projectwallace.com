@@ -356,6 +356,15 @@
 			}
 		}
 
+		/** @see https://web-platform-dx.github.io/name-and-logo-usage-guidelines/ */
+		@layer baseline {
+			html {
+				--baseline-color-limited: light-dark(#ea8600, #f09418);
+				--baseline-color-newly: light-dark(#1a73e8, #4185ff);
+				--baseline-color-widely: light-dark(#1e8e3e, #24a446);
+			}
+		}
+
 		@layer background {
 			html {
 				--bg-0: light-dark(var(--white), var(--black));

@@ -13,7 +13,8 @@
 <ul class="matrix status-{availability}">
 	{#each Object.entries(browser_families) as [family, { name, ids }] (family)}
 		{@const supported = is_browser_supported(feature, availability, ids)}
-		<li class="browser" class:is-unsupported={!supported} title="{name}: {supported ? 'Supported' : 'Not supported'}">
+		<li class="browser" class:is-supported={supported}>
+			<span class="sr-only">{name}: {supported ? 'Supported' : 'Not supported'}</span>
 			<span class="browser-logo">
 				<Icon name={family as IconName} size={18} />
 			</span>
@@ -37,9 +38,6 @@
 
 <style>
 	.matrix {
-		--baseline-color-limited: light-dark(#ea8600, #f09418);
-		--baseline-color-newly: light-dark(#1a73e8, #4185ff);
-		--baseline-color-widely: light-dark(#1e8e3e, #24a446);
 		display: flex;
 		align-items: center;
 		gap: var(--space-2);
@@ -57,10 +55,10 @@
 
 	.browser {
 		color: var(--fg-200);
-	}
 
-	.browser.is-unsupported {
-		color: var(--fg-300);
+		&:not(.is-supported) {
+			color: var(--fg-300);
+		}
 	}
 
 	.support-icon svg {
@@ -69,11 +67,11 @@
 		display: block;
 	}
 
-	.browser:not(.is-unsupported) .support-icon {
+	.browser.is-supported .support-icon {
 		color: var(--success-400);
 	}
 
-	.browser.is-unsupported .support-icon {
+	.browser:not(.is-supported) .support-icon {
 		color: var(--error-300);
 	}
 </style>

@@ -63,7 +63,7 @@
 	}
 
 	.status-widely .front {
-		fill: light-dark(#1e8e3e, #24a446);
+		fill: var(--baseline-color-widely);
 	}
 
 	.status-widely .back {
@@ -71,7 +71,7 @@
 	}
 
 	.status-newly .front {
-		fill: light-dark(#1a73e8, #4185ff);
+		fill: var(--baseline-color-newly);
 	}
 
 	.status-newly .back {
@@ -79,7 +79,7 @@
 	}
 
 	.status-limited .front {
-		fill: light-dark(#ea8600, #f09418);
+		fill: var(--baseline-color-limited);
 	}
 
 	.status-limited .back {

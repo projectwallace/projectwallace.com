@@ -143,7 +143,7 @@
 		Array.from(group_by_year(usages), ([value, counts]) => ({
 			value,
 			count: counts.features,
-			absoluteCount: counts.usages,
+			absoluteCount: counts.count,
 			locations: counts.locations
 		}))
 	)
@@ -240,7 +240,7 @@
 								<tr>
 									<td>{row.label}</td>
 									<td class="numeric">{format_number(row.counts.features)}</td>
-									<td class="numeric">{format_number(row.counts.usages)}</td>
+									<td class="numeric">{format_number(row.counts.count)}</td>
 								</tr>
 							{/each}
 						</tbody>

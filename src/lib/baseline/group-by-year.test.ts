@@ -24,7 +24,7 @@ const { group_by_year, EDGE_LAUNCH_DATE, FIRST_BASELINE_YEAR } = await import('.
 describe('group_by_year', () => {
 	test('counts a widely-available feature under its high-date year', () => {
 		let by_year = group_by_year(new Map([['high-2018', [loc(0)]]]))
-		expect(by_year.get('2018')).toEqual({ features: 1, usages: 1, locations: [loc(0)] })
+		expect(by_year.get('2018')).toEqual({ features: 1, count: 1, locations: [loc(0)] })
 	})
 
 	test('sums features and usages across multiple features in the same year', () => {
@@ -34,13 +34,13 @@ describe('group_by_year', () => {
 				['high-2020', [loc(1), loc(2)]]
 			])
 		)
-		expect(by_year.get('2018')).toEqual({ features: 1, usages: 1, locations: [loc(0)] })
-		expect(by_year.get('2020')).toEqual({ features: 1, usages: 2, locations: [loc(1), loc(2)] })
+		expect(by_year.get('2018')).toEqual({ features: 1, count: 1, locations: [loc(0)] })
+		expect(by_year.get('2020')).toEqual({ features: 1, count: 2, locations: [loc(1), loc(2)] })
 	})
 
 	test('excludes features whose low date is the Edge-launch artifact', () => {
 		let by_year = group_by_year(new Map([['edge-artifact', [loc(0)]]]))
-		expect(by_year.get('2019')).toEqual({ features: 0, usages: 0, locations: [] })
+		expect(by_year.get('2019')).toEqual({ features: 0, count: 0, locations: [] })
 	})
 
 	test('excludes features that are not widely available', () => {
@@ -70,7 +70,7 @@ describe('group_by_year', () => {
 			Array.from({ length: last_year - FIRST_BASELINE_YEAR + 1 }, (_, i) => String(FIRST_BASELINE_YEAR + i))
 		)
 		for (let counts of by_year.values()) {
-			expect(counts).toEqual({ features: 0, usages: 0, locations: [] })
+			expect(counts).toEqual({ features: 0, count: 0, locations: [] })
 		}
 	})
 

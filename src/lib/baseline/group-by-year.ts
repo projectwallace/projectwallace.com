@@ -45,9 +45,9 @@ export function group_by_year(usages: Map<string, CssLocation[]>): Map<string, U
 		}
 
 		let year = new Date(feature.baseline_high_date).getFullYear()
-		let counts = year_counts.get(year) ?? { features: 0, usages: 0, locations: [] }
+		let counts = year_counts.get(year) ?? { features: 0, count: 0, locations: [] }
 		counts.features++
-		counts.usages += locations.length
+		counts.count += locations.length
 		counts.locations = counts.locations.concat(locations)
 		year_counts.set(year, counts)
 	}
@@ -56,7 +56,7 @@ export function group_by_year(usages: Map<string, CssLocation[]>): Map<string, U
 
 	let by_year = new Map<string, UsageCounts>()
 	for (let year = FIRST_BASELINE_YEAR; year <= last_year; year++) {
-		by_year.set(String(year), year_counts.get(year) ?? { features: 0, usages: 0, locations: [] })
+		by_year.set(String(year), year_counts.get(year) ?? { features: 0, count: 0, locations: [] })
 	}
 
 	return by_year

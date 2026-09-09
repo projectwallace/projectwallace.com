@@ -23,46 +23,46 @@ const { summarize_usages } = await import('./summarize-usages')
 describe('summarize_usages', () => {
 	test('buckets a widely-available feature', () => {
 		let summary = summarize_usages(new Map([['widely', [loc(0)]]]))
-		expect(summary.widely_available).toEqual({ features: 1, usages: 1, locations: [loc(0)] })
+		expect(summary.widely_available).toEqual({ features: 1, count: 1, locations: [loc(0)] })
 		expect(summary.newly_available.features).toBe(0)
 		expect(summary.limited_availability.features).toBe(0)
 	})
 
 	test('buckets a newly-available feature', () => {
 		let summary = summarize_usages(new Map([['newly', [loc(0)]]]))
-		expect(summary.newly_available).toEqual({ features: 1, usages: 1, locations: [loc(0)] })
+		expect(summary.newly_available).toEqual({ features: 1, count: 1, locations: [loc(0)] })
 	})
 
 	test('buckets a limited-availability feature', () => {
 		let summary = summarize_usages(new Map([['limited', [loc(0)]]]))
-		expect(summary.limited_availability).toEqual({ features: 1, usages: 1, locations: [loc(0)] })
+		expect(summary.limited_availability).toEqual({ features: 1, count: 1, locations: [loc(0)] })
 	})
 
 	test('sums usages across multiple locations of the same feature', () => {
 		let summary = summarize_usages(new Map([['widely', [loc(0), loc(1), loc(2)]]]))
-		expect(summary.widely_available).toEqual({ features: 1, usages: 3, locations: [loc(0), loc(1), loc(2)] })
+		expect(summary.widely_available).toEqual({ features: 1, count: 3, locations: [loc(0), loc(1), loc(2)] })
 	})
 
 	test('excludes features whose low date is the Edge-launch artifact', () => {
 		let summary = summarize_usages(new Map([['edge-artifact', [loc(0)]]]))
-		expect(summary.widely_available).toEqual({ features: 0, usages: 0, locations: [] })
+		expect(summary.widely_available).toEqual({ features: 0, count: 0, locations: [] })
 	})
 
 	test('unknown feature ids are ignored', () => {
 		let summary = summarize_usages(new Map([['does-not-exist', [loc(0)]]]))
 		expect(summary).toEqual({
-			widely_available: { features: 0, usages: 0, locations: [] },
-			newly_available: { features: 0, usages: 0, locations: [] },
-			limited_availability: { features: 0, usages: 0, locations: [] }
+			widely_available: { features: 0, count: 0, locations: [] },
+			newly_available: { features: 0, count: 0, locations: [] },
+			limited_availability: { features: 0, count: 0, locations: [] }
 		})
 	})
 
 	test('empty usages produce an all-zero summary', () => {
 		let summary = summarize_usages(new Map())
 		expect(summary).toEqual({
-			widely_available: { features: 0, usages: 0, locations: [] },
-			newly_available: { features: 0, usages: 0, locations: [] },
-			limited_availability: { features: 0, usages: 0, locations: [] }
+			widely_available: { features: 0, count: 0, locations: [] },
+			newly_available: { features: 0, count: 0, locations: [] },
+			limited_availability: { features: 0, count: 0, locations: [] }
 		})
 	})
 })

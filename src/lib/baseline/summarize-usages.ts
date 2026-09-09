@@ -1,11 +1,11 @@
 import css_features from './css-features.generated.json'
-import type { CssFeature } from './css-feature.js'
+import type { Baseline, CssFeature } from './css-feature.js'
 import type { CssLocation } from '#lib/css-location.js'
 import { EDGE_LAUNCH_DATE } from './group-by-year.js'
 
 export type UsageCounts = {
 	features: number
-	usages: number
+	count: number
 	locations: CssLocation[]
 }
 
@@ -15,6 +15,12 @@ export type UsageSummary = {
 	limited_availability: UsageCounts
 }
 
+const bucket_by_baseline = new Map<Baseline, keyof UsageSummary>([
+	['high', 'widely_available'],
+	['low', 'newly_available'],
+	[false, 'limited_availability']
+])
+
 /**
  * Buckets Baseline-tracked usages by status, for a top-level "how healthy is
  * this stylesheet" table. `features`/`usages` in each bucket count distinct
@@ -22,9 +28,9 @@ export type UsageSummary = {
  */
 export function summarize_usages(usages: Map<string, CssLocation[]>): UsageSummary {
 	let summary: UsageSummary = {
-		widely_available: { features: 0, usages: 0, locations: [] },
-		newly_available: { features: 0, usages: 0, locations: [] },
-		limited_availability: { features: 0, usages: 0, locations: [] }
+		widely_available: { features: 0, count: 0, locations: [] },
+		newly_available: { features: 0, count: 0, locations: [] },
+		limited_availability: { features: 0, count: 0, locations: [] }
 	}
 
 	for (let [feature_id, locations] of usages) {
@@ -39,15 +45,11 @@ export function summarize_usages(usages: Map<string, CssLocation[]>): UsageSumma
 			continue
 		}
 
-		let bucket =
-			feature.baseline === 'high'
-				? summary.widely_available
-				: feature.baseline === 'low'
-					? summary.newly_available
-					: summary.limited_availability
+		let bucket_key = bucket_by_baseline.get(feature.baseline) ?? 'limited_availability'
+		let bucket = summary[bucket_key]
 
 		bucket.features++
-		bucket.usages += locations.length
+		bucket.count += locations.length
 		bucket.locations = bucket.locations.concat(locations)
 	}
 
