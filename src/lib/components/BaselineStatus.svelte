@@ -6,9 +6,15 @@
 
 	let status = $derived(get_baseline_availability(feature))
 
-	let label = $derived(
-		status === 'widely' ? 'Widely available' : status === 'newly' ? 'Newly available' : 'Limited availability'
-	)
+	let label = $derived.by(() => {
+		if (status === 'widely') {
+			return 'Widely available'
+		}
+		if (status === 'newly') {
+			return 'Newly available'
+		}
+		return 'Limited availability'
+	})
 </script>
 
 <div class="baseline-status status-{status}">
