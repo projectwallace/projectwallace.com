@@ -31,6 +31,7 @@
 	import type { CssLocation } from '#lib/css-location.js'
 	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.js'
 	import Content from './content.md'
+	import Icon from '#lib/components/Icon.svelte'
 
 	let css_state = get_css_state()
 	let usages = $derived(css_state.css.length > 0 ? analyze(css_state.css) : new Map())
@@ -305,6 +306,7 @@
 									{@render sorted_th('support', 'Browser support')}
 									{@render sorted_th('widely-available-since', 'Widely available since')}
 									{@render sorted_th('newly-available-since', 'Newly available since')}
+									<th scope="col">Can I Use</th>
 								</tr>
 							</thead>
 							<tbody use:feature_rows_root={{ onchange: on_feature_row_change }}>
@@ -325,6 +327,16 @@
 										</td>
 										<td>{row.widely_available_since ?? ''}</td>
 										<td>{row.newly_available_since ?? ''}</td>
+										<td>
+											{#if row.feature.caniuse}
+												<a href={`https://caniuse.com/${row.feature.caniuse}`} target="_blank">
+													<span class="sr-only">
+														View detailed support information about {row.display_name} on Can I Use (caniuse.com)
+													</span>
+													<Icon name="external" size={14} />
+												</a>
+											{/if}
+										</td>
 									</tr>
 								{/each}
 							</tbody>

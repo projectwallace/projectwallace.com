@@ -72,6 +72,6 @@
 	}
 
 	.browser:not(.is-supported) .support-icon {
-		color: var(--error-300);
+		color: var(--baseline-color-limited);
 	}
 </style>
