@@ -26,9 +26,14 @@ describe('is_browser_supported', () => {
 		expect(is_browser_supported(feature({ baseline: 'low' }), 'newly', [])).toBe(true)
 	})
 
-	test('limited availability supported when any browser id matches', () => {
+	test('limited availability supported when every browser id matches', () => {
 		let f = feature({ baseline: false, support: ['chrome', 'chrome_android'] })
 		expect(is_browser_supported(f, 'limited', ['chrome', 'chrome_android'])).toBe(true)
+	})
+
+	test('limited availability unsupported when only some browser ids in the family match', () => {
+		let f = feature({ baseline: false, support: ['safari'] })
+		expect(is_browser_supported(f, 'limited', ['safari', 'safari_ios'])).toBe(false)
 	})
 
 	test('limited availability unsupported when no browser id matches', () => {

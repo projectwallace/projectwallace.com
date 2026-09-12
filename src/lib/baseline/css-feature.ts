@@ -12,4 +12,8 @@ export type CssFeature = {
 	 * Only present when `baseline` is `false` - tracked/newly/widely-available features don't need it.
 	 */
 	support?: (keyof typeof browsers)[]
+	/**
+	 * caniuse.com feature slug, when web-features has a mapping for it.
+	 */
+	caniuse?: string
 }

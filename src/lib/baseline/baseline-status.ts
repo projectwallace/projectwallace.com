@@ -15,9 +15,9 @@ export function get_baseline_availability(feature: CssFeature): BaselineAvailabi
 
 /**
  * Whether a browser family (e.g. Chrome desktop + Chrome Android) supports
- * a feature. A family counts as supported if any of its variants does,
- * since a Baseline feature only ends up "limited" when at least one browser
- * lacks support - not necessarily every variant of every browser.
+ * a feature. A family only counts as supported if every one of its variants
+ * does - e.g. Safari desktop supporting a feature that Safari iOS doesn't
+ * is still partial support, not a green check for "Safari".
  */
 export function is_browser_supported(
 	feature: CssFeature,
@@ -25,7 +25,7 @@ export function is_browser_supported(
 	browser_ids: BrowserId[]
 ): boolean {
 	if (availability === 'limited') {
-		return browser_ids.some((id) => feature.support?.includes(id))
+		return browser_ids.every((id) => feature.support?.includes(id))
 	}
 	return true
 }

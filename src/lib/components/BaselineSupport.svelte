@@ -15,63 +15,44 @@
 		{@const supported = is_browser_supported(feature, availability, ids)}
 		<li class="browser" class:is-supported={supported}>
 			<span class="sr-only">{name}: {supported ? 'Supported' : 'Not supported'}</span>
-			<span class="browser-logo">
-				<Icon name={family as IconName} size={18} />
-			</span>
-			<span class="support-icon" aria-hidden="true">
-				{#if supported}
-					<svg viewBox="0 0 16 16"
-						><path fill="currentColor" d="M6.3 12.3 2.5 8.5l1.4-1.4 2.4 2.4 5.4-5.4 1.4 1.4-6.8 6.8Z" /></svg
-					>
-				{:else}
-					<svg viewBox="0 0 16 16"
-						><path
-							fill="currentColor"
-							d="m4.6 3.2 3.4 3.4 3.4-3.4 1.4 1.4L9.4 8l3.4 3.4-1.4 1.4L8 9.4l-3.4 3.4-1.4-1.4L6.6 8 3.2 4.6l1.4-1.4Z"
-						/></svg
-					>
-				{/if}
+			<Icon name={family as IconName} size={18} />
+			<span class="support-icon">
+				<Icon name={supported ? 'check' : 'cross'} size={10} />
 			</span>
 		</li>
 	{/each}
 </ul>
 
 <style>
-	.matrix {
+	[role='list'] {
 		display: flex;
-		align-items: center;
-		gap: var(--space-2);
+		column-gap: var(--space-2);
 		list-style: none;
-		margin: 0;
-		padding: 0;
+		margin-block: 0;
+		padding-inline: 0;
 	}
 
 	.browser {
 		display: flex;
 		align-items: center;
-		gap: 2px;
-		color: #fff;
-	}
-
-	.browser {
+		column-gap: var(--space-1);
 		color: var(--fg-200);
+
+		.support-icon {
+			color: var(--baseline-color-widely);
+		}
 
 		&:not(.is-supported) {
 			color: var(--fg-300);
+
+			.support-icon {
+				color: var(--baseline-color-limited);
+			}
 		}
 	}
 
-	.support-icon svg {
-		width: 0.75rem;
-		height: 0.75rem;
-		display: block;
-	}
-
-	.browser.is-supported .support-icon {
-		color: var(--success-400);
-	}
-
-	.browser:not(.is-supported) .support-icon {
-		color: var(--error-300);
+	.support-icon :global(svg) {
+		/* Override <Icon>'s opacity: 0.75 */
+		opacity: 1;
 	}
 </style>

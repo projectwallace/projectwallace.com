@@ -3,6 +3,7 @@
 		| 'arrow-right'
 		| 'brush'
 		| 'bullhorn'
+		| 'check'
 		| 'chevron-down'
 		| 'chevron-up'
 		| 'chevron-right'
@@ -33,17 +34,18 @@
 </script>
 
 <script lang="ts">
-	type Props = {
+	import type { SVGAttributes } from 'svelte/elements'
+
+	type Props = SVGAttributes<SVGSVGElement> & {
 		size?: number
 		color?: string
 		name: IconName
-		class?: string
 	}
 
 	let { size = 24, color = '', name, class: classname, ...rest }: Props = $props()
 </script>
 
-<svg {...rest} width={size} height={size} class={[color, 'icon', classname]} aria-hidden="true" fill-rule="evenodd">
+<svg width={size} height={size} class={[color, 'icon', classname]} aria-hidden="true" fill-rule="evenodd" {...rest}>
 	<use href="#svg--{name}" />
 </svg>
 

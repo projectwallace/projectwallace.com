@@ -42,7 +42,8 @@ for (const [id, feature] of Object.entries(features)) {
 		support:
 			baseline === false
 				? (Object.keys(feature.status.support ?? {}).filter((id) => id in browsers) as BrowserId[])
-				: undefined
+				: undefined,
+		caniuse: feature.caniuse?.[0]
 	}
 
 	for (const compat_feature of css_compat_keys) {
