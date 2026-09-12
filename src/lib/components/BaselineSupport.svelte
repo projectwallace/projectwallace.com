@@ -51,7 +51,7 @@
 		}
 	}
 
-	:global(svg) {
+	.support-icon :global(svg) {
 		/* Override <Icon>'s opacity: 0.75 */
 		opacity: 1;
 	}
