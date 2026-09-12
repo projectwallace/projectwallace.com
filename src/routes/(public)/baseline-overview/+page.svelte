@@ -18,7 +18,7 @@
 	import { get_baseline_availability, type BaselineAvailability } from '#lib/baseline/baseline-status.js'
 	import Heading from '#lib/components/Heading.svelte'
 	import BaselineStatus from '#lib/components/BaselineStatus.svelte'
-	import BaselineSupportMatrix from '#lib/components/BaselineSupportMatrix.svelte'
+	import BaselineSupport from '#lib/components/BaselineSupport.svelte'
 	import { Header as PanelHeader, Panel } from '#lib/components/Panel/index.js'
 	import { format_number } from '#lib/format-number.js'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
@@ -323,7 +323,7 @@
 											<BaselineStatus feature={row.feature} />
 										</td>
 										<td>
-											<BaselineSupportMatrix feature={row.feature} />
+											<BaselineSupport feature={row.feature} />
 										</td>
 										<td>{row.widely_available_since ?? ''}</td>
 										<td>{row.newly_available_since ?? ''}</td>
