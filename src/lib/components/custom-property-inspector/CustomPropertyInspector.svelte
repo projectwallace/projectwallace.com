@@ -56,18 +56,6 @@
 		}
 	})
 
-	$effect.pre(() => {
-		if (css) {
-			// Reset expanded items when CSS changes to avoid null-pointers
-			// Runs pre-commit so this reset lands in the same render as the new
-			// tree_items, instead of a second full-tree render pass right after.
-			expanded.set([])
-			// eslint-disable-next-line eslint-plugin-unicorn/no-null -- null is what Melt UI wants
-			$selectedItem = null
-			search_query = ''
-		}
-	})
-
 	let tree_items = $derived.by<TreeItem[]>(() => {
 		if (!filtered_results) {
 			return []
@@ -159,6 +147,18 @@
 					locations
 				}
 			}
+		}
+	})
+
+	$effect.pre(() => {
+		if (css) {
+			// Reset expanded items when CSS changes to avoid null-pointers
+			// Runs pre-commit so this reset lands in the same render as the new
+			// tree_items, instead of a second full-tree render pass right after.
+			expanded.set([])
+			// eslint-disable-next-line eslint-plugin-unicorn/no-null -- null is what Melt UI wants
+			$selectedItem = null
+			search_query = ''
 		}
 	})
 
