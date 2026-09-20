@@ -1,39 +1,99 @@
-type Shortcut = {
+import { toggle_theme } from '#lib/theme.js'
+
+type ShortcutLink = {
 	title: string
 	href: `/${string}`
 	keywords?: string
 }
 
-type ShortcutsSection = {
+type ShortcutAction = {
 	title: string
-	items: Shortcut[]
+	action: () => void
+	keywords?: string
 }
 
-type Shortcuts = ShortcutsSection[]
+type ShortcutsSection = {
+	title: string
+	items: (ShortcutLink | ShortcutAction)[]
+}
 
-export const shortcuts: Shortcuts = [
+export const shortcuts: ShortcutsSection[] = [
+	{
+		title: 'Preferences',
+		items: [
+			{
+				title: 'Toggle website theme',
+				action: toggle_theme,
+				keywords: 'theme dark light switch'
+			}
+		]
+	},
 	{
 		title: 'Website CSS analysis',
 		items: [
-			{ title: 'CSS Analyzer', href: '/analyze-css', keywords: 'complexity sonar quality' },
+			{
+				title: 'CSS Analyzer',
+				href: '/analyze-css',
+				keywords: 'complexity sonar quality'
+			},
 			{ title: 'CSS Linter', href: '/lint-css', keywords: 'stylelint linter' },
-			{ title: 'CSS Design Tokens', href: '/design-tokens', keywords: 'dtcg color' },
-			{ title: 'CSS Code Quality Calculator', href: '/css-code-quality', keywords: 'lighthouse' },
-			{ title: 'CSS Layers Visualizer', href: '/css-layers-visualizer', keywords: 'nesting cascade' },
-			{ title: 'CSS Baseline overview', href: '/baseline-overview', keywords: 'baseline features' },
-			{ title: 'CSS Custom Property inspector', href: '/custom-property-inspector', keywords: 'variables' },
+			{
+				title: 'CSS Design Tokens',
+				href: '/design-tokens',
+				keywords: 'dtcg color'
+			},
+			{
+				title: 'CSS Code Quality Calculator',
+				href: '/css-code-quality',
+				keywords: 'lighthouse'
+			},
+			{
+				title: 'CSS Layers Visualizer',
+				href: '/css-layers-visualizer',
+				keywords: 'nesting cascade'
+			},
+			{
+				title: 'CSS Baseline overview',
+				href: '/baseline-overview',
+				keywords: 'baseline features'
+			},
+			{
+				title: 'CSS Custom Property inspector',
+				href: '/custom-property-inspector',
+				keywords: 'variables'
+			},
 			{ title: 'CSS Scraper', href: '/get-css', keywords: 'extract get' }
 		]
 	},
 	{
 		title: 'One-off CSS tools',
 		items: [
-			{ title: 'CSS Specificity Calculator', href: '/specificity-calculator', keywords: 'selector' },
-			{ title: 'CSS Selector Complexity Calculator', href: '/selector-complexity', keywords: 'cyclomatic' },
-			{ title: 'CSS Prettifier', href: '/prettify-css', keywords: 'prettier format beautify print prettify' },
-			{ title: 'CSS Minifier', href: '/minify-css', keywords: 'compress optimize minify nano' },
+			{
+				title: 'CSS Specificity Calculator',
+				href: '/specificity-calculator',
+				keywords: 'selector'
+			},
+			{
+				title: 'CSS Selector Complexity Calculator',
+				href: '/selector-complexity',
+				keywords: 'cyclomatic'
+			},
+			{
+				title: 'CSS Prettifier',
+				href: '/prettify-css',
+				keywords: 'prettier format beautify print prettify'
+			},
+			{
+				title: 'CSS Minifier',
+				href: '/minify-css',
+				keywords: 'compress optimize minify nano'
+			},
 			{ title: 'CSS Diff viewer', href: '/css-diff', keywords: 'git' },
-			{ title: 'CSS Coverage inspector', href: '/css-coverage', keywords: 'code coverage' },
+			{
+				title: 'CSS Coverage inspector',
+				href: '/css-coverage',
+				keywords: 'code coverage'
+			},
 			{ title: 'CSS AST Explorer', href: '/ast-explorer', keywords: 'csstree' }
 		]
 	},

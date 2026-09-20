@@ -13,16 +13,15 @@
 			return shortcuts
 		}
 
-		let new_results = structuredClone(shortcuts)
-		new_results.forEach((section) => {
-			section.items = section.items.filter((item) => {
+		// no structuredClone: items can hold functions (`action`), which can't be cloned
+		return shortcuts.map((section) => ({
+			...section,
+			items: section.items.filter((item) => {
 				return (
 					item.title.toLowerCase().includes(normalized_search_query) || item.keywords?.includes(normalized_search_query)
 				)
 			})
-		})
-
-		return new_results
+		}))
 	})
 
 	let no_results = $derived(results.every((section) => section.items.length === 0))
@@ -35,17 +34,17 @@
 			const group = focusable_children(listbox)
 
 			// when using arrow keys (as opposed to tab), don't focus buttons
-			const selector = 'a.shortcut, input'
+			const selector = '.shortcut, input'
 
 			if (event.key === 'ArrowDown') {
 				if (event.metaKey || event.ctrlKey) {
-					group.last('a.shortcut')
+					group.last('.shortcut')
 				} else {
 					group.next(selector)
 				}
 			} else {
 				if (event.metaKey || event.ctrlKey) {
-					group.first('a.shortcut')
+					group.first('.shortcut')
 				} else {
 					group.prev(selector)
 				}
@@ -93,20 +92,34 @@
 						<li class="section">
 							<div class="section-title title">{section.title}</div>
 							<ol class="items">
-								{#each section.items as list_item (list_item.href)}
+								{#each section.items as list_item (list_item.title)}
 									<li class="item">
-										<a class="shortcut" href={list_item.href}>
-											<span class="icon">
-												{#if section.title.includes('Website')}
-													<Icon name="code-window" size={15} />
-												{:else if section.title.includes('One-off')}
+										{#if 'href' in list_item}
+											<a class="shortcut" href={list_item.href}>
+												<span class="icon">
+													{#if section.title.includes('Website')}
+														<Icon name="code-window" size={15} />
+													{:else if section.title.includes('One-off')}
+														<Icon name="tools" size={15} />
+													{:else}
+														<Icon name="file" size={15} />
+													{/if}
+												</span>
+												{list_item.title}
+											</a>
+										{:else}
+											<button
+												class="shortcut"
+												onclick={() => {
+													list_item.action()
+												}}
+											>
+												<span class="icon">
 													<Icon name="tools" size={15} />
-												{:else}
-													<Icon name="file" size={15} />
-												{/if}
-											</span>
-											{list_item.title}
-										</a>
+												</span>
+												{list_item.title}
+											</button>
+										{/if}
 									</li>
 								{/each}
 							</ol>
@@ -161,6 +174,11 @@
 	.shortcut {
 		display: block;
 		padding-block: var(--space-2);
+
+		/* buttons need more care than links: */
+		inline-size: stretch;
+		text-align: start;
+		cursor: pointer;
 
 		& .icon {
 			color: var(--fg-300);
