@@ -7,7 +7,7 @@
 	import Button from '#lib/components/Button.svelte'
 	import Seo from '#lib/components/Seo.svelte'
 	import Hero from '#lib/components/Hero.svelte'
-	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
 

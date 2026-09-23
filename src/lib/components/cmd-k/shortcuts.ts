@@ -1,4 +1,4 @@
-import { toggle_theme } from '#lib/theme.js'
+import { toggle_theme } from '#lib/theme.ts'
 
 type ShortcutLink = {
 	title: string

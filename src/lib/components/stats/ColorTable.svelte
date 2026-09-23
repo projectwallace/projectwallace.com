@@ -1,10 +1,10 @@
 <script lang="ts">
 	import ColorBar from './ColorBar.svelte'
 	import type { Sizing } from './ColorBar'
-	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import Table from '#lib/components/Table.svelte'
 	import type { NormalizedColorWithAuthored } from 'color-sorter'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import ShowMore from '#lib/components/ShowMore.svelte'
 	import type { UniqueWithLocations } from '@projectwallace/css-analyzer'
 

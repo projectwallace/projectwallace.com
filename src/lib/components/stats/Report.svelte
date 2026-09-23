@@ -6,7 +6,7 @@
 	import AtRules from '#lib/components/stats/AtRules.svelte'
 	import Declarations from '#lib/components/stats/Declarations.svelte'
 	import Values from '#lib/components/stats/Values.svelte'
-	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
 
 	interface Props {
 		result?: CssAnalysis

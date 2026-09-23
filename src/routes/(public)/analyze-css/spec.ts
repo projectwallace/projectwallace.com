@@ -1,4 +1,4 @@
-import type { CSSOrigin } from '#lib/css-origins.js'
+import type { CSSOrigin } from '#lib/css-origins.ts'
 import { test, expect } from '../../../../tests/fixtures'
 import { nav } from '../../../lib/components/stats/nav'
 

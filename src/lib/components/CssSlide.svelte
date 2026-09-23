@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { format } from '@projectwallace/format-css'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import Icon from '#lib/components/Icon.svelte'
 	import CopyButton from '#lib/components/CopyButton.svelte'
 	import Button from '#lib/components/Button.svelte'

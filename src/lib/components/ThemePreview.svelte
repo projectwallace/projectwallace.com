@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Theme } from '#lib/theme.js'
+	import type { Theme } from '#lib/theme.ts'
 
 	type Props = {
 		theme: Theme

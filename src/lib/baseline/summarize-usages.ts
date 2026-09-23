@@ -1,7 +1,7 @@
 import css_features from './css-features.generated.json'
-import type { Baseline, CssFeature } from './css-feature.js'
-import type { CssLocation } from '#lib/css-location.js'
-import { EDGE_LAUNCH_DATE } from './group-by-year.js'
+import type { Baseline, CssFeature } from './css-feature.ts'
+import type { CssLocation } from '#lib/css-location.ts'
+import { EDGE_LAUNCH_DATE } from './group-by-year.ts'
 
 export type UsageCounts = {
 	features: number

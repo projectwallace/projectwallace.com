@@ -9,7 +9,7 @@
 
 <script lang="ts">
 	import { untrack } from 'svelte'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import Icon from '#lib/components/Icon.svelte'
 	import HighlightCssCode from '#lib/components/HighlightCssCode.svelte'
 

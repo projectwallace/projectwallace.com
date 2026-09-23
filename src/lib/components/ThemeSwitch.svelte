@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { on } from 'svelte/events'
-	import { apply_theme, on_theme_change, resolve_current_theme, save_theme, type Theme } from '#lib/theme.js'
+	import { apply_theme, on_theme_change, resolve_current_theme, save_theme, type Theme } from '#lib/theme.ts'
 	import Icon from '#lib/components/Icon.svelte'
 	import ThemePreview from './ThemePreview.svelte'
 	import { MediaQuery } from 'svelte/reactivity'
@@ -23,7 +23,9 @@
 	})
 
 	// keep in sync when the theme is changed elsewhere (e.g. the command palette)
-	$effect(() => on_theme_change((new_theme) => (theme = new_theme)))
+	$effect(() => {
+		on_theme_change((new_theme) => (theme = new_theme))
+	})
 
 	$effect(() => {
 		if (!popover) {
@@ -34,6 +36,13 @@
 
 	function ontoggle(event: ToggleEvent) {
 		popover_open = event.newState === 'open'
+
+		// The `autofocus` attribute only applies when an element is first inserted into the document.
+		// These radios are already connected (just hidden inside a closed popover), so toggling `autofocus`
+		// reactively has no effect once the popover opens — focus the checked radio explicitly instead.
+		if (popover_open) {
+			popover?.querySelector<HTMLInputElement>('input[type="radio"]:checked')?.focus()
+		}
 	}
 
 	function save_preference() {

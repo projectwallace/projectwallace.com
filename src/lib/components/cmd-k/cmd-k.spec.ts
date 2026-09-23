@@ -2,14 +2,15 @@ import type { Locator } from '@playwright/test'
 import { expect, test } from '../../../../tests/fixtures'
 import { shortcuts } from './shortcuts'
 
-const LINK_COUNT = shortcuts.reduce((acc, curr) => {
-	acc += curr.items.length
-	return acc
-}, 0)
+// Not every shortcut is a link — some (e.g. "Toggle website theme") are actions triggered by a button.
+const LINK_COUNT = shortcuts.reduce((acc, curr) => acc + curr.items.filter((item) => 'href' in item).length, 0)
+const ITEM_COUNT = shortcuts.reduce((acc, curr) => acc + curr.items.length, 0)
 
 test.describe('CMD+K', () => {
 	let dialog: Locator
 	let links: Locator
+	// All focusable shortcuts: links and action buttons alike. Arrow-key navigation moves through all of them.
+	let items: Locator
 	let search_field: Locator
 
 	test.beforeEach(async ({ page }) => {
@@ -19,6 +20,7 @@ test.describe('CMD+K', () => {
 		await page.getByRole('main').press('Meta+KeyK')
 		dialog = page.getByRole('menu', { name: 'Command menu' })
 		links = dialog.getByRole('link')
+		items = dialog.locator('.shortcut')
 		search_field = dialog.getByRole('combobox')
 
 		// Wait for the dialog to be visible, otherwise the tests might be flaky
@@ -28,8 +30,9 @@ test.describe('CMD+K', () => {
 	test('shows command bar', async () => {
 		await expect.soft(dialog).toBeInViewport()
 		await expect.soft(links).toHaveCount(LINK_COUNT)
+		await expect.soft(items).toHaveCount(ITEM_COUNT)
 
-		for (let shortcut of await links.all()) {
+		for (let shortcut of await items.all()) {
 			await expect.soft(shortcut).toBeVisible()
 		}
 	})
@@ -52,50 +55,50 @@ test.describe('CMD+K', () => {
 	})
 
 	test.describe('keyboard navigation', () => {
-		test('pressing ArrowUp on the first link moves focus to the combobox', async ({ page }) => {
-			await links.first().focus()
+		test('pressing ArrowUp on the first item moves focus to the combobox', async ({ page }) => {
+			await items.first().focus()
 			await page.keyboard.press('ArrowUp')
 
 			await expect.soft(search_field).toBeFocused()
-			await expect.soft(links.first()).not.toBeFocused()
+			await expect.soft(items.first()).not.toBeFocused()
 		})
 
-		test('pressing ArrowDown on the last link moves focus to the combobox', async ({ page }) => {
-			await links.last().focus()
+		test('pressing ArrowDown on the last item moves focus to the combobox', async ({ page }) => {
+			await items.last().focus()
 			await page.keyboard.press('ArrowDown')
 
 			await expect.soft(search_field).toBeFocused()
-			await expect.soft(links.last()).not.toBeFocused()
+			await expect.soft(items.last()).not.toBeFocused()
 		})
 
-		test('pressing ArrowDown in the combobox moves focus to the first link', async ({ page }) => {
+		test('pressing ArrowDown in the combobox moves focus to the first item', async ({ page }) => {
 			await search_field.focus()
 			await page.keyboard.press('ArrowDown')
 
-			await expect.soft(links.first()).toBeFocused()
+			await expect.soft(items.first()).toBeFocused()
 			await expect.soft(search_field).not.toBeFocused()
 		})
 
-		test('pressing ArrowUp in the combobox moves focus to the last link', async ({ page }) => {
+		test('pressing ArrowUp in the combobox moves focus to the last item', async ({ page }) => {
 			await search_field.focus()
 			await page.keyboard.press('ArrowUp')
 
-			await expect.soft(links.last()).toBeFocused()
+			await expect.soft(items.last()).toBeFocused()
 			await expect.soft(search_field).not.toBeFocused()
 		})
 
 		// TODO: add test for Windows Home/End keys
-		test('pressing CMD+ArrowUp moves focus to the first link', async ({ page }) => {
+		test('pressing CMD+ArrowUp moves focus to the first item', async ({ page }) => {
 			await page.keyboard.press('ArrowDown')
 			await page.keyboard.press('ArrowDown')
 			await page.keyboard.press('ArrowDown')
 			await page.keyboard.press('Meta+ArrowUp')
-			await expect.soft(links.nth(0)).toBeFocused()
+			await expect.soft(items.nth(0)).toBeFocused()
 		})
 
-		test('pressing CMD+ArrowDown moves focus to the last link', async ({ page }) => {
+		test('pressing CMD+ArrowDown moves focus to the last item', async ({ page }) => {
 			await page.keyboard.press('Meta+ArrowDown')
-			await expect.soft(links.last()).toBeFocused()
+			await expect.soft(items.last()).toBeFocused()
 		})
 	})
 

@@ -1,5 +1,5 @@
 import { test, expect } from '../../../tests/fixtures'
-import type { Theme } from '#lib/theme.js'
+import type { Theme } from '#lib/theme.ts'
 
 type StoredTheme = Theme
 type PreferedColorScheme = 'light' | 'dark'
@@ -14,7 +14,9 @@ let matrix: Item[] = [
 	['Light', 'dark', 'light'],
 	['Light', 'light', 'light'],
 	['System', 'dark', 'system'],
-	['System', 'light', 'system']
+	['System', 'light', 'system'],
+	['Naked', 'dark', 'naked'],
+	['Naked', 'light', 'naked']
 ]
 
 test.describe('stored theme and OS color scheme', () => {

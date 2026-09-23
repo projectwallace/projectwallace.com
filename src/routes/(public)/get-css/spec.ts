@@ -1,4 +1,4 @@
-import type { CSSOrigin } from '#lib/css-origins.js'
+import type { CSSOrigin } from '#lib/css-origins.ts'
 import { test, expect } from '../../../../tests/fixtures'
 
 test('does SEO well', async ({ page }) => {

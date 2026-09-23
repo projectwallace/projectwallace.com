@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { format_number, format_percentage } from '#lib/format-number.js'
+	import { format_number, format_percentage } from '#lib/format-number.ts'
 	import Meter from '#lib/components/Meter.svelte'
-	import type { CssLocation } from '#lib/css-location.js'
-	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.js'
-	import { get_css_state } from '#lib/css-state.svelte.js'
-	import type { NodeType } from '#lib/components/use-css-highlight.js'
+	import type { CssLocation } from '#lib/css-location.ts'
+	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.ts'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import type { NodeType } from '#lib/components/use-css-highlight.ts'
 	import Table from '#lib/components/Table.svelte'
 
 	let css_state = get_css_state()
