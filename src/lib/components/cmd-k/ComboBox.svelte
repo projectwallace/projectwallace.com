@@ -175,7 +175,6 @@
 
 	.shortcut {
 		display: block;
-		flex-wrap: nowrap;
 		padding-block: var(--space-2);
 		color: var(--fg-200);
 
