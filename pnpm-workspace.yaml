@@ -24,6 +24,7 @@ overrides:
   '@projectwallace/css-parser': 'catalog:'
   '@projectwallace/format-css': 'catalog:'
   color-sorter: 'catalog:'
+  runed: 'catalog:'
   vite: 'catalog:'
   # 1.33.0 breaks the build on ::search-text:current (see style.css); pin until fixed upstream
   lightningcss: 1.32.0
@@ -31,7 +32,6 @@ overrides:
   chokidar: 5.0.0
   # Security-based pinned versions
   esbuild@>=0.17.0 <0.28.1: '>=0.28.1'
-  runed: 'catalog:'
   sharp: '>=0.35.4'
   devalue@<5.9.1: '>=5.9.1'
   fast-uri@<3.1.6: '>=3.1.6'
