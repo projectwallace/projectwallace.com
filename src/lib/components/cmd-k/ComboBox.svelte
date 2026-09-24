@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { ComponentProps } from 'svelte'
 	import { afterNavigate } from '$app/navigation'
 	import Empty from '#lib/components/Empty.svelte'
-	import Icon from '#lib/components/Icon.svelte'
+	import Icon, { type IconName } from '#lib/components/Icon.svelte'
 	import { focusable_children, trap } from './actions.focus'
 	import { shortcuts } from './shortcuts'
 
@@ -52,6 +53,16 @@
 		}
 	}
 
+	function get_icon(section_title: string): IconName {
+		if (section_title.includes('Website')) {
+			return 'code-window'
+		}
+		if (section_title.includes('One-off')) {
+			return 'tools'
+		}
+		return 'file'
+	}
+
 	afterNavigate(({ shallow }) => {
 		if (shallow) {
 			return
@@ -60,6 +71,13 @@
 		search_query = ''
 	})
 </script>
+
+{#snippet shortcut_content(icon_name: ComponentProps<typeof Icon>['name'], title: string)}
+	<span class="icon">
+		<Icon name={icon_name} size={15} />
+	</span>
+	{title}
+{/snippet}
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div use:trap {onkeydown}>
@@ -95,29 +113,13 @@
 								{#each section.items as list_item (list_item.title)}
 									<li class="item">
 										{#if 'href' in list_item}
+											{@const icon_name = get_icon(section.title)}
 											<a class="shortcut" href={list_item.href}>
-												<span class="icon">
-													{#if section.title.includes('Website')}
-														<Icon name="code-window" size={15} />
-													{:else if section.title.includes('One-off')}
-														<Icon name="tools" size={15} />
-													{:else}
-														<Icon name="file" size={15} />
-													{/if}
-												</span>
-												{list_item.title}
+												{@render shortcut_content(icon_name, list_item.title)}
 											</a>
 										{:else}
-											<button
-												class="shortcut"
-												onclick={() => {
-													list_item.action()
-												}}
-											>
-												<span class="icon">
-													<Icon name="tools" size={15} />
-												</span>
-												{list_item.title}
+											<button class="shortcut" onclick={list_item.action}>
+												{@render shortcut_content('tools', list_item.title)}
 											</button>
 										{/if}
 									</li>
@@ -173,7 +175,9 @@
 
 	.shortcut {
 		display: block;
+		flex-wrap: nowrap;
 		padding-block: var(--space-2);
+		color: var(--fg-200);
 
 		/* buttons need more care than links: */
 		inline-size: stretch;
@@ -182,7 +186,7 @@
 
 		& .icon {
 			color: var(--fg-300);
-			margin-block-end: var(--space-3);
+			margin-inline-end: var(--space-2);
 		}
 
 		&:hover {
