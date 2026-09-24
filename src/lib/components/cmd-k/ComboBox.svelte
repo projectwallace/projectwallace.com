@@ -72,7 +72,7 @@
 	})
 </script>
 
-{#snippet shortcut_content(icon_name: ComponentProps<typeof Icon>['name'], title: string)}
+{#snippet shortcut_content(icon_name: IconName, title: string)}
 	<span class="icon">
 		<Icon name={icon_name} size={15} />
 	</span>
