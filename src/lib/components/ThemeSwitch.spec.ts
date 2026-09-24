@@ -14,7 +14,9 @@ let matrix: Item[] = [
 	['Light', 'dark', 'light'],
 	['Light', 'light', 'light'],
 	['System', 'dark', 'system'],
-	['System', 'light', 'system']
+	['System', 'light', 'system'],
+	['Naked', 'dark', 'naked'],
+	['Naked', 'light', 'naked']
 ]
 
 test.describe('stored theme and OS color scheme', () => {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { on } from 'svelte/events'
-	import type { Theme } from '#lib/theme.ts'
+	import { apply_theme, on_theme_change, resolve_current_theme, save_theme, type Theme } from '#lib/theme.ts'
 	import Icon from '#lib/components/Icon.svelte'
 	import ThemePreview from './ThemePreview.svelte'
 	import { MediaQuery } from 'svelte/reactivity'
@@ -16,22 +16,15 @@
 	let popover_open = $state(false)
 	let popover: HTMLElement | undefined = undefined
 
-	function set_theme(theme: Theme) {
-		document.documentElement.dataset.theme = theme
-	}
-
 	$effect(() => {
 		if (!initial_theme) {
-			// Respect cookie-based theme already set by the inline script in <head>
-			const dom_theme = document.documentElement.dataset.theme as Theme | undefined
-			if (dom_theme && dom_theme !== 'system') {
-				theme = dom_theme
-			} else {
-				// No cookie preference — resolve system to actual light/dark
-				theme = prefers_light.current ? 'light' : 'dark'
-				set_theme(theme)
-			}
+			theme = resolve_current_theme(prefers_light.current)
 		}
+	})
+
+	// keep in sync when the theme is changed elsewhere (e.g. the command palette)
+	$effect(() => {
+		on_theme_change((new_theme) => (theme = new_theme))
 	})
 
 	$effect(() => {
@@ -43,24 +36,20 @@
 
 	function ontoggle(event: ToggleEvent) {
 		popover_open = event.newState === 'open'
-	}
 
-	let save_timer: ReturnType<typeof setTimeout>
+		// The `autofocus` attribute only applies when an element is first inserted into the document.
+		// These radios are already connected (just hidden inside a closed popover), so toggling `autofocus`
+		// reactively has no effect once the popover opens — focus the checked radio explicitly instead.
+		if (popover_open) {
+			popover?.querySelector<HTMLInputElement>('input[type="radio"]:checked')?.focus()
+		}
+	}
 
 	function save_preference() {
 		if (theme) {
-			set_theme(theme)
+			apply_theme(theme)
+			save_theme(theme)
 		}
-		clearTimeout(save_timer)
-		save_timer = setTimeout(() => {
-			fetch('/api/theme', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'text/plain'
-				},
-				body: theme
-			})
-		}, 300)
 	}
 
 	function get_theme_icon(theme?: Theme): 'sun' | 'moon' {
