@@ -6,7 +6,7 @@
 	import Content from './content.md'
 	import Markdown from '#lib/components/Markdown.svelte'
 	import Hero from '#lib/components/Hero.svelte'
-	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 
 	let css_state = get_css_state()
 </script>

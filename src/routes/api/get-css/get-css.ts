@@ -1,7 +1,7 @@
 import { parseHTML } from 'linkedom'
 import { AT_RULE, AT_RULE_PRELUDE, parse, URL, walk } from '@projectwallace/css-parser'
-import { resolve_url } from '../../../lib/resolve-url.js'
-import type { CSSOrigin } from '../../../lib/css-origins.js'
+import { resolve_url } from '../../../lib/resolve-url.ts'
+import type { CSSOrigin } from '../../../lib/css-origins.ts'
 
 export const USER_AGENT = 'Project Wallace CSS Scraper/1.1 (+https://www.projectwallace.com/docs/css-scraper)'
 

@@ -16,7 +16,7 @@
 </script>
 
 <script lang="ts">
-	import type { Hunk } from '#lib/diff-css.js'
+	import type { Hunk } from '#lib/diff-css.ts'
 
 	interface Props {
 		hunk: Hunk

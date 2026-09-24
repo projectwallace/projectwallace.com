@@ -1,6 +1,6 @@
 import { describe, test, expect, vi } from 'vitest'
 import type { CssFeature } from './css-feature'
-import type { CssLocation } from '#lib/css-location.js'
+import type { CssLocation } from '#lib/css-location.ts'
 
 const loc = (offset: number): CssLocation => ({ line: 1, column: offset + 1, offset, length: 1 })
 

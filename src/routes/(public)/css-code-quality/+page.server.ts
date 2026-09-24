@@ -1,4 +1,4 @@
-import { get_docs } from './code-quality.js'
+import { get_docs } from './code-quality.ts'
 
 export function load() {
 	return {

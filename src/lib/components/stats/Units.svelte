@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { CssAnalysis } from '#lib/analyze-css.js'
-	import type { CssLocation } from '#lib/css-location.js'
-	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import type { CssLocation } from '#lib/css-location.ts'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
 	import Empty from '#lib/components/Empty.svelte'
 	import Icon from '#lib/components/Icon.svelte'
 	import Heading from '#lib/components/Heading.svelte'
 
-	import { all as valid_units } from '#lib/css-units.js'
+	import { all as valid_units } from '#lib/css-units.ts'
 
 	let { units }: { units: CssAnalysis['values']['units'] } = $props()
 
