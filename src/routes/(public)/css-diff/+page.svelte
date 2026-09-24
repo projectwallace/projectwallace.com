@@ -11,7 +11,7 @@
 	import Button from '#lib/components/Button.svelte'
 	import Icon from '#lib/components/Icon.svelte'
 	import { format } from '@projectwallace/format-css'
-	import { HashState } from '#lib/url-hash-state.svelte.js'
+	import { HashState } from '#lib/url-hash-state.svelte.ts'
 	import Hero from '#lib/components/Hero.svelte'
 
 	const PLACEHOLDER_OLD = format(`

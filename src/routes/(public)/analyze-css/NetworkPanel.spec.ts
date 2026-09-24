@@ -1,6 +1,6 @@
 import { test, type Locator, type Page } from '@playwright/test'
 import { expect } from '../../../../tests/fixtures'
-import type { CSSOrigin } from '#lib/css-origins.js'
+import type { CSSOrigin } from '#lib/css-origins.ts'
 
 let fixture = [
 	{

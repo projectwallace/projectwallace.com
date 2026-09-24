@@ -2,7 +2,7 @@
 	import Empty from '#lib/components/Empty.svelte'
 	import Hunk from './CssDiffHunk.svelte'
 	import DiffStat from './DiffStat.svelte'
-	import { diff_css, type StructuredPatch } from '#lib/diff-css.js'
+	import { diff_css, type StructuredPatch } from '#lib/diff-css.ts'
 
 	interface Props {
 		old_css?: string

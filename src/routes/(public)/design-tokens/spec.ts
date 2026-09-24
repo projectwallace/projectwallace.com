@@ -1,5 +1,5 @@
 import { test, expect } from '../../../../tests/fixtures'
-import type { CSSOrigin } from '#lib/css-origins.js'
+import type { CSSOrigin } from '#lib/css-origins.ts'
 import { nav } from './nav'
 
 const file_fixture_1 = {

@@ -1,4 +1,4 @@
-import { get_all_posts_with_html, type Post } from '../posts.js'
+import { get_all_posts_with_html, type Post } from '../posts.ts'
 
 export const prerender = true
 

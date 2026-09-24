@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CssAnalysisError } from '#lib/analyze-css.js'
+	import { CssAnalysisError } from '#lib/analyze-css.ts'
 	import Markdown from '#lib/components/Markdown.svelte'
 
 	interface Props {

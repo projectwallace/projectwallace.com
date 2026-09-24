@@ -3,10 +3,10 @@
 	import Textarea from '#lib/components/css-form/Textarea.svelte'
 	import Label from '#lib/components/Label.svelte'
 	import Button from '#lib/components/Button.svelte'
-	import { format_filesize } from '#lib/format-filesize.js'
+	import { format_filesize } from '#lib/format-filesize.ts'
 	import { minify } from '@projectwallace/format-css'
-	import { highlight_css } from '#lib/components/use-css-highlight.js'
-	import { HashState } from '#lib/url-hash-state.svelte.js'
+	import { highlight_css } from '#lib/components/use-css-highlight.ts'
+	import { HashState } from '#lib/url-hash-state.svelte.ts'
 
 	let state = new HashState<string>('')
 	let css = $derived(state.current)

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { CssLocation } from '#lib/css-location.js'
-	import type { CssAnalysis } from '#lib/analyze-css.js'
-	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import type { CssLocation } from '#lib/css-location.ts'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import Empty from '#lib/components/Empty.svelte'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
 	import ColorBar from './ColorBar.svelte'
