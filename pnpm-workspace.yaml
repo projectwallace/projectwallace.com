@@ -7,9 +7,6 @@ minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@projectwallace/*'
   - color-sorter
-  # EXPERIMENT: testing stylelint's v18 prerelease (published 2026-10-22) -
-  # trusted maintainer, deliberately testing the fresh prerelease itself.
-  - stylelint@18.0.0-next.0
 trustPolicy: no-downgrade
 
 catalog:

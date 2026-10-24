@@ -45,6 +45,18 @@ const config_alias = [
 		replacement: stylelint_lib_dir + 'formatters/jsonFormatter.mjs'
 	},
 
+	// lintPostcssResult.mjs's own `./timing.mjs` import drags in the `table`
+	// package (for `TIMING=<n> stylelint ...` CLI output we never trigger),
+	// which doesn't bundle for the browser. See shims/stylelint-timing.ts.
+	{ find: './timing.mjs', replacement: stylelint_browser_dir + 'shims/stylelint-timing.ts' },
+
+	// lib/{lintPostcssResult,reportUnknownRuleNames}.mjs import this as
+	// `./rules/index.mjs`; lib/utils/getStylelintRule.mjs imports the same
+	// file as `../rules/index.mjs`. Both specifiers need aliasing - see
+	// shims/stylelint-rules.ts for why the real file can't be used as-is.
+	{ find: './rules/index.mjs', replacement: stylelint_browser_dir + 'shims/stylelint-rules.ts' },
+	{ find: '../rules/index.mjs', replacement: stylelint_browser_dir + 'shims/stylelint-rules.ts' },
+
 	// Node-free stand-ins for bare specifiers stylelint's internals (and our
 	// plugin package) import.
 	{ find: 'node:os', replacement: stylelint_browser_dir + 'shims/node-os.ts' },

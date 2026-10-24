@@ -14,11 +14,9 @@
 //   build the `.stylelint.lexer` scaffold field.
 // - `@csstools/css-tokenizer`, used by stylelint/lib/assignDisabledRanges.mjs,
 //   which lintPostcssResult.mjs calls unconditionally on every lint.
-//
-// `fastest-levenshtein` used to be pinned here too (for
-// stylelint/lib/reportUnknownRuleNames.mjs), but stylelint 18.0.0-next.0
-// replaced it with an in-house lib/utils/levenshteinDistance.mjs - dropped
-// here to match. Re-check this list whenever bumping the pinned version.
+// - `fastest-levenshtein`, used by stylelint/lib/reportUnknownRuleNames.mjs,
+//   statically imported by lintPostcssResult.mjs (only executes on an
+//   unknown-rule-name error, but still needs to resolve at bundle time).
 //
 // Without them declared in package.json, pnpm won't install them at the top
 // level and the browser bundle fails to resolve (see the "MISSING dep" notes
@@ -32,5 +30,6 @@
 import { fork } from 'css-tree'
 import syntaxPatches from '@csstools/css-syntax-patches-for-csstree' with { type: 'json' }
 import { tokenize } from '@csstools/css-tokenizer'
+import { distance } from 'fastest-levenshtein'
 
-export const stylelint_transitive_deps = { fork, syntaxPatches, tokenize }
+export const stylelint_transitive_deps = { fork, syntaxPatches, tokenize, distance }

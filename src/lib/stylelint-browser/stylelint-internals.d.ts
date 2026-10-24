@@ -5,9 +5,8 @@
 // "bundler" module resolution honours the exports map though, so without
 // these ambient declarations it can't see the deep paths exist.
 //
-// Pinned to stylelint 18.0.0-next.0 (see package.json) - re-check these
-// shapes against node_modules/stylelint/lib/*.mjs whenever that version
-// changes. This is a prerelease; re-verify again once 18.0.0 is final.
+// Pinned to stylelint ~17.16.0 (see package.json) - re-check these shapes
+// against node_modules/stylelint/lib/*.mjs whenever that version changes.
 
 declare module 'stylelint/lib/lintPostcssResult.mjs' {
 	import type { LinterOptions, PostcssResult, Config } from 'stylelint'
