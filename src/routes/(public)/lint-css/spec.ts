@@ -1,25 +1,17 @@
 import { test, expect } from '../../../../tests/fixtures'
 
-const LINT_CSS_API = '**/api/lint-css'
+// Linting itself now runs client-side (see src/lib/stylelint-browser/lint.ts),
+// so only the CSS-fetching API is mocked here; warnings below reflect real
+// stylelint output for the given CSS.
+const GET_CSS_API = '**/api/get-css*'
 
-const mock_lint_response = {
-	result: {
-		errored: false,
-		parse_error: undefined,
-		warnings: [
-			{
-				line: 1,
-				column: 5,
-				endLine: 1,
-				endColumn: 11,
-				text: 'Unexpected unknown property "colour" (property-no-unknown)',
-				rule: 'property-no-unknown'
-			}
-		]
-	},
-	duration: 10,
-	css: 'a {\n\tcolour: red;\n}\n'
-}
+const mock_origins = [
+	{
+		type: 'file',
+		href: 'https://example.com/style.css',
+		css: 'a { colour: red !important; }'
+	}
+]
 
 test('does SEO well', async ({ page }) => {
 	await page.goto('/lint-css', { waitUntil: 'domcontentloaded' })
@@ -32,9 +24,9 @@ test('does SEO well', async ({ page }) => {
 
 test.describe('URL input mode', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.route(LINT_CSS_API, async (route) => {
-			if (route.request().method() === 'POST') {
-				await route.fulfill({ status: 200, json: mock_lint_response })
+		await page.route(GET_CSS_API, async (route) => {
+			if (route.request().method() === 'GET') {
+				await route.fulfill({ status: 200, json: mock_origins })
 			} else {
 				await route.continue()
 			}
@@ -49,14 +41,14 @@ test.describe('URL input mode', () => {
 
 		await expect.soft(page.getByRole('table')).toBeVisible()
 		expect.soft(await page.getByRole('table').getByRole('row').count()).toBeGreaterThanOrEqual(2)
-		await expect.soft(page.getByRole('cell', { name: /Unexpected unknown property/ })).toBeVisible()
+		await expect.soft(page.getByRole('cell', { name: /important ratio/i })).toBeVisible()
 	})
 
 	test('shows the fetched CSS in the CSS input pane', async ({ page }) => {
 		await page.getByLabel('Website URL').fill('example.com')
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
-		await expect.soft(page.getByTestId('pre-css')).toContainText(mock_lint_response.css)
+		await expect.soft(page.getByTestId('pre-css')).toContainText('colour: red !important;')
 	})
 })
 

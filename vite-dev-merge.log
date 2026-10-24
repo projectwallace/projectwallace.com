@@ -1,0 +1,1314 @@
+11:46:28 AM [vite] (ssr) connected.
+
+  VITE v8.2.1  ready in 1160 ms
+
+  ➜  Local:   http://localhost:5186/
+  ➜  Network: use --host to expose
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+15 |  	}
+16 |  
+17 |  	:global(html:not([data-theme='naked'])) .logo {
+   |           ^
+18 |  		&::after {
+19 |  			content: 'W';
+[vite:css][lightningcss] 'search-text' is not recognized as a valid pseudo-element. Did you mean ':search-text' (pseudo-class) or is this a typo?
+463 |  		}
+464 |  
+465 |  		::search-text {
+    |     ^
+466 |  			background: var(--yellow-400);
+467 |  			color: var(--black);
+[vite:css][lightningcss] 'search-text' is not recognized as a valid pseudo-element. Did you mean ':search-text' (pseudo-class) or is this a typo?
+468 |  		}
+469 |  
+470 |  		::search-text:current {
+    |     ^
+471 |  			background-color: var(--orange-400);
+472 |  			color: var(--black);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+534 |  			}
+535 |  
+536 |  			::highlight(Property) {
+    |                 ^
+537 |  				color: var(--highlight-property);
+538 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+538 |  			}
+539 |  
+540 |  			::highlight(AtruleName),
+    |                 ^
+541 |  			::highlight(Function),
+542 |  			::highlight(Important) {
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+539 |  
+540 |  			::highlight(AtruleName),
+541 |  			::highlight(Function),
+    |                 ^
+542 |  			::highlight(Important) {
+543 |  				color: var(--highlight-atrule);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+540 |  			::highlight(AtruleName),
+541 |  			::highlight(Function),
+542 |  			::highlight(Important) {
+    |                 ^
+543 |  				color: var(--highlight-atrule);
+544 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+544 |  			}
+545 |  
+546 |  			::highlight(Unit),
+    |                 ^
+547 |  			::highlight(Function) {
+548 |  				color: var(--highlight-name);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+545 |  
+546 |  			::highlight(Unit),
+547 |  			::highlight(Function) {
+    |                 ^
+548 |  				color: var(--highlight-name);
+549 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+549 |  			}
+550 |  
+551 |  			::highlight(SelectorList),
+    |                 ^
+552 |  			::highlight(Selector) {
+553 |  				color: var(--highlight-selector);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+550 |  
+551 |  			::highlight(SelectorList),
+552 |  			::highlight(Selector) {
+    |                 ^
+553 |  				color: var(--highlight-selector);
+554 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+554 |  			}
+555 |  
+556 |  			::highlight(AtrulePrelude),
+    |                 ^
+557 |  			::highlight(Value) {
+558 |  				color: var(--highlight-value);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+555 |  
+556 |  			::highlight(AtrulePrelude),
+557 |  			::highlight(Value) {
+    |                 ^
+558 |  				color: var(--highlight-value);
+559 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+559 |  			}
+560 |  
+561 |  			::highlight(Number) {
+    |                 ^
+562 |  				color: var(--highlight-number);
+563 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+563 |  			}
+564 |  
+565 |  			::highlight(String) {
+    |                 ^
+566 |  				color: var(--highlight-string);
+567 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+567 |  			}
+568 |  
+569 |  			::highlight(Comment) {
+    |                 ^
+570 |  				color: var(--highlight-comment);
+571 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+19 |  		}
+20 |  
+21 |  		:global(.icon) {
+   |            ^
+22 |  			margin-top: -4px;
+23 |  		}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+17 |  			font-size: var(--pw-table-font-size);
+18 |  
+19 |  			& :global(thead tr) {
+   |               ^
+20 |  				position: sticky;
+21 |  				top: 0;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+26 |  			}
+27 |  
+28 |  			& :global(th:not([scope='row' i])) {
+   |               ^
+29 |  				font-weight: var(--font-bold);
+30 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+30 |  			}
+31 |  
+32 |  			& :global(th[scope='row' i]) {
+   |               ^
+33 |  				font-weight: var(--font-normal);
+34 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+34 |  			}
+35 |  
+36 |  			& :global(:is(th, td)) {
+   |               ^
+37 |  				text-align: start;
+38 |  				padding-block: var(--pw-table-padding-block);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+40 |  			}
+41 |  
+42 |  			& :global(td:not(:first-child)) {
+   |               ^
+43 |  				border-inline-start: 1px solid var(--fg-500);
+44 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+44 |  			}
+45 |  
+46 |  			& :global(th),
+   |               ^
+47 |  			& :global(td:first-child) {
+48 |  				white-space: nowrap;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+45 |  
+46 |  			& :global(th),
+47 |  			& :global(td:first-child) {
+   |               ^
+48 |  				white-space: nowrap;
+49 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+49 |  			}
+50 |  
+51 |  			& :global(:where(tr:nth-child(even))) {
+   |               ^
+52 |  				background-color: var(--uneven-tr-bg);
+53 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+53 |  			}
+54 |  
+55 |  			& :global(td) {
+   |               ^
+56 |  				line-height: var(--leading-snug);
+57 |  				vertical-align: baseline;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+58 |  			}
+59 |  
+60 |  			& :global(.numeric) {
+   |               ^
+61 |  				text-align: end;
+62 |  				white-space: nowrap;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+1  |  
+2  |  	/* stylelint-disable projectwallace/max-average-selector-complexity -- highlight pseudo-elements inflate complexity */
+3  |  	:global(::highlight(lint_lines), ::highlight(lint_selected_line)) {
+   |           ^
+4  |  		text-decoration-color: var(--red-300);
+5  |  		text-decoration-style: wavy;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+7  |  	}
+8  |  
+9  |  	:global(::highlight(lint_lines)) {
+   |           ^
+10 |  		background-color: transparent;
+11 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+11 |  	}
+12 |  
+13 |  	:global(::highlight(lint_selected_line)) {
+   |           ^
+14 |  		background-color: var(--highlight-code);
+15 |  	}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+4  |  	}
+5  |  
+6  |  	::highlight(lines) {
+   |               ^
+7  |  		background-color: var(--highlight-code);
+8  |  	}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+8  |  	}
+9  |  
+10 |  	::highlight(selected_line) {
+   |               ^
+11 |  		background-color: var(--highlight-code-selected);
+12 |  	}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+3  |  }
+4  |  
+5  |  .svelte-il175y::highlight(lines) {
+   |                            ^
+6  |    background-color: var(--highlight-code);
+7  |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+7  |  }
+8  |  
+9  |  .svelte-il175y::highlight(selected_line) {
+   |                            ^
+10 |    background-color: var(--highlight-code-selected);
+11 |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+1  |  ::highlight(lint_lines), ::highlight(lint_selected_line) {
+   |              ^
+2  |    -webkit-text-decoration-color: var(--red-300);
+3  |    text-decoration-color: var(--red-300);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+1  |  ::highlight(lint_lines), ::highlight(lint_selected_line) {
+   |                                       ^
+2  |    -webkit-text-decoration-color: var(--red-300);
+3  |    text-decoration-color: var(--red-300);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+6  |  }
+7  |  
+8  |  ::highlight(lint_lines) {
+   |              ^
+9  |    background-color: #0000;
+10 |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+10 |  }
+11 |  
+12 |  ::highlight(lint_selected_line) {
+   |              ^
+13 |    background-color: var(--highlight-code);
+14 |  }
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+91 |  		font-size: var(--size-lg);
+92 |  
+93 |  		& :global(.icon) {
+   |              ^
+94 |  			margin-block-start: -0.2em;
+95 |  			zoom: 1.2;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+34 |  	}
+35 |  
+36 |  	.pane-header :global(.pane-title) {
+   |                        ^
+37 |  		font-weight: var(--font-bold);
+38 |  		margin-inline-end: auto;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+1  |  
+2  |  	/* stylelint-disable projectwallace/max-average-selector-complexity -- Global styling requires more complex selector...
+3  |  	:global(.markdown :is(h1, h2, h3, h4)) {
+   |           ^
+4  |  		line-height: var(--leading-none);
+5  |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+5  |  	}
+6  |  
+7  |  	:global(.markdown :is(h1, h2, h3, h4) :any-link) {
+   |           ^
+8  |  		text-decoration: none;
+9  |  		color: inherit;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+10 |  	}
+11 |  
+12 |  	:global(.markdown h1) {
+   |           ^
+13 |  		font-size: var(--size-4xl);
+14 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+14 |  	}
+15 |  
+16 |  	:global(.markdown h2) {
+   |           ^
+17 |  		font-size: var(--size-2xl);
+18 |  		margin-top: var(--space-16);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+20 |  	}
+21 |  
+22 |  	:global(.markdown h3) {
+   |           ^
+23 |  		font-size: var(--size-xl);
+24 |  		margin-top: var(--space-12);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+26 |  	}
+27 |  
+28 |  	:global(.markdown h4) {
+   |           ^
+29 |  		font-size: var(--size-base);
+30 |  		margin-top: var(--space-12);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+32 |  	}
+33 |  
+34 |  	:global(.markdown blockquote) {
+   |           ^
+35 |  		background-color: var(--bg-200);
+36 |  		padding-block: var(--space-4);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+41 |  	}
+42 |  
+43 |  	:global(.markdown p) {
+   |           ^
+44 |  		line-height: var(--leading-relaxed);
+45 |  		max-width: 60ch;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+46 |  	}
+47 |  
+48 |  	:global(.markdown svg[role='img']) {
+   |           ^
+49 |  		max-width: 80ch;
+50 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+50 |  	}
+51 |  
+52 |  	:global(.markdown strong) {
+   |           ^
+53 |  		font-style: normal;
+54 |  		font-weight: var(--font-bold);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+56 |  	}
+57 |  
+58 |  	:global(.markdown em) {
+   |           ^
+59 |  		font-style: italic;
+60 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+61 |  
+62 |  	/* stylelint-disable-next-line projectwallace/max-selector-complexity -- This is just a big one */
+63 |  	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe, math, .bar-chart)) {
+   |           ^
+64 |  		margin-block-start: var(--space-6);
+65 |  
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+69 |  	}
+70 |  
+71 |  	:global(.markdown pre) {
+   |           ^
+72 |  		background-color: var(--bg-200);
+73 |  		padding-block: 1rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+92 |  
+93 |  	@media (min-width: 44rem) {
+94 |  		:global(.markdown pre) {
+   |            ^
+95 |  			padding-block: 0.75rem;
+96 |  			padding-inline: 1rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+101 |  
+102 |  	@media (min-width: 66rem) {
+103 |  		:global(.markdown pre) {
+    |            ^
+104 |  			margin-right: calc(-1 * var(--space-8));
+105 |  			margin-left: calc(-1 * var(--space-8));
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+107 |  	}
+108 |  
+109 |  	:global(.markdown pre code) {
+    |           ^
+110 |  		background-color: transparent;
+111 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+111 |  	}
+112 |  
+113 |  	:global(.markdown ul) {
+    |           ^
+114 |  		line-height: var(--leading-relaxed);
+115 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+115 |  	}
+116 |  
+117 |  	:global(.markdown li) {
+    |           ^
+118 |  		margin-top: 0.75rem;
+119 |  		max-width: 66ch;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+120 |  	}
+121 |  
+122 |  	:global(.markdown ul li) {
+    |           ^
+123 |  		list-style: square;
+124 |  		margin-left: 2.25rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+125 |  	}
+126 |  
+127 |  	:global(.markdown ol li) {
+    |           ^
+128 |  		list-style: decimal;
+129 |  		margin-left: 3rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+130 |  	}
+131 |  
+132 |  	:global(.markdown ul li::marker) {
+    |           ^
+133 |  		color: var(--accent-500);
+134 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+134 |  	}
+135 |  
+136 |  	:global(.markdown ol li::marker) {
+    |           ^
+137 |  		color: var(--fg-400);
+138 |  		font-weight: var(--font-bold);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+141 |  	}
+142 |  
+143 |  	:global(.markdown :where(:any-link)),
+    |           ^
+144 |  	:global(.markdown :where(:any-link code)) {
+145 |  		color: light-dark(var(--accent-800), var(--accent-300));
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+142 |  
+143 |  	:global(.markdown :where(:any-link)),
+144 |  	:global(.markdown :where(:any-link code)) {
+    |           ^
+145 |  		color: light-dark(var(--accent-800), var(--accent-300));
+146 |  		text-decoration: underline;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+148 |  	}
+149 |  
+150 |  	:global(.markdown table) {
+    |           ^
+151 |  		--cell-spacing: 0.75rem;
+152 |  		border-spacing: 0;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+157 |  	}
+158 |  
+159 |  	:global(.markdown th) {
+    |           ^
+160 |  		text-align: left;
+161 |  		font-family: var(--font-body);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+166 |  	}
+167 |  
+168 |  	:global(.markdown tbody tr:nth-child(2n + 1)) {
+    |           ^
+169 |  		background-color: var(--uneven-tr-bg);
+170 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+170 |  	}
+171 |  
+172 |  	:global(.markdown td) {
+    |           ^
+173 |  		padding: var(--cell-spacing);
+174 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+174 |  	}
+175 |  
+176 |  	:global(.markdown :is(th, td):not(:first-child)) {
+    |           ^
+177 |  		text-align: right;
+178 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+178 |  	}
+179 |  
+180 |  	:global(.markdown img) {
+    |           ^
+181 |  		box-shadow: var(--shadow);
+182 |  		border: 1px solid var(--fg-700);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+183 |  	}
+184 |  
+185 |  	:global(.markdown code) {
+    |           ^
+186 |  		font-size: var(--size-smaller);
+187 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+187 |  	}
+188 |  
+189 |  	:global(.markdown :is(p, li, figcaption) code) {
+    |           ^
+190 |  		display: inline-block;
+191 |  		margin-right: 0.25ch;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+195 |  	}
+196 |  
+197 |  	:global(.markdown pre code) {
+    |           ^
+198 |  		color: var(--fg-200);
+199 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+199 |  	}
+200 |  
+201 |  	:global(.markdown aside) {
+    |           ^
+202 |  		margin-block: var(--space-16);
+203 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+203 |  	}
+204 |  
+205 |  	:global(.markdown aside):not([class]) {
+    |           ^
+206 |  		border: 2px solid var(--accent-800);
+207 |  		padding-block: var(--space-6);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+209 |  	}
+210 |  
+211 |  	:global(.markdown :is(aside, blockquote) > :first-child) {
+    |           ^
+212 |  		margin-top: 0;
+213 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+213 |  	}
+214 |  
+215 |  	:global(.markdown :is(aside, blockquote) > :last-child) {
+    |           ^
+216 |  		margin-bottom: 0;
+217 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+217 |  	}
+218 |  
+219 |  	:global(.markdown figcaption) {
+    |           ^
+220 |  		text-align: center;
+221 |  		font-size: var(--size-base);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+224 |  	}
+225 |  
+226 |  	:global(.markdown hr) {
+    |           ^
+227 |  		border-block-start: 1px solid var(--gray-500);
+228 |  		margin-block: var(--space-16);
+[vite:css][lightningcss] 'search-text' is not recognized as a valid pseudo-element. Did you mean ':search-text' (pseudo-class) or is this a typo?
+463 |  		}
+464 |  
+465 |  		::search-text {
+    |     ^
+466 |  			background: var(--yellow-400);
+467 |  			color: var(--black);
+[vite:css][lightningcss] 'search-text' is not recognized as a valid pseudo-element. Did you mean ':search-text' (pseudo-class) or is this a typo?
+468 |  		}
+469 |  
+470 |  		::search-text:current {
+    |     ^
+471 |  			background-color: var(--orange-400);
+472 |  			color: var(--black);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+534 |  			}
+535 |  
+536 |  			::highlight(Property) {
+    |                 ^
+537 |  				color: var(--highlight-property);
+538 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+538 |  			}
+539 |  
+540 |  			::highlight(AtruleName),
+    |                 ^
+541 |  			::highlight(Function),
+542 |  			::highlight(Important) {
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+539 |  
+540 |  			::highlight(AtruleName),
+541 |  			::highlight(Function),
+    |                 ^
+542 |  			::highlight(Important) {
+543 |  				color: var(--highlight-atrule);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+540 |  			::highlight(AtruleName),
+541 |  			::highlight(Function),
+542 |  			::highlight(Important) {
+    |                 ^
+543 |  				color: var(--highlight-atrule);
+544 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+544 |  			}
+545 |  
+546 |  			::highlight(Unit),
+    |                 ^
+547 |  			::highlight(Function) {
+548 |  				color: var(--highlight-name);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+545 |  
+546 |  			::highlight(Unit),
+547 |  			::highlight(Function) {
+    |                 ^
+548 |  				color: var(--highlight-name);
+549 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+549 |  			}
+550 |  
+551 |  			::highlight(SelectorList),
+    |                 ^
+552 |  			::highlight(Selector) {
+553 |  				color: var(--highlight-selector);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+550 |  
+551 |  			::highlight(SelectorList),
+552 |  			::highlight(Selector) {
+    |                 ^
+553 |  				color: var(--highlight-selector);
+554 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+554 |  			}
+555 |  
+556 |  			::highlight(AtrulePrelude),
+    |                 ^
+557 |  			::highlight(Value) {
+558 |  				color: var(--highlight-value);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+555 |  
+556 |  			::highlight(AtrulePrelude),
+557 |  			::highlight(Value) {
+    |                 ^
+558 |  				color: var(--highlight-value);
+559 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+559 |  			}
+560 |  
+561 |  			::highlight(Number) {
+    |                 ^
+562 |  				color: var(--highlight-number);
+563 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+563 |  			}
+564 |  
+565 |  			::highlight(String) {
+    |                 ^
+566 |  				color: var(--highlight-string);
+567 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+567 |  			}
+568 |  
+569 |  			::highlight(Comment) {
+    |                 ^
+570 |  				color: var(--highlight-comment);
+571 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+1  |  ::highlight(lint_lines), ::highlight(lint_selected_line) {
+   |              ^
+2  |    -webkit-text-decoration-color: var(--red-300);
+3  |    text-decoration-color: var(--red-300);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+1  |  ::highlight(lint_lines), ::highlight(lint_selected_line) {
+   |                                       ^
+2  |    -webkit-text-decoration-color: var(--red-300);
+3  |    text-decoration-color: var(--red-300);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+6  |  }
+7  |  
+8  |  ::highlight(lint_lines) {
+   |              ^
+9  |    background-color: #0000;
+10 |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+10 |  }
+11 |  
+12 |  ::highlight(lint_selected_line) {
+   |              ^
+13 |    background-color: var(--highlight-code);
+14 |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+3  |  }
+4  |  
+5  |  .svelte-il175y::highlight(lines) {
+   |                            ^
+6  |    background-color: var(--highlight-code);
+7  |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+7  |  }
+8  |  
+9  |  .svelte-il175y::highlight(selected_line) {
+   |                            ^
+10 |    background-color: var(--highlight-code-selected);
+11 |  }
+200 GET /lint-css
+200 GET /_app/env.js
+11:46:45 AM [vite] (client) [optimizer] bundling dependencies...
+11:46:46 AM [vite] (client) dependency optimized: @oddbird/popover-polyfill/fn
+11:46:46 AM [vite] (client) optimized dependencies changed. reloading
+200 GET /lint-css
+200 GET /_app/env.js
+[vite:css][lightningcss] 'search-text' is not recognized as a valid pseudo-element. Did you mean ':search-text' (pseudo-class) or is this a typo?
+463 |  		}
+464 |  
+465 |  		::search-text {
+    |     ^
+466 |  			background: var(--yellow-400);
+467 |  			color: var(--black);
+[vite:css][lightningcss] 'search-text' is not recognized as a valid pseudo-element. Did you mean ':search-text' (pseudo-class) or is this a typo?
+468 |  		}
+469 |  
+470 |  		::search-text:current {
+    |     ^
+471 |  			background-color: var(--orange-400);
+472 |  			color: var(--black);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+534 |  			}
+535 |  
+536 |  			::highlight(Property) {
+    |                 ^
+537 |  				color: var(--highlight-property);
+538 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+538 |  			}
+539 |  
+540 |  			::highlight(AtruleName),
+    |                 ^
+541 |  			::highlight(Function),
+542 |  			::highlight(Important) {
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+539 |  
+540 |  			::highlight(AtruleName),
+541 |  			::highlight(Function),
+    |                 ^
+542 |  			::highlight(Important) {
+543 |  				color: var(--highlight-atrule);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+540 |  			::highlight(AtruleName),
+541 |  			::highlight(Function),
+542 |  			::highlight(Important) {
+    |                 ^
+543 |  				color: var(--highlight-atrule);
+544 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+544 |  			}
+545 |  
+546 |  			::highlight(Unit),
+    |                 ^
+547 |  			::highlight(Function) {
+548 |  				color: var(--highlight-name);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+545 |  
+546 |  			::highlight(Unit),
+547 |  			::highlight(Function) {
+    |                 ^
+548 |  				color: var(--highlight-name);
+549 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+549 |  			}
+550 |  
+551 |  			::highlight(SelectorList),
+    |                 ^
+552 |  			::highlight(Selector) {
+553 |  				color: var(--highlight-selector);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+550 |  
+551 |  			::highlight(SelectorList),
+552 |  			::highlight(Selector) {
+    |                 ^
+553 |  				color: var(--highlight-selector);
+554 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+554 |  			}
+555 |  
+556 |  			::highlight(AtrulePrelude),
+    |                 ^
+557 |  			::highlight(Value) {
+558 |  				color: var(--highlight-value);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+555 |  
+556 |  			::highlight(AtrulePrelude),
+557 |  			::highlight(Value) {
+    |                 ^
+558 |  				color: var(--highlight-value);
+559 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+559 |  			}
+560 |  
+561 |  			::highlight(Number) {
+    |                 ^
+562 |  				color: var(--highlight-number);
+563 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+563 |  			}
+564 |  
+565 |  			::highlight(String) {
+    |                 ^
+566 |  				color: var(--highlight-string);
+567 |  			}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+567 |  			}
+568 |  
+569 |  			::highlight(Comment) {
+    |                 ^
+570 |  				color: var(--highlight-comment);
+571 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+19 |  		}
+20 |  
+21 |  		:global(.icon) {
+   |            ^
+22 |  			margin-top: -4px;
+23 |  		}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+15 |  	}
+16 |  
+17 |  	:global(html:not([data-theme='naked'])) .logo {
+   |           ^
+18 |  		&::after {
+19 |  			content: 'W';
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+1  |  
+2  |  	/* stylelint-disable projectwallace/max-average-selector-complexity -- Global styling requires more complex selector...
+3  |  	:global(.markdown :is(h1, h2, h3, h4)) {
+   |           ^
+4  |  		line-height: var(--leading-none);
+5  |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+5  |  	}
+6  |  
+7  |  	:global(.markdown :is(h1, h2, h3, h4) :any-link) {
+   |           ^
+8  |  		text-decoration: none;
+9  |  		color: inherit;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+10 |  	}
+11 |  
+12 |  	:global(.markdown h1) {
+   |           ^
+13 |  		font-size: var(--size-4xl);
+14 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+14 |  	}
+15 |  
+16 |  	:global(.markdown h2) {
+   |           ^
+17 |  		font-size: var(--size-2xl);
+18 |  		margin-top: var(--space-16);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+20 |  	}
+21 |  
+22 |  	:global(.markdown h3) {
+   |           ^
+23 |  		font-size: var(--size-xl);
+24 |  		margin-top: var(--space-12);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+26 |  	}
+27 |  
+28 |  	:global(.markdown h4) {
+   |           ^
+29 |  		font-size: var(--size-base);
+30 |  		margin-top: var(--space-12);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+32 |  	}
+33 |  
+34 |  	:global(.markdown blockquote) {
+   |           ^
+35 |  		background-color: var(--bg-200);
+36 |  		padding-block: var(--space-4);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+41 |  	}
+42 |  
+43 |  	:global(.markdown p) {
+   |           ^
+44 |  		line-height: var(--leading-relaxed);
+45 |  		max-width: 60ch;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+46 |  	}
+47 |  
+48 |  	:global(.markdown svg[role='img']) {
+   |           ^
+49 |  		max-width: 80ch;
+50 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+50 |  	}
+51 |  
+52 |  	:global(.markdown strong) {
+   |           ^
+53 |  		font-style: normal;
+54 |  		font-weight: var(--font-bold);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+56 |  	}
+57 |  
+58 |  	:global(.markdown em) {
+   |           ^
+59 |  		font-style: italic;
+60 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+61 |  
+62 |  	/* stylelint-disable-next-line projectwallace/max-selector-complexity -- This is just a big one */
+63 |  	:global(.markdown :is(p, pre, img, table, ol, ul, blockquote, figure, iframe, math, .bar-chart)) {
+   |           ^
+64 |  		margin-block-start: var(--space-6);
+65 |  
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+69 |  	}
+70 |  
+71 |  	:global(.markdown pre) {
+   |           ^
+72 |  		background-color: var(--bg-200);
+73 |  		padding-block: 1rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+92 |  
+93 |  	@media (min-width: 44rem) {
+94 |  		:global(.markdown pre) {
+   |            ^
+95 |  			padding-block: 0.75rem;
+96 |  			padding-inline: 1rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+101 |  
+102 |  	@media (min-width: 66rem) {
+103 |  		:global(.markdown pre) {
+    |            ^
+104 |  			margin-right: calc(-1 * var(--space-8));
+105 |  			margin-left: calc(-1 * var(--space-8));
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+107 |  	}
+108 |  
+109 |  	:global(.markdown pre code) {
+    |           ^
+110 |  		background-color: transparent;
+111 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+111 |  	}
+112 |  
+113 |  	:global(.markdown ul) {
+    |           ^
+114 |  		line-height: var(--leading-relaxed);
+115 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+115 |  	}
+116 |  
+117 |  	:global(.markdown li) {
+    |           ^
+118 |  		margin-top: 0.75rem;
+119 |  		max-width: 66ch;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+120 |  	}
+121 |  
+122 |  	:global(.markdown ul li) {
+    |           ^
+123 |  		list-style: square;
+124 |  		margin-left: 2.25rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+125 |  	}
+126 |  
+127 |  	:global(.markdown ol li) {
+    |           ^
+128 |  		list-style: decimal;
+129 |  		margin-left: 3rem;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+130 |  	}
+131 |  
+132 |  	:global(.markdown ul li::marker) {
+    |           ^
+133 |  		color: var(--accent-500);
+134 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+134 |  	}
+135 |  
+136 |  	:global(.markdown ol li::marker) {
+    |           ^
+137 |  		color: var(--fg-400);
+138 |  		font-weight: var(--font-bold);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+141 |  	}
+142 |  
+143 |  	:global(.markdown :where(:any-link)),
+    |           ^
+144 |  	:global(.markdown :where(:any-link code)) {
+145 |  		color: light-dark(var(--accent-800), var(--accent-300));
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+142 |  
+143 |  	:global(.markdown :where(:any-link)),
+144 |  	:global(.markdown :where(:any-link code)) {
+    |           ^
+145 |  		color: light-dark(var(--accent-800), var(--accent-300));
+146 |  		text-decoration: underline;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+148 |  	}
+149 |  
+150 |  	:global(.markdown table) {
+    |           ^
+151 |  		--cell-spacing: 0.75rem;
+152 |  		border-spacing: 0;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+157 |  	}
+158 |  
+159 |  	:global(.markdown th) {
+    |           ^
+160 |  		text-align: left;
+161 |  		font-family: var(--font-body);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+166 |  	}
+167 |  
+168 |  	:global(.markdown tbody tr:nth-child(2n + 1)) {
+    |           ^
+169 |  		background-color: var(--uneven-tr-bg);
+170 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+170 |  	}
+171 |  
+172 |  	:global(.markdown td) {
+    |           ^
+173 |  		padding: var(--cell-spacing);
+174 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+174 |  	}
+175 |  
+176 |  	:global(.markdown :is(th, td):not(:first-child)) {
+    |           ^
+177 |  		text-align: right;
+178 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+178 |  	}
+179 |  
+180 |  	:global(.markdown img) {
+    |           ^
+181 |  		box-shadow: var(--shadow);
+182 |  		border: 1px solid var(--fg-700);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+183 |  	}
+184 |  
+185 |  	:global(.markdown code) {
+    |           ^
+186 |  		font-size: var(--size-smaller);
+187 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+187 |  	}
+188 |  
+189 |  	:global(.markdown :is(p, li, figcaption) code) {
+    |           ^
+190 |  		display: inline-block;
+191 |  		margin-right: 0.25ch;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+195 |  	}
+196 |  
+197 |  	:global(.markdown pre code) {
+    |           ^
+198 |  		color: var(--fg-200);
+199 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+199 |  	}
+200 |  
+201 |  	:global(.markdown aside) {
+    |           ^
+202 |  		margin-block: var(--space-16);
+203 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+203 |  	}
+204 |  
+205 |  	:global(.markdown aside):not([class]) {
+    |           ^
+206 |  		border: 2px solid var(--accent-800);
+207 |  		padding-block: var(--space-6);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+209 |  	}
+210 |  
+211 |  	:global(.markdown :is(aside, blockquote) > :first-child) {
+    |           ^
+212 |  		margin-top: 0;
+213 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+213 |  	}
+214 |  
+215 |  	:global(.markdown :is(aside, blockquote) > :last-child) {
+    |           ^
+216 |  		margin-bottom: 0;
+217 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+217 |  	}
+218 |  
+219 |  	:global(.markdown figcaption) {
+    |           ^
+220 |  		text-align: center;
+221 |  		font-size: var(--size-base);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+224 |  	}
+225 |  
+226 |  	:global(.markdown hr) {
+    |           ^
+227 |  		border-block-start: 1px solid var(--gray-500);
+228 |  		margin-block: var(--space-16);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+17 |  			font-size: var(--pw-table-font-size);
+18 |  
+19 |  			& :global(thead tr) {
+   |               ^
+20 |  				position: sticky;
+21 |  				top: 0;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+26 |  			}
+27 |  
+28 |  			& :global(th:not([scope='row' i])) {
+   |               ^
+29 |  				font-weight: var(--font-bold);
+30 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+30 |  			}
+31 |  
+32 |  			& :global(th[scope='row' i]) {
+   |               ^
+33 |  				font-weight: var(--font-normal);
+34 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+34 |  			}
+35 |  
+36 |  			& :global(:is(th, td)) {
+   |               ^
+37 |  				text-align: start;
+38 |  				padding-block: var(--pw-table-padding-block);
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+40 |  			}
+41 |  
+42 |  			& :global(td:not(:first-child)) {
+   |               ^
+43 |  				border-inline-start: 1px solid var(--fg-500);
+44 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+44 |  			}
+45 |  
+46 |  			& :global(th),
+   |               ^
+47 |  			& :global(td:first-child) {
+48 |  				white-space: nowrap;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+45 |  
+46 |  			& :global(th),
+47 |  			& :global(td:first-child) {
+   |               ^
+48 |  				white-space: nowrap;
+49 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+49 |  			}
+50 |  
+51 |  			& :global(:where(tr:nth-child(even))) {
+   |               ^
+52 |  				background-color: var(--uneven-tr-bg);
+53 |  			}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+53 |  			}
+54 |  
+55 |  			& :global(td) {
+   |               ^
+56 |  				line-height: var(--leading-snug);
+57 |  				vertical-align: baseline;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+58 |  			}
+59 |  
+60 |  			& :global(.numeric) {
+   |               ^
+61 |  				text-align: end;
+62 |  				white-space: nowrap;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+1  |  
+2  |  	/* stylelint-disable projectwallace/max-average-selector-complexity -- highlight pseudo-elements inflate complexity */
+3  |  	:global(::highlight(lint_lines), ::highlight(lint_selected_line)) {
+   |           ^
+4  |  		text-decoration-color: var(--red-300);
+5  |  		text-decoration-style: wavy;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+7  |  	}
+8  |  
+9  |  	:global(::highlight(lint_lines)) {
+   |           ^
+10 |  		background-color: transparent;
+11 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+11 |  	}
+12 |  
+13 |  	:global(::highlight(lint_selected_line)) {
+   |           ^
+14 |  		background-color: var(--highlight-code);
+15 |  	}
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+91 |  		font-size: var(--size-lg);
+92 |  
+93 |  		& :global(.icon) {
+   |              ^
+94 |  			margin-block-start: -0.2em;
+95 |  			zoom: 1.2;
+[vite:css][lightningcss] 'global' is not recognized as a valid pseudo-class. Did you mean '::global' (pseudo-element) or is this a typo?
+34 |  	}
+35 |  
+36 |  	.pane-header :global(.pane-title) {
+   |                        ^
+37 |  		font-weight: var(--font-bold);
+38 |  		margin-inline-end: auto;
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+1  |  ::highlight(lint_lines), ::highlight(lint_selected_line) {
+   |              ^
+2  |    -webkit-text-decoration-color: var(--red-300);
+3  |    text-decoration-color: var(--red-300);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+1  |  ::highlight(lint_lines), ::highlight(lint_selected_line) {
+   |                                       ^
+2  |    -webkit-text-decoration-color: var(--red-300);
+3  |    text-decoration-color: var(--red-300);
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+6  |  }
+7  |  
+8  |  ::highlight(lint_lines) {
+   |              ^
+9  |    background-color: #0000;
+10 |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+10 |  }
+11 |  
+12 |  ::highlight(lint_selected_line) {
+   |              ^
+13 |    background-color: var(--highlight-code);
+14 |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+4  |  	}
+5  |  
+6  |  	::highlight(lines) {
+   |               ^
+7  |  		background-color: var(--highlight-code);
+8  |  	}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+8  |  	}
+9  |  
+10 |  	::highlight(selected_line) {
+   |               ^
+11 |  		background-color: var(--highlight-code-selected);
+12 |  	}
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+3  |  }
+4  |  
+5  |  .svelte-il175y::highlight(lines) {
+   |                            ^
+6  |    background-color: var(--highlight-code);
+7  |  }
+[vite:css][lightningcss] 'highlight' is not recognized as a valid pseudo-element. Did you mean ':highlight' (pseudo-class) or is this a typo?
+7  |  }
+8  |  
+9  |  .svelte-il175y::highlight(selected_line) {
+   |                            ^
+10 |    background-color: var(--highlight-code-selected);
+11 |  }
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.isAbsolute" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.resolve" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapConsumer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapGenerator" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "url" has been externalized for browser compatibility. Cannot access "url.fileURLToPath" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "url" has been externalized for browser compatibility. Cannot access "url.pathToFileURL" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "fs" has been externalized for browser compatibility. Cannot access "fs.existsSync" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "fs" has been externalized for browser compatibility. Cannot access "fs.readFileSync" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "fs" has been externalized for browser compatibility. Cannot access "fs.realpathSync" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.dirname" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.isAbsolute" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.join" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.relative" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.sep" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapConsumer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapGenerator" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.dirname" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.relative" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.resolve" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.sep" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapConsumer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapGenerator" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:47 AM [vite] (client) [console.warn] Module "url" has been externalized for browser compatibility. Cannot access "url.pathToFileURL" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:46:48 AM [vite] (client) [Unhandled error] Error: ResizeObserver loop completed with undelivered notifications.
+ > ../../../@vite/client:535:50
+
+The file does not exist at "/home/user/projectwallace.com/node_modules/.vite/deps/max-nesting-depth/index.mjs" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+11:46:48 AM [vite] (client) [console.error] DEBUG run_lint error: TypeError: Failed to fetch dynamically imported module: http://localhost:5186/node_modules/.vite/deps/max-nesting-depth/index.mjs
+11:46:58 AM [vite] (client) [console.error] DEBUG run_lint error: TypeError: Failed to fetch dynamically imported module: http://localhost:5186/node_modules/.vite/deps/max-nesting-depth/index.mjs
+11:46:59 AM [vite] (client) [console.error] DEBUG run_lint error: TypeError: Failed to fetch dynamically imported module: http://localhost:5186/node_modules/.vite/deps/max-nesting-depth/index.mjs
+200 GET /lint-css
+200 GET /_app/env.js
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.isAbsolute" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.resolve" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapConsumer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapGenerator" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "url" has been externalized for browser compatibility. Cannot access "url.fileURLToPath" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "url" has been externalized for browser compatibility. Cannot access "url.pathToFileURL" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "fs" has been externalized for browser compatibility. Cannot access "fs.existsSync" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "fs" has been externalized for browser compatibility. Cannot access "fs.readFileSync" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "fs" has been externalized for browser compatibility. Cannot access "fs.realpathSync" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.dirname" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.isAbsolute" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.join" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.relative" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.sep" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapConsumer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapGenerator" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.dirname" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.relative" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.resolve" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "path" has been externalized for browser compatibility. Cannot access "path.sep" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapConsumer" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "source-map-js" has been externalized for browser compatibility. Cannot access "source-map-js.SourceMapGenerator" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [console.warn] Module "url" has been externalized for browser compatibility. Cannot access "url.pathToFileURL" in client code. See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+11:47:01 AM [vite] (client) [Unhandled error] Error: ResizeObserver loop completed with undelivered notifications.
+ > ../../../@vite/client:535:50
+
+The file does not exist at "/home/user/projectwallace.com/node_modules/.vite/deps/max-nesting-depth/index.mjs" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+11:47:01 AM [vite] (client) [console.error] DEBUG run_lint error: TypeError: Failed to fetch dynamically imported module: http://localhost:5186/node_modules/.vite/deps/max-nesting-depth/index.mjs
