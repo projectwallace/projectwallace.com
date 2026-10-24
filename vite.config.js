@@ -40,11 +40,6 @@ const config_alias = [
 		replacement: stylelint_lib_dir + 'formatters/jsonFormatter.mjs'
 	},
 
-	// lintPostcssResult.mjs's own `./timing.mjs` import drags in the `table`
-	// package (for `TIMING=<n> stylelint ...` CLI output we never trigger),
-	// which doesn't bundle for the browser. See shims/stylelint-timing.ts.
-	{ find: './timing.mjs', replacement: stylelint_browser_dir + 'shims/stylelint-timing.ts' },
-
 	// Node-free stand-ins for bare specifiers stylelint's internals (and our
 	// plugin package) import.
 	{ find: 'node:os', replacement: stylelint_browser_dir + 'shims/node-os.ts' },
