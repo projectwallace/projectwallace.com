@@ -1,7 +1,7 @@
 import { parseHTML } from 'linkedom'
 import { AT_RULE, AT_RULE_PRELUDE, parse, URL, walk } from '@projectwallace/css-parser'
-import { resolve_url } from '../../../lib/resolve-url.js'
-import type { CSSOrigin } from '../../../lib/css-origins.js'
+import { resolve_url } from '../../../lib/resolve-url.ts'
+import type { CSSOrigin } from '../../../lib/css-origins.ts'
 
 export const USER_AGENT = 'Project Wallace CSS Scraper/1.1 (+https://www.projectwallace.com/docs/css-scraper)'
 
@@ -125,7 +125,9 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 			})
 		} else if (node.hasAttribute('style')) {
 			let declarations = (node.getAttribute('style') ?? '').trim()
-			if (declarations.length === 0) continue
+			if (declarations.length === 0) {
+				continue
+			}
 
 			// I forgot why I added this, but it's apparently important
 			if (!declarations.endsWith(';')) {
@@ -140,8 +142,12 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 				class_name += class_attr
 					.split(/\s+/g)
 					.filter((s) => {
-						if (s.length === 0) return false
-						if (s.length === 1 && !/^[a-zA-Z0-9_-]$/.test(s)) return false
+						if (s.length === 0) {
+							return false
+						}
+						if (s.length === 1 && !/^[a-zA-Z0-9_-]$/.test(s)) {
+							return false
+						}
 						return true
 					})
 					.map((s) => s.replaceAll(/(\[|\]|:|\.|\/)/g, '\\$1'))

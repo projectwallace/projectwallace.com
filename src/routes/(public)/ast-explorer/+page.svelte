@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Seo from '$components/Seo.svelte'
-	import AstExplorer from '$components/AstExplorer.svelte'
-	import Container from '$components/Container.svelte'
-	import Hero from '$components/Hero.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import AstExplorer from '#lib/components/AstExplorer.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Hero from '#lib/components/Hero.svelte'
 </script>
 
 <Seo title="CSS AST Explorer" description="Explore the AST of your CSS using @projectwallace/css-parser" />

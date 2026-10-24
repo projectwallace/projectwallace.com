@@ -223,9 +223,7 @@
 
 	body {
 		/* TODO: remove anti-aliasing https://github.com/projectwallace/projectwallace.com/issues/285 */
-		/* stylelint-disable-next-line projectwallace/no-prefixed-properties -- TODO: remove this line later */
 		-webkit-font-smoothing: antialiased;
-		/* stylelint-disable-next-line projectwallace/no-prefixed-properties -- TODO: remove this line later */
 		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeSpeed;
 	}
@@ -355,6 +353,15 @@
 		@layer success {
 			html {
 				--success-400: var(--green-400);
+			}
+		}
+
+		/** @see https://web-platform-dx.github.io/name-and-logo-usage-guidelines/ */
+		@layer baseline {
+			html {
+				--baseline-color-limited: light-dark(#ea8600, #f09418);
+				--baseline-color-newly: light-dark(#1a73e8, #4185ff);
+				--baseline-color-widely: light-dark(#1e8e3e, #24a446);
 			}
 		}
 
@@ -573,6 +580,8 @@
 			line-height: var(--leading-none);
 			font-style: normal;
 			text-transform: uppercase;
+			text-box-trim: trim-end;
+			text-box-edge: cap alphabetic;
 		}
 
 		.title {

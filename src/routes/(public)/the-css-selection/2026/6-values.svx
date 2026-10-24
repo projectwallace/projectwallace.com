@@ -1,9 +1,9 @@
 <script>
-import BarChart from '$components/BarChart.svelte'
-import { format_filesize } from '$lib/format-filesize'
-import { format_number, format_percentage } from '$lib/format-number'
-import Award from '$components/Award.svelte'
-import Bar from '$components/stats/BarChart.svelte'
+import BarChart from '#lib/components/BarChart.svelte'
+import { format_filesize } from '#lib/format-filesize.js'
+import { format_number, format_percentage } from '#lib/format-number.js'
+import Award from '#lib/components/Award.svelte'
+import Bar from '#lib/components/stats/BarChart.svelte'
 import PolypaneCallout from './PolypaneCallout.svelte'
 </script>
 

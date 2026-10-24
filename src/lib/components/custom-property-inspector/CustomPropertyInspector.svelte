@@ -3,17 +3,17 @@
 	import { setContext } from 'svelte'
 	import Tree from './Tree.svelte'
 	import { USED, UNUSED, UNDECLARED, UNDECLARED_WITH_FALLBACK, type TreeItem } from './types'
-	import Icon from '$components/Icon.svelte'
-	import CopyButton from '$components/CopyButton.svelte'
-	import Pre from '$components/Pre.svelte'
+	import Icon from '#lib/components/Icon.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
+	import Pre from '#lib/components/Pre.svelte'
 	import { analyze } from './analyze-custom-properties'
-	import type { CssLocation } from '$lib/css-location'
-	import Empty from '$components/Empty.svelte'
-	import DevTools from '$components/DevTools.svelte'
-	import { network, properties, type TabId } from '$components/devtools/tabs'
-	import JsonPanel from '$components/devtools/JsonPanel.svelte'
-	import NetworkPanel from '$components/NetworkPanel.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
+	import type { CssLocation } from '#lib/css-location.ts'
+	import Empty from '#lib/components/Empty.svelte'
+	import DevTools from '#lib/components/DevTools.svelte'
+	import { network, properties, type TabId } from '#lib/components/devtools/tabs.ts'
+	import JsonPanel from '#lib/components/devtools/JsonPanel.svelte'
+	import NetworkPanel from '#lib/components/NetworkPanel.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 
 	let css_state = get_css_state()
 	let css = $derived(css_state.css)
@@ -24,7 +24,9 @@
 	let filter_with_fallback: boolean = $state(false)
 	let search_results = $derived.by<Map<string, CssLocation[]>>(() => {
 		let query = search_query.toLowerCase().trim()
-		if (query === '' || query === '!') return result.all
+		if (query === '' || query === '!') {
+			return result.all
+		}
 		let filtered = new Map<string, CssLocation[]>()
 		for (let [name, locations] of result.all) {
 			let searchable_name = name.toLowerCase()
@@ -54,18 +56,10 @@
 		}
 	})
 
-	$effect(() => {
-		if (css) {
-			// Reset expanded items when CSS changes to avoid null-pointers
-			expanded.set([])
-			// eslint-disable-next-line eslint-plugin-unicorn/no-null
-			$selectedItem = null
-			search_query = ''
-		}
-	})
-
 	let tree_items = $derived.by<TreeItem[]>(() => {
-		if (!filtered_results) return []
+		if (!filtered_results) {
+			return []
+		}
 		return Array.from(filtered_results, ([property_name, locations]) => {
 			let level: TreeItem['level'] = USED
 			if (result.undeclared.has(property_name)) {
@@ -156,6 +150,18 @@
 		}
 	})
 
+	$effect.pre(() => {
+		if (css) {
+			// Reset expanded items when CSS changes to avoid null-pointers
+			// Runs pre-commit so this reset lands in the same render as the new
+			// tree_items, instead of a second full-tree render pass right after.
+			expanded.set([])
+			// eslint-disable-next-line eslint-plugin-unicorn/no-null -- null is what Melt UI wants
+			$selectedItem = null
+			search_query = ''
+		}
+	})
+
 	function onsearch(event: SubmitEvent) {
 		event.preventDefault()
 	}
@@ -183,10 +189,12 @@
 	<section class="list">
 		<header>
 			<h2>Properties</h2>
-			<button type="button" onclick={() => expanded.set([])} class="collapse-all">
-				<Icon name="fold" size={14} />
-				<div class="sr-only">Collapse all</div>
-			</button>
+			{#if filtered_results !== undefined && filtered_results.size > 0}
+				<button type="button" onclick={() => expanded.set([])} class="collapse-all">
+					<Icon name="fold" size={14} />
+					<div class="sr-only">Collapse all</div>
+				</button>
+			{/if}
 			<search>
 				<form method="GET" onsubmit={onsearch}>
 					<label for="search-property" class="sr-only">Search property name</label>

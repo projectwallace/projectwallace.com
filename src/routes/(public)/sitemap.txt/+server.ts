@@ -1,6 +1,6 @@
-import { getPostList } from '$lib/blog'
-import { getMetrics } from '$lib/metrics'
-import { getRecipes } from '$lib/recipes'
+import { get_post_list } from '../blog/posts.ts'
+import { get_metric_list } from '../docs/metrics/metrics.ts'
+import { get_recipe_list } from '../docs/recipes/recipes.ts'
 
 export const prerender = true
 
@@ -18,18 +18,22 @@ function getSystemPages() {
 				.replace('/+error.svelte', '')
 		)
 		.filter((route) => {
-			if (route.includes('[')) return false // urls with placeholders
-			if (route.includes('/_')) return false // private routes, _error, or _layout
+			if (route.includes('[')) {
+				return false
+			} // urls with placeholders
+			if (route.includes('/_')) {
+				return false
+			} // private routes, _error, or _layout
 			return true
 		})
 }
 
 export function GET() {
 	let systemPages = getSystemPages()
-	let posts = getPostList().map((post) => post.path)
-	let docs = getMetrics()
-		.concat(getRecipes())
+	let posts = get_post_list().map((post) => post.path)
+	let docs = get_metric_list()
 		.map((p) => p.path)
+		.concat(get_recipe_list().map((p) => p.path))
 
 	let allUrls = ['/']
 		.concat(systemPages, posts, docs)

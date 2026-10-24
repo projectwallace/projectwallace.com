@@ -45,7 +45,13 @@
 		}
 	}
 
-	afterNavigate(() => reset())
+	afterNavigate(({ shallow }) => {
+		if (shallow) {
+			return
+		}
+
+		return reset()
+	})
 </script>
 
 <svelte:window onkeydown={on_window_keydown} />

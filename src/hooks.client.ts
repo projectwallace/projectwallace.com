@@ -1,5 +1,5 @@
 import { isSupported } from '@oddbird/popover-polyfill/fn'
-import '$lib/request-idle-callback.polyfill'
+import '#lib/request-idle-callback.polyfill.js'
 
 export const init = async () => {
 	// Polyfill popover if necessary

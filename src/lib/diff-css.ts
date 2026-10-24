@@ -46,7 +46,9 @@ export function diff_css(old_css: string, new_css: string): StructuredPatch {
 		let lines: Line[] = []
 
 		for (let line of hunk.lines) {
-			if (line === '\\ No newline at end of file') continue
+			if (line === '\\ No newline at end of file') {
+				continue
+			}
 
 			let added = line.charCodeAt(0) === 43 // +
 			let deleted = line.charCodeAt(0) === 45 // -

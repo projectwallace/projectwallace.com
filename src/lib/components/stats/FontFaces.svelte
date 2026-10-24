@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { Panel, Header } from '$components/Panel/index'
-	import Empty from '$components/Empty.svelte'
-	import Table from '$components/Table.svelte'
-	import Heading from '$components/Heading.svelte'
-	import DefinitionList from '$lib/components/stats/DefinitionList.svelte'
-	import { descriptors } from '$lib/font-face-descriptors'
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import { create_keyboard_list, type OnChange } from '$components/use-keyboard-list.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { hash } from '$lib/hash'
-	import { string_sort } from '$lib/string-sort'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
+	import Empty from '#lib/components/Empty.svelte'
+	import Table from '#lib/components/Table.svelte'
+	import Heading from '#lib/components/Heading.svelte'
+	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
+	import { descriptors } from '#lib/font-face-descriptors.ts'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.ts'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import { hash } from '#lib/hash.ts'
+	import { string_sort } from '#lib/string-sort.ts'
 	import type { Location } from '@projectwallace/css-analyzer'
 
 	let css_state = get_css_state()
@@ -35,14 +35,26 @@
 	const required_descriptors = [font_family, 'src']
 
 	function normalize_font_weight(weight: string | undefined): number {
-		if (weight === undefined) return 400
-		if (weight === 'normal') return 400
-		if (weight === 'bold') return 700
-		if (weight === 'lighter') return 100
-		if (weight === 'bolder') return 700
+		if (weight === undefined) {
+			return 400
+		}
+		if (weight === 'normal') {
+			return 400
+		}
+		if (weight === 'bold') {
+			return 700
+		}
+		if (weight === 'lighter') {
+			return 100
+		}
+		if (weight === 'bolder') {
+			return 700
+		}
 
 		let parsed = parseInt(weight, 10)
-		if (Number.isFinite(parsed)) return parsed
+		if (Number.isFinite(parsed)) {
+			return parsed
+		}
 		return 0
 	}
 

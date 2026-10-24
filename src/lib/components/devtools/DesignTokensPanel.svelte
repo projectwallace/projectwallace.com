@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { pretty_json } from '$lib/pretty-json'
-	import PrettyJson from '$components/PrettyJson.svelte'
-	import CopyButton from '$components/CopyButton.svelte'
-	import Button from '$components/Button.svelte'
-	import type { CssAnalysis } from '$lib/analyze-css'
+	import { pretty_json } from '#lib/pretty-json.ts'
+	import PrettyJson from '#lib/components/PrettyJson.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
+	import Button from '#lib/components/Button.svelte'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import { analysis_to_tokens } from '@projectwallace/css-design-tokens'
 
 	interface Props {
@@ -14,7 +14,9 @@
 
 	function replacer(key: string, value: unknown): unknown {
 		// Stringification is super slow with this, so skip it
-		if (key === 'uniqueWithLocations') return undefined
+		if (key === 'uniqueWithLocations') {
+			return undefined
+		}
 		return value
 	}
 

@@ -1,4 +1,4 @@
-import type { IconName } from '$components/Icon.svelte'
+import type { IconName } from '#lib/components/Icon.svelte'
 
 export type TabId = 'inspector' | 'network' | 'report' | 'css' | 'design_tokens' | 'layers' | 'properties'
 

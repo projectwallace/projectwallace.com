@@ -2,20 +2,20 @@
 	import { onMount } from 'svelte'
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
-	import Hero from '$lib/components/Hero.svelte'
-	import Container from '$lib/components/Container.svelte'
-	import Seo from '$lib/components/Seo.svelte'
-	import Button from '$lib/components/Button.svelte'
-	import CopyButton from '$lib/components/CopyButton.svelte'
-	import Pre from '$components/Pre.svelte'
-	import Label from '$lib/components/Label.svelte'
-	import UrlInput from '$components/css-form/UrlInput.svelte'
-	import FormGroup from '$lib/components/FormGroup.svelte'
-	import { get_css } from '$lib/get-css'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import NetworkPanel from '$components/NetworkPanel.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import { IsOnline } from '$lib/is-online.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Button from '#lib/components/Button.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
+	import Pre from '#lib/components/Pre.svelte'
+	import Label from '#lib/components/Label.svelte'
+	import UrlInput from '#lib/components/css-form/UrlInput.svelte'
+	import FormGroup from '#lib/components/FormGroup.svelte'
+	import { get_css } from '#lib/get-css.ts'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import NetworkPanel from '#lib/components/NetworkPanel.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import { online } from 'svelte/reactivity/window'
 
 	const STATUS = {
 		INITIAL: 'initial',
@@ -29,7 +29,6 @@
 	let errorMessage = ''
 	let value = $state('')
 	let status = $state(css_state.css.length > 0 ? STATUS.DONE : STATUS.INITIAL)
-	let is_online = new IsOnline()
 
 	onMount(() => {
 		let url_settings = page.url.searchParams
@@ -52,15 +51,17 @@
 			return
 		}
 
-		if (status === STATUS.PENDING) return
+		if (status === STATUS.PENDING) {
+			return
+		}
 
 		status = STATUS.PENDING
 
 		// Update URL
-		let new_url = page.url
+		let new_url = new URL(page.url.href)
 		new_url.searchParams.set('url', value)
 		await goto(new_url, {
-			replaceState: true
+			replace: true
 		})
 
 		try {
@@ -76,8 +77,9 @@
 	async function on_prettify_change(event: Event) {
 		let prettify = (event.target as HTMLInputElement).checked
 		css_state.prettify(prettify)
-		page.url.searchParams.set('prettify', prettify ? '1' : '0')
-		await goto(page.url, { replaceState: true })
+		let new_url = new URL(page.url.href)
+		new_url.searchParams.set('prettify', prettify ? '1' : '0')
+		await goto(new_url, { replace: true })
 	}
 </script>
 
@@ -111,7 +113,7 @@
 			{/if}
 		</Button>
 
-		{#if !is_online.current}
+		{#if !online.current}
 			<p class="error-msg" data-testid="offline-message">You are offline.</p>
 		{/if}
 	</form>

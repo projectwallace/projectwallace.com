@@ -93,6 +93,16 @@
 		tab-size: 2;
 		font-size: inherit;
 		border: 1px solid var(--fg-700);
+
+		/* Could be a mixing eventually because it copies style.css 1:1 */
+		scrollbar-width: thin;
+		scrollbar-color: var(--fg-450) transparent;
+		transition: scrollbar-color 0.1s ease-out;
+
+		&:hover,
+		&:focus {
+			scrollbar-color: var(--fg-400) transparent;
+		}
 	}
 
 	@media (min-width: 44rem) {

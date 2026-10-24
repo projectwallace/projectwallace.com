@@ -1,5 +1,5 @@
-import { redirect, type Handle } from '@sveltejs/kit'
-import { sequence } from '@sveltejs/kit/hooks'
+import { redirect } from '@sveltejs/kit'
+import { sequence, type Handle } from '@sveltejs/kit/hooks'
 
 const redirects = new Map<string, string>([
 	['/blog/new-libraries-released', '/blog'],
@@ -39,6 +39,7 @@ export const handle_redirects: Handle = async function ({ event, resolve }) {
 	}
 
 	let response = await resolve(event)
+
 	return response
 }
 
@@ -56,6 +57,7 @@ export const handle_redirects: Handle = async function ({ event, resolve }) {
 // `<svelte:head>` output), so none of them carry hydration boundary
 // comments and they're safe to relocate as standalone strings.
 const CSP_META = /<meta http-equiv="content-security-policy"[^>]*>/i
+
 const TITLE_TAG = /<title>[\s\S]*?<\/title>/i
 const VIEWPORT_META = /<meta name="viewport"[^>]*>/i
 const STYLESHEET_LINKS = /(?:<link href="[^"]+"\s+rel="stylesheet"[^>]*>\s*)+/i
@@ -71,7 +73,6 @@ function reorder_head(html: string): string {
 
 	let head = html.slice(head_start, head_end)
 	const original_head = head
-
 	const viewport_match = head.match(VIEWPORT_META)
 
 	// Without an anchor to hoist behind, leave the head untouched rather than

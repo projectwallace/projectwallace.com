@@ -1,12 +1,12 @@
-import { getRecipes } from '$lib/recipes'
-import { groupBySection, getMetrics } from '$lib/metrics'
-import { getGroups } from '$lib/metric-groups'
+import { get_recipe_list } from './recipes/recipes.ts'
+import { group_by_section, get_metric_list } from './metrics/metrics.ts'
+import { getGroups } from '#lib/metric-groups.ts'
 
 export function load() {
-	const metrics = getMetrics()
+	const metrics = get_metric_list()
 	return {
-		allRecipes: getRecipes(),
-		groupedBySection: groupBySection(metrics),
+		allRecipes: get_recipe_list(),
+		groupedBySection: group_by_section(metrics),
 		allGroups: getGroups()
 	}
 }

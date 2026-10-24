@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { PaneGroup, Pane, PaneResizer } from 'paneforge'
-	import { format_filesize } from '$lib/format-filesize'
-	import { format_number } from '$lib/format-number'
+	import { format_filesize } from '#lib/format-filesize.ts'
+	import { format_number } from '#lib/format-number.ts'
 	import CssSlide from './CssSlide.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { string_sort } from '$lib/string-sort'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import { string_sort } from '#lib/string-sort.ts'
 
 	let css_state = get_css_state()
 
@@ -99,7 +99,9 @@
 		}
 
 		let tr = target.closest('tr')
-		if (tr === null) return
+		if (tr === null) {
+			return
+		}
 
 		let index = tr.sectionRowIndex
 
@@ -110,10 +112,14 @@
 		}
 
 		let mapped_index = sorted[index]
-		if (mapped_index === undefined) return
+		if (mapped_index === undefined) {
+			return
+		}
 
 		let origin = css_state.origins.at(mapped_index)
-		if (origin === undefined) return
+		if (origin === undefined) {
+			return
+		}
 
 		if (event.metaKey || event.shiftKey || event.ctrlKey) {
 			if (origin.type === 'local-file') {

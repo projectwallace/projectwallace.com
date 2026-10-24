@@ -5,7 +5,7 @@
 	import CssTree from './CssTree.svelte'
 	import { format } from '@projectwallace/format-css'
 	import HighlightedTextarea from './HighlightedTextarea.svelte'
-	import { HashState } from '$lib/url-hash-state.svelte'
+	import { HashState } from '#lib/url-hash-state.svelte.ts'
 	import Button from './Button.svelte'
 	import CopyButton from './CopyButton.svelte'
 	import PanedLayout from './PanedLayout.svelte'
@@ -65,7 +65,9 @@
 	}
 
 	function find_node_at_cursor(start: number, end: number): CSSNode | undefined {
-		if (!ast) return
+		if (!ast) {
+			return
+		}
 		let found = undefined
 		walk(ast, (node) => {
 			if (node.start <= start && node.end >= end) {

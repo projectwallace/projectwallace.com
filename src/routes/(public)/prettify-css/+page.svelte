@@ -1,10 +1,10 @@
 <script>
-	import Seo from '$components/Seo.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import Container from '$components/Container.svelte'
-	import Heading from '$components/Heading.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Heading from '#lib/components/Heading.svelte'
 	import PrettifyCss from './PrettifyCss.svelte'
-	import Hero from '$components/Hero.svelte'
+	import Hero from '#lib/components/Hero.svelte'
 </script>
 
 <Seo title="Online CSS Prettifier" description="Convert minified CSS into readable CSS online" />

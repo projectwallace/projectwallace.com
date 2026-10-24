@@ -62,6 +62,13 @@ test.describe('with css', () => {
 
 		// Starting state
 		await expect.soft(properties).toHaveCount(4)
+
+		// Locations are only rendered in the DOM once their property is expanded,
+		// so open every property and keep them open for the rest of the test
+		for (let property of await properties.all()) {
+			await property.click()
+		}
+
 		await expect.soft(locations).toHaveCount(6)
 		await expect.soft(unused_toggler).toHaveAttribute('aria-pressed', 'false')
 		await expect.soft(undefined_toggler).toHaveAttribute('aria-pressed', 'false')

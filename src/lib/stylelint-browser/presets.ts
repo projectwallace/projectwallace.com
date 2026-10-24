@@ -5,7 +5,7 @@ import correctnessConfig from '@projectwallace/stylelint-plugin/configs/correctn
 import designTokensConfig from '@projectwallace/stylelint-plugin/configs/design-tokens'
 import holisticConfig from '@projectwallace/stylelint-plugin/configs/holistic'
 import type { Config } from 'stylelint'
-import { type Preset } from '$lib/lint-preset'
+import { type Preset } from '#lib/lint-preset.ts'
 
 export const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | undefined> = {
 	recommended: recommendedConfig.rules,

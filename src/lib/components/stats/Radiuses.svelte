@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import type { CssLocation } from '$lib/css-location'
-	import FilterGroup from '$lib/components/FilterGroup.svelte'
-	import FilterOption from '$components/FilterOption.svelte'
-	import { get_css_state } from '$lib/css-state.svelte'
-	import { string_sort } from '$lib/string-sort'
-	import ShowMore from '$components/ShowMore.svelte'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import type { CssLocation } from '#lib/css-location.ts'
+	import FilterGroup from '#lib/components/FilterGroup.svelte'
+	import FilterOption from '#lib/components/FilterOption.svelte'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import { string_sort } from '#lib/string-sort.ts'
+	import ShowMore from '#lib/components/ShowMore.svelte'
 
 	let css_state = get_css_state()
 	let selected_item = $derived(css_state.selected_item)

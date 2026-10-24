@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
-	import Meter from '$lib/components/Meter.svelte'
+	import Meter from '#lib/components/Meter.svelte'
 
 	const steps = [34, 54, 62, 70, 76, 80, 88, 89, 90, 94, 96, 100]
 	let progress = tweened(1, {

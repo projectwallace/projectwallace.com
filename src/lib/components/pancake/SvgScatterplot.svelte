@@ -1,9 +1,21 @@
-<script>
+<script lang="ts">
 	import { getChartContext } from './Chart.svelte'
+	import type { Accessor } from './types'
+	import type { Snippet } from 'svelte'
 
 	const ctx = getChartContext()
 
-	let { data, x = (d) => d.x, y = (d) => d.y, children } = $props()
+	let {
+		data,
+		x = (d: any) => d.x,
+		y = (d: any) => d.y,
+		children
+	}: {
+		data: any[]
+		x?: Accessor<any>
+		y?: Accessor<any>
+		children?: Snippet<[{ d: string }]>
+	} = $props()
 
 	let d = $derived(
 		data

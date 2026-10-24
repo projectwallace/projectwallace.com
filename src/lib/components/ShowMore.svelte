@@ -21,7 +21,9 @@
 
 	function close() {
 		status = 'closed'
-		if (!element) return
+		if (!element) {
+			return
+		}
 
 		// Scroll to the top of the element if it's taller than the viewport,
 		// to avoid the user losing their scroll position in the document

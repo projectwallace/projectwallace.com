@@ -1,5 +1,5 @@
 import { test, expect } from '../../../../tests/fixtures'
-import { all } from '../../../lib/css-units.js'
+import { all } from '../../../lib/css-units.ts'
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/css-units-game', { waitUntil: 'domcontentloaded' })

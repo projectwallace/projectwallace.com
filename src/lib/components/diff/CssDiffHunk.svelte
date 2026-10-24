@@ -1,5 +1,5 @@
 <script module lang="ts">
-	import { browser } from '$app/environment'
+	import { browser } from '$app/env'
 
 	export const supports_highlights = browser && 'highlights' in window.CSS
 
@@ -16,7 +16,7 @@
 </script>
 
 <script lang="ts">
-	import type { Hunk } from '$lib/diff-css'
+	import type { Hunk } from '#lib/diff-css.ts'
 
 	interface Props {
 		hunk: Hunk
@@ -25,9 +25,15 @@
 	let { hunk }: Props = $props()
 
 	function highlight_line(node: HTMLElement, { value }: { value: string }) {
-		if (value.length === 0) return
-		if (!supports_highlights) return
-		if (window.matchMedia('(forced-colors: active)').matches) return
+		if (value.length === 0) {
+			return
+		}
+		if (!supports_highlights) {
+			return
+		}
+		if (window.matchMedia('(forced-colors: active)').matches) {
+			return
+		}
 
 		let text_node = node.firstChild!
 		let end_char_pos = value.length - 1

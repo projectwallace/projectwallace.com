@@ -1,6 +1,6 @@
 <script>
-	import Seo from '$components/Seo.svelte'
-	import MarkdownContent from '$components/MarkdownContent.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import MarkdownContent from '#lib/components/MarkdownContent.svelte'
 </script>
 
 <Seo title="Docs" />

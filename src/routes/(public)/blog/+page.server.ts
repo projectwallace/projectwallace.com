@@ -1,7 +1,7 @@
-import { getPostList } from '$lib/blog'
+import { get_post_list } from './posts.ts'
 
 export function load() {
 	return {
-		posts: getPostList()
+		posts: get_post_list()
 	}
 }

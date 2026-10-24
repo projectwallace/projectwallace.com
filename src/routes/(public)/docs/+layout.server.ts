@@ -1,9 +1,9 @@
-import { getGroups } from '$lib/metric-groups'
-import { getRecipes } from '$lib/recipes'
+import { getGroups } from '#lib/metric-groups.ts'
+import { get_recipe_list } from './recipes/recipes.ts'
 
 export function load() {
 	return {
 		allGroups: getGroups(),
-		allRecipes: getRecipes()
+		allRecipes: get_recipe_list()
 	}
 }

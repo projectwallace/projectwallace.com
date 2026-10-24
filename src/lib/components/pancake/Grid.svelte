@@ -1,18 +1,21 @@
-<script>
+<script lang="ts">
 	import { getChartContext } from './Chart.svelte'
+	import type { Snippet } from 'svelte'
 
 	const e10 = Math.sqrt(50)
 	const e5 = Math.sqrt(10)
 	const e2 = Math.sqrt(2)
 
-	function get_ticks(start, stop, count = 5) {
+	function get_ticks(start: number, stop: number, count = 5): number[] {
 		let reverse
 		let i = -1
 		let n
-		let ticks
+		let ticks: number[]
 		let step
 
-		if (start === stop && count > 0) return [start]
+		if (start === stop && count > 0) {
+			return [start]
+		}
 
 		if ((reverse = stop < start)) {
 			;[start, stop] = [stop, start]
@@ -26,20 +29,26 @@
 			start = Math.ceil(start / step)
 			stop = Math.floor(stop / step)
 			ticks = Array.from({ length: (n = Math.ceil(stop - start + 1)) })
-			while (++i < n) ticks[i] = (start + i) * step
+			while (++i < n) {
+				ticks[i] = (start + i) * step
+			}
 		} else {
 			start = Math.floor(start * step)
 			stop = Math.ceil(stop * step)
 			ticks = Array.from({ length: (n = Math.ceil(start - stop + 1)) })
-			while (++i < n) ticks[i] = (start - i) / step
+			while (++i < n) {
+				ticks[i] = (start - i) / step
+			}
 		}
 
-		if (reverse) ticks.reverse()
+		if (reverse) {
+			ticks.reverse()
+		}
 
 		return ticks
 	}
 
-	function increment(start, stop, count) {
+	function increment(start: number, stop: number, count: number) {
 		const step = (stop - start) / Math.max(0, count)
 		const power = Math.floor(Math.log(step) / Math.LN10)
 		const error = step / Math.pow(10, power)
@@ -50,11 +59,21 @@
 
 	const ctx = getChartContext()
 
-	let { count = undefined, ticks = undefined, vertical = false, children } = $props()
+	let {
+		count = undefined,
+		ticks = undefined,
+		vertical = false,
+		children
+	}: {
+		count?: number
+		ticks?: number[]
+		vertical?: boolean
+		children?: Snippet<[{ value: number; first: boolean; last: boolean }]>
+	} = $props()
 
 	let _ticks = $derived(ticks ?? (vertical ? get_ticks(ctx.x1, ctx.x2, count) : get_ticks(ctx.y1, ctx.y2, count)))
 
-	function style(tick) {
+	function style(tick: number) {
 		return vertical
 			? `width: 0; height: 100%; left: ${ctx.x_scale(tick)}%`
 			: `width: 100%; height: 0; top: ${ctx.y_scale(tick)}%`

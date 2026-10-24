@@ -1,24 +1,24 @@
 <script lang="ts">
-	import ValueCountList from '$components/stats/ValueCountList.svelte'
-	import DefinitionList from '$components/stats/DefinitionList.svelte'
-	import { Panel, Header } from '$components/Panel'
-	import Empty from '$components/Empty.svelte'
-	import Heading from '$components/Heading.svelte'
-	import type { CssAnalysis } from '$lib/analyze-css'
-	import type { CssLocation } from '$lib/css-location'
-	import Units from '$lib/components/stats/Units.svelte'
-	import Icon from '$components/Icon.svelte'
+	import ValueCountList from '#lib/components/stats/ValueCountList.svelte'
+	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
+	import Empty from '#lib/components/Empty.svelte'
+	import Heading from '#lib/components/Heading.svelte'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import type { CssLocation } from '#lib/css-location.ts'
+	import Units from '#lib/components/stats/Units.svelte'
+	import Icon from '#lib/components/Icon.svelte'
 	import { page } from '$app/state'
-	import Markdown from '$components/Markdown.svelte'
-	import { string_sort } from '$lib/string-sort'
-	import { normalize_z_index, MAX, INVALID } from '$lib/sort-z-index'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import { string_sort } from '#lib/string-sort.ts'
+	import { normalize_z_index, MAX, INVALID } from '#lib/sort-z-index.ts'
 
 	let { values = Object.create(null) }: { values: CssAnalysis['values'] } = $props()
 
 	// If the current page has a `url` search parameter, append it to the Design Tokens link.
 	// Otherwise, link to the Design Tokens section.
 	let design_tokens_url = $derived.by(() => {
-		let url = new URL('/design-tokens', page.url)
+		let url = new URL('/design-tokens', page.url.href)
 		if (page.url.searchParams.get('url')) {
 			// @ts-expect-error TS does not understant that searchParams.has() is a valid type guard
 			url.searchParams.append('url', page.url.searchParams.get('url'))
@@ -30,8 +30,12 @@
 	function is_valid_z_index(z_index: string) {
 		// If it's a number, it should be a 2^32 integer:
 		let index = normalize_z_index(z_index)
-		if (index === INVALID) return false
-		if (index === MAX) return true
+		if (index === INVALID) {
+			return false
+		}
+		if (index === MAX) {
+			return true
+		}
 		return index >= -2147483648 && index <= 2147483647
 	}
 

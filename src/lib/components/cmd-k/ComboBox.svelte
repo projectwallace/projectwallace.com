@@ -1,7 +1,8 @@
 <script lang="ts">
+	import type { ComponentProps } from 'svelte'
 	import { afterNavigate } from '$app/navigation'
-	import Empty from '$components/Empty.svelte'
-	import Icon from '$components/Icon.svelte'
+	import Empty from '#lib/components/Empty.svelte'
+	import Icon, { type IconName } from '#lib/components/Icon.svelte'
 	import { focusable_children, trap } from './actions.focus'
 	import { shortcuts } from './shortcuts'
 
@@ -13,16 +14,17 @@
 			return shortcuts
 		}
 
-		let new_results = structuredClone(shortcuts)
-		new_results.forEach((section) => {
-			section.items = section.items.filter((item) => {
+		// no structuredClone: items can hold functions (`action`), which can't be cloned
+		return shortcuts.map((section) => ({
+			...section,
+			items: section.items.filter((item) => {
 				return (
 					item.title.toLowerCase().includes(normalized_search_query) || item.keywords?.includes(normalized_search_query)
 				)
 			})
-		})
-		return new_results
+		}))
 	})
+
 	let no_results = $derived(results.every((section) => section.items.length === 0))
 
 	function onkeydown(event: KeyboardEvent & { currentTarget: HTMLElement }) {
@@ -33,17 +35,17 @@
 			const group = focusable_children(listbox)
 
 			// when using arrow keys (as opposed to tab), don't focus buttons
-			const selector = 'a.shortcut, input'
+			const selector = '.shortcut, input'
 
 			if (event.key === 'ArrowDown') {
 				if (event.metaKey || event.ctrlKey) {
-					group.last('a.shortcut')
+					group.last('.shortcut')
 				} else {
 					group.next(selector)
 				}
 			} else {
 				if (event.metaKey || event.ctrlKey) {
-					group.first('a.shortcut')
+					group.first('.shortcut')
 				} else {
 					group.prev(selector)
 				}
@@ -51,10 +53,31 @@
 		}
 	}
 
-	afterNavigate(() => {
+	function get_icon(section_title: string): IconName {
+		if (section_title.includes('Website')) {
+			return 'code-window'
+		}
+		if (section_title.includes('One-off')) {
+			return 'tools'
+		}
+		return 'file'
+	}
+
+	afterNavigate(({ shallow }) => {
+		if (shallow) {
+			return
+		}
+
 		search_query = ''
 	})
 </script>
+
+{#snippet shortcut_content(icon_name: IconName, title: string)}
+	<span class="icon">
+		<Icon name={icon_name} size={15} />
+	</span>
+	{title}
+{/snippet}
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div use:trap {onkeydown}>
@@ -87,20 +110,18 @@
 						<li class="section">
 							<div class="section-title title">{section.title}</div>
 							<ol class="items">
-								{#each section.items as list_item (list_item.href)}
+								{#each section.items as list_item (list_item.title)}
 									<li class="item">
-										<a class="shortcut" href={list_item.href}>
-											<span class="icon">
-												{#if section.title.includes('Website')}
-													<Icon name="code-window" size={15} />
-												{:else if section.title.includes('One-off')}
-													<Icon name="tools" size={15} />
-												{:else}
-													<Icon name="file" size={15} />
-												{/if}
-											</span>
-											{list_item.title}
-										</a>
+										{#if 'href' in list_item}
+											{@const icon_name = get_icon(section.title)}
+											<a class="shortcut" href={list_item.href}>
+												{@render shortcut_content(icon_name, list_item.title)}
+											</a>
+										{:else}
+											<button class="shortcut" onclick={list_item.action}>
+												{@render shortcut_content('tools', list_item.title)}
+											</button>
+										{/if}
 									</li>
 								{/each}
 							</ol>
@@ -155,10 +176,16 @@
 	.shortcut {
 		display: block;
 		padding-block: var(--space-2);
+		color: var(--fg-200);
+
+		/* buttons need more care than links: */
+		inline-size: stretch;
+		text-align: start;
+		cursor: pointer;
 
 		& .icon {
 			color: var(--fg-300);
-			margin-block-end: var(--space-3);
+			margin-inline-end: var(--space-2);
 		}
 
 		&:hover {

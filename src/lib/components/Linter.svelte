@@ -5,19 +5,19 @@
 	import { create_keyboard_list, type OnChange } from './use-keyboard-list.svelte'
 	import type { Warning } from 'stylelint'
 	import Button from './Button.svelte'
-	import CopyButton from '$components/CopyButton.svelte'
+	import CopyButton from '#lib/components/CopyButton.svelte'
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
-	import { browser } from '$app/environment'
-	import { format_number } from '$lib/format-number'
-	import { presets, type Preset, DEFAULT_PRESET } from '$lib/lint-preset'
+	import { browser } from '$app/env'
+	import { format_number } from '#lib/format-number.ts'
+	import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.ts'
 	import PanedLayout from './PanedLayout.svelte'
 	import Pane from './Pane.svelte'
-	import { get_css } from '$lib/get-css'
+	import { get_css } from '#lib/get-css.ts'
 	import { format } from '@projectwallace/format-css'
 	import stylelintPlugin from '@projectwallace/stylelint-plugin'
-	import { lint } from '$lib/stylelint-browser/lint'
-	import { PRESET_MAP } from '$lib/stylelint-browser/presets'
+	import { lint } from '#lib/stylelint-browser/lint.ts'
+	import { PRESET_MAP } from '#lib/stylelint-browser/presets.ts'
 
 	let {
 		elements: { root, item }
@@ -57,6 +57,7 @@
 	let { css = '', url = undefined, prettify = true, onloading = undefined }: Props = $props()
 
 	const preset_param = browser ? (page.url.searchParams.get('preset') as Preset | undefined) : undefined
+
 	let preset = $state<Preset>(
 		preset_param && (presets as readonly string[]).includes(preset_param) ? preset_param : DEFAULT_PRESET
 	)
@@ -92,7 +93,9 @@
 			const duration = performance.now() - start
 
 			const file = linter_result.results.at(0)
-			if (!file) throw new Error('No lint result')
+			if (!file) {
+				throw new Error('No lint result')
+			}
 
 			const lint_warnings = file.warnings.filter((w) => w.rule !== 'CssSyntaxError')
 			const parse_error = file.warnings.find((w) => w.rule === 'CssSyntaxError')
@@ -125,9 +128,9 @@
 	}
 
 	function on_preset_change() {
-		const updated_url = new URL(page.url)
+		const updated_url = new URL(page.url.href)
 		updated_url.searchParams.set('preset', preset)
-		goto(updated_url, { replaceState: true, noScroll: true })
+		goto(updated_url, { replace: true, reset: false })
 		run_lint()
 	}
 </script>

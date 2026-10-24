@@ -1,8 +1,8 @@
 <script>
-	import Hero from '$lib/components/Hero.svelte'
-	import Container from '$lib/components/Container.svelte'
-	import Seo from '$lib/components/Seo.svelte'
-	import Panel from '$lib/components/Panel.svelte'
+	import Hero from '#lib/components/Hero.svelte'
+	import Container from '#lib/components/Container.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Panel from '#lib/components/Panel.svelte'
 
 	let { data } = $props()
 </script>

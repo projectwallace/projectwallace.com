@@ -1,7 +1,7 @@
-import { getDocs } from '$lib/code-quality'
+import { get_docs } from './code-quality.ts'
 
 export function load() {
 	return {
-		docs: getDocs()
+		docs: get_docs()
 	}
 }

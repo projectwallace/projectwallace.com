@@ -1,16 +1,16 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte'
-	import Markdown from '$lib/components/Markdown.svelte'
-	import { format_number } from '$lib/format-number'
-	import { format_filesize } from '$lib/format-filesize'
-	import ScatterPlot from '$lib/components/stats/ScatterPlot.svelte'
+	import Icon from '#lib/components/Icon.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import { format_number } from '#lib/format-number.ts'
+	import { format_filesize } from '#lib/format-filesize.ts'
+	import ScatterPlot from '#lib/components/stats/ScatterPlot.svelte'
 	import type { Snippet } from 'svelte'
-	import type { CssAnalysis } from '$lib/analyze-css'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
 
 	interface Props {
 		id: string
 		title: string
-		unit: string
+		unit?: string
 		format: 'number' | 'percentage' | 'size'
 		category: string
 		score?: number

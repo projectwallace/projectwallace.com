@@ -9,7 +9,9 @@ export function diffstat_blocks(additions: number, deletions: number) {
 	let total = additions + deletions
 
 	// No changes, return all zeros
-	if (total === 0) return result
+	if (total === 0) {
+		return result
+	}
 
 	// Less than or equal to 5 changes, fill the array and return
 	if (total <= NUM_BLOCKS) {

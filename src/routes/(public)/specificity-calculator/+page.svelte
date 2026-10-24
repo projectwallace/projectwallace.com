@@ -4,20 +4,30 @@
 	import { page } from '$app/state'
 	import { parse_selector_list } from '@projectwallace/css-parser'
 	import { calculateSpecificity, type Specificity } from '@projectwallace/css-analyzer'
-	import Seo from '$components/Seo.svelte'
-	import Panel from '$components/Panel.svelte'
-	import Label from '$components/Label.svelte'
-	import Markdown from '$components/Markdown.svelte'
-	import FormGroup from '$components/FormGroup.svelte'
-	import Container from '$components/Container.svelte'
+	import Seo from '#lib/components/Seo.svelte'
+	import Panel from '#lib/components/Panel.svelte'
+	import Label from '#lib/components/Label.svelte'
+	import Markdown from '#lib/components/Markdown.svelte'
+	import FormGroup from '#lib/components/FormGroup.svelte'
+	import Container from '#lib/components/Container.svelte'
 	import SpecificityItem from './SpecificityItem.svelte'
-	import Hero from '$components/Hero.svelte'
+	import Hero from '#lib/components/Hero.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
 
-	let input_ref: HTMLInputElement
+	let input_ref: HTMLInputElement | undefined = $state()
+	let input_value = $state('')
 	let has_error = $state(false)
 	let result: { selector: string; specificity: Specificity }[] | undefined = $state()
+	let polypane_url = $derived.by(() => {
+		let base_url = new URL('https://polypane.app/css-specificity-calculator/')
+
+		if (input_value) {
+			base_url.searchParams.set('selector', encodeURIComponent(input_value))
+		}
+
+		return base_url.toString()
+	})
 
 	const DEFAULT_INPUT = '.kid :has(.friend) ~ :where(.treehouse) :is(#gross)'
 	const PARAM = 'selectors'
@@ -57,28 +67,32 @@
 	 * the URL.
 	 */
 	async function update_url(value: string) {
-		let new_params = new URLSearchParams(page.url.searchParams)
+		let new_params = new URLSearchParams(page.url.searchParams.toString())
 		if (value.trim() === '') {
 			new_params.delete(PARAM)
 		} else {
 			new_params.set(PARAM, value)
 		}
 		await goto(`?${new_params.toString()}`, {
-			replaceState: true,
-			keepFocus: true,
-			noScroll: true
+			replace: true,
+			reset: false
 		})
 	}
 
 	async function on_input() {
-		let input = input_ref.value
+		let input = input_ref!.value
+		input_value = input
 
 		calculate(input)
 		await update_url(input)
 	}
 
 	onMount(async () => {
-		let param_input = new URLSearchParams(page.url.searchParams).get(PARAM)
+		let param_input = new URLSearchParams(page.url.searchParams.toString()).get(PARAM)
+
+		if (!input_ref) {
+			return
+		}
 
 		if (param_input) {
 			input_ref.value = param_input
@@ -86,6 +100,7 @@
 			input_ref.value = DEFAULT_INPUT
 		}
 
+		input_value = input_ref.value
 		calculate(input_ref.value)
 		await update_url(input_ref.value)
 	})
@@ -151,8 +166,8 @@
 					This analyzer is powered by <a rel="external" href="https://github.com/bramus/specificity"
 						>@bramus/specificity</a
 					>. There are other specificity calculators available that offer explanations, like
-					<a href="https://polypane.app/css-specificity-calculator/" rel="external">the one from Polypane</a>. You
-					should use that one if you want to know more about <em>how</em>
+					<a href={polypane_url} rel="external">the one from Polypane</a>. You should use that one if you want to know
+					more about <em>how</em>
 					specificity is calculated.
 				</p>
 			</Markdown>

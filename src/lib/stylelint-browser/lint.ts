@@ -36,7 +36,9 @@ type PluginRuleDefinition = { ruleName: string; rule: Rule }
  */
 function build_plugin_functions(plugins: Config['plugins']): Record<string, Rule> {
 	const plugin_functions: Record<string, Rule> = {}
-	if (!plugins) return plugin_functions
+	if (!plugins) {
+		return plugin_functions
+	}
 
 	const normalized_plugins = ([] as unknown[]).concat(plugins)
 
