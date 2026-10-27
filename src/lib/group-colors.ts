@@ -1,5 +1,5 @@
 import type { CssAnalysis } from './analyze-css'
-import { convert, color_group } from 'color-sorter'
+import { convert, color_group } from '@projectwallace/color-sorter'
 
 export function group_colors(colors: CssAnalysis['values']['colors']['uniqueWithLocations']) {
 	const converted = Object.keys(colors).map((color) => convert(color))
