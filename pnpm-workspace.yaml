@@ -6,15 +6,14 @@ blockExoticSubdeps: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@projectwallace/*'
-  - color-sorter
 trustPolicy: no-downgrade
 
 catalog:
-  '@projectwallace/css-analyzer': ^9.9.3
-  '@projectwallace/css-parser': ^0.18.6
-  '@projectwallace/format-css': ^3.2.0
-  '@projectwallace/stylelint-plugin': ^0.7.0
-  color-sorter: ^8.0.2
+  '@projectwallace/css-analyzer': ^9.9.5
+  '@projectwallace/css-parser': ^0.19.1
+  '@projectwallace/format-css': ^3.2.2
+  '@projectwallace/stylelint-plugin': ^0.7.2
+  '@projectwallace/color-sorter': ^9.0.0
   runed: ^0.37.1
   vite: 8.2.1
 
@@ -23,7 +22,7 @@ overrides:
   '@projectwallace/css-analyzer': 'catalog:'
   '@projectwallace/css-parser': 'catalog:'
   '@projectwallace/format-css': 'catalog:'
-  color-sorter: 'catalog:'
+  '@projectwallace/color-sorter': 'catalog:'
   runed: 'catalog:'
   vite: 'catalog:'
   # 1.33.0 breaks the build on ::search-text:current (see style.css); pin until fixed upstream

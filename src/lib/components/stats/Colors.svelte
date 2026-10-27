@@ -12,7 +12,7 @@
 	import Heading from '#lib/components/Heading.svelte'
 	import FilterGroup from '#lib/components/FilterGroup.svelte'
 	import FilterOption from '#lib/components/FilterOption.svelte'
-	import { convert, compare } from 'color-sorter'
+	import { convert, compare } from '@projectwallace/color-sorter'
 
 	type Colors = CssAnalysis['values']['colors']
 
