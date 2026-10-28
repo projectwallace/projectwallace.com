@@ -13,6 +13,7 @@
 	import { analyze } from '#lib/baseline/calculate.ts'
 	import { group_by_year, EDGE_LAUNCH_DATE } from '#lib/baseline/group-by-year.ts'
 	import { summarize_usages } from '#lib/baseline/summarize-usages.ts'
+	import web_features_version from '#lib/baseline/web-features-version.generated.json'
 	import css_features from '#lib/baseline/css-features.generated.json'
 	import type { CssFeature } from '#lib/baseline/css-feature.ts'
 	import { get_baseline_availability, type BaselineAvailability } from '#lib/baseline/baseline-status.ts'
@@ -36,11 +37,13 @@
 	let css_state = get_css_state()
 	let usages = $derived(css_state.css.length > 0 ? analyze(css_state.css) : new Map())
 
+	const collator = new Intl.Collator()
+
 	function compare_dates(a: string | undefined, b: string | undefined) {
 		if (!a && !b) return 0
 		if (!a) return 1
 		if (!b) return -1
-		return a.localeCompare(b)
+		return collator.compare(a, b)
 	}
 
 	type FeatureRow = {
@@ -70,7 +73,7 @@
 
 		switch (sort_by) {
 			case 'feature':
-				result = a.display_name.localeCompare(b.display_name)
+				result = collator.compare(a.display_name, b.display_name)
 				break
 			case 'count':
 				result = a.count - b.count
@@ -360,17 +363,31 @@
 					{/snippet}
 				</DevTools>
 			</div>
+
+			<div class="report-grid__section--full">
+				<p class="web-features-version">
+					Analyzed with
+					<a href={web_features_version.homepage} target="_blank" rel="external">web-features</a>
+					v{web_features_version.version}
+				</p>
+			</div>
 		</div>
 	</Container>
 {/if}
 
 <Container size="lg">
-	<Markdown class="my-16">
-		<Content></Content>
-	</Markdown>
+	<div class="page-content">
+		<Markdown>
+			<Content></Content>
+		</Markdown>
+	</div>
 </Container>
 
 <style>
+	.page-content {
+		margin-block: var(--space-16);
+	}
+
 	.font-heading {
 		font-size: var(--size-5xl);
 	}
@@ -394,6 +411,16 @@
 		position: sticky;
 		inset-block-end: 0;
 		inset-inline: 0;
+	}
+
+	.web-features-version {
+		text-align: center;
+
+		& :any-link {
+			color: light-dark(var(--accent-800), var(--accent-300));
+			text-decoration: underline;
+			text-decoration-color: light-dark(var(--accent-700), var(--accent-300));
+		}
 	}
 
 	.stack {
