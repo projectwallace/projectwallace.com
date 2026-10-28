@@ -10,7 +10,7 @@ trustPolicy: no-downgrade
 
 catalog:
   '@projectwallace/css-analyzer': ^9.9.5
-  '@projectwallace/css-parser': ^0.19.1
+  '@projectwallace/css-parser': ^0.19.3
   '@projectwallace/format-css': ^3.2.2
   '@projectwallace/stylelint-plugin': ^0.7.2
   '@projectwallace/color-sorter': ^9.0.0
