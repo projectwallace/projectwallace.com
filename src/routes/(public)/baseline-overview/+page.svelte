@@ -372,7 +372,7 @@
 </Container>
 
 <Container size="lg">
-	<p class="mb-16">
+	<p class="web-features-version">
 		Analyzed with
 		<a href="https://github.com/web-platform-dx/web-features" target="_blank" rel="external">web-features</a>
 		v{web_features_version.version}
@@ -380,6 +380,10 @@
 </Container>
 
 <style>
+	.web-features-version {
+		margin-block-end: var(--space-16);
+	}
+
 	.font-heading {
 		font-size: var(--size-5xl);
 	}
