@@ -55,7 +55,7 @@
 		const chunks: CoverageChunk[] = []
 		let current_position = 1
 
-		for (let i = 0; i < intervals.length; ) {
+		for (let i = 0; i < intervals.length;) {
 			let [interval_start, interval_end] = intervals[i]
 
 			while (++i < intervals.length && intervals[i][0] <= interval_end + 1) {

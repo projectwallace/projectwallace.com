@@ -42,8 +42,7 @@
 	autocomplete="off"
 	wrap="soft"
 	onkeydown={on_keydown}
-	style:resize
-></textarea>
+	style:resize></textarea>
 
 <style>
 	textarea {

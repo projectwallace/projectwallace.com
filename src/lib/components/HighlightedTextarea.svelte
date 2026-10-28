@@ -27,8 +27,7 @@
 		onkeyup={set_cursor_positions}
 		onfocus={set_cursor_positions}
 		spellcheck="false"
-		{...rest}
-	></textarea>
+		{...rest}></textarea>
 	<!-- This output contains the highlighted CSS -->
 	<output aria-hidden="true"><HighlightCssCode css={value} /></output>
 </div>
