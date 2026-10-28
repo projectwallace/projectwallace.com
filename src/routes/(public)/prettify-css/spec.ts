@@ -21,7 +21,7 @@ let prettified = `h1 {\n\tcolor: red;\n\tfont-size: 1em;\n}`
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/prettify-css')
-	copy_button = page.getByRole('button', { name: 'Copy CSS' })
+	copy_button = page.getByRole('button', { name: 'Copy prettified CSS' })
 })
 
 test('prettifies css', async ({ page }) => {

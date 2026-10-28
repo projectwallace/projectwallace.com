@@ -21,7 +21,7 @@ let minified = `h1{color:red;font-size:1em}`
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/minify-css', { waitUntil: 'domcontentloaded' })
-	copy_button = page.getByRole('button', { name: 'Copy CSS' })
+	copy_button = page.getByRole('button', { name: 'Copy minified CSS' })
 })
 
 test('shows minified output', async ({ page }) => {

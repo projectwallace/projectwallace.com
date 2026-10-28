@@ -275,7 +275,7 @@
 		max-height: 100%;
 		--pre-ch-width: calc(1ch * var(--pre-line-number-width, 4));
 		contain: strict;
-		overscroll-behavior: contain;
+		overscroll-behavior: var(--pre-overflow-behavior, contain);
 
 		&.with-line-numbers {
 			grid-template-columns: calc(var(--pre-ch-width) + 1ch) 1fr;
