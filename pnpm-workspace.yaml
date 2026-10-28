@@ -6,6 +6,8 @@ blockExoticSubdeps: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@projectwallace/*'
+  - sharp@0.35.5
+  - deepmerge@4.3.2
 trustPolicy: no-downgrade
 
 catalog:
@@ -29,9 +31,3 @@ overrides:
   lightningcss: 1.32.0
   # svelte-check still declares ^4.0.1, but 4.0.3 lost provenance; v5 has it restored
   chokidar: 5.0.0
-  # Security-based pinned versions
-  esbuild@>=0.17.0 <0.28.1: '>=0.28.1'
-  sharp: '>=0.35.4'
-  devalue@<5.9.1: '>=5.9.1'
-  fast-uri@<3.1.6: '>=3.1.6'
-  js-yaml@<4.3.2: '>=4.3.2'
