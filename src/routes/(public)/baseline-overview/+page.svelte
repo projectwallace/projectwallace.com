@@ -366,22 +366,22 @@
 {/if}
 
 <Container size="lg">
-	<Markdown class="my-16">
-		<Content></Content>
-	</Markdown>
-</Container>
+	<div class="page-content">
+		<Markdown>
+			<Content></Content>
+		</Markdown>
 
-<Container size="lg">
-	<p class="web-features-version">
-		Analyzed with
-		<a href="https://github.com/web-platform-dx/web-features" target="_blank" rel="external">web-features</a>
-		v{web_features_version.version}
-	</p>
+		<p>
+			Analyzed with
+			<a href="https://github.com/web-platform-dx/web-features" target="_blank" rel="external">web-features</a>
+			v{web_features_version.version}
+		</p>
+	</div>
 </Container>
 
 <style>
-	.web-features-version {
-		margin-block-end: var(--space-16);
+	.page-content {
+		margin-block: var(--space-16);
 	}
 
 	.font-heading {
