@@ -216,14 +216,6 @@
 	</Form>
 </Hero>
 
-<Container>
-	<p>
-		Analyzed with
-		<a href="https://github.com/web-platform-dx/web-features" target="_blank" rel="external">web-features</a>
-		v{web_features_version.version}
-	</p>
-</Container>
-
 {#if usages.size > 0}
 	<Container>
 		<div class="report-grid">
@@ -377,6 +369,14 @@
 	<Markdown class="my-16">
 		<Content></Content>
 	</Markdown>
+</Container>
+
+<Container size="lg">
+	<p class="mb-16">
+		Analyzed with
+		<a href="https://github.com/web-platform-dx/web-features" target="_blank" rel="external">web-features</a>
+		v{web_features_version.version}
+	</p>
 </Container>
 
 <style>
