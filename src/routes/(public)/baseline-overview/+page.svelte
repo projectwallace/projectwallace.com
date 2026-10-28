@@ -13,6 +13,7 @@
 	import { analyze } from '#lib/baseline/calculate.ts'
 	import { group_by_year, EDGE_LAUNCH_DATE } from '#lib/baseline/group-by-year.ts'
 	import { summarize_usages } from '#lib/baseline/summarize-usages.ts'
+	import web_features_version from '#lib/baseline/web-features-version.generated.json'
 	import css_features from '#lib/baseline/css-features.generated.json'
 	import type { CssFeature } from '#lib/baseline/css-feature.ts'
 	import { get_baseline_availability, type BaselineAvailability } from '#lib/baseline/baseline-status.ts'
@@ -214,6 +215,14 @@
 		{/snippet}
 	</Form>
 </Hero>
+
+<Container>
+	<p>
+		Analyzed with
+		<a href="https://github.com/web-platform-dx/web-features" target="_blank" rel="external">web-features</a>
+		v{web_features_version.version}
+	</p>
+</Container>
 
 {#if usages.size > 0}
 	<Container>

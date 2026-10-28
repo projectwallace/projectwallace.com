@@ -19,6 +19,7 @@ package-lock.json
 /css-coverage
 /src/lib/baseline/css-features.generated.json
 /src/lib/baseline/compat-keys.generated.json
+/src/lib/baseline/web-features-version.generated.json
 
 # Sentry Config File
 .env.sentry-build-plugin
