@@ -111,8 +111,8 @@ importers:
         specifier: 8.3.5
         version: 8.3.5(@types/node@26.6.5)(esbuild@0.28.1)
       web-features:
-        specifier: ^3.34.3
-        version: 3.34.3
+        specifier: ^3.43.0
+        version: 3.43.0
     devDependencies:
       '@playwright/test':
         specifier: ^1.64.1
@@ -2171,8 +2171,8 @@ packages:
       jsdom:
         optional: true
 
-  web-features@3.34.3:
-    resolution: {integrity: sha512-eXdaGO8JSiLLC5/tLOeDiH0EVIbuD8NExMDAziU0frr9JRdiEKqyOsTeEZDtmCXbazEI3mB+plYO4oMYOj1/Dg==}
+  web-features@3.43.0:
+    resolution: {integrity: sha512-nxisNw9bZc+q186ptMsJ/qRBuXH78h918eS6/CeKeGH28kK/1Qfyu/ETG2cSgYTPqvbGFQ9s/8n3XBdpBYv3DA==}
 
   which@1.3.1:
     resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
@@ -3856,7 +3856,7 @@ snapshots:
     transitivePeerDependencies:
       - msw
 
-  web-features@3.34.3: {}
+  web-features@3.43.0: {}
 
   which@1.3.1:
     dependencies:

@@ -8,10 +8,10 @@ type WebFeaturesData = {
 	features: typeof import('web-features').features
 }
 
-const { features } = data as WebFeaturesData
+const { features } = data as unknown as WebFeaturesData
 
-const css_features: Record<string, CssFeature> = {}
-const compat_keys: Record<string, string> = {}
+const css_features: Record<string, CssFeature> = Object.create(null)
+const compat_keys: Record<string, string> = Object.create(null)
 
 for (const [id, feature] of Object.entries(features)) {
 	if (feature.kind !== 'feature' || !feature.group) {
