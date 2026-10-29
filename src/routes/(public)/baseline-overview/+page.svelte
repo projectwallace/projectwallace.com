@@ -40,9 +40,15 @@
 	const collator = new Intl.Collator()
 
 	function compare_dates(a: string | undefined, b: string | undefined) {
-		if (!a && !b) return 0
-		if (!a) return 1
-		if (!b) return -1
+		if (!a && !b) {
+			return 0
+		}
+		if (!a) {
+			return 1
+		}
+		if (!b) {
+			return -1
+		}
 		return collator.compare(a, b)
 	}
 

@@ -7,6 +7,7 @@
 	import { format } from '@projectwallace/format-css'
 	import Pre from '#lib/components/Pre.svelte'
 	import { HashState } from '#lib/url-hash-state.svelte.ts'
+	import { format_percentage } from '#lib/format-number.ts'
 
 	let state = new HashState<{
 		css: string
@@ -23,16 +24,18 @@
 			tab_size: use_spaces ? Math.max(indent_size, 1) : undefined
 		})
 	)
-	let filesize_diff = $derived(format_filesize(result.length - css.length))
+	let filesize_diff_bytes = $derived(result.length - css.length)
+	let filesize_diff_ratio = $derived(result.length / css.length - 1)
 </script>
 
 <div class="page">
 	<form method="POST" onsubmit={(event) => event.preventDefault()}>
-		<div>
+		<div class="header">
 			<Label for="css-input">CSS input</Label>
 			{#if css.length > 0}
 				<span class="sr-only">Input size:</span>
-				<span class="ml-2">{format_filesize(css.length)}</span>
+				<span class="css-size">{format_filesize(css.length)}</span>
+				<CopyButton text={css}>Copy <span class="sr-only">input</span> CSS</CopyButton>
 			{/if}
 		</div>
 		<Textarea
@@ -42,7 +45,7 @@
 			required
 			wrap_lines
 			auto_grow
-			rows={16}
+			rows={14}
 			placeholder={`html{font-size:100%}`}
 		/>
 
@@ -69,31 +72,32 @@
 	</form>
 
 	<div class="output">
-		<div>
+		<div class="header">
 			<Label for="css-output">Prettified CSS</Label>
 			{#if result.length > 0}
 				<span class="sr-only">Output size:</span>
-				<span class="ml-2">{format_filesize(result.length)}</span>
-				{#if result.length > css.length}
-					<span>(+{filesize_diff})</span>
+				<span class="css-size">{format_filesize(result.length)}</span>
+				{#if result.length >= css.length}
+					<span>
+						(+{format_filesize(filesize_diff_bytes)} | +{format_percentage(filesize_diff_ratio)})
+					</span>
 				{:else}
-					<span>({filesize_diff})</span>
+					<span>
+						({format_filesize(filesize_diff_bytes)} | {format_percentage(filesize_diff_ratio)})
+					</span>
 				{/if}
+				<CopyButton text={result}>Copy <span class="sr-only">prettified</span> CSS</CopyButton>
 			{/if}
 		</div>
 		<div class="css-output" aria-label="Prettified CSS">
-			<Pre css={result} />
+			<Pre css={result} line_numbers />
 		</div>
-		{#if result.length > 0}
-			<div class="toolbar">
-				<CopyButton text={result}>Copy CSS</CopyButton>
-			</div>
-		{/if}
 	</div>
 </div>
 
 <style>
 	.page {
+		--pre-overflow-behavior: auto;
 		display: grid;
 		gap: var(--space-8);
 		align-items: start;
@@ -111,15 +115,28 @@
 		align-items: stretch;
 	}
 
-	.toolbar {
-		text-align: right;
+	.header {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--space-2);
+		row-gap: var(--space-1);
+		align-items: baseline;
+
+		:global(> :last-child:not(:only-child)) {
+			margin-inline-start: auto;
+		}
+	}
+
+	.css-size {
+		margin-inline-start: var(--space-2);
+		display: inline-block;
 	}
 
 	.css-output {
-		height: var(--space-96);
+		min-block-size: var(--space-96);
 		border: 1px solid var(--fg-450);
-		overflow-y: auto;
 		background-color: var(--bg-200);
+		field-sizing: content;
 	}
 
 	.indent-size {
