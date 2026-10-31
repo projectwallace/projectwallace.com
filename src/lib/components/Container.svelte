@@ -1,17 +1,20 @@
 <script lang="ts">
-	import type { SvelteComponent } from 'svelte'
+	import type { Snippet } from 'svelte'
+	import type { ClassValue } from 'svelte/elements'
+
 	type Size = 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'auto'
 
-	type Props = SvelteComponent & {
+	interface Props {
 		size?: Size
 		element?: string
+		class?: ClassValue | null
+		children?: Snippet
 	}
 
-	let props = $props()
-	let { size = 'auto', children, element = 'div' }: Props = $derived(props)
+	let { size = 'auto', element = 'div', class: className, children }: Props = $props()
 </script>
 
-<svelte:element this={element} class={[`container size-${size}`, props.class]}>
+<svelte:element this={element} class={[`container size-${size}`, className]}>
 	{@render children?.()}
 </svelte:element>
 
