@@ -2,7 +2,6 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { browser } from '$app/env'
-	import type { Snippet } from 'svelte'
 	import { online } from 'svelte/reactivity/window'
 	import type { FormSuccessEvent } from './types'
 	import FormGroup from '#lib/components/FormGroup.svelte'
@@ -21,7 +20,7 @@
 		on_error?: (error: Error) => void
 		on_url_submit?: (url: string, prettify: boolean) => false | void
 		external_loading?: boolean
-		title?: Snippet
+		title?: string
 	}
 
 	function noop() {}
@@ -31,7 +30,7 @@
 		on_error = noop,
 		on_url_submit = undefined,
 		external_loading = false,
-		title: title_snippet
+		title: heading
 	}: Props = $props()
 
 	let status: 'idle' | 'fetching' | 'error' = $state('idle')
@@ -191,7 +190,7 @@
 
 <InputModeSwitcher>
 	{#snippet title()}
-		{@render title_snippet?.()}
+		<h1 class="font-heading">{heading}</h1>
 	{/snippet}
 
 	{#snippet url_tab()}
@@ -260,6 +259,10 @@
 </InputModeSwitcher>
 
 <style>
+	.font-heading {
+		font-size: var(--size-5xl);
+	}
+
 	form {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);

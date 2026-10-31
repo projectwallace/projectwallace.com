@@ -36,11 +36,7 @@
 />
 
 <Hero>
-	<Form {on_success} {on_error}>
-		{#snippet title()}
-			<h1 class="font-heading">CSS Code Quality</h1>
-		{/snippet}
-	</Form>
+	<Form {on_success} {on_error} title="CSS Code Quality" />
 </Hero>
 
 {#if css_state.origins.length > 0 && status !== 'error'}
@@ -60,9 +56,3 @@
 		</p>
 	</Markdown>
 </Container>
-
-<style>
-	.font-heading {
-		font-size: var(--size-5xl);
-	}
-</style>
