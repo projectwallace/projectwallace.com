@@ -97,6 +97,10 @@ class CssState {
 		this.selected_item_node_type = item.node_type
 	}
 
+	is_selected(type: string, value: string | number): boolean {
+		return this.selected_item?.type === type && this.selected_item.value === value
+	}
+
 	unselect_item() {
 		this.selected_item = undefined
 		this.selected_location = undefined

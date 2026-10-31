@@ -87,12 +87,7 @@
 			</thead>
 			<tbody use:root={{ onchange }}>
 				{#each sorted as [value, locations_or_count] (value)}
-					<tr
-						use:item={{ value }}
-						aria-selected={css_state.selected_item?.value === value && id === css_state.selected_item.type
-							? 'true'
-							: 'false'}
-					>
+					<tr use:item={{ value }} aria-selected={css_state.is_selected(id, value)}>
 						<td class="numeric specimen">{locations_or_count.length}</td>
 						<td class="language-css specimen" class:warning={warnings.includes(value)}>
 							<!-- Technically this should contain a <code> with the specimen, but the amount of DOM nodes is too damn high -->
