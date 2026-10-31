@@ -2,6 +2,7 @@
 	import { fade } from 'svelte/transition'
 	import Container from '#lib/components/Container.svelte'
 	import Seo from '#lib/components/Seo.svelte'
+	import { SITE_ORIGIN } from '#lib/site.ts'
 	import Hero from '#lib/components/Hero.svelte'
 	import Meter from '#lib/components/Meter.svelte'
 	import Label from '#lib/components/Label.svelte'
@@ -109,7 +110,7 @@
 			<Button
 				element="a"
 				href="https://bsky.app/intent/compose?text={encodeURIComponent(
-					`I just scored ${guessed.length} out of ${units.length} units on Project Wallace's CSS Units game!\n\nhttps://www.projectwallace.com/css-units-game`
+					`I just scored ${guessed.length} out of ${units.length} units on Project Wallace's CSS Units game!\n\n${SITE_ORIGIN}/css-units-game`
 				)}"
 				rel="external"
 				target="_blank"

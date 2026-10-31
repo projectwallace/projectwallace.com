@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state'
+	import { SITE_ORIGIN } from '#lib/site.ts'
 
 	const defaultTitle = 'Project Wallace'
-	const defaultUrl = 'https://www.projectwallace.com'
 
 	interface Props {
 		title: string
@@ -19,7 +19,7 @@
 	}: Props = $props()
 
 	// Add a trailing slash for the homepage only
-	let url = $derived(defaultUrl + (page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')))
+	let url = $derived(SITE_ORIGIN + (page.url.pathname === '/' ? '/' : page.url.pathname.replace(/\/$/, '')))
 	let theTitle = $derived(title ? title + ' - ' + defaultTitle : defaultTitle)
 </script>
 
