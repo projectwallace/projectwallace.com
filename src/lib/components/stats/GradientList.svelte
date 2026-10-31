@@ -41,8 +41,7 @@
 
 	<ol class="list" data-testid="gradient-list" bind:this={wrapper}>
 		{#each sorted as [value, locations] (value)}
-			<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
-			<li class="item shadow [ coverable ]" aria-selected={css_state.is_selected('gradient', value)}>
+			<li class="item shadow selectable [ coverable ]" aria-current={css_state.is_selected('gradient', value)}>
 				{#if is_in_viewport.current === true}
 					<div class="gradient" style:--gradient={value}>
 						{locations.length}&times;

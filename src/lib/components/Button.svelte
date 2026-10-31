@@ -10,7 +10,6 @@
 		variant?: Variant
 		size?: Size
 		icon?: IconName | undefined
-		on_click?: (event: MouseEvent) => void
 	}
 
 	type AnchorProps = GenericButtonProps &
@@ -30,7 +29,6 @@
 		variant = 'primary',
 		size = 'md',
 		icon = undefined,
-		on_click = () => {},
 		children,
 		...rest
 	}: Props = $props()
@@ -38,7 +36,13 @@
 
 <!-- We know this is either a <a> or a <button> -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<svelte:element this={element} onclick={on_click} class="btn {variant} {size} {classname}" {...rest}>
+<!-- A <button> defaults to type=button so it never submits a surrounding form by accident; pass type="submit" explicitly -->
+<svelte:element
+	this={element}
+	type={element === 'button' ? 'button' : undefined}
+	class="btn {variant} {size} {classname}"
+	{...rest}
+>
 	{@render children?.()}
 	{#if icon}
 		<Icon name={icon} size={size === 'lg' ? 20 : 14} />
@@ -58,9 +62,9 @@
 		white-space: nowrap;
 		border: 1px solid transparent;
 		transition:
-			color 100ms ease-out,
-			background-color 100ms ease-out,
-			box-shadow 100ms ease-out;
+			color var(--duration-fast) ease-out,
+			background-color var(--duration-fast) ease-out,
+			box-shadow var(--duration-fast) ease-out;
 
 		@media print {
 			border: var(--space-1) solid;

@@ -68,7 +68,7 @@
 			</div>
 		</div>
 
-		<Button size="lg">Prettify CSS</Button>
+		<Button size="lg" type="submit">Prettify CSS</Button>
 	</form>
 
 	<div class="output">

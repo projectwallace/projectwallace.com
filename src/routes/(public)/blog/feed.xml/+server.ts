@@ -18,7 +18,7 @@ function createFeed(posts: Post[]) {
 				.map(
 					(post) => `
         <item>
-          <guid>https://www.projectwallace.com/${post.path}</guid>
+          <guid>https://www.projectwallace.com${post.path}</guid>
           <link>https://www.projectwallace.com${post.path}?utm_source=rss</link>
           <title><![CDATA[${post.title}]]></title>
           <description><![CDATA[${post.excerpt}]]></description>

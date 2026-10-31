@@ -197,6 +197,12 @@
 		}
 	}
 
+	@layer motion {
+		html {
+			--duration-fast: 100ms;
+		}
+	}
+
 	@layer shadows {
 		html {
 			--shadow-color: rgb(0 0 0 / 0.1);
@@ -408,7 +414,7 @@
 			accent-color: var(--accent);
 
 			& * {
-				transition-duration: 0.1s;
+				transition-duration: var(--duration-fast);
 				transition-property: color, background-color, border-color;
 				transition-timing-function: ease-out;
 				background-repeat: no-repeat;
@@ -485,10 +491,12 @@
 		}
 
 		[aria-selected] {
+		/* Selected item styling. Opt in with .selectable + aria-current; rows/options use aria-selected */
+		:is([aria-selected], .selectable) {
 			cursor: pointer;
 		}
 
-		[aria-selected='true'] {
+		:is([aria-selected='true'], .selectable[aria-current='true']) {
 			outline: 1px solid light-dark(var(--accent-600), var(--accent));
 			outline-offset: -1px;
 			background-color: var(--highlight-item);
@@ -500,7 +508,7 @@
 			}
 		}
 
-		[aria-selected='false']:hover {
+		:is([aria-selected='false'], .selectable[aria-current='false']):hover {
 			outline: 1px solid var(--fg-450);
 			outline-offset: -1px;
 		}
@@ -794,7 +802,7 @@
 	.scroll-container {
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
-		transition: scrollbar-color 0.1s ease-out;
+		transition: scrollbar-color var(--duration-fast) ease-out;
 
 		&:hover,
 		&:focus {
