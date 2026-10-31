@@ -261,9 +261,17 @@
 		padding-inline: var(--space-2) var(--space-4);
 		overflow: clip;
 
-		@media (prefers-color-scheme: dark) {
+		/* In dark mode only the top border is kept. Follow the theme switch, not just the OS setting */
+		:global(html[data-theme='dark']) & {
 			border-inline-width: 0;
 			border-block-end-width: 0;
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:global(html:is([data-theme='system'], [data-theme='naked'])) & {
+				border-inline-width: 0;
+				border-block-end-width: 0;
+			}
 		}
 	}
 
