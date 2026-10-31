@@ -37,8 +37,8 @@
 
 <div class="slide" data-testid="css-slide">
 	<div class="slide-tools">
-		<button type="button" class="closer" onclick={close} aria-labelledby="close-css-slide">
-			<span class="sr-only" id="close-css-slide">Close panel</span>
+		<button type="button" class="closer" onclick={close}>
+			<span class="sr-only">Close panel</span>
 			<Icon size={16} name="minimize" />
 		</button>
 		{#if allow_prettify}

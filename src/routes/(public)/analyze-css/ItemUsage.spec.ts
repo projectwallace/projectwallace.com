@@ -96,7 +96,7 @@ test.describe('DevTools: ItemUsage Panel', () => {
 	test('Clicking the Close Panel button closes the CSS inspection panel', async () => {
 		let panel = inspector.getByTestId('css-slide')
 
-		await panel.getByLabel('Close panel').click()
+		await panel.getByRole('button', { name: 'Close panel' }).click()
 		await expect.soft(panel).not.toBeVisible()
 		await expect.soft(table.getByRole('row', { selected: true })).toHaveCount(0)
 	})

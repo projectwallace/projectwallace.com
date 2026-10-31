@@ -192,7 +192,7 @@
 			{#if filtered_results !== undefined && filtered_results.size > 0}
 				<button type="button" onclick={() => expanded.set([])} class="collapse-all">
 					<Icon name="fold" size={14} />
-					<div class="sr-only">Collapse all</div>
+					<span class="sr-only">Collapse all</span>
 				</button>
 			{/if}
 			<search>
