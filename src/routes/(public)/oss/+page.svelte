@@ -4,6 +4,7 @@
 	import Container from '#lib/components/Container.svelte'
 	import Seo from '#lib/components/Seo.svelte'
 	import Heading from '#lib/components/Heading.svelte'
+	import { SITE_ORIGIN } from '#lib/site.ts'
 
 	let { data } = $props()
 </script>
@@ -12,7 +13,7 @@
 	title="Open Source Software"
 	description="Project Wallace's goal is to create software to make maintaining
   CSS easier."
-	image="https://www.projectwallace.com/img/opengraph/og-oss.png"
+	image="{SITE_ORIGIN}/img/opengraph/og-oss.png"
 />
 
 <Hero title="Open Source Software">
