@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { tick, type Snippet } from 'svelte'
+	import type { Snippet } from 'svelte'
 
 	type Status = 'closed' | 'open'
 
@@ -14,18 +14,12 @@
 	// svelte-ignore state_referenced_locally
 	let status: Status = $state(initialOpen ? 'open' : 'closed')
 	let element: HTMLDivElement | undefined = undefined
-	let opener_button: HTMLButtonElement | undefined = $state()
-	let closer_button: HTMLButtonElement | undefined = $state()
 
-	async function open() {
+	function open() {
 		status = 'open'
-		// The clicked button is removed from the DOM, so move focus to its replacement
-		// (preventScroll: don't jump to the bottom of the expanded content)
-		await tick()
-		closer_button?.focus({ preventScroll: true })
 	}
 
-	async function close() {
+	function close() {
 		status = 'closed'
 		if (!element) {
 			return
@@ -36,19 +30,20 @@
 		if (element.scrollHeight > window.innerHeight) {
 			element.scrollIntoView({ behavior: 'instant', block: 'start' })
 		}
-
-		await tick()
-		opener_button?.focus({ preventScroll: true })
 	}
 </script>
 
 <div class="show-more" data-status={status} bind:this={element}>
 	{@render children?.({ status })}
-	{#if status === 'closed'}
-		<button class="[ action opener ] shadow-xl" type="button" onclick={open} bind:this={opener_button}>Show more</button>
-	{/if}
-	{#if closable && status === 'open'}
-		<button class="[ action ]" type="button" onclick={close} bind:this={closer_button}>Show less</button>
+	<!-- One persistent button: Svelte reuses the element, so the browser keeps focus on it -->
+	{#if status === 'closed' || closable}
+		<button
+			class={['action', status === 'closed' && 'opener shadow-xl']}
+			type="button"
+			onclick={status === 'closed' ? open : close}
+		>
+			{status === 'closed' ? 'Show more' : 'Show less'}
+		</button>
 	{/if}
 </div>
 
