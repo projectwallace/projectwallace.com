@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { format_number } from '#lib/format-number.js'
+	import { format_number } from '#lib/format-number.ts'
 
 	type Props = {
 		data: Record<string, number>

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { pretty_json } from '#lib/pretty-json.js'
+	import { pretty_json } from '#lib/pretty-json.ts'
 	import PrettyJson from '#lib/components/PrettyJson.svelte'
 	import CopyButton from '#lib/components/CopyButton.svelte'
 	import Button from '#lib/components/Button.svelte'
-	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import { analysis_to_tokens } from '@projectwallace/css-design-tokens'
 
 	interface Props {

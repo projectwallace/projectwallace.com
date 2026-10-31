@@ -1,17 +1,17 @@
 <script lang="ts">
 	import ValueCountList from '#lib/components/stats/ValueCountList.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
-	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import Empty from '#lib/components/Empty.svelte'
 	import Heading from '#lib/components/Heading.svelte'
-	import type { CssAnalysis } from '#lib/analyze-css.js'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import Units from '#lib/components/stats/Units.svelte'
 	import Icon from '#lib/components/Icon.svelte'
 	import { page } from '$app/state'
 	import Markdown from '#lib/components/Markdown.svelte'
-	import { string_sort } from '#lib/string-sort.js'
-	import { normalize_z_index, MAX, INVALID } from '#lib/sort-z-index.js'
+	import { string_sort } from '#lib/string-sort.ts'
+	import { normalize_z_index, MAX, INVALID } from '#lib/sort-z-index.ts'
 
 	let { values = Object.create(null) }: { values: CssAnalysis['values'] } = $props()
 

@@ -9,38 +9,47 @@
 	import TableBarChart from '#lib/components/stats/BarChart.svelte'
 	import FilterGroup from '#lib/components/FilterGroup.svelte'
 	import FilterOption from '#lib/components/FilterOption.svelte'
-	import { get_css_state } from '#lib/css-state.svelte.js'
-	import { analyze } from '#lib/baseline/calculate.js'
-	import { group_by_year, EDGE_LAUNCH_DATE } from '#lib/baseline/group-by-year.js'
-	import { summarize_usages } from '#lib/baseline/summarize-usages.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import { analyze } from '#lib/baseline/calculate.ts'
+	import { group_by_year, EDGE_LAUNCH_DATE } from '#lib/baseline/group-by-year.ts'
+	import { summarize_usages } from '#lib/baseline/summarize-usages.ts'
+	import web_features_version from '#lib/baseline/web-features-version.generated.json'
 	import css_features from '#lib/baseline/css-features.generated.json'
-	import type { CssFeature } from '#lib/baseline/css-feature.js'
-	import { get_baseline_availability, type BaselineAvailability } from '#lib/baseline/baseline-status.js'
+	import type { CssFeature } from '#lib/baseline/css-feature.ts'
+	import { get_baseline_availability, type BaselineAvailability } from '#lib/baseline/baseline-status.ts'
 	import Heading from '#lib/components/Heading.svelte'
 	import BaselineStatus from '#lib/components/BaselineStatus.svelte'
 	import BaselineSupport from '#lib/components/BaselineSupport.svelte'
-	import { Header as PanelHeader, Panel } from '#lib/components/Panel/index.js'
-	import { format_number } from '#lib/format-number.js'
+	import { Header as PanelHeader, Panel } from '#lib/components/Panel/index.ts'
+	import { format_number } from '#lib/format-number.ts'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import DevTools from '#lib/components/DevTools.svelte'
 	import NetworkPanel from '#lib/components/NetworkPanel.svelte'
 	import ItemUsage from '#lib/components/ItemUsage.svelte'
 	import JsonPanel from '#lib/components/devtools/JsonPanel.svelte'
 	import CssPanel from '#lib/components/devtools/CssPanel.svelte'
-	import { analyzer_tabs, type TabId } from '#lib/components/devtools/tabs.js'
-	import type { CssLocation } from '#lib/css-location.js'
-	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.js'
+	import { analyzer_tabs, type TabId } from '#lib/components/devtools/tabs.ts'
+	import type { CssLocation } from '#lib/css-location.ts'
+	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.ts'
 	import Content from './content.md'
 	import Icon from '#lib/components/Icon.svelte'
 
 	let css_state = get_css_state()
 	let usages = $derived(css_state.css.length > 0 ? analyze(css_state.css) : new Map())
 
+	const collator = new Intl.Collator()
+
 	function compare_dates(a: string | undefined, b: string | undefined) {
-		if (!a && !b) return 0
-		if (!a) return 1
-		if (!b) return -1
-		return a.localeCompare(b)
+		if (!a && !b) {
+			return 0
+		}
+		if (!a) {
+			return 1
+		}
+		if (!b) {
+			return -1
+		}
+		return collator.compare(a, b)
 	}
 
 	type FeatureRow = {
@@ -70,7 +79,7 @@
 
 		switch (sort_by) {
 			case 'feature':
-				result = a.display_name.localeCompare(b.display_name)
+				result = collator.compare(a.display_name, b.display_name)
 				break
 			case 'count':
 				result = a.count - b.count
@@ -360,17 +369,31 @@
 					{/snippet}
 				</DevTools>
 			</div>
+
+			<div class="report-grid__section--full">
+				<p class="web-features-version">
+					Analyzed with
+					<a href={web_features_version.homepage} target="_blank" rel="external">web-features</a>
+					v{web_features_version.version}
+				</p>
+			</div>
 		</div>
 	</Container>
 {/if}
 
 <Container size="lg">
-	<Markdown class="my-16">
-		<Content></Content>
-	</Markdown>
+	<div class="page-content">
+		<Markdown>
+			<Content></Content>
+		</Markdown>
+	</div>
 </Container>
 
 <style>
+	.page-content {
+		margin-block: var(--space-16);
+	}
+
 	.font-heading {
 		font-size: var(--size-5xl);
 	}
@@ -394,6 +417,16 @@
 		position: sticky;
 		inset-block-end: 0;
 		inset-inline: 0;
+	}
+
+	.web-features-version {
+		text-align: center;
+
+		& :any-link {
+			color: light-dark(var(--accent-800), var(--accent-300));
+			text-decoration: underline;
+			text-decoration-color: light-dark(var(--accent-700), var(--accent-300));
+		}
 	}
 
 	.stack {

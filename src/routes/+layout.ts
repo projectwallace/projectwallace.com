@@ -1,5 +1,5 @@
 import { browser } from '$app/env'
-import type { Theme } from '#lib/theme.js'
+import type { Theme } from '#lib/theme.ts'
 
 export const prerender = true
 export const trailingSlash = 'never'

@@ -3,7 +3,14 @@
 </script>
 
 <script lang="ts">
-	import { DECLARATION, RAW, type CSSNode, type PlainCSSNode } from '@projectwallace/css-parser'
+	import {
+		DECLARATION,
+		FUNCTION,
+		PRELUDE_OPERATOR,
+		RAW,
+		type CSSNode,
+		type PlainCSSNode
+	} from '@projectwallace/css-parser'
 
 	// Brute force type definition for CssNode so we can iterate over its keys
 	type Node = CSSNode & {
@@ -53,6 +60,9 @@
 				return false
 			}
 			if (obj[key] === false) {
+				return false
+			}
+			if (key === 'value' && obj.type === FUNCTION) {
 				return false
 			}
 			return true

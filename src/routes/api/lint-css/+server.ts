@@ -10,7 +10,7 @@ import stylelintPlugin from '@projectwallace/stylelint-plugin'
 import { get_css } from '../get-css/get-css'
 import { format } from '@projectwallace/format-css'
 import type { RequestHandler } from './$types'
-import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.js'
+import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.ts'
 
 export type { Preset }
 

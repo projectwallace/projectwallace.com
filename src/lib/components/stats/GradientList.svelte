@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import FilterGroup from '#lib/components/FilterGroup.svelte'
 	import FilterOption from '#lib/components/FilterOption.svelte'
-	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import { IsInViewport } from 'runed'
-	import { string_sort } from '#lib/string-sort.js'
+	import { string_sort } from '#lib/string-sort.ts'
 
 	let css_state = get_css_state()
 	let selected_item = $derived(css_state.selected_item)

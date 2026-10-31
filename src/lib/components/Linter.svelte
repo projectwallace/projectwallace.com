@@ -9,8 +9,8 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { browser } from '$app/env'
-	import { format_number } from '#lib/format-number.js'
-	import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.js'
+	import { format_number } from '#lib/format-number.ts'
+	import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.ts'
 	import PanedLayout from './PanedLayout.svelte'
 	import Pane from './Pane.svelte'
 

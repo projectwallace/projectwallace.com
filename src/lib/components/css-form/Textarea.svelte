@@ -42,14 +42,13 @@
 	autocomplete="off"
 	wrap="soft"
 	onkeydown={on_keydown}
-	style:resize
-></textarea>
+	style:resize></textarea>
 
 <style>
 	textarea {
 		width: 100%;
 		min-height: var(--space-32);
-		max-height: 70vb;
+		max-block-size: 66vb;
 		font-family: var(--font-mono);
 		font-size: var(--size-sm);
 		line-height: var(--leading-snug);

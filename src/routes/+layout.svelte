@@ -6,7 +6,7 @@
 	import SkipLink from '#lib/components/SkipLink.svelte'
 	import '#lib/css/reset.css'
 	import '#lib/css/style.css'
-	import { set_css_state } from '#lib/css-state.svelte.js'
+	import { set_css_state } from '#lib/css-state.svelte.ts'
 	import type { LayoutProps } from './$types'
 	import ThemeSwitch from '#lib/components/ThemeSwitch.svelte'
 

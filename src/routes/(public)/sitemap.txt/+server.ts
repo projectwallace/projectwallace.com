@@ -1,6 +1,6 @@
-import { get_post_list } from '../blog/posts.js'
-import { get_metric_list } from '../docs/metrics/metrics.js'
-import { get_recipe_list } from '../docs/recipes/recipes.js'
+import { get_post_list } from '../blog/posts.ts'
+import { get_metric_list } from '../docs/metrics/metrics.ts'
+import { get_recipe_list } from '../docs/recipes/recipes.ts'
 
 export const prerender = true
 

@@ -1,5 +1,5 @@
-import { getGroups } from '#lib/metric-groups.js'
-import { get_recipe_list } from './recipes/recipes.js'
+import { getGroups } from '#lib/metric-groups.ts'
+import { get_recipe_list } from './recipes/recipes.ts'
 
 export function load() {
 	return {

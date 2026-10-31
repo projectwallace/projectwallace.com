@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { CssAnalysis } from '#lib/analyze-css.js'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import FilterGroup from '#lib/components/FilterGroup.svelte'
 	import FilterOption from '#lib/components/FilterOption.svelte'
-	import { get_css_state } from '#lib/css-state.svelte.js'
-	import { string_sort } from '#lib/string-sort.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import { string_sort } from '#lib/string-sort.ts'
 	import ShowMore from '#lib/components/ShowMore.svelte'
 
 	let css_state = get_css_state()

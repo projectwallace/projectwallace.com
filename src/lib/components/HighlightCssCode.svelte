@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte'
 	import { browser } from '$app/env'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import { highlight_css } from './use-css-highlight'
 
 	type Props = {

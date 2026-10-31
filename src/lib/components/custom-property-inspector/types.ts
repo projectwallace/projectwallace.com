@@ -1,4 +1,4 @@
-import type { CssLocation } from '#lib/css-location.js'
+import type { CssLocation } from '#lib/css-location.ts'
 
 type Node = {
 	title: string

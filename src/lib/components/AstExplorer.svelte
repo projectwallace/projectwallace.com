@@ -5,7 +5,7 @@
 	import CssTree from './CssTree.svelte'
 	import { format } from '@projectwallace/format-css'
 	import HighlightedTextarea from './HighlightedTextarea.svelte'
-	import { HashState } from '#lib/url-hash-state.svelte.js'
+	import { HashState } from '#lib/url-hash-state.svelte.ts'
 	import Button from './Button.svelte'
 	import CopyButton from './CopyButton.svelte'
 	import PanedLayout from './PanedLayout.svelte'
@@ -46,7 +46,8 @@
 			return parse(url_state.current.css, {
 				parse_atrule_preludes: url_state.current.parse_atrule_preludes,
 				parse_selectors: url_state.current.parse_selectors,
-				parse_values: url_state.current.parse_values
+				parse_values: url_state.current.parse_values,
+				media_feature_range_name_as_child: true
 			})
 		} catch (error) {
 			return undefined
@@ -143,7 +144,12 @@
 		<Pane>
 			{#snippet pane_header()}
 				<label for="ast-output" class="pane-title">AST output</label>
-				<CopyButton variant="secondary" text={() => JSON.stringify(ast?.clone(), null, 2)}>Copy JSON</CopyButton>
+				<CopyButton
+					variant="secondary"
+					text={() => JSON.stringify(ast?.clone({ locations: show_locations.current }), null, 2)}
+				>
+					Copy JSON
+				</CopyButton>
 			{/snippet}
 			{#if ast !== undefined}
 				<output id="ast-output" class="ast-output">

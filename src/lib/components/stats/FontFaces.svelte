@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import Empty from '#lib/components/Empty.svelte'
 	import Table from '#lib/components/Table.svelte'
 	import Heading from '#lib/components/Heading.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
-	import { descriptors } from '#lib/font-face-descriptors.js'
-	import type { CssAnalysis } from '#lib/analyze-css.js'
-	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.js'
-	import { get_css_state } from '#lib/css-state.svelte.js'
-	import { hash } from '#lib/hash.js'
-	import { string_sort } from '#lib/string-sort.js'
+	import { descriptors } from '#lib/font-face-descriptors.ts'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.ts'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import { hash } from '#lib/hash.ts'
+	import { string_sort } from '#lib/string-sort.ts'
 	import type { Location } from '@projectwallace/css-analyzer'
 
 	let css_state = get_css_state()

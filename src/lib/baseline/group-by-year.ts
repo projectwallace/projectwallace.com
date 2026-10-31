@@ -1,7 +1,7 @@
 import css_features from './css-features.generated.json'
-import type { CssFeature } from './css-feature.js'
-import type { CssLocation } from '#lib/css-location.js'
-import type { UsageCounts } from './summarize-usages.js'
+import type { CssFeature } from './css-feature.ts'
+import type { CssLocation } from '#lib/css-location.ts'
+import type { UsageCounts } from './summarize-usages.ts'
 
 /**
  * Stand-in "last browser" date for CSS predating Microsoft Edge - not a real support date, so features

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { CssAnalysis } from '#lib/analyze-css.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import AtRule from '#lib/components/stats/AtRule.svelte'
 	import FontFaces from '#lib/components/stats/FontFaces.svelte'
 	import Heading from '#lib/components/Heading.svelte'
 	import LayerTree from '#lib/components/css-layers-visualizer/LayerTree.svelte'
 	import Empty from '#lib/components/Empty.svelte'
-	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
 	import DefinitionList from './DefinitionList.svelte'
 	import { layer_tree } from '@projectwallace/css-layer-tree'
-	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 
 	interface Props {
 		atrules?: CssAnalysis['atrules']

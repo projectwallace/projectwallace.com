@@ -1,4 +1,4 @@
-import type { browsers } from './browsers.js'
+import type { browsers } from './browsers.ts'
 
 export type Baseline = false | 'low' | 'high'
 

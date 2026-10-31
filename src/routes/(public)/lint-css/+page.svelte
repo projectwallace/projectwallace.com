@@ -4,7 +4,7 @@
 	import Container from '#lib/components/Container.svelte'
 	import Hero from '#lib/components/Hero.svelte'
 	import Form from '#lib/components/css-form/Form.svelte'
-	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import Markdown from '#lib/components/Markdown.svelte'
 	import Content from './content.md'
 

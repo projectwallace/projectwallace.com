@@ -7,7 +7,7 @@
 	import Label from '#lib/components/Label.svelte'
 	import FormGroup from '#lib/components/FormGroup.svelte'
 	import Button from '#lib/components/Button.svelte'
-	import { all as units } from '#lib/css-units.js'
+	import { all as units } from '#lib/css-units.ts'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
 	import Heading from '#lib/components/Heading.svelte'

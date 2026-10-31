@@ -1,5 +1,5 @@
-import type { CssFeature } from './css-feature.js'
-import type { BrowserId } from './browsers.js'
+import type { CssFeature } from './css-feature.ts'
+import type { BrowserId } from './browsers.ts'
 
 export type BaselineAvailability = 'widely' | 'newly' | 'limited'
 

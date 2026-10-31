@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pretty_json } from '#lib/pretty-json.js'
+	import { pretty_json } from '#lib/pretty-json.ts'
 	import PrettyJson from '#lib/components/PrettyJson.svelte'
 	import CopyButton from '#lib/components/CopyButton.svelte'
 	import Button from '#lib/components/Button.svelte'

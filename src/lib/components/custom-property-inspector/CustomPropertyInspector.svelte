@@ -7,13 +7,13 @@
 	import CopyButton from '#lib/components/CopyButton.svelte'
 	import Pre from '#lib/components/Pre.svelte'
 	import { analyze } from './analyze-custom-properties'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import Empty from '#lib/components/Empty.svelte'
 	import DevTools from '#lib/components/DevTools.svelte'
-	import { network, properties, type TabId } from '#lib/components/devtools/tabs.js'
+	import { network, properties, type TabId } from '#lib/components/devtools/tabs.ts'
 	import JsonPanel from '#lib/components/devtools/JsonPanel.svelte'
 	import NetworkPanel from '#lib/components/NetworkPanel.svelte'
-	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 
 	let css_state = get_css_state()
 	let css = $derived(css_state.css)

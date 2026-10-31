@@ -3,7 +3,7 @@
 	import Grid from '#lib/components/pancake/Grid.svelte'
 	import Svg from '#lib/components/pancake/Svg.svelte'
 	import SvgScatterplot from '#lib/components/pancake/SvgScatterplot.svelte'
-	import { format_number } from '#lib/format-number.js'
+	import { format_number } from '#lib/format-number.ts'
 	import { IsInViewport } from 'runed'
 
 	interface Props {

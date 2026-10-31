@@ -1,19 +1,25 @@
 const byte_units = ['byte', 'kilobyte', 'megabyte'] as const
 
+// Create one formatter for each of byte, kilobyte, megabyte
+const formatters = byte_units.map(
+	(unit, exponent) =>
+		new Intl.NumberFormat('en-US', {
+			style: 'unit',
+			unit,
+			// 'short' renders bytes as "116 byte"; 'long' pluralizes ("116 bytes")
+			unitDisplay: exponent === 0 ? 'long' : 'short',
+			maximumSignificantDigits: 3
+		})
+)
+
 export function format_filesize(bytes: number): string {
-	const is_negative = bytes < 0
-	const abs = Math.abs(bytes)
+	let value = bytes
+	let unit_index = 0
 
-	const exponent = abs < 1 ? 0 : Math.min(Math.floor(Math.log10(abs) / 3), byte_units.length - 1)
+	while (Math.abs(value) >= 1000 && unit_index < formatters.length - 1) {
+		value /= 1000
+		unit_index++
+	}
 
-	const value = abs === 0 ? 0 : abs / Math.pow(1000, exponent)
-
-	const formatted = new Intl.NumberFormat(undefined, {
-		style: 'unit',
-		unit: byte_units[exponent],
-		unitDisplay: 'short',
-		maximumSignificantDigits: 3
-	}).format(value)
-
-	return is_negative ? `-${formatted}` : formatted
+	return formatters[unit_index].format(value)
 }

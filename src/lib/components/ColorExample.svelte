@@ -13,7 +13,7 @@
 <style>
 	.color-example {
 		--color-example-pattern-size: 0.8rem;
-		--color-example-pattern-color: var(--bg-300);
+		--color-example-pattern-color: light-dark(var(--bg-400), var(--bg-300));
 		display: flex;
 		aspect-ratio: 1;
 		align-items: center;

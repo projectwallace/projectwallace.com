@@ -714,7 +714,7 @@
 		/* Checkered background pattern */
 		.color-example {
 			--color-example-pattern-size: 1rem;
-			--color-example-pattern-color: var(--gray-700);
+			--color-example-pattern-color: light-dark(var(--bg-400), var(--bg-400));
 
 			/* Create the actual background */
 			background-image:

@@ -1,4 +1,4 @@
-import { writeFileSync } from 'node:fs'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import data from 'web-features/data.json' with { type: 'json' }
 import type { Baseline, CssFeature } from '../src/lib/baseline/css-feature.js'
@@ -8,10 +8,10 @@ type WebFeaturesData = {
 	features: typeof import('web-features').features
 }
 
-const { features } = data as WebFeaturesData
+const { features } = data as unknown as WebFeaturesData
 
-const css_features: Record<string, CssFeature> = {}
-const compat_keys: Record<string, string> = {}
+const css_features: Record<string, CssFeature> = Object.create(null)
+const compat_keys: Record<string, string> = Object.create(null)
 
 for (const [id, feature] of Object.entries(features)) {
 	if (feature.kind !== 'feature' || !feature.group) {
@@ -57,8 +57,24 @@ function write(relative_path: string, contents: unknown) {
 	return out
 }
 
+// Only the version and homepage end up in the client bundle, not the whole package.json.
+// package.json isn't in web-features' exports map, so locate it next to data.json.
+const web_features_pkg = JSON.parse(
+	readFileSync(fileURLToPath(new URL('./package.json', import.meta.resolve('web-features/data.json'))), 'utf-8')
+) as { version: string; homepage?: string; repository: { url: string } }
+
+// web-features has no `homepage` field, so fall back to the repository URL
+// (`git+https://github.com/x/y.git` → `https://github.com/x/y`).
+const web_features_homepage =
+	web_features_pkg.homepage ?? web_features_pkg.repository.url.replace(/^git\+/, '').replace(/\.git$/, '')
+
 const features_path = write('../src/lib/baseline/css-features.generated.json', css_features)
 const compat_keys_path = write('../src/lib/baseline/compat-keys.generated.json', compat_keys)
+
+write('../src/lib/baseline/web-features-version.generated.json', {
+	version: web_features_pkg.version,
+	homepage: web_features_homepage
+})
 
 console.log(`Wrote ${Object.keys(css_features).length} CSS features to ${features_path}`)
 console.log(`Wrote ${Object.keys(compat_keys).length} compat keys to ${compat_keys_path}`)

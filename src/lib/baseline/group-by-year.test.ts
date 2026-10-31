@@ -1,12 +1,22 @@
 import { describe, test, expect, vi } from 'vitest'
 import type { CssFeature } from './css-feature'
-import type { CssLocation } from '#lib/css-location.js'
+import type { CssLocation } from '#lib/css-location.ts'
 
 const loc = (offset: number): CssLocation => ({ line: 1, column: offset + 1, offset, length: 1 })
 
 const fixture_features: Record<string, CssFeature> = {
-	'high-2018': { name: 'High 2018', baseline: 'high', baseline_low_date: '2016-06-01', baseline_high_date: '2018-03-01' },
-	'high-2020': { name: 'High 2020', baseline: 'high', baseline_low_date: '2018-06-01', baseline_high_date: '2020-03-01' },
+	'high-2018': {
+		name: 'High 2018',
+		baseline: 'high',
+		baseline_low_date: '2016-06-01',
+		baseline_high_date: '2018-03-01'
+	},
+	'high-2020': {
+		name: 'High 2020',
+		baseline: 'high',
+		baseline_low_date: '2018-06-01',
+		baseline_high_date: '2020-03-01'
+	},
 	'edge-artifact': {
 		name: 'Edge artifact',
 		baseline: 'high',

@@ -3,41 +3,49 @@
 	import Textarea from '#lib/components/css-form/Textarea.svelte'
 	import Label from '#lib/components/Label.svelte'
 	import Button from '#lib/components/Button.svelte'
-	import { format_filesize } from '#lib/format-filesize.js'
+	import { format_filesize } from '#lib/format-filesize.ts'
 	import { minify } from '@projectwallace/format-css'
-	import { highlight_css } from '#lib/components/use-css-highlight.js'
-	import { HashState } from '#lib/url-hash-state.svelte.js'
+	import { highlight_css } from '#lib/components/use-css-highlight.ts'
+	import { HashState } from '#lib/url-hash-state.svelte.ts'
+	import { format_percentage } from '#lib/format-number.ts'
 
 	let state = new HashState<string>('')
 	let css = $derived(state.current)
 	let result = $derived(minify(css))
-	let filesize_diff = $derived(format_filesize(result.length - css.length))
+	let filesize_diff_bytes = $derived(result.length - css.length)
+	let filesize_diff_ratio = $derived(result.length / css.length - 1)
 </script>
 
 <div class="page">
 	<form method="POST" onsubmit={(event) => event.preventDefault()}>
-		<div>
+		<div class="header">
 			<Label for="css-input">CSS input</Label>
 			{#if css.length > 0}
 				<span class="sr-only">Input size:</span>
-				<span class="ml-2">{format_filesize(css.length)}</span>
+				<span class="css-size">{format_filesize(css.length)}</span>
+				<CopyButton text={css}>Copy <span class="sr-only">input</span> CSS</CopyButton>
 			{/if}
 		</div>
-		<Textarea name="css-input" id="css-input" bind:value={state.current} required />
+		<Textarea name="css-input" id="css-input" bind:value={state.current} required auto_grow />
 		<Button size="lg">Minify CSS</Button>
 	</form>
 
 	<div class="output">
-		<div>
+		<div class="header">
 			<Label for="css-output">Minified CSS</Label>
 			{#if result.length > 0}
 				<span class="sr-only">Output size:</span>
-				<span class="ml-2">{format_filesize(result.length)}</span>
-				{#if result.length > css.length}
-					<span>(+{filesize_diff})</span>
+				<span class="css-size">{format_filesize(result.length)}</span>
+				{#if result.length >= css.length}
+					<span>
+						(+{format_filesize(filesize_diff_bytes)} | +{format_percentage(filesize_diff_ratio)})
+					</span>
 				{:else}
-					<span>({filesize_diff})</span>
+					<span>
+						({format_filesize(filesize_diff_bytes)} | {format_percentage(filesize_diff_ratio)})
+					</span>
 				{/if}
+				<CopyButton text={result}>Copy <span class="sr-only">minified</span> CSS</CopyButton>
 			{/if}
 		</div>
 		<div class="css-output scroll-container" aria-label="Minified CSS">
@@ -45,16 +53,12 @@
 				<code use:highlight_css={{ css: result }}>{result}</code>
 			{/key}
 		</div>
-		{#if result.length > 0}
-			<div class="toolbar">
-				<CopyButton text={result}>Copy CSS</CopyButton>
-			</div>
-		{/if}
 	</div>
 </div>
 
 <style>
 	.page {
+		--pre-overflow-behavior: auto;
 		display: grid;
 		gap: var(--space-8);
 		align-items: start;
@@ -72,12 +76,26 @@
 		align-items: stretch;
 	}
 
-	.toolbar {
-		text-align: right;
+	.header {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--space-2);
+		row-gap: var(--space-1);
+		align-items: baseline;
+
+		:global(> :last-child:not(:only-child)) {
+			margin-inline-start: auto;
+		}
+	}
+
+	.css-size {
+		margin-inline-start: var(--space-2);
+		display: inline-block;
 	}
 
 	.css-output {
-		height: var(--space-64);
+		min-block-size: var(--space-64);
+		max-block-size: 66vb;
 		border: 1px solid var(--fg-450);
 		background-color: var(--bg-200);
 		overflow-y: auto;
@@ -88,7 +106,7 @@
 		padding: var(--space-2);
 		white-space: pre-wrap;
 		word-break: break-all;
-		font-size: var(--size-xs);
+		font-size: var(--size-specimen);
 		font-family: var(--font-mono);
 	}
 </style>

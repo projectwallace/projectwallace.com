@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { CssAnalysis } from '#lib/analyze-css.js'
-	import { Panel, Header } from '#lib/components/Panel/index.js'
+	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import ShowMore from '#lib/components/ShowMore.svelte'
 	import Empty from '#lib/components/Empty.svelte'
 	import Heading from '#lib/components/Heading.svelte'
@@ -8,7 +8,7 @@
 	import FilterOption from '#lib/components/FilterOption.svelte'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
-	import type { CssLocation } from '#lib/css-location.js'
+	import type { CssLocation } from '#lib/css-location.ts'
 	import { shorthand_properties as shorthands } from '@projectwallace/css-analyzer/properties'
 
 	interface Props {

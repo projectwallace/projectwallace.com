@@ -1,4 +1,4 @@
-import type { CSSOrigin } from '#lib/css-origins.js'
+import type { CSSOrigin } from '#lib/css-origins.ts'
 
 export type FormSuccessEvent = {
 	origins: CSSOrigin[]

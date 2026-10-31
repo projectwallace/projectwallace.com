@@ -6,7 +6,7 @@
 	import CodeQuality from '#lib/components/code-quality/CodeQuality.svelte'
 	// @ts-expect-error No type definitions for importing images
 	import Image from './og-image.png?w=1200'
-	import { get_css_state } from '#lib/css-state.svelte.js'
+	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import Hero from '#lib/components/Hero.svelte'
 	let { data } = $props()
 

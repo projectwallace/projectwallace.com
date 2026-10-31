@@ -1,4 +1,4 @@
-import { get_post_list } from './posts.js'
+import { get_post_list } from './posts.ts'
 
 export function load() {
 	return {
