@@ -40,10 +40,10 @@ const config: PlaywrightTestConfig = {
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: 'on-first-retry',
 
-		// MacBook Pro dimensions
+		// WCAG 100% dimensions
 		viewport: {
-			height: 1600,
-			width: 2560
+			height: 1280,
+			width: 1024
 		}
 	},
 
@@ -61,7 +61,8 @@ const config: PlaywrightTestConfig = {
 
 	/* Run your local dev server before starting the tests */
 	webServer: {
-		command: CI ? 'pnpm run build && pnpm run preview' : 'pnpm run dev',
+		// In CI the app is built in a separate workflow step so the build isn't part of the test run
+		command: CI ? 'pnpm run preview' : 'pnpm run dev',
 		port: CI ? 4173 : 5173,
 		reuseExistingServer: !CI,
 		timeout: 600_000 // 10 minutes
