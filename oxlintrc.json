@@ -10,7 +10,6 @@
 	},
 	"rules": {
 		"no-unassigned-vars": "off",
-		"eslint/no-unassigned-vars": "off",
 		"curly": "error",
 		"no-console": "off",
 		"unambiguous": "off",
@@ -23,12 +22,6 @@
 		"unicorn/prefer-number-coercion": "off"
 	},
 	"overrides": [
-		{
-			"files": ["**/*.svelte"],
-			"rules": {
-				"no-unassigned-vars": "off"
-			}
-		},
 		{
 			"files": ["stylelint.config.ts"],
 			"rules": {

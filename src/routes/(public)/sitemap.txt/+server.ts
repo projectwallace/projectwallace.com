@@ -1,6 +1,7 @@
 import { get_post_list } from '../blog/posts.ts'
 import { get_metric_list } from '../docs/metrics/metrics.ts'
 import { get_recipe_list } from '../docs/recipes/recipes.ts'
+import { SITE_ORIGIN } from '#lib/site.ts'
 
 export const prerender = true
 
@@ -42,7 +43,7 @@ export function GET() {
 			return array.indexOf(path) === index
 		})
 		.filter((path) => !NOINDEX_PAGES.has(path))
-	let body = allUrls.map((path) => 'https://www.projectwallace.com' + path).join(`\n`)
+	let body = allUrls.map((path) => SITE_ORIGIN + path).join(`\n`)
 
 	return new Response(body, {
 		headers: {
