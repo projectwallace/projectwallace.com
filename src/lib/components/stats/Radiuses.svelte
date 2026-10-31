@@ -8,7 +8,6 @@
 	import ShowMore from '#lib/components/ShowMore.svelte'
 
 	let css_state = get_css_state()
-	let selected_item = $derived(css_state.selected_item)
 
 	interface Props {
 		items?: CssAnalysis['values']['borderRadiuses']
@@ -56,7 +55,7 @@
 			Sort by source order
 		</FilterOption>
 		<FilterOption bind:group={sorting} name="border-radius-sorting" value={by_count}>Sort by count</FilterOption>
-		<FilterOption bind:group={sorting} name="border-radius-sorting" value={alphabetically}>Sort by A-Z</FilterOption>
+		<FilterOption bind:group={sorting} name="border-radius-sorting" value={alphabetically}>Sort A-Z</FilterOption>
 	</FilterGroup>
 
 	<ShowMore initial_open={radiuses.length <= 15} closable={radiuses.length > 15}>
@@ -67,11 +66,9 @@
 						<div class="example" style="{property}: {value}"></div>
 						<code class="specimen">{property}: {value}</code>
 						<span class="count">{locations.length} &times;</span>
-						<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 						<button
-							aria-selected={selected_item?.type === 'border-radius' && selected_item.value === `${property}: ${value}`
-								? 'true'
-								: 'false'}
+							class="selectable"
+							aria-current={css_state.is_selected('border-radius', `${property}: ${value}`)}
 							onclick={() => {
 								css_state.select_item({
 									type: 'border-radius',

@@ -8,7 +8,6 @@
 	import { string_sort } from '#lib/string-sort.ts'
 
 	let css_state = get_css_state()
-	let selected_item = $derived(css_state.selected_item)
 	let calculated_sizes = new SvelteMap<string, number>()
 
 	interface Props {
@@ -64,10 +63,9 @@
 <ul class="sizes">
 	{#each sorted as [value, locations] (value)}
 		<li class="size coverable">
-			<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 			<button
-				class="coverable-link"
-				aria-selected={selected_item?.value === value && selected_item.type === 'font-size' ? 'true' : 'false'}
+				class="coverable-link selectable"
+				aria-current={css_state.is_selected('font-size', value)}
 				onclick={(event) => {
 					event.preventDefault()
 					css_state.select_item({

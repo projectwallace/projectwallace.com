@@ -1,6 +1,5 @@
 import { basename } from 'node:path'
-import { render } from 'svelte/server'
-import type { Component } from 'svelte'
+import { render_md, require_frontmatter, to_slug, type MdsvexDocument } from '#lib/content.ts'
 
 export type MetricMeta = {
 	id: string
@@ -14,31 +13,18 @@ export type Metric = MetricMeta & {
 	meta: Record<string, string>
 }
 
-type MdsvexDocument = {
-	metadata: { title?: string; [key: string]: string | undefined }
-	default: {
-		render: () => unknown
-	}
-}
+type MetricDocument = MdsvexDocument<{ title?: string; [key: string]: string | undefined }>
 
 function load_modules() {
-	return import.meta.glob('/content/docs/metrics/*.md', { eager: true }) as Record<string, MdsvexDocument>
+	return import.meta.glob('/content/docs/metrics/*.md', { eager: true }) as Record<string, MetricDocument>
 }
 
-function to_id(filePath: string) {
-	return basename(filePath, '.md')
-}
+function to_meta(filePath: string, mod: MetricDocument): MetricMeta {
+	let id = basename(filePath, '.md')
+	let slug = to_slug(filePath)
+	require_frontmatter('Metric', filePath, mod.metadata, ['title'])
 
-function to_meta(filePath: string, mod: MdsvexDocument): MetricMeta {
-	let id = to_id(filePath)
-	let slug = id.toLowerCase().replaceAll('.', '-')
-	let { title } = mod.metadata
-
-	if (!title) {
-		throw new Error(`Metric at ${filePath} is missing required frontmatter (title)`)
-	}
-
-	return { id, slug, path: `/docs/metrics/${slug}`, title }
+	return { id, slug, path: `/docs/metrics/${slug}`, title: mod.metadata.title }
 }
 
 export function get_metric_list(): MetricMeta[] {
@@ -48,17 +34,15 @@ export function get_metric_list(): MetricMeta[] {
 
 export function get_metric(slug: string): Metric | undefined {
 	let files = load_modules()
-	let entry = Object.entries(files).find(([filePath]) => to_id(filePath).toLowerCase().replaceAll('.', '-') === slug)
+	let entry = Object.entries(files).find(([filePath]) => to_slug(filePath) === slug)
 
 	if (!entry) return undefined
 
 	let [filePath, mod] = entry
 	let meta = to_meta(filePath, mod)
 	let { title: _title, ...rest_meta } = mod.metadata
-	let MdsvexComponent = mod.default as unknown as Component
-	let html = render(MdsvexComponent, { props: {} }).body
 
-	return { ...meta, html, meta: rest_meta as Record<string, string> }
+	return { ...meta, html: render_md(mod), meta: rest_meta as Record<string, string> }
 }
 
 export function group_by_section(metrics: MetricMeta[]) {

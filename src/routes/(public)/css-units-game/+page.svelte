@@ -66,7 +66,7 @@
 				bind:value={currentGuess}
 			/>
 		</FormGroup>
-		<Button size="lg">Guess</Button>
+		<Button size="lg" type="submit">Guess</Button>
 	</form>
 </Hero>
 

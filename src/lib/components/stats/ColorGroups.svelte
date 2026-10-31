@@ -14,7 +14,6 @@
 
 	let { colors = Object.create(null) }: Props = $props()
 	let css_state = get_css_state()
-	let selected_item = $derived(css_state.selected_item)
 
 	let { uniqueWithLocations } = $derived(colors)
 	let unique = $derived(uniqueWithLocations!)
@@ -40,11 +39,9 @@
 									</ColorExample>
 								{/if}
 							</div>
-							<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 							<button
-								aria-selected={selected_item?.type === 'grouped-color' && selected_item.value === item.authored
-									? 'true'
-									: 'false'}
+								class="selectable"
+								aria-current={css_state.is_selected('grouped-color', item.authored)}
 								onclick={(event) => {
 									event.preventDefault()
 									css_state.select_item({

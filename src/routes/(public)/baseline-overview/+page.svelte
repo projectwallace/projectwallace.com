@@ -172,8 +172,6 @@
 		widely_available_by_year
 	})
 
-	let selected_item = $derived(css_state.selected_item)
-
 	let {
 		elements: { root: feature_rows_root, item: feature_rows_item }
 	} = create_keyboard_list({
@@ -217,11 +215,7 @@
 <Seo title="CSS Baseline overview" description="See the composition of your CSS based on Baseline features." />
 
 <Hero>
-	<Form>
-		{#snippet title()}
-			<h1 class="font-heading">Baseline overview</h1>
-		{/snippet}
-	</Form>
+	<Form title="Baseline overview" />
 </Hero>
 
 {#if usages.size > 0}
@@ -320,11 +314,10 @@
 							</thead>
 							<tbody use:feature_rows_root={{ onchange: on_feature_row_change }}>
 								{#each filtered_feature_rows as row (row.name)}
-									{@const is_selected = selected_item?.type === 'feature-usage' && selected_item.value === row.name}
 									<tr
 										use:feature_rows_item={{ value: row.name }}
 										class="clickable"
-										aria-selected={is_selected ? 'true' : 'false'}
+										aria-selected={css_state.is_selected('feature-usage', row.name)}
 									>
 										<th scope="row">{row.display_name}</th>
 										<td class="numeric">{format_number(row.count)}</td>
@@ -392,10 +385,6 @@
 <style>
 	.page-content {
 		margin-block: var(--space-16);
-	}
-
-	.font-heading {
-		font-size: var(--size-5xl);
 	}
 
 	.report-grid {
