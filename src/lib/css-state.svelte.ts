@@ -12,7 +12,7 @@ type Selectable = {
 	locations: CssLocation[]
 }
 
-class CssState {
+export class CssState {
 	should_prettify = $state<boolean>(true)
 	enabled_origins = new Set<number>()
 	origins: CSSOrigin[] = $state([])
