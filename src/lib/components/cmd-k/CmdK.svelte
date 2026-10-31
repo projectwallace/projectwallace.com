@@ -57,7 +57,7 @@
 <svelte:window onkeydown={on_window_keydown} />
 
 <button
-	aria-haspopup="true"
+	aria-haspopup="dialog"
 	aria-controls="cmdk-popover"
 	aria-expanded={open}
 	popovertarget="cmdk-popover"
@@ -73,7 +73,7 @@
 
 <div
 	class="dialog"
-	role="menu"
+	role="dialog"
 	popover="auto"
 	id="cmdk-popover"
 	aria-label="Command menu"

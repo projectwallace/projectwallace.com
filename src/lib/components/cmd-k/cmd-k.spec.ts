@@ -18,7 +18,7 @@ test.describe('CMD+K', () => {
 		await expect(page).toBeHydrated()
 		// Open the command dialog
 		await page.getByRole('main').press('Meta+KeyK')
-		dialog = page.getByRole('menu', { name: 'Command menu' })
+		dialog = page.getByRole('dialog', { name: 'Command menu' })
 		links = dialog.getByRole('link')
 		items = dialog.locator('.shortcut')
 		search_field = dialog.getByRole('combobox')
