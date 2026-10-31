@@ -22,6 +22,8 @@ export function save_theme(theme: Theme) {
 				'Content-Type': 'text/plain'
 			},
 			body: theme
+		}).catch(() => {
+			// The theme is already applied on the page; failing to persist it (offline, blocked) is not worth surfacing
 		})
 	}, 300)
 }
