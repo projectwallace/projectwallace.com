@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 import { USER_AGENT } from '../../../api/get-css/get-css.ts'
 
 test('does SEO well', async ({ page }) => {

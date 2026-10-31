@@ -1,5 +1,5 @@
 import type { CSSOrigin } from '#lib/css-origins.ts'
-import { test, expect } from '../../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 
 test('does SEO well', async ({ page }) => {
 	await page.goto('/get-css', { waitUntil: 'domcontentloaded' })

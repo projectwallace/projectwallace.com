@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 
 /** Encode a value to base64 JSON for use in the URL hash (mirrors encode_hash_state) */
 function encodeHash(value: unknown): string {

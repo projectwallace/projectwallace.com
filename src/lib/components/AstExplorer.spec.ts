@@ -1,4 +1,4 @@
-import { test, expect } from '../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 
 test.describe('initial state', () => {
 	test.beforeEach(async ({ page }) => {

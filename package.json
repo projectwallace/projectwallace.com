@@ -5,7 +5,8 @@
 	"description": "Svelte Kit project for projectwallace.com",
 	"type": "module",
 	"imports": {
-		"#lib/*": "./src/lib/*"
+		"#lib/*": "./src/lib/*",
+		"#tests/*": "./tests/*"
 	},
 	"scripts": {
 		"prepare": "pnpm generate:css-features",

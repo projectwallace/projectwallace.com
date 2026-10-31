@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 import type { CSSOrigin } from '#lib/css-origins.ts'
 import { nav } from './nav.ts'
 

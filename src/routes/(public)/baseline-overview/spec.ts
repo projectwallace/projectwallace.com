@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 
 // - focus-visible: baseline "high" (widely available)
 // - accent-color: baseline false (limited availability)

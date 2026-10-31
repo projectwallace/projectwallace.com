@@ -1,5 +1,5 @@
 import type { Locator } from '@playwright/test'
-import { test, expect } from '../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 
 let logo: Locator
 

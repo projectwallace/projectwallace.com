@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/the-css-selection', { waitUntil: 'domcontentloaded' })

@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 
 test('does SEO well', async ({ page }) => {
 	await page.goto('/docs/recipes/setup-constyble-in-ci', { waitUntil: 'domcontentloaded' })

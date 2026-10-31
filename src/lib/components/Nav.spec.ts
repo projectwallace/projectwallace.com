@@ -1,5 +1,5 @@
 import { type Locator } from '@playwright/test'
-import { test, expect } from '../../../tests/fixtures.ts'
+import { test, expect } from '#tests/fixtures.ts'
 import { items } from './Nav.items.ts'
 
 const active_page_index = 2
