@@ -13,7 +13,6 @@
 	import type { Location } from '@projectwallace/css-analyzer'
 
 	let css_state = get_css_state()
-	let selected_item = $derived(css_state.selected_item)
 	let {
 		elements: { root, item }
 	} = create_keyboard_list()
@@ -173,8 +172,7 @@
 								(rule['font-style'] || '') +
 								(rule['unicode-range'] || '')
 						)}
-						{@const selected = value === selected_item?.value && selected_item.type === 'font-face'}
-						<tr aria-selected={selected ? 'true' : 'false'} use:item={{ value }}>
+						<tr aria-selected={css_state.is_selected('font-face', value)} use:item={{ value }}>
 							{#each default_descriptors.concat(Array.from(extra_descriptors)) as property}
 								<td>
 									{#if property in rule}

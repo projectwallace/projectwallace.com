@@ -1,6 +1,5 @@
 import { basename, dirname } from 'node:path'
-import { render } from 'svelte/server'
-import type { Component } from 'svelte'
+import { render_md, require_frontmatter, type MdsvexDocument } from '#lib/content.ts'
 
 export type PostMeta = {
 	slug: string
@@ -13,29 +12,25 @@ export type PostMeta = {
 
 export type Post = PostMeta & { html: string }
 
-type MdsvexDocument = {
-	metadata: {
-		title?: string
-		excerpt?: string
-		date?: string
-		archived?: string
-	}
-	default: {
-		render: () => unknown
-	}
-}
+type PostDocument = MdsvexDocument<{
+	title?: string
+	excerpt?: string
+	date?: string
+	archived?: string
+}>
 
 function load_modules() {
-	return import.meta.glob('/content/blog/*/index.md', { eager: true }) as Record<string, MdsvexDocument>
+	return import.meta.glob('/content/blog/*/index.md', { eager: true }) as Record<string, PostDocument>
 }
 
-function to_meta(filePath: string, mod: MdsvexDocument): PostMeta {
-	let slug = basename(dirname(filePath)).slice('yyyy-mm-dd-'.length)
-	let { title, excerpt, date, archived } = mod.metadata
+function to_slug(filePath: string) {
+	return basename(dirname(filePath)).slice('yyyy-mm-dd-'.length)
+}
 
-	if (!title || !excerpt || !date) {
-		throw new Error(`Blog post at ${filePath} is missing required frontmatter (title, excerpt, date)`)
-	}
+function to_meta(filePath: string, mod: PostDocument): PostMeta {
+	let slug = to_slug(filePath)
+	require_frontmatter('Blog post', filePath, mod.metadata, ['title', 'excerpt', 'date'])
+	let { title, excerpt, date, archived } = mod.metadata
 
 	return {
 		slug,
@@ -58,9 +53,7 @@ export function get_post_list(): PostMeta[] {
 
 export function get_post(slug: string): Post | undefined {
 	let files = load_modules()
-	let entry = Object.entries(files).find(
-		([filePath]) => basename(dirname(filePath)).slice('yyyy-mm-dd-'.length) === slug
-	)
+	let entry = Object.entries(files).find(([filePath]) => to_slug(filePath) === slug)
 
 	if (!entry) return undefined
 
@@ -69,10 +62,7 @@ export function get_post(slug: string): Post | undefined {
 
 	if (meta.archived) return undefined
 
-	let MdsvexComponent = mod.default as unknown as Component
-	let html = render(MdsvexComponent, { props: {} }).body
-
-	return { ...meta, html }
+	return { ...meta, html: render_md(mod) }
 }
 
 export function get_all_posts_with_html(): Post[] {
@@ -80,10 +70,7 @@ export function get_all_posts_with_html(): Post[] {
 
 	return Object.entries(files)
 		.map(([filePath, mod]) => {
-			let meta = to_meta(filePath, mod)
-			let MdsvexComponent = mod.default as unknown as Component
-			let html = render(MdsvexComponent, { props: {} }).body
-			return { ...meta, html }
+			return { ...to_meta(filePath, mod), html: render_md(mod) }
 		})
 		.filter((post) => !post.archived)
 		.sort((a, b) => b.date.getTime() - a.date.getTime())

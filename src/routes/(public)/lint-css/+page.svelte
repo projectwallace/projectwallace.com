@@ -20,11 +20,7 @@
 />
 
 <Hero>
-	<Form on_url_submit={() => false} external_loading={lint_loading}>
-		{#snippet title()}
-			<h1 class="font-heading">Lint CSS</h1>
-		{/snippet}
-	</Form>
+	<Form on_url_submit={() => false} external_loading={lint_loading} title="Lint CSS" />
 </Hero>
 
 <Container>
@@ -41,9 +37,3 @@
 		<Content />
 	</Markdown>
 </Container>
-
-<style>
-	.font-heading {
-		font-size: var(--size-5xl);
-	}
-</style>

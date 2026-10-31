@@ -2,9 +2,9 @@
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import { browser } from '$app/env'
-	import type { Snippet } from 'svelte'
 	import { online } from 'svelte/reactivity/window'
 	import type { FormSuccessEvent } from './types'
+	import { with_css_params, without_css_params } from '#lib/css-url-params.ts'
 	import FormGroup from '#lib/components/FormGroup.svelte'
 	import Label from '#lib/components/Label.svelte'
 	import Button from '#lib/components/Button.svelte'
@@ -21,7 +21,7 @@
 		on_error?: (error: Error) => void
 		on_url_submit?: (url: string, prettify: boolean) => false | void
 		external_loading?: boolean
-		title?: Snippet
+		title?: string
 	}
 
 	function noop() {}
@@ -31,7 +31,7 @@
 		on_error = noop,
 		on_url_submit = undefined,
 		external_loading = false,
-		title: title_snippet
+		title: heading
 	}: Props = $props()
 
 	let status: 'idle' | 'fetching' | 'error' = $state('idle')
@@ -55,12 +55,7 @@
 		let val = String(input_val)
 
 		// Remove ?url= and prettify= query parameters from the URL
-		let cleaned_url = new URL(page.url.href)
-
-		cleaned_url.searchParams.delete('url')
-		cleaned_url.searchParams.delete('prettify')
-		cleaned_url.hash = ''
-		await goto(cleaned_url, navigation_options)
+		await goto(without_css_params(page.url), navigation_options)
 		status = 'idle'
 		prettify = form_data.get('prettify') === '1'
 
@@ -90,10 +85,7 @@
 		let prettify_val = form_data.get('prettify') === '1'
 
 		// Always update the URL, so people can share the URL
-		let page_url = new URL(page.url.href)
-
-		page_url.searchParams.set('url', url)
-		page_url.searchParams.set('prettify', prettify_val ? '1' : '0')
+		let page_url = with_css_params(page.url, { url, prettify: prettify_val })
 		page_url.hash = ''
 		await goto(page_url, navigation_options)
 
@@ -138,13 +130,7 @@
 		}
 
 		// Remove ?url= and prettify= query parameters from the URL
-		let cleaned_url = new URL(page.url.href)
-
-		cleaned_url.searchParams.delete('url')
-
-		cleaned_url.searchParams.delete('prettify')
-		cleaned_url.hash = ''
-		await goto(cleaned_url, navigation_options)
+		await goto(without_css_params(page.url), navigation_options)
 		status = 'idle'
 		prettify = form_data.get('prettify') === '1'
 		on_success({ origins, submit_type: 'file', prettify })
@@ -168,9 +154,7 @@
 
 	async function on_prettify_change(event: Event) {
 		prettify = (event.target as HTMLInputElement).checked
-		let new_url = new URL(page.url.href)
-		new_url.searchParams.set('prettify', prettify ? '1' : '0')
-		await goto(new_url, navigation_options)
+		await goto(with_css_params(page.url, { prettify }), navigation_options)
 	}
 </script>
 
@@ -191,7 +175,7 @@
 
 <InputModeSwitcher>
 	{#snippet title()}
-		{@render title_snippet?.()}
+		<h1 class="font-heading">{heading}</h1>
 	{/snippet}
 
 	{#snippet url_tab()}
@@ -260,6 +244,10 @@
 </InputModeSwitcher>
 
 <style>
+	.font-heading {
+		font-size: var(--size-5xl);
+	}
+
 	form {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);

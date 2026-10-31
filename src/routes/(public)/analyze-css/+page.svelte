@@ -38,11 +38,7 @@
 />
 
 <Hero>
-	<Form {on_success} {on_error}>
-		{#snippet title()}
-			<h1 class="font-heading">Analyze CSS</h1>
-		{/snippet}
-	</Form>
+	<Form {on_success} {on_error} title="Analyze CSS" />
 </Hero>
 
 {#if status === 'done' && css_state.origins.length > 0}
@@ -112,9 +108,5 @@
 		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-8);
 		margin-block: var(--space-16);
-	}
-
-	.font-heading {
-		font-size: var(--size-5xl);
 	}
 </style>

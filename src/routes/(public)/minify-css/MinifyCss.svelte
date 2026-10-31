@@ -27,7 +27,7 @@
 			{/if}
 		</div>
 		<Textarea name="css-input" id="css-input" bind:value={state.current} required auto_grow />
-		<Button size="lg">Minify CSS</Button>
+		<Button size="lg" type="submit">Minify CSS</Button>
 	</form>
 
 	<div class="output">

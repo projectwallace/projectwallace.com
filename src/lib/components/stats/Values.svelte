@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { with_css_params } from '#lib/css-url-params.ts'
 	import ValueCountList from '#lib/components/stats/ValueCountList.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import { Panel, Header } from '#lib/components/Panel/index.ts'
@@ -10,7 +11,7 @@
 	import Icon from '#lib/components/Icon.svelte'
 	import { page } from '$app/state'
 	import Markdown from '#lib/components/Markdown.svelte'
-	import { string_sort } from '#lib/string-sort.ts'
+	import { alphabetical_sorting } from './sorting.ts'
 	import { normalize_z_index, MAX, INVALID } from '#lib/sort-z-index.ts'
 
 	let { values = Object.create(null) }: { values: CssAnalysis['values'] } = $props()
@@ -18,13 +19,10 @@
 	// If the current page has a `url` search parameter, append it to the Design Tokens link.
 	// Otherwise, link to the Design Tokens section.
 	let design_tokens_url = $derived.by(() => {
-		let url = new URL('/design-tokens', page.url.href)
-		if (page.url.searchParams.get('url')) {
-			// @ts-expect-error TS does not understant that searchParams.has() is a valid type guard
-			url.searchParams.append('url', page.url.searchParams.get('url'))
-		}
-		url.searchParams.set('prettify', page.url.searchParams.get('prettify') === '1' ? '1' : '0')
-		return url
+		return with_css_params(new URL('/design-tokens', page.url.href), {
+			url: page.url.searchParams.get('url') || undefined,
+			prettify: page.url.searchParams.get('prettify') === '1'
+		})
 	})
 
 	function is_valid_z_index(z_index: string) {
@@ -37,14 +35,6 @@
 			return true
 		}
 		return index >= -2147483648 && index <= 2147483647
-	}
-
-	let alphabetical_sorting = {
-		label: 'Sort A-Z',
-		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
-			return string_sort(a[0], b[0])
-		},
-		id: 'alphabetical'
 	}
 
 	let { units, zindexes, prefixes, browserhacks, resets, displays } = $derived(values)
