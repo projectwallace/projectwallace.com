@@ -161,7 +161,7 @@
 				/>
 			</Header>
 			{#if specificity.total > 0}
-				<div class="stack stack-xl">
+				<div class="stack stack-lg">
 					<BarChart
 						context="selector-specificity"
 						column_headers={['Specificity', 'Count']}

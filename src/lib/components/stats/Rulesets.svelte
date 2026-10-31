@@ -129,7 +129,7 @@
 			/>
 		</Header>
 
-		<div class="stack stack-xl">
+		<div class="stack stack-lg">
 			<FilterGroup>
 				<legend class="sr-only">Show rulesets</legend>
 				<FilterOption bind:group={display} name="rulesets-display" value="sizes">Ruleset sizes</FilterOption>
@@ -175,7 +175,7 @@
 				<Heading element="h3">Nesting</Heading>
 			</Header>
 
-			<div class="stack stack-xl">
+			<div class="stack stack-lg">
 				<FilterGroup>
 					<legend class="sr-only">Show nesting</legend>
 					<FilterOption bind:group={nesting_display} name="nesting-display" value="atrules">Atrules</FilterOption>

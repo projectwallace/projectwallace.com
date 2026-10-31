@@ -749,22 +749,23 @@
 	.stack {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+		row-gap: var(--stack-gap, 0rem);
 	}
 
 	.stack-xs {
-		gap: var(--space-1);
+		--stack-gap: var(--space-1);
+	}
+
+	.stack-sm {
+		--stack-gap: var(--space-2);
 	}
 
 	.stack-md {
-		gap: var(--space-2);
+		--stack-gap: var(--space-3);
 	}
 
 	.stack-lg {
-		gap: var(--space-3);
-	}
-
-	.stack-xl {
-		gap: var(--space-4);
+		--stack-gap: var(--space-4);
 	}
 
 	.sr-only {

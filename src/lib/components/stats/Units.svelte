@@ -43,7 +43,7 @@
 		/>
 	</Header>
 
-	<div class="stack stack-xl">
+	<div class="stack stack-lg">
 		{#if units.total > 0}
 			<BarChart context="unit" column_headers={['Unit', 'Count']} items={sorted_units} {warnings} node_type="value" />
 

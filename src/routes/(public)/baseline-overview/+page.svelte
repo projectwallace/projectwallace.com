@@ -283,7 +283,7 @@
 						<Heading element="h2" size={3}>Feature usage</Heading>
 						<DefinitionList stats={[{ name: 'Total features', value: feature_rows.length }]} />
 					</PanelHeader>
-					<div class="stack stack-lg">
+					<div class="stack stack-md">
 						<FilterGroup>
 							<legend class="sr-only">Filter by Baseline status</legend>
 							<FilterOption bind:group={availability_filter} value={show_all} id="filter-all" name={FILTER_NAME}>
