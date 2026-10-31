@@ -23,8 +23,8 @@
 	let pretty = $derived(pretty_json(json, replacer, 2))
 </script>
 
-<div class="panel scroll-container">
-	<div class="toolbar">
+<div class="devtools-panel panel scroll-container">
+	<div class="devtools-toolbar">
 		<Button
 			element="a"
 			variant="secondary"
@@ -42,19 +42,8 @@
 </div>
 
 <style>
-	.toolbar {
-		position: fixed;
-		inset-block-start: var(--space-4);
-		inset-inline-end: var(--space-6);
-	}
-
 	.panel {
-		padding-block: var(--space-2);
-		padding-inline: var(--space-3);
-		inline-size: 100%;
-		block-size: calc(100% - 6px);
 		max-block-size: calc(100% - 6px);
 		overflow: auto;
-		font-family: var(--font-mono);
 	}
 </style>

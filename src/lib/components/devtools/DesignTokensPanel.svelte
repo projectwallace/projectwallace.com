@@ -23,7 +23,7 @@
 	let pretty = $derived(pretty_json(analysis_to_tokens(analysis), replacer, 2))
 </script>
 
-<div class="toolbar">
+<div class="devtools-toolbar">
 	<Button
 		element="a"
 		variant="secondary"
@@ -37,22 +37,6 @@
 	<CopyButton text={pretty}>Copy tokens</CopyButton>
 </div>
 
-<div class="panel scroll-container">
+<div class="devtools-panel scroll-container">
 	<PrettyJson json={pretty} />
 </div>
-
-<style>
-	.toolbar {
-		position: fixed;
-		inset-block-start: var(--space-4);
-		inset-inline-end: var(--space-6);
-	}
-
-	.panel {
-		padding-block: var(--space-2);
-		padding-inline: var(--space-3);
-		inline-size: 100%;
-		block-size: calc(100% - 6px);
-		font-family: var(--font-mono);
-	}
-</style>

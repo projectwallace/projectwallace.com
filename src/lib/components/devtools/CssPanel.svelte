@@ -10,7 +10,7 @@
 	let { css = '' }: Props = $props()
 </script>
 
-<div class="toolbar">
+<div class="devtools-toolbar">
 	<Button
 		element="a"
 		variant="secondary"
@@ -25,12 +25,3 @@
 </div>
 
 <Pre {css} />
-
-<style>
-	.toolbar {
-		z-index: 1;
-		position: fixed;
-		inset-block-start: var(--space-4);
-		inset-inline-end: var(--space-6);
-	}
-</style>
