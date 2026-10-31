@@ -36,7 +36,7 @@
 <div class="show-more" data-status={status} bind:this={element}>
 	{@render children?.({ status })}
 	<!-- One persistent button: Svelte reuses the element, so the browser keeps focus on it -->
-	{#if status === 'closed' || closable}
+	{#if collapsible}
 		<button
 			class={['action', status === 'closed' && 'opener shadow-xl']}
 			type="button"
