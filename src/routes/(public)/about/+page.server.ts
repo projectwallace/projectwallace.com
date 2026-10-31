@@ -1,4 +1,4 @@
-import { faqs } from '../../../../content/faq'
+import { faqs } from '../../../../content/faq.ts'
 
 export function load() {
 	return {

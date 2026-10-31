@@ -1,6 +1,6 @@
 import type { Locator } from '@playwright/test'
-import { expect, test } from '../../../../tests/fixtures'
-import { shortcuts } from './shortcuts'
+import { expect, test } from '../../../../tests/fixtures.ts'
+import { shortcuts } from './shortcuts.ts'
 
 // Not every shortcut is a link — some (e.g. "Toggle website theme") are actions triggered by a button.
 const LINK_COUNT = shortcuts.reduce((acc, curr) => acc + curr.items.filter((item) => 'href' in item).length, 0)

@@ -20,7 +20,7 @@
 
 	import CssTree from './CssTree.svelte'
 
-	type Props = {
+	interface Props {
 		node: Node
 		depth?: number
 		show_locations: boolean

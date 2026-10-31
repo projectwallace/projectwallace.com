@@ -1,6 +1,6 @@
 import { type Locator } from '@playwright/test'
-import { test, expect } from '../../../tests/fixtures'
-import { items } from './Nav.items'
+import { test, expect } from '../../../tests/fixtures.ts'
+import { items } from './Nav.items.ts'
 
 const active_page_index = 2
 const small_screen_dimensions = { width: 420, height: 800 }

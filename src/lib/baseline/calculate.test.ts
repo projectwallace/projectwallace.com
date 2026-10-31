@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { analyze } from './calculate'
+import { analyze } from './calculate.ts'
 
 describe('analyze', () => {
 	test('empty css has no usages', () => {

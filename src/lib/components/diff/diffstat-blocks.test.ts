@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { diffstat_blocks } from './diffstat-blocks'
+import { diffstat_blocks } from './diffstat-blocks.ts'
 
 test('no changes', () => {
 	expect(diffstat_blocks(0, 0)).toEqual(new Uint8Array([0, 0, 0, 0, 0]))

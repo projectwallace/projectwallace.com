@@ -1,5 +1,5 @@
-import { test, expect } from '../../../../../tests/fixtures'
-import { USER_AGENT } from '../../../api/get-css/get-css'
+import { test, expect } from '../../../../../tests/fixtures.ts'
+import { USER_AGENT } from '../../../api/get-css/get-css.ts'
 
 test('does SEO well', async ({ page }) => {
 	await page.goto('/docs/css-scraper', { waitUntil: 'domcontentloaded' })

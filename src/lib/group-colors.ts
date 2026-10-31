@@ -1,4 +1,4 @@
-import type { CssAnalysis } from './analyze-css'
+import type { CssAnalysis } from './analyze-css.ts'
 import { convert, color_group } from '@projectwallace/color-sorter'
 
 export function group_colors(colors: CssAnalysis['values']['colors']['uniqueWithLocations']) {

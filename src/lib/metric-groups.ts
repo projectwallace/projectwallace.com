@@ -1,4 +1,4 @@
-import { basename } from 'path'
+import { basename } from 'node:path'
 import { render } from 'svelte/server'
 import type { Component } from 'svelte'
 
@@ -11,7 +11,7 @@ type MetricGroup = {
 	meta: Record<string, string>
 }
 
-export function getGroups() {
+export function get_groups() {
 	let files = import.meta.glob('/content/docs/metric-groups/*.md', { eager: true }) as Record<
 		string,
 		{ default: { render: () => unknown }; metadata: Record<string, string> }

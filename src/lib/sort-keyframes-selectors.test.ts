@@ -1,5 +1,5 @@
 import { test, expect, describe } from 'vitest'
-import { normalize, sort as sort_keyframe_selectors } from './sort-keyframes-selectors'
+import { normalize, sort as sort_keyframe_selectors } from './sort-keyframes-selectors.ts'
 
 describe('normalize', () => {
 	test('should normalize percentage values', () => {

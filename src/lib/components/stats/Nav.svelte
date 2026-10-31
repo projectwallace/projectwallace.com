@@ -7,7 +7,7 @@
 		items?: NavItem[]
 	}
 
-	import { nav as defaultNav } from './nav'
+	import { nav as defaultNav } from './nav.ts'
 
 	interface Props {
 		nav?: NavItem[]

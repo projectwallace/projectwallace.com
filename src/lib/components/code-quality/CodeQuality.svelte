@@ -10,11 +10,11 @@
 	import FilterOption from '#lib/components/FilterOption.svelte'
 	import Heading from '#lib/components/Heading.svelte'
 	import Container from '#lib/components/Container.svelte'
-	import type { CodeQualityDoc } from '../../../routes/(public)/css-code-quality/code-quality.ts'
+	import type { CodeQualityDoc } from '#lib/code-quality-doc.ts'
 	import Textarea from '#lib/components/css-form/Textarea.svelte'
 	import Button from '#lib/components/Button.svelte'
 
-	type Props = {
+	interface Props {
 		css?: string
 		docs: Record<string, CodeQualityDoc>
 	}

@@ -1,6 +1,6 @@
 import type { CSSOrigin } from '#lib/css-origins.ts'
-import { test, expect } from '../../../../tests/fixtures'
-import { nav } from '../../../lib/components/stats/nav'
+import { test, expect } from '../../../../tests/fixtures.ts'
+import { nav } from '../../../lib/components/stats/nav.ts'
 
 const file_fixture_1 = {
 	name: 'style_1.css',

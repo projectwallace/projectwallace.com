@@ -5,7 +5,7 @@
 	import ThemePreview from './ThemePreview.svelte'
 	import { MediaQuery } from 'svelte/reactivity'
 
-	type Props = {
+	interface Props {
 		initial_theme?: Theme
 	}
 

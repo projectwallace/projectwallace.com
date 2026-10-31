@@ -5,7 +5,7 @@
 	import Empty from '#lib/components/Empty.svelte'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
 	import ColorBar from './ColorBar.svelte'
-	import type { Sizing } from './ColorBar'
+	import type { Sizing } from './ColorBar.ts'
 	import ColorTable from './ColorTable.svelte'
 	import ColorGroups from './ColorGroups.svelte'
 	import DefinitionList from './DefinitionList.svelte'

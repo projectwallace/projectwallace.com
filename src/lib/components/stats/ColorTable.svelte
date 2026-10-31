@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ColorBar from './ColorBar.svelte'
-	import type { Sizing } from './ColorBar'
+	import type { Sizing } from './ColorBar.ts'
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import Table from '#lib/components/Table.svelte'
 	import type { NormalizedColorWithAuthored } from '@projectwallace/color-sorter'

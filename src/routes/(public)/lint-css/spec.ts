@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../tests/fixtures'
+import { test, expect } from '../../../../tests/fixtures.ts'
 
 const LINT_CSS_API = '**/api/lint-css'
 

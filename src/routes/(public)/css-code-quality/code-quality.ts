@@ -1,20 +1,9 @@
 import { basename } from 'node:path'
 import { render_md, require_frontmatter, type MdsvexDocument } from '#lib/content.ts'
+import type { CodeQualityDoc, CodeQualityFormat } from '#lib/code-quality-doc.ts'
 
 function capitalize(str: string) {
 	return str.substring(0, 1).toUpperCase() + str.substring(1, str.length)
-}
-
-type CodeQualityFormat = 'number' | 'size' | 'percentage'
-
-export type CodeQualityDoc = {
-	id: string
-	title: string
-	html: string
-	unit?: string
-	format: CodeQualityFormat
-	category: string
-	meta: Record<string, string>
 }
 
 type CodeQualityDocument = MdsvexDocument<{
