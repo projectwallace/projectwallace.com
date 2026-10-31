@@ -5,13 +5,7 @@
 	let { data } = $props()
 </script>
 
-<Seo
-	title="{data.title} - Docs"
-	description="{data.title.replaceAll(
-		'`',
-		''
-	)}: a Project Wallace recipe that shows you how to integrate with one of our tools."
-/>
+<Seo title="{data.title} - Docs" />
 
 <article>
 	<MarkdownContent>

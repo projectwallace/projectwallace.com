@@ -7,10 +7,7 @@
 	let { data } = $props()
 </script>
 
-<Seo
-	title="Metrics - Docs"
-	description="All you need to know about the variety of metrics that Project Wallace generates about your CSS, grouped by section of the CSS Analyzer."
-/>
+<Seo title="Metrics - Docs" />
 
 <article>
 	<MarkdownContent>

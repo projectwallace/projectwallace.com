@@ -6,10 +6,7 @@
 	let { data } = $props()
 </script>
 
-<Seo
-	title="Recipes - Docs"
-	description="Recipes that show you how to integrate Project Wallace with several of our tools."
-/>
+<Seo title="Recipes - Docs" />
 
 <article>
 	<MarkdownContent>

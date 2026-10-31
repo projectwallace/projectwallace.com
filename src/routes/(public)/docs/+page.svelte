@@ -3,10 +3,7 @@
 	import MarkdownContent from '#lib/components/MarkdownContent.svelte'
 </script>
 
-<Seo
-	title="Docs"
-	description="Everything you need to get a full grasp on the metrics and features that the tools around Project Wallace provide."
-/>
+<Seo title="Docs" />
 
 <article>
 	<MarkdownContent>
