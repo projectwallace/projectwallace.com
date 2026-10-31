@@ -56,7 +56,7 @@
 			Sort by source order
 		</FilterOption>
 		<FilterOption bind:group={sorting} name="border-radius-sorting" value={by_count}>Sort by count</FilterOption>
-		<FilterOption bind:group={sorting} name="border-radius-sorting" value={alphabetically}>Sort by A-Z</FilterOption>
+		<FilterOption bind:group={sorting} name="border-radius-sorting" value={alphabetically}>Sort A-Z</FilterOption>
 	</FilterGroup>
 
 	<ShowMore initial_open={radiuses.length <= 15} closable={radiuses.length > 15}>
