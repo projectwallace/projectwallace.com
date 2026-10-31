@@ -44,7 +44,7 @@
 	type SortBy = 'bytes' | 'coverage' | 'name' | 'lines'
 
 	let sort_by = $state<SortBy | undefined>(undefined)
-	let sort_direction = $state<'asc' | 'desc'>('asc')
+	let sort_direction = $state<'ascending' | 'descending'>('ascending')
 
 	let sorted_items = $derived.by(() => {
 		if (!calculated) {
@@ -62,18 +62,18 @@
 			let b = calculated!.coverage_per_stylesheet[_b]
 
 			if (sort_by === 'bytes') {
-				return sort_direction === 'asc' ? a.total_bytes - b.total_bytes : b.total_bytes - a.total_bytes
+				return sort_direction === 'ascending' ? a.total_bytes - b.total_bytes : b.total_bytes - a.total_bytes
 			}
 			if (sort_by === 'coverage') {
-				return sort_direction === 'asc'
+				return sort_direction === 'ascending'
 					? a.line_coverage_ratio - b.line_coverage_ratio
 					: b.line_coverage_ratio - a.line_coverage_ratio
 			}
 			if (sort_by === 'name') {
-				return sort_direction === 'asc' ? string_sort(a.url, b.url) : string_sort(b.url, a.url)
+				return sort_direction === 'ascending' ? string_sort(a.url, b.url) : string_sort(b.url, a.url)
 			}
 			if (sort_by === 'lines') {
-				return sort_direction === 'asc' ? a.covered_lines - b.covered_lines : b.covered_lines - a.covered_lines
+				return sort_direction === 'ascending' ? a.covered_lines - b.covered_lines : b.covered_lines - a.covered_lines
 			}
 			return 0
 		})
@@ -92,20 +92,19 @@
 </script>
 
 {#snippet sorted_th(sort: SortBy | undefined, name: SortBy, label: string)}
-	{@const sort_by_attr = sort === name ? (sort_direction === 'asc' ? 'ascending' : 'descending') : undefined}
+	{@const sort_by_attr = sort === name ? sort_direction : undefined}
 	<th scope="col" aria-sort={sort_by_attr}>
 		<button
 			class="sort-button"
-			aria-pressed={sort_by === name}
 			onclick={() => {
 				sort_by = name
-				sort_direction = sort_direction === 'asc' ? 'desc' : 'asc'
+				sort_direction = sort_direction === 'ascending' ? 'descending' : 'ascending'
 			}}
 		>
 			{label}
 			<span class="sort-indicator" aria-hidden="true">
 				{#if sort === name}
-					{sort_direction === 'asc' ? '▲' : '▼'}
+					{sort_direction === 'ascending' ? '▲' : '▼'}
 				{/if}
 			</span>
 		</button>

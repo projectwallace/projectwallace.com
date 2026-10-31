@@ -135,11 +135,10 @@
 </script>
 
 {#snippet sorted_th(name: OriginsSort, label: string)}
-	{@const sort_by_attr = sort_by === name ? (sort_direction === 'ascending' ? 'ascending' : 'descending') : undefined}
+	{@const sort_by_attr = sort_by === name ? sort_direction : undefined}
 	<th scope="col" aria-sort={sort_by_attr}>
 		<button
 			class="sort-button"
-			aria-pressed={sort_by === name}
 			onclick={() => {
 				sort_by = name
 				sort_direction = sort_direction === 'ascending' ? 'descending' : 'ascending'

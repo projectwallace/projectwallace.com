@@ -215,7 +215,7 @@ test.describe('Inspecting an origin', () => {
 		// Open the CSS Slide
 		await first_origin.click()
 
-		await page.getByLabel('Close panel').click()
+		await page.getByRole('button', { name: 'Close panel' }).click()
 
 		await expect.soft(css_slide).not.toBeVisible()
 		await expect.soft(first_origin).not.toHaveAttribute('aria-selected', 'true')
