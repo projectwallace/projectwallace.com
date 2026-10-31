@@ -51,7 +51,7 @@
 		border-color: var(--paned-layout-border-color, var(--bg-300));
 
 		.pane:not(:first-child) & {
-			@container --paned-layout (max-inline-size: 50rem) {
+			@container --paned-layout (inline-size < 50rem) {
 				border-block-start-width: var(--paned-layout-border-width, var(--space-px));
 			}
 		}
