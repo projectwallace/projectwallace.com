@@ -490,7 +490,6 @@
 			cursor: pointer;
 		}
 
-		[aria-selected] {
 		/* Selected item styling. Opt in with .selectable + aria-current; rows/options use aria-selected */
 		:is([aria-selected], .selectable) {
 			cursor: pointer;
