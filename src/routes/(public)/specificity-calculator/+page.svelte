@@ -108,7 +108,7 @@
 
 <Seo
 	title="CSS Specificity Calculator"
-	description="Quickly calculate the specifity of your selectors, including :where(), :has(), :is() and friends!"
+	description="Quickly calculate the specificity of your selectors, including :where(), :has(), :is() and friends!"
 	image={Image}
 />
 

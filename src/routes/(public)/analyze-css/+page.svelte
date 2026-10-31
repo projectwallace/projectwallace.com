@@ -33,7 +33,7 @@
 
 <Seo
 	title="Online CSS Analyzer"
-	description="Analyze your website's CSS in this fast, detailed analyzer. Enter a URL of paste in your raw CSS and get near-instant analysis."
+	description="Analyze your website's CSS in this fast, detailed analyzer. Enter a URL or paste in your raw CSS and get near-instant analysis."
 	image={Image}
 />
 

@@ -52,7 +52,7 @@
 
 <Seo
 	title="CSS Design Tokens Analyzer"
-	description="Grab all Design Tokens from a page using it's CSS. Enter a URL of paste in your raw CSS and get instant analysis."
+	description="Grab all Design Tokens from a page using its CSS. Enter a URL or paste in your raw CSS and get instant analysis."
 />
 
 <Hero>
