@@ -8,7 +8,6 @@
 	import ShowMore from '#lib/components/ShowMore.svelte'
 
 	let css_state = get_css_state()
-	let selected_item = $derived(css_state.selected_item)
 
 	interface Props {
 		items?: CssAnalysis['values']['borderRadiuses']
@@ -69,9 +68,7 @@
 						<span class="count">{locations.length} &times;</span>
 						<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 						<button
-							aria-selected={selected_item?.type === 'border-radius' && selected_item.value === `${property}: ${value}`
-								? 'true'
-								: 'false'}
+							aria-selected={css_state.is_selected('border-radius', `${property}: ${value}`)}
 							onclick={() => {
 								css_state.select_item({
 									type: 'border-radius',

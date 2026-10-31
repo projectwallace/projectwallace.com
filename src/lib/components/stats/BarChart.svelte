@@ -8,7 +8,6 @@
 	import Table from '#lib/components/Table.svelte'
 
 	let css_state = get_css_state()
-	let selected_item = $derived(css_state?.selected_item)
 
 	type ExtraColumn = {
 		header: string
@@ -90,11 +89,10 @@
 	</thead>
 	<tbody use:root={{ onchange }} style:--meter-bg="transparent" style:--meter-height="0.5em">
 		{#each items.slice(0, row_limit) as { value, count }, index (value)}
-			{@const is_selected = selected_item?.value === value && selected_item.type === context}
 			<tr
 				use:item={{ value }}
 				class:clickable={enable_keyboard_navigation}
-				aria-selected={is_selected ? 'true' : 'false'}
+				aria-selected={css_state?.is_selected(context, value)}
 			>
 				<td class:warning={warnings.includes(value)}>
 					<!-- Technically this should contain a <code> with the specimen, but the amount of DOM nodes is too damn high -->

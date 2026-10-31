@@ -7,7 +7,6 @@
 	import { string_sort } from '#lib/string-sort.ts'
 
 	let css_state = get_css_state()
-	let selected_item = $derived(css_state.selected_item)
 	let wrapper = $state<HTMLElement | undefined>(undefined)
 	let is_in_viewport = new IsInViewport(() => wrapper, { rootMargin: '100px' })
 
@@ -43,10 +42,7 @@
 	<ol class="list" data-testid="gradient-list" bind:this={wrapper}>
 		{#each sorted as [value, locations] (value)}
 			<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
-			<li
-				class="item shadow [ coverable ]"
-				aria-selected={value === selected_item?.value && selected_item.type === 'gradient' ? 'true' : 'false'}
-			>
+			<li class="item shadow [ coverable ]" aria-selected={css_state.is_selected('gradient', value)}>
 				{#if is_in_viewport.current === true}
 					<div class="gradient" style:--gradient={value}>
 						{locations.length}&times;
