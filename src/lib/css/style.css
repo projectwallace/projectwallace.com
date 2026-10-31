@@ -197,6 +197,12 @@
 		}
 	}
 
+	@layer motion {
+		html {
+			--duration-fast: 100ms;
+		}
+	}
+
 	@layer shadows {
 		html {
 			--shadow-color: rgb(0 0 0 / 0.1);
@@ -408,7 +414,7 @@
 			accent-color: var(--accent);
 
 			& * {
-				transition-duration: 0.1s;
+				transition-duration: var(--duration-fast);
 				transition-property: color, background-color, border-color;
 				transition-timing-function: ease-out;
 				background-repeat: no-repeat;
@@ -791,7 +797,7 @@
 	.scroll-container {
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
-		transition: scrollbar-color 0.1s ease-out;
+		transition: scrollbar-color var(--duration-fast) ease-out;
 
 		&:hover,
 		&:focus {
