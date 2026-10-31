@@ -105,7 +105,7 @@
 			<p>Prettifying makes inspecting the CSS easier.</p>
 		</div>
 
-		<Button size="lg">
+		<Button size="lg" type="submit">
 			{#if status === STATUS.PENDING}
 				Fetching&hellip;
 			{:else}

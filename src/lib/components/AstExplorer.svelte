@@ -137,7 +137,7 @@
 		<Pane>
 			{#snippet pane_header()}
 				<label for="input-css" class="pane-title">CSS input</label>
-				<Button size="sm" variant="secondary" icon="brush" on_click={prettify}>Prettify CSS</Button>
+				<Button size="sm" variant="secondary" icon="brush" onclick={prettify}>Prettify CSS</Button>
 			{/snippet}
 			<HighlightedTextarea id="input-css" name="input-css" bind:value={url_state.current.css} {on_cursor_move} />
 		</Pane>
