@@ -66,9 +66,9 @@
 						<div class="example" style="{property}: {value}"></div>
 						<code class="specimen">{property}: {value}</code>
 						<span class="count">{locations.length} &times;</span>
-						<!-- svelte-ignore a11y_role_supports_aria_props_implicit -->
 						<button
-							aria-selected={css_state.is_selected('border-radius', `${property}: ${value}`)}
+							class="selectable"
+							aria-current={css_state.is_selected('border-radius', `${property}: ${value}`)}
 							onclick={() => {
 								css_state.select_item({
 									type: 'border-radius',
