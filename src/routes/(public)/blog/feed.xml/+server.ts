@@ -39,7 +39,7 @@ export function GET() {
 
 	return new Response(feed, {
 		headers: {
-			'cache-control': `max-age=0, s-max-age=3600`,
+			'cache-control': `max-age=0, s-maxage=3600`,
 			'content-type': 'application/xml'
 		}
 	})
