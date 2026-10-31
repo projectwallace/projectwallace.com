@@ -43,7 +43,7 @@
 		/>
 	</Header>
 
-	<div class="group">
+	<div class="stack">
 		{#if units.total > 0}
 			<BarChart context="unit" column_headers={['Unit', 'Count']} items={sorted_units} {warnings} node_type="value" />
 
@@ -58,11 +58,3 @@
 		{/if}
 	</div>
 </Panel>
-
-<style>
-	.group {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-4);
-	}
-</style>

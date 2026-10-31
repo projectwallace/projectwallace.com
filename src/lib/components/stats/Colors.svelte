@@ -88,7 +88,7 @@
 		/>
 	</Header>
 	{#if colors.total > 0}
-		<div class="group">
+		<div class="stack">
 			<p>
 				Colors are sorted by default in the order they're discovered in the CSS, but you can <a
 					href="https://github.com/projectwallace/color-sorter"
@@ -118,13 +118,13 @@
 			</div>
 
 			{#key sorting}
-				<div class="group">
+				<div class="stack">
 					<ColorBar {sizing} {total} {totalUnique} colors={converted} />
 					<ColorGroups {colors} />
 				</div>
 			{/key}
 
-			<section class="group" id="color-usage">
+			<section class="stack" id="color-usage">
 				<Heading element="h4">Color usage per CSS property</Heading>
 				<p>
 					Discover which colors are used for backgrounds, text colors, borders and all other possible options. A wider
@@ -134,7 +134,7 @@
 				<ColorTable items={itemsPerContext} {sizing} />
 			</section>
 
-			<section class="group" id="color-formats">
+			<section class="stack" id="color-formats">
 				<Heading element="h4">Color formats</Heading>
 				<BarChart node_type="value" context="color" column_headers={['Format', 'Count']} items={sortedFormats} />
 			</section>
@@ -143,11 +143,3 @@
 		<Empty>No colors found.</Empty>
 	{/if}
 </Panel>
-
-<style>
-	.group {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-4);
-	}
-</style>

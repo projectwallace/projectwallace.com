@@ -129,7 +129,7 @@
 			/>
 		</Header>
 
-		<div class="ui-group">
+		<div class="stack">
 			<FilterGroup>
 				<legend class="sr-only">Show rulesets</legend>
 				<FilterOption bind:group={display} name="rulesets-display" value="sizes">Ruleset sizes</FilterOption>
@@ -175,7 +175,7 @@
 				<Heading element="h3">Nesting</Heading>
 			</Header>
 
-			<div class="ui-group">
+			<div class="stack">
 				<FilterGroup>
 					<legend class="sr-only">Show nesting</legend>
 					<FilterOption bind:group={nesting_display} name="nesting-display" value="atrules">Atrules</FilterOption>
@@ -223,12 +223,6 @@
 </div>
 
 <style>
-	.ui-group {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-4);
-	}
-
 	figcaption {
 		text-align: center;
 		font-size: var(--size-sm);

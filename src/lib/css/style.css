@@ -744,6 +744,21 @@
 }
 
 @layer utilities {
+	/* Single-column grid with a gap. minmax(0, 1fr) stops wide children from blowing out the column. */
+	.stack {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--stack-gap, var(--space-4));
+	}
+
+	.stack-1 {
+		--stack-gap: var(--space-1);
+	}
+
+	.stack-3 {
+		--stack-gap: var(--space-3);
+	}
+
 	.sr-only {
 		/* stylelint-disable property-no-deprecated -- progressive enhancement */
 		clip: rect(0, 0, 0, 0);
