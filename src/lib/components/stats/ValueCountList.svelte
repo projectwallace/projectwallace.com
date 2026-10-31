@@ -61,7 +61,7 @@
 	}
 </script>
 
-<div class="stack stack-3">
+<div class="stack stack-lg">
 	<FilterGroup>
 		<legend class="sr-only">Sorting</legend>
 

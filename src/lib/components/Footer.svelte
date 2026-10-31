@@ -66,7 +66,7 @@
 	{#each footer as { title, items }}
 		<div class="section">
 			<div class="footer-title">{title}</div>
-			<ul class="stack stack-1" role="list">
+			<ul class="stack stack-xs" role="list">
 				{#each items as { title, href, rel }}
 					<li>
 						<a class="footer-link" {href} {rel}>{title}</a>

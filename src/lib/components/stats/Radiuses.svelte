@@ -48,7 +48,7 @@
 	})
 </script>
 
-<div class="stack">
+<div class="stack stack-xl">
 	<FilterGroup>
 		<legend class="sr-only">Sorting border radiuses</legend>
 		<FilterOption bind:group={sorting} name="border-radius-sorting" value={as_authored}>

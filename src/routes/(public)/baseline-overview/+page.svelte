@@ -283,7 +283,7 @@
 						<Heading element="h2" size={3}>Feature usage</Heading>
 						<DefinitionList stats={[{ name: 'Total features', value: feature_rows.length }]} />
 					</PanelHeader>
-					<div class="stack">
+					<div class="stack stack-lg">
 						<FilterGroup>
 							<legend class="sr-only">Filter by Baseline status</legend>
 							<FilterOption bind:group={availability_filter} value={show_all} id="filter-all" name={FILTER_NAME}>
@@ -416,11 +416,6 @@
 			text-decoration: underline;
 			text-decoration-color: light-dark(var(--accent-700), var(--accent-300));
 		}
-	}
-
-	.stack {
-		display: grid;
-		row-gap: var(--space-3);
 	}
 
 	tbody tr.clickable {
