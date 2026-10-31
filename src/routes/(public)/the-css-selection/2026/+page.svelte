@@ -91,16 +91,16 @@
 					}
 
 					&::after {
-						width: 6rem;
+						inline-size: 6rem;
 						border: 4px solid var(--accent-700);
-						top: 1rem;
-						right: 7rem;
+						inset-block-start: 1rem;
+						inset-inline-end: 7rem;
 					}
 
 					&::before {
-						top: 0;
-						right: 0rem;
-						width: 10rem;
+						inset-block-start: 0;
+						inset-inline-end: 0rem;
+						inline-size: 10rem;
 						border: 4px solid var(--bg-400);
 					}
 				}
@@ -135,8 +135,8 @@
 	}
 
 	.author-avatar {
-		width: 25px;
-		height: 25px;
+		inline-size: 25px;
+		block-size: 25px;
 	}
 
 	.subtitle {
@@ -150,7 +150,7 @@
 
 		@media (min-width: 48rem) {
 			position: sticky;
-			top: 0;
+			inset-block-start: 0;
 			align-self: start;
 			overflow-y: auto;
 			margin-block-end: 0;
@@ -178,7 +178,7 @@
 	}
 
 	:global(.markdown .scroller:has(table) + p:has(> a[href])) {
-		max-width: none;
+		max-inline-size: none;
 		text-align: end;
 		margin-block-start: var(--space-2);
 		font-size: var(--size-base);

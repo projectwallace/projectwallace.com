@@ -30,7 +30,7 @@
 	.toolbar {
 		z-index: 1;
 		position: fixed;
-		top: var(--space-4);
-		right: var(--space-6);
+		inset-block-start: var(--space-4);
+		inset-inline-end: var(--space-6);
 	}
 </style>

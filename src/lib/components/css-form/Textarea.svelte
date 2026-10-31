@@ -46,8 +46,8 @@
 
 <style>
 	textarea {
-		width: 100%;
-		min-height: var(--space-32);
+		inline-size: 100%;
+		min-block-size: var(--space-32);
 		max-block-size: 66vb;
 		font-family: var(--font-mono);
 		font-size: var(--size-sm);

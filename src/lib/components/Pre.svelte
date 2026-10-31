@@ -198,7 +198,7 @@
 		class:with-coverage={show_coverage}
 		style:--pre-line-height="{LINE_HEIGHT}px"
 		style:--pre-line-number-width={line_number_width}
-		style:height="calc({total_lines + 1} * var(--pre-line-height))"
+		style:block-size="calc({total_lines + 1} * var(--pre-line-height))"
 	>
 		{#if show_line_numbers}
 			<div class="line-numbers" aria-hidden="true">
@@ -218,7 +218,7 @@
 			dir="ltr"
 			translate="no"
 			class:wrap
-			style:height="calc({total_lines + 1} * var(--pre-line-height))"><HighlightCssCode
+			style:block-size="calc({total_lines + 1} * var(--pre-line-height))"><HighlightCssCode
 				{css}
 				{selected_location}
 				{locations}
@@ -232,7 +232,7 @@
 	.window {
 		display: flex;
 		flex-direction: column;
-		height: 100%; /* Needed to force scrollbar on .wrapper contents */
+		block-size: 100%; /* Needed to force scrollbar on .wrapper contents */
 	}
 
 	.toolbar {
@@ -272,7 +272,7 @@
 		grid-template-columns: auto;
 		gap: var(--space-1);
 		overflow-y: auto;
-		max-height: 100%;
+		max-block-size: 100%;
 		--pre-ch-width: calc(1ch * var(--pre-line-number-width, 4));
 		contain: strict;
 		overscroll-behavior: var(--pre-overflow-behavior, contain);
@@ -288,7 +288,7 @@
 
 			.line-number-range {
 				border-inline-end: var(--pre-chunk-border-width) solid transparent;
-				padding-right: var(--pre-chunk-border-width);
+				padding-inline-end: var(--pre-chunk-border-width);
 			}
 
 			.uncovered {
@@ -301,7 +301,7 @@
 			line-height: var(--pre-line-height, 20px);
 			font-family: var(--font-mono);
 			font-size: var(--size-specimen);
-			min-height: 100%; /* Push horizontal scrollbar to the bottom of container */
+			min-block-size: 100%; /* Push horizontal scrollbar to the bottom of container */
 		}
 	}
 
@@ -322,8 +322,8 @@
 		padding-inline: var(--space-2);
 		overflow-inline: auto;
 		overflow-block: hidden;
-		max-height: 100%;
-		height: 100%;
+		max-block-size: 100%;
+		block-size: 100%;
 		color: var(--fg-200);
 		scrollbar-width: thin;
 

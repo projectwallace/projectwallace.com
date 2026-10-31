@@ -60,8 +60,8 @@
 
 <style>
 	canvas {
-		width: 100%;
-		height: var(--color-bar-height, 6em);
+		inline-size: 100%;
+		block-size: var(--color-bar-height, 6em);
 		contain: strict;
 	}
 </style>

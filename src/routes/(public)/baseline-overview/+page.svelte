@@ -440,7 +440,7 @@
 
 	.sort-button {
 		display: flex;
-		width: 100%;
+		inline-size: 100%;
 		justify-content: space-between;
 		gap: var(--space-2);
 	}

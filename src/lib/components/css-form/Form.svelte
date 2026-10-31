@@ -296,9 +296,9 @@
 
 	.loader {
 		position: absolute;
-		bottom: -0.75rem; /* Arbitrary length that just looks good */
-		left: 0px; /* Accomodate for 1px border of the input */
-		right: 0px;
+		inset-block-end: -0.75rem; /* Arbitrary length that just looks good */
+		inset-inline-start: 0px; /* Accomodate for 1px border of the input */
+		inset-inline-end: 0px;
 	}
 
 	.option {

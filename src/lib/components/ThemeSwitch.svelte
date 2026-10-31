@@ -154,30 +154,30 @@
 		}
 
 		:global(.icon) {
-			margin-top: -4px;
+			margin-block-start: -4px;
 		}
 	}
 
 	.theme-popover {
 		position-anchor: --theme-popover-trigger;
 		position: absolute;
-		top: calc(anchor(end) + var(--space-2));
-		right: anchor(end);
-		left: auto;
-		width: min-content;
+		inset-block-start: calc(anchor(end) + var(--space-2));
+		inset-inline-end: anchor(end);
+		inset-inline-start: auto;
+		inline-size: min-content;
 		background-color: var(--bg-100);
 		border: 1px solid var(--fg-450);
 		padding: var(--space-8);
 		box-shadow: var(--shadow-2xl);
 
 		@media (min-width: 44rem) {
-			width: fit-content;
+			inline-size: fit-content;
 		}
 
 		@supports not (right: anchor(end)) {
 			position: fixed;
-			top: 3.5em;
-			right: 2em;
+			inset-block-start: 3.5em;
+			inset-inline-end: 2em;
 		}
 	}
 
@@ -190,7 +190,7 @@
 
 	label {
 		display: block;
-		width: var(--space-48);
+		inline-size: var(--space-48);
 		border: 1px solid var(--fg-450);
 		background-color: light-dark(transparent, var(--bg-0));
 		cursor: pointer;

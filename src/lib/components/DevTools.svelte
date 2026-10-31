@@ -120,12 +120,12 @@
 
 	.resize-bar {
 		border-block-end: 3px solid var(--blue-400);
-		padding-top: 9px;
+		padding-block-start: 9px;
 		cursor: ns-resize;
 		opacity: 0;
 		transition: opacity 100ms ease-out;
 		display: block;
-		width: 100%;
+		inline-size: 100%;
 
 		&:focus {
 			opacity: 1;
@@ -165,9 +165,9 @@
 
 	[role='tablist'] {
 		position: sticky;
-		top: 0;
-		left: 0;
-		width: 100%;
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		inline-size: 100%;
 		display: flex;
 		flex-wrap: wrap;
 	}
@@ -177,7 +177,7 @@
 		align-items: center;
 		gap: var(--space-1);
 		padding: var(--space-1);
-		border-top-width: 2px;
+		border-block-start-width: 2px;
 		border-style: solid;
 		border-color: transparent;
 		font-size: var(--size-sm);
@@ -191,25 +191,25 @@
 		@media (hover: hover) {
 			&:not([data-state='active']):hover {
 				background-color: var(--bg-300);
-				border-top-color: var(--bg-300);
+				border-block-start-color: var(--bg-300);
 			}
 		}
 
 		&[data-state='active'] {
-			border-top-color: var(--accent);
+			border-block-start-color: var(--accent);
 			color: var(--fg-100);
 		}
 	}
 
 	[role='tabpanel'] {
 		background-color: var(--bg-100);
-		height: calc(20rem + var(--panel-offset, 0));
-		min-height: 1rem;
-		max-height: calc(50vb - var(--space-16));
-		width: 100%;
+		block-size: calc(20rem + var(--panel-offset, 0));
+		min-block-size: 1rem;
+		max-block-size: calc(50vb - var(--space-16));
+		inline-size: 100%;
 		overflow-y: auto;
 		contain: strict;
-		overscroll-behavior-y: contain;
-		will-change: height;
+		overscroll-behavior-block: contain;
+		will-change: block-size;
 	}
 </style>

@@ -79,7 +79,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		height: 100%;
+		block-size: 100%;
 		gap: var(--space-4);
 	}
 

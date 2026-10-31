@@ -11,9 +11,9 @@
 		--_meter-color: var(--meter-color, light-dark(var(--accent), var(--accent-500)));
 		--_meter-bg: var(--meter-bg, transparent);
 		--_meter-height: var(--meter-height, 1em);
-		width: 100%;
+		inline-size: 100%;
 		background: var(--_meter-bg);
-		height: var(--_meter-height);
+		block-size: var(--_meter-height);
 		vertical-align: middle;
 		min-inline-size: 1rem;
 	}

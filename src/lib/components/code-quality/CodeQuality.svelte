@@ -218,15 +218,15 @@
 		justify-content: center;
 		align-items: center;
 		gap: var(--space-6);
-		max-width: 32rem;
-		margin-top: var(--space-8);
+		max-inline-size: 32rem;
+		margin-block-start: var(--space-8);
 		margin-inline: auto;
 	}
 
 	.score-indicator {
 		display: inline-block;
 		aspect-ratio: 1;
-		width: 0.825em;
+		inline-size: 0.825em;
 		forced-color-adjust: none;
 	}
 
@@ -249,7 +249,7 @@
 	.result-list {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		margin-top: var(--space-8);
+		margin-block-start: var(--space-8);
 		background-color: light-dark(transparent, var(--gray-800));
 	}
 

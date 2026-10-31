@@ -275,17 +275,17 @@
 
 <style>
 	:global([data-pane-group]) {
-		height: 100%;
+		block-size: 100%;
 	}
 
 	:global([data-pane]) {
 		will-change: flex;
-		height: 100%;
+		block-size: 100%;
 		contain: strict;
 	}
 
 	:global([data-pane-resizer]) {
-		width: var(--space-1);
+		inline-size: var(--space-1);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -296,8 +296,8 @@
 	}
 
 	.pane-resizer {
-		height: 100%;
-		width: 0.25rem;
+		block-size: 100%;
+		inline-size: 0.25rem;
 		opacity: 0;
 		background-color: var(--accent-600);
 		transition: opacity 200ms;
@@ -305,17 +305,17 @@
 
 	.network {
 		position: relative;
-		height: 100%;
+		block-size: 100%;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		grid-template-rows: 1fr auto;
-		max-height: 100%;
+		max-block-size: 100%;
 	}
 
 	.network-totals {
 		display: flex;
 		position: sticky;
-		bottom: 0;
+		inset-block-end: 0;
 		inset-inline: 0;
 		z-index: 1;
 		border-block-start: 1px solid var(--fg-450);
@@ -327,13 +327,13 @@
 
 	.table-scroller {
 		overflow: auto;
-		height: 100%;
-		max-height: 100%;
+		block-size: 100%;
+		max-block-size: 100%;
 		position: relative;
 	}
 
 	table {
-		width: 100%;
+		inline-size: 100%;
 		color: var(--fg-0);
 		border-collapse: collapse;
 		font-size: var(--size-specimen);
@@ -342,7 +342,7 @@
 
 	thead {
 		position: sticky;
-		top: 0;
+		inset-block-start: 0;
 		inset-inline: 0;
 		z-index: 2;
 	}
@@ -357,7 +357,7 @@
 
 	.sort-button {
 		display: flex;
-		width: 100%;
+		inline-size: 100%;
 		justify-content: space-between;
 		gap: var(--space-2);
 	}
@@ -377,7 +377,7 @@
 
 	td,
 	th {
-		text-align: left;
+		text-align: start;
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
 		white-space: nowrap;
@@ -390,7 +390,7 @@
 
 	/* Expand the URL column to be as wide as possible */
 	td:nth-of-type(2) {
-		width: 100%;
+		inline-size: 100%;
 	}
 
 	tbody tr {
@@ -406,8 +406,8 @@
 	th button {
 		display: block;
 		white-space: nowrap;
-		width: 100%;
-		text-align: left;
+		inline-size: 100%;
+		text-align: start;
 	}
 
 	.select {

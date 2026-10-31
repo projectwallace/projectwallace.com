@@ -212,7 +212,7 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
-		margin-bottom: var(--space-8);
+		margin-block-end: var(--space-8);
 
 		@media (min-width: 66rem) {
 			gap: var(--space-8);

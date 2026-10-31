@@ -155,8 +155,8 @@
 		text-transform: uppercase;
 		font-weight: var(--font-bold);
 		letter-spacing: var(--tracking-wider);
-		margin-bottom: var(--space-3);
-		padding-left: var(--space-5);
+		margin-block-end: var(--space-3);
+		padding-inline-start: var(--space-5);
 
 		&:hover,
 		&:focus {

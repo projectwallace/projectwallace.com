@@ -54,7 +54,7 @@
 	.link-to-rss {
 		display: flex;
 		align-items: baseline;
-		margin-top: 1.5rem;
+		margin-block-start: 1.5rem;
 		gap: var(--space-2);
 
 		& :global(.icon) {

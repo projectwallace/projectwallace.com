@@ -40,7 +40,7 @@
 		font-weight: var(--font-ultrabold);
 		font-size: var(--size-5xl);
 
-		@container (width > 44rem) {
+		@container (inline-size > 44rem) {
 			font-size: var(--size-7xl);
 		}
 	}

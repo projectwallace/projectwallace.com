@@ -181,7 +181,7 @@
 	}
 
 	ol {
-		padding-left: 2ch;
+		padding-inline-start: 2ch;
 	}
 
 	.property,

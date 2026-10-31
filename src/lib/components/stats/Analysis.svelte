@@ -95,9 +95,9 @@
 	.devtools {
 		grid-area: devtools;
 		position: sticky;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		inset-inline-end: 0;
+		inset-block-end: 0;
+		inset-inline-start: 0;
 	}
 
 	@media (min-width: 48rem) {
@@ -124,18 +124,18 @@
 
 		.nav {
 			position: sticky;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			padding-top: var(--space-8);
-			max-height: 100vb;
+			inset-block-start: 0;
+			inset-inline-end: 0;
+			inset-block-end: 0;
+			padding-block-start: var(--space-8);
+			max-block-size: 100vb;
 			overflow-y: auto;
-			padding-bottom: 4rem;
+			padding-block-end: 4rem;
 		}
 
 		.report {
-			padding-top: var(--space-8);
-			padding-left: var(--space-8);
+			padding-block-start: var(--space-8);
+			padding-inline-start: var(--space-8);
 		}
 	}
 

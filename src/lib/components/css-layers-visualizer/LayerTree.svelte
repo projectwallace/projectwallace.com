@@ -77,7 +77,7 @@
 	}
 
 	ol :global(ol) {
-		padding-left: 1rem;
+		padding-inline-start: 1rem;
 		margin: 0.5rem;
 		margin-inline-end: 0;
 	}
@@ -85,9 +85,9 @@
 	:global(ol ol).children::before {
 		content: '';
 		position: absolute;
-		top: 0.5rem;
-		bottom: 0.5rem;
-		left: 0.25rem;
+		inset-block-start: 0.5rem;
+		inset-block-end: 0.5rem;
+		inset-inline-start: 0.25rem;
 		border-inline-start: 1px dotted var(--fg-400);
 	}
 
@@ -102,7 +102,7 @@
 
 	button {
 		display: block;
-		width: 100%;
+		inline-size: 100%;
 		text-align: start;
 		padding-block: 0.33rem;
 		padding-inline: 0.75rem;

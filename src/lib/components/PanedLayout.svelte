@@ -30,7 +30,7 @@
 		display: grid;
 		align-items: stretch;
 
-		@container --paned-layout (min-width: 50rem) {
+		@container --paned-layout (min-inline-size: 50rem) {
 			grid-template-columns: var(--paned-layout-columns, max-content 1fr 1fr);
 		}
 	}

@@ -87,8 +87,8 @@
 		flex-wrap: wrap;
 		column-gap: var(--space-12);
 		row-gap: var(--space-8);
-		margin-top: var(--space-8);
-		margin-bottom: var(--space-4);
+		margin-block-start: var(--space-8);
+		margin-block-end: var(--space-4);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-3);
 		border-block-start: 1px solid var(--fg-800);

@@ -51,7 +51,7 @@
 		border-color: var(--paned-layout-border-color, var(--bg-300));
 
 		.pane:not(:first-child) & {
-			@container --paned-layout (max-width: 50rem) {
+			@container --paned-layout (max-inline-size: 50rem) {
 				border-block-start-width: var(--paned-layout-border-width, var(--space-px));
 			}
 		}
@@ -73,7 +73,7 @@
 		}
 
 		.fixed-height & {
-			@container --paned-layout (min-width: 50rem) {
+			@container --paned-layout (min-inline-size: 50rem) {
 				block-size: var(--paned-layout-block-size, calc(100vb - 20rem));
 			}
 		}

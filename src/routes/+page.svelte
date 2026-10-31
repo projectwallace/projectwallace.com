@@ -258,7 +258,7 @@
 
 	p.lead {
 		font-size: var(--size-xl);
-		max-width: 66ch;
+		max-inline-size: 66ch;
 		text-wrap: balance;
 		line-height: var(--leading-relaxed);
 		margin-inline: auto;
@@ -303,7 +303,7 @@
 			padding-block: var(--space-8);
 		}
 
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			grid-template-columns: repeat(6, 1fr);
 
 			& li {
@@ -319,7 +319,7 @@
 	}
 
 	.feature-grid {
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			& li:nth-child(-n + 2) {
 				grid-column: span 3;
 			}
@@ -340,17 +340,17 @@
 		display: grid;
 		gap: var(--space-3);
 
-		@container (min-width: 33rem) {
+		@container (min-inline-size: 33rem) {
 			grid-template-columns: repeat(2, 1fr);
 		}
 
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			grid-template-columns: repeat(3, 1fr);
 		}
 
 		a {
 			display: flex;
-			width: 100%;
+			inline-size: 100%;
 			gap: var(--space-2);
 			justify-content: space-between;
 			background-color: var(--bg-200);
@@ -395,7 +395,7 @@
 			padding-block: var(--space-8);
 		}
 
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			grid-template-columns: repeat(2, 1fr);
 
 			& li {

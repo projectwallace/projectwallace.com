@@ -36,8 +36,8 @@
 	.wrapper {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		height: 100%;
-		max-height: 100%;
+		block-size: 100%;
+		max-block-size: 100%;
 		overflow: auto;
 
 		> :is(textarea, output) {
@@ -49,7 +49,7 @@
 			line-height: var(--leading-loose);
 			font-family: var(--font-mono);
 			white-space: pre;
-			height: 100%;
+			block-size: 100%;
 			hyphens: none;
 		}
 

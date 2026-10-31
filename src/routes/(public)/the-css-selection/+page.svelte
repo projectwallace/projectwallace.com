@@ -92,9 +92,9 @@
 		font-size: var(--size-4xl);
 		line-height: var(--leading-tighter);
 
-		@container (width > 33rem) {
+		@container (inline-size > 33rem) {
 			font-size: var(--size-6xl);
-			width: 66%;
+			inline-size: 66%;
 		}
 	}
 
@@ -109,10 +109,10 @@
 		flex-wrap: wrap;
 		column-gap: var(--space-6);
 		row-gap: var(--space-2);
-		margin-top: var(--space-6);
+		margin-block-start: var(--space-6);
 
 		.break {
-			width: 100%;
+			inline-size: 100%;
 		}
 
 		.code {
@@ -145,9 +145,9 @@
 			&::after {
 				content: '';
 				position: absolute;
-				bottom: -0.4cqb;
-				right: 0;
-				left: 0;
+				inset-block-end: -0.4cqb;
+				inset-inline-end: 0;
+				inset-inline-start: 0;
 				border-block-end: 0.4cqb solid var(--purple-400);
 				rotate: -1.44deg;
 			}

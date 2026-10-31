@@ -56,11 +56,11 @@
 
 <style>
 	.polypane-banner {
-		margin-top: var(--space-8);
+		margin-block-start: var(--space-8);
 		background-color: var(--bg-200);
 		padding-block: var(--space-4) var(--space-12);
 		padding-inline: var(--space-4);
-		max-width: 60ch;
+		max-inline-size: 60ch;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-6);
@@ -86,13 +86,13 @@
 	}
 
 	.cta {
-		text-align: right;
+		text-align: end;
 	}
 
 	/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- PolyPane is special for us */
 	.polypane-button {
 		position: relative;
-		font-size: calc(14px + 0.5vw);
+		font-size: calc(14px + 0.5vi);
 		font-weight: 800;
 		background: #0a1530;
 		color: #fff;
@@ -127,7 +127,7 @@
 			stroke-linecap: round;
 			stroke-linejoin: round;
 			position: relative;
-			top: 1px;
+			inset-block-start: 1px;
 			transition: all 200ms ease-in-out;
 			will-change: transform;
 		}
@@ -143,10 +143,10 @@
 
 	.message {
 		position: absolute;
-		top: 100%;
-		margin-top: -0.25rem;
-		right: 2rem;
-		width: 180px;
+		inset-block-start: 100%;
+		margin-block-start: -0.25rem;
+		inset-inline-end: 2rem;
+		inline-size: 180px;
 
 		path.arrow-head,
 		path.arrow-line {

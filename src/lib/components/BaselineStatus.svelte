@@ -63,8 +63,8 @@
 	}
 
 	.icon svg {
-		width: 1.8rem;
-		height: 1rem;
+		inline-size: 1.8rem;
+		block-size: 1rem;
 		display: block;
 	}
 

@@ -71,7 +71,7 @@
 		border: 1px solid var(--fg-600);
 		justify-content: end;
 		padding: var(--_input-mode-switcher-spacing);
-		max-width: max-content;
+		max-inline-size: max-content;
 	}
 
 	[role='tab'] {

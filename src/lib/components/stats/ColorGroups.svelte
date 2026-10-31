@@ -107,7 +107,7 @@
 	}
 
 	.specimen-wrapper {
-		width: var(--space-6);
+		inline-size: var(--space-6);
 		background-color: var(--bg-600);
 		color: var(--black);
 

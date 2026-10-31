@@ -83,7 +83,7 @@
 		padding-inline: var(--space-2);
 		padding-block: 0.25rem;
 		line-height: var(--leading-base);
-		width: 100%;
+		inline-size: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

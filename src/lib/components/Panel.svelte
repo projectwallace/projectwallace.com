@@ -16,15 +16,15 @@
 <style>
 	.panel {
 		contain: layout paint;
-		min-width: 0;
+		min-inline-size: 0;
 		background-color: light-dark(transparent, var(--bg-200));
 		padding-block: var(--space-4);
 		padding-inline: var(--space-2);
 		border: 1px solid light-dark(var(--fg-800), transparent);
 
 		@media (min-width: 44rem) {
-			padding-right: var(--space-4);
-			padding-left: var(--space-4);
+			padding-inline-end: var(--space-4);
+			padding-inline-start: var(--space-4);
 		}
 
 		@media print {

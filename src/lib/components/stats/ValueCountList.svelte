@@ -121,6 +121,6 @@
 	}
 
 	td:last-child {
-		width: 100%;
+		inline-size: 100%;
 	}
 </style>

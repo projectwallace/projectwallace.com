@@ -100,7 +100,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-2);
-		margin-top: var(--space-2);
+		margin-block-start: var(--space-2);
 		align-items: end;
 		overflow: hidden;
 		container-type: inline-size;

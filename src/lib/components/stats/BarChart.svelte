@@ -125,7 +125,7 @@
 
 		&,
 		& + td {
-			width: var(--space-16);
+			inline-size: var(--space-16);
 		}
 	}
 
@@ -139,7 +139,7 @@
 		color: inherit;
 
 		&:last-child {
-			width: 100%;
+			inline-size: 100%;
 		}
 	}
 

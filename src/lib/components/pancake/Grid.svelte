@@ -91,7 +91,7 @@
 <style>
 	.pancake-grid-item {
 		position: absolute;
-		left: 0;
-		top: 0;
+		inset-inline-start: 0;
+		inset-block-start: 0;
 	}
 </style>

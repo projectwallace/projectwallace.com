@@ -36,7 +36,7 @@
 		--theme-preview-text: var(--fg-400);
 		container-type: inline-size;
 		contain: layout paint;
-		width: 100%;
+		inline-size: 100%;
 		forced-color-adjust: none;
 
 		&[data-theme='dark'] {
@@ -81,16 +81,16 @@
 
 	.logo,
 	.nav-item {
-		height: 3cqi;
+		block-size: 3cqi;
 	}
 
 	.logo {
-		width: 6cqi;
+		inline-size: 6cqi;
 		background-color: var(--accent);
 	}
 
 	.nav-item {
-		width: 12cqi;
+		inline-size: 12cqi;
 		background-color: var(--theme-preview-text);
 	}
 
@@ -107,13 +107,13 @@
 	}
 
 	.panel-title {
-		width: 30cqi;
-		height: 4cqi;
+		inline-size: 30cqi;
+		block-size: 4cqi;
 		background-color: var(--theme-preview-text);
 	}
 
 	.panel-body {
-		height: 18cqi;
+		block-size: 18cqi;
 	}
 
 	.aside {
@@ -121,7 +121,7 @@
 		padding-inline-end: 5cqi;
 
 		& .panel {
-			height: 25cqi;
+			block-size: 25cqi;
 			padding-block: 3cqi;
 			display: flex;
 			flex-direction: column;
@@ -129,14 +129,14 @@
 		}
 
 		& .panel-title {
-			width: 10cqi;
-			height: 3cqi;
+			inline-size: 10cqi;
+			block-size: 3cqi;
 		}
 	}
 
 	.button {
-		width: 7cqi;
-		height: 3cqi;
+		inline-size: 7cqi;
+		block-size: 3cqi;
 		background-color: var(--accent);
 		align-self: end;
 	}
