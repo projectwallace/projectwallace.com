@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { useResizeObserver } from 'runed'
+	import { with_css_params } from '#lib/css-url-params.ts'
 	import Logo from '#lib/components/Logo.svelte'
 	import Container from '#lib/components/Container.svelte'
 	import { page } from '$app/state'
@@ -40,8 +41,7 @@
 		return items.map((item) => {
 			let url = new URL(item.url, page.url.origin)
 			if (css_state.url !== undefined) {
-				url.searchParams.set('url', css_state.url)
-				url.searchParams.set('prettify', css_state.should_prettify ? '1' : '0')
+				url = with_css_params(url, { url: css_state.url, prettify: css_state.should_prettify })
 			}
 			return {
 				...item,

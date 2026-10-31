@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
+	import { with_css_params } from '#lib/css-url-params.ts'
 	import { page } from '$app/state'
 	import { goto } from '$app/navigation'
 	import Hero from '#lib/components/Hero.svelte'
@@ -58,8 +59,7 @@
 		status = STATUS.PENDING
 
 		// Update URL
-		let new_url = new URL(page.url.href)
-		new_url.searchParams.set('url', value)
+		let new_url = with_css_params(page.url, { url: value })
 		await goto(new_url, {
 			replace: true
 		})
@@ -77,9 +77,7 @@
 	async function on_prettify_change(event: Event) {
 		let prettify = (event.target as HTMLInputElement).checked
 		css_state.prettify(prettify)
-		let new_url = new URL(page.url.href)
-		new_url.searchParams.set('prettify', prettify ? '1' : '0')
-		await goto(new_url, { replace: true })
+		await goto(with_css_params(page.url, { prettify }), { replace: true })
 	}
 </script>
 

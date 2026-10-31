@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { with_css_params } from '#lib/css-url-params.ts'
 	import ValueCountList from '#lib/components/stats/ValueCountList.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import { Panel, Header } from '#lib/components/Panel/index.ts'
@@ -18,13 +19,10 @@
 	// If the current page has a `url` search parameter, append it to the Design Tokens link.
 	// Otherwise, link to the Design Tokens section.
 	let design_tokens_url = $derived.by(() => {
-		let url = new URL('/design-tokens', page.url.href)
-		if (page.url.searchParams.get('url')) {
-			// @ts-expect-error TS does not understant that searchParams.has() is a valid type guard
-			url.searchParams.append('url', page.url.searchParams.get('url'))
-		}
-		url.searchParams.set('prettify', page.url.searchParams.get('prettify') === '1' ? '1' : '0')
-		return url
+		return with_css_params(new URL('/design-tokens', page.url.href), {
+			url: page.url.searchParams.get('url') || undefined,
+			prettify: page.url.searchParams.get('prettify') === '1'
+		})
 	})
 
 	function is_valid_z_index(z_index: string) {
