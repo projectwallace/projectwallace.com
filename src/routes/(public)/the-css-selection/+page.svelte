@@ -92,7 +92,7 @@
 		font-size: var(--size-4xl);
 		line-height: var(--leading-tighter);
 
-		@container (width > 33rem) {
+		@container (inline-size > 33rem) {
 			font-size: var(--size-6xl);
 			inline-size: 66%;
 		}

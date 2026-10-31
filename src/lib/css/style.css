@@ -672,11 +672,11 @@
 			align-items: start;
 			margin-block-start: var(--space-4);
 
-			@container (min-width: 33rem) {
+			@container (min-inline-size: 33rem) {
 				gap: var(--space-6);
 			}
 
-			@container (min-width: 55rem) {
+			@container (min-inline-size: 55rem) {
 				gap: var(--space-8);
 			}
 

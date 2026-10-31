@@ -303,7 +303,7 @@
 			padding-block: var(--space-8);
 		}
 
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			grid-template-columns: repeat(6, 1fr);
 
 			& li {
@@ -319,7 +319,7 @@
 	}
 
 	.feature-grid {
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			& li:nth-child(-n + 2) {
 				grid-column: span 3;
 			}
@@ -340,11 +340,11 @@
 		display: grid;
 		gap: var(--space-3);
 
-		@container (min-width: 33rem) {
+		@container (min-inline-size: 33rem) {
 			grid-template-columns: repeat(2, 1fr);
 		}
 
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			grid-template-columns: repeat(3, 1fr);
 		}
 
@@ -395,7 +395,7 @@
 			padding-block: var(--space-8);
 		}
 
-		@container (min-width: 44rem) {
+		@container (min-inline-size: 44rem) {
 			grid-template-columns: repeat(2, 1fr);
 
 			& li {
