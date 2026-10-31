@@ -1,6 +1,4 @@
-import { basename } from 'node:path'
-import { render } from 'svelte/server'
-import type { Component } from 'svelte'
+import { render_md, require_frontmatter, to_slug, type MdsvexDocument } from '#lib/content.ts'
 
 export type RecipeMeta = {
 	slug: string
@@ -10,26 +8,17 @@ export type RecipeMeta = {
 
 export type Recipe = RecipeMeta & { html: string }
 
-type MdsvexDocument = {
-	metadata: { title?: string }
-	default: {
-		render: () => unknown
-	}
-}
+type RecipeDocument = MdsvexDocument<{ title?: string }>
 
 function load_modules() {
-	return import.meta.glob('/content/docs/recipes/*.md', { eager: true }) as Record<string, MdsvexDocument>
+	return import.meta.glob('/content/docs/recipes/*.md', { eager: true }) as Record<string, RecipeDocument>
 }
 
-function to_meta(filePath: string, mod: MdsvexDocument): RecipeMeta {
-	let slug = basename(filePath, '.md').toLowerCase().replaceAll('.', '-')
-	let { title } = mod.metadata
+function to_meta(filePath: string, mod: RecipeDocument): RecipeMeta {
+	let slug = to_slug(filePath)
+	require_frontmatter('Recipe', filePath, mod.metadata, ['title'])
 
-	if (!title) {
-		throw new Error(`Recipe at ${filePath} is missing required frontmatter (title)`)
-	}
-
-	return { slug, path: `/docs/recipes/${slug}`, title }
+	return { slug, path: `/docs/recipes/${slug}`, title: mod.metadata.title }
 }
 
 export function get_recipe_list(): RecipeMeta[] {
@@ -39,16 +28,11 @@ export function get_recipe_list(): RecipeMeta[] {
 
 export function get_recipe(slug: string): Recipe | undefined {
 	let files = load_modules()
-	let entry = Object.entries(files).find(
-		([filePath]) => basename(filePath, '.md').toLowerCase().replaceAll('.', '-') === slug
-	)
+	let entry = Object.entries(files).find(([filePath]) => to_slug(filePath) === slug)
 
 	if (!entry) return undefined
 
 	let [filePath, mod] = entry
 	let meta = to_meta(filePath, mod)
-	let MdsvexComponent = mod.default as unknown as Component
-	let html = render(MdsvexComponent, { props: {} }).body
-
-	return { ...meta, html }
+	return { ...meta, html: render_md(mod) }
 }
