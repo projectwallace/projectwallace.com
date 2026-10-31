@@ -4,8 +4,8 @@
 	type Status = 'closed' | 'open'
 
 	interface Props {
-		initial_open: boolean
-		closable: boolean
+		initial_open?: boolean
+		closable?: boolean
 		children?: Snippet<[{ status: Status }]>
 	}
 
