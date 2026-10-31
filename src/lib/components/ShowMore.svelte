@@ -4,15 +4,15 @@
 	type Status = 'closed' | 'open'
 
 	interface Props {
-		initial_open?: boolean
-		closable?: boolean
+		/** When false the content is just shown in full, without any buttons */
+		collapsible?: boolean
 		children?: Snippet<[{ status: Status }]>
 	}
 
-	let { children, initial_open: initialOpen = false, closable = false }: Props = $props()
+	let { children, collapsible = true }: Props = $props()
 
 	// svelte-ignore state_referenced_locally
-	let status: Status = $state(initialOpen ? 'open' : 'closed')
+	let status: Status = $state(collapsible ? 'closed' : 'open')
 	let element: HTMLDivElement | undefined = undefined
 
 	function open() {
@@ -38,7 +38,7 @@
 	{#if status === 'closed'}
 		<button class="[ action opener ] shadow-xl" type="button" onclick={open}>Show more</button>
 	{/if}
-	{#if closable && status === 'open'}
+	{#if collapsible && status === 'open'}
 		<button class="[ action ]" type="button" onclick={close}>Show less</button>
 	{/if}
 </div>
