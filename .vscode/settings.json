@@ -11,6 +11,7 @@
 		"editor.defaultFormatter": "oxc.oxc-vscode",
 		"editor.formatOnSave": true
 	},
+	"oxc.configPath": "oxlintrc.json",
 	"editor.renderWhitespace": "none",
 	"css.validate": false,
 	"less.validate": false,

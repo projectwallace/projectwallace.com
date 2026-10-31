@@ -10,8 +10,8 @@ type WebFeaturesData = {
 
 const { features } = data as unknown as WebFeaturesData
 
-const css_features: Record<string, CssFeature> = Object.create(null)
-const compat_keys: Record<string, string> = Object.create(null)
+const css_features = Object.create(null) as Record<string, CssFeature>
+const compat_keys = Object.create(null) as Record<string, string>
 
 for (const [id, feature] of Object.entries(features)) {
 	if (feature.kind !== 'feature' || !feature.group) {

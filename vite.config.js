@@ -1,4 +1,4 @@
-import mdsvexConfig from './mdsvex.config.js'
+import mdsvexConfig from './mdsvex.config.ts'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import adapter from '@sveltejs/adapter-netlify'
 import { mdsvex } from 'mdsvex'

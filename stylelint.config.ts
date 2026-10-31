@@ -1,4 +1,5 @@
-/** @type {import('stylelint').Config} */
+import type { Config } from 'stylelint'
+
 export default {
 	extends: ['@projectwallace/stylelint-plugin/configs/recommended'],
 	overrides: [
@@ -192,4 +193,4 @@ export default {
 			}
 		]
 	}
-}
+} satisfies Config

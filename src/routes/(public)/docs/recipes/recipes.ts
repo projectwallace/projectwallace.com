@@ -30,7 +30,9 @@ export function get_recipe(slug: string): Recipe | undefined {
 	let files = load_modules()
 	let entry = Object.entries(files).find(([filePath]) => to_slug(filePath) === slug)
 
-	if (!entry) return undefined
+	if (!entry) {
+		return undefined
+	}
 
 	let [filePath, mod] = entry
 	let meta = to_meta(filePath, mod)
