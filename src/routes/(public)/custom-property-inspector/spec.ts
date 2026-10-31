@@ -103,60 +103,43 @@ test.describe('with css', () => {
 		await expect.soft(undefined_toggler).toHaveAttribute('aria-pressed', 'false')
 	})
 
-	test('toggles all details when clicking properties in the list', async () => {
-		// verify that the details are closed
-		await expect.soft(property1).toHaveAttribute('aria-expanded', 'false')
-		await expect.soft(property2).toHaveAttribute('aria-expanded', 'false')
+	test('expanding, collapsing and resetting property details', async ({ page }) => {
+		await test.step('devtools are shown', async () => {
+			await expect.soft(page.getByRole('tab', { name: 'Network' })).toBeVisible()
+			await expect.soft(page.getByRole('tab', { name: 'Properties' })).toBeVisible()
+		})
 
-		// open 2 properties' details
-		await property1.click()
-		await property2.click()
+		await test.step('clicking properties toggles their details', async () => {
+			await expect.soft(property1).toHaveAttribute('aria-expanded', 'false')
+			await expect.soft(property2).toHaveAttribute('aria-expanded', 'false')
 
-		// Verify that the details are open
-		await expect.soft(property1).toHaveAttribute('aria-expanded', 'true')
-		await expect.soft(property2).toHaveAttribute('aria-expanded', 'true')
-	})
+			await property1.click()
+			await property2.click()
 
-	test('closes all details when clicking the "close all" button', async ({ page }) => {
-		// verify that the details are closed
-		await expect.soft(property1).toHaveAttribute('aria-expanded', 'false')
-		await expect.soft(property2).toHaveAttribute('aria-expanded', 'false')
+			await expect.soft(property1).toHaveAttribute('aria-expanded', 'true')
+			await expect.soft(property2).toHaveAttribute('aria-expanded', 'true')
+		})
 
-		// open 2 properties' details
-		await property1.click()
-		await property2.click()
+		await test.step('the "Collapse all" button closes all details', async () => {
+			await page.getByRole('button', { name: 'Collapse all' }).click()
 
-		// Verify that the details are open
-		await expect.soft(property1).toHaveAttribute('aria-expanded', 'true')
-		await expect.soft(property2).toHaveAttribute('aria-expanded', 'true')
+			for (let property of await properties.all()) {
+				await expect.soft(property).toHaveAttribute('aria-expanded', 'false')
+			}
+		})
 
-		// Close all details
-		await page.getByRole('button', { name: 'Collapse all' }).click()
+		// Last step: this replaces the CSS, so keep it at the end
+		await test.step('details are closed when the CSS changes', async () => {
+			await property1.click()
+			await property2.click()
 
-		// Verify that the details are closed
-		for (let property of await properties.all()) {
-			await expect(property).toHaveAttribute('aria-expanded', 'false')
-		}
-	})
+			await page.getByLabel('CSS to analyze').fill(mock_css + mock_css)
+			await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
-	test('closes all details when the CSS changes', async ({ page }) => {
-		// open 2 properties' details
-		await property1.click()
-		await property2.click()
-
-		// Change the CSS
-		await page.getByLabel('CSS to analyze').fill(mock_css + mock_css)
-		await page.getByRole('button', { name: 'Analyze CSS' }).click()
-
-		// Verify that the details are closed
-		for (let property of await properties.all()) {
-			await expect(property).toHaveAttribute('aria-expanded', 'false')
-		}
-	})
-
-	test('devtools are shown', async ({ page }) => {
-		await expect.soft(page.getByRole('tab', { name: 'Network' })).toBeVisible()
-		await expect.soft(page.getByRole('tab', { name: 'Properties' })).toBeVisible()
+			for (let property of await properties.all()) {
+				await expect.soft(property).toHaveAttribute('aria-expanded', 'false')
+			}
+		})
 	})
 
 	test.describe('search', () => {
@@ -166,93 +149,75 @@ test.describe('with css', () => {
 			search_input = page.getByRole('searchbox', { name: 'Search property name' })
 		})
 
-		test('filters the properties based on search query', async () => {
-			// Starting state
-			await expect.soft(properties).toHaveCount(4)
+		test('filtering the properties with a search query', async ({ page }) => {
+			await test.step('no search info is shown initially', async () => {
+				await expect.soft(properties).toHaveCount(4)
+				await expect.soft(page.getByTestId('search-info')).not.toBeVisible()
+			})
 
-			// Search for a property that exists
-			await search_input.fill('declared')
+			await test.step('filters the properties based on the query', async () => {
+				await search_input.fill('declared')
+				await expect.soft(properties).toHaveCount(2)
 
-			await expect.soft(properties).toHaveCount(2)
+				for (let property of await properties.all()) {
+					await expect.soft(property).toContainText('declared')
+					await expect.soft(property.locator('mark.match')).toContainText('declared')
+				}
+			})
 
-			for (let property of await properties.all()) {
-				await expect.soft(property).toContainText('declared')
-				await expect.soft(property.locator('mark.match')).toContainText('declared')
-			}
-		})
+			await test.step('shows helpful info when search is active', async () => {
+				let info = page.getByTestId('search-info')
+				await expect.soft(info).toBeVisible()
+				await expect.soft(info).toHaveText('2 properties shown, 2 hidden by search')
+			})
 
-		test('allows negating the search query', async () => {
-			// Show show properties that don't contain the word declared
-			await search_input.fill('!declared')
+			await test.step('clicking "Clear search" clears the query', async () => {
+				let clear_search = page.getByRole('button', { name: 'Clear search' })
+				await expect.soft(clear_search).toBeVisible()
+				await clear_search.click()
 
-			for (let property of await properties.all()) {
-				await expect.soft(property).not.toContainText('declared')
-			}
+				await expect.soft(search_input).toHaveValue('')
+				await expect.soft(properties).toHaveCount(4)
+				await expect.soft(clear_search).not.toBeVisible()
+			})
 
-			// Search for a property that doesn't exist
-			await search_input.fill('!exist')
+			await test.step('allows negating the query', async () => {
+				await search_input.fill('!declared')
 
-			await expect.soft(properties).toHaveCount(4)
+				for (let property of await properties.all()) {
+					await expect.soft(property).not.toContainText('declared')
+				}
 
-			for (let property of await properties.all()) {
-				await expect.soft(property).not.toContainText('exist')
-			}
+				// Negating something that doesn't exist matches every property
+				await search_input.fill('!exist')
+				await expect.soft(properties).toHaveCount(4)
+
+				for (let property of await properties.all()) {
+					await expect.soft(property).not.toContainText('exist')
+				}
+			})
+
+			await test.step("shows an empty state if the query doesn't match any property", async () => {
+				await search_input.fill('nonexistent')
+
+				let clear_button = page.getByRole('button', { name: 'Clear all' })
+				await expect.soft(properties).toHaveCount(0)
+				await expect.soft(clear_button).toBeVisible()
+
+				await clear_button.click()
+				await expect.soft(search_input).toHaveValue('')
+				await expect.soft(properties).toHaveCount(4)
+				await expect.soft(clear_button).not.toBeVisible()
+			})
 		})
 
 		test('clears the search query when the CSS changes', async ({ page }) => {
-			// Search for a property that exists
 			await search_input.fill('declared')
 
-			// Change the CSS
 			await page.getByLabel('CSS to analyze').fill(mock_css + mock_css)
 			await page.getByRole('button', { name: 'Analyze CSS' }).click()
 
-			// Verify that the search query is cleared
 			await expect(search_input).toHaveValue('')
-		})
-
-		test("shows empty state if the search query doesn't match any property", async ({ page }) => {
-			// Search for a property that doesn't exist
-			await search_input.fill('nonexistent')
-
-			let clear_button = page.getByRole('button', { name: 'Clear all' })
-
-			await expect.soft(properties).toHaveCount(0)
-			await expect.soft(clear_button).toBeVisible()
-
-			// Clear the search query
-			await clear_button.click()
-			await expect(search_input).toHaveValue('')
-			await expect.soft(properties).toHaveCount(4)
-			// This one is flaky, so skipping
-			await expect.soft(clear_button).not.toBeVisible()
-		})
-
-		test('shows helpful info when search is active', async ({ page }) => {
-			// Starting state
-			await expect.soft(page.getByTestId('search-info')).not.toBeVisible()
-
-			// Search for a property that exists
-			await search_input.fill('declared')
-
-			let info = page.getByTestId('search-info')
-			await expect.soft(info).toBeVisible()
-			await expect.soft(info).toHaveText('2 properties shown, 2 hidden by search')
-		})
-
-		test('clears the search query when clicking "clear all"', async ({ page }) => {
-			// Search for a property that exists
-			await search_input.fill('declared')
-
-			let clear_search = page.getByRole('button', { name: 'Clear search' })
-			await expect.soft(clear_search).toBeVisible()
-
-			// Click the "clear all" button
-			await clear_search.click()
-
-			await expect.soft(search_input).toHaveValue('')
-			await expect.soft(properties).toHaveCount(4)
-			await expect.soft(clear_search).not.toBeVisible()
 		})
 	})
 })

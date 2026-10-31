@@ -47,81 +47,100 @@ test.beforeEach(async ({ page }) => {
 	await table.scrollIntoViewIfNeeded()
 })
 
-test('clicking an item in the keyboard list focuses the element', async ({ page }) => {
-	let row = table.getByRole('row').first()
-	await row.click()
-	await page.pause()
-	await expect.soft(row).toBeFocused()
+// Every test needs the (expensive) analyzed report, so related checks are grouped
+// into a few tests that share one page load. Each step starts by clicking a row,
+// which resets focus and selection, so steps don't depend on each other.
+test('navigating the list with the keyboard', async ({ page }) => {
+	let rows = table.getByRole('row')
+
+	await test.step('clicking an item focuses the element', async () => {
+		let row = rows.first()
+		await row.click()
+		await expect.soft(row).toBeFocused()
+	})
+
+	await test.step('ArrowDown moves focus to the next item', async () => {
+		await rows.first().click()
+		await page.keyboard.press('ArrowDown')
+		await expect.soft(rows.nth(1)).toBeFocused()
+	})
+
+	await test.step('ArrowUp moves focus to the previous item', async () => {
+		await rows.nth(2).click()
+		await page.keyboard.press('ArrowUp')
+		await expect.soft(rows.nth(1)).toBeFocused()
+	})
+
+	await test.step('Home moves focus to the first item', async () => {
+		await rows.nth(2).click()
+		await page.keyboard.press('Home')
+		await expect.soft(rows.first()).toBeFocused()
+	})
+
+	await test.step('End moves focus to the last item', async () => {
+		await rows.first().click()
+		await page.keyboard.press('End')
+		await expect.soft(rows.last()).toBeFocused()
+	})
+
+	await test.step('Meta+ArrowDown moves focus to the last item', async () => {
+		await rows.first().click()
+		await page.keyboard.press('Meta+ArrowDown')
+		await expect.soft(rows.last()).toBeFocused()
+	})
+
+	await test.step('Meta+ArrowUp moves focus to the first item', async () => {
+		await rows.nth(2).click()
+		await page.keyboard.press('Meta+ArrowUp')
+		await expect.soft(rows.first()).toBeFocused()
+	})
 })
 
-test.describe('navigating the list', () => {
-	test('pressing ArrowDown moves focus to the next item', async ({ page }) => {
-		await table.getByRole('row').first().click()
-		await page.keyboard.press('ArrowDown')
-		await expect.soft(table.getByRole('row').nth(1)).toBeFocused()
-	})
+test('tabbing and selecting items in the list', async ({ page }) => {
+	let rows = table.getByRole('row')
 
-	test('pressing ArrowUp moves focus to the previous item', async ({ page }) => {
-		await table.getByRole('row').nth(2).click()
-		await page.keyboard.press('ArrowUp')
-		await expect.soft(table.getByRole('row').nth(1)).toBeFocused()
-	})
-
-	test('pressing Home moves focus to the first item', async ({ page }) => {
-		await table.getByRole('row').nth(2).click()
-		await page.keyboard.press('Home')
-		await expect.soft(table.getByRole('row').first()).toBeFocused()
-	})
-
-	test('pressing End moves focus to the last item', async ({ page }) => {
-		await table.getByRole('row').first().click()
-		await page.keyboard.press('End')
-		await expect.soft(table.getByRole('row').last()).toBeFocused()
-	})
-
-	test('pressing Meta+ArrowDown moves focus to the last item', async ({ page }) => {
-		await table.getByRole('row').first().click()
-		await page.keyboard.press('Meta+ArrowDown')
-		await expect.soft(table.getByRole('row').last()).toBeFocused()
-	})
-
-	test('pressing Meta+ArrowUp moves focus to the first item', async ({ page }) => {
-		await table.getByRole('row').nth(2).click()
-		await page.keyboard.press('Meta+ArrowUp')
-		await expect.soft(table.getByRole('row').first()).toBeFocused()
-	})
-
-	test('pressing Tab moves focus to the next item', async ({ page }) => {
-		let row = table.getByRole('row').first()
+	await test.step('Tab moves focus out of the list to the next element', async () => {
+		let row = rows.first()
 		await row.click()
 		await page.keyboard.press('Tab')
 		await expect.soft(page.locator('#specificity').locator('.scroller')).toBeFocused()
 		await expect.soft(row).toHaveAttribute('aria-selected', 'true')
 	})
 
-	test('pressing Shift+Tab moves focus to the previous item', async ({ page }) => {
-		await table.getByRole('row').nth(2).click()
+	await test.step('Shift+Tab moves focus to the previous element', async () => {
+		await rows.nth(2).click()
 		await page.keyboard.press('Shift+Tab') // focus table scroller
 		await page.keyboard.press('Shift+Tab') // focus radio
 		await expect.soft(page.getByRole('radio', { name: 'Ruleset sizes' })).toBeFocused()
-		await expect.soft(table.getByRole('row').nth(2)).toHaveAttribute('aria-selected', 'true')
+		await expect.soft(rows.nth(2)).toHaveAttribute('aria-selected', 'true')
 	})
-})
 
-test('pressing Enter selects the focused item', async ({ page: _page }) => {
-	let row = table.getByRole('row').first()
-	await row.click()
-	await row.press('ArrowDown')
-	await row.press('Enter')
-	await expect.soft(row).not.toHaveAttribute('aria-selected', 'true')
-	await expect.soft(table.getByRole('row').nth(1)).toHaveAttribute('aria-selected', 'true')
-})
+	await test.step('Enter selects the focused item', async () => {
+		let row = rows.first()
+		await row.click()
+		await row.press('ArrowDown')
+		await row.press('Enter')
+		await expect.soft(row).not.toHaveAttribute('aria-selected', 'true')
+		await expect.soft(rows.nth(1)).toHaveAttribute('aria-selected', 'true')
+	})
 
-test('pressing Space selects the focused item', async ({ page: _page }) => {
-	let row = table.getByRole('row').first()
-	await row.click()
-	await row.press(' ')
-	await expect.soft(row).toHaveAttribute('aria-selected', 'true')
+	await test.step('Space selects the focused item', async () => {
+		let row = rows.first()
+		await row.click()
+		await row.press(' ')
+		await expect.soft(row).toHaveAttribute('aria-selected', 'true')
+	})
+
+	await test.step('tabbing back into the list focuses the active item instead of the first', async () => {
+		let row = rows.nth(2)
+		await row.click()
+		await expect.soft(row).toBeFocused()
+		await row.press('Tab')
+		await expect.soft(row).not.toBeFocused()
+		await expect.soft(row).toHaveAttribute('aria-selected', 'true') // item is still active
+		await page.keyboard.press('Shift+Tab')
+		await expect.soft(row).toBeFocused()
+	})
 })
 
 test.fixme('tabbing into the list focuses the first item', async ({ page }) => {
@@ -131,15 +150,4 @@ test.fixme('tabbing into the list focuses the first item', async ({ page }) => {
 	await radio.press('Tab') // tab into table scroller
 	await radio.press('Tab') // tab to selectable item
 	await expect.soft(table.getByRole('row').first()).toBeFocused()
-})
-
-test('tabbing into the list with an active item focuses the active item instead of the first', async ({ page }) => {
-	let row = table.getByRole('row').nth(2)
-	await row.click()
-	await expect.soft(row).toBeFocused()
-	await row.press('Tab')
-	await expect.soft(row).not.toBeFocused()
-	await expect.soft(row).toHaveAttribute('aria-selected', 'true') // item is still active
-	await page.keyboard.press('Shift+Tab')
-	await expect.soft(row).toBeFocused()
 })
