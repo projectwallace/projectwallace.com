@@ -480,8 +480,7 @@
 			padding-inline: 0.5ch;
 		}
 
-		/* Labels of checkboxes and radios are clickable */
-		:is(input[type='checkbox'], input[type='radio']) + label {
+		label {
 			cursor: pointer;
 		}
 
