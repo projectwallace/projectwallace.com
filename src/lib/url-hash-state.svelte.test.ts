@@ -3,7 +3,7 @@ import { test, expect, vi, beforeEach, afterEach } from 'vitest'
 vi.mock('$app/navigation', () => ({ goto: () => Promise.resolve() }))
 vi.mock('$app/env', () => ({ browser: true }))
 
-import { decodeHashState, encodeHashState, HashState } from './url-hash-state.svelte.ts'
+import { decode_hash_state, encode_hash_state, HashState } from './url-hash-state.svelte.ts'
 
 const location = { hash: '' }
 
@@ -20,18 +20,18 @@ afterEach(() => {
 
 test('encode/decode round-trip', () => {
 	const value = { css: 'a { content: "ü€" }', n: 1 }
-	expect(decodeHashState(encodeHashState(value))).toEqual(value)
+	expect(decode_hash_state(encode_hash_state(value))).toEqual(value)
 })
 
 test('decode strips a leading #', () => {
-	expect(decodeHashState('#' + encodeHashState('hello'))).toBe('hello')
+	expect(decode_hash_state('#' + encode_hash_state('hello'))).toBe('hello')
 })
 
 test('decode returns undefined for empty or invalid input', () => {
-	expect.soft(decodeHashState('')).toBeUndefined()
-	expect.soft(decodeHashState('#')).toBeUndefined()
-	expect.soft(decodeHashState('%%%not-base64')).toBeUndefined()
-	expect.soft(decodeHashState(btoa('not json'))).toBeUndefined()
+	expect.soft(decode_hash_state('')).toBeUndefined()
+	expect.soft(decode_hash_state('#')).toBeUndefined()
+	expect.soft(decode_hash_state('%%%not-base64')).toBeUndefined()
+	expect.soft(decode_hash_state(btoa('not json'))).toBeUndefined()
 })
 
 // Note: vitest resolves Svelte's server build, where `$effect` is a no-op, so the
@@ -42,13 +42,13 @@ test('HashState uses the default when the hash is empty', () => {
 })
 
 test('HashState merges the decoded hash over object defaults', () => {
-	location.hash = encodeHashState({ a: 5 })
+	location.hash = encode_hash_state({ a: 5 })
 	const state = new HashState<{ a: number; b: number }>({ a: 1, b: 2 })
 	expect(state.current).toEqual({ a: 5, b: 2 })
 })
 
 test('HashState uses a decoded primitive over the default', () => {
-	location.hash = encodeHashState('from-hash')
+	location.hash = encode_hash_state('from-hash')
 	const state = new HashState('default')
 	expect(state.current).toBe('from-hash')
 })

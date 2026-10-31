@@ -1,8 +1,8 @@
 import { test, expect } from 'vitest'
-import { getGroups } from './metric-groups.ts'
+import { get_groups } from './metric-groups.ts'
 
 test('returns groups with the expected shape', () => {
-	const groups = getGroups()
+	const groups = get_groups()
 	expect(groups.length).toBeGreaterThan(0)
 	for (const group of groups) {
 		expect.soft(group.id).toBeTruthy()
@@ -14,6 +14,6 @@ test('returns groups with the expected shape', () => {
 })
 
 test('groups are sorted by meta.order', () => {
-	const orders = getGroups().map((g) => parseInt(g.meta.order, 10))
+	const orders = get_groups().map((g) => parseInt(g.meta.order, 10))
 	expect(orders).toEqual([...orders].sort((a, b) => a - b))
 })
