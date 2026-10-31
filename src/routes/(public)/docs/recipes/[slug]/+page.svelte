@@ -7,7 +7,10 @@
 
 <Seo
 	title="{data.title} - Docs"
-	description="{data.title}: a Project Wallace recipe that shows you how to integrate with one of our tools."
+	description="{data.title.replaceAll(
+		'`',
+		''
+	)}: a Project Wallace recipe that shows you how to integrate with one of our tools."
 />
 
 <article>
