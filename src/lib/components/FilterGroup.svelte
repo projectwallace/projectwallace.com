@@ -26,7 +26,8 @@
 		padding-inline: var(--space-2);
 	}
 
-	:global(label) {
+	/* Only the labels inside this group, not every label on the page */
+	fieldset :global(label) {
 		cursor: pointer;
 	}
 </style>
