@@ -217,11 +217,7 @@
 <Seo title="CSS Baseline overview" description="See the composition of your CSS based on Baseline features." />
 
 <Hero>
-	<Form>
-		{#snippet title()}
-			<h1 class="font-heading">Baseline overview</h1>
-		{/snippet}
-	</Form>
+	<Form title="Baseline overview" />
 </Hero>
 
 {#if usages.size > 0}
@@ -392,10 +388,6 @@
 <style>
 	.page-content {
 		margin-block: var(--space-16);
-	}
-
-	.font-heading {
-		font-size: var(--size-5xl);
 	}
 
 	.report-grid {

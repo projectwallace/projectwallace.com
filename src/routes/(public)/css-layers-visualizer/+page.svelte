@@ -14,11 +14,7 @@
 <Seo title="CSS Cascade Layers Visualizer" description="See how your Cascade Layers are composed." />
 
 <Hero>
-	<Form>
-		{#snippet title()}
-			<h1 class="font-heading">@layer Visualizer</h1>
-		{/snippet}
-	</Form>
+	<Form title="@layer Visualizer" />
 </Hero>
 
 <LayersVisualizer origins={css_state.origins} prettify_css_before_analyze={css_state.should_prettify} />
@@ -28,9 +24,3 @@
 		<Content />
 	</Markdown>
 </Container>
-
-<style>
-	.font-heading {
-		font-size: var(--size-5xl);
-	}
-</style>
