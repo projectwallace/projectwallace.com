@@ -22,9 +22,18 @@ test('saves the theme once, after the debounce delay', async () => {
 
 test('handles a failing save instead of leaving an unhandled rejection', async () => {
 	vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
-	const failed_request = Promise.reject(new Error('offline'))
-	const catch_spy = vi.spyOn(failed_request, 'catch')
-	vi.stubGlobal('fetch', vi.fn().mockReturnValue(failed_request))
+
+	// Create the rejected promise only when fetch is called, so that a handler can be
+	// attached in the same tick. Creating it up front would itself be an unhandled rejection.
+	let catch_spy: ReturnType<typeof vi.spyOn> | undefined
+	vi.stubGlobal(
+		'fetch',
+		vi.fn(() => {
+			const failed_request = Promise.reject(new Error('offline'))
+			catch_spy = vi.spyOn(failed_request, 'catch')
+			return failed_request
+		})
+	)
 
 	save_theme('dark')
 	await vi.advanceTimersByTimeAsync(300)
