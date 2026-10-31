@@ -123,7 +123,7 @@
 		padding-block-start: 9px;
 		cursor: ns-resize;
 		opacity: 0;
-		transition: opacity 100ms ease-out;
+		transition: opacity var(--duration-fast) ease-out;
 		display: block;
 		inline-size: 100%;
 

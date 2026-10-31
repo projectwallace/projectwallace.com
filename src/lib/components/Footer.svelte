@@ -66,7 +66,7 @@
 	{#each footer as { title, items }}
 		<div class="section">
 			<div class="footer-title">{title}</div>
-			<ul class="footer-list" role="list">
+			<ul class="stack stack-xs" role="list">
 				{#each items as { title, href, rel }}
 					<li>
 						<a class="footer-link" {href} {rel}>{title}</a>
@@ -113,12 +113,6 @@
 	.footer-title {
 		font-weight: var(--font-medium);
 		color: var(--fg-200);
-	}
-
-	.footer-list {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-1);
 	}
 
 	.footer-link {

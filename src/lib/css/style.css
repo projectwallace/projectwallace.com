@@ -197,6 +197,12 @@
 		}
 	}
 
+	@layer motion {
+		html {
+			--duration-fast: 100ms;
+		}
+	}
+
 	@layer shadows {
 		html {
 			--shadow-color: rgb(0 0 0 / 0.1);
@@ -408,7 +414,7 @@
 			accent-color: var(--accent);
 
 			& * {
-				transition-duration: 0.1s;
+				transition-duration: var(--duration-fast);
 				transition-property: color, background-color, border-color;
 				transition-timing-function: ease-out;
 				background-repeat: no-repeat;
@@ -480,11 +486,16 @@
 			padding-inline: 0.5ch;
 		}
 
-		[aria-selected] {
+		label {
 			cursor: pointer;
 		}
 
-		[aria-selected='true'] {
+		/* Selected item styling. Opt in with .selectable + aria-current; rows/options use aria-selected */
+		:is([aria-selected], .selectable) {
+			cursor: pointer;
+		}
+
+		:is([aria-selected='true'], .selectable[aria-current='true']) {
 			outline: 1px solid light-dark(var(--accent-600), var(--accent));
 			outline-offset: -1px;
 			background-color: var(--highlight-item);
@@ -496,7 +507,7 @@
 			}
 		}
 
-		[aria-selected='false']:hover {
+		:is([aria-selected='false'], .selectable[aria-current='false']):hover {
 			outline: 1px solid var(--fg-450);
 			outline-offset: -1px;
 		}
@@ -744,6 +755,29 @@
 }
 
 @layer utilities {
+	/* Single-column grid, no gap by default. minmax(0, 1fr) stops wide children from blowing out the column. */
+	.stack {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		row-gap: var(--stack-gap, 0rem);
+	}
+
+	.stack-xs {
+		--stack-gap: var(--space-1);
+	}
+
+	.stack-sm {
+		--stack-gap: var(--space-2);
+	}
+
+	.stack-md {
+		--stack-gap: var(--space-3);
+	}
+
+	.stack-lg {
+		--stack-gap: var(--space-4);
+	}
+
 	.sr-only {
 		/* stylelint-disable property-no-deprecated -- progressive enhancement */
 		clip: rect(0, 0, 0, 0);
@@ -790,7 +824,7 @@
 	.scroll-container {
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
-		transition: scrollbar-color 0.1s ease-out;
+		transition: scrollbar-color var(--duration-fast) ease-out;
 
 		&:hover,
 		&:focus {

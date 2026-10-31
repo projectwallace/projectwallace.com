@@ -357,7 +357,7 @@
 			padding-block: var(--space-4);
 			padding-inline: var(--space-6);
 			color: inherit;
-			transition: color 100ms ease-out;
+			transition: color var(--duration-fast) ease-out;
 
 			@media (forced-colors: active), print {
 				border: 1px solid;
@@ -367,8 +367,8 @@
 				opacity: 0;
 				translate: -5px 0;
 				transition:
-					translate 100ms ease-out,
-					opacity 100ms ease-out;
+					translate var(--duration-fast) ease-out,
+					opacity var(--duration-fast) ease-out;
 			}
 
 			&:hover,

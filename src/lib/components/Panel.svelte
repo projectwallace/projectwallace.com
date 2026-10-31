@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { SvelteHTMLElements } from 'svelte/elements'
+	import type { HTMLAttributes } from 'svelte/elements'
 
-	type Props = SvelteHTMLElements['dl'] & {
+	type Props = HTMLAttributes<HTMLElement> & {
 		element?: string
 	}
 
-	let props: Props = $props()
-	let { element = 'section', class: className, children, ...rest } = $derived(props)
+	let { element = 'section', class: className, children, ...rest }: Props = $props()
 </script>
 
 <svelte:element this={element} {...rest} class={[className, 'panel shadow-lg']}>

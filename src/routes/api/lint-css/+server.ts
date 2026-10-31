@@ -26,7 +26,15 @@ const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | undefined> = {
 type RequestBody = { url?: string; css?: string; preset?: string; prettify?: boolean }
 
 export const POST: RequestHandler = async ({ request, setHeaders }) => {
-	const body = (await request.json()) as RequestBody
+	let body: RequestBody
+	try {
+		body = (await request.json()) as RequestBody
+	} catch {
+		error(400, 'Request body must be valid JSON')
+	}
+	if (typeof body !== 'object' || body === null) {
+		error(400, 'Request body must be a JSON object')
+	}
 	const raw_preset = body.preset?.toString()
 
 	let css: string
@@ -51,19 +59,24 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	let rules: NonNullable<Config['rules']> = PRESET_MAP[preset] ?? (Object.create(null) as NonNullable<Config['rules']>)
 
 	const start = performance.now()
-	const lint_result = await stylelint.lint({
-		config: {
-			plugins: stylelintPlugin,
-			rules
-		},
-		code: css?.toString(),
-		configBasedir: process.cwd()
-	})
+	let lint_result: Awaited<ReturnType<typeof stylelint.lint>>
+	try {
+		lint_result = await stylelint.lint({
+			config: {
+				plugins: stylelintPlugin,
+				rules
+			},
+			code: css,
+			configBasedir: process.cwd()
+		})
+	} catch {
+		error(500, 'Linting failed')
+	}
 
 	const file = lint_result.results.at(0)
 
 	if (!file) {
-		error(500)
+		error(500, 'Linting returned no result')
 	}
 
 	const lint_warnings = file.warnings.filter((w) => w.rule !== 'CssSyntaxError')

@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { pretty_json } from '#lib/pretty-json.ts'
-	import PrettyJson from '#lib/components/PrettyJson.svelte'
-	import CopyButton from '#lib/components/CopyButton.svelte'
-	import Button from '#lib/components/Button.svelte'
+	import Toolbar from './Toolbar.svelte'
+	import JsonView from './JsonView.svelte'
 
 	let { json }: { json: unknown } = $props()
 
@@ -23,38 +22,12 @@
 	let pretty = $derived(pretty_json(json, replacer, 2))
 </script>
 
-<div class="panel scroll-container">
-	<div class="toolbar">
-		<Button
-			element="a"
-			variant="secondary"
-			size="sm"
-			icon="file"
-			href={`data:application/json;charset=utf-8,${encodeURIComponent(pretty)}`}
-			download="projectwallace-css-analysis.json"
-		>
-			Download JSON
-		</Button>
-		<CopyButton text={pretty}>Copy JSON</CopyButton>
-	</div>
+<Toolbar
+	text={pretty}
+	mime_type="application/json"
+	filename="projectwallace-css-analysis.json"
+	download_label="Download JSON"
+	copy_label="Copy JSON"
+/>
 
-	<PrettyJson json={pretty} />
-</div>
-
-<style>
-	.toolbar {
-		position: fixed;
-		inset-block-start: var(--space-4);
-		inset-inline-end: var(--space-6);
-	}
-
-	.panel {
-		padding-block: var(--space-2);
-		padding-inline: var(--space-3);
-		inline-size: 100%;
-		block-size: calc(100% - 6px);
-		max-block-size: calc(100% - 6px);
-		overflow: auto;
-		font-family: var(--font-mono);
-	}
-</style>
+<JsonView json={pretty} />

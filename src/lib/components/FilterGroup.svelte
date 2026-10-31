@@ -13,6 +13,7 @@
 </fieldset>
 
 <style>
+	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- a single rule holds the whole look of the fieldset */
 	fieldset {
 		display: inline-flex;
 		flex-wrap: wrap;
@@ -24,9 +25,5 @@
 		border: 1px solid var(--gray-500);
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
-	}
-
-	:global(label) {
-		cursor: pointer;
 	}
 </style>
