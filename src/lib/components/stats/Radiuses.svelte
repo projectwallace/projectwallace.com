@@ -48,7 +48,7 @@
 	})
 </script>
 
-<div class="group">
+<div class="stack stack-lg">
 	<FilterGroup>
 		<legend class="sr-only">Sorting border radiuses</legend>
 		<FilterOption bind:group={sorting} name="border-radius-sorting" value={as_authored}>
@@ -88,12 +88,6 @@
 </div>
 
 <style>
-	.group {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-4);
-	}
-
 	.radiuses {
 		display: flex;
 		flex-wrap: wrap;

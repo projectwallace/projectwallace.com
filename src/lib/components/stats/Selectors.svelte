@@ -161,7 +161,7 @@
 				/>
 			</Header>
 			{#if specificity.total > 0}
-				<div class="group">
+				<div class="stack stack-lg">
 					<BarChart
 						context="selector-specificity"
 						column_headers={['Specificity', 'Count']}
@@ -299,12 +299,6 @@
 </div>
 
 <style>
-	.group {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: var(--space-4);
-	}
-
 	figure {
 		margin-block: var(--space-4);
 	}
