@@ -14,11 +14,7 @@
 />
 
 <Hero>
-	<Form>
-		{#snippet title()}
-			<h1 class="font-heading">Custom Properties</h1>
-		{/snippet}
-	</Form>
+	<Form title="Custom Properties" />
 </Hero>
 
 <Container>
@@ -30,9 +26,3 @@
 		<Content />
 	</Markdown>
 </Container>
-
-<style>
-	.font-heading {
-		font-size: var(--size-5xl);
-	}
-</style>

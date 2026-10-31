@@ -56,11 +56,7 @@
 />
 
 <Hero>
-	<Form>
-		{#snippet title()}
-			<h1 class="font-heading">CSS Design Tokens</h1>
-		{/snippet}
-	</Form>
+	<Form title="CSS Design Tokens" />
 </Hero>
 
 {#if css_state.origins.length > 0}
@@ -376,9 +372,5 @@
 		@media (min-width: 66rem) {
 			gap: var(--space-16);
 		}
-	}
-
-	.font-heading {
-		font-size: var(--size-5xl);
 	}
 </style>
