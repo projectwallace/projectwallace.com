@@ -45,6 +45,7 @@ export function highlight_css(
 	// Re-read on every do_highlight() call rather than captured once, since the text node
 	// can be replaced (e.g. css toggling empty/non-empty) — a stale reference would silently
 	// highlight a detached node while leaving old ranges registered until destroy.
+	// oxlint-disable-next-line unicorn/no-null -- null allowed for DOM
 	let text_node: Node | null = null
 
 	function add_range(token_type: string, start: number, end: number) {

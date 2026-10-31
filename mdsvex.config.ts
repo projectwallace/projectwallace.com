@@ -8,7 +8,7 @@ import 'prismjs/components/prism-scss.js'
 import 'prismjs/components/prism-json.js'
 import 'prismjs/components/prism-bash.js'
 import 'prism-svelte' // extends markup/css/javascript, must load after them
-import { defineMDSveXConfig as defineConfig, escapeSvelte } from 'mdsvex'
+import { defineMDSveXConfig as defineConfig, escapeSvelte, type MdsvexOptions } from 'mdsvex'
 import autolinkHeadings from 'rehype-autolink-headings'
 import slugPlugin from 'rehype-slug'
 
@@ -17,23 +17,25 @@ import slugPlugin from 'rehype-slug'
 // highlighting with, so code blocks silently end up unhighlighted (and log
 // "failed to load language ..." for every block). Highlighting directly against a
 // single, statically-imported Prism instance sidesteps that entirely.
-const LANGUAGE_ALIASES = {
+const LANGUAGE_ALIASES: Record<string, string> = {
 	sh: 'bash',
 	jsonc: 'json'
 }
 
-function escapeHtml(code) {
-	return code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+function escapeHtml(code: string) {
+	return code.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 }
 
-function highlighter(code, lang) {
-	let language = LANGUAGE_ALIASES[lang] ?? lang
+function highlighter(code: string, lang: string | null | undefined) {
+	let language = typeof lang === 'string' ? (LANGUAGE_ALIASES[lang] ?? lang) : undefined
 	let grammar = language ? Prism.languages[language] : undefined
-	let html = grammar ? Prism.highlight(code, grammar, language) : escapeHtml(code)
+	let html = language && grammar ? Prism.highlight(code, grammar, language) : escapeHtml(code)
 	let className = `language-${language ?? 'none'}`
 
 	return `<pre class="${className}">{@html \`<code class="${className}">${escapeSvelte(html)}</code>\`}</pre>`
 }
+
+type RehypePlugins = NonNullable<MdsvexOptions['rehypePlugins']>
 
 const config = defineConfig({
 	extensions: ['.md', '.svx'],
@@ -45,6 +47,8 @@ const config = defineConfig({
 	highlight: { highlighter },
 
 	remarkPlugins: [],
+	// mdsvex types plugins against unified v9, while these rehype plugins are typed against
+	// current unified. They work fine at runtime, so cast past the mismatch.
 	rehypePlugins: [
 		slugPlugin,
 		[
@@ -53,7 +57,7 @@ const config = defineConfig({
 				behavior: 'wrap'
 			}
 		]
-	]
+	] as unknown as RehypePlugins
 })
 
 export default config

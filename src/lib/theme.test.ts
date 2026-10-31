@@ -1,4 +1,4 @@
-import { test, expect, vi, afterEach } from 'vitest'
+import { test, expect, vi, afterEach, type MockInstance } from 'vitest'
 import { save_theme } from './theme.ts'
 
 afterEach(() => {
@@ -8,7 +8,7 @@ afterEach(() => {
 
 test('saves the theme once, after the debounce delay', async () => {
 	vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] })
-	const fetch_mock = vi.fn().mockResolvedValue(new Response())
+	const fetch_mock = vi.fn<typeof fetch>().mockResolvedValue(new Response())
 	vi.stubGlobal('fetch', fetch_mock)
 
 	save_theme('dark')
@@ -25,7 +25,7 @@ test('handles a failing save instead of leaving an unhandled rejection', async (
 
 	// Create the rejected promise only when fetch is called, so that a handler can be
 	// attached in the same tick. Creating it up front would itself be an unhandled rejection.
-	let catch_spy: ReturnType<typeof vi.spyOn> | undefined
+	let catch_spy: MockInstance<Promise<never>['catch']> | undefined
 	vi.stubGlobal(
 		'fetch',
 		vi.fn(() => {

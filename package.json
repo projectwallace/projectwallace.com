@@ -20,9 +20,9 @@
 		"format": "oxfmt",
 		"format:check": "oxfmt --check",
 		"lint:ts": "oxlint --config oxlintrc.json",
-		"lint": "pnpm check; pnpm lint:ts; pnpm format:check; pnpm stylelint",
+		"lint": "pnpm check && pnpm lint:ts && pnpm format:check && pnpm stylelint",
 		"stylelint": "stylelint \"src/**/*.{css,svelte}\" --ignore-path .gitignore --report-needless-disables --report-descriptionless-disables --report-unscoped-disables",
-		"stylelint-full": "vite build >/dev/null 2>&1 && find .svelte-kit/output/server/_app/immutable/assets -name '*.css' -exec cat {} + > .svelte-kit/holistic.css 2>/dev/null && format-css .svelte-kit/holistic.css > .svelte-kit/holistic-formatted.css 2>/dev/null && stylelint .svelte-kit/holistic-formatted.css --config=.stylelintrc.mjs",
+		"stylelint-full": "vite build >/dev/null 2>&1 && find .svelte-kit/output/server/_app/immutable/assets -name '*.css' -exec cat {} + > .svelte-kit/holistic.css 2>/dev/null && format-css .svelte-kit/holistic.css > .svelte-kit/holistic-formatted.css 2>/dev/null && stylelint .svelte-kit/holistic-formatted.css --config=stylelint.config.ts",
 		"css-coverage": "css-coverage ./css-coverage --min-coverage=.95  --min-file-coverage=.85 --show-uncovered=all"
 	},
 	"dependencies": {
@@ -64,6 +64,7 @@
 		"@sveltejs/kit": "^3.1.0",
 		"@sveltejs/vite-plugin-svelte": "^7.3.1",
 		"@types/node": "^26.6.5",
+		"@types/prismjs": "^1.26.6",
 		"oxfmt": "0.74.0",
 		"oxlint": "^1.89.0",
 		"oxlint-tsgolint": "^7.0.2004",

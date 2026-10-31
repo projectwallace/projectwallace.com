@@ -30,7 +30,7 @@
 			}
 		},
 		{
-			"files": [".stylelintrc.mjs"],
+			"files": ["stylelint.config.ts"],
 			"rules": {
 				"unicorn/no-null": "off"
 			}
