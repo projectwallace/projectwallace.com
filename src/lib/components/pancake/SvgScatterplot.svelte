@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getChartContext } from './Chart.svelte'
-	import type { Accessor } from './types'
+	import type { Accessor } from './types.ts'
 	import type { Snippet } from 'svelte'
 
 	const ctx = getChartContext()

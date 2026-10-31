@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation'
 	import { browser } from '$app/env'
 	import { online } from 'svelte/reactivity/window'
-	import type { FormSuccessEvent } from './types'
+	import type { FormSuccessEvent } from './types.ts'
 	import { with_css_params, without_css_params } from '#lib/css-url-params.ts'
 	import FormGroup from '#lib/components/FormGroup.svelte'
 	import Label from '#lib/components/Label.svelte'

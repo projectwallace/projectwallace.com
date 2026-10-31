@@ -1,4 +1,4 @@
-import { test, expect } from '../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 
 test.describe('initial state', () => {
 	test.beforeEach(async ({ page }) => {
@@ -207,7 +207,7 @@ test.skip('prettifies the CSS when button is clicked', async ({ page }) => {
 })
 
 test.describe('URL hash state', () => {
-	/** Encode a value to base64 JSON for use in the URL hash (mirrors encodeHashState) */
+	/** Encode a value to base64 JSON for use in the URL hash (mirrors encode_hash_state) */
 	function encodeHash(value: unknown): string {
 		return btoa(encodeURIComponent(JSON.stringify(value)))
 	}

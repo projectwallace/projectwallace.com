@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 
 test('does SEO well', async ({ page }) => {
 	await page.goto('/docs', { waitUntil: 'domcontentloaded' })

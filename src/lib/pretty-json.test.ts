@@ -1,4 +1,4 @@
-import { pretty_json } from './pretty-json'
+import { pretty_json } from './pretty-json.ts'
 import { test, expect } from 'vitest'
 
 test('array with integers', () => {

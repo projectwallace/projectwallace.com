@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
 
-	type Props = {
+	interface Props {
 		name: HTMLInputElement['name']
 		id?: HTMLInputElement['id']
 		value: string

@@ -3,8 +3,8 @@
 	import { afterNavigate } from '$app/navigation'
 	import Empty from '#lib/components/Empty.svelte'
 	import Icon, { type IconName } from '#lib/components/Icon.svelte'
-	import { focusable_children, trap } from './actions.focus'
-	import { shortcuts } from './shortcuts'
+	import { focusable_children, trap } from './actions.focus.ts'
+	import { shortcuts } from './shortcuts.ts'
 
 	let search_query = $state('')
 	let normalized_search_query = $derived(search_query.toLowerCase().trim())

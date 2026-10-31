@@ -3,7 +3,7 @@ import { SITE_ORIGIN } from '#lib/site.ts'
 
 export const prerender = true
 
-function createFeed(posts: Post[]) {
+function create_feed(posts: Post[]) {
 	return `<?xml version="1.0" encoding="utf-8"?>
   <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
@@ -36,7 +36,7 @@ function createFeed(posts: Post[]) {
 
 export function GET() {
 	const posts = get_all_posts_with_html()
-	const feed = createFeed(posts)
+	const feed = create_feed(posts)
 
 	return new Response(feed, {
 		headers: {

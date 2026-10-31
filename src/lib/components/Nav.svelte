@@ -5,7 +5,7 @@
 	import Container from '#lib/components/Container.svelte'
 	import { page } from '$app/state'
 	import { onNavigate } from '$app/navigation'
-	import { items } from './Nav.items'
+	import { items } from './Nav.items.ts'
 	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import { type Snippet } from 'svelte'
 	import { on } from 'svelte/events'

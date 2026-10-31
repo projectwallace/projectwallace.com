@@ -29,7 +29,7 @@
 	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import { string_sort } from '#lib/string-sort.ts'
 	import { normalize_line_height } from '#lib/sort-line-height.ts'
-	import { nav as navigation } from './nav'
+	import { nav as navigation } from './nav.ts'
 
 	let css_state = get_css_state()
 

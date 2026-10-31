@@ -9,7 +9,7 @@ import {
 	is_pseudo_element_selector,
 	is_function
 } from '@projectwallace/css-parser'
-import { match_node } from './match-node'
+import { match_node } from './match-node.ts'
 
 /** Parses `css` and returns match_node's result for every node matched by `predicate`. */
 function match_where(css: string, predicate: (node: AnyNode) => boolean) {

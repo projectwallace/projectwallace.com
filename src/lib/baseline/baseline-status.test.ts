@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest'
-import { get_baseline_availability, is_browser_supported } from './baseline-status'
-import type { CssFeature } from './css-feature'
+import { get_baseline_availability, is_browser_supported } from './baseline-status.ts'
+import type { CssFeature } from './css-feature.ts'
 
 function feature(overrides: Partial<CssFeature> = {}): CssFeature {
 	return { name: 'test-feature', baseline: false, ...overrides }

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { format_filesize } from './format-filesize'
+import { format_filesize } from './format-filesize.ts'
 
 describe('format_filesize', () => {
 	test('zero', () => {

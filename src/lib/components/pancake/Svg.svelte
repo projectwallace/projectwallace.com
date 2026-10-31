@@ -1,5 +1,11 @@
-<script>
-	let { children } = $props()
+<script lang="ts">
+	import type { Snippet } from 'svelte'
+
+	interface Props {
+		children?: Snippet
+	}
+
+	let { children }: Props = $props()
 </script>
 
 <svg viewBox="0 0 100 100" preserveAspectRatio="none">

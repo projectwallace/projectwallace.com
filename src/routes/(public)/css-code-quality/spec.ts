@@ -1,5 +1,5 @@
 import type { CSSOrigin } from '#lib/css-origins.ts'
-import { test, expect } from '../../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/css-code-quality', { waitUntil: 'domcontentloaded' })

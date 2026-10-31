@@ -3,7 +3,7 @@
 	import type { CoverageChunk } from './Pre.svelte'
 	import type { Warning } from 'stylelint'
 
-	type Props = {
+	interface Props {
 		css: string
 		warnings: Warning[]
 		selected_warning?: Warning

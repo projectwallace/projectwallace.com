@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { diffstat_blocks, EMPTY, ADDED, DELETED } from './diffstat-blocks'
-	type Props = {
+	import { diffstat_blocks, EMPTY, ADDED, DELETED } from './diffstat-blocks.ts'
+	interface Props {
 		additions: number
 		deletions: number
 	}

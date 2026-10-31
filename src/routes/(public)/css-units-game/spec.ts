@@ -1,4 +1,4 @@
-import { test, expect } from '../../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 import { all } from '../../../lib/css-units.ts'
 
 test.beforeEach(async ({ page }) => {

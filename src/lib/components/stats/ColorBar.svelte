@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
-	import type { Sizing } from './ColorBar'
+	import type { Sizing } from './ColorBar.ts'
 
 	type Colors = CssAnalysis['values']['colors']
 

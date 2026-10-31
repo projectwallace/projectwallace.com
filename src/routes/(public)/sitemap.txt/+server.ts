@@ -7,7 +7,7 @@ export const prerender = true
 
 const NOINDEX_PAGES: Set<string> = new Set([])
 
-function getSystemPages() {
+function get_system_pages() {
 	let files = Object.keys(import.meta.glob(['../**/+page.svelte', '../**/+error.svelte', '../**/+layout.svelte']))
 
 	return files
@@ -30,7 +30,7 @@ function getSystemPages() {
 }
 
 export function GET() {
-	let systemPages = getSystemPages()
+	let systemPages = get_system_pages()
 	let posts = get_post_list().map((post) => post.path)
 	let docs = get_metric_list()
 		.map((p) => p.path)

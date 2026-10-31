@@ -9,7 +9,7 @@
 		defaultValue: 'url'
 	})
 
-	type Props = {
+	interface Props {
 		url_tab: Snippet
 		file_tab: Snippet
 		raw_tab: Snippet

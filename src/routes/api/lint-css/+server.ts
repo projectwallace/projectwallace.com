@@ -7,7 +7,7 @@ import correctnessConfig from '@projectwallace/stylelint-plugin/configs/correctn
 import designTokensConfig from '@projectwallace/stylelint-plugin/configs/design-tokens'
 import holisticConfig from '@projectwallace/stylelint-plugin/configs/holistic'
 import stylelintPlugin from '@projectwallace/stylelint-plugin'
-import { get_css } from '../get-css/get-css'
+import { get_css } from '../get-css/get-css.ts'
 import { format } from '@projectwallace/format-css'
 import type { RequestHandler } from './$types'
 import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.ts'

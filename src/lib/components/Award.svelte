@@ -1,5 +1,12 @@
 <script lang="ts">
-	let { children, size } = $props()
+	import type { Snippet } from 'svelte'
+
+	interface Props {
+		size: string
+		children?: Snippet
+	}
+
+	let { children, size }: Props = $props()
 </script>
 
 <aside class="award">

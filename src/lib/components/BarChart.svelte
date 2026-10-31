@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { format_number } from '#lib/format-number.ts'
 
-	type Props = {
+	interface Props {
 		data: Record<string, number>
 		formatter?: (value: number) => string
 		title: string
