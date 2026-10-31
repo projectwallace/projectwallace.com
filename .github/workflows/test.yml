@@ -39,7 +39,7 @@ jobs:
         run: pnpm test:unit
 
   lint-js:
-    name: Lint JS
+    name: Lint TS
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -62,8 +62,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint JS
-        run: pnpm lint
+      - name: Lint TS
+        run: pnpm lint:ts
+
+      - name: Check formatting
+        run: pnpm format:check
 
   lint-css:
     name: Lint CSS

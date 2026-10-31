@@ -2,8 +2,9 @@ import { parseHTML } from 'linkedom'
 import { AT_RULE, AT_RULE_PRELUDE, parse, URL, walk } from '@projectwallace/css-parser'
 import { resolve_url } from '../../../lib/resolve-url.ts'
 import type { CSSOrigin } from '../../../lib/css-origins.ts'
+import { SITE_ORIGIN } from '../../../lib/site.ts'
 
-export const USER_AGENT = 'Project Wallace CSS Scraper/1.1 (+https://www.projectwallace.com/docs/css-scraper)'
+export const USER_AGENT = `Project Wallace CSS Scraper/1.1 (+${SITE_ORIGIN}/docs/css-scraper)`
 
 function make_error(url: string, statusCode: number, message: string) {
 	return { error: { url, statusCode, message } }
