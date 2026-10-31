@@ -5,6 +5,7 @@
 	import { create_keyboard_list, type OnChange } from '#lib/components/use-keyboard-list.svelte.ts'
 	import Table from '#lib/components/Table.svelte'
 	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import type { SortOption } from './sorting.ts'
 	import { type NodeType } from '#lib/components/use-css-highlight.ts'
 
 	type UniqueWithLocations = Record<string, CssLocation[]>
@@ -18,11 +19,7 @@
 		id: string
 		unique?: UniqueWithLocations
 		warnings?: string[]
-		extra_sort_options?: {
-			label: string
-			id: string
-			fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => number
-		}[]
+		extra_sort_options?: SortOption[]
 		node_type?: NodeType
 	}
 

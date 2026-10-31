@@ -1,12 +1,11 @@
 <script lang="ts">
-	import type { CssLocation } from '#lib/css-location.ts'
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import Empty from '#lib/components/Empty.svelte'
 	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import Heading from '#lib/components/Heading.svelte'
 	import ValueCountList from '#lib/components/stats/ValueCountList.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
-	import { string_sort } from '#lib/string-sort.ts'
+	import { alphabetical_sorting } from './sorting.ts'
 
 	type AtRules = CssAnalysis['atrules']
 	type AtRule =
@@ -49,20 +48,7 @@
 		{/if}
 	</Header>
 	{#if total > 0}
-		<ValueCountList
-			{id}
-			unique={uniqueWithLocations}
-			{warnings}
-			extra_sort_options={[
-				{
-					label: 'Sort A-Z',
-					fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
-						return string_sort(a[0], b[0])
-					},
-					id: 'alphabetical'
-				}
-			]}
-		/>
+		<ValueCountList {id} unique={uniqueWithLocations} {warnings} extra_sort_options={[alphabetical_sorting]} />
 	{:else}
 		<Empty>No {title} found.</Empty>
 	{/if}

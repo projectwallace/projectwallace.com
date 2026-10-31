@@ -12,7 +12,7 @@
 	import Heading from '#lib/components/Heading.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import { StatsList, Item } from '#lib/components/stats-list/index.ts'
-	import { string_sort } from '#lib/string-sort.ts'
+	import { alphabetical_sorting, type SortOption } from './sorting.ts'
 
 	interface Props {
 		selectors?: CssAnalysis['selectors']
@@ -29,7 +29,7 @@
 		}
 		list_id: string
 		empty_message: string
-		sort_options?: (typeof alphabetical_sorting)[]
+		sort_options?: SortOption[]
 	}
 
 	let { selectors = Object.create(null) }: Props = $props()
@@ -46,14 +46,6 @@
 		attributes,
 		customElements
 	} = $derived(selectors)
-
-	let alphabetical_sorting = {
-		label: 'Sort A-Z',
-		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
-			return string_sort(a[0], b[0])
-		},
-		id: 'alphabetical'
-	}
 
 	const COMBINATOR_NAMES = {
 		' ': `Descendant ( )`,

@@ -10,7 +10,7 @@
 	import Icon from '#lib/components/Icon.svelte'
 	import { page } from '$app/state'
 	import Markdown from '#lib/components/Markdown.svelte'
-	import { string_sort } from '#lib/string-sort.ts'
+	import { alphabetical_sorting } from './sorting.ts'
 	import { normalize_z_index, MAX, INVALID } from '#lib/sort-z-index.ts'
 
 	let { values = Object.create(null) }: { values: CssAnalysis['values'] } = $props()
@@ -37,14 +37,6 @@
 			return true
 		}
 		return index >= -2147483648 && index <= 2147483647
-	}
-
-	let alphabetical_sorting = {
-		label: 'Sort A-Z',
-		fn: (a: [string, CssLocation[]], b: [string, CssLocation[]]) => {
-			return string_sort(a[0], b[0])
-		},
-		id: 'alphabetical'
 	}
 
 	let { units, zindexes, prefixes, browserhacks, resets, displays } = $derived(values)

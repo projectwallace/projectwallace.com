@@ -34,7 +34,7 @@
 
 <div class="grid gap-4">
 	<FilterGroup>
-		<legend class="sr-only">Sorting box-shadows</legend>
+		<legend class="sr-only">Sorting gradients</legend>
 		<FilterOption bind:group={sorting} name="gradient-sorting" value="as-authored">Sort by source order</FilterOption>
 		<FilterOption bind:group={sorting} name="gradient-sorting" value="by-count">Sort by count</FilterOption>
 		<FilterOption bind:group={sorting} name="gradient-sorting" value="alphabetical">Sort A-Z</FilterOption>
