@@ -96,7 +96,7 @@
 
 			{#if filtered.length > 0}
 				{#key visibility_filter}
-					<ShowMore initial_open={filtered.length <= 14} closable={filtered.length > 14}>
+					<ShowMore collapsible={filtered.length > 14}>
 						{#snippet children({ status })}
 							<BarChart
 								context="property"

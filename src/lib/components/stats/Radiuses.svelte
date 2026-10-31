@@ -58,7 +58,7 @@
 		<FilterOption bind:group={sorting} name="border-radius-sorting" value={alphabetically}>Sort A-Z</FilterOption>
 	</FilterGroup>
 
-	<ShowMore initial_open={radiuses.length <= 15} closable={radiuses.length > 15}>
+	<ShowMore collapsible={radiuses.length > 15}>
 		{#snippet children({ status })}
 			<ul class="radiuses">
 				{#each radiuses.slice(0, status === 'open' ? Infinity : 15) as { property, value, locations }, index}
