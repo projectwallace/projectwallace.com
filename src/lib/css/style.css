@@ -486,6 +486,10 @@
 			padding-inline: 0.5ch;
 		}
 
+		label {
+			cursor: pointer;
+		}
+
 		/* Selected item styling. Opt in with .selectable + aria-current; rows/options use aria-selected */
 		:is([aria-selected], .selectable) {
 			cursor: pointer;
