@@ -79,7 +79,7 @@
 		</tr>
 	</thead>
 	<tbody style:--color-bar-height="1em">
-		<ShowMore initial_open={items_to_render.length <= 11} closable={items_to_render.length > 11}>
+		<ShowMore collapsible={items_to_render.length > 11}>
 			{#snippet children({ status })}
 				{#each items_to_render.slice(0, status === 'open' ? Infinity : 11) as [property, item] (property)}
 					<tr>
