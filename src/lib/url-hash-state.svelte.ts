@@ -14,7 +14,7 @@ import { browser } from '$app/env'
  * Decode a base64-encoded JSON value from the URL hash.
  * Returns undefined if hash is empty or invalid.
  */
-export function decodeHashState<T>(hash: string): T | undefined {
+export function decode_hash_state<T>(hash: string): T | undefined {
 	const value = hash.startsWith('#') ? hash.slice(1) : hash
 
 	if (!value) {
@@ -32,7 +32,7 @@ export function decodeHashState<T>(hash: string): T | undefined {
 /**
  * Encode a value to base64 JSON for use in the URL hash.
  */
-export function encodeHashState<T>(value: T): string {
+export function encode_hash_state<T>(value: T): string {
 	// TODO: use Uint8Array.toBase64() when browsers support it
 	return btoa(encodeURIComponent(JSON.stringify(value)))
 }
@@ -58,7 +58,7 @@ export class HashState<T> {
 
 		// Read hash synchronously to avoid flash of default content
 		if (browser) {
-			const decoded = decodeHashState<T>(window.location.hash)
+			const decoded = decode_hash_state<T>(window.location.hash)
 			if (
 				typeof decoded === 'object' &&
 				decoded !== null &&

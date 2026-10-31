@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { hash } from './hash'
+import { hash } from './hash.ts'
 
 test('hash contains only hex characters', () => {
 	const result = hash('hello')

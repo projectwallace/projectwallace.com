@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte'
 
-	type Props = {
+	interface Props {
 		columns?: string
 		pane_block_size?: string
 		children: Snippet

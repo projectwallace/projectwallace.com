@@ -2,9 +2,9 @@
 	import { onMount, onDestroy } from 'svelte'
 	import { browser } from '$app/env'
 	import type { CssLocation } from '#lib/css-location.ts'
-	import { highlight_css } from './use-css-highlight'
+	import { highlight_css } from './use-css-highlight.ts'
 
-	type Props = {
+	interface Props {
 		css?: string
 		selected_location?: CssLocation
 		locations?: CssLocation[]

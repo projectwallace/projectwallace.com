@@ -1,4 +1,4 @@
-import type { CSSOrigin } from './css-origins'
+import type { CSSOrigin } from './css-origins.ts'
 
 type ServerError = {
 	message: string

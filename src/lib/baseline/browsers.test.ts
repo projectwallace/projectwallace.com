@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { browsers, browser_families, type BrowserId } from './browsers'
+import { browsers, browser_families, type BrowserId } from './browsers.ts'
 
 describe('browsers', () => {
 	test('every browser has a display name', () => {

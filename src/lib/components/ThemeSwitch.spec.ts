@@ -1,4 +1,4 @@
-import { test, expect } from '../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 import type { Theme } from '#lib/theme.ts'
 
 type StoredTheme = Theme

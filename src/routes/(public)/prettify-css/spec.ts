@@ -1,7 +1,7 @@
 import type { Locator } from '@playwright/test'
-import { test, expect } from '../../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 
-/** Encode a value to base64 JSON for use in the URL hash (mirrors encodeHashState) */
+/** Encode a value to base64 JSON for use in the URL hash (mirrors encode_hash_state) */
 function encodeHash(value: unknown): string {
 	return btoa(encodeURIComponent(JSON.stringify(value)))
 }

@@ -12,7 +12,7 @@
 		['div' as HeadingElement]: 6
 	}
 
-	type Props = {
+	interface Props {
 		element: HeadingElement
 		size?: HeadingSize
 	}

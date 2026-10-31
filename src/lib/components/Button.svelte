@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes, HTMLAnchorAttributes } from 'svelte/elements'
-	import type { Variant } from './Button'
+	import type { Variant } from './Button.ts'
 	import type { IconName } from './Icon.svelte'
 	import Icon from './Icon.svelte'
 

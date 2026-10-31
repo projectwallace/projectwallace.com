@@ -31,7 +31,7 @@
 		rules?: Record<string, unknown>
 	}
 
-	type Props = {
+	interface Props {
 		css?: string
 		url?: string
 		prettify?: boolean

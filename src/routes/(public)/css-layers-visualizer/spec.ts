@@ -1,5 +1,5 @@
 import type { CSSOrigin } from '#lib/css-origins.ts'
-import { test, expect } from '../../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 
 const NERDY_DEV_FIXTURE = `
 @layer base.props {

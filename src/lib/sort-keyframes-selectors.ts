@@ -1,4 +1,4 @@
-import { string_sort } from './string-sort'
+import { string_sort } from './string-sort.ts'
 
 export function normalize(selector: string) {
 	// 10%, 20.5%, etc.

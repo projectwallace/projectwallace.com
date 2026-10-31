@@ -1,7 +1,7 @@
 export const prerender = false
 
 import { error } from '@sveltejs/kit'
-import { get_css } from './get-css'
+import { get_css } from './get-css.ts'
 import type { RequestHandler } from './$types'
 
 export const GET: RequestHandler = async ({ setHeaders, url }) => {

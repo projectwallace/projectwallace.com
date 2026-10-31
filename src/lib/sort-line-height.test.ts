@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { normalize_line_height, MAX } from './sort-line-height'
+import { normalize_line_height, MAX } from './sort-line-height.ts'
 
 test('`normal` keyword', () => {
 	expect.soft(normalize_line_height('normal')).toBe(1.5 * 16)

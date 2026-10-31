@@ -1,8 +1,8 @@
 import { setContext, getContext } from 'svelte'
 import { format } from '@projectwallace/format-css'
-import type { CSSOrigin } from './css-origins'
+import type { CSSOrigin } from './css-origins.ts'
 import { SvelteSet } from 'svelte/reactivity'
-import type { CssLocation } from './css-location'
+import type { CssLocation } from './css-location.ts'
 import { type NodeType } from '#lib/components/use-css-highlight.ts'
 
 type Selectable = {

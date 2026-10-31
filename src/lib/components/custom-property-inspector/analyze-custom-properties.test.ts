@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import { analyze } from './analyze-custom-properties'
+import { analyze } from './analyze-custom-properties.ts'
 
 test('unused property', () => {
 	let actual = analyze(`

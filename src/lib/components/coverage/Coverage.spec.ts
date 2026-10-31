@@ -1,5 +1,5 @@
 import type { Locator } from '@playwright/test'
-import { test, expect } from '../../../../tests/fixtures'
+import { test, expect } from '#tests/fixtures.ts'
 
 test.beforeEach(async ({ page }) => {
 	await page.goto('/css-coverage', { waitUntil: 'domcontentloaded' })
