@@ -232,6 +232,6 @@
 	figcaption {
 		text-align: center;
 		font-size: var(--size-sm);
-		margin-top: var(--space-2);
+		margin-block-start: var(--space-2);
 	}
 </style>

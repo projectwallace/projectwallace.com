@@ -94,7 +94,7 @@
 
 	input[type='file'] {
 		display: flex;
-		width: 100%;
+		inline-size: 100%;
 		padding: var(--space-8);
 		border: 2px dashed var(--bg-400);
 		text-align: center;
@@ -110,7 +110,7 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-3);
-		max-height: 18rem;
+		max-block-size: 18rem;
 		overflow: auto;
 		overscroll-behavior: contain;
 	}
@@ -133,7 +133,7 @@
 	}
 
 	.file-name {
-		max-width: 100%;
+		max-inline-size: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;

@@ -82,12 +82,12 @@
 	.panes {
 		display: grid;
 		grid-template-columns: minmax(10px, 1fr) min(50ch, 50%);
-		height: 100%;
-		max-height: 100%;
+		block-size: 100%;
+		max-block-size: 100%;
 	}
 
 	.table-scroller {
-		height: 100%;
+		block-size: 100%;
 		overflow: auto;
 		contain: strict;
 		overscroll-behavior-block: contain;
@@ -98,7 +98,7 @@
 	}
 
 	table {
-		width: 100%;
+		inline-size: 100%;
 		color: var(--fg-100);
 		border-collapse: collapse;
 		font-size: var(--size-specimen);
@@ -107,9 +107,9 @@
 
 	thead {
 		position: sticky;
-		top: 0;
-		left: 0;
-		right: 0;
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		inset-inline-end: 0;
 		z-index: 2;
 	}
 
@@ -123,11 +123,11 @@
 
 	td,
 	th {
-		text-align: left;
+		text-align: start;
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
 		vertical-align: top;
-		max-width: 50%;
+		max-inline-size: 50%;
 	}
 
 	td {
@@ -136,8 +136,8 @@
 	}
 
 	td.value {
-		width: calc(100% - var(--item-usage-location-width));
-		max-width: calc(40cqi - var(--item-usage-location-width));
+		inline-size: calc(100% - var(--item-usage-location-width));
+		max-inline-size: calc(40cqi - var(--item-usage-location-width));
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -147,8 +147,8 @@
 	}
 
 	td.location {
-		border-right-width: 0;
-		width: var(--item-usage-location-width);
+		border-inline-end-width: 0;
+		inline-size: var(--item-usage-location-width);
 		font-variant-numeric: tabular-nums;
 	}
 

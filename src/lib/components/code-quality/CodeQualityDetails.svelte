@@ -85,7 +85,7 @@
 			{#if id == 'Imports' && actuals.atrules.import.total > 0}
 				<h3>Discovered @import rules</h3>
 				<p>Found {actuals.atrules.import.total} items.</p>
-				<ol style="max-height: var(--space-96); overflow: auto">
+				<ol style="max-block-size: var(--space-96); overflow: auto">
 					{#each Object.entries(actuals.atrules.import.unique) as [rule, count]}
 						<li>
 							<code>@import {rule}</code> ({count}&times;)
@@ -108,7 +108,7 @@
 				<ol>
 					{#each locations as loc}
 						<li>
-							<pre dir="ltr" translate="no" style="overflow: auto; max-width: 100%;"><code class="language-css"
+							<pre dir="ltr" translate="no" style="overflow: auto; max-inline-size: 100%;"><code class="language-css"
 									>{css.substring(loc.offset, loc.offset + loc.length)}</code
 								></pre>
 						</li>
@@ -240,6 +240,6 @@
 
 	.category {
 		color: var(--fg-300);
-		text-align: right;
+		text-align: end;
 	}
 </style>

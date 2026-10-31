@@ -44,15 +44,15 @@
 <style>
 	.toolbar {
 		position: fixed;
-		top: var(--space-4);
-		right: var(--space-6);
+		inset-block-start: var(--space-4);
+		inset-inline-end: var(--space-6);
 	}
 
 	.panel {
 		padding-block: var(--space-2);
 		padding-inline: var(--space-3);
-		width: 100%;
-		height: calc(100% - 6px);
+		inline-size: 100%;
+		block-size: calc(100% - 6px);
 		font-family: var(--font-mono);
 	}
 </style>

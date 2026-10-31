@@ -58,7 +58,7 @@
 
 	p {
 		text-align: center;
-		max-width: none;
+		max-inline-size: none;
 		margin-block: var(--space-2);
 
 		small {
@@ -68,7 +68,7 @@
 
 	.component {
 		container-type: inline-size;
-		padding-bottom: 1.2rem;
+		padding-block-end: 1.2rem;
 	}
 
 	.polypane-callout {
@@ -87,7 +87,7 @@
 			rgb(0 0 0 / 0.05) 0px 1px 0px,
 			rgb(0 0 0 / 0.03) 0px 0px 8px,
 			rgb(0 0 0 / 0.1) 0px 20px 30px;
-		text-align: left;
+		text-align: start;
 		background: #4ca2cd linear-gradient(135deg, #4ca2cd, #67b26f);
 
 		&:hover,
@@ -113,7 +113,7 @@
 
 		@container (min-inline-size: 44rem) {
 			grid-template-columns: 1fr auto;
-			text-align: left;
+			text-align: start;
 		}
 
 		@media (forced-colors: active) {
@@ -123,7 +123,7 @@
 
 	a {
 		text-align: center;
-		font-size: calc(14px + 0.5vw);
+		font-size: calc(14px + 0.5vi);
 		font-weight: 600;
 		line-height: 1.25;
 		padding-block: 0.33em;
@@ -144,7 +144,7 @@
 
 	.polypane-button {
 		position: relative;
-		font-size: calc(14px + 0.5vw);
+		font-size: calc(14px + 0.5vi);
 		font-weight: 800;
 		background: #0a1530;
 		color: #fff;
@@ -166,7 +166,7 @@
 			stroke-linecap: round;
 			stroke-linejoin: round;
 			position: relative;
-			top: 1px;
+			inset-block-start: 1px;
 			transition: all 200ms ease-in-out;
 			will-change: transform;
 		}
@@ -182,10 +182,10 @@
 
 	.message {
 		position: absolute;
-		top: 100%;
-		margin-top: -0.25rem;
-		right: 2rem;
-		width: 180px;
+		inset-block-start: 100%;
+		margin-block-start: -0.25rem;
+		inset-inline-end: 2rem;
+		inline-size: 180px;
 
 		path.arrow-head,
 		path.arrow-line {

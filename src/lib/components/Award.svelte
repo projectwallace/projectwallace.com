@@ -12,8 +12,8 @@
 <style>
 	.award {
 		margin-block: var(--space-12) var(--space-24);
-		width: auto;
-		max-width: min(36rem, 90%);
+		inline-size: auto;
+		max-inline-size: min(36rem, 90%);
 		position: relative;
 		display: flow-root;
 
@@ -47,7 +47,7 @@
 		border: 4px solid var(--bg-500);
 		padding-block: var(--space-6);
 		padding-inline: var(--space-4);
-		float: left;
+		float: inline-start;
 		margin-inline-end: var(--space-8);
 		margin-block-end: var(--space-1);
 		background-color: light-dark(var(--bg-200), var(--bg-300));

@@ -63,10 +63,10 @@
 
 	.author-avatar {
 		display: inline-block;
-		margin-right: var(--space-2);
+		margin-inline-end: var(--space-2);
 		vertical-align: middle;
-		width: 25px;
-		height: 25px;
+		inline-size: 25px;
+		block-size: 25px;
 	}
 
 	.back-to-blog {

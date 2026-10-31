@@ -310,7 +310,7 @@
 		--wallace-custom-property-inspector-error-color: var(--red-400);
 		--wallace-custom-property-inspector-warning-color: var(--orange-400);
 		--wallace-custom-property-inspector-suggestion-color: light-dark(var(--yellow-600), var(--yellow-400));
-		width: 100%;
+		inline-size: 100%;
 		border: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
 		background-color: var(--wallace-custom-property-inspector-bg-color);
 		scroll-margin-block-start: var(--space-4);
@@ -382,7 +382,7 @@
 		& input {
 			background-color: transparent;
 			border: 1px solid var(--fg-450);
-			width: 100%;
+			inline-size: 100%;
 			padding-inline: var(--space-2);
 		}
 

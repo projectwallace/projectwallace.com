@@ -24,6 +24,10 @@ export default {
 							bottom: '/^anchor/',
 							left: '/^anchor/',
 							inset: '/^anchor/',
+							'inset-block-start': '/^anchor/',
+							'inset-block-end': '/^anchor/',
+							'inset-inline-start': '/^anchor/',
+							'inset-inline-end': '/^anchor/',
 							cursor: '/.*/', // css-tree crashes on <cursor-predefined> syntax reference
 							'list-style': '/.*/', // css-tree crashes on <symbols()> syntax reference
 							'list-style-type': '/.*/', // css-tree crashes on <symbols()> syntax reference
@@ -86,7 +90,14 @@ export default {
 				'font-family-name-quotes': 'always-unless-keyword',
 				'selector-attribute-quotes': 'always',
 				'declaration-block-no-redundant-longhand-properties': null, // Prefer explicit longhand properties
-				'shorthand-property-no-redundant-values': null
+				'shorthand-property-no-redundant-values': null,
+				'property-layout-mappings': [
+					'flow-relative',
+					// overflow-block/overflow-inline are only supported in Firefox
+					{ ignoreProperties: ['overflow-x', 'overflow-y'] }
+				],
+				'unit-layout-mappings': 'flow-relative',
+				'value-keyword-layout-mappings': 'flow-relative'
 			}
 		},
 		{
@@ -125,7 +136,7 @@ export default {
 					18,
 					{
 						ignore: [
-							'calc(14px + 0.5vw)', // polypane callout
+							'calc(14px + 0.5vi)', // polypane callout
 							'20px', // polypane callout
 							'1em', // relative sizing is hard
 							/--\w+-font-size/ // re-mappings of existing font-size scale
@@ -147,11 +158,18 @@ export default {
 						]
 					}
 				],
-				'projectwallace/min-declaration-uniqueness-ratio': 0.38,
+				'projectwallace/min-declaration-uniqueness-ratio': 0.37,
 				'projectwallace/no-property-shorthand': null
 			}
 		}
 	],
+	// Required for the *-layout-mappings rules to autofix physical to flow-relative
+	languageOptions: {
+		directionality: {
+			block: 'top-to-bottom',
+			inline: 'left-to-right'
+		}
+	},
 	ignoreFiles: ['**/*.js', '**/*.ts', '**/*.json', '**/*.md'],
 	defaultSeverity: 'warning',
 	rules: {

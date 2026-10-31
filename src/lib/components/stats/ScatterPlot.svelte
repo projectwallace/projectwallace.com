@@ -47,18 +47,18 @@
 
 <style>
 	.chart {
-		height: 8rem;
-		margin-top: var(--space-2);
-		padding-left: var(--space-2);
-		padding-bottom: var(--space-1);
-		width: 100%;
+		block-size: 8rem;
+		margin-block-start: var(--space-2);
+		padding-inline-start: var(--space-2);
+		padding-block-end: var(--space-1);
+		inline-size: 100%;
 	}
 
 	.label-y {
 		position: absolute;
-		left: 0;
-		bottom: 0;
-		margin-left: calc(-1 * var(--space-2));
+		inset-inline-start: 0;
+		inset-block-end: 0;
+		margin-inline-start: calc(-1 * var(--space-2));
 		line-height: var(--leading-none);
 		white-space: nowrap;
 		font-size: var(--size-xs);
@@ -85,8 +85,8 @@
 	.horizontal-ruler {
 		position: relative;
 		display: block;
-		width: 100%;
-		left: 0;
+		inline-size: 100%;
+		inset-inline-start: 0;
 		border-block-end: 1px solid var(--gray-500);
 	}
 </style>

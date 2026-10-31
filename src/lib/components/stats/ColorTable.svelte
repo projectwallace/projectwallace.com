@@ -89,7 +89,7 @@
 							</code>
 						</th>
 						<td>
-							<div style:width="{(100 * item.total) / max_colors}%">
+							<div style:inline-size="{(100 * item.total) / max_colors}%">
 								<ColorBar colors={item.unique} total={item.total} totalUnique={item.totalUnique} {sizing} />
 							</div>
 						</td>
@@ -108,6 +108,6 @@
 	}
 
 	td {
-		width: 100%;
+		inline-size: 100%;
 	}
 </style>

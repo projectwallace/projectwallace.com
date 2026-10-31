@@ -114,8 +114,8 @@
 	}
 
 	.example {
-		width: var(--space-12);
-		height: var(--space-12);
+		inline-size: var(--space-12);
+		block-size: var(--space-12);
 		background-color: var(--bg-700);
 	}
 
@@ -127,8 +127,8 @@
 		border: 0;
 		position: absolute;
 		inset: 0;
-		height: 100%;
-		width: 100%;
+		block-size: 100%;
+		inline-size: 100%;
 		cursor: pointer;
 	}
 

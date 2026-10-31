@@ -72,8 +72,8 @@
 
 <style>
 	.slide {
-		height: 100%;
-		max-height: 100%;
+		block-size: 100%;
+		max-block-size: 100%;
 		border-inline-start: 1px solid var(--fg-450);
 		overflow: hidden;
 		display: flex;
@@ -90,13 +90,13 @@
 	}
 
 	.closer {
-		margin-right: auto;
+		margin-inline-end: auto;
 	}
 
 	.slide-body {
 		overflow-y: auto;
-		height: 100%;
-		max-height: 100%;
+		block-size: 100%;
+		max-block-size: 100%;
 		flex-grow: 1;
 	}
 </style>

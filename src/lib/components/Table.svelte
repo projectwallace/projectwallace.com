@@ -19,15 +19,15 @@
 	/* stylelint-disable projectwallace/max-average-selector-complexity -- the :global() pseudos make this more complex */
 	.scroller {
 		overflow-x: auto;
-		height: 100%;
-		max-height: 100%;
-		max-width: 100%;
+		block-size: 100%;
+		max-block-size: 100%;
+		max-inline-size: 100%;
 		container-type: inline-size;
 	}
 
 	@layer components.table {
 		:where(.pw-table) {
-			width: 100%;
+			inline-size: 100%;
 			border-collapse: collapse;
 			--pw-table-font-size: 0.925rem;
 			--pw-table-padding-block: 0.33rem;
@@ -35,7 +35,7 @@
 
 			& :global(thead tr) {
 				position: sticky;
-				top: 0;
+				inset-block-start: 0;
 				z-index: 2;
 				inset-inline: 0;
 				/* Double border-width because it otherwise doesn't show */

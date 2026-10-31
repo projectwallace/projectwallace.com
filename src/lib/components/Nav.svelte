@@ -179,7 +179,7 @@
 		gap: var(--nav-gap);
 		align-items: baseline;
 		font-size: var(--nav-font-size);
-		height: calc(
+		block-size: calc(
 			var(--nav-font-size) * var(--leading-base) + var(--item-block-padding) + var(--item-block-padding) +
 				var(--nav-border-height)
 		);
@@ -209,7 +209,7 @@
 
 		&:hover,
 		&:focus {
-			border-bottom-color: var(--fg-700);
+			border-block-end-color: var(--fg-700);
 		}
 
 		@media (forced-colors: active) {
@@ -222,7 +222,7 @@
 		&:hover,
 		&:focus {
 			color: var(--fg-100);
-			border-bottom-color: var(--accent);
+			border-block-end-color: var(--accent);
 		}
 	}
 
@@ -230,7 +230,7 @@
 		display: flex;
 		gap: var(--nav-others-gap);
 		align-items: center;
-		margin-left: auto;
+		margin-inline-start: auto;
 	}
 
 	.nav-popover-trigger {
@@ -258,10 +258,10 @@
 	.nav-popover {
 		position: absolute;
 		position-anchor: --nav-popover-trigger;
-		top: calc(anchor(end) + var(--space-2));
-		right: anchor(end);
-		left: auto;
-		width: max-content;
+		inset-block-start: calc(anchor(end) + var(--space-2));
+		inset-inline-end: anchor(end);
+		inset-inline-start: auto;
+		inline-size: max-content;
 		background-color: var(--fg-900);
 		padding: var(--space-2);
 		border: 1px solid var(--fg-450);
@@ -270,8 +270,8 @@
 
 		@supports not (right: anchor(end)) {
 			position: fixed;
-			top: 3em;
-			right: 3em;
+			inset-block-start: 3em;
+			inset-inline-end: 3em;
 		}
 	}
 

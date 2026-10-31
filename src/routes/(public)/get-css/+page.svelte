@@ -197,8 +197,8 @@
 		row-gap: var(--space-2);
 		column-gap: var(--space-3);
 		margin-inline: auto;
-		width: 100%;
-		text-align: left;
+		inline-size: 100%;
+		text-align: start;
 		margin-block-start: var(--space-3);
 	}
 
@@ -233,7 +233,7 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		gap: var(--space-4);
-		margin-bottom: var(--space-8);
+		margin-block-end: var(--space-8);
 
 		header {
 			display: flex;
@@ -251,14 +251,14 @@
 
 	.pre-wrapper {
 		overflow: auto;
-		min-height: var(--space-24);
-		height: var(--space-96);
+		min-block-size: var(--space-24);
+		block-size: var(--space-96);
 		border: 1px solid var(--gray-450);
-		resize: vertical;
+		resize: block;
 	}
 
 	.network-wrapper {
-		min-height: var(--space-96);
+		min-block-size: var(--space-96);
 		border: 1px solid var(--gray-450);
 	}
 
@@ -266,7 +266,7 @@
 		background-color: var(--red-900);
 		color: var(--white);
 		padding: var(--space-4);
-		margin-top: var(--space-4);
+		margin-block-start: var(--space-4);
 		text-align: center;
 	}
 </style>

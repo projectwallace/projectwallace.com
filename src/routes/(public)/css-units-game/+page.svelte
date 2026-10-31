@@ -144,9 +144,9 @@
 		grid-template-columns: 1fr max-content;
 		gap: var(--space-4);
 		align-items: end;
-		margin-top: var(--space-8);
-		width: 100%;
-		text-align: left;
+		margin-block-start: var(--space-8);
+		inline-size: 100%;
+		text-align: start;
 	}
 
 	.status {
@@ -170,7 +170,7 @@
 	}
 
 	.guesses {
-		margin-top: var(--space-8);
+		margin-block-start: var(--space-8);
 		list-style-type: decimal;
 		list-style-position: inside;
 		display: grid;

@@ -9,7 +9,7 @@
 code[class*='language-'],
 pre[class*='language-'] {
 	background: none;
-	text-align: left;
+	text-align: start;
 }
 
 /*	code-blocks ---------------------------- */

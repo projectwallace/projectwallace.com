@@ -258,7 +258,7 @@
 
 	p.lead {
 		font-size: var(--size-xl);
-		max-width: 66ch;
+		max-inline-size: 66ch;
 		text-wrap: balance;
 		line-height: var(--leading-relaxed);
 		margin-inline: auto;
@@ -350,7 +350,7 @@
 
 		a {
 			display: flex;
-			width: 100%;
+			inline-size: 100%;
 			gap: var(--space-2);
 			justify-content: space-between;
 			background-color: var(--bg-200);

@@ -18,21 +18,21 @@
 	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- Exception to the stylelint config: skiplinks are hard to compose 🙈 */
 	.skip-link {
 		position: absolute;
-		left: -1000px;
-		top: -1000px;
-		width: 1px;
-		height: 1px;
-		text-align: left;
+		inset-inline-start: -1000px;
+		inset-block-start: -1000px;
+		inline-size: 1px;
+		block-size: 1px;
+		text-align: start;
 		overflow: clip;
 
 		&:focus-visible,
 		&:focus,
 		&:active {
 			position: absolute;
-			left: 50%;
-			top: 0;
-			width: auto;
-			height: auto;
+			inset-inline-start: 50%;
+			inset-block-start: 0;
+			inline-size: auto;
+			block-size: auto;
 			transform: translateX(-50%);
 			padding-block: var(--space-2);
 			padding-inline: var(--space-4);

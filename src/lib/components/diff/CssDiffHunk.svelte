@@ -96,7 +96,7 @@
 		</tr>
 	</thead>
 	<!-- The 'fixed' height is to help the browser get to the expected height faster, this makes rendering 3-4 faster -->
-	<tbody style:height={`calc(var(--leading-base) * var(--size-xs) * ${hunk.lines.length}`}>
+	<tbody style:block-size={`calc(var(--leading-base) * var(--size-xs) * ${hunk.lines.length}`}>
 		{#each hunk.lines as { added, deleted, old_line_number, new_line_number, value }}
 			{@const unchanged = !added && !deleted}
 			<tr
@@ -131,7 +131,7 @@
 	}
 
 	table {
-		width: 100%;
+		inline-size: 100%;
 		--diff-font-size: var(--size-xs);
 		font-size: var(--diff-font-size);
 		border-collapse: collapse;
@@ -140,13 +140,13 @@
 	td:nth-of-type(1),
 	td:nth-of-type(2) {
 		/* Should fit up to line number 999_999 */
-		width: 6ch;
+		inline-size: 6ch;
 	}
 
 	tr {
 		/* Speed up rendering */
 		--pw-diff-tr-height: calc(var(--diff-font-size) * var(--leading-base));
-		height: var(--pw-diff-tr-height);
+		block-size: var(--pw-diff-tr-height);
 		content-visibility: auto;
 		contain-intrinsic-block-size: var(--pw-diff-tr-height);
 	}
@@ -205,7 +205,7 @@
 	}
 
 	td.code-cell {
-		padding-left: 1ch;
+		padding-inline-start: 1ch;
 	}
 
 	code.added::before {

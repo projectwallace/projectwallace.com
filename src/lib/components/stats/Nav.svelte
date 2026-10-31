@@ -122,7 +122,7 @@
 
 		.loose {
 			display: block;
-			max-height: calc(95vb - var(--py));
+			max-block-size: calc(95vb - var(--py));
 		}
 	}
 
@@ -138,7 +138,7 @@
 		color: var(--fg-200);
 		padding-block: var(--py);
 		padding-inline: var(--px);
-		width: 100%;
+		inline-size: 100%;
 	}
 
 	:is(.parent, .child) {
@@ -150,10 +150,10 @@
 		&::after {
 			content: '';
 			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
+			inset-block-start: 0;
+			inset-inline-end: 0;
+			inset-block-end: 0;
+			inset-inline-start: 0;
 			border: 1px dotted var(--accent-400);
 			opacity: 0;
 		}
@@ -167,7 +167,7 @@
 			color: light-dark(var(--accent-700), var(--accent-500));
 
 			&::before {
-				width: 3px;
+				inline-size: 3px;
 				background-color: var(--bg-700);
 			}
 
@@ -191,11 +191,11 @@
 		&::before {
 			content: '';
 			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: var(--px);
+			inset-block-start: 0;
+			inset-block-end: 0;
+			inset-inline-start: var(--px);
 			background-color: var(--fg-450);
-			width: 1px;
+			inline-size: 1px;
 		}
 	}
 </style>

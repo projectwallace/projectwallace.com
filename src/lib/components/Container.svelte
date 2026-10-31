@@ -19,8 +19,8 @@
 	.container {
 		margin-inline: auto;
 		padding-inline: var(--space-2);
-		min-width: 0;
-		width: 100%;
+		min-inline-size: 0;
+		inline-size: 100%;
 
 		@media (min-width: 44rem) {
 			padding-inline: var(--space-4);
@@ -32,26 +32,26 @@
 	}
 
 	.size-auto {
-		max-width: 120rem;
+		max-inline-size: 120rem;
 	}
 
 	.size-md {
-		max-width: 32rem;
+		max-inline-size: 32rem;
 	}
 
 	.size-lg {
-		max-width: 36rem;
+		max-inline-size: 36rem;
 	}
 
 	.size-xl {
-		max-width: 48rem;
+		max-inline-size: 48rem;
 	}
 
 	.size-2xl {
-		max-width: 64rem;
+		max-inline-size: 64rem;
 	}
 
 	.size-3xl {
-		max-width: 80rem;
+		max-inline-size: 80rem;
 	}
 </style>

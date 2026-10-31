@@ -62,8 +62,8 @@
 	.devtools {
 		margin-block-start: var(--space-2);
 		position: sticky;
-		right: 0;
-		bottom: 0%;
-		left: 0;
+		inset-inline-end: 0;
+		inset-block-end: 0%;
+		inset-inline-start: 0;
 	}
 </style>

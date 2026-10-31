@@ -226,7 +226,7 @@
 
 	td {
 		position: relative;
-		max-width: 25cqi;
+		max-inline-size: 25cqi;
 	}
 
 	code {
@@ -235,12 +235,12 @@
 		vertical-align: middle;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		width: 100%;
+		inline-size: 100%;
 	}
 
 	.warnings {
-		margin-top: var(--space-4);
-		padding-left: var(--space-6);
+		margin-block-start: var(--space-4);
+		padding-inline-start: var(--space-6);
 		list-style-type: disc;
 		list-style-position: outside;
 	}

@@ -30,19 +30,19 @@
 
 	:global(.markdown h2) {
 		font-size: var(--size-2xl);
-		margin-top: var(--space-16);
+		margin-block-start: var(--space-16);
 		font-weight: var(--font-bold);
 	}
 
 	:global(.markdown h3) {
 		font-size: var(--size-xl);
-		margin-top: var(--space-12);
+		margin-block-start: var(--space-12);
 		font-weight: var(--font-bold);
 	}
 
 	:global(.markdown h4) {
 		font-size: var(--size-base);
-		margin-top: var(--space-12);
+		margin-block-start: var(--space-12);
 		font-weight: var(--font-medium);
 	}
 
@@ -50,18 +50,18 @@
 		background-color: var(--bg-200);
 		padding-block: var(--space-4);
 		padding-inline: var(--space-12);
-		max-width: 50ch;
+		max-inline-size: 50ch;
 		box-shadow: var(--shadow);
 		border-inline-start: 4px solid var(--accent);
 	}
 
 	:global(.markdown p) {
 		line-height: var(--leading-relaxed);
-		max-width: 60ch;
+		max-inline-size: 60ch;
 	}
 
 	:global(.markdown svg[role='img']) {
-		max-width: 80ch;
+		max-inline-size: 80ch;
 	}
 
 	:global(.markdown strong) {
@@ -109,15 +109,15 @@
 		:global(.markdown pre) {
 			padding-block: 0.75rem;
 			padding-inline: 1rem;
-			margin-right: calc(-1 * var(--space-4));
-			margin-left: calc(-1 * var(--space-4));
+			margin-inline-end: calc(-1 * var(--space-4));
+			margin-inline-start: calc(-1 * var(--space-4));
 		}
 	}
 
 	@media (min-width: 66rem) {
 		:global(.markdown pre) {
-			margin-right: calc(-1 * var(--space-8));
-			margin-left: calc(-1 * var(--space-8));
+			margin-inline-end: calc(-1 * var(--space-8));
+			margin-inline-start: calc(-1 * var(--space-8));
 		}
 	}
 
@@ -130,18 +130,18 @@
 	}
 
 	:global(.markdown li) {
-		margin-top: 0.75rem;
-		max-width: 66ch;
+		margin-block-start: 0.75rem;
+		max-inline-size: 66ch;
 	}
 
 	:global(.markdown ul li) {
 		list-style: square;
-		margin-left: 2.25rem;
+		margin-inline-start: 2.25rem;
 	}
 
 	:global(.markdown ol li) {
 		list-style: decimal;
-		margin-left: 3rem;
+		margin-inline-start: 3rem;
 	}
 
 	:global(.markdown ul li::marker) {
@@ -165,14 +165,14 @@
 	:global(.markdown table) {
 		--cell-spacing: 0.75rem;
 		border-spacing: 0;
-		width: 100%;
+		inline-size: 100%;
 		border-block-start: 0.125rem solid var(--fg-300);
 		box-shadow: var(--shadow);
 		font-size: var(--size-sm);
 	}
 
 	:global(.markdown th) {
-		text-align: left;
+		text-align: start;
 		font-family: var(--font-body);
 		text-transform: uppercase;
 		font-size: var(--size-sm);
@@ -189,7 +189,7 @@
 	}
 
 	:global(.markdown :is(th, td):not(:first-child)) {
-		text-align: right;
+		text-align: end;
 	}
 
 	:global(.markdown img) {
@@ -203,8 +203,8 @@
 
 	:global(.markdown :is(p, li, figcaption) code) {
 		display: inline-block;
-		margin-right: 0.25ch;
-		margin-left: 0.25ch;
+		margin-inline-end: 0.25ch;
+		margin-inline-start: 0.25ch;
 		color: var(--highlight-name);
 		background-color: var(--bg-200);
 	}
@@ -224,17 +224,17 @@
 	}
 
 	:global(.markdown :is(aside, blockquote) > :first-child) {
-		margin-top: 0;
+		margin-block-start: 0;
 	}
 
 	:global(.markdown :is(aside, blockquote) > :last-child) {
-		margin-bottom: 0;
+		margin-block-end: 0;
 	}
 
 	:global(.markdown figcaption) {
 		text-align: center;
 		font-size: var(--size-base);
-		margin-top: var(--space-2);
+		margin-block-start: var(--space-2);
 		text-wrap: balance;
 	}
 

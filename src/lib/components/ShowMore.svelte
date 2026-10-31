@@ -50,12 +50,12 @@
 	}
 
 	.show-more[data-status='closed'] {
-		max-height: 400px;
+		max-block-size: 400px;
 	}
 
 	@media print {
 		.show-more[data-status='closed'] {
-			max-height: none;
+			max-block-size: none;
 		}
 
 		.opener {
@@ -65,7 +65,7 @@
 
 	.action {
 		display: block;
-		width: 100%;
+		inline-size: 100%;
 		padding-block: var(--space-2);
 		padding-inline: var(--space-8);
 		font-weight: var(--font-bold);
@@ -84,9 +84,9 @@
 
 	.opener {
 		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
+		inset-block-end: 0;
+		inset-inline-start: 0;
+		inline-size: 100%;
 		z-index: 1;
 		background-image: linear-gradient(rgb(0 0 0 / 0), light-dark(var(--bg-100), var(--bg-200)) 40%);
 		background-size: 100% 100%;

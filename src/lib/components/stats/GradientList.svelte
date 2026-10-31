@@ -107,7 +107,7 @@
 
 	.gradient {
 		position: relative;
-		height: var(--space-32);
+		block-size: var(--space-32);
 		padding: var(--space-2);
 		text-shadow: 0 0.05rem 0.05rem var(--black);
 		color: var(--fg-100);
@@ -115,7 +115,7 @@
 		contain: strict;
 
 		@media print {
-			height: auto;
+			block-size: auto;
 			padding-block: 0;
 			padding-inline: var(--space-2);
 			font-weight: var(--font-normal);

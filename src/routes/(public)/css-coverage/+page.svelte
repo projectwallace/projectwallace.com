@@ -126,7 +126,7 @@
 
 	input[type='file'] {
 		display: flex;
-		width: 100%;
+		inline-size: 100%;
 		padding: var(--space-8);
 		border: 2px dashed var(--fg-700);
 		text-align: center;

@@ -218,7 +218,7 @@
 	html,
 	body,
 	.app {
-		height: 100%;
+		block-size: 100%;
 	}
 
 	body {
@@ -229,7 +229,7 @@
 	}
 
 	form {
-		text-align: left;
+		text-align: start;
 	}
 
 	input {
@@ -257,7 +257,7 @@
 		tab-size: 2;
 		hyphens: none;
 		overflow: auto;
-		max-width: none;
+		max-inline-size: none;
 
 		@media print {
 			white-space: pre-wrap;
@@ -474,8 +474,8 @@
 
 		:is(p, li) code:not([class]) {
 			display: inline-block;
-			margin-right: 1ch;
-			margin-left: 1ch;
+			margin-inline-end: 1ch;
+			margin-inline-start: 1ch;
 			color: light-dark(var(--accent-800), var(--accent-300));
 			padding-inline: 0.5ch;
 		}
@@ -592,7 +592,7 @@
 
 		p.lead {
 			font-size: var(--size-xl);
-			max-width: 66ch;
+			max-inline-size: 66ch;
 			text-wrap: balance;
 			line-height: var(--leading-relaxed);
 		}
@@ -607,7 +607,7 @@
 			font: inherit;
 			font-size: var(--size-base);
 			flex-grow: 1;
-			min-width: 0%;
+			min-inline-size: 0%;
 
 			&:disabled {
 				background-color: var(--bg-200);
@@ -617,13 +617,13 @@
 		}
 
 		textarea {
-			width: 100%;
-			min-height: var(--space-32);
+			inline-size: 100%;
+			min-block-size: var(--space-32);
 			font-family: var(--font-mono);
 			font-size: var(--size-sm);
 			line-height: var(--leading-tight);
 			white-space: pre;
-			height: 100%;
+			block-size: 100%;
 		}
 
 		/* Nasty hack: can't extend our <Button> component styles, so let's just duplicate it like this */
@@ -670,7 +670,7 @@
 			grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 			gap: var(--space-4);
 			align-items: start;
-			margin-top: var(--space-4);
+			margin-block-start: var(--space-4);
 
 			@container (min-width: 33rem) {
 				gap: var(--space-6);
@@ -750,8 +750,8 @@
 		/* stylelint-enable property-no-deprecated */
 		white-space: nowrap;
 		border-width: 0;
-		width: 1px;
-		height: 1px;
+		inline-size: 1px;
+		block-size: 1px;
 		margin: -1px;
 		padding: 0;
 		position: absolute;
@@ -760,8 +760,8 @@
 
 	.icon-sprite {
 		position: absolute;
-		width: 0;
-		height: 0;
+		inline-size: 0;
+		block-size: 0;
 		overflow: hidden;
 	}
 

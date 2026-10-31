@@ -172,7 +172,7 @@
 										<td class="numeric">{format_number(total_lines)}</td>
 										<td class="numeric">{format_percentage(line_coverage_ratio)}</td>
 										<td>
-											<div style:width={(stylesheet.total_lines / max_lines) * 100 + '%'}>
+											<div style:inline-size={(stylesheet.total_lines / max_lines) * 100 + '%'}>
 												<Meter max={1} value={line_coverage_ratio} />
 											</div>
 										</td>
@@ -206,17 +206,17 @@
 <style>
 	:global([data-pane-group]) {
 		--coverage-pane-height: calc(100vb - 24rem);
-		min-height: var(--coverage-pane-height);
-		max-height: var(--coverage-pane-height);
+		min-block-size: var(--coverage-pane-height);
+		max-block-size: var(--coverage-pane-height);
 	}
 
 	:global([data-pane]) {
 		will-change: flex;
-		height: 100%;
+		block-size: 100%;
 	}
 
 	:global([data-pane-resizer]) {
-		width: var(--space-1);
+		inline-size: var(--space-1);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -227,8 +227,8 @@
 	}
 
 	.pane-resizer {
-		height: 100%;
-		width: 0.25rem;
+		block-size: 100%;
+		inline-size: 0.25rem;
 		opacity: 0;
 		background-color: var(--accent-600);
 		transition: opacity 200ms;
@@ -256,7 +256,7 @@
 	}
 
 	.css-slide {
-		height: 100%;
+		block-size: 100%;
 		overflow: hidden;
 		border-inline-start: 1px solid var(--fg-450);
 	}
@@ -301,7 +301,7 @@
 
 	.sort-button {
 		display: flex;
-		width: 100%;
+		inline-size: 100%;
 		justify-content: space-between;
 		gap: var(--space-2);
 	}

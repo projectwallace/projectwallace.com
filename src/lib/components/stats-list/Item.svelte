@@ -35,6 +35,6 @@
 	.secondary {
 		color: var(--fg-300);
 		font-weight: var(--font-medium);
-		margin-top: var(--space-1);
+		margin-block-start: var(--space-1);
 	}
 </style>

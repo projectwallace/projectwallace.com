@@ -209,7 +209,7 @@
 		padding-block: var(--space-4);
 		padding-inline: var(--space-2);
 		background-color: var(--bg-400);
-		margin-top: var(--space-4);
+		margin-block-start: var(--space-4);
 		line-height: var(--leading-none);
 	}
 </style>
