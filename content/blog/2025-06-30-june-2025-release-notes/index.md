@@ -6,15 +6,15 @@ date: 2025-06-30
 
 <script>
 	import BlogImage from '#lib/components/BlogImage.svelte'
-	import counterscale from './counterscale.png?enhanced'
+	import counterscale from './counterscale.png?enhanced&effort=2'
   import counterscale_full from './counterscale.png'
-	import resets from './resets.png?enhanced'
+	import resets from './resets.png?enhanced&imgWidth=1408&effort=2'
   import resets_full from './resets.png'
-	import nesting from './nesting.png?enhanced'
+	import nesting from './nesting.png?enhanced&imgWidth=1408&effort=2'
   import nesting_full from './nesting.png'
-	import atrules from './atrules.png?enhanced'
+	import atrules from './atrules.png?enhanced&effort=2'
   import atrules_full from './atrules.png'
-	import complexity from './complexity.png?enhanced'
+	import complexity from './complexity.png?enhanced&effort=2'
   import complexity_full from './complexity.png'
 </script>
 

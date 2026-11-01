@@ -6,7 +6,7 @@ date: 2025-10-31
 
 <script>
 	import BlogImage from '#lib/components/BlogImage.svelte'
-	import cli from './css-code-coverage-linter-cli.png?enhanced'
+	import cli from './css-code-coverage-linter-cli.png?enhanced&imgWidth=1408&effort=2'
   import cli_full from './css-code-coverage-linter-cli.png'
 </script>
 

@@ -6,9 +6,9 @@ date: 2026-06-13
 
 <script>
 	import BlogImage from '#lib/components/BlogImage.svelte'
-	import grid_before from './before-grid.png?enhanced'
+	import grid_before from './before-grid.png?enhanced&imgWidth=1408&effort=2'
 	import grid_before_full from './before-grid.png'
-	import grid_after from './after-grid-lanes.png?enhanced'
+	import grid_after from './after-grid-lanes.png?enhanced&imgWidth=1408&effort=2'
 	import grid_after_full from './after-grid-lanes.png'
 </script>
 
