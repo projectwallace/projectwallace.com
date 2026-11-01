@@ -16,7 +16,7 @@ catalog:
   '@projectwallace/format-css': ^3.2.2
   '@projectwallace/stylelint-plugin': ^0.7.2
   '@projectwallace/color-sorter': ^9.0.0
-  runed: ^0.37.1
+  runed: ^0.38.0
   vite: 8.3.5
 
 overrides:
