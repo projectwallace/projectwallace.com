@@ -85,7 +85,6 @@
 		}
 	}
 
-	/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- longhands instead of shorthands add declarations */
 	:global(.markdown pre) {
 		background-color: var(--bg-200);
 		padding-block: 1rem;

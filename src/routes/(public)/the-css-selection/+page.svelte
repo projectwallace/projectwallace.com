@@ -47,7 +47,6 @@
 		color: var(--fg-300);
 	}
 
-	/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- longhands instead of shorthands add declarations */
 	.css-selection-card {
 		aspect-ratio: 1200 / 630;
 		container-type: inline-size;

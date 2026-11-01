@@ -8,6 +8,9 @@ export default {
 			extends: ['stylelint-config-standard'],
 			rules: {
 				'max-nesting-depth': 4,
+				// Longhands instead of shorthands (border, outline, transition) mean more declarations per rule
+				'projectwallace/max-declarations-per-rule': 16,
+				'projectwallace/max-average-declarations-per-rule': 8,
 				'declaration-property-value-keyword-no-deprecated': [true, { ignoreKeywords: ['break-word'] }],
 				'no-invalid-position-declaration': null,
 				'no-descending-specificity': null,

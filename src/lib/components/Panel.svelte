@@ -13,7 +13,6 @@
 </svelte:element>
 
 <style>
-	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- longhands instead of shorthands add declarations */
 	.panel {
 		contain: layout paint;
 		min-inline-size: 0;

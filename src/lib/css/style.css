@@ -175,7 +175,6 @@
 	}
 
 	@layer spacing {
-		/* stylelint-disable-next-line projectwallace/max-declarations-per-rule -- Our spacing scale is just big, okay */
 		html {
 			/* --space-0: 0; */
 			--space-px: 1px;

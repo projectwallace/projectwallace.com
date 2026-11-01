@@ -17,7 +17,6 @@
 </aside>
 
 <style>
-	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- longhands instead of shorthands add declarations */
 	.award {
 		margin-block: var(--space-12) var(--space-24);
 		inline-size: auto;
