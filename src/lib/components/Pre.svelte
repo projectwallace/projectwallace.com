@@ -319,7 +319,7 @@
 	}
 
 	.line-number-range {
-		border-inline-end-width: 0.3em;
+		border-inline-end-width: var(--border-width-lg);
 		border-inline-end-style: var(--border-style-solid);
 		border-inline-end-color: transparent;
 	}
