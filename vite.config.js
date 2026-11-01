@@ -6,9 +6,12 @@ import { preprocessMeltUI } from '@melt-ui/pp'
 import { sveltekit } from '@sveltejs/kit/vite'
 import { enhancedImages } from '@sveltejs/enhanced-img'
 import { Features } from 'lightningcss'
+import { enhancedImgDefaults } from './scripts/vite-plugin-enhanced-img-defaults.ts'
 
 const config = {
 	plugins: [
+		// Blog column renders images at ~704px max; 2x of that is the largest variant worth encoding
+		enhancedImgDefaults({ max_width: 1408, effort: 2 }),
 		enhancedImages(),
 		sveltekit({
 			extensions: ['.svelte', '.svx', ...mdsvexConfig.extensions],
