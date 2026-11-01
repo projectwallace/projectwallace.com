@@ -151,12 +151,9 @@
 		display: flex;
 		justify-content: space-between;
 		background-color: var(--bg-100);
-		border-block-start-width: var(--border-width-sm);
-		border-block-start-style: var(--border-style-solid);
-		border-block-start-color: var(--fg-450);
-		border-block-end-width: var(--border-width-sm);
-		border-block-end-style: var(--border-style-solid);
-		border-block-end-color: var(--fg-450);
+		border-block-width: var(--border-width-sm);
+		border-block-style: var(--border-style-solid);
+		border-block-color: var(--fg-450);
 	}
 
 	.close-devtools {

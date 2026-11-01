@@ -296,12 +296,9 @@
 	.popover-item {
 		padding-block: var(--space-1);
 		padding-inline: var(--space-3);
-		border-inline-start-width: var(--space-1);
-		border-inline-start-style: var(--border-style-solid);
-		border-inline-start-color: transparent;
-		border-inline-end-width: var(--space-1);
-		border-inline-end-style: var(--border-style-solid);
-		border-inline-end-color: transparent;
+		border-inline-width: var(--space-1);
+		border-inline-style: var(--border-style-solid);
+		border-inline-color: transparent;
 		font-size: var(--nav-font-size);
 
 		@media (forced-colors: active) {
