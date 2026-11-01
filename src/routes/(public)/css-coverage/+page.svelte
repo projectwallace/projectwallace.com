@@ -128,10 +128,14 @@
 		display: flex;
 		inline-size: 100%;
 		padding: var(--space-8);
-		border: 2px dashed var(--fg-700);
+		border-width: var(--border-width-md);
+		border-style: var(--border-style-dashed);
+		border-color: var(--fg-700);
 		text-align: center;
 		background-color: var(--bg-200);
-		transition: border-color var(--duration-fast) ease-out;
+		transition-property: border-color;
+		transition-duration: var(--duration-fast);
+		transition-timing-function: var(--ease-out);
 
 		&:hover {
 			border-color: var(--bg-400);

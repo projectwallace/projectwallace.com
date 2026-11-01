@@ -104,7 +104,7 @@
 		order: 1;
 		border-color: var(--fg-600);
 		border-style: solid;
-		border-width: 0;
+		border-width: var(--border-width-none);
 		padding-block: var(--space-6);
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
@@ -172,7 +172,9 @@
 		display: block;
 		padding-inline: var(--space-5);
 		padding-block: var(--space-1);
-		border-inline-start: var(--space-1) solid transparent;
+		border-inline-start-width: var(--space-1);
+		border-inline-start-style: var(--border-style-solid);
+		border-inline-start-color: transparent;
 		text-decoration: none;
 
 		&:hover,

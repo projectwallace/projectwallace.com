@@ -86,7 +86,9 @@
 		}
 
 		@media (forced-colors: active), print {
-			border: 1px solid;
+			border-width: var(--border-width-sm);
+			border-style: var(--border-style-solid);
+			border-color: currentColor;
 		}
 	}
 </style>

@@ -74,14 +74,18 @@
 	.slide {
 		block-size: 100%;
 		max-block-size: 100%;
-		border-inline-start: 1px solid var(--fg-450);
+		border-inline-start-width: var(--border-width-sm);
+		border-inline-start-style: var(--border-style-solid);
+		border-inline-start-color: var(--fg-450);
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 	}
 
 	.slide-tools {
-		border-block-end: 1px solid var(--fg-450);
+		border-block-end-width: var(--border-width-sm);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--fg-450);
 		padding: var(--space-2);
 		display: flex;
 		flex-wrap: wrap;

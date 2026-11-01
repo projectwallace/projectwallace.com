@@ -89,14 +89,18 @@
 		position: relative;
 
 		@media print {
-			border: 1px solid;
+			border-width: var(--border-width-sm);
+			border-style: var(--border-style-solid);
+			border-color: currentColor;
 			display: grid;
 			grid-template-columns: 4rem minmax(0, 1fr);
 			align-items: center;
 		}
 
 		@media (forced-colors: active) {
-			border: 1px solid;
+			border-width: var(--border-width-sm);
+			border-style: var(--border-style-solid);
+			border-color: currentColor;
 		}
 	}
 

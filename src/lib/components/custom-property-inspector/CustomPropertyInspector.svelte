@@ -311,7 +311,9 @@
 		--wallace-custom-property-inspector-warning-color: var(--orange-400);
 		--wallace-custom-property-inspector-suggestion-color: light-dark(var(--yellow-600), var(--yellow-400));
 		inline-size: 100%;
-		border: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
+		border-width: var(--space-px);
+		border-style: var(--border-style-solid);
+		border-color: var(--wallace-custom-property-inspector-border-color);
 		background-color: var(--wallace-custom-property-inspector-bg-color);
 		scroll-margin-block-start: var(--space-4);
 		display: grid;
@@ -328,7 +330,9 @@
 
 	.editor {
 		grid-template-rows: auto minmax(0, 1fr);
-		border-inline-end: 1px solid var(--wallace-custom-property-inspector-border-color);
+		border-inline-end-width: var(--border-width-sm);
+		border-inline-end-style: var(--border-style-solid);
+		border-inline-end-color: var(--wallace-custom-property-inspector-border-color);
 		grid-area: editor;
 	}
 
@@ -361,7 +365,9 @@
 		padding-inline: var(--space-2);
 		background-color: var(--wallace-custom-property-inspector-bg-color);
 		font-size: var(--size-sm);
-		border-block-end: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
+		border-block-end-width: var(--space-px);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--wallace-custom-property-inspector-border-color);
 
 		& h2 {
 			text-transform: uppercase;
@@ -376,12 +382,16 @@
 			margin-inline: calc(-1 * var(--space-2));
 			padding-inline: var(--space-2);
 			grid-column: 1 / -1;
-			border-block-start: var(--space-px) solid var(--wallace-custom-property-inspector-border-color);
+			border-block-start-width: var(--space-px);
+			border-block-start-style: var(--border-style-solid);
+			border-block-start-color: var(--wallace-custom-property-inspector-border-color);
 		}
 
 		& input {
 			background-color: transparent;
-			border: 1px solid var(--fg-450);
+			border-width: var(--border-width-sm);
+			border-style: var(--border-style-solid);
+			border-color: var(--fg-450);
 			inline-size: 100%;
 			padding-inline: var(--space-2);
 		}
@@ -420,7 +430,9 @@
 
 	.summary {
 		grid-area: summary;
-		border-block-start: 1px solid var(--wallace-custom-property-inspector-border-color);
+		border-block-start-width: var(--border-width-sm);
+		border-block-start-style: var(--border-style-solid);
+		border-block-start-color: var(--wallace-custom-property-inspector-border-color);
 		padding-inline: var(--space-2);
 		font-size: var(--size-sm);
 		color: var(--fg-200);

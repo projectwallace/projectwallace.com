@@ -91,7 +91,9 @@
 		margin-block-end: var(--space-4);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-3);
-		border-block-start: 1px solid var(--fg-800);
+		border-block-start-width: var(--border-width-sm);
+		border-block-start-style: var(--border-style-solid);
+		border-block-start-color: var(--fg-800);
 		color: var(--fg-300);
 
 		@media (min-width: 66rem) {

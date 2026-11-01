@@ -119,11 +119,15 @@
 	}
 
 	.resize-bar {
-		border-block-end: 3px solid var(--blue-400);
+		border-block-end-width: 3px;
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--blue-400);
 		padding-block-start: 9px;
 		cursor: ns-resize;
 		opacity: 0;
-		transition: opacity var(--duration-fast) ease-out;
+		transition-property: opacity;
+		transition-duration: var(--duration-fast);
+		transition-timing-function: var(--ease-out);
 		display: block;
 		inline-size: 100%;
 
@@ -147,8 +151,9 @@
 		display: flex;
 		justify-content: space-between;
 		background-color: var(--bg-100);
-		border-block-start: 1px solid var(--fg-450);
-		border-block-end: 1px solid var(--fg-450);
+		border-block-width: var(--border-width-sm);
+		border-block-style: var(--border-style-solid);
+		border-block-color: var(--fg-450);
 	}
 
 	.close-devtools {

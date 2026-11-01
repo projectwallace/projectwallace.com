@@ -17,7 +17,9 @@
 	.empty {
 		padding-block: var(--space-4);
 		padding-inline: var(--space-6);
-		border: 2px dashed light-dark(var(--fg-850), var(--fg-700));
+		border-width: var(--border-width-md);
+		border-style: var(--border-style-dashed);
+		border-color: light-dark(var(--fg-850), var(--fg-700));
 		text-align: center;
 		font-weight: var(--font-medium);
 		color: light-dark(var(--fg-600), var(--fg-400));

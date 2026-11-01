@@ -25,7 +25,9 @@
 	.hero {
 		padding-block-start: var(--space-8);
 		padding-block-end: var(--space-6);
-		border-block-end: var(--space-px) solid var(--bg-300);
+		border-block-end-width: var(--space-px);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--bg-300);
 		margin-block-end: var(--space-8);
 		background-image:
 			radial-gradient(circle at top right, rgb(from var(--accent-400) r g b / 0.07) 0%, transparent 90%),

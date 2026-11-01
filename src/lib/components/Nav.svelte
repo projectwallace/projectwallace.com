@@ -156,9 +156,13 @@
 		--nav-font-size: var(--size-sm);
 		--item-block-padding: var(--space-2);
 		--item-inline-padding: var(--space-2);
-		border-block-start: var(--space-1) solid var(--accent);
+		border-block-start-width: var(--space-1);
+		border-block-start-style: var(--border-style-solid);
+		border-block-start-color: var(--accent);
 		background-color: var(--bg-100);
-		border-block-end: 1px solid var(--fg-800);
+		border-block-end-width: var(--border-width-sm);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--fg-800);
 
 		@media (min-width: 44rem) {
 			--nav-gap: var(--space-2);
@@ -205,7 +209,9 @@
 	}
 
 	.nav-item {
-		border-block-end: var(--nav-border-height) solid transparent;
+		border-block-end-width: var(--nav-border-height);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: transparent;
 
 		&:hover,
 		&:focus {
@@ -237,7 +243,9 @@
 		display: block;
 		padding-block: 0.2em;
 		padding-inline: var(--space-3);
-		border: 1px solid var(--fg-500);
+		border-width: var(--border-width-sm);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-500);
 		anchor-name: --nav-popover-trigger;
 
 		&[aria-expanded='true'] {
@@ -264,8 +272,12 @@
 		inline-size: max-content;
 		background-color: var(--fg-900);
 		padding: var(--space-2);
-		border: 1px solid var(--fg-450);
-		transition: opacity 50ms ease-out;
+		border-width: var(--border-width-sm);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-450);
+		transition-property: opacity;
+		transition-duration: var(--duration-faster);
+		transition-timing-function: var(--ease-out);
 		box-shadow: var(--shadow);
 
 		@supports not (right: anchor(end)) {
@@ -284,8 +296,9 @@
 	.popover-item {
 		padding-block: var(--space-1);
 		padding-inline: var(--space-3);
-		border-inline-start: var(--space-1) solid transparent;
-		border-inline-end: var(--space-1) solid transparent;
+		border-inline-width: var(--space-1);
+		border-inline-style: var(--border-style-solid);
+		border-inline-color: transparent;
 		font-size: var(--nav-font-size);
 
 		@media (forced-colors: active) {

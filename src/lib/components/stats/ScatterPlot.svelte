@@ -87,6 +87,8 @@
 		display: block;
 		inline-size: 100%;
 		inset-inline-start: 0;
-		border-block-end: 1px solid var(--gray-500);
+		border-block-end-width: var(--border-width-sm);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--gray-500);
 	}
 </style>

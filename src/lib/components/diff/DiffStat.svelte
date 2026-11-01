@@ -80,7 +80,9 @@
 		--wallace-diffstat-fg: transparent;
 
 		@media print, (forced-colors: active) {
-			border: 1px solid;
+			border-width: var(--border-width-sm);
+			border-style: var(--border-style-solid);
+			border-color: currentColor;
 		}
 
 		&.added {

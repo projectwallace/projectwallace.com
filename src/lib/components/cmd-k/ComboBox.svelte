@@ -157,7 +157,9 @@
 		padding-block: var(--space-3);
 
 		&:not(:last-child) {
-			border-block-end: 1px solid var(--fg-500);
+			border-block-end-width: var(--border-width-sm);
+			border-block-end-style: var(--border-style-solid);
+			border-block-end-color: var(--fg-500);
 		}
 	}
 
@@ -193,7 +195,9 @@
 		}
 
 		&:focus {
-			outline: 1px solid light-dark(var(--accent-600), var(--accent));
+			outline-width: var(--border-width-sm);
+			outline-style: var(--border-style-solid);
+			outline-color: light-dark(var(--accent-600), var(--accent));
 			outline-offset: -1px;
 			background-color: var(--highlight-item);
 		}

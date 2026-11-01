@@ -68,7 +68,9 @@
 	[role='tablist'] {
 		display: flex;
 		gap: var(--_input-mode-switcher-spacing);
-		border: 1px solid var(--fg-600);
+		border-width: var(--border-width-sm);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-600);
 		justify-content: end;
 		padding: var(--_input-mode-switcher-spacing);
 		max-inline-size: max-content;

@@ -243,7 +243,9 @@
 		gap: var(--space-2);
 		padding-inline: var(--space-2);
 		padding-block: var(--space-2);
-		border-block-end: 1px solid var(--bg-300);
+		border-block-end-width: var(--border-width-sm);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--bg-300);
 
 		p {
 			margin-inline-end: auto;
@@ -287,7 +289,9 @@
 			gap: 0;
 
 			.line-number-range {
-				border-inline-end: var(--pre-chunk-border-width) solid transparent;
+				border-inline-end-width: var(--pre-chunk-border-width);
+				border-inline-end-style: var(--border-style-solid);
+				border-inline-end-color: transparent;
 				padding-inline-end: var(--pre-chunk-border-width);
 			}
 
@@ -315,7 +319,9 @@
 	}
 
 	.line-number-range {
-		border-inline-end: 0.3em solid transparent;
+		border-inline-end-width: var(--border-width-lg);
+		border-inline-end-style: var(--border-style-solid);
+		border-inline-end-color: transparent;
 	}
 
 	pre {

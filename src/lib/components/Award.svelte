@@ -44,14 +44,18 @@
 			inset-inline-end: -2rem;
 			inset-block-end: -2rem;
 			inset-inline-start: 2rem;
-			border: 2px solid var(--bg-300);
+			border-width: var(--border-width-md);
+			border-style: var(--border-style-solid);
+			border-color: var(--bg-300);
 		}
 	}
 
 	.size {
 		font-size: var(--size-3xl);
 		font-weight: var(--font-ultrabold);
-		border: 4px solid var(--bg-500);
+		border-width: var(--border-width-lg);
+		border-style: var(--border-style-solid);
+		border-color: var(--bg-500);
 		padding-block: var(--space-6);
 		padding-inline: var(--space-4);
 		float: inline-start;
