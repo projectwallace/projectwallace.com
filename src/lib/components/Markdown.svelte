@@ -52,7 +52,9 @@
 		padding-inline: var(--space-12);
 		max-inline-size: 50ch;
 		box-shadow: var(--shadow);
-		border-inline-start: 4px solid var(--accent);
+		border-inline-start-width: var(--border-width-lg);
+		border-inline-start-style: var(--border-style-solid);
+		border-inline-start-color: var(--accent);
 	}
 
 	:global(.markdown p) {
@@ -92,12 +94,16 @@
 		white-space: pre;
 		tab-size: 2;
 		font-size: inherit;
-		border: 1px solid var(--fg-700);
+		border-width: var(--border-width-sm);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-700);
 
 		/* Could be a mixing eventually because it copies style.css 1:1 */
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
-		transition: scrollbar-color 0.1s ease-out;
+		transition-property: scrollbar-color;
+		transition-duration: var(--duration-fast);
+		transition-timing-function: var(--ease-out);
 
 		&:hover,
 		&:focus {
@@ -166,7 +172,9 @@
 		--cell-spacing: 0.75rem;
 		border-spacing: 0;
 		inline-size: 100%;
-		border-block-start: 0.125rem solid var(--fg-300);
+		border-block-start-width: var(--border-width-md);
+		border-block-start-style: var(--border-style-solid);
+		border-block-start-color: var(--fg-300);
 		box-shadow: var(--shadow);
 		font-size: var(--size-sm);
 	}
@@ -194,7 +202,9 @@
 
 	:global(.markdown img) {
 		box-shadow: var(--shadow);
-		border: 1px solid var(--fg-700);
+		border-width: var(--border-width-sm);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-700);
 	}
 
 	:global(.markdown code) {
@@ -218,7 +228,9 @@
 	}
 
 	:global(.markdown aside):not([class]) {
-		border: 2px solid var(--accent-800);
+		border-width: var(--border-width-md);
+		border-style: var(--border-style-solid);
+		border-color: var(--accent-800);
 		padding-block: var(--space-6);
 		padding-inline: var(--space-5);
 	}
@@ -239,7 +251,9 @@
 	}
 
 	:global(.markdown hr) {
-		border-block-start: 1px solid var(--gray-500);
+		border-block-start-width: var(--border-width-sm);
+		border-block-start-style: var(--border-style-solid);
+		border-block-start-color: var(--gray-500);
 		margin-block: var(--space-16);
 		margin-inline: 0;
 	}

@@ -96,7 +96,9 @@
 	.css-output {
 		min-block-size: var(--space-64);
 		max-block-size: 66vb;
-		border: 1px solid var(--fg-450);
+		border-width: var(--border-width-sm);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-450);
 		background-color: var(--bg-200);
 		overflow-y: auto;
 	}

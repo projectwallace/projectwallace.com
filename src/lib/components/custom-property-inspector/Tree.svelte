@@ -98,7 +98,9 @@
 		}
 
 		&:focus {
-			outline: 1px solid var(--accent);
+			outline-width: var(--border-width-sm);
+			outline-style: var(--border-style-solid);
+			outline-color: var(--accent);
 		}
 
 		&[aria-selected='true'] {
@@ -131,7 +133,9 @@
 
 	.property-use {
 		display: block;
-		border-inline-start: 1px solid var(--fg-500);
+		border-inline-start-width: var(--border-width-sm);
+		border-inline-start-style: var(--border-style-solid);
+		border-inline-start-color: var(--fg-500);
 		padding-inline-start: var(--space-3);
 		line-height: var(--leading-relaxed);
 		color: var(--fg-200);
@@ -174,6 +178,8 @@
 	.match {
 		background-color: light-dark(var(--blue-100), var(--blue-700));
 		color: light-dark(var(--blue-800), var(--fg-100));
-		border: 1px solid var(--blue-300);
+		border-width: var(--border-width-sm);
+		border-style: var(--border-style-solid);
+		border-color: var(--blue-300);
 	}
 </style>

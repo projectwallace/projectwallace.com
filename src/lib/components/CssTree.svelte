@@ -172,7 +172,8 @@
 <style>
 	[role='treeitem'] {
 		font-family: var(--font-mono);
-		transition: background-color var(--duration-fast);
+		transition-property: background-color;
+		transition-duration: var(--duration-fast);
 		scroll-margin: var(--space-12);
 
 		&[aria-selected='true'] {

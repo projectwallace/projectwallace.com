@@ -14,7 +14,9 @@
 		box-sizing: border-box; /* 1 */
 		margin: 0; /* 2 */
 		padding: 0; /* 2 */
-		border: 0 solid; /* 3 */
+		border-width: var(--border-width-none); /* 3 */
+		border-style: solid; /* 3 */
+		border-color: currentColor; /* 3 */
 	}
 
 	/*
@@ -152,7 +154,7 @@
 	*/
 
 	:-moz-focusring {
-		outline: auto;
+		outline-style: auto;
 	}
 
 	/*

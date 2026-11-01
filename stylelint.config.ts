@@ -8,6 +8,9 @@ export default {
 			extends: ['stylelint-config-standard'],
 			rules: {
 				'max-nesting-depth': 4,
+				// Longhands instead of shorthands (border, outline, transition) mean more declarations per rule
+				'projectwallace/max-declarations-per-rule': 16,
+				'projectwallace/max-average-declarations-per-rule': 8,
 				'declaration-property-value-keyword-no-deprecated': [true, { ignoreKeywords: ['break-word'] }],
 				'no-invalid-position-declaration': null,
 				'no-descending-specificity': null,
@@ -38,7 +41,9 @@ export default {
 				],
 				'property-no-vendor-prefix': [
 					true,
-					{ ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration'] }
+					{
+						ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration']
+					}
 				],
 				'no-unknown-custom-properties': null,
 				'length-zero-no-unit': null,
@@ -179,17 +184,7 @@ export default {
 		'projectwallace/no-property-shorthand': [
 			true,
 			{
-				ignore: [
-					'single-value',
-					'border',
-					'outline', // 1px solid transparent
-					/border-block/,
-					/border-inline/, // 1px solid transparent
-					'grid-column',
-					'grid-row',
-					'contain-intrinsic-size',
-					'transition' // TODO: break down these shorthands
-				]
+				ignore: ['single-value', 'grid-column', 'grid-row', 'contain-intrinsic-size']
 			}
 		]
 	}

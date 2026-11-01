@@ -55,7 +55,9 @@
 		color: var(--fg-200);
 		font-family: var(--font-body);
 		background-image: radial-gradient(circle at top, light-dark(var(--teal-100), var(--teal-900)), transparent 80%);
-		border: 0.3rem solid var(--accent-400);
+		border-width: var(--border-width-lg);
+		border-style: var(--border-style-solid);
+		border-color: var(--accent-400);
 		padding-block: var(--space-8);
 		padding-inline: var(--space-12);
 		display: grid;
@@ -70,12 +72,14 @@
 			.card-link {
 				text-decoration: underline;
 				text-decoration-thickness: 0.2rem;
-				outline: none;
+				outline-style: none;
 			}
 		}
 
 		&:focus-within {
-			outline: 4px solid var(--fg-0);
+			outline-width: var(--border-width-lg);
+			outline-style: var(--border-style-solid);
+			outline-color: var(--fg-0);
 		}
 	}
 
@@ -148,7 +152,9 @@
 				inset-block-end: -0.4cqb;
 				inset-inline-end: 0;
 				inset-inline-start: 0;
-				border-block-end: 0.4cqb solid var(--purple-400);
+				border-block-end-width: 0.4cqb;
+				border-block-end-style: var(--border-style-solid);
+				border-block-end-color: var(--purple-400);
 				rotate: -1.44deg;
 			}
 		}

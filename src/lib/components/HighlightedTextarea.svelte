@@ -66,7 +66,7 @@
 			}
 
 			&:focus {
-				outline: none;
+				outline-style: none;
 			}
 		}
 

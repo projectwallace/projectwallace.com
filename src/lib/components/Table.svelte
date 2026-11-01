@@ -39,7 +39,9 @@
 				z-index: 2;
 				inset-inline: 0;
 				/* Double border-width because it otherwise doesn't show */
-				border-block-end: 2px solid var(--fg-500);
+				border-block-end-width: var(--border-width-md);
+				border-block-end-style: var(--border-style-solid);
+				border-block-end-color: var(--fg-500);
 			}
 
 			& :global(th:not([scope='row' i])) {
@@ -57,7 +59,9 @@
 			}
 
 			& :global(td:not(:first-child)) {
-				border-inline-start: 1px solid var(--fg-500);
+				border-inline-start-width: var(--border-width-sm);
+				border-inline-start-style: var(--border-style-solid);
+				border-inline-start-color: var(--fg-500);
 			}
 
 			& :global(th),

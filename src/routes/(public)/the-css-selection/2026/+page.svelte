@@ -92,7 +92,9 @@
 
 					&::after {
 						inline-size: 6rem;
-						border: 4px solid var(--accent-700);
+						border-width: var(--border-width-lg);
+						border-style: var(--border-style-solid);
+						border-color: var(--accent-700);
 						inset-block-start: 1rem;
 						inset-inline-end: 7rem;
 					}
@@ -101,7 +103,9 @@
 						inset-block-start: 0;
 						inset-inline-end: 0rem;
 						inline-size: 10rem;
-						border: 4px solid var(--bg-400);
+						border-width: var(--border-width-lg);
+						border-style: var(--border-style-solid);
+						border-color: var(--bg-400);
 					}
 				}
 			}

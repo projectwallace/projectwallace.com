@@ -60,11 +60,15 @@
 	.project {
 		background-color: var(--bg-200);
 		box-shadow: var(--shadow);
-		border-block-start: 2px solid var(--fg-700);
+		border-block-start-width: var(--border-width-md);
+		border-block-start-style: var(--border-style-solid);
+		border-block-start-color: var(--fg-700);
 		position: relative;
 
 		@media (forced-colors: active), print {
-			border: 1px solid;
+			border-width: var(--border-width-sm);
+			border-style: var(--border-style-solid);
+			border-color: currentColor;
 		}
 	}
 
@@ -72,7 +76,9 @@
 		padding-inline: var(--space-16);
 		padding-block: var(--space-8);
 		margin-inline: auto;
-		border-block-end: 1px solid var(--fg-450);
+		border-block-end-width: var(--border-width-sm);
+		border-block-end-style: var(--border-style-solid);
+		border-block-end-color: var(--fg-450);
 	}
 
 	.content {
