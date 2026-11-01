@@ -6,13 +6,13 @@ date: 2025-02-28
 
 <script>
   import BlogImage from '#lib/components/BlogImage.svelte'
-  import item_highlight from './item-usage-highlight.png?enhanced&imgWidth=1408&effort=2'
+  import item_highlight from './item-usage-highlight.png?enhanced'
   import item_highlight_full from './item-usage-highlight.png'
-  import diffstat from './diffstat.png?enhanced&effort=2'
+  import diffstat from './diffstat.png?enhanced'
   import diffstat_full from './diffstat.png'
-  import resize from './resize.png?enhanced&imgWidth=1408&effort=2'
+  import resize from './resize.png?enhanced'
   import resize_full from './resize.png'
-  import pseudo_classes from './pseudo-classes.png?enhanced&effort=2'
+  import pseudo_classes from './pseudo-classes.png?enhanced'
   import pseudo_classes_full from './pseudo-classes.png'
 </script>
 

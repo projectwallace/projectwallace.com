@@ -6,7 +6,7 @@ date: 2025-03-31
 
 <script>
   import BlogImage from '#lib/components/BlogImage.svelte'
-  import layers from './layers.png?enhanced&effort=2'
+  import layers from './layers.png?enhanced'
   import layers_full from './layers.png'
 </script>
 

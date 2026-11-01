@@ -6,11 +6,11 @@ date: 2025-01-31
 
 <script>
   import BlogImage from '#lib/components/BlogImage.svelte'
-  import coverage from './css-coverage.png?enhanced&imgWidth=1408&effort=2'
+  import coverage from './css-coverage.png?enhanced'
   import coverage_full from './css-coverage.png'
-  import ast from './ast-explorer.png?enhanced&imgWidth=1408&effort=2'
+  import ast from './ast-explorer.png?enhanced'
   import ast_full from './ast-explorer.png'
-  import list_sort from './list-sorting.png?enhanced&imgWidth=1408&effort=2'
+  import list_sort from './list-sorting.png?enhanced'
   import list_sort_full from './list-sorting.png'
 </script>
 

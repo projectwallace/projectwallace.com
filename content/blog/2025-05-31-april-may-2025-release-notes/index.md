@@ -6,11 +6,11 @@ date: 2025-05-31
 
 <script>
   import BlogImage from '#lib/components/BlogImage.svelte'
-  import light_theme from './light-theme.png?enhanced&imgWidth=1408&effort=2'
+  import light_theme from './light-theme.png?enhanced'
   import light_theme_full from './light-theme.png'
-	import naked_theme from './naked-theme.png?enhanced&imgWidth=1408&effort=2'
+	import naked_theme from './naked-theme.png?enhanced'
   import naked_theme_full from './naked-theme.png'
-	import counterscale from './counterscale.png?enhanced&imgWidth=1408&effort=2'
+	import counterscale from './counterscale.png?enhanced'
   import counterscale_full from './counterscale.png'
 </script>
 
