@@ -198,9 +198,9 @@
 
 	@layer motion {
 		html {
-			--duration-xs: 50ms;
-			--duration-sm: 100ms;
-			--duration-md: 200ms;
+			--duration-faster: 50ms;
+			--duration-fast: 100ms;
+			--duration-normal: 200ms;
 			--ease-in: ease-in;
 			--ease-out: ease-out;
 			--ease-in-out: ease-in-out;
@@ -430,7 +430,7 @@
 			accent-color: var(--accent);
 
 			& * {
-				transition-duration: var(--duration-sm);
+				transition-duration: var(--duration-fast);
 				transition-property: color, background-color, border-color;
 				transition-timing-function: ease-out;
 				background-repeat: no-repeat;
@@ -853,7 +853,7 @@
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
 		transition-property: scrollbar-color;
-		transition-duration: var(--duration-sm);
+		transition-duration: var(--duration-fast);
 		transition-timing-function: var(--ease-out);
 
 		&:hover,

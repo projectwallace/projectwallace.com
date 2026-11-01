@@ -102,7 +102,7 @@
 		text-align: center;
 		background-color: var(--bg-100);
 		transition-property: border-color;
-		transition-duration: var(--duration-sm);
+		transition-duration: var(--duration-fast);
 		transition-timing-function: var(--ease-out);
 
 		&:hover {

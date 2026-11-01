@@ -102,7 +102,7 @@
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
 		transition-property: scrollbar-color;
-		transition-duration: var(--duration-sm);
+		transition-duration: var(--duration-fast);
 		transition-timing-function: var(--ease-out);
 
 		&:hover,

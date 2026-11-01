@@ -231,7 +231,7 @@
 		opacity: 0;
 		background-color: var(--accent-600);
 		transition-property: opacity;
-		transition-duration: var(--duration-md);
+		transition-duration: var(--duration-normal);
 	}
 
 	.devtools[data-empty='false'] {

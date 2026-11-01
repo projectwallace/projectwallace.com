@@ -173,7 +173,7 @@
 	[role='treeitem'] {
 		font-family: var(--font-mono);
 		transition-property: background-color;
-		transition-duration: var(--duration-sm);
+		transition-duration: var(--duration-fast);
 		scroll-margin: var(--space-12);
 
 		&[aria-selected='true'] {

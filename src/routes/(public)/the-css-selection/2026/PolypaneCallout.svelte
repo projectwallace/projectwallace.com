@@ -162,7 +162,7 @@
 		white-space: nowrap;
 		will-change: box-shadow;
 		transition-property: box-shadow;
-		transition-duration: var(--duration-md);
+		transition-duration: var(--duration-normal);
 		transition-timing-function: var(--ease-in-out);
 
 		& .button-arrow {
@@ -172,7 +172,7 @@
 			position: relative;
 			inset-block-start: 1px;
 			transition-property: all;
-			transition-duration: var(--duration-md);
+			transition-duration: var(--duration-normal);
 			transition-timing-function: var(--ease-in-out);
 			will-change: transform;
 		}

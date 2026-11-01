@@ -134,7 +134,7 @@
 		text-align: center;
 		background-color: var(--bg-200);
 		transition-property: border-color;
-		transition-duration: var(--duration-sm);
+		transition-duration: var(--duration-fast);
 		transition-timing-function: var(--ease-out);
 
 		&:hover {

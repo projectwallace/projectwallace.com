@@ -360,7 +360,7 @@
 			padding-inline: var(--space-6);
 			color: inherit;
 			transition-property: color;
-			transition-duration: var(--duration-sm);
+			transition-duration: var(--duration-fast);
 			transition-timing-function: var(--ease-out);
 
 			@media (forced-colors: active), print {
@@ -373,7 +373,7 @@
 				opacity: 0;
 				translate: -5px 0;
 				transition-property: translate, opacity;
-				transition-duration: var(--duration-sm);
+				transition-duration: var(--duration-fast);
 				transition-timing-function: var(--ease-out);
 			}
 

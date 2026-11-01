@@ -276,7 +276,7 @@
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 		transition-property: opacity;
-		transition-duration: var(--duration-xs);
+		transition-duration: var(--duration-faster);
 		transition-timing-function: var(--ease-out);
 		box-shadow: var(--shadow);
 

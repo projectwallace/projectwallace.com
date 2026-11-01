@@ -126,7 +126,7 @@
 		cursor: ns-resize;
 		opacity: 0;
 		transition-property: opacity;
-		transition-duration: var(--duration-sm);
+		transition-duration: var(--duration-fast);
 		transition-timing-function: var(--ease-out);
 		display: block;
 		inline-size: 100%;

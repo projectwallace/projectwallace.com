@@ -64,7 +64,7 @@
 		border-style: var(--border-style-solid);
 		border-color: transparent;
 		transition-property: color, background-color, box-shadow;
-		transition-duration: var(--duration-sm);
+		transition-duration: var(--duration-fast);
 		transition-timing-function: var(--ease-out);
 
 		@media print {
