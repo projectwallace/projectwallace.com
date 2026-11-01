@@ -199,7 +199,24 @@
 
 	@layer motion {
 		html {
+			--duration-faster: 50ms;
 			--duration-fast: 100ms;
+			--duration-normal: 200ms;
+			--ease-in: ease-in;
+			--ease-out: ease-out;
+			--ease-in-out: ease-in-out;
+		}
+	}
+
+	@layer borders {
+		html {
+			--border-width-1: 1px;
+			--border-width-2: 2px;
+			--border-width-3: 3px;
+			--border-width-4: 4px;
+			--border-style-solid: solid;
+			--border-style-dashed: dashed;
+			--border-style-dotted: dotted;
 		}
 	}
 
@@ -496,7 +513,9 @@
 		}
 
 		:is([aria-selected='true'], .selectable[aria-current='true']) {
-			outline: 1px solid light-dark(var(--accent-600), var(--accent));
+			outline-width: var(--border-width-1);
+			outline-style: var(--border-style-solid);
+			outline-color: light-dark(var(--accent-600), var(--accent));
 			outline-offset: -1px;
 			background-color: var(--highlight-item);
 			position: relative;
@@ -508,12 +527,16 @@
 		}
 
 		:is([aria-selected='false'], .selectable[aria-current='false']):hover {
-			outline: 1px solid var(--fg-450);
+			outline-width: var(--border-width-1);
+			outline-style: var(--border-style-solid);
+			outline-color: var(--fg-450);
 			outline-offset: -1px;
 		}
 
 		:focus-visible {
-			outline: 2px solid var(--accent);
+			outline-width: var(--border-width-2);
+			outline-style: var(--border-style-solid);
+			outline-color: var(--accent);
 			outline-offset: -2px;
 			position: relative;
 			z-index: 1;
@@ -613,7 +636,9 @@
 			padding-inline: var(--space-4);
 			color: var(--fg-200);
 			background-color: var(--bg-100);
-			border: 1px solid var(--fg-450);
+			border-width: var(--border-width-1);
+			border-style: var(--border-style-solid);
+			border-color: var(--fg-450);
 			border-radius: 0;
 			font: inherit;
 			font-size: var(--size-base);
@@ -648,7 +673,9 @@
 			text-align: center;
 			text-decoration: none;
 			white-space: nowrap;
-			border: 1px solid var(--accent);
+			border-width: var(--border-width-1);
+			border-style: var(--border-style-solid);
+			border-color: var(--accent);
 			font-family: var(--font-display);
 			font-weight: var(--font-medium);
 			font-style: normal;
@@ -702,7 +729,9 @@
 
 			& :target {
 				scroll-margin: var(--space-8);
-				outline: 4px dashed var(--fg-400);
+				outline-width: var(--border-width-4);
+				outline-style: var(--border-style-dashed);
+				outline-color: var(--fg-400);
 				outline-offset: 4px;
 				animation-delay: 1s;
 				animation-fill-mode: forwards;
@@ -824,7 +853,9 @@
 	.scroll-container {
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
-		transition: scrollbar-color var(--duration-fast) ease-out;
+		transition-property: scrollbar-color;
+		transition-duration: var(--duration-fast);
+		transition-timing-function: var(--ease-out);
 
 		&:hover,
 		&:focus {

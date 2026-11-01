@@ -114,7 +114,9 @@
 		}
 
 		@media (forced-colors: active), print {
-			border: 1px solid;
+			border-width: var(--border-width-1);
+			border-style: var(--border-style-solid);
+			border-color: currentColor;
 		}
 	}
 </style>

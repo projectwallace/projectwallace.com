@@ -81,8 +81,10 @@
 	}
 
 	.action:focus {
-		border: 2px solid var(--accent-400);
-		outline: none;
+		border-width: var(--border-width-2);
+		border-style: var(--border-style-solid);
+		border-color: var(--accent-400);
+		outline-style: none;
 		background-color: var(--bg-600);
 	}
 

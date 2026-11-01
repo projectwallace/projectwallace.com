@@ -299,7 +299,8 @@
 		inline-size: 0.25rem;
 		opacity: 0;
 		background-color: var(--accent-600);
-		transition: opacity 200ms;
+		transition-property: opacity;
+		transition-duration: var(--duration-normal);
 	}
 
 	.network {
@@ -317,7 +318,9 @@
 		inset-block-end: 0;
 		inset-inline: 0;
 		z-index: 1;
-		border-block-start: 1px solid var(--fg-450);
+		border-block-start-width: var(--border-width-1);
+		border-block-start-style: var(--border-style-solid);
+		border-block-start-color: var(--fg-450);
 		padding-inline: var(--space-2);
 		gap: var(--space-4);
 		font-size: var(--size-sm);
@@ -351,7 +354,9 @@
 	}
 
 	th:not(:last-of-type) {
-		border-inline-end: 1px solid var(--fg-450);
+		border-inline-end-width: var(--border-width-1);
+		border-inline-end-style: var(--border-style-solid);
+		border-inline-end-color: var(--fg-450);
 	}
 
 	.sort-button {
@@ -383,7 +388,9 @@
 	}
 
 	td {
-		border: 1px solid var(--fg-450);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-450);
 		position: relative;
 	}
 

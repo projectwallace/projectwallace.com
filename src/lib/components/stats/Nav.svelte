@@ -154,7 +154,9 @@
 			inset-inline-end: 0;
 			inset-block-end: 0;
 			inset-inline-start: 0;
-			border: 1px dotted var(--accent-400);
+			border-width: var(--border-width-1);
+			border-style: var(--border-style-dotted);
+			border-color: var(--accent-400);
 			opacity: 0;
 		}
 

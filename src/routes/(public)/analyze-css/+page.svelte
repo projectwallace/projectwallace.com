@@ -89,7 +89,9 @@
 
 <style>
 	aside {
-		border: 2px solid var(--teal-500);
+		border-width: var(--border-width-2);
+		border-style: var(--border-style-solid);
+		border-color: var(--teal-500);
 		padding: var(--space-12);
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);

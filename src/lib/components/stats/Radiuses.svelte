@@ -101,7 +101,9 @@
 		align-items: center;
 		gap: var(--space-2);
 		padding: var(--space-2);
-		border: 1px solid var(--fg-500);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-500);
 	}
 
 	.example {
@@ -115,7 +117,8 @@
 		line-height: 0.1px;
 		color: rgb(0 0 0 / 0);
 		padding: 0;
-		border: 0;
+		border-width: 0;
+		border-style: none;
 		position: absolute;
 		inset: 0;
 		block-size: 100%;

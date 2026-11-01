@@ -38,7 +38,9 @@ export default {
 				],
 				'property-no-vendor-prefix': [
 					true,
-					{ ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration'] }
+					{
+						ignoreProperties: ['-webkit-text-size-adjust', '-webkit-text-decoration']
+					}
 				],
 				'no-unknown-custom-properties': null,
 				'length-zero-no-unit': null,
@@ -179,17 +181,7 @@ export default {
 		'projectwallace/no-property-shorthand': [
 			true,
 			{
-				ignore: [
-					'single-value',
-					'border',
-					'outline', // 1px solid transparent
-					/border-block/,
-					/border-inline/, // 1px solid transparent
-					'grid-column',
-					'grid-row',
-					'contain-intrinsic-size',
-					'transition' // TODO: break down these shorthands
-				]
+				ignore: ['single-value', 'grid-column', 'grid-row', 'contain-intrinsic-size']
 			}
 		]
 	}

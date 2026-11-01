@@ -105,7 +105,9 @@
 	}
 
 	.size {
-		border: 1px solid var(--fg-500);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-500);
 		display: flex;
 		flex-direction: column;
 		text-align: center;

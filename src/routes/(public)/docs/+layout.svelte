@@ -172,7 +172,9 @@
 		display: block;
 		padding-inline: var(--space-5);
 		padding-block: var(--space-1);
-		border-inline-start: var(--space-1) solid transparent;
+		border-inline-start-width: var(--space-1);
+		border-inline-start-style: var(--border-style-solid);
+		border-inline-start-color: transparent;
 		text-decoration: none;
 
 		&:hover,

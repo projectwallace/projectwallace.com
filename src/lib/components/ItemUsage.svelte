@@ -131,7 +131,9 @@
 	}
 
 	td {
-		border: 1px solid var(--fg-500);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-500);
 		position: relative;
 	}
 
@@ -156,7 +158,9 @@
 		background-color: var(--bg-200);
 
 		&:not(:last-of-type) {
-			border-inline-end: 1px solid var(--fg-500);
+			border-inline-end-width: var(--border-width-1);
+			border-inline-end-style: var(--border-style-solid);
+			border-inline-end-color: var(--fg-500);
 		}
 	}
 

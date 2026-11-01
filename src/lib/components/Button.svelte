@@ -60,14 +60,17 @@
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
-		border: 1px solid transparent;
-		transition:
-			color var(--duration-fast) ease-out,
-			background-color var(--duration-fast) ease-out,
-			box-shadow var(--duration-fast) ease-out;
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: transparent;
+		transition-property: color, background-color, box-shadow;
+		transition-duration: var(--duration-fast);
+		transition-timing-function: var(--ease-out);
 
 		@media print {
-			border: var(--space-1) solid;
+			border-width: var(--space-1);
+			border-style: var(--border-style-solid);
+			border-color: currentColor;
 		}
 
 		@media (forced-colors: active) {
@@ -85,7 +88,9 @@
 		text-transform: uppercase;
 		background-color: var(--accent);
 		color: var(--gray-800);
-		border: 1px solid var(--accent);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: var(--accent);
 
 		&:focus,
 		&:hover {

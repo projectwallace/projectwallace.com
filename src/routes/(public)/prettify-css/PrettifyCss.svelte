@@ -134,7 +134,9 @@
 
 	.css-output {
 		min-block-size: var(--space-96);
-		border: 1px solid var(--fg-450);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: var(--fg-450);
 		background-color: var(--bg-200);
 		field-sizing: content;
 	}

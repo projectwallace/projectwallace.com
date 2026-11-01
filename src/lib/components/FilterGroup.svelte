@@ -22,7 +22,9 @@
 		justify-self: start;
 		row-gap: var(--space-1);
 		column-gap: var(--space-3);
-		border: 1px solid var(--gray-500);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: var(--gray-500);
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
 	}

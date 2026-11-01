@@ -88,7 +88,9 @@
 		inset-block-start: 0.5rem;
 		inset-block-end: 0.5rem;
 		inset-inline-start: 0.25rem;
-		border-inline-start: 1px dotted var(--fg-400);
+		border-inline-start-width: var(--border-width-1);
+		border-inline-start-style: var(--border-style-dotted);
+		border-inline-start-color: var(--fg-400);
 	}
 
 	li {
@@ -109,7 +111,9 @@
 		box-shadow: var(--shadow-inset);
 
 		&[aria-current='true'] {
-			outline: 1px solid var(--accent);
+			outline-width: var(--border-width-1);
+			outline-style: var(--border-style-solid);
+			outline-color: var(--accent);
 			outline-offset: -1px;
 			background-color: var(--highlight-item);
 

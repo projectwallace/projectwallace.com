@@ -13,13 +13,16 @@
 </svelte:element>
 
 <style>
+	/* stylelint-disable projectwallace/max-average-declarations-per-rule -- longhands instead of shorthands add declarations */
 	.panel {
 		contain: layout paint;
 		min-inline-size: 0;
 		background-color: light-dark(transparent, var(--bg-200));
 		padding-block: var(--space-4);
 		padding-inline: var(--space-2);
-		border: 1px solid light-dark(var(--fg-800), transparent);
+		border-width: var(--border-width-1);
+		border-style: var(--border-style-solid);
+		border-color: light-dark(var(--fg-800), transparent);
 
 		@media (min-width: 44rem) {
 			padding-inline-end: var(--space-4);
