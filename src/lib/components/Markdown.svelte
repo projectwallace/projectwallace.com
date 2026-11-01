@@ -172,7 +172,7 @@
 		--cell-spacing: 0.75rem;
 		border-spacing: 0;
 		inline-size: 100%;
-		border-block-start-width: 0.125rem;
+		border-block-start-width: var(--border-width-md);
 		border-block-start-style: var(--border-style-solid);
 		border-block-start-color: var(--fg-300);
 		box-shadow: var(--shadow);
