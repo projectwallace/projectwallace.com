@@ -177,7 +177,12 @@ test.describe('with css', () => {
 
 			for (let property of await properties.all()) {
 				await expect.soft(property).toContainText('declared')
-				await expect.soft(property.locator('mark.match')).toContainText('declared')
+				let match = property.locator('mark.match')
+				await expect.soft(match).toContainText('declared')
+				// Asserting on the computed style also makes Chromium compute the style of the <mark>.
+				// Without it, the `.match` rule is reported as uncovered by the CSS coverage because
+				// `content-visibility: auto` on the parent tree item skips style calculation for its contents.
+				await expect.soft(match).toHaveCSS('border-top-style', 'solid')
 			}
 		})
 
