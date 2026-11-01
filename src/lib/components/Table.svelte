@@ -39,7 +39,7 @@
 				z-index: 2;
 				inset-inline: 0;
 				/* Double border-width because it otherwise doesn't show */
-				border-block-end-width: var(--border-width-2);
+				border-block-end-width: var(--border-width-md);
 				border-block-end-style: var(--border-style-solid);
 				border-block-end-color: var(--fg-500);
 			}
@@ -59,7 +59,7 @@
 			}
 
 			& :global(td:not(:first-child)) {
-				border-inline-start-width: var(--border-width-1);
+				border-inline-start-width: var(--border-width-sm);
 				border-inline-start-style: var(--border-style-solid);
 				border-inline-start-color: var(--fg-500);
 			}

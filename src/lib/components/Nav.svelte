@@ -160,7 +160,7 @@
 		border-block-start-style: var(--border-style-solid);
 		border-block-start-color: var(--accent);
 		background-color: var(--bg-100);
-		border-block-end-width: var(--border-width-1);
+		border-block-end-width: var(--border-width-sm);
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--fg-800);
 
@@ -243,7 +243,7 @@
 		display: block;
 		padding-block: 0.2em;
 		padding-inline: var(--space-3);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-500);
 		anchor-name: --nav-popover-trigger;
@@ -272,11 +272,11 @@
 		inline-size: max-content;
 		background-color: var(--fg-900);
 		padding: var(--space-2);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 		transition-property: opacity;
-		transition-duration: var(--duration-faster);
+		transition-duration: var(--duration-xs);
 		transition-timing-function: var(--ease-out);
 		box-shadow: var(--shadow);
 

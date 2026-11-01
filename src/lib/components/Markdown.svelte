@@ -52,7 +52,7 @@
 		padding-inline: var(--space-12);
 		max-inline-size: 50ch;
 		box-shadow: var(--shadow);
-		border-inline-start-width: var(--border-width-4);
+		border-inline-start-width: var(--border-width-lg);
 		border-inline-start-style: var(--border-style-solid);
 		border-inline-start-color: var(--accent);
 	}
@@ -94,7 +94,7 @@
 		white-space: pre;
 		tab-size: 2;
 		font-size: inherit;
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-700);
 
@@ -102,7 +102,7 @@
 		scrollbar-width: thin;
 		scrollbar-color: var(--fg-450) transparent;
 		transition-property: scrollbar-color;
-		transition-duration: var(--duration-fast);
+		transition-duration: var(--duration-sm);
 		transition-timing-function: var(--ease-out);
 
 		&:hover,
@@ -202,7 +202,7 @@
 
 	:global(.markdown img) {
 		box-shadow: var(--shadow);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-700);
 	}
@@ -228,7 +228,7 @@
 	}
 
 	:global(.markdown aside):not([class]) {
-		border-width: var(--border-width-2);
+		border-width: var(--border-width-md);
 		border-style: var(--border-style-solid);
 		border-color: var(--accent-800);
 		padding-block: var(--space-6);
@@ -251,7 +251,7 @@
 	}
 
 	:global(.markdown hr) {
-		border-block-start-width: var(--border-width-1);
+		border-block-start-width: var(--border-width-sm);
 		border-block-start-style: var(--border-style-solid);
 		border-block-start-color: var(--gray-500);
 		margin-block: var(--space-16);

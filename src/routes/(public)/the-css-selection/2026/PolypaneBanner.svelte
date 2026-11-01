@@ -108,7 +108,7 @@
 		white-space: nowrap;
 		will-change: box-shadow;
 		transition-property: box-shadow;
-		transition-duration: var(--duration-normal);
+		transition-duration: var(--duration-md);
 		transition-timing-function: var(--ease-in-out);
 
 		&:hover,
@@ -131,13 +131,13 @@
 			position: relative;
 			inset-block-start: 1px;
 			transition-property: all;
-			transition-duration: var(--duration-normal);
+			transition-duration: var(--duration-md);
 			transition-timing-function: var(--ease-in-out);
 			will-change: transform;
 		}
 
 		@media (forced-colors: active) {
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: currentColor;
 		}

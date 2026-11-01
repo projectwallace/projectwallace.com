@@ -157,7 +157,7 @@
 		padding-block: var(--space-3);
 
 		&:not(:last-child) {
-			border-block-end-width: var(--border-width-1);
+			border-block-end-width: var(--border-width-sm);
 			border-block-end-style: var(--border-style-solid);
 			border-block-end-color: var(--fg-500);
 		}
@@ -195,7 +195,7 @@
 		}
 
 		&:focus {
-			outline-width: var(--border-width-1);
+			outline-width: var(--border-width-sm);
 			outline-style: var(--border-style-solid);
 			outline-color: light-dark(var(--accent-600), var(--accent));
 			outline-offset: -1px;

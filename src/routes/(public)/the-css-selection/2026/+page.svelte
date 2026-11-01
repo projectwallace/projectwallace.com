@@ -92,7 +92,7 @@
 
 					&::after {
 						inline-size: 6rem;
-						border-width: var(--border-width-4);
+						border-width: var(--border-width-lg);
 						border-style: var(--border-style-solid);
 						border-color: var(--accent-700);
 						inset-block-start: 1rem;
@@ -103,7 +103,7 @@
 						inset-block-start: 0;
 						inset-inline-end: 0rem;
 						inline-size: 10rem;
-						border-width: var(--border-width-4);
+						border-width: var(--border-width-lg);
 						border-style: var(--border-style-solid);
 						border-color: var(--bg-400);
 					}

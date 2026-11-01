@@ -134,7 +134,7 @@
 
 	.css-output {
 		min-block-size: var(--space-96);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 		background-color: var(--bg-200);

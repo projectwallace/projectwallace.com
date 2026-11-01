@@ -243,7 +243,7 @@
 		gap: var(--space-2);
 		padding-inline: var(--space-2);
 		padding-block: var(--space-2);
-		border-block-end-width: var(--border-width-1);
+		border-block-end-width: var(--border-width-sm);
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--bg-300);
 

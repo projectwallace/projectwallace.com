@@ -74,7 +74,7 @@
 	.slide {
 		block-size: 100%;
 		max-block-size: 100%;
-		border-inline-start-width: var(--border-width-1);
+		border-inline-start-width: var(--border-width-sm);
 		border-inline-start-style: var(--border-style-solid);
 		border-inline-start-color: var(--fg-450);
 		overflow: hidden;
@@ -83,7 +83,7 @@
 	}
 
 	.slide-tools {
-		border-block-end-width: var(--border-width-1);
+		border-block-end-width: var(--border-width-sm);
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--fg-450);
 		padding: var(--space-2);

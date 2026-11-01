@@ -131,7 +131,7 @@
 	}
 
 	td {
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-500);
 		position: relative;
@@ -158,7 +158,7 @@
 		background-color: var(--bg-200);
 
 		&:not(:last-of-type) {
-			border-inline-end-width: var(--border-width-1);
+			border-inline-end-width: var(--border-width-sm);
 			border-inline-end-style: var(--border-style-solid);
 			border-inline-end-color: var(--fg-500);
 		}

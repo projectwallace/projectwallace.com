@@ -60,13 +60,13 @@
 	.project {
 		background-color: var(--bg-200);
 		box-shadow: var(--shadow);
-		border-block-start-width: var(--border-width-2);
+		border-block-start-width: var(--border-width-md);
 		border-block-start-style: var(--border-style-solid);
 		border-block-start-color: var(--fg-700);
 		position: relative;
 
 		@media (forced-colors: active), print {
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: currentColor;
 		}
@@ -76,7 +76,7 @@
 		padding-inline: var(--space-16);
 		padding-block: var(--space-8);
 		margin-inline: auto;
-		border-block-end-width: var(--border-width-1);
+		border-block-end-width: var(--border-width-sm);
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--fg-450);
 	}

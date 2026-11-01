@@ -330,7 +330,7 @@
 
 	.editor {
 		grid-template-rows: auto minmax(0, 1fr);
-		border-inline-end-width: var(--border-width-1);
+		border-inline-end-width: var(--border-width-sm);
 		border-inline-end-style: var(--border-style-solid);
 		border-inline-end-color: var(--wallace-custom-property-inspector-border-color);
 		grid-area: editor;
@@ -389,7 +389,7 @@
 
 		& input {
 			background-color: transparent;
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: var(--fg-450);
 			inline-size: 100%;
@@ -430,7 +430,7 @@
 
 	.summary {
 		grid-area: summary;
-		border-block-start-width: var(--border-width-1);
+		border-block-start-width: var(--border-width-sm);
 		border-block-start-style: var(--border-style-solid);
 		border-block-start-color: var(--wallace-custom-property-inspector-border-color);
 		padding-inline: var(--space-2);

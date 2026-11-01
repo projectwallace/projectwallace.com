@@ -101,7 +101,7 @@
 		align-items: center;
 		gap: var(--space-2);
 		padding: var(--space-2);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-500);
 	}
@@ -117,7 +117,7 @@
 		line-height: 0.1px;
 		color: rgb(0 0 0 / 0);
 		padding: 0;
-		border-width: 0;
+		border-width: var(--border-width-none);
 		border-style: none;
 		position: absolute;
 		inset: 0;

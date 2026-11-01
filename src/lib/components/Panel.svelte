@@ -19,7 +19,7 @@
 		background-color: light-dark(transparent, var(--bg-200));
 		padding-block: var(--space-4);
 		padding-inline: var(--space-2);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: light-dark(var(--fg-800), transparent);
 

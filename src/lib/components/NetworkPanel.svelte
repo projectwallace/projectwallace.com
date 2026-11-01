@@ -300,7 +300,7 @@
 		opacity: 0;
 		background-color: var(--accent-600);
 		transition-property: opacity;
-		transition-duration: var(--duration-normal);
+		transition-duration: var(--duration-md);
 	}
 
 	.network {
@@ -318,7 +318,7 @@
 		inset-block-end: 0;
 		inset-inline: 0;
 		z-index: 1;
-		border-block-start-width: var(--border-width-1);
+		border-block-start-width: var(--border-width-sm);
 		border-block-start-style: var(--border-style-solid);
 		border-block-start-color: var(--fg-450);
 		padding-inline: var(--space-2);
@@ -354,7 +354,7 @@
 	}
 
 	th:not(:last-of-type) {
-		border-inline-end-width: var(--border-width-1);
+		border-inline-end-width: var(--border-width-sm);
 		border-inline-end-style: var(--border-style-solid);
 		border-inline-end-color: var(--fg-450);
 	}
@@ -388,7 +388,7 @@
 	}
 
 	td {
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 		position: relative;

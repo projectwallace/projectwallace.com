@@ -119,14 +119,14 @@
 	}
 
 	.resize-bar {
-		border-block-end-width: var(--border-width-3);
+		border-block-end-width: 3px;
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--blue-400);
 		padding-block-start: 9px;
 		cursor: ns-resize;
 		opacity: 0;
 		transition-property: opacity;
-		transition-duration: var(--duration-fast);
+		transition-duration: var(--duration-sm);
 		transition-timing-function: var(--ease-out);
 		display: block;
 		inline-size: 100%;
@@ -151,10 +151,10 @@
 		display: flex;
 		justify-content: space-between;
 		background-color: var(--bg-100);
-		border-block-start-width: var(--border-width-1);
+		border-block-start-width: var(--border-width-sm);
 		border-block-start-style: var(--border-style-solid);
 		border-block-start-color: var(--fg-450);
-		border-block-end-width: var(--border-width-1);
+		border-block-end-width: var(--border-width-sm);
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--fg-450);
 	}

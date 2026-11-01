@@ -166,7 +166,7 @@
 		white-space: nowrap;
 
 		@media (forced-colors: active), print {
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: currentColor;
 		}
@@ -186,7 +186,7 @@
 		padding-inline: var(--space-2);
 
 		@media (forced-colors: active), print {
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: currentColor;
 		}

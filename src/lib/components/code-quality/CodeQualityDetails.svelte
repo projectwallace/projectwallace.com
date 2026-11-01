@@ -190,7 +190,7 @@
 
 <style>
 	.details {
-		border-inline-start-width: var(--border-width-4);
+		border-inline-start-width: var(--border-width-lg);
 		border-inline-start-style: var(--border-style-solid);
 		border-inline-start-color: transparent;
 		padding-inline-start: var(--space-4);

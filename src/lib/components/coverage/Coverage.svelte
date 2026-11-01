@@ -231,11 +231,11 @@
 		opacity: 0;
 		background-color: var(--accent-600);
 		transition-property: opacity;
-		transition-duration: var(--duration-normal);
+		transition-duration: var(--duration-md);
 	}
 
 	.devtools[data-empty='false'] {
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 	}
@@ -260,7 +260,7 @@
 	.css-slide {
 		block-size: 100%;
 		overflow: hidden;
-		border-inline-start-width: var(--border-width-1);
+		border-inline-start-width: var(--border-width-sm);
 		border-inline-start-style: var(--border-style-solid);
 		border-inline-start-color: var(--fg-450);
 	}

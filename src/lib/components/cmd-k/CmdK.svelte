@@ -87,7 +87,7 @@
 	.cmd-k {
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-500);
 		color: var(--fg-300);
@@ -129,7 +129,7 @@
 		inline-size: 90vi;
 		max-inline-size: 48rem;
 		background-color: var(--bg-200);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 	}

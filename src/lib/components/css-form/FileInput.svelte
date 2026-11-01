@@ -96,13 +96,13 @@
 		display: flex;
 		inline-size: 100%;
 		padding: var(--space-8);
-		border-width: var(--border-width-2);
+		border-width: var(--border-width-md);
 		border-style: var(--border-style-dashed);
 		border-color: var(--bg-400);
 		text-align: center;
 		background-color: var(--bg-100);
 		transition-property: border-color;
-		transition-duration: var(--duration-fast);
+		transition-duration: var(--duration-sm);
 		transition-timing-function: var(--ease-out);
 
 		&:hover {

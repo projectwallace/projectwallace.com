@@ -77,7 +77,7 @@
 		}
 
 		&:focus-within {
-			outline-width: var(--border-width-4);
+			outline-width: var(--border-width-lg);
 			outline-style: var(--border-style-solid);
 			outline-color: var(--fg-0);
 		}

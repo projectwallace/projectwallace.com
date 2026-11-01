@@ -89,7 +89,7 @@
 		position: relative;
 
 		@media print {
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: currentColor;
 			display: grid;
@@ -98,7 +98,7 @@
 		}
 
 		@media (forced-colors: active) {
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: currentColor;
 		}

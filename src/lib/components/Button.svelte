@@ -60,11 +60,11 @@
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: transparent;
 		transition-property: color, background-color, box-shadow;
-		transition-duration: var(--duration-fast);
+		transition-duration: var(--duration-sm);
 		transition-timing-function: var(--ease-out);
 
 		@media print {
@@ -88,7 +88,7 @@
 		text-transform: uppercase;
 		background-color: var(--accent);
 		color: var(--gray-800);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--accent);
 

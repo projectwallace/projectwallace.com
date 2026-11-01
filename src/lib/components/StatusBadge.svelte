@@ -28,7 +28,7 @@
 		text-decoration: none;
 
 		@media (forced-colors: active), print {
-			border-width: var(--border-width-1);
+			border-width: var(--border-width-sm);
 			border-style: var(--border-style-solid);
 			border-color: currentColor;
 		}

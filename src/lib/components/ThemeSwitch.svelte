@@ -137,7 +137,7 @@
 	.theme-popover-trigger {
 		padding-block: var(--space-1);
 		padding-inline: var(--space-2);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-500);
 		color: var(--fg-300);
@@ -168,7 +168,7 @@
 		inset-inline-start: auto;
 		inline-size: min-content;
 		background-color: var(--bg-100);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 		padding: var(--space-8);
@@ -195,14 +195,14 @@
 	label {
 		display: block;
 		inline-size: var(--space-48);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--fg-450);
 		background-color: light-dark(transparent, var(--bg-0));
 		cursor: pointer;
 
 		&.selected {
-			outline-width: var(--border-width-2);
+			outline-width: var(--border-width-md);
 			outline-style: var(--border-style-solid);
 			outline-color: light-dark(var(--accent-600), var(--accent));
 			outline-offset: 2px;

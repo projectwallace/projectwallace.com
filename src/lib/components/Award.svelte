@@ -44,7 +44,7 @@
 			inset-inline-end: -2rem;
 			inset-block-end: -2rem;
 			inset-inline-start: 2rem;
-			border-width: var(--border-width-2);
+			border-width: var(--border-width-md);
 			border-style: var(--border-style-solid);
 			border-color: var(--bg-300);
 		}
@@ -53,7 +53,7 @@
 	.size {
 		font-size: var(--size-3xl);
 		font-weight: var(--font-ultrabold);
-		border-width: var(--border-width-4);
+		border-width: var(--border-width-lg);
 		border-style: var(--border-style-solid);
 		border-color: var(--bg-500);
 		padding-block: var(--space-6);

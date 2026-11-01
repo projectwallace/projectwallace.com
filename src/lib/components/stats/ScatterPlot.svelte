@@ -87,7 +87,7 @@
 		display: block;
 		inline-size: 100%;
 		inset-inline-start: 0;
-		border-block-end-width: var(--border-width-1);
+		border-block-end-width: var(--border-width-sm);
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--gray-500);
 	}

@@ -98,7 +98,7 @@
 		}
 
 		&:focus {
-			outline-width: var(--border-width-1);
+			outline-width: var(--border-width-sm);
 			outline-style: var(--border-style-solid);
 			outline-color: var(--accent);
 		}
@@ -133,7 +133,7 @@
 
 	.property-use {
 		display: block;
-		border-inline-start-width: var(--border-width-1);
+		border-inline-start-width: var(--border-width-sm);
 		border-inline-start-style: var(--border-style-solid);
 		border-inline-start-color: var(--fg-500);
 		padding-inline-start: var(--space-3);
@@ -178,7 +178,7 @@
 	.match {
 		background-color: light-dark(var(--blue-100), var(--blue-700));
 		color: light-dark(var(--blue-800), var(--fg-100));
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--blue-300);
 	}

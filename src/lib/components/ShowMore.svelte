@@ -81,7 +81,7 @@
 	}
 
 	.action:focus {
-		border-width: var(--border-width-2);
+		border-width: var(--border-width-md);
 		border-style: var(--border-style-solid);
 		border-color: var(--accent-400);
 		outline-style: none;

@@ -89,7 +89,7 @@
 
 <style>
 	aside {
-		border-width: var(--border-width-2);
+		border-width: var(--border-width-md);
 		border-style: var(--border-style-solid);
 		border-color: var(--teal-500);
 		padding: var(--space-12);

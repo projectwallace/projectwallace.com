@@ -95,7 +95,7 @@
 		align-items: center;
 		gap: var(--space-1);
 		position: relative;
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: transparent;
 		padding-inline-end: var(--space-2);

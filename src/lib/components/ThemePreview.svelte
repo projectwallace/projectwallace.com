@@ -76,7 +76,7 @@
 		background-color: var(--bg-0);
 		padding-block: 4cqi;
 		padding-inline: 5cqi;
-		border-block-end-width: var(--border-width-1);
+		border-block-end-width: var(--border-width-sm);
 		border-block-end-style: var(--border-style-solid);
 		border-block-end-color: var(--fg-800);
 	}
@@ -104,7 +104,7 @@
 	.panel {
 		padding-block: 4cqi;
 		padding-inline: 2cqi;
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: light-dark(var(--fg-800), transparent);
 		background-color: light-dark(transparent, var(--bg-200));

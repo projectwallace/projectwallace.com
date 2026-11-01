@@ -251,7 +251,7 @@
 		overflow: auto;
 		min-block-size: var(--space-24);
 		block-size: var(--space-96);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--gray-450);
 		resize: block;
@@ -259,7 +259,7 @@
 
 	.network-wrapper {
 		min-block-size: var(--space-96);
-		border-width: var(--border-width-1);
+		border-width: var(--border-width-sm);
 		border-style: var(--border-style-solid);
 		border-color: var(--gray-450);
 	}
