@@ -1,5 +1,5 @@
-import { test, type Locator, type Page } from '@playwright/test'
-import { expect } from '#tests/fixtures.ts'
+import type { Locator, Page } from '@playwright/test'
+import { test, expect } from '#tests/fixtures.ts'
 import type { CSSOrigin } from '#lib/css-origins.ts'
 
 let fixture = [
@@ -158,6 +158,42 @@ test.describe('Inspecting an origin', () => {
 
 		// Check that the clicked origin is highlighted in the table
 		await expect.soft(first_origin).toHaveAttribute('aria-selected', 'true')
+	})
+
+	test('Shows the pane resizer handle on hover and focus', async ({ page }) => {
+		await first_origin.click()
+		let resizer = page.locator('[data-pane-resizer]')
+		let handle = resizer.locator('.pane-resizer')
+		// The layout shift after clicking can put the resizer under the pointer
+		await page.mouse.move(0, 0)
+		await expect(handle).toHaveCSS('opacity', '0')
+
+		await resizer.hover()
+		await expect(handle).toHaveCSS('opacity', '1')
+
+		await page.mouse.move(0, 0)
+		await expect(handle).toHaveCSS('opacity', '0')
+
+		await resizer.focus()
+		await expect(handle).toHaveCSS('opacity', '1')
+	})
+
+	test('Resizes the panes by dragging the pane resizer', async ({ page }) => {
+		await first_origin.click()
+		let resizer = page.locator('[data-pane-resizer]')
+		let first_pane = page.locator('[data-pane]').first()
+		await resizer.scrollIntoViewIfNeeded()
+		let initial_width = (await first_pane.boundingBox())!.width
+		let box = (await resizer.boundingBox())!
+		let x = box.x + box.width / 2
+		let y = box.y + box.height / 2
+
+		await page.mouse.move(x, y)
+		await page.mouse.down()
+		await page.mouse.move(x - 100, y, { steps: 5 })
+		await page.mouse.up()
+
+		await expect.poll(async () => (await first_pane.boundingBox())!.width).toBeLessThan(initial_width)
 	})
 
 	test('Shift+clicking an origin opens the HTML/CSS in a new tab', async ({ context }) => {
