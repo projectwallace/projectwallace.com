@@ -18,6 +18,12 @@ type Context = { next: () => Promise<Response>; waitUntil: (promise: Promise<unk
  * NOTE: this runs on Deno and cannot import from `$lib`, so SITE_HOSTNAME is duplicated from src/lib/site.ts.
  */
 const SITE_HOSTNAME = 'www.projectwallace.com'
+
+// TEMPORARY: also report from deploy previews and local dev, so we can see data arrive in Counterscale.
+// The `h` param keeps these hits distinguishable by hostname. Remove this (and use `=== SITE_HOSTNAME`) before merging.
+function is_tracked_hostname(hostname: string): boolean {
+	return hostname === SITE_HOSTNAME || hostname.endsWith('.netlify.app') || hostname === 'localhost'
+}
 const COLLECT_URL = 'https://counterscale.bartveneman.workers.dev/collect'
 const SITE_ID = 'projectwallace.com-server'
 
@@ -74,7 +80,7 @@ export default async function handler(request: Request, context: Context) {
 	try {
 		let url = new URL(request.url)
 		if (
-			url.hostname === SITE_HOSTNAME &&
+			is_tracked_hostname(url.hostname) &&
 			is_document_request(request) &&
 			response.status >= 200 &&
 			response.status < 300 &&
