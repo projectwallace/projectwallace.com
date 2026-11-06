@@ -18,7 +18,15 @@ const mock_lint_response = {
 		]
 	},
 	duration: 10,
-	css: 'a {\n\tcolour: red;\n}\n'
+	css: 'a {\n\tcolour: red;\n}\n',
+	packages: [
+		{ name: 'stylelint', version: '18.0.0', homepage: 'https://stylelint.io' },
+		{
+			name: '@projectwallace/stylelint-plugin',
+			version: '1.0.0',
+			homepage: 'https://github.com/projectwallace/stylelint-plugin'
+		}
+	]
 }
 
 test('does SEO well', async ({ page }) => {
@@ -57,6 +65,20 @@ test.describe('URL input mode', () => {
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 		await expect.soft(page.getByTestId('pre-css')).toContainText(mock_lint_response.css)
+	})
+
+	test('shows the stylelint and plugin versions', async ({ page }) => {
+		await page.getByLabel('Website URL').fill('example.com')
+		await page.getByRole('button', { name: 'Analyze URL' }).click()
+
+		const footer = page.getByText('stylelint: v18.0.0; @projectwallace/stylelint-plugin: v1.0.0')
+		await expect.soft(footer).toBeVisible()
+		await expect
+			.soft(footer.getByRole('link', { name: 'stylelint', exact: true }))
+			.toHaveAttribute('href', 'https://stylelint.io')
+		await expect
+			.soft(footer.getByRole('link', { name: '@projectwallace/stylelint-plugin' }))
+			.toHaveAttribute('href', 'https://github.com/projectwallace/stylelint-plugin')
 	})
 })
 
