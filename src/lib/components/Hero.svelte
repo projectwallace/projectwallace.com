@@ -45,5 +45,9 @@
 		@media (min-width: 66rem) {
 			font-size: var(--size-5xl);
 		}
+
+		& + :global(*:not([hidden])) {
+			margin-block-start: var(--space-6);
+		}
 	}
 </style>

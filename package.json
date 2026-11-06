@@ -31,7 +31,7 @@
 		"@oddbird/popover-polyfill": "^0.7.3",
 		"@projectwallace/color-sorter": "catalog:",
 		"@projectwallace/css-analyzer": "catalog:",
-		"@projectwallace/css-code-coverage": "^1.0.6",
+		"@projectwallace/css-code-coverage": "^1.0.7",
 		"@projectwallace/css-code-quality": "^3.1.5",
 		"@projectwallace/css-design-tokens": "^0.11.13",
 		"@projectwallace/css-layer-tree": "^2.2.0",
