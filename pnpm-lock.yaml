@@ -12,7 +12,7 @@ catalogs:
 
 overrides:
   '@projectwallace/css-analyzer': ^9.9.5
-  '@projectwallace/css-parser': ^0.19.3
+  '@projectwallace/css-parser': ^0.19.4
   '@projectwallace/format-css': ^3.2.2
   '@projectwallace/color-sorter': ^9.0.0
   runed: ^0.38.0
@@ -40,8 +40,8 @@ importers:
         specifier: ^9.9.5
         version: 9.9.5
       '@projectwallace/css-code-coverage':
-        specifier: ^1.0.6
-        version: 1.0.6
+        specifier: ^1.0.7
+        version: 1.0.7
       '@projectwallace/css-code-quality':
         specifier: ^3.1.5
         version: 3.1.5
@@ -52,8 +52,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       '@projectwallace/css-parser':
-        specifier: ^0.19.3
-        version: 0.19.3
+        specifier: ^0.19.4
+        version: 0.19.4
       '@projectwallace/css-time-sort':
         specifier: ^3.1.1
         version: 3.1.1
@@ -905,8 +905,8 @@ packages:
     resolution: {integrity: sha512-HtEWI5G/flzuoptALwvx66N4Vkq+SR2W019VI1R5RIX7MOuEOjuIIx2OKC3S9NAZAKbiopKp88ZLqy5ymmaAIg==}
     engines: {node: '>=18.0.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/css-code-coverage@1.0.6':
-    resolution: {integrity: sha512-F9W1Ov8xxM+yb+0+btX03YFRuqpL8eJu38P94TrGKL3cJkZPg0vIvbj2k8nY+m4p7vEkZowFSmHTEtVApW0B3w==}
+  '@projectwallace/css-code-coverage@1.0.7':
+    resolution: {integrity: sha512-iVr0gO8h1sCb4x/DnbsNH4FyaRwcxQWAMw6tOnLmmi9wLNmiddDC6+HV74wz/XzeyGdZWQbyWI0y6CYZ5xsQkg==}
     engines: {node: '>=20', pnpm: '>=11.16.0'}
     hasBin: true
 
@@ -922,8 +922,8 @@ packages:
     resolution: {integrity: sha512-npcxXAEhKbAt6UgeX1erNifTaHsJL1i9u8PRyaeXavV79W9yECbvHd/ZS9pdXDiGqUu1ISl4/2sdCKhkplYXHg==}
     engines: {node: '>=18.0.0', pnpm: '>=11.16.0'}
 
-  '@projectwallace/css-parser@0.19.3':
-    resolution: {integrity: sha512-bK6pbuWMXGbrUru4a/nu9h/6SrSPPtUg5VU0bXYqG7hnp4+8d8PeF21T3gU+Lf5I8+jVakDggBoZHxeSRx2HjQ==}
+  '@projectwallace/css-parser@0.19.4':
+    resolution: {integrity: sha512-Wow4VO1HWUNq5MLMDffTPapW7hu2wXHF8wdgOrcjk6zdU+VYDS/O4b967yiL/8ZjyCO5LWC2HPRYQeqguEP5pQ==}
     engines: {pnpm: '>=11.0.0'}
 
   '@projectwallace/css-time-sort@3.1.1':
@@ -2655,11 +2655,11 @@ snapshots:
 
   '@projectwallace/css-analyzer@9.9.5':
     dependencies:
-      '@projectwallace/css-parser': 0.19.3
+      '@projectwallace/css-parser': 0.19.4
 
-  '@projectwallace/css-code-coverage@1.0.6':
+  '@projectwallace/css-code-coverage@1.0.7':
     dependencies:
-      '@projectwallace/css-parser': 0.19.3
+      '@projectwallace/css-parser': 0.19.4
       '@projectwallace/format-css': 3.2.2
 
   '@projectwallace/css-code-quality@3.1.5':
@@ -2671,20 +2671,20 @@ snapshots:
       '@colordx/core': 7.3.0
       '@projectwallace/color-sorter': 9.0.0
       '@projectwallace/css-analyzer': 9.9.5
-      '@projectwallace/css-parser': 0.19.3
+      '@projectwallace/css-parser': 0.19.4
       '@projectwallace/css-time-sort': 3.1.1
 
   '@projectwallace/css-layer-tree@2.2.0':
     dependencies:
-      '@projectwallace/css-parser': 0.19.3
+      '@projectwallace/css-parser': 0.19.4
 
-  '@projectwallace/css-parser@0.19.3': {}
+  '@projectwallace/css-parser@0.19.4': {}
 
   '@projectwallace/css-time-sort@3.1.1': {}
 
   '@projectwallace/format-css@3.2.2':
     dependencies:
-      '@projectwallace/css-parser': 0.19.3
+      '@projectwallace/css-parser': 0.19.4
 
   '@projectwallace/preset-oxlint@0.0.11(oxlint@1.89.0(oxlint-tsgolint@7.0.2005))':
     dependencies:
@@ -2693,7 +2693,7 @@ snapshots:
   '@projectwallace/stylelint-plugin@0.7.2(stylelint@17.16.0(supports-color@10.2.2)(typescript@6.0.3))':
     dependencies:
       '@projectwallace/css-analyzer': 9.9.5
-      '@projectwallace/css-parser': 0.19.3
+      '@projectwallace/css-parser': 0.19.4
       stylelint: 17.16.0(supports-color@10.2.2)(typescript@6.0.3)
 
   '@rolldown/binding-android-arm-eabi@1.2.15':

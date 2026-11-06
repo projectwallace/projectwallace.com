@@ -7,7 +7,6 @@
 	import Content from './content.md'
 	import Markdown from '#lib/components/Markdown.svelte'
 	import Container from '#lib/components/Container.svelte'
-	import Heading from '#lib/components/Heading.svelte'
 	import { on } from 'svelte/events'
 	import Hero from '#lib/components/Hero.svelte'
 

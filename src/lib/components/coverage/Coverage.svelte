@@ -117,23 +117,35 @@
 			<dl class="coverage-summary">
 				<div>
 					<dt>Coverage</dt>
-					<dd>{format_percentage(calculated.byte_coverage_ratio)}</dd>
-					<dd>{format_percentage(calculated.line_coverage_ratio)} of lines</dd>
+					<dd>
+						{format_percentage(calculated.line_coverage_ratio)}
+						<span class="sr-only">of lines</span>
+					</dd>
+					<dd>{format_percentage(calculated.byte_coverage_ratio)} of size</dd>
 				</div>
 				<div>
 					<dt>Total</dt>
+					<dd>
+						{format_number(calculated.total_lines)}
+						<span class="sr-only">of lines</span>
+					</dd>
 					<dd>{format_filesize(calculated.total_bytes)}</dd>
-					<dd>{format_number(calculated.total_lines)} lines</dd>
 				</div>
 				<div>
 					<dt>Used</dt>
+					<dd>
+						{format_number(calculated.covered_lines)}
+						<span class="sr-only">lines</span>
+					</dd>
 					<dd>{format_filesize(calculated.covered_bytes)}</dd>
-					<dd>{format_number(calculated.covered_lines)} lines</dd>
 				</div>
 				<div>
 					<dt>Unused</dt>
+					<dd>
+						{format_number(calculated.uncovered_lines)}
+						<span class="sr-only">lines</span>
+					</dd>
 					<dd>{format_filesize(calculated.uncovered_bytes)}</dd>
-					<dd>{format_number(calculated.uncovered_lines)} lines</dd>
 				</div>
 			</dl>
 		</Panel>
