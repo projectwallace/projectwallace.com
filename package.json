@@ -50,6 +50,8 @@
 		"rehype-autolink-headings": "^7.1.0",
 		"rehype-slug": "^6.0.0",
 		"runed": "catalog:",
+		"stylelint": "~18.0.0",
+		"stylelint-config-standard": "~41.0.0",
 		"svelte": "^5.57.2",
 		"typescript": "^6.0.3",
 		"vite": "catalog:",
@@ -68,8 +70,6 @@
 		"oxlint": "^1.89.0",
 		"oxlint-tsgolint": "^7.0.2005",
 		"postcss-html": "^2.0.0",
-		"stylelint": "~17.16.0",
-		"stylelint-config-standard": "~40.0.0",
 		"svelte-check": "^4.7.7",
 		"vitest": "^5.0.5"
 	},

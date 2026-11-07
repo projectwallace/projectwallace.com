@@ -18,7 +18,15 @@ const mock_lint_response = {
 		]
 	},
 	duration: 10,
-	css: 'a {\n\tcolour: red;\n}\n'
+	css: 'a {\n\tcolour: red;\n}\n',
+	packages: [
+		{ name: 'stylelint', version: '18.0.0', homepage: 'https://stylelint.io' },
+		{
+			name: '@projectwallace/stylelint-plugin',
+			version: '1.0.0',
+			homepage: 'https://github.com/projectwallace/stylelint-plugin'
+		}
+	]
 }
 
 test('does SEO well', async ({ page }) => {
@@ -57,6 +65,19 @@ test.describe('URL input mode', () => {
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
 		await expect.soft(page.getByTestId('pre-css')).toContainText(mock_lint_response.css)
+	})
+
+	test('shows the stylelint and plugin versions', async ({ page }) => {
+		await page.getByLabel('Website URL').fill('example.com')
+		await page.getByRole('button', { name: 'Analyze URL' }).click()
+
+		for (const name of ['stylelint', '@projectwallace/stylelint-plugin']) {
+			const link = page.getByRole('link', { name: new RegExp(`^${name}: v\\d`) })
+			await expect.soft(link).toBeVisible()
+			const href = await link.getAttribute('href')
+			expect.soft(() => new URL(href!)).not.toThrow()
+			expect.soft(href).toMatch(/^https?:\/\//)
+		}
 	})
 })
 

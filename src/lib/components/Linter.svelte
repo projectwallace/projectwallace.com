@@ -29,6 +29,11 @@
 		duration: number
 		css?: string
 		rules?: Record<string, unknown>
+		packages?: {
+			name: string
+			version: string
+			homepage: string
+		}[]
 	}
 
 	interface Props {
@@ -224,6 +229,15 @@
 			{/if}
 		</output>
 	</Pane>
+	{#snippet footer()}
+		{#if lint_result?.packages}
+			<p>
+				{#each lint_result.packages as pkg, index}
+					{#if index > 0}{'; '}{/if}<a href={pkg.homepage}>{pkg.name}: v{pkg.version}</a>
+				{/each}
+			</p>
+		{/if}
+	{/snippet}
 </PanedLayout>
 
 <style>
@@ -233,5 +247,14 @@
 
 	th {
 		background-color: var(--bg-200);
+	}
+
+	p {
+		text-align: end;
+
+		& :any-link {
+			text-decoration: underline;
+			text-decoration-color: light-dark(var(--accent-400), var(--accent-300));
+		}
 	}
 </style>

@@ -7,12 +7,16 @@ import correctnessConfig from '@projectwallace/stylelint-plugin/configs/correctn
 import designTokensConfig from '@projectwallace/stylelint-plugin/configs/design-tokens'
 import holisticConfig from '@projectwallace/stylelint-plugin/configs/holistic'
 import stylelintPlugin from '@projectwallace/stylelint-plugin'
+import stylelint_pkg from 'stylelint/package.json'
+import plugin_pkg from '@projectwallace/stylelint-plugin/package.json'
 import { get_css } from '../get-css/get-css.ts'
 import { format } from '@projectwallace/format-css'
 import type { RequestHandler } from './$types'
 import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.ts'
 
 export type { Preset }
+
+const PACKAGES = [stylelint_pkg, plugin_pkg].map(({ name, version, homepage }) => ({ name, version, homepage }))
 
 const PRESET_MAP: Record<Preset, NonNullable<Config['rules']> | undefined> = {
 	recommended: recommendedConfig.rules,
@@ -108,6 +112,7 @@ export const POST: RequestHandler = async ({ request, setHeaders }) => {
 	return Response.json({
 		result: return_data,
 		duration: parseFloat(duration.toFixed(1)),
-		css: url_css
+		css: url_css,
+		packages: PACKAGES
 	})
 }

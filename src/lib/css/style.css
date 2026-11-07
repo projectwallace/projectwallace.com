@@ -1,4 +1,3 @@
-/* stylelint-disable projectwallace/min-selector-uniqueness-ratio -- Yes, we repeat `html` a lot */
 @layer config, base, components, theme, utilities;
 
 @layer config {
@@ -686,11 +685,11 @@
 			font-size: var(--size-base);
 			background-color: var(--accent);
 			color: var(--gray-800);
+		}
 
-			&:focus,
-			&:hover {
-				background-color: var(--accent-300);
-			}
+		:focus::file-selector-button,
+		::file-selector-button:hover {
+			background-color: var(--accent-300);
 		}
 
 		.specimen {
