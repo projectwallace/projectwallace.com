@@ -71,13 +71,11 @@ test.describe('URL input mode', () => {
 		await page.getByLabel('Website URL').fill('example.com')
 		await page.getByRole('button', { name: 'Analyze URL' }).click()
 
-		const footer = page.getByText('stylelint: v18.0.0; @projectwallace/stylelint-plugin: v1.0.0')
-		await expect.soft(footer).toBeVisible()
 		await expect
-			.soft(footer.getByRole('link', { name: 'stylelint', exact: true }))
+			.soft(page.getByRole('link', { name: 'stylelint: v18.0.0' }))
 			.toHaveAttribute('href', 'https://stylelint.io')
 		await expect
-			.soft(footer.getByRole('link', { name: '@projectwallace/stylelint-plugin' }))
+			.soft(page.getByRole('link', { name: '@projectwallace/stylelint-plugin: v1.0.0' }))
 			.toHaveAttribute('href', 'https://github.com/projectwallace/stylelint-plugin')
 	})
 })
