@@ -18,10 +18,10 @@ If you're in a hurry, go grab it [on GitHub](https://github.com/projectwallace/c
 
 ## New features 🥳
 
-- The most exciting feature of all: **see where colors are defined!** It's cool to see all the unique colors in a list, but it's even better to see that `background` uses 3 different colors, whereas `color` uses 12!
+- The most exciting feature of all: *see where colors are defined!* It's cool to see all the unique colors in a list, but it's even better to see that `background` uses 3 different colors, whereas `color` uses 12!
 - Metrics like _selectors per rule_ now have a full list detailing the amount of selectors/declarations per rule. This means you can now graph out these metrics and that's exactly what I'm doing on [the online analyzer](/analyze-css);
-- For many metrics I've added the **mean, median, mode, minimum, maximum and sum** of that metric. That means that you can now see what the most common specificity of a selector is, or the highest complexity of a selector, or the maximum amount of selectors in a single rule;
-- You can now see all the **CSS units** that are used in the CSS. Whether they are `rem`, `px` or even `vmin`: it's all visible now. And you can even see if `font-size` is using more `px` than `em` or that `transition-duration` only uses `s` instead of `ms` ;)
+- For many metrics I've added the *mean, median, mode, minimum, maximum and sum* of that metric. That means that you can now see what the most common specificity of a selector is, or the highest complexity of a selector, or the maximum amount of selectors in a single rule;
+- You can now see all the *CSS units* that are used in the CSS. Whether they are `rem`, `px` or even `vmin`: it's all visible now. And you can even see if `font-size` is using more `px` than `em` or that `transition-duration` only uses `s` instead of `ms` ;)
 
 ## Migration from v4 to v5 🪜
 

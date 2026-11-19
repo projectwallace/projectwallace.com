@@ -6,12 +6,12 @@ date: 2023-07-21
 
 One of the most inspirational things lately is to watch at [Adam Argyle's](https://nerdy.dev/) side projects and see how he's doing some really nerdy CSS work. It was [somewhere in his work](https://codepen.io/argyleink/pen/PoxQrNj) where I found it, in all it's glory. Waiting to be explored, a rich journey ahead, anxious for the CSS developer community's love and approval. It's everyone's favorite CSS at-rule: `@import`!
 
-Triggered by my feature requests for project Wallace to extract media queries and supports rules from imports, I started reading into the humble rule. And then Romain [started a repository](https://github.com/romainmenke/css-import-tests) with a bunch of browser and bundler tests to verify different levels of support. In this day of the componentized web and scoped styling solutions it's grown out of favour. For years we've been told to [avoid `@import`](https://csswizardry.com/2017/02/code-smells-in-css-revisited/#css-import) for performance reasons. But if you take a closer look, you'll find that `@import` is **packed** with a ton of features that actually make you want to use this bad boy.
+Triggered by my feature requests for project Wallace to extract media queries and supports rules from imports, I started reading into the humble rule. And then Romain [started a repository](https://github.com/romainmenke/css-import-tests) with a bunch of browser and bundler tests to verify different levels of support. In this day of the componentized web and scoped styling solutions it's grown out of favour. For years we've been told to [avoid `@import`](https://csswizardry.com/2017/02/code-smells-in-css-revisited/#css-import) for performance reasons. But if you take a closer look, you'll find that `@import` is *packed* with a ton of features that actually make you want to use this bad boy.
 
 1. [Flexible URL syntax](#flexible-syntax-url-url-or-url)
-1. [Cascade Layers](#cascade-layers)
-1. [Conditional imports: `supports()`](#supports-in-import)
-1. [Conditional imports: media queries](#media-queries-in-import)
+2. [Cascade Layers](#cascade-layers)
+3. [Conditional imports: `supports()`](#supports-in-import)
+4. [Conditional imports: media queries](#media-queries-in-import)
 
 ## Flexible syntax: `"url"`, `url('')`, or `url()`
 
@@ -20,6 +20,7 @@ The most important thing an `@import` needs to do is to import CSS rules some lo
 Well. Let's have a look at these examples:
 
 <!-- prettier-ignore -->
+
 ```css
 @import 'https://example.com/style.css';
 @import "https://example.com/style.css";
@@ -85,7 +86,7 @@ The `<link>` element [does not (yet) support](https://github.com/whatwg/html/iss
 
 ## Import conditions
 
-Just like how `@import` cannot be nested inside `@layer`, you also can't conditionally load CSS by writing `@import` inside an `@supports` or `@media`. But you **can** conditionally load CSS by appending your supports or media query to the end of the import rule.
+Just like how `@import` cannot be nested inside `@layer`, you also can't conditionally load CSS by writing `@import` inside an `@supports` or `@media`. But you *can* conditionally load CSS by appending your supports or media query to the end of the import rule.
 
 ## `supports()` in `@import`
 
@@ -156,6 +157,7 @@ I can't find any notes for media query list as a separate thing to supported alo
 Now we've seen some pretty incredible features of `@import`, but we can combine all of them! I don't know if anyone would ever need something like this, but I guess this is something you could do (but not saying you should):
 
 <!-- prettier-ignore -->
+
 ```css
 @import url('desktop-fallback.css') layer(base.elements) supports(not (display: grid) and (display: flex)) only screen and (min-width: 1024px);
 

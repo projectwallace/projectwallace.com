@@ -19,7 +19,7 @@ selector2 {
 }
 ```
 
-The result of this metric is **1**, because the first ruleset has **one** selector.
+The result of this metric is *1*, because the first ruleset has *one* selector.
 
 ```js
 {

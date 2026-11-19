@@ -20,7 +20,7 @@ selector {
 }
 ```
 
-There are **2 rules** in this example.
+There are *2 rules* in this example.
 
 ```js
 {

@@ -18,7 +18,7 @@ January has been a very busy month with over 40+ PR's merged to production and t
 
 ## New features
 
-- [**CSS Coverage viewer**](/css-coverage).
+- [*CSS Coverage viewer*](/css-coverage).
 
   <a href={coverage_full}>
     <BlogImage src={coverage} alt="A webpage showing CSS Coverage report." loading="eager" fetchproprity="high" />
@@ -26,7 +26,7 @@ January has been a very busy month with over 40+ PR's merged to production and t
 
   This deserves a blog post in itself because it's quite a big one. DevTools like in Puppeteer, Playwright, Chrome and Edge provide an option to inspect what portions of CSS are actually covered. Playwright and Puppeteer allow to keep track of coverage across pages but it's hard to inspect. Our new viewer accepts a coverage JSON file, prettifies all the CSS (and adjusts the coverage ranges) and shows you which lines are covered and which are not. This is also the first page where I've implemented the loading an example file. This is an advanced tool and getting a coverage JSON isn't that easy for most developers.
 
-- [**CSS AST Explorer**](/ast-explorer)
+- [*CSS AST Explorer*](/ast-explorer)
 
   <a href={ast_full}>
     <BlogImage src={ast} alt="A CSS AST explorer. A webpage with two panels side by side. The left panel shows some CSS. The right panel shows a tree structure with items like SelectorList and AtRule." loading="lazy" fetchproprity="low" />
@@ -46,7 +46,7 @@ January has been a very busy month with over 40+ PR's merged to production and t
 
 So many changes happened in the [Design Tokens](/design-tokens) page that it warrants it's own section.
 
-- **BREAKING**: Design token `$extension`s were renamed from `project-wallace.css-authored-as` to `com.projectwallace.css-authored-as` to align with how the [spec suggests](https://tr.designtokens.org/format/#extensions) authors to prefix their extensions
+- *BREAKING*: Design token `$extension`s were renamed from `project-wallace.css-authored-as` to `com.projectwallace.css-authored-as` to align with how the [spec suggests](https://tr.designtokens.org/format/#extensions) authors to prefix their extensions
 - Design token names are now hashed for easier readbility and smaller JSON output.
   - Before: `black-rgba(0, 0, 0, .1)`
   - After: `black-1755eb96`.

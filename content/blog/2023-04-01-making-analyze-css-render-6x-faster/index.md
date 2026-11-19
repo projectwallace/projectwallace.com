@@ -20,7 +20,7 @@ One of the main drivers for Project Wallace is performance. Not just analyzing t
 TL;DR;
 
 1. Render expensive components only when they are within the viewport
-1. Reduce the amount of DOM nodes
+2. Reduce the amount of DOM nodes
 
 ## Setting a baseline
 
@@ -130,10 +130,10 @@ There's a pretty nice [Svelte package to use IntersectionOberserver](https://git
 What happened here?
 
 1. Add the svelte-inview package and create a single local variable called `is_visible`
-1. Make sure the chart element is being observed, so that we get a message when it's scolled into view: `use:inview={{ unobserveOnEnter: true }}`
-1. When the element scrolls into view, `is_visible` is set to `true`: `on:inview_enter={() => (is_visible = true)}`
-1. Only when `is_visible` is true, the [Pancake chart](https://pancake-charts.surge.sh/) is rendered.
-1. There is no layout shift, because the `.chart` class makes sure the element is always `200px` tall.
+2. Make sure the chart element is being observed, so that we get a message when it's scolled into view: `use:inview={{ unobserveOnEnter: true }}`
+3. When the element scrolls into view, `is_visible` is set to `true`: `on:inview_enter={() => (is_visible = true)}`
+4. Only when `is_visible` is true, the [Pancake chart](https://pancake-charts.surge.sh/) is rendered.
+5. There is no layout shift, because the `.chart` class makes sure the element is always `200px` tall.
 
 That's it! Only 5 lines of code added, for instant benefit.
 
@@ -186,13 +186,13 @@ It wasn't obvious immediately, because the actual implementation has more classn
 
 #### Reducing DOM nodes in ShowMore components
 
-To keep the report somewhat easy to digest, I've made a component that only shows the top ~15 items when there's a long list of things. The properties-list and media queries are a good example of this. When there are many properties, like the 220 unique properties on CNN.com, we don't want to scroll for ages to get to the next section, unless you intentionally want to view them all.
+To keep the report somewhat easy to digest, I've made a component that only shows the top \~15 items when there's a long list of things. The properties-list and media queries are a good example of this. When there are many properties, like the 220 unique properties on CNN.com, we don't want to scroll for ages to get to the next section, unless you intentionally want to view them all.
 
 <a href={properties}>
 	<img loading="lazy" decoding="async" fetchpriority="low" alt="Example ShowMore components that shows the list has 220 items, but it shows only the first 15 and overlays a Show More button, which reveals the remaining items when clicked" src={properties} width="2320" height="1088">
 </a>
 
-Now, before our performance upgrade, we'd render all 220 items (&times; 6 DOM nodes = 1320 nodes!) and hide everything after the initial `400px` with `overflow: hidden`. What a waste! Time to be a little smarter with our rendering.
+Now, before our performance upgrade, we'd render all 220 items (× 6 DOM nodes = 1320 nodes!) and hide everything after the initial `400px` with `overflow: hidden`. What a waste! Time to be a little smarter with our rendering.
 
 The trick here is to use [Svelte slot props](https://svelte.dev/docs#template-syntax-slot-slot-key-value):
 
@@ -236,11 +236,11 @@ The trick here is to use [Svelte slot props](https://svelte.dev/docs#template-sy
 </ShowMore>
 ```
 
-In the above (simplified) components, we see that `ShowMore` exposes the `status` value back to the consuming component (`Properties.svelte`), so that it knows whether it's open or closed. When closed, we slice the properties array to only render 15 rows (&times; 6 DOM nodes = 90 nodes, versus 1320 before). When open, we render the full list by setting the end of slice to `Infinity`.
+In the above (simplified) components, we see that `ShowMore` exposes the `status` value back to the consuming component (`Properties.svelte`), so that it knows whether it's open or closed. When closed, we slice the properties array to only render 15 rows (× 6 DOM nodes = 90 nodes, versus 1320 before). When open, we render the full list by setting the end of slice to `Infinity`.
 
 ## The result
 
-After these changes the Performance panel shows that a mere 262ms is needed to render the whole report, which is **more than 6 times faster** than before! The initial DOM node count has gone down from a whopping 7200+ to 3770, which is almost a 50% reduction! 🤯
+After these changes the Performance panel shows that a mere 262ms is needed to render the whole report, which is *more than 6 times faster* than before! The initial DOM node count has gone down from a whopping 7200+ to 3770, which is almost a 50% reduction! 🤯
 
 <a href={devtools_after}>
 	<img loading="lazy" decoding="async" fetchpriority="low" alt="Devtools performance panel showing a block of 262ms to render the report to page" src={devtools_after} width="2844" height="984">

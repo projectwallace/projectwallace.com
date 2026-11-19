@@ -19,13 +19,13 @@ First, some examples to show you what I mean by aliases:
 
 To my experience, this usually means one of the following things:
 
-- **Colors are not standardized in your codebase.**<br>
+- *Colors are not standardized in your codebase.*<br>
   Projects like [Tailwind](https://github.com/tailwindcss/tailwindcss/blob/7a5bc9700842b19e6e6e52bf9d5567d9a7782d4e/defaultConfig.stub.js#L30) and [Bootstrap](https://github.com/twbs/bootstrap/blob/928ebd89254300aee284fc78b84c8a57de188d71/scss/_variables.scss#L7) define all their colors in variables and use those variables in the rest of their codebase. As long as you use a variable for any color, it means that you'll always use one of the predefined colors.
-- **Code isn't minified at all or temporarily broken.**<br>
+- *Code isn't minified at all or temporarily broken.*<br>
   I've seen a couple of cases where websites started serving un-minified CSS, just by looking at their CSS colors. Where they just had `#000` initially, they suddenly added `#000000` too and the same for a lot more colors.
-- **A piece of CSS that you don't control is loaded.**<br>
+- *A piece of CSS that you don't control is loaded.*<br>
   Very often a piece of CSS is loaded that belongs to a third party plugin or some advertiser. You probably can't control the CSS that is in their source, so if they decide to use `#f00` and you use `red` instead, there's not a lot you can do.
-- **Colors are created dynamically.**<br>
+- *Colors are created dynamically.*<br>
   Some developers have a list of base colors, like in the above example of Tailwind. To have a list of shades for every color they apply a transformation to the colors to darken, mix or saturate them. Most preprocessors like Sass, Styles or Less allow you to do something like `mix(#fff, #000, 50%)`. The resulting color might be a color that is already in your definitions, but in a different notation, depending on what the preprocessor decides is best.
 
 ## Are aliases bad?

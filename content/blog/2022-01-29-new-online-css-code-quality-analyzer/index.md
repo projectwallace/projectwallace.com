@@ -11,17 +11,18 @@ Ever since I started Project Wallace years ago, I've been missing something. Bec
 
 Well, at the start of this year, it finally clicked:
 
-> Starting off the new year with an attempt to write a CSS code quality tool.... :sweat_smile:<br><br>Points deducted for complexity, performance anti-patterns etc etc.<br><br>Think @\_\_\_\_lighthouse, but for CSS specifically.
+> Starting off the new year with an attempt to write a CSS code quality tool.... :sweat\_smile:<br><br>Points deducted for complexity, performance anti-patterns etc etc.<br><br>Think @\_\_\_\_lighthouse, but for CSS specifically.
 
 The responses were quite good. A couple dozen likes, retweets and folks showing interest. It doesn't seem much, but for an account as small as Project Wallace that's a lot. That was enough to get me started and after a couple of evenings, it started to look pretty good. I decided to not polish it too much at this stage but to put it online and gather feedback to improve it.
 
 The basic idea is that you give us your CSS and we will come up with a code quality score that's made up of 3 separate topics: maintainability, complexity and performance. Each topic's score is the result of several tests that we run against your CSS. We deduct points for each anti-pattern we encounter. The end score will be what's left of an initial 100 points for each topic.
 
-**So here it is: Project Wallace's Code Quality Analyzer.**
+*So here it is: Project Wallace's Code Quality Analyzer.*
 
 <script>
 	import screenshot from './screenshot.png'
 </script>
+
 <img src={screenshot} alt="Example CSS Code Quality output from https://www.projectwallace.com/css-code-quality" loading="lazy" width="904" height="1282">
 
 The score list shows each test and whether you're scoring poor (red), ok (orange) or good (green).

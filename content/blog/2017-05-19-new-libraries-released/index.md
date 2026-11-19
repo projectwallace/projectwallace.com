@@ -12,13 +12,13 @@ Today I released two libraries on GitHub that will ultimately power [projectwall
 
 This project can be used to get a little more powers with arrays. I often found myself writing functions for sorting, making unique lists and getting the first and last item from a list. This repository takes care of those issues.
 
-See the repository on GitHub: **[css-collection](https://github.com/projectwallace/css-collection)**
+See the repository on GitHub: *[css-collection](https://github.com/projectwallace/css-collection)*
 
 ## css-analyzer
 
 Here's the real powerhouse of Project Wallace. This repository contains all the stuff that analyses CSS, from rules to values and from at-rules to stylesheet-wide stats. It currently is pretty basic and could definitely benefit from some more async operations, but because of it's simplicity it's pretty easy to maintain. The [css-collection](https://github.com/projectwallace/css-collection) library is used quite a lot in this repository because of all the collections of selectors, values etc. that are in it.
 
-See the repository on GitHub: **[css-analyzer](https://github.com/projectwallace/css-analyzer)**
+See the repository on GitHub: *[css-analyzer](https://github.com/projectwallace/css-analyzer)*
 
 ## Next steps
 

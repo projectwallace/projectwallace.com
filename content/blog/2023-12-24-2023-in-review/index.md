@@ -11,16 +11,16 @@ date: 2023-12-24
 	import fathom from './fathom.jpg'
 </script>
 
-It's becoming sort of a tradition to look back on another year working on Project Wallace just as I did in [2022](/blog/2022-in-review) and [2021](/blog/2021-review-in-numbers). This year marked a change in approach as I focused a lot more on things I **wanted** to build and maintain and not work on things that didn't _spark joy_.
+It's becoming sort of a tradition to look back on another year working on Project Wallace just as I did in [2022](/blog/2022-in-review) and [2021](/blog/2021-review-in-numbers). This year marked a change in approach as I focused a lot more on things I *wanted* to build and maintain and not work on things that didn't _spark joy_.
 
 ## Last year's ideas
 
 Last year I made this list of ideas, so let's have a quick look at how it turned out.
 
-1. **Update the CSS Analyzer to use Bramus’ Specificity calculator. It’s more correct and saves me a bunch of work in maintaining;** Done!
-1. **Adding a page to the website to quickly calculate specificity. There’s already a bunch of them out there, but like the prettifier, I don’t like context switching;** Done!
-1. **Improving the CSS Code Quality page to use the analyzed CSS to explain the bits that are sub-optimal;** Sort of done. It's better than it was before, but not perfect.
-1. **Implementing lots of new analysis features, like native CSS nesting, reporting on color formats used and most importantly: calculating total CSS complexity!** Still didn't do nesting and total complexity but instead focused more on features that are broadly used already, like the color formats one and a bunch of others.
+1. *Update the CSS Analyzer to use Bramus’ Specificity calculator. It’s more correct and saves me a bunch of work in maintaining;* Done!
+2. *Adding a page to the website to quickly calculate specificity. There’s already a bunch of them out there, but like the prettifier, I don’t like context switching;* Done!
+3. *Improving the CSS Code Quality page to use the analyzed CSS to explain the bits that are sub-optimal;* Sort of done. It's better than it was before, but not perfect.
+4. *Implementing lots of new analysis features, like native CSS nesting, reporting on color formats used and most importantly: calculating total CSS complexity!* Still didn't do nesting and total complexity but instead focused more on features that are broadly used already, like the color formats one and a bunch of others.
 
 Let's call it a 3 out of 4 score in total. Not too bad, as it shows I can stick to my own plan, but also adapt to my own appetite and user demands.
 
@@ -35,7 +35,7 @@ Let's call it a 3 out of 4 score in total. Not too bad, as it shows I can stick 
 
 Let's kick things off by looking at what's new on the website this year. Some features like the prettifier and the specificity calculator aren't the best in the market, but they're small, standalone tools. This fits in my plan to make Project Wallace _the_ online workspace for CSS engineers to hone their skills and ease all forms of CSS auditing.
 
-This year I merged **171 pull requests** with all kinds of new features, tests, bug fixes, performance improvements and maintenance work. Yes, I'm using pull requests because I don't trust myself so I review every change. It also makes sure my tests are successful before I merge. Here's a summary of the list:
+This year I merged *171 pull requests* with all kinds of new features, tests, bug fixes, performance improvements and maintenance work. Yes, I'm using pull requests because I don't trust myself so I review every change. It also makes sure my tests are successful before I merge. Here's a summary of the list:
 
 - All kinds of new analysis for the [CSS analyzer](/analyze-css) page
 - A page to [calculate selector specificity](/specificity-calculator)
@@ -61,25 +61,25 @@ Fathom has been collecting stats over the last year again, so let's have a look!
 
 For the first time ever there's a slight decrease in these stats. My explanation for this is that last year's traffic was exceptionally high: twice that of the year before. In my review of last year, I had a suspicion that there is a high amount of passers-by traffic. I guess I'm calling that one confirmed. Traffic last year was also particularly high because of my [CSS Complexity blog post](/blog/css-complexity). That one is still attracting a bit of traffic but it caused a _huge_ spike last year.
 
-|            | 2020   | 2021   | 2022   | 2023   |
-| ---------- | ------ | ------ | ------ | ------ |
-| Visitors   | 6,510  | 10,942 | 20,702 | 17,535 |
+|  | 2020 | 2021 | 2022 | 2023 |
+| --- | --- | --- | --- | --- |
+| Visitors | 6,510 | 10,942 | 20,702 | 17,535 |
 | Page views | 24,767 | 40,256 | 47,031 | 42,325 |
 
 ### Website activity
 
 Website activity has seen a bit of growth even though traffic went down a little bit. Should I tell my Marketing Director that my engagement tactics are working? I don't know, I'll stick to analyzing CSS.
 
-|                              | 2020 | 2021  | 2022  | 2023  |
-| ---------------------------- | ---- | ----- | ----- | ----- |
-| Analyze CSS (url)            | 742  | 3,161 | 6,379 | 7,997 |
-| Analyze CSS (raw input)      | 8    | 503   | 2,345 | 3,385 |
-| CSS Code Quality (url)       | -    | -     | 4,788 | 2,797 |
-| CSS Code Quality (raw input) | -    | -     | 790   | 1,967 |
-| Scrape CSS                   | 138  | 264   | 248   | 378   |
-| Prettify CSS                 | -    | -     | 40    | 153   |
-| CSS Units game plays         | -    | -     | -     | 223   |
-| CSS Layer analysis           | -    | -     | -     | 23    |
+|  | 2020 | 2021 | 2022 | 2023 |
+| --- | --- | --- | --- | --- |
+| Analyze CSS (url) | 742 | 3,161 | 6,379 | 7,997 |
+| Analyze CSS (raw input) | 8 | 503 | 2,345 | 3,385 |
+| CSS Code Quality (url) | - | - | 4,788 | 2,797 |
+| CSS Code Quality (raw input) | - | - | 790 | 1,967 |
+| Scrape CSS | 138 | 264 | 248 | 378 |
+| Prettify CSS | - | - | 40 | 153 |
+| CSS Units game plays | - | - | - | 223 |
+| CSS Layer analysis | - | - | - | 23 |
 
 New activities like layer analysis are below 100 completions probably because they are very new and more importantly _very niche_ tools.
 
@@ -87,11 +87,11 @@ New activities like layer analysis are below 100 completions probably because th
 
 My friend [Jelle](https://blog.jellesmeets.nl/personal/2023-in-review/) showed me a year-in-review blog post recently where the author calculated time-on-site which seems like a fun one to do. Let's define it as `_visitors &times; average time on site_`.
 
-|                      | 2020      | 2021       | 2022        | 2023        |
-| -------------------- | --------- | ---------- | ----------- | ----------- |
-| Visitors             | 6,510     | 10,942     | 20,702      | 17,535      |
-| Average time on site | 01:09     | 00:46      | 01:22       | 01:39       |
-| Total time on site   | 5d 4h 46m | 5d 19h 48m | 19d 15h 32m | 20d 02h 12m |
+|  | 2020 | 2021 | 2022 | 2023 |
+| --- | --- | --- | --- | --- |
+| Visitors | 6,510 | 10,942 | 20,702 | 17,535 |
+| Average time on site | 01:09 | 00:46 | 01:22 | 01:39 |
+| Total time on site | 5d 4h 46m | 5d 19h 48m | 19d 15h 32m | 20d 02h 12m |
 
 Well, it looks like 2023 is a successful year if you look at the total time spent. Even though the amount of page views and visitors went down, the average time on site went up.
 

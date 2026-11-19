@@ -24,7 +24,7 @@ Thanks to [Romain](https://www.romainmenke.com/) we were listed under [the 'util
 
 Listening to the latest Syntax.fm episode certainly had me excited when Scott and Wes started talking about Project Wallace! I've been a Syntax listener from day one and I really appreciate the hard work they put into making the podcast. They've clarified dozens of On this episode they're discussing the results of the [State of CSS survey](https://2023.stateofcss.com/en-US) where they discover that Project Wallace is a pretty neat tool to keep your color distribution in check or to review all font-families in use. My favorite quote from the show, mostly because of Scott's audible amazement:
 
-> This **is** cool!
+> This *is* cool!
 
 <cite>Scott Tolinski</cite>
 

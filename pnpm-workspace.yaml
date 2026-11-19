@@ -6,6 +6,8 @@ blockExoticSubdeps: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@projectwallace/*'
+  - mdsvex
+  - '@mdsvex/*'
   - stylelint
   - stylelint-config-standard
   - stylelint-config-recommended

@@ -67,15 +67,15 @@ We can skip parsing Atrule preludes, custom properties and values because we're 
 
 With the AST in hand, we can begin thinking about how to turn it into pretty-looking CSS. We need the CSS to be pretty enough to show it in a readable way in our DevTools, not any fancier than that. After some thinking, I came up with the following rules:
 
-1. Every **AtRule** starts on a new line
-1. Every **Rule** starts on a new line
-1. Every **Selector** starts on a new line
-1. A comma is placed after every **Selector** that's not the last in the **SelectorList**
-1. Every **Block** (`{}`) is indented with 1 tab more than the previous indentation level
-1. Every **Declaration** starts on a new line
-1. Every **Declaration** ends with a semicolon (`;`)
-1. An empty line is placed after a **Block** unless it's the last in the surrounding block
-1. Unknown syntax is rendered as-is
+1. Every *AtRule* starts on a new line
+2. Every *Rule* starts on a new line
+3. Every *Selector* starts on a new line
+4. A comma is placed after every *Selector* that's not the last in the *SelectorList*
+5. Every *Block* (`{}`) is indented with 1 tab more than the previous indentation level
+6. Every *Declaration* starts on a new line
+7. Every *Declaration* ends with a semicolon (`;`)
+8. An empty line is placed after a *Block* unless it's the last in the surrounding block
+9. Unknown syntax is rendered as-is
 
 As you can see from this list, we're dealing with a very limited subset of CSS tokens here: Stylesheet, Atrule, Rule, SelectorList, Selector, Block and Declaration. We're starting our formatting from the Stylesheet level:
 
@@ -144,7 +144,7 @@ If you want to see more: the [source code](https://github.com/projectwallace/for
 No project is perfect and neither is this little script. There are some things that it does well and in a simple fashion, but some things I'll consider beyond the scope and necessity of this package. And that's ok because we just need it to format your CSS well enough to audit it easily.
 
 - ✅ super fast (>90% faster than Prettier)
-- ✅ 'tiny' bundle size (~99% smaller than Prettier)
+- ✅ 'tiny' bundle size (\~99% smaller than Prettier)
 - ✅ prettifies well enough for our use cases
 - ✅ one thing per line, makes side-by-side comparison easy
 - 🔺 not as configurable and extensive as Prettier

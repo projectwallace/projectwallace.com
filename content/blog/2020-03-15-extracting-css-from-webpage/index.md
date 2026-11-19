@@ -6,7 +6,7 @@ keywords: css, extract, get-css, scrape
 date: 2020-03-15
 ---
 
-**TLDR; Getting all CSS from a webpage requires a couple of different methods and some filtering. Go straight to <a href="#the-algorithm">the summary</a> or [the GitHub repository](https://github.com/bartveneman/extract-css-core).**
+*TLDR; Getting all CSS from a webpage requires a couple of different methods and some filtering. Go straight to <a href="#the-algorithm">the summary</a> or [the GitHub repository](https://github.com/bartveneman/extract-css-core).*
 
 Project Wallace would be nowhere without the prior art of CSS Stats. They came up with [get-css](https://github.com/cssstats/cssstats/tree/master/packages/get-css) and this got me started in figuring out how to scrape CSS myself. Their algorithm is as simple as it is genius.
 

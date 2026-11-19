@@ -7,7 +7,7 @@ date: 2017-02-28
 
 Hi. How are you? Just wanted to let you know that we're going to do it! Wallace is going to be open for anyone to use this thing! It will be a hell of a journey, but let's get started.
 
-Before we start though, a small word of warning. **This project will change and it will change a lot.** Here's a small breakdown of it:
+Before we start though, a small word of warning. *This project will change and it will change a lot.* Here's a small breakdown of it:
 
 - URI's are going to change. No doubt about it. The current way they are used are too verbose and it would be nice to have cleaner, shorter URI's but for now these have to do.
 - The design will undergo some transformations here and there. Although the dark purple looks cool and has some character, the color scheme needs fixing and so does the general look and feel.
