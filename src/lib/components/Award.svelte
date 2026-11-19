@@ -11,9 +11,9 @@
 
 <aside class="award">
 	<span class="size" aria-hidden="true">{size}</span>
-	<p class="content">
+	<div class="content">
 		{@render children?.()}
-	</p>
+	</div>
 </aside>
 
 <style>
@@ -72,5 +72,9 @@
 		margin: 0 !important; /* reset markdown margin */
 		font-size: var(--size-base);
 		text-wrap: balance;
+
+		& :global(p) {
+			margin: 0;
+		}
 	}
 </style>
