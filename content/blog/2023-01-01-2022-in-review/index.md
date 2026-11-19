@@ -21,9 +21,9 @@ My [review of 2021](/blog/2021-review-in-numbers) generated lots of encouraging 
 
 Although the amount of visitors seems to have doubled, the amount of pageviews has only increased slightly. Part of this is due to an error on my end where analytics was broken on the Projects side, but still it's a remarkable difference in visitors vs. pageviews ratio.
 
-|            | 2020   | 2021   | 2022   |
-| ---------- | ------ | ------ | ------ |
-| Visitors   | 6,510  | 10,942 | 20,702 |
+|  | 2020 | 2021 | 2022 |
+| --- | --- | --- | --- |
+| Visitors | 6,510 | 10,942 | 20,702 |
 | Page views | 24,767 | 40,256 | 47,031 |
 
 I'm starting to think that there's less 'quality' traffic to the site, and more one-off visitors. According to Fathom the bounce rate is slightly higher than last year, so I think there are more people coming for a handful of pages and then moving along with their day. At first sight this frustrated me a little, but on second thought I think that's a good thing: people come here to accomplish a task and then get on with the work they intended to do. Project Wallace is not a social media platform, we don't need high engagement, we need high quality tools to do our work.
@@ -36,14 +36,14 @@ I'm starting to think that there's less 'quality' traffic to the site, and more 
 
 ## Website activity
 
-|                              | 2020 | 2021  | 2022  |
-| ---------------------------- | ---- | ----- | ----- |
-| Analyze CSS (url)            | 742  | 3,161 | 6,379 |
-| Analyze CSS (raw input)      | 8    | 503   | 2,345 |
-| CSS Code Quality (url)       | -    | -     | 4,788 |
-| CSS Code Quality (raw input) | -    | -     | 790   |
-| Scrape CSS                   | 138  | 264   | 248   |
-| Prettify CSS                 | -    | -     | 40    |
+|  | 2020 | 2021 | 2022 |
+| --- | --- | --- | --- |
+| Analyze CSS (url) | 742 | 3,161 | 6,379 |
+| Analyze CSS (raw input) | 8 | 503 | 2,345 |
+| CSS Code Quality (url) | - | - | 4,788 |
+| CSS Code Quality (raw input) | - | - | 790 |
+| Scrape CSS | 138 | 264 | 248 |
+| Prettify CSS | - | - | 40 |
 
 It's amazing to see that there's such an interest in CSS Code Quality tooling. The funny part is that I started writing it to help someone explain how the plain CSS analytics could be translated to 'quality'. Apparently there are more people struggling with the raw output of their CSS analytics. And I get it. Having the data is one, but understanding what it means is something different.
 The CSS Code Quality package is still very crude, so I'm planning on some additions to help explain some of the concepts using the actual CSS that was analyzed. That should give everyone (myself included!) a better understanding on why some rankings are under-performing.

@@ -18,6 +18,6 @@ This is awesome. We need developers and designers to be more aware of the brandi
 
 I am curious to see where the Chrome folks will take this new addition to their (already huge) ecosystem of devtools. They have a huge benefit over Project Wallace, because they have way more context over all HTML and CSS, whereas Project Wallace only does static analysis of the CSS. [Martin Donath (@squidfunk) already gave a nice presentation about this concept](https://squidfunk.github.io/talks/css-cognitive-complexity/#/32), and I think he and the DevTools team are on the right track. Good stuff!
 
-Now, if I could only find out how to enable this Chrome experiment&hellip;
+Now, if I could only find out how to enable this Chrome experiment…
 
 <ins>Update 2020-03-03: replaced image.</ins>

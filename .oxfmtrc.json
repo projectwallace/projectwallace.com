@@ -17,6 +17,8 @@
 		".env.*",
 		"!.env.example",
 		"pnpm-lock.yaml",
+		"*.md",
+		"*.svx",
 		"package-lock.json",
 		"yarn.lock"
 	]

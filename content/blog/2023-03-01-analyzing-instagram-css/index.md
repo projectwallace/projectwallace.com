@@ -45,7 +45,7 @@ Instagram.com ranks pretty high according to the Alexa top visited websites. Thi
 
 Coming in at 543 kB, the overall CSS size is pretty substantial. It's not as bad as some other large companies, but I am almost certain it could be way less. With the amount of visitors they have, making their CSS smaller would be a nice bandwidth-saving as well.
 
-Almost 30,000 [Source Lines of Code](/blog/counting-lines-of-code-in-css), with declarations making up for roughly 50% of that (16,235). There are 10,449 selectors, which means that the remaining ~4000 lines of code are hidden in at-rules! That will be an interesting one to look at later on in this post.
+Almost 30,000 [Source Lines of Code](/blog/counting-lines-of-code-in-css), with declarations making up for roughly 50% of that (16,235). There are 10,449 selectors, which means that the remaining \~4000 lines of code are hidden in at-rules! That will be an interesting one to look at later on in this post.
 
 ## CSS Rules
 
@@ -201,7 +201,7 @@ One thing that's cool about checking someone else's CSS is that you can learn a 
 
 <img width="1171" alt="Project Wallace report on CSS colors on instagram.com" src={colors}>
 
-**539 unique** colors. That just can't be right. We've seen the vast amount of custom properties above, so I'm surprised that there are still so many unique colors. I'm afraid that there must be a part of Instagram that's old and tucked away and not updated with the same level of care as the rest of the site.
+*539 unique* colors. That just can't be right. We've seen the vast amount of custom properties above, so I'm surprised that there are still so many unique colors. I'm afraid that there must be a part of Instagram that's old and tucked away and not updated with the same level of care as the rest of the site.
 
 <img loading="lazy" decoding="async" width="1162" alt="Project Wallace report on CSS color format usage on instagram.com" src={color_formats}>
 
@@ -209,7 +209,7 @@ An interesting note about Instagram's color format usage: they seem to use more 
 
 ### Font-families
 
-Again, a huge list: 78 unique font-families (most sites stop at about ~20). Scrolling through that actually reveals that there's probably a good reason for this amount because some of them have names like `'Fix for Mac Chrome 80'` and I think that `font-family` alone is worth a blog post on itself.
+Again, a huge list: 78 unique font-families (most sites stop at about \~20). Scrolling through that actually reveals that there's probably a good reason for this amount because some of them have names like `'Fix for Mac Chrome 80'` and I think that `font-family` alone is worth a blog post on itself.
 
 ---
 

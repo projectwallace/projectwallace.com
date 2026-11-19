@@ -2,4 +2,4 @@
 title: Unique property browserhacks
 ---
 
-All unique property browserhacks. Based on information from www.browserhacks.com.
+All unique property browserhacks. Based on information from [www.browserhacks.com](http://www.browserhacks.com).

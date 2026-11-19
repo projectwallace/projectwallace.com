@@ -5,7 +5,7 @@ author: bartveneman
 date: 2019-08-20
 ---
 
-After using Project Wallace for quite some time, I found it hard sometimes to compare projects. For example, Facebook.com&rsquo;s CSS is way larger than that of Twitter.com, but that&rsquo;s because it has some base64-encoded fonts inlined in their `@font-face` declarations and parts of either website aren&rsquo;t minified. So what is the best option to compare project sizes at a glance? Other programming languages have figured this out before: the Lines Of Code metric.
+After using Project Wallace for quite some time, I found it hard sometimes to compare projects. For example, Facebook.com’s CSS is way larger than that of Twitter.com, but that’s because it has some base64-encoded fonts inlined in their `@font-face` declarations and parts of either website aren’t minified. So what is the best option to compare project sizes at a glance? Other programming languages have figured this out before: the Lines Of Code metric.
 
 ## What is Lines Of Code
 
@@ -13,7 +13,7 @@ After using Project Wallace for quite some time, I found it hard sometimes to co
 
 > Source lines of code (SLOC), also known as lines of code (LOC), is a software metric used to measure the size of a computer program by counting the number of lines in the text of the program's source code.
 
-So we use SLOC to determine the size of bunch of code. This works for CSS too! Let&rsquo;s discuss LOC and SLOC in relation to CSS.
+So we use SLOC to determine the size of bunch of code. This works for CSS too! Let’s discuss LOC and SLOC in relation to CSS.
 
 ## Lines Of Code for CSS
 
@@ -34,7 +34,7 @@ There are three things in CSS that are important to keep track of when counting 
 - Selectors (`#header`, `.some-list`, `h1 > span`)
 - Declarations (`color: blue`)
 
-You might wonder why rules aren&rsquo;t counted here, but rules only consist of selectors and declarations.
+You might wonder why rules aren’t counted here, but rules only consist of selectors and declarations.
 The [source code for counting Source Lines Of Code in CSS](https://github.com/projectwallace/css-analyzer/blob/f7e913594f041d07c0a6c4913f8fca614c2e5d23/src/analyzer/stylesheets/lines-of-code.js#L5-L6) is seemingly simple as well:
 
 ```js
@@ -77,4 +77,4 @@ Here is a practical example of counting Lines Of Code in CSS:
 
 ## Closing thoughts
 
-There is still a lot more counting to do, but with regards to Lines Of Code, this is pretty much it. The next step for [@projectwallace/css-analyzer](https://github.com/projectwallace/css-analyzer) is to calculate the cyclomatic complexity for CSS. But that&rsquo;s a whole different can of worms.
+There is still a lot more counting to do, but with regards to Lines Of Code, this is pretty much it. The next step for [@projectwallace/css-analyzer](https://github.com/projectwallace/css-analyzer) is to calculate the cyclomatic complexity for CSS. But that’s a whole different can of worms.

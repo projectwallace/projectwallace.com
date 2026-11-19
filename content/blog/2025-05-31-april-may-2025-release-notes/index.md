@@ -46,8 +46,11 @@ date: 2025-05-31
   But this is also a darn good way of finding accessibility issues.
 
 - The [CSS `@layer` visualizer](/css-layers-visualizer) page already had some devtools panels on it and now also includes the JSON output panel from the [css-layer-tree library](https://github.com/projectwallace/css-layer-tree) that powers it. This allows for easy copy-pasting so you can use the result somewhere else.
+
 - The [Custom Property Inspector](/custom-property-inspector) now also has some devtools panels, like a network panel and a panel with the JSON output of all the properties that were inspected. In there you'll find arrays of All properties, Unused properties, Undefined properties and Underfined with fallback properties.
+
 - The selectors you enter on the [Specificity Calculator](/specificity-calculator) are now synced to the URL for easy sharing.
+
 - New website analytics. After saying goodbye to Fathom last fall after many years of using it I found myself needing a new source of analytics. Sentry catches the occassional error but when Sentry stays quiet I get nervous, because how do I know if anyone is still using the website? Luckily [Counterscale](https://counterscale.dev/) is a free, performant and privacy-focused solution!
 
   <a href={counterscale_full}>
@@ -71,12 +74,12 @@ date: 2025-05-31
 ## Dependencies
 
 - All of the `@projectwallace` packages are now ESM only for a smaller install size, mostly cutting their `node_modules` size by 50%
-  - https://github.com/projectwallace/css-analyzer
-  - https://github.com/projectwallace/css-layer-tree
-  - https://github.com/projectwallace/color-sorter
-  - https://github.com/projectwallace/css-code-quality
-  - https://github.com/projectwallace/format-css
-  - https://github.com/projectwallace/css-time-sort
+  - <https://github.com/projectwallace/css-analyzer>
+  - <https://github.com/projectwallace/css-layer-tree>
+  - <https://github.com/projectwallace/color-sorter>
+  - <https://github.com/projectwallace/css-code-quality>
+  - <https://github.com/projectwallace/format-css>
+  - <https://github.com/projectwallace/css-time-sort>
 - Previously _all_ tests for this website were done by Playwright. Now they're split into unit tests (Vitest) and end to end tests (Playwright). This makes discovering bugs a little easier because of a better distinction in CI.
 - Implemented Stylelint in the repository powering this website. Only a fairly basic config, but helpful nonetheless.
 

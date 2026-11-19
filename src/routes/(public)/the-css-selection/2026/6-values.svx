@@ -9,7 +9,7 @@ import PolypaneCallout from './PolypaneCallout.svelte'
 
 ## Values
 
-Let me start with a rather disappointing note about this chapter. Because analyzing values is one of the areas where Project Wallace shines, but I made a bad decision early on in the scraping process. After an initial crawl started to fill my laptop's drive rather quickly, I decided to cut out some 'non-important' metrics to save some disk space and speed up analysis. Boy, do I regret that. This decision means that I've analyzed and then **thrown away** all analysis about popular colors, font sizes, shadows, everything. All I have at this point are aggregate percentiles. So. This is not the values chapter I was hoping for but it's the best I can do for this year.
+Let me start with a rather disappointing note about this chapter. Because analyzing values is one of the areas where Project Wallace shines, but I made a bad decision early on in the scraping process. After an initial crawl started to fill my laptop's drive rather quickly, I decided to cut out some 'non-important' metrics to save some disk space and speed up analysis. Boy, do I regret that. This decision means that I've analyzed and then *thrown away* all analysis about popular colors, font sizes, shadows, everything. All I have at this point are aggregate percentiles. So. This is not the values chapter I was hoping for but it's the best I can do for this year.
 
 ### Colors
 
@@ -64,7 +64,7 @@ column_headers={['Color format', 'Adoption %']}
 
 [Source data](/data/the-css-selection/2026/values.colors.formats.unique.stats.json)
 
-The top 7 are very much as expected, but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev, because apparently this and 4-character hex codes have been Baseline widely available since January 2020&hellip;
+The top 7 are very much as expected, but I'm surprised that 8-character hex colors are catching on so well with 42% adoption. Although I might be an old-school dev, because apparently this and 4-character hex codes have been Baseline widely available since January 2020…
 
 Further down the list we have HSL(A) still beating OKLCH by some margin despite [active campaigns](https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl) to get us onto the better format.
 
@@ -229,7 +229,7 @@ data={{
 Unfortunately I have not broken down usage of value hacks properly but based on [the source data](/data/the-css-selection/2026/values.browserhacks.unique.stats.json) I can tell that two main types of value hacks are still commonly used in at least 5% of websites:
 
 1. `\9` is used to target IE 6-8
-2. `!ie` is used to target IE &lt;= 7 and acts as `!important` where the string after `!` can be anything
+2. `!ie` is used to target IE <= 7 and acts as `!important` where the string after `!` can be anything
 
 Source: [browserhacks.com](http://browserhacks.com/#ie)
 

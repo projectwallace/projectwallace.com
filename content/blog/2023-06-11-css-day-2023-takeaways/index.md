@@ -13,7 +13,7 @@ date: 2023-06-11
 	import container_query2 from './container-queries-devtools2.png'
 </script>
 
-Imagine a conference completely dedicated to CSS. And a former church filled with over 300 CSS enthusiasts. It exists! It's the amazing [CSS Day conference](https://cssday.nl/2023) and I was lucky enough to attend again this year. During the talks I've been taking notes to see **what all the new trends and techniques mean for authoring and auditing CSS**. Note: while it may seem skeptical at many points I do think we're living in a golden era of CSS as Una proved in [the opening talk](https://www.youtube.com/watch?v=TVkwiUFbtyQ) this year.
+Imagine a conference completely dedicated to CSS. And a former church filled with over 300 CSS enthusiasts. It exists! It's the amazing [CSS Day conference](https://cssday.nl/2023) and I was lucky enough to attend again this year. During the talks I've been taking notes to see *what all the new trends and techniques mean for authoring and auditing CSS*. Note: while it may seem skeptical at many points I do think we're living in a golden era of CSS as Una proved in [the opening talk](https://www.youtube.com/watch?v=TVkwiUFbtyQ) this year.
 
 ## Contents
 
@@ -67,12 +67,14 @@ Chrome showing the full layer tree is something I very much appreciate, because 
 <aside>
 	<p>Wallace should add support for showing the layer tree as well and it's been something I've been thinking of for over a year now, because <a href="https://www.bram.us/">Bramus</a> showed <a href="https://slidr.io/bramus/the-css-cascade-a-deep-dive-2022-06-09-css-day#85" rel="noreferrer">this excellent visual</a> last year at the same conference (!).</p>
 
-    <figure>
-    	<a href="{cascade_layers_bramus_visual}">
-    		<img loading="lazy" decoding="async" width="2010" height="1184" alt="Screenshot of Bramus' slide of last year's talk about CSS cascade layers, showing a stacked bar chart of colord blocks, each representing a distinct CSS layer atrule, proportionally sized to the amount of rules/declarations inside them." src="{cascade_layers_bramus_visual}">
-    	</a>
-    	<figure>This visual has been on my mind all year and I hope we can bring it to this silly little website very soon!</figure>
-    </figure>
+```
+<figure>
+	<a href="{cascade_layers_bramus_visual}">
+		<img loading="lazy" decoding="async" width="2010" height="1184" alt="Screenshot of Bramus' slide of last year's talk about CSS cascade layers, showing a stacked bar chart of colord blocks, each representing a distinct CSS layer atrule, proportionally sized to the amount of rules/declarations inside them." src="{cascade_layers_bramus_visual}">
+	</a>
+	<figure>This visual has been on my mind all year and I hope we can bring it to this silly little website very soon!</figure>
+</figure>
+```
 
 </aside>
 

@@ -45,9 +45,9 @@ And then, in December 2025, CSS-Tricks published ["Masonry Layout is Now grid-la
 A small breakdown:
 
 1. This uses `@supports` at-rules to feature detect either of the syntaxes;
-1. Enable legacy `masonry` syntax with `grid-template-rows: masonry`;
-1. Enable modern `grid-lanes` by overriding the existing `display: grid` with `display: grid-lanes`;
-1. Browsers that support neither of those will display the 'before' grid-like structure.
+2. Enable legacy `masonry` syntax with `grid-template-rows: masonry`;
+3. Enable modern `grid-lanes` by overriding the existing `display: grid` with `display: grid-lanes`;
+4. Browsers that support neither of those will display the 'before' grid-like structure.
 
 The chances of it are very small, but just in case Firefox would support both `masonry` _and_ `grid-lanes` at the same time I added the negation case in the supports at-rule. My goal here is to use grid-lanes whenever possible and only use masonry if that's the only supported feature.
 

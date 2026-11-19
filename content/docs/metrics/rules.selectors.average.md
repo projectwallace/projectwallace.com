@@ -19,7 +19,7 @@ selector {
 }
 ```
 
-The average number of selectors per rule of the example is **1.5** ((2 + 1) / 2).
+The average number of selectors per rule of the example is *1.5* ((2 + 1) / 2).
 
 ```js
 {

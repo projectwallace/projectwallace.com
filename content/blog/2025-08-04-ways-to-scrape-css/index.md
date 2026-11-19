@@ -40,11 +40,11 @@ Project Wallace scrapes websites by fetching the HTML and then going through all
 
 ### Pros and cons
 
-| ✅ Pros                                                     | ❌ Cons                                                                 |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Cheap to run on a server                                    | A lot of work to manage state, timeouts, error handling and data flows  |
-| Returns the CSS as it was sent to the browser / as authored | Does not easily fit in a bookmarklet                                    |
-| Can be run in your browser or other JavaScript runtimes     | Does not find adoptedStylesheets or CSS injected with runtime CSS-in-JS |
+| ✅ Pros | ❌ Cons |
+| --- | --- |
+| Cheap to run on a server | A lot of work to manage state, timeouts, error handling and data flows |
+| Returns the CSS as it was sent to the browser / as authored | Does not easily fit in a bookmarklet |
+| Can be run in your browser or other JavaScript runtimes | Does not find adoptedStylesheets or CSS injected with runtime CSS-in-JS |
 
 ## Option 2: Use CSSOM
 
@@ -74,12 +74,12 @@ function scrape_css()
 
 ### Pros and cons
 
-| ✅ Pros                                                                                        | ❌ Cons                                                                                                 |
-| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Much simpler than HTML scraping                                                                | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
-| Fits in a bookmarklet easily                                                                   | Does not return the CSS in the format that it was authored in (it changes color notations, etc.)        |
-| Can be run in your browser or any JavaScript runtime that supports running (headless) browsers | Does not scrape inline styles                                                                           |
-|                                                                                                | Cross Origin errors sometimes happen and are hard to solve                                              |
+| ✅ Pros | ❌ Cons |
+| --- | --- |
+| Much simpler than HTML scraping | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
+| Fits in a bookmarklet easily | Does not return the CSS in the format that it was authored in (it changes color notations, etc.) |
+| Can be run in your browser or any JavaScript runtime that supports running (headless) browsers | Does not scrape inline styles |
+|  | Cross Origin errors sometimes happen and are hard to solve |
 
 ## Option 3: Use CSSCoverage API
 
@@ -117,22 +117,22 @@ async function scrape() {
 
 ### Pros and cons
 
-| ✅ Pros                                                                                                    | ❌ Cons                                                                                                 |
-| ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Much simpler than HTML scraping                                                                            | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
-| Can be run in any JavaScript runtime that supports running (headless) browsers                             | Does not run in a bookmarklet                                                                           |
-| CSSCoverage can also be collected between opening a page, doing interactions and navigating to other pages |                                                                                                         |
+| ✅ Pros | ❌ Cons |
+| --- | --- |
+| Much simpler than HTML scraping | Requires a browser ('real' or headless), making it more expensive than HTML scraping to run on a server |
+| Can be run in any JavaScript runtime that supports running (headless) browsers | Does not run in a bookmarklet |
+| CSSCoverage can also be collected between opening a page, doing interactions and navigating to other pages |  |
 
 ## Summary
 
 Each of these methods has their pros and cons so it really depends on the use case what you'll end up using.
 
-|                       | HTML Scraper           | CSSOM | CSSCoverage API |
-| --------------------- | ---------------------- | ----- | --------------- |
-| Leaves CSS intact     | ✅                     | ❌    | ✅              |
-| Cost to run on server | 💰                     | 💰💰  | 💰💰            |
-| Complexity            | 100                    | 10    | 30              |
-| Runs in bookmarklet   | ✅ (a big bookmarklet) | ✅    | ❌              |
-| Scrape inline styles  | ✅                     | ❌    | ❌              |
+|  | HTML Scraper | CSSOM | CSSCoverage API |
+| --- | --- | --- | --- |
+| Leaves CSS intact | ✅ | ❌ | ✅ |
+| Cost to run on server | 💰 | 💰💰 | 💰💰 |
+| Complexity | 100 | 10 | 30 |
+| Runs in bookmarklet | ✅ (a big bookmarklet) | ✅ | ❌ |
+| Scrape inline styles | ✅ | ❌ | ❌ |
 
 Hope this was helpful. Did I miss anything? Let me know!
