@@ -1,4 +1,4 @@
-import type { Handle } from '@sveltejs/kit'
+import type { Handle } from '@sveltejs/kit/hooks'
 
 // SvelteKit always renders the head in this fixed internal order (hardcoded
 // in `Head.build()`, see the `@sveltejs/kit@2.70.1` source we're pinned to:

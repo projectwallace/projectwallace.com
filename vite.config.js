@@ -38,7 +38,9 @@ const config = {
 			}),
 			prerender: {
 				handleHttpError: ({ path, message }) => {
-					if (redirected_paths.has(path)) return
+					if (redirected_paths.has(path)) {
+						return
+					}
 					throw new Error(message)
 				}
 			},
