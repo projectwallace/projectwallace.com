@@ -43,7 +43,7 @@ This year I merged **171 pull requests** with all kinds of new features, tests, 
 - A page to [minify CSS](/minify-css)
 - A [fun little game](/css-units-game) where you have to guess all CSS units!
 - A [CSS `@layer` visualizer](/css-layers-visualizer) page to inspect your layer composition
-- A page to [lint](/custom-property-linter) your unused and undeclared custom properties
+- A page to [lint](/custom-property-inspector) your unused and undeclared custom properties
 - There's a `CMD+K` shortcut dialog now to quickly jump to the tool you need
 - Lots of performance improvements, like the one I blogged about earlier this year: [Making Analyze CSS render 6 times faster](/blog/making-analyze-css-render-6x-faster)
 - Rewrote [wallace-cli](https://github.com/projectwallace/wallace-cli) from scratch with only 2 dependencies this time ([picocolors](https://github.com/alexeyraspopov/picocolors) and our own css-analyzer)
