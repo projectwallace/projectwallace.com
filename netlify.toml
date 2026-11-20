@@ -3,5 +3,5 @@ command = "pnpm run build"
 publish = "build"
 
 [build.environment]
-  # sharp uses the libuv threadpool (default 4); let it use more cores for image encoding
-  UV_THREADPOOL_SIZE = "16"
+# sharp uses the libuv threadpool (default 4); let it use more cores for image encoding
+UV_THREADPOOL_SIZE = "16"
