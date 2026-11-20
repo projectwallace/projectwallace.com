@@ -18,6 +18,7 @@ type Options = {
  *
  * - `imgWidth`: caps the largest generated variant, instead of encoding the full-size source
  * - `effort`: lowers the encoder effort to keep builds fast
+ * - `format`: AVIF + WebP only (no PNG/JPG fallback; all supported browsers decode both)
  *
  * Both can still be set explicitly on an import. An explicit `w` skips `imgWidth`.
  */
@@ -39,6 +40,9 @@ export function enhancedImgDefaults({ max_width, effort }: Options): Plugin {
 			let resolved = source
 			if (!params.has('effort')) {
 				resolved += `&effort=${effort}`
+			}
+			if (!params.has('format')) {
+				resolved += '&format=avif;webp'
 			}
 			if (!params.has('w') && !params.has('imgWidth')) {
 				resolved += `&imgWidth=${max_width}`
