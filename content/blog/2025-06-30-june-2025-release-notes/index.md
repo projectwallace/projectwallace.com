@@ -4,20 +4,6 @@ excerpt: "'Only' 20 releases on the website this month but also lots of releases
 date: 2025-06-30
 ---
 
-<script>
-	import BlogImage from '#lib/components/BlogImage.svelte'
-	import counterscale from './counterscale.png?enhanced'
-  import counterscale_full from './counterscale.png'
-	import resets from './resets.png?enhanced'
-  import resets_full from './resets.png'
-	import nesting from './nesting.png?enhanced'
-  import nesting_full from './nesting.png'
-	import atrules from './atrules.png?enhanced'
-  import atrules_full from './atrules.png'
-	import complexity from './complexity.png?enhanced'
-  import complexity_full from './complexity.png'
-</script>
-
 'Only' 20 releases on the website this month but also lots of releases outside in our open source projects. Strap yourself in for a big list!
 
 ## New features
@@ -31,8 +17,8 @@ Sparked by Ana Rodrigues' talk on CSS Day which showed that she used Project Wal
 - Account for shorthand values that are all zero (`0 0 0 0`, `0px 0 0em 0.0px`)
 
 <figure>
-	<a href={resets_full}>
-		<BlogImage src={resets} alt="A table showing CSS spacing resets found on a page." loading="eager" />
+	<a href="./resets.png">
+		<img src="./resets.png" alt="A table showing CSS spacing resets found on a page." loading="eager" />
 	</a>
 	<figcaption>Spacing resets can be considered a code smell sometimes.</figcaption>
 </figure>
@@ -42,8 +28,8 @@ Sparked by Ana Rodrigues' talk on CSS Day which showed that she used Project Wal
 Initially sparked by the [Web Almanac CSS chapter](https://almanac.httparchive.org/en/2022/css), this has been on my wish list for years and I finally got to it. It wasn't even that hard to be honest so I'm a little disappointed in myself for not implementing this sooner. [@projectwallace/css-analyzer@7.4.0](https://github.com/projectwallace/css-analyzer/pull/468) has all the details and the website now shows how deep you're willing to go with your CSS.
 
 <figure>
-	<a href={nesting_full}>
-		<BlogImage src={nesting} alt="A table showing CSS nesting depths found on a page." loading="lazy" />
+	<a href="./nesting.png">
+		<img src="./nesting.png" alt="A table showing CSS nesting depths found on a page." loading="lazy" />
 	</a>
 	<figcaption>Oh, Adam, you're different than the rest of us</figcaption>
 </figure>
@@ -53,8 +39,8 @@ Initially sparked by the [Web Almanac CSS chapter](https://almanac.httparchive.o
 For a quick overview of what your atrule game looks like you can look at the new atrules composition chart. It shows an overview of which atrule was used how often. Neat way to get a quick view of the landscape before you dive deeper.
 
 <figure>
-	<a href={atrules_full}>
-		<BlogImage src={atrules} alt="A table showing CSS atrules found on a page." loading="lazy" />
+	<a href="./atrules.png">
+		<img src="./atrules.png" alt="A table showing CSS atrules found on a page." loading="lazy" />
 	</a>
 	<figcaption>Oh look, this looks like modern stuff. Look at how many <code>@property</code> and <code>@layer</code> atrules.</figcaption>
 </figure>
@@ -67,8 +53,8 @@ Our design tokens page has had a panel for design tokens for a long time but now
 
 Because I _sometimes_ wish I had it. Nothing more. The CSS analyzer page shows a graph and table of selector complexity. Because of that it makes sense to offer [a standalone tool](/selector-complexity) to test individual selectors quickly.
 
-<a href={complexity_full}>
-	<BlogImage src={complexity} alt="The complexity calculator showing the complexity of a long selector" loading="lazy" />
+<a href="./complexity.png">
+	<img src="./complexity.png" alt="The complexity calculator showing the complexity of a long selector" loading="lazy" />
 </a>
 
 ## Updated features
@@ -94,8 +80,8 @@ Because I _sometimes_ wish I had it. Nothing more. The CSS analyzer page shows a
 - Page Views: 8.3K
 - Top pages: [analyze-css](/analyze-css) (25%), [get-css](/get-css) (21.7%), [css-code-quality](/css-code-quality) (18%), [design-tokens](/design-tokens) (7%)
 
-<a href={counterscale_full}>
-	<BlogImage src={counterscale} alt="Dashboard overview of Counterscale website analytics for this website over the month June of 2025" loading="lazy" />
+<a href="./counterscale.png">
+	<img src="./counterscale.png" alt="Dashboard overview of Counterscale website analytics for this website over the month June of 2025" loading="lazy" />
 </a>
 
 ---

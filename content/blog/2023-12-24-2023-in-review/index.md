@@ -4,13 +4,6 @@ excerpt: This was a year full of new releases and a bunch of exposure in public 
 date: 2023-12-24
 ---
 
-<script>
-	import css_is_rad_tee from './css-is-rad-tee.png'
-	import css_css_css_tee from './css-css-css-tee.png'
-	import playwright from './playwright.jpg'
-	import fathom from './fathom.jpg'
-</script>
-
 It's becoming sort of a tradition to look back on another year working on Project Wallace just as I did in [2022](/blog/2022-in-review) and [2021](/blog/2021-review-in-numbers). This year marked a change in approach as I focused a lot more on things I **wanted** to build and maintain and not work on things that didn't _spark joy_.
 
 ## Last year's ideas
@@ -53,7 +46,7 @@ This year I merged **171 pull requests** with all kinds of new features, tests, 
 Fathom has been collecting stats over the last year again, so let's have a look!
 
 <figure>
-<img width="800" height="263" alt="Line graph showing website traffic for the year 2023 with a huge spike around November" loading="lazy" fetchpriority="low" src={fathom}>
+<img width="800" height="263" alt="Line graph showing website traffic for the year 2023 with a huge spike around November" loading="lazy" fetchpriority="low" src="./fathom.jpg">
 <figcaption>Pretty stable traffic over the year until Wes Bos starts posting on social media&hellip;</figcaption>
 </figure>
 
@@ -111,7 +104,7 @@ I wrote 10 blog posts this year, including the one you are reading now. That's a
 
 There's some work I've had to do to keep Wallace in tip-top shape for some new things I'm planning.
 
-<img width="600" height="335" alt="An excerpt of Playwright's test output showing all green test results" loading="lazy" fetchpriority="low" src={playwright}>
+<img width="600" height="335" alt="An excerpt of Playwright's test output showing all green test results" loading="lazy" fetchpriority="low" src="./playwright.jpg">
 
 This year I've added a total of 111 [Playwright](https://playwright.dev/) tests to make sure that new releases don't break any existing functionality. I love using Playwright as it's quite easy to add new tests and incredibly fast to run them. It takes around 20 seconds on my M2 Macbook, while GitHub needs 2 minutes to run them all in a single worker.
 
@@ -128,12 +121,12 @@ A thing I've wanted to try _for years_ is to write a collection of [Stylelint](h
 Lastly, I'd like to order a big box full of Wallace-themed t-shirts. During CSS Day I came up with some designs that I'd like printed myself. Asking around on social media even yielded some enthusiastic folks who'd buy one of them. Again, I'm hesitant because A) shipping outside of The Netherlands is costly and B) it's a huge gamble to order a lot of shirts upfront not knowing if they'll ever sell. But still, look at them... I think they're too good to pass on.
 
 <figure>
-<img width="600" height="600" loading="lazy" fetchpriority="low" src={css_is_rad_tee} alt="Black T-Shirt with white letters saying 'CSS is Rad'. The word Rad is shown in a grunge font and a teal color.">
+<img width="600" height="600" loading="lazy" fetchpriority="low" src="./css-is-rad-tee.png" alt="Black T-Shirt with white letters saying 'CSS is Rad'. The word Rad is shown in a grunge font and a teal color.">
 <figcaption><q>CSS is rad</q> as a play on the usual <q>CSS is awesome</q> meme.</figcaption>
 </figure>
 
 <figure>
-<img width="600" height="600" loading="lazy" fetchpriority="low" src={css_css_css_tee} alt="Black T-Shirt with the text 'CSS CSS CSS' in a teal color in a grunge font">
+<img width="600" height="600" loading="lazy" fetchpriority="low" src="./css-css-css-tee.png" alt="Black T-Shirt with the text 'CSS CSS CSS' in a teal color in a grunge font">
 <figcaption><q>CSS! CSS! CSS!</q> was the recurring chant of CSS Day 2023 thanks to MC Adam Argyle.</figcaption>
 </figure>
 

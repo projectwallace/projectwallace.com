@@ -4,15 +4,6 @@ excerpt: CSS Day 2023 was once again an amazing conference! So many new things c
 date: 2023-06-11
 ---
 
-<script>
-	import cascade_layers_bramus_visual from './cascade-layers-bramus-visual.png'
-	import cascade_layers_devtools from './cascade-layers-devtools.png'
-	import cascade_layers_devtools2 from './cascade-layers-devtools2.png'
-	import nested_selector_devtools from './nested-selector-devtools.png'
-	import container_query1 from './container-queries-devtools.png'
-	import container_query2 from './container-queries-devtools2.png'
-</script>
-
 Imagine a conference completely dedicated to CSS. And a former church filled with over 300 CSS enthusiasts. It exists! It's the amazing [CSS Day conference](https://cssday.nl/2023) and I was lucky enough to attend again this year. During the talks I've been taking notes to see **what all the new trends and techniques mean for authoring and auditing CSS**. Note: while it may seem skeptical at many points I do think we're living in a golden era of CSS as Una proved in [the opening talk](https://www.youtube.com/watch?v=TVkwiUFbtyQ) this year.
 
 ## Contents
@@ -28,8 +19,8 @@ CSS Nesting was mentioned in almost every single talk! Even though it doesn't re
 
 This will change what CSS ships to the browser, because preprocessors (PostCSS, Sass) currently 'unwrap' nested selectors and make it plainly visible how much nesting authors are applying to their selectors. CSS Nesting will make it harder to debug which 'resolved' selector is being applied, so we need browser vendors to level up their devtools to make inspection of nested selectors easier.
 
-<a href="{nested_selector_devtools}">
-	<img loading="lazy" decoding="async" width="1120" height="504" alt="Example 'unwrapping' in Chrome Devtools" src="{nested_selector_devtools}">
+<a href="./nested-selector-devtools.png">
+	<img loading="lazy" decoding="async" width="1120" height="504" alt="Example 'unwrapping' in Chrome Devtools" src="./nested-selector-devtools.png">
 </a>
 
 In the example above you can see that Chrome Devtools (Chrome 114) are trying to add helpful context about the selector, but there's multiple levels of nesting, so we don't get to see the full resolved selector here, which is inconvenient.
@@ -49,15 +40,15 @@ Many talks mentioned CSS Cascade Layers as a good way to manage specificity and 
 Layers can be nested, it's even a very nice method to group certain parts of the CSS, like a sort of namespace. But, like CSS Nesting, it brings with it some difficulties in inspecting the final CSS. A declaration can be nested several layers deep, so to debug why certain properties are applied we need some sort of view of the resolved layer tree. Luckily, both Firefox and Chrome devtools are already on the case, but with different levels of completeness.
 
 <figure>
-	<a href="{cascade_layers_devtools}">
-		<img loading="lazy" decoding="async" width="2313" height="1314" alt="Firefox (v113) devtools showing the cascade layers involved" src="{cascade_layers_devtools}">
+	<a href="./cascade-layers-devtools.png">
+		<img loading="lazy" decoding="async" width="2313" height="1314" alt="Firefox (v113) devtools showing the cascade layers involved" src="./cascade-layers-devtools.png">
 	</a>
 	<figcaption>Firefox (v113) devtools showing the cascade layers involved</figcaption>
 </figure>
 
 <figure>
-	<a href="{cascade_layers_devtools2}">
-		<img loading="lazy" decoding="async" width="1970" height="1494" alt="Chrome (v114) devtools showing the resolved layers as well as the resolved layer tree of all layers in the CSS." src="{cascade_layers_devtools2}">
+	<a href="./cascade-layers-devtools2.png">
+		<img loading="lazy" decoding="async" width="1970" height="1494" alt="Chrome (v114) devtools showing the resolved layers as well as the resolved layer tree of all layers in the CSS." src="./cascade-layers-devtools2.png">
 	</a>
 	<figcaption>Chrome (v114) devtools showing the resolved layers as well as the resolved layer tree of all layers in the CSS.</figcaption>
 </figure>
@@ -68,8 +59,8 @@ Chrome showing the full layer tree is something I very much appreciate, because 
 	<p>Wallace should add support for showing the layer tree as well and it's been something I've been thinking of for over a year now, because <a href="https://www.bram.us/">Bramus</a> showed <a href="https://slidr.io/bramus/the-css-cascade-a-deep-dive-2022-06-09-css-day#85" rel="noreferrer">this excellent visual</a> last year at the same conference (!).</p>
 
     <figure>
-    	<a href="{cascade_layers_bramus_visual}">
-    		<img loading="lazy" decoding="async" width="2010" height="1184" alt="Screenshot of Bramus' slide of last year's talk about CSS cascade layers, showing a stacked bar chart of colord blocks, each representing a distinct CSS layer atrule, proportionally sized to the amount of rules/declarations inside them." src="{cascade_layers_bramus_visual}">
+    	<a href="./cascade-layers-bramus-visual.png">
+    		<img loading="lazy" decoding="async" width="2010" height="1184" alt="Screenshot of Bramus' slide of last year's talk about CSS cascade layers, showing a stacked bar chart of colord blocks, each representing a distinct CSS layer atrule, proportionally sized to the amount of rules/declarations inside them." src="./cascade-layers-bramus-visual.png">
     	</a>
     	<figure>This visual has been on my mind all year and I hope we can bring it to this silly little website very soon!</figure>
     </figure>
@@ -81,15 +72,15 @@ Chrome showing the full layer tree is something I very much appreciate, because 
 Container queries will change our code from mostly writing `@media` to writing `@container` to proportionally size our layouts and components. [Miriam Suzanne](https://www.miriamsuzanne.com/) [articulated quite well](https://www.youtube.com/watch?v=-Fw8GSksUIo&list=PLjnstNlepBvOG299LOrvMFJ8WreCDWWd4&index=9) that it is very likely that we'll use `@container` for sizing elements and use `@media` to make decisions based on the OS level, like dark mode, and reduced motion.
 
 <figure>
-	<a href="{container_query1}">
-		<img loading="lazy" decoding="async" width="2872" height="1284" alt="Example Firefox devtools for container query" src="{container_query1}">
+	<a href="./container-queries-devtools.png">
+		<img loading="lazy" decoding="async" width="2872" height="1284" alt="Example Firefox devtools for container query" src="./container-queries-devtools.png">
 	</a>
 	<figcaption>Firefox devtools shows the actual size of the container element which makes for easy debugging, as well as showing the <code>container-type</code>, <code>container-name</code> and size query.</figcaption>
 </figure>
 
 <figure>
-	<a href="{container_query2}">
-		<img loading="lazy" decoding="async" width="2880" height="1092" alt="Example Chrome devtools for container query" src="{container_query2}">
+	<a href="./container-queries-devtools2.png">
+		<img loading="lazy" decoding="async" width="2880" height="1092" alt="Example Chrome devtools for container query" src="./container-queries-devtools2.png">
 	</a>
 	<figcaption>Chrome devtools shows the <code>container-name</code>, <code>container-type</code> and size query.</figcaption>
 </figure>

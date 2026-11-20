@@ -5,15 +5,6 @@ series: deep-dive-2023
 date: 2023-03-01
 ---
 
-<script>
-	import color_formats from './color-formats.png'
-	import colors from './colors.png'
-	import complexity from './complexity.png'
-	import properties from './properties.png'
-	import rules from './rules.png'
-
-</script>
-
 Instagram.com ranks pretty high according to the Alexa top visited websites. This means that all the CSS from Instagram.com gets downloaded to millions of devices every day. Let's have a look at the interesting parts of their CSS analysis.
 
 ## First impressions
@@ -49,7 +40,7 @@ Almost 30,000 [Source Lines of Code](/blog/counting-lines-of-code-in-css), with 
 
 ## CSS Rules
 
-<img loading="lazy" width="1214" alt="Ruleset sizes of Instagram.com" src={rules}>
+<img loading="lazy" width="1214" alt="Ruleset sizes of Instagram.com" src="./rules.png">
 
 One of the first things that jumps out is a massive rule size of 550! Zooming in on that we see a rule with 2 selectors 548 declarations! This is not uncommon since the rise of CSS custom properties because lots of sites declare most of their 'variables' on the `:root` selector. 548 custom properties is just... more than usual. In the graph above this ruleset is visible as the top left dot.
 
@@ -100,7 +91,7 @@ Right after that one, the dark theme:
 
 ## Selectors
 
-<img loading="lazy" decoding="async" alt="Instagram.com Selector analysis on projectwallace.com" src={complexity} />
+<img loading="lazy" decoding="async" alt="Instagram.com Selector analysis on projectwallace.com" src="./complexity.png" />
 
 A surprisingly good score for Instagram here: 11,573 selectors with 96.16% being unique. Most websites with such a vast amount of selectors suffer from a lot of duplication.
 
@@ -191,7 +182,7 @@ Only one thing worth mentioning here: there are only 167 `!important`s, which is
 
 I think Instagram must have broken some kind of record here for having 548 unique custom properties. That's just bonkers. Other than that, the top usage ones are the usual suspects, with `width`, `height`, `background-color` and `display` ranking high, just like most other websites.
 
-<img alt="CSS properties on instagram.com as analyzed on projectwallace.com" loading="lazy" decoding="async" src={properties} />
+<img alt="CSS properties on instagram.com as analyzed on projectwallace.com" loading="lazy" decoding="async" src="./properties.png" />
 
 One thing that's cool about checking someone else's CSS is that you can learn a lot by doing it. Today I learned about [`-ms-scroll-rails`](https://udn.realityripple.com/docs/Archive/Web/CSS/-ms-scroll-rails) and [`-ms-scroll-chaining`](https://udn.realityripple.com/docs/Archive/Web/CSS/-ms-scroll-chaining), which are obsolete properties, but apparently still used on today's instagram.com.
 
@@ -199,11 +190,11 @@ One thing that's cool about checking someone else's CSS is that you can learn a 
 
 ### Colors
 
-<img width="1171" alt="Project Wallace report on CSS colors on instagram.com" src={colors}>
+<img width="1171" alt="Project Wallace report on CSS colors on instagram.com" src="./colors.png">
 
 **539 unique** colors. That just can't be right. We've seen the vast amount of custom properties above, so I'm surprised that there are still so many unique colors. I'm afraid that there must be a part of Instagram that's old and tucked away and not updated with the same level of care as the rest of the site.
 
-<img loading="lazy" decoding="async" width="1162" alt="Project Wallace report on CSS color format usage on instagram.com" src={color_formats}>
+<img loading="lazy" decoding="async" width="1162" alt="Project Wallace report on CSS color format usage on instagram.com" src="./color-formats.png">
 
 An interesting note about Instagram's color format usage: they seem to use more different formats than most sites I've seen so far. I'm surprised that there are so many named colors in there.
 

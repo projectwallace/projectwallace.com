@@ -11,6 +11,7 @@ import 'prism-svelte' // extends markup/css/javascript, must load after them
 import { defineMDSveXConfig as defineConfig, escapeSvelte, type MdsvexOptions } from 'mdsvex'
 import autolinkHeadings from 'rehype-autolink-headings'
 import slugPlugin from 'rehype-slug'
+import { rehypeContentImages } from './scripts/rehype-content-images.ts'
 
 // mdsvex's own highlighter is unreliable here: it loads prismjs language grammars
 // via a dynamic import that never reconciles with the Prism instance it does its
@@ -50,6 +51,7 @@ const config = defineConfig({
 	// mdsvex types plugins against unified v9, while these rehype plugins are typed against
 	// current unified. They work fine at runtime, so cast past the mismatch.
 	rehypePlugins: [
+		rehypeContentImages,
 		slugPlugin,
 		[
 			autolinkHeadings,

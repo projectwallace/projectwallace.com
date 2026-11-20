@@ -6,13 +6,9 @@ keywords: css, colors, analysis, devtools
 date: 2020-02-25
 ---
 
-<script>
-	import screenshot from './screenshot.png'
-</script>
-
 The people at Chrome DevTools are joining the CSS Analytics game! Harry Roberts posted a tweet showing a screen in Chrome that lists colors on a page, complex CSS selectors, and more.
 
-<img loading="eager" src={screenshot} alt="Chrome DevTools showing built-in CSS Analytics" width="1040" height="857">
+<img loading="eager" src="./screenshot.png" alt="Chrome DevTools showing built-in CSS Analytics" width="1040" height="857">
 
 This is awesome. We need developers and designers to be more aware of the branding and complexity they create in their websites. And more players in this field means that there is an interest. If more people are going to show interest in these metrics, that means that [more people will be inclined](https://justinjackson.ca/build) to use Project Wallace. 😁
 

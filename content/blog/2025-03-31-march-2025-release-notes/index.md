@@ -4,12 +4,6 @@ excerpt: 35 releases but hardly anything that you will notice. Read on to learn 
 date: 2025-03-31
 ---
 
-<script>
-  import BlogImage from '#lib/components/BlogImage.svelte'
-  import layers from './layers.png?enhanced'
-  import layers_full from './layers.png'
-</script>
-
 35 production releases this month, 4 less than [last month](/blog/february-2025-release-notes). And almost half of those were related to replacing Tailwind CSS with 'plain' CSS and Svelte component-based styles. Yup I finally did it.
 
 Apart from that most effort went into making existing more resilient and adding more test coverage to increase stability.
@@ -34,8 +28,8 @@ Dropped Tailwind CSS, autoprefixer and postcss. There, it's out there. I still l
 
 Even though I've tried to do the migration in small pieces you may still occasionally see some broken styling here and there.
 
-<a href={layers_full}>
-  <BlogImage src={layers} alt="A layer tree showing 11 layers." loading="lazy" />
+<a href="./layers.png">
+  <img src="./layers.png" alt="A layer tree showing 11 layers." loading="lazy" />
 </a>
 
 I even implemented a rudimentary layer architecture right after I finished the migration!
