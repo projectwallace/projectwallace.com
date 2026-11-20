@@ -1,4 +1,4 @@
-import { type Theme, validate_theme } from '../../src/lib/theme.ts'
+import { type Theme, validate_theme } from '#lib/theme.ts'
 
 const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365
 

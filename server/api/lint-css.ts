@@ -10,7 +10,7 @@ import stylelint_pkg from 'stylelint/package.json'
 import plugin_pkg from '@projectwallace/stylelint-plugin/package.json'
 import { get_css } from '../get-css.ts'
 import { format } from '@projectwallace/format-css'
-import { presets, type Preset, DEFAULT_PRESET } from '../../src/lib/lint-preset.ts'
+import { presets, type Preset, DEFAULT_PRESET } from '#lib/lint-preset.ts'
 
 export type { Preset }
 
@@ -33,7 +33,7 @@ function error_response(status: number, message: string) {
 
 /**
  * POST { url?, css?, preset?, prettify? }: lint CSS with Stylelint.
- * This is the only handler that needs Node (Stylelint uses fs/path), see portability.test.ts.
+ * This is the only handler that needs Node (Stylelint uses fs/path).
  */
 export async function handle_lint_css(request: Request): Promise<Response> {
 	let body: RequestBody

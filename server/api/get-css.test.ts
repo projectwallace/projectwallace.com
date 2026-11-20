@@ -32,7 +32,7 @@ test('returns the scraped CSS with cache headers', async () => {
 	expect(data.some((origin) => origin.css.includes('color: red'))).toBe(true)
 })
 
-test('decodes base64 data: stylesheets without Buffer', async () => {
+test('decodes base64 data: stylesheets', async () => {
 	let css = 'b { color: blue }'
 	stub_page(`<html><head><link rel="stylesheet" href="data:text/css;base64,${btoa(css)}"></head></html>`)
 
