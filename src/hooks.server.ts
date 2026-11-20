@@ -1,47 +1,4 @@
-import { redirect } from '@sveltejs/kit'
-import { sequence, type Handle } from '@sveltejs/kit/hooks'
-
-const redirects = new Map<string, string>([
-	['/blog/new-libraries-released', '/blog'],
-	['/blog/php-library', '/blog'],
-	['/blog/automatically-analyze-css-on-every-push', '/blog'],
-	['/blog/cancel-subscription', '/blog'],
-	['/blog/privacy-by-default', '/blog'],
-	['/blog/delete-account', '/blog'],
-	['/blog/private-projects', '/blog'],
-	['/docs/recipes/automatically-push-css-with-webhook', '/docs'],
-	['/docs/recipes/preview-css-diff', '/docs'],
-	['/security.txt', '/.well-known/security.txt'],
-	['/blog/feed', '/blog/feed.xml'],
-	['/pricing', '/'],
-	['/funding', '/'],
-	['/sponsor', '/'],
-	['/blog/tiny-css-prettifier', '/blog/tiny-css-formatter'],
-	['/custom-property-linter', '/custom-property-inspector'],
-	// Common 404s found in Sentry and Counterscale
-	['/analyze', '/analyze-css'],
-	['/css-analysis', '/analyze-css'],
-	['/register', '/'],
-	['/dashboard', '/'],
-	['/projects-coming-soon', '/']
-])
-
-export const handle_redirects: Handle = async function ({ event, resolve }) {
-	// Redirect old /~username to the home page
-	if (event.url.pathname.startsWith('/~')) {
-		redirect(301, '/')
-	}
-
-	const destination = redirects.get(event.url.pathname)
-
-	if (destination) {
-		redirect(301, destination)
-	}
-
-	let response = await resolve(event)
-
-	return response
-}
+import type { Handle } from '@sveltejs/kit/hooks'
 
 // SvelteKit always renders the head in this fixed internal order (hardcoded
 // in `Head.build()`, see the `@sveltejs/kit@2.70.1` source we're pinned to:
@@ -125,4 +82,4 @@ export const handle_head_order: Handle = function ({ event, resolve }) {
 	})
 }
 
-export const handle: Handle = sequence(handle_redirects, handle_head_order)
+export const handle: Handle = handle_head_order

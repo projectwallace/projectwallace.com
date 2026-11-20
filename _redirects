@@ -1,0 +1,24 @@
+# Same format on Netlify and Cloudflare Pages
+/~*  /  301
+/blog/new-libraries-released  /blog  301
+/blog/php-library  /blog  301
+/blog/automatically-analyze-css-on-every-push  /blog  301
+/blog/cancel-subscription  /blog  301
+/blog/privacy-by-default  /blog  301
+/blog/delete-account  /blog  301
+/blog/private-projects  /blog  301
+/docs/recipes/automatically-push-css-with-webhook  /docs  301
+/docs/recipes/preview-css-diff  /docs  301
+/security.txt  /.well-known/security.txt  301
+/blog/feed  /blog/feed.xml  301
+/pricing  /  301
+/funding  /  301
+/sponsor  /  301
+/blog/tiny-css-prettifier  /blog/tiny-css-formatter  301
+/custom-property-linter  /custom-property-inspector  301
+# Common 404s found in Sentry and Counterscale
+/analyze  /analyze-css  301
+/css-analysis  /analyze-css  301
+/register  /  301
+/dashboard  /  301
+/projects-coming-soon  /  301

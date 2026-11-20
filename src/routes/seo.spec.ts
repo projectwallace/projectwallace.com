@@ -1,4 +1,5 @@
 import { test, expect } from '#tests/fixtures.ts'
+import { deployed, SKIP_REASON } from '#tests/deployed.ts'
 
 test('does homepage SEO', async ({ page }) => {
 	await page.goto('/', { waitUntil: 'domcontentloaded' })
@@ -11,11 +12,13 @@ test('does homepage SEO', async ({ page }) => {
 })
 
 test('generic redirects', async ({ page }) => {
+	test.skip(!deployed, SKIP_REASON)
 	await page.goto('/pricing', { waitUntil: 'domcontentloaded' })
 	await expect(page).toHaveURL('/')
 })
 
 test('outdated docs/blog', async ({ page }) => {
+	test.skip(!deployed, SKIP_REASON)
 	await page.goto('/blog/delete-account', { waitUntil: 'domcontentloaded' })
 	await expect(page).toHaveURL(/\/blog$/)
 })

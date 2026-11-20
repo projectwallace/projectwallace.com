@@ -8,7 +8,7 @@ date: 2017-06-26
 
 Today marks the point where a PHP library accepting incoming HTTP requests, parsing CSS into an Abstract Syntaxt Tree (AST) and analysing it into a hash of statistics was [released on GitHub](https://github.com/projectwallace/php-css-parser-analyser). And abandoned immediately.
 
-The reason was explained in the [previous blog post](/blog/new-libraries-released): it is too slow to process a lot of stylesheets, so work on a NodeJS based system has already started and expected to be ready for use somewhere late this summer. The now published and abandoned PHP library served as a great starter for doing the first stages of this rather large project. It was easy to setup, easy to test and a pain to deploy.
+The reason was explained in the [previous blog post](/blog): it is too slow to process a lot of stylesheets, so work on a NodeJS based system has already started and expected to be ready for use somewhere late this summer. The now published and abandoned PHP library served as a great starter for doing the first stages of this rather large project. It was easy to setup, easy to test and a pain to deploy.
 
 The architecture of the PHP library is a mess, because the single project serves three different purposes:
 
