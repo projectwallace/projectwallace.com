@@ -6,6 +6,7 @@
 	"type": "module",
 	"imports": {
 		"#lib/*": "./src/lib/*",
+		"#server/*": "./server/*",
 		"#tests/*": "./tests/*"
 	},
 	"scripts": {

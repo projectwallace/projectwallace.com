@@ -1,8 +1,8 @@
 import { parseHTML } from 'linkedom'
 import { AT_RULE, AT_RULE_PRELUDE, parse, URL, walk } from '@projectwallace/css-parser'
-import { resolve_url } from '../../../lib/resolve-url.ts'
-import type { CSSOrigin } from '../../../lib/css-origins.ts'
-import { SITE_ORIGIN } from '../../../lib/site.ts'
+import { resolve_url } from '../src/lib/resolve-url.ts'
+import type { CSSOrigin } from '../src/lib/css-origins.ts'
+import { SITE_ORIGIN } from '../src/lib/site.ts'
 
 export const USER_AGENT = `Project Wallace CSS Scraper/1.1 (+${SITE_ORIGIN}/docs/css-scraper)`
 
@@ -174,6 +174,18 @@ function get_styles(nodes: NodeListOf<Element>, base_url: string): CSSOrigin[] {
 	return items
 }
 
+// Web-standard replacement for Buffer.from(str, 'base64').toString('ascii'):
+// ignores characters outside the base64 alphabet (like the leading comma) and stops at padding
+function decode_base64(str: string): string {
+	let cleaned = str.replaceAll(/[^A-Za-z0-9+/]/g, '')
+	cleaned += '='.repeat((4 - (cleaned.length % 4)) % 4)
+	try {
+		return atob(cleaned)
+	} catch {
+		return ''
+	}
+}
+
 export async function get_css(url: string, { timeout = 10000 } = {}) {
 	let resolved_url = resolve_url(url)
 
@@ -271,7 +283,7 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 			if (item.href.startsWith('data:text/css')) {
 				let comma_position = item.href.indexOf(',')
 				let encoded = item.href.substring(comma_position)
-				item.css = Buffer.from(encoded, 'base64').toString('ascii')
+				item.css = decode_base64(encoded)
 			} else {
 				let file_url = resolve_url(item.href, resolved_url)
 				if (file_url === undefined) {
