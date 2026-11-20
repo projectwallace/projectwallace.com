@@ -1,8 +1,8 @@
 import { parseHTML } from 'linkedom'
 import { AT_RULE, AT_RULE_PRELUDE, parse, URL, walk } from '@projectwallace/css-parser'
-import { resolve_url } from '../../../lib/resolve-url.ts'
-import type { CSSOrigin } from '../../../lib/css-origins.ts'
-import { SITE_ORIGIN } from '../../../lib/site.ts'
+import { resolve_url } from '#lib/resolve-url.ts'
+import type { CSSOrigin } from '#lib/css-origins.ts'
+import { SITE_ORIGIN } from '#lib/site.ts'
 
 export const USER_AGENT = `Project Wallace CSS Scraper/1.1 (+${SITE_ORIGIN}/docs/css-scraper)`
 
@@ -270,8 +270,13 @@ export async function get_css(url: string, { timeout = 10000 } = {}) {
 		if (item.type === 'link' && item.href) {
 			if (item.href.startsWith('data:text/css')) {
 				let comma_position = item.href.indexOf(',')
-				let encoded = item.href.substring(comma_position)
-				item.css = Buffer.from(encoded, 'base64').toString('ascii')
+				let encoded = item.href.substring(comma_position + 1)
+				try {
+					item.css = atob(encoded)
+				} catch {
+					// Malformed data: URL, skip this stylesheet's CSS instead of failing the whole scrape
+					item.css = ''
+				}
 			} else {
 				let file_url = resolve_url(item.href, resolved_url)
 				if (file_url === undefined) {

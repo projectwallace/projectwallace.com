@@ -7,5 +7,5 @@
 		"target": "ES2022",
 		"useDefineForClassFields": true
 	},
-	"include": ["src", "scripts", "mdsvex.config.ts", "stylelint.config.ts"]
+	"include": ["src", "server", "scripts", "mdsvex.config.ts", "stylelint.config.ts"]
 }
