@@ -1,5 +1,7 @@
 import { isSupported } from '@oddbird/popover-polyfill/fn'
 import '#lib/request-idle-callback.polyfill.js'
+// Web components, defined before hydration so they upgrade immediately
+import '#lib/elements/index.ts'
 
 export const init = async () => {
 	// Polyfill popover if necessary

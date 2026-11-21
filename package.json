@@ -44,6 +44,7 @@
 		"github-slugger": "^2.0.0",
 		"lightningcss": "1.32.0",
 		"linkedom": "^0.18.14",
+		"lit": "^3.3.3",
 		"mdsvex": "^0.12.8",
 		"paneforge": "^1.0.2",
 		"prism-svelte": "^0.5.0",

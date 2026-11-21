@@ -1,0 +1,39 @@
+/* <pw-container size="xl">: layout element, light DOM, no JS. Mirrors Container.svelte */
+@layer components {
+	pw-container {
+		display: block;
+		margin-inline: auto;
+		padding-inline: var(--space-2);
+		min-inline-size: 0;
+		inline-size: 100%;
+		max-inline-size: 120rem;
+
+		&[size='md'] {
+			max-inline-size: 32rem;
+		}
+
+		&[size='lg'] {
+			max-inline-size: 36rem;
+		}
+
+		&[size='xl'] {
+			max-inline-size: 48rem;
+		}
+
+		&[size='2xl'] {
+			max-inline-size: 64rem;
+		}
+
+		&[size='3xl'] {
+			max-inline-size: 80rem;
+		}
+
+		@media (min-width: 44rem) {
+			padding-inline: var(--space-4);
+		}
+
+		@media (min-width: 66rem) {
+			padding-inline: var(--space-8);
+		}
+	}
+}

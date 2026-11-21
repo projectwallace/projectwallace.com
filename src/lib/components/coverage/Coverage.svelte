@@ -4,7 +4,6 @@
 	import { format_number, format_percentage } from '#lib/format-number.ts'
 	import { create_keyboard_list } from '#lib/components/use-keyboard-list.svelte.ts'
 	import Panel from '#lib/components/Panel.svelte'
-	import Meter from '#lib/components/Meter.svelte'
 	import Pre from '#lib/components/Pre.svelte'
 	import { calculate_coverage, type Coverage } from '@projectwallace/css-code-coverage'
 	import Empty from '#lib/components/Empty.svelte'
@@ -184,7 +183,7 @@
 										<td class="numeric">{format_percentage(line_coverage_ratio)}</td>
 										<td>
 											<div style:inline-size={(stylesheet.total_lines / max_lines) * 100 + '%'}>
-												<Meter max={1} value={line_coverage_ratio} />
+												<pw-meter><meter min={0} max={1} value={line_coverage_ratio}></meter></pw-meter>
 											</div>
 										</td>
 									</tr>
