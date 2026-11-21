@@ -1,0 +1,10 @@
+/* Reserve the space of <pw-meter> until it is defined, so upgrading it causes no layout shift */
+@layer components {
+	pw-meter:not(:defined) {
+		display: inline-block;
+		inline-size: 100%;
+		min-inline-size: 1rem;
+		block-size: var(--meter-height, 1em);
+		vertical-align: middle;
+	}
+}

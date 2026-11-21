@@ -22,7 +22,7 @@
 			<Label for="css-input">CSS input</Label>
 			{#if css.length > 0}
 				<span class="sr-only">Input size:</span>
-				<span class="css-size">{format_filesize(css.length)}</span>
+				{#key css.length}<pw-file-size class="css-size">{css.length}</pw-file-size>{/key}
 				<CopyButton text={css}>Copy <span class="sr-only">input</span> CSS</CopyButton>
 			{/if}
 		</div>
@@ -35,7 +35,7 @@
 			<Label for="css-output">Minified CSS</Label>
 			{#if result.length > 0}
 				<span class="sr-only">Output size:</span>
-				<span class="css-size">{format_filesize(result.length)}</span>
+				{#key result.length}<pw-file-size class="css-size">{result.length}</pw-file-size>{/key}
 				{#if result.length >= css.length}
 					<span>
 						(+{format_filesize(filesize_diff_bytes)} | +{format_percentage(filesize_diff_ratio)})

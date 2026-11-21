@@ -1,6 +1,5 @@
 <script>
 	import Hero from '#lib/components/Hero.svelte'
-	import Container from '#lib/components/Container.svelte'
 	import Seo from '#lib/components/Seo.svelte'
 	import Panel from '#lib/components/Panel.svelte'
 
@@ -18,7 +17,7 @@
 	</p>
 </Hero>
 
-<Container>
+<pw-container>
 	<section>
 		<h2 class="font-heading text-white text-4xl mb-5">Frequently asked questions</h2>
 		<ol class="faqs">
@@ -34,7 +33,7 @@
 			{/each}
 		</ol>
 	</section>
-</Container>
+</pw-container>
 
 <style>
 	.faqs {
