@@ -4,19 +4,29 @@ excerpt: Close your eyes! Or not. We have a light theme now. And no theme at all
 date: 2025-05-31
 ---
 
+<script>
+  import BlogImage from '#lib/components/BlogImage.svelte'
+  import light_theme from './light-theme.png?enhanced'
+  import light_theme_full from './light-theme.png'
+	import naked_theme from './naked-theme.png?enhanced'
+  import naked_theme_full from './naked-theme.png'
+	import counterscale from './counterscale.png?enhanced'
+  import counterscale_full from './counterscale.png'
+</script>
+
 ## New features
 
 - A light theme! For those who prefer a light website or for those standing in bright sunlight.
-  <a href="./light-theme.png">
-  <img src="./light-theme.png" alt="This very website shown in a light theme: a white background with dark text." loading="eager" />
+  <a href={light_theme_full}>
+  <BlogImage src={light_theme} alt="This very website shown in a light theme: a white background with dark text." loading="eager" />
   </a>
 
   The idea for this had long been on the todo list but [a recent Syntax video](https://www.youtube.com/watch?v=F1s8MZoGVL8) opened my eyes and made me bite the bullet. My implementation uses cookies instead of localStorage but most of the heavy lifting is still done by the CSS `light-dark()` function.
 
 - A 'naked CSS' theme! For those celebrating [CSS Naked Day](https://css-naked-day.org/).
 
-  <a href="./naked-theme.png">
-  	<img src="./naked-theme.png" alt="This very website shown without a theme. It shows the bare text elements with no styling applied at all." loading="lazy" />
+  <a href={naked_theme_full}>
+  	<BlogImage src={naked_theme} alt="This very website shown without a theme. It shows the bare text elements with no styling applied at all." loading="lazy" />
   </a>
 
   Fun fact: implementing this was only 8 lines of code!
@@ -40,8 +50,8 @@ date: 2025-05-31
 - The selectors you enter on the [Specificity Calculator](/specificity-calculator) are now synced to the URL for easy sharing.
 - New website analytics. After saying goodbye to Fathom last fall after many years of using it I found myself needing a new source of analytics. Sentry catches the occassional error but when Sentry stays quiet I get nervous, because how do I know if anyone is still using the website? Luckily [Counterscale](https://counterscale.dev/) is a free, performant and privacy-focused solution!
 
-  <a href="./counterscale.png">
-  	<img src="./counterscale.png" alt="Counterscale analytics dashboard. 4.1K visitors, 7.9K views." loading="lazy" />
+  <a href={counterscale_full}>
+  	<BlogImage src={counterscale} alt="Counterscale analytics dashboard. 4.1K visitors, 7.9K views." loading="lazy" />
   </a>
 
   I haven't looked at my 'old' numbers but I have the feeling that there are more page views and visitors than a year ago. Over 4000 visitors and almost 8000 page views seems like a lot! The high number of page views for the CSS Scraper is surprising but according to Google they have been sending more traffic that way so I guess that checks out.

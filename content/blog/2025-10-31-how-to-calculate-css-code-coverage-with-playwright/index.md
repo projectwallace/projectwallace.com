@@ -4,6 +4,12 @@ excerpt: Collect and analyze CSS coverage using Playwright tests to detect and p
 date: 2025-10-31
 ---
 
+<script>
+	import BlogImage from '#lib/components/BlogImage.svelte'
+	import cli from './css-code-coverage-linter-cli.png?enhanced'
+  import cli_full from './css-code-coverage-linter-cli.png'
+</script>
+
 One of the most common questions around analyzing CSS quality is how to detect unused CSS. Shipping unused CSS to the browser is a waste so we want to avoid it! This post shows how to collect CSS code coverage data with the help of [`@playwright/test`](https://playwright.dev/docs/intro).
 
 ## Table of contents
@@ -134,8 +140,8 @@ This command:
 This is the result when running it for projectwallace.com's repository:
 
 <figure>
-	<a href="./css-code-coverage-linter-cli.png">
-		<img src="./css-code-coverage-linter-cli.png" alt="A terminal showing 'Failed: line coverage is 82.50%% which is lower than the threshold of 0.9; Failed: 4 files do not meet the minimum line coverage of 70.00% (minimum coverage was 47.75%)' and part of a CSS file where some lines are marked as uncovered." loading="lazy" />
+	<a href={cli_full}>
+		<BlogImage src={cli} alt="A terminal showing 'Failed: line coverage is 82.50%% which is lower than the threshold of 0.9; Failed: 4 files do not meet the minimum line coverage of 70.00% (minimum coverage was 47.75%)' and part of a CSS file where some lines are marked as uncovered." loading="lazy" />
 	</a>
 	<figcaption>The CLI tool highlights which lines are not covered and even gives a hint with how many lines to go to meet the threshold.</figcaption>
 </figure>

@@ -19,8 +19,10 @@ The basic idea is that you give us your CSS and we will come up with a code qual
 
 **So here it is: Project Wallace's Code Quality Analyzer.**
 
-
-<img src="./screenshot.png" alt="Example CSS Code Quality output from https://www.projectwallace.com/css-code-quality" loading="lazy" width="904" height="1282">
+<script>
+	import screenshot from './screenshot.png'
+</script>
+<img src={screenshot} alt="Example CSS Code Quality output from https://www.projectwallace.com/css-code-quality" loading="lazy" width="904" height="1282">
 
 The score list shows each test and whether you're scoring poor (red), ok (orange) or good (green).
 
