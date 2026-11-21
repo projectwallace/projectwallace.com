@@ -37,7 +37,7 @@ test.describe('without JavaScript', () => {
 })
 
 test('JavaScript does not change the layout (no shift on hydration)', async ({ page, browser }) => {
-	let without_js = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1024, height: 1280 } })
+	let without_js = await browser.newContext({ javaScriptEnabled: false, viewport: page.viewportSize() })
 	let static_page = await without_js.newPage()
 	await static_page.goto(URL, { waitUntil: 'domcontentloaded' })
 	let before = await measure(static_page)
