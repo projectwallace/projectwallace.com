@@ -5,10 +5,6 @@ declare namespace svelteHTML {
 			size?: 'md' | 'lg' | 'xl' | '2xl' | '3xl'
 		}
 		'pw-file-size': import('svelte/elements').HTMLAttributes<HTMLElement>
-		'pw-meter': import('svelte/elements').HTMLAttributes<HTMLElement> & {
-			value?: number
-			min?: number
-			max?: number
-		}
+		'pw-meter': import('svelte/elements').HTMLAttributes<HTMLElement>
 	}
 }

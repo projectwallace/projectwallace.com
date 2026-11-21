@@ -1,30 +1,33 @@
 import { test, expect } from '#tests/fixtures.ts'
 
-test('renders a themed <meter> in its shadow root next to Svelte markup', async ({ page }) => {
+test('styles a native <meter> in light DOM and follows Svelte updates', async ({ page }) => {
 	await page.goto('/css-coverage', { waitUntil: 'domcontentloaded' })
 	await expect(page).toBeHydrated()
 	await page.getByRole('button', { name: 'load an example' }).click()
 
 	let table = page.getByRole('table', { name: 'Coverage per origin' })
 	let first_row = table.getByRole('row').nth(1)
-	let meter = first_row.locator('pw-meter')
+	let wrapper = first_row.locator('pw-meter')
+	let meter = wrapper.locator('meter')
 
 	// Svelte passes the ratio, shown as text in the previous cell
 	await expect(first_row.getByRole('cell').nth(3)).toHaveAccessibleName('75.37%')
-	let state = await meter.evaluate((element) => {
-		let inner = element.shadowRoot?.querySelector('meter')
-		let host = getComputedStyle(element)
+
+	// Plain markup: a real <meter> child (accessible without any JS), no shadow root
+	expect(await meter.evaluate((element: HTMLMeterElement) => element.value)).toBeCloseTo(0.7537, 3)
+	await expect(meter).toHaveAttribute('max', '1')
+	expect(await wrapper.evaluate((element) => element.shadowRoot)).toBeNull()
+
+	// Styled by the global stylesheet through the wrapper
+	let styles = await meter.evaluate((element) => {
+		let style = getComputedStyle(element)
 		return {
-			property: (element as unknown as { value: number }).value,
-			inner: inner?.value,
-			max: inner?.max,
-			adopted: element.shadowRoot?.adoptedStyleSheets.length,
-			display: host.display
+			inline: style.inlineSize,
+			block: style.blockSize,
+			wrapper: getComputedStyle(element.parentElement!).display
 		}
 	})
-	expect(state.property).toBeCloseTo(0.7537, 3)
-	expect(state.inner).toBeCloseTo(0.7537, 3)
-	expect(state.max).toBe(1)
-	expect(state.adopted).toBe(1) // styles come from an adopted stylesheet
-	expect(state.display).toBe('inline-block')
+	expect(styles.wrapper).toBe('contents')
+	expect(parseFloat(styles.block)).toBeGreaterThan(0)
+	expect(parseFloat(styles.inline)).toBeGreaterThan(0)
 })

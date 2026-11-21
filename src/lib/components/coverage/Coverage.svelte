@@ -183,7 +183,7 @@
 										<td class="numeric">{format_percentage(line_coverage_ratio)}</td>
 										<td>
 											<div style:inline-size={(stylesheet.total_lines / max_lines) * 100 + '%'}>
-												<pw-meter max={1} value={line_coverage_ratio}></pw-meter>
+												<pw-meter><meter min={0} max={1} value={line_coverage_ratio}></meter></pw-meter>
 											</div>
 										</td>
 									</tr>

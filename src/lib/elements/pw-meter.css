@@ -1,10 +1,32 @@
-/* Reserve the space of <pw-meter> until it is defined, so upgrading it causes no layout shift */
+/*
+ * <pw-meter><meter min="0" max="1" value="0.5"></meter></pw-meter>
+ * A styling hook around a native <meter> (light DOM, no JS). Theme it with --meter-color, --meter-bg and --meter-height.
+ */
 @layer components {
-	pw-meter:not(:defined) {
-		display: inline-block;
-		inline-size: 100%;
-		min-inline-size: 1rem;
-		block-size: var(--meter-height, 1em);
-		vertical-align: middle;
+	pw-meter {
+		display: contents;
+
+		& > meter {
+			--_meter-color: var(--meter-color, light-dark(var(--accent), var(--accent-500)));
+			--_meter-bg: var(--meter-bg, transparent);
+			--_meter-height: var(--meter-height, 1em);
+			inline-size: 100%;
+			background: var(--_meter-bg);
+			block-size: var(--_meter-height);
+			vertical-align: middle;
+			min-inline-size: 1rem;
+
+			&::-webkit-meter-bar {
+				background: var(--_meter-bg);
+			}
+
+			&::-webkit-meter-optimum-value {
+				background: var(--_meter-color);
+			}
+
+			&::-moz-meter-bar {
+				background: var(--_meter-color);
+			}
+		}
 	}
 }
