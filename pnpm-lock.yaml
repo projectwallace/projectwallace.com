@@ -40,8 +40,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       '@projectwallace/css-code-coverage':
-        specifier: ^1.0.7
-        version: 1.0.7
+        specifier: ^1.0.8
+        version: 1.0.8
       '@projectwallace/css-code-quality':
         specifier: ^4.0.0
         version: 4.0.0
@@ -870,8 +870,8 @@ packages:
     resolution: {integrity: sha512-xk/hi+dvgyC4FU1ru/jvwA00ztEJWnJwp2D3SMgeqhm7Ws2a97v3Yp4zWZqYEvNWILuDPTnCuHaQmVXpEQCd8Q==}
     engines: {node: '>=22.18.0', pnpm: '>=11.0.0'}
 
-  '@projectwallace/css-code-coverage@1.0.7':
-    resolution: {integrity: sha512-iVr0gO8h1sCb4x/DnbsNH4FyaRwcxQWAMw6tOnLmmi9wLNmiddDC6+HV74wz/XzeyGdZWQbyWI0y6CYZ5xsQkg==}
+  '@projectwallace/css-code-coverage@1.0.8':
+    resolution: {integrity: sha512-wFLCJnWPn32cB+7KXK+PKRyDs/ute7o4675jhNvNU45ZnZONwYYs31JJ7QnyujpMCMKNyD4/2NTQsUvdwKzfhw==}
     engines: {node: '>=20', pnpm: '>=11.16.0'}
     hasBin: true
 
@@ -2284,7 +2284,7 @@ snapshots:
     dependencies:
       '@projectwallace/css-parser': 0.20.0
 
-  '@projectwallace/css-code-coverage@1.0.7':
+  '@projectwallace/css-code-coverage@1.0.8':
     dependencies:
       '@projectwallace/css-parser': 0.20.0
       '@projectwallace/format-css': 3.2.2

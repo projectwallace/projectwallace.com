@@ -29,6 +29,7 @@
 	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import { summarize } from '@projectwallace/css-analyzer'
 	import { with_locations } from '#lib/analysis-locations.ts'
+	import { analyze_tokens } from '#lib/analyze-css.ts'
 	import { string_sort } from '#lib/string-sort.ts'
 	import { normalize_line_height } from '#lib/sort-line-height.ts'
 	import { nav as navigation } from './nav.ts'
@@ -62,7 +63,11 @@
 </Hero>
 
 {#if css_state.origins.length > 0}
-	<Analysis origins={css_state.origins} prettify_css_before_analyze={css_state.should_prettify}>
+	<Analysis
+		analyze={analyze_tokens}
+		origins={css_state.origins}
+		prettify_css_before_analyze={css_state.should_prettify}
+	>
 		{#snippet nav()}
 			<Nav nav={navigation} />
 		{/snippet}

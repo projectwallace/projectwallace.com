@@ -79,3 +79,26 @@ export type CodeQualityAnalysis = ResultOf<ReturnType<typeof create_code_quality
 export function analyze_code_quality(css: string): CodeQualityAnalysis {
 	return analyze(css, create_code_quality_collectors())
 }
+
+function create_design_token_collectors() {
+	return {
+		atrules: atrules({ locations: true }),
+		colors: colors({ locations: true, contexts: true }),
+		font_sizes: font_sizes({ locations: true }),
+		font_families: font_families({ locations: true }),
+		line_heights: line_heights({ locations: true }),
+		gradients: gradients({ locations: true }),
+		box_shadows: box_shadows({ locations: true }),
+		text_shadows: text_shadows({ locations: true }),
+		border_radiuses: border_radiuses({ locations: true, contexts: true }),
+		durations: durations({ locations: true }),
+		timing_functions: timing_functions({ locations: true }),
+		units: units({ locations: true })
+	}
+}
+
+export type DesignTokensAnalysis = ResultOf<ReturnType<typeof create_design_token_collectors>>
+
+export function analyze_tokens(css: string): DesignTokensAnalysis {
+	return analyze(css, create_design_token_collectors())
+}

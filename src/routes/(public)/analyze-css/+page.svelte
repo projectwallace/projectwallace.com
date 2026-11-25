@@ -1,5 +1,7 @@
 <script lang="ts">
 	import Analysis from '#lib/components/stats/Analysis.svelte'
+	import Report from '#lib/components/stats/Report.svelte'
+	import { analyze_css } from '#lib/analyze-css.ts'
 	import Container from '#lib/components/Container.svelte'
 	import Markdown from '#lib/components/Markdown.svelte'
 	import Form from '#lib/components/css-form/Form.svelte'
@@ -43,7 +45,11 @@
 
 {#if status === 'done' && css_state.origins.length > 0}
 	<svelte:boundary onerror={on_render_error}>
-		<Analysis origins={css_state.origins} prettify_css_before_analyze={css_state.should_prettify} />
+		<Analysis analyze={analyze_css} origins={css_state.origins} prettify_css_before_analyze={css_state.should_prettify}>
+			{#snippet children({ analysis })}
+				<Report result={analysis} />
+			{/snippet}
+		</Analysis>
 	</svelte:boundary>
 {:else if status === 'error'}
 	<Container>

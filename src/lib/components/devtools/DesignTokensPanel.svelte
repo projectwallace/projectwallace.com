@@ -2,11 +2,11 @@
 	import { pretty_json } from '#lib/pretty-json.ts'
 	import Toolbar from './Toolbar.svelte'
 	import JsonView from './JsonView.svelte'
-	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import type { DesignTokensAnalysis } from '#lib/analyze-css.ts'
 	import { analysis_to_tokens } from '@projectwallace/css-design-tokens'
 
 	interface Props {
-		analysis: CssAnalysis
+		analysis: DesignTokensAnalysis
 	}
 
 	let { analysis }: Props = $props()
