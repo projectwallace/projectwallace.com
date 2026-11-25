@@ -11,15 +11,7 @@
 
 	let { analysis }: Props = $props()
 
-	function replacer(key: string, value: unknown): unknown {
-		// Stringification is super slow with this, so skip it
-		if (key === 'uniqueWithLocations') {
-			return undefined
-		}
-		return value
-	}
-
-	let pretty = $derived(pretty_json(analysis_to_tokens(analysis), replacer, 2))
+	let pretty = $derived(pretty_json(analysis_to_tokens(analysis), undefined, 2))
 </script>
 
 <Toolbar

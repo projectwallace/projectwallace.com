@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
 	import { is_selector, parse_selector_list } from '@projectwallace/css-parser'
-	import { selectorComplexity } from '@projectwallace/css-analyzer'
+	import { get_complexity } from '@projectwallace/css-analyzer/selectors'
 	import Seo from '#lib/components/Seo.svelte'
 	import Panel from '#lib/components/Panel.svelte'
 	import Label from '#lib/components/Label.svelte'
@@ -33,7 +33,7 @@
 
 				for (let node of ast) {
 					if (is_selector(node)) {
-						let complexity = selectorComplexity(node)
+						let complexity = get_complexity(node)
 						result.push({
 							value: node.text,
 							complexity: complexity

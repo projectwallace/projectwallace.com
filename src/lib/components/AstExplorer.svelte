@@ -46,8 +46,7 @@
 			return parse(url_state.current.css, {
 				parse_atrule_preludes: url_state.current.parse_atrule_preludes,
 				parse_selectors: url_state.current.parse_selectors,
-				parse_values: url_state.current.parse_values,
-				media_feature_range_name_as_child: true
+				parse_values: url_state.current.parse_values
 			})
 		} catch (error) {
 			return undefined

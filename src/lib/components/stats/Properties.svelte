@@ -9,7 +9,9 @@
 	import BarChart from '#lib/components/stats/BarChart.svelte'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import type { CssLocation } from '#lib/css-location.ts'
-	import { shorthand_properties as shorthands } from '@projectwallace/css-analyzer/properties'
+	import { is_shorthand_property } from '@projectwallace/css-analyzer/properties'
+	import { summarize } from '@projectwallace/css-analyzer'
+	import { with_locations } from '#lib/analysis-locations.ts'
 
 	interface Props {
 		properties?: CssAnalysis['properties']
@@ -30,10 +32,10 @@
 		| typeof show_shorthands
 
 	const FILTER_NAME = 'property-filtering'
-	const LOCATIONS_PROP_NAME = 'uniqueWithLocations'
 
-	let { browserhacks, prefixed, custom, totalUnique, total, uniquenessRatio } = $derived(properties)
-	let uniqueWithLocations = $derived(properties[LOCATIONS_PROP_NAME]!)
+	let { browserhacks, prefixed, custom, total_unique, total } = $derived(properties)
+	let { uniqueness_ratio } = $derived(summarize(properties))
+	let unique_with_locations = $derived(with_locations(properties))
 
 	function sort_n_slice(items: [string, CssLocation[]][]) {
 		return items
@@ -42,22 +44,22 @@
 	}
 
 	let shorthand_properties = $derived(
-		Object.entries(uniqueWithLocations).filter(([property]) => shorthands.has(property.toLowerCase()))
+		Object.entries(unique_with_locations).filter(([property]) => is_shorthand_property(property))
 	)
 
 	let visibility_filter: FilterType = $state(show_all)
 	let filtered = $derived.by(() => {
 		switch (visibility_filter) {
 			case show_hacks:
-				return Object.entries(browserhacks[LOCATIONS_PROP_NAME])
+				return Object.entries(with_locations(browserhacks))
 			case show_custom:
-				return Object.entries(custom[LOCATIONS_PROP_NAME])
+				return Object.entries(with_locations(custom))
 			case show_prefixed:
-				return Object.entries(prefixed[LOCATIONS_PROP_NAME])
+				return Object.entries(with_locations(prefixed))
 			case show_shorthands:
 				return shorthand_properties
 		}
-		return Object.entries(uniqueWithLocations)
+		return Object.entries(unique_with_locations)
 	}) as [string, CssLocation[]][]
 </script>
 
@@ -71,26 +73,26 @@
 				<DefinitionList
 					stats={[
 						{ name: 'Total', value: total },
-						{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
+						{ name: 'Unique', value: total_unique, ratio: uniqueness_ratio }
 					]}
 				/>
 			</Header>
 			<FilterGroup>
 				<legend class="sr-only">Filter properties</legend>
 				<FilterOption bind:group={visibility_filter} name={FILTER_NAME} value={show_all}>
-					Show all ({totalUnique})
+					Show all ({total_unique})
 				</FilterOption>
 				<FilterOption bind:group={visibility_filter} name={FILTER_NAME} value={show_custom}>
-					Custom properties ({custom.totalUnique})
+					Custom properties ({custom.total_unique})
 				</FilterOption>
 				<FilterOption bind:group={visibility_filter} name={FILTER_NAME} value={show_shorthands}>
 					Shorthands ({shorthand_properties.length})
 				</FilterOption>
 				<FilterOption bind:group={visibility_filter} name={FILTER_NAME} value={show_prefixed}>
-					Prefixed ({prefixed.totalUnique})
+					Prefixed ({prefixed.total_unique})
 				</FilterOption>
 				<FilterOption bind:group={visibility_filter} name={FILTER_NAME} value={show_hacks}>
-					Browserhacks ({browserhacks.totalUnique})
+					Browserhacks ({browserhacks.total_unique})
 				</FilterOption>
 			</FilterGroup>
 
@@ -102,7 +104,7 @@
 								context="property"
 								column_headers={['Property', 'Count']}
 								row_limit={status === 'closed' ? 14 : Infinity}
-								warnings={browserhacks.total > 0 ? Object.keys(browserhacks.unique) : undefined}
+								warnings={browserhacks.total > 0 ? [...browserhacks.unique.keys()] : undefined}
 								items={sort_n_slice(filtered).slice(0, status === 'closed' ? 14 : Infinity)}
 							/>
 						{/snippet}

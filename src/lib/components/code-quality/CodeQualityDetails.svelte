@@ -5,7 +5,10 @@
 	import { format_filesize } from '#lib/format-filesize.ts'
 	import ScatterPlot from '#lib/components/stats/ScatterPlot.svelte'
 	import type { Snippet } from 'svelte'
-	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import type { CodeQualityAnalysis } from '#lib/analyze-css.ts'
+	import { with_locations } from '#lib/analysis-locations.ts'
+	import { summarize_numbers } from '@projectwallace/css-analyzer'
+	import { summarize_specificity } from '@projectwallace/css-analyzer/collectors'
 
 	interface Props {
 		id: string
@@ -16,7 +19,7 @@
 		score?: number
 		value?: number
 		open?: boolean
-		actuals?: CssAnalysis
+		actuals?: CodeQualityAnalysis
 		css?: string
 		children?: Snippet
 	}
@@ -82,29 +85,32 @@
 		<Markdown>
 			{@render children?.()}
 
-			{#if id == 'Imports' && actuals.atrules.import.total > 0}
+			{#if id == 'Imports' && actuals.atrules.imports.total > 0}
 				<h3>Discovered @import rules</h3>
-				<p>Found {actuals.atrules.import.total} items.</p>
+				<p>Found {actuals.atrules.imports.total} items.</p>
 				<ol style:max-block-size="var(--space-96)" style:overflow="auto">
-					{#each Object.entries(actuals.atrules.import.unique) as [rule, count]}
+					{#each [...actuals.atrules.imports.unique] as [rule, { count }]}
 						<li>
 							<code>@import {rule}</code> ({count}&times;)
 						</li>
 					{/each}
 				</ol>
-			{:else if id == 'TooMuchEmbeddedContent' && actuals.stylesheet.embeddedContent.size.total > 0}
+			{:else if id == 'TooMuchEmbeddedContent' && actuals.stylesheet.embedded.size > 0}
 				<h3>Discovered embedded contents</h3>
 				<p>
-					Found {actuals.stylesheet.embeddedContent.types.total} embedded items worth {format_filesize(
-						actuals.stylesheet.embeddedContent.size.total
+					Found {actuals.stylesheet.embedded.total} embedded items worth {format_filesize(
+						actuals.stylesheet.embedded.size
 					)}.
 				</p>
 			{:else if id == 'AverageSelectorsPerRule'}
 				<h3>Selectors per rule</h3>
-				<ScatterPlot max={actuals.rules.selectors.max!} items={actuals.rules.selectors.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.rules.selectors).max}
+					items={actuals.rules.selectors.sequence ?? []}
+				/>
 			{:else if id == 'MaxSelectorsPerRule'}
-				{@const max = actuals.rules.selectors.max}
-				{@const locations = actuals.rules.selectors.uniqueWithLocations![max!]}
+				{@const max = summarize_numbers(actuals.rules.selectors).max}
+				{@const locations = with_locations(actuals.rules.selectors)[max] ?? []}
 				<ol>
 					{#each locations as loc}
 						<li>
@@ -115,16 +121,25 @@
 					{/each}
 				</ol>
 				<h3>Selectors per rule distribution</h3>
-				<ScatterPlot max={actuals.rules.selectors.max!} items={actuals.rules.selectors.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.rules.selectors).max}
+					items={actuals.rules.selectors.sequence ?? []}
+				/>
 			{:else if id == 'MoreThanMostCommonSelectorsPerRule'}
 				<h3>Selectors per rule</h3>
-				<ScatterPlot max={actuals.rules.selectors.max!} items={actuals.rules.selectors.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.rules.selectors).max}
+					items={actuals.rules.selectors.sequence ?? []}
+				/>
 			{:else if id == 'MoreThanMostCommonSelectorComplexity'}
 				<h3>Selector complexity</h3>
-				<ScatterPlot max={actuals.selectors.complexity.max!} items={actuals.selectors.complexity.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.selectors.complexity).max}
+					items={actuals.selectors.complexity.sequence ?? []}
+				/>
 			{:else if id == 'MaxSelectorComplexity'}
-				{@const max = actuals.selectors.complexity.max}
-				{@const locations = actuals.selectors.complexity.uniqueWithLocations![max!]}
+				{@const max = summarize_numbers(actuals.selectors.complexity).max}
+				{@const locations = with_locations(actuals.selectors.complexity)[max] ?? []}
 				<h3>Your top complexity selectors</h3>
 				<ol>
 					{#each locations as loc}
@@ -134,15 +149,21 @@
 					{/each}
 				</ol>
 				<h3>Selector complexity distribution</h3>
-				<ScatterPlot max={actuals.selectors.complexity.max!} items={actuals.selectors.complexity.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.selectors.complexity).max}
+					items={actuals.selectors.complexity.sequence ?? []}
+				/>
 			{:else if id == 'AverageSelectorComplexity'}
 				<h3>Selector complexity</h3>
-				<ScatterPlot max={actuals.selectors.complexity.max!} items={actuals.selectors.complexity.items} />
-			{:else if id == 'IdSelectorRatio' && actuals.selectors.id.total > 0}
+				<ScatterPlot
+					max={summarize_numbers(actuals.selectors.complexity).max}
+					items={actuals.selectors.complexity.sequence ?? []}
+				/>
+			{:else if id == 'IdSelectorRatio' && actuals.selectors.ids.total > 0}
 				<h3>Discovered ID selectors</h3>
-				<p>Found {actuals.selectors.id.total} ID selectors.</p>
+				<p>Found {actuals.selectors.ids.total} ID selectors.</p>
 				<ol class="max-h-96 overflow-auto">
-					{#each Object.keys(actuals.selectors.id.uniqueWithLocations || {}) as selector}
+					{#each [...actuals.selectors.ids.unique.keys()] as selector}
 						<li>
 							<code>{selector}</code>
 						</li>
@@ -150,10 +171,13 @@
 				</ol>
 			{:else if id == 'AverageDeclarationsPerRule'}
 				<h3>Declarations per rule</h3>
-				<ScatterPlot max={actuals.rules.declarations.max!} items={actuals.rules.declarations.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.rules.declarations).max}
+					items={actuals.rules.declarations.sequence ?? []}
+				/>
 			{:else if id == 'MaxDeclarationsPerRule'}
-				{@const max = actuals.rules.declarations.max}
-				{@const locations = actuals.rules.declarations.uniqueWithLocations![max!]}
+				{@const max = summarize_numbers(actuals.rules.declarations).max}
+				{@const locations = with_locations(actuals.rules.declarations)[max] ?? []}
 				<ol>
 					{#each locations as loc}
 						<li>
@@ -164,14 +188,20 @@
 					{/each}
 				</ol>
 				<h3>Declarations per rule distribution</h3>
-				<ScatterPlot max={actuals.rules.declarations.max!} items={actuals.rules.declarations.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.rules.declarations).max}
+					items={actuals.rules.declarations.sequence ?? []}
+				/>
 			{:else if id == 'MoreThanMostCommonDeclarationsPerRule'}
 				<h3>Selectors per rule distribution</h3>
-				<ScatterPlot max={actuals.rules.declarations.max!} items={actuals.rules.declarations.items} />
+				<ScatterPlot
+					max={summarize_numbers(actuals.rules.declarations).max}
+					items={actuals.rules.declarations.sequence ?? []}
+				/>
 			{:else if id === 'MoreThanMostCommonSelectorSpecificity'}
 				<h3>Your top specificity selectors</h3>
-				{@const max = actuals.selectors.specificity.max.toString()}
-				{@const locations = actuals.selectors.specificity.uniqueWithLocations![max]}
+				{@const max = summarize_specificity(actuals.specificity).max.join(',')}
+				{@const locations = with_locations(actuals.specificity)[max] ?? []}
 				<ol>
 					{#each locations as loc}
 						<li>

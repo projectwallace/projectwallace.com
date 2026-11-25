@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { compareSpecificity, type Specificity } from '@projectwallace/css-analyzer'
+	import { summarize, summarize_numbers, type CountResult } from '@projectwallace/css-analyzer'
+	import { summarize_specificity } from '@projectwallace/css-analyzer/collectors'
+	import { compare_specificity, type Specificity } from '@projectwallace/css-analyzer/selectors'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import type { CssLocation } from '#lib/css-location.ts'
 	import { format_number } from '#lib/format-number.ts'
@@ -16,36 +19,34 @@
 
 	interface Props {
 		selectors?: CssAnalysis['selectors']
+		specificity?: CssAnalysis['specificity']
 	}
 
 	interface ValueCountPanelProps {
 		panel_id: string
 		title: string
-		data: {
-			total: number
-			totalUnique: number
-			uniquenessRatio: number
-			uniqueWithLocations: Record<string, CssLocation[]>
-		}
+		data: CountResult
 		list_id: string
 		empty_message: string
 		sort_options?: SortOption[]
 	}
 
-	let { selectors = Object.create(null) }: Props = $props()
+	let { selectors = Object.create(null), specificity = Object.create(null) }: Props = $props()
 
 	let {
-		specificity,
 		complexity,
 		accessibility,
 		prefixed,
 		keyframes,
 		combinators,
-		pseudoClasses,
-		pseudoElements,
+		pseudo_classes,
+		pseudo_elements,
 		attributes,
-		customElements
+		custom_elements
 	} = $derived(selectors)
+	let selector_summary = $derived(summarize(selectors))
+	let specificity_summary = $derived(summarize_specificity(specificity))
+	let complexity_summary = $derived(summarize_numbers(complexity))
 
 	const COMBINATOR_NAMES = {
 		' ': `Descendant ( )`,
@@ -54,32 +55,23 @@
 		'+': 'Adjacent sibling (+)'
 	}
 
-	const SPECIFICITY_LENGTH = 3
-
 	function parse_specificity(str: string) {
-		let specificity = new Uint8ClampedArray(SPECIFICITY_LENGTH)
-		let parts = str.split(',')
-
-		for (let index = 0; index < SPECIFICITY_LENGTH; index++) {
-			specificity[index] = parseInt(parts[index], 10)
-		}
-
-		return specificity as unknown as Specificity
+		return str.split(',').map((part) => parseInt(part, 10)) as Specificity
 	}
 
 	let count_per_specificity = $derived(
-		Object.entries(specificity.uniqueWithLocations as Record<string, CssLocation[]>)
+		Object.entries(with_locations(specificity))
 			.map(([value, locations]) => ({
 				value,
 				locations,
 				count: locations.length,
 				specificity: parse_specificity(value)
 			}))
-			.sort((a, b) => compareSpecificity(b.specificity, a.specificity))
+			.sort((a, b) => compare_specificity(b.specificity, a.specificity))
 	)
 
 	let sorted_combinators = $derived(
-		Object.entries(combinators.uniqueWithLocations as Record<string, CssLocation[]>)
+		Object.entries(with_locations(combinators))
 			.map(([value, locations]) => ({
 				// @ts-expect-error TS does not know JS
 				value: COMBINATOR_NAMES[value] || value,
@@ -90,7 +82,7 @@
 	)
 
 	let sorted_complexities = $derived(
-		Object.entries(complexity.uniqueWithLocations as Record<string, CssLocation[]>)
+		Object.entries(with_locations(complexity))
 			.map(([value, locations]) => ({ value, locations, count: locations.length }))
 			.sort((a, b) => parseInt(a.value, 10) - parseInt(b.value, 10))
 	)
@@ -114,14 +106,14 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: data.total },
-					{ name: 'Unique', value: data.totalUnique, ratio: data.uniquenessRatio }
+					{ name: 'Unique', value: data.total_unique, ratio: summarize(data).uniqueness_ratio }
 				]}
 			/>
 		</Header>
 		{#if data.total > 0}
 			<ValueCountList
 				id={list_id}
-				unique={data.uniqueWithLocations}
+				unique={with_locations(data)}
 				extra_sort_options={sort_options}
 				node_type="selector"
 			/>
@@ -141,8 +133,8 @@
 				<Item key="Total" value={format_number(selectors.total)} />
 				<Item
 					key="Unique"
-					value={format_number(selectors.totalUnique)}
-					secondary_value="{format_number(selectors.uniquenessRatio * 100, { decimals: 2 })}%"
+					value={format_number(selectors.total_unique)}
+					secondary_value="{format_number(selector_summary.uniqueness_ratio * 100, { decimals: 2 })}%"
 				/>
 			</StatsList>
 		</Panel>
@@ -152,10 +144,10 @@
 				<Heading element="h3">Specificity</Heading>
 				<DefinitionList
 					stats={[
-						{ name: 'Unique', value: specificity.totalUnique },
+						{ name: 'Unique', value: specificity.total_unique },
 						{
 							name: 'Average',
-							value: specificity.mean.map((i) => format_number(i, { decimals: 2 }))
+							value: specificity_summary.mean.map((i) => format_number(i, { decimals: 2 }))
 						}
 					]}
 				/>
@@ -172,9 +164,9 @@
 					<Heading element="h4">Specificity total</Heading>
 					<DefinitionList
 						stats={[
-							{ name: 'Specificity A', value: specificity.sum[0] },
-							{ name: 'Specificity B', value: specificity.sum[1] },
-							{ name: 'Specificity C', value: specificity.sum[2] }
+							{ name: 'Specificity A', value: specificity_summary.sum[0] },
+							{ name: 'Specificity B', value: specificity_summary.sum[1] },
+							{ name: 'Specificity C', value: specificity_summary.sum[2] }
 						]}
 					/>
 				</div>
@@ -188,9 +180,9 @@
 				<Heading element="h3">Complexity</Heading>
 				<DefinitionList
 					stats={[
-						{ name: 'Total', value: complexity.sum },
-						{ name: 'Unique', value: complexity.totalUnique },
-						{ name: 'Average', value: complexity.mean }
+						{ name: 'Total', value: complexity_summary.sum },
+						{ name: 'Unique', value: complexity.total_unique },
+						{ name: 'Average', value: complexity_summary.mean }
 					]}
 				/>
 			</Header>
@@ -200,9 +192,9 @@
 					universal selectors and combinators.
 				</p>
 
-				{#if complexity && complexity.max}
+				{#if complexity_summary.max}
 					<figure>
-						<ScatterPlot max={complexity.max} items={complexity.items} />
+						<ScatterPlot max={complexity_summary.max} items={complexity.sequence ?? []} />
 						<figcaption>
 							Complexity per selector, showing the first selector in the CSS on the left and the last selector on the
 							right.
@@ -225,14 +217,14 @@
 		{@render value_count_panel({
 			panel_id: 'pseudo-classes',
 			title: 'Pseudo classes',
-			data: pseudoClasses,
+			data: pseudo_classes,
 			list_id: 'pseudo-classes-list',
 			empty_message: 'No pseudo classes found.'
 		})}
 		{@render value_count_panel({
 			panel_id: 'pseudo-elements',
 			title: 'Pseudo elements',
-			data: pseudoElements,
+			data: pseudo_elements,
 			list_id: 'pseudo-elements-list',
 			empty_message: 'No pseudo elements found.'
 		})}
@@ -243,7 +235,7 @@
 				<DefinitionList
 					stats={[
 						{ name: 'Total', value: combinators.total },
-						{ name: 'Unique', value: combinators.totalUnique, ratio: combinators.uniquenessRatio }
+						{ name: 'Unique', value: combinators.total_unique, ratio: summarize(combinators).uniqueness_ratio }
 					]}
 				/>
 			</Header>
@@ -284,7 +276,7 @@
 		{@render value_count_panel({
 			panel_id: 'custom-element-selectors',
 			title: 'Custom element selectors',
-			data: customElements,
+			data: custom_elements,
 			list_id: 'custom-element-selectors-list',
 			empty_message: 'No custom element selectors found.'
 		})}

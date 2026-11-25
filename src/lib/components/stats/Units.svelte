@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
-	import type { CssLocation } from '#lib/css-location.ts'
+	import { summarize } from '@projectwallace/css-analyzer'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
@@ -10,10 +11,10 @@
 
 	import { all as valid_units } from '#lib/css-units.ts'
 
-	let { units }: { units: CssAnalysis['values']['units'] } = $props()
+	let { units }: { units: CssAnalysis['units'] } = $props()
 
 	let sorted_units = $derived(
-		Object.entries(units.uniqueWithLocations as Record<string, CssLocation[]>)
+		Object.entries(with_locations(units))
 			.map(([value, locations]) => ({
 				value,
 				locations,
@@ -38,7 +39,7 @@
 		<DefinitionList
 			stats={[
 				{ name: 'Total', value: units.total },
-				{ name: 'Unique', value: units.totalUnique, ratio: units.uniquenessRatio }
+				{ name: 'Unique', value: units.total_unique, ratio: summarize(units).uniqueness_ratio }
 			]}
 		/>
 	</Header>

@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import Heading from '#lib/components/Heading.svelte'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import { group_colors } from '#lib/group-colors.ts'
 	import ColorExample from '#lib/components/ColorExample.svelte'
 	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import { IsInViewport } from 'runed'
 
-	type Colors = CssAnalysis['values']['colors']
+	type Colors = CssAnalysis['colors']
 
 	interface Props {
 		colors?: Colors
@@ -15,9 +16,8 @@
 	let { colors = Object.create(null) }: Props = $props()
 	let css_state = get_css_state()
 
-	let { uniqueWithLocations } = $derived(colors)
-	let unique = $derived(uniqueWithLocations!)
-	let color_groups = $derived(group_colors(unique))
+	let color_groups = $derived(group_colors(colors.unique))
+	let unique = $derived(with_locations(colors))
 	let wrapper = $state<HTMLElement | undefined>(undefined)
 	let is_in_viewport = new IsInViewport(() => wrapper, { rootMargin: '200px' })
 </script>

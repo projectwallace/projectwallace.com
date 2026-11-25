@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { CssLocation } from '#lib/css-location.ts'
+	import { summarize } from '@projectwallace/css-analyzer'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import Empty from '#lib/components/Empty.svelte'
@@ -14,7 +15,7 @@
 	import FilterOption from '#lib/components/FilterOption.svelte'
 	import { convert, compare } from '@projectwallace/color-sorter'
 
-	type Colors = CssAnalysis['values']['colors']
+	type Colors = CssAnalysis['colors']
 
 	interface Props {
 		colors?: Colors
@@ -22,7 +23,8 @@
 
 	let { colors = Object.create(null) }: Props = $props()
 
-	let { total, totalUnique, itemsPerContext, formats, uniquenessRatio, uniqueWithLocations } = $derived(colors)
+	let { total, total_unique, by_context, formats } = $derived(colors)
+	let { uniqueness_ratio } = $derived(summarize(colors))
 
 	const COLOR_FORMATS = {
 		hex3: '#rgb',
@@ -47,7 +49,7 @@
 	let sorting: 'as-authored' | 'by-color' | 'by-count' = $state('as-authored')
 
 	let sortedFormats = $derived(
-		Object.entries(formats.uniqueWithLocations! as Record<string, CssLocation[]>)
+		Object.entries(with_locations(formats))
 			.map(([value, locations]) => ({
 				// @ts-expect-error TS does not understand JS
 				value: COLOR_FORMATS[value] || value,
@@ -58,7 +60,7 @@
 	)
 
 	let converted = $derived.by(() => {
-		let _converted = Object.entries(uniqueWithLocations as Record<string, CssLocation[]>).map(([value, locations]) => ({
+		let _converted = Object.entries(with_locations(colors)).map(([value, locations]) => ({
 			converted: convert(value),
 			locations
 		}))
@@ -83,7 +85,7 @@
 		<DefinitionList
 			stats={[
 				{ name: 'Total', value: total },
-				{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
+				{ name: 'Unique', value: total_unique, ratio: uniqueness_ratio }
 			]}
 		/>
 	</Header>
@@ -119,7 +121,7 @@
 
 			{#key sorting}
 				<div class="stack stack-lg">
-					<ColorBar {sizing} {total} {totalUnique} colors={converted} />
+					<ColorBar {sizing} {total} {total_unique} colors={converted} />
 					<ColorGroups {colors} />
 				</div>
 			{/key}
@@ -131,7 +133,7 @@
 					bar means the color is used more often.
 				</p>
 
-				<ColorTable items={itemsPerContext} {sizing} />
+				<ColorTable items={by_context} {sizing} />
 			</section>
 
 			<section class="stack stack-lg" id="color-formats">

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { summarize, type CountResult } from '@projectwallace/css-analyzer'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import Empty from '#lib/components/Empty.svelte'
 	import { Panel, Header } from '#lib/components/Panel/index.ts'
 	import Heading from '#lib/components/Heading.svelte'
@@ -7,32 +8,15 @@
 	import DefinitionList from '#lib/components/stats/DefinitionList.svelte'
 	import { alphabetical_sorting } from './sorting.ts'
 
-	type AtRules = CssAnalysis['atrules']
-	type AtRule =
-		| AtRules['charset']
-		| AtRules['container']
-		| AtRules['import']
-		| AtRules['keyframes']
-		| AtRules['layer']
-		| AtRules['media']
-		| AtRules['property']
-		| AtRules['supports']
-
-	type Props = Pick<AtRule, 'total' | 'totalUnique' | 'uniquenessRatio' | 'uniqueWithLocations'> & {
+	type Props = CountResult & {
 		title: string
 		id: string
 		warnings?: string[]
 	}
 
-	let {
-		total = 0,
-		totalUnique = 0,
-		uniquenessRatio = 0,
-		uniqueWithLocations = Object.create(null),
-		title,
-		id,
-		warnings = []
-	}: Props = $props()
+	let { total = 0, total_unique = 0, unique = new Map(), title, id, warnings = [] }: Props = $props()
+	let uniqueness_ratio = $derived(summarize({ total, total_unique, unique }).uniqueness_ratio)
+	let unique_with_locations = $derived(with_locations({ total, total_unique, unique }))
 </script>
 
 <Panel {id}>
@@ -42,13 +26,13 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: total },
-					{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
+					{ name: 'Unique', value: total_unique, ratio: uniqueness_ratio }
 				]}
 			/>
 		{/if}
 	</Header>
 	{#if total > 0}
-		<ValueCountList {id} unique={uniqueWithLocations} {warnings} extra_sort_options={[alphabetical_sorting]} />
+		<ValueCountList {id} unique={unique_with_locations} {warnings} extra_sort_options={[alphabetical_sorting]} />
 	{:else}
 		<Empty>No {title} found.</Empty>
 	{/if}

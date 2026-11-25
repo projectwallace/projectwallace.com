@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition'
 	import { calculate } from '@projectwallace/css-code-quality/core'
 	import type { calculate as Calculate } from '@projectwallace/css-code-quality'
-	import { analyze } from '@projectwallace/css-analyzer'
+	import { analyze_code_quality } from '#lib/analyze-css.ts'
 	import CopyButton from '#lib/components/CopyButton.svelte'
 	import CodeQualityDetails from './CodeQualityDetails.svelte'
 	import Panel from '#lib/components/Panel.svelte'
@@ -21,7 +21,7 @@
 
 	let { css = '', docs }: Props = $props()
 
-	let actuals = $derived(analyze(css, { useLocations: true }))
+	let actuals = $derived(analyze_code_quality(css))
 	let result = $derived<ReturnType<typeof Calculate>>(calculate(actuals))
 	let category_filter: 'all' | 'maintainability' | 'complexity' | 'performance' = $state('all')
 </script>

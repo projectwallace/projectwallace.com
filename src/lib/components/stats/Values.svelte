@@ -7,6 +7,8 @@
 	import Heading from '#lib/components/Heading.svelte'
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import type { CssLocation } from '#lib/css-location.ts'
+	import { summarize } from '@projectwallace/css-analyzer'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import Units from '#lib/components/stats/Units.svelte'
 	import Icon from '#lib/components/Icon.svelte'
 	import { page } from '$app/state'
@@ -14,7 +16,7 @@
 	import { alphabetical_sorting } from './sorting.ts'
 	import { normalize_z_index, MAX, INVALID } from '#lib/sort-z-index.ts'
 
-	let { values = Object.create(null) }: { values: CssAnalysis['values'] } = $props()
+	let { result = Object.create(null) }: { result: CssAnalysis } = $props()
 
 	// If the current page has a `url` search parameter, append it to the Design Tokens link.
 	// Otherwise, link to the Design Tokens section.
@@ -37,8 +39,15 @@
 		return index >= -2147483648 && index <= 2147483647
 	}
 
-	let { units, zindexes, prefixes, browserhacks, resets, displays } = $derived(values)
-	let zindex_locations = $derived(zindexes.uniqueWithLocations) as Record<string, CssLocation[]>
+	let {
+		units,
+		z_indexes: zindexes,
+		value_prefixes: prefixes,
+		value_browserhacks: browserhacks,
+		resets,
+		displays
+	} = $derived(result)
+	let zindex_locations = $derived(with_locations(zindexes))
 	let z_index_warnings = $derived(Object.keys(zindex_locations).filter((zindex) => !is_valid_z_index(zindex)))
 </script>
 
@@ -65,16 +74,12 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: resets.total },
-					{ name: 'Unique', value: resets.totalUnique }
+					{ name: 'Unique', value: resets.total_unique }
 				]}
 			/>
 		</Header>
 		{#if resets.total > 0}
-			<ValueCountList
-				id="resets-list"
-				unique={resets.uniqueWithLocations}
-				extra_sort_options={[alphabetical_sorting]}
-			/>
+			<ValueCountList id="resets-list" unique={with_locations(resets)} extra_sort_options={[alphabetical_sorting]} />
 		{:else}
 			<Empty>No spacing resets found.</Empty>
 		{/if}
@@ -86,14 +91,14 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: displays.total },
-					{ name: 'Unique', value: displays.totalUnique }
+					{ name: 'Unique', value: displays.total_unique }
 				]}
 			/>
 		</Header>
 		{#if displays.total > 0}
 			<ValueCountList
 				id="displays-list"
-				unique={displays.uniqueWithLocations}
+				unique={with_locations(displays)}
 				extra_sort_options={[alphabetical_sorting]}
 			/>
 		{:else}
@@ -109,8 +114,8 @@
 					{ name: 'Total', value: zindexes.total },
 					{
 						name: 'Unique',
-						value: zindexes.totalUnique,
-						ratio: zindexes.uniquenessRatio
+						value: zindexes.total_unique,
+						ratio: summarize(zindexes).uniqueness_ratio
 					}
 				]}
 			/>
@@ -153,8 +158,8 @@
 					{ name: 'Total', value: prefixes.total },
 					{
 						name: 'Unique',
-						value: prefixes.totalUnique,
-						ratio: prefixes.uniquenessRatio
+						value: prefixes.total_unique,
+						ratio: summarize(prefixes).uniqueness_ratio
 					}
 				]}
 			/>
@@ -162,7 +167,7 @@
 		{#if prefixes.total > 0}
 			<ValueCountList
 				id="prefixed-values-list"
-				unique={prefixes.uniqueWithLocations}
+				unique={with_locations(prefixes)}
 				extra_sort_options={[alphabetical_sorting]}
 			/>
 		{:else}
@@ -178,8 +183,8 @@
 					{ name: 'Total', value: browserhacks.total },
 					{
 						name: 'Unique',
-						value: browserhacks.totalUnique,
-						ratio: browserhacks.uniquenessRatio
+						value: browserhacks.total_unique,
+						ratio: summarize(browserhacks).uniqueness_ratio
 					}
 				]}
 			/>
@@ -187,8 +192,8 @@
 		{#if browserhacks.total > 0}
 			<ValueCountList
 				id="value-hacks-list"
-				unique={browserhacks.uniqueWithLocations}
-				warnings={Object.keys(browserhacks.unique)}
+				unique={with_locations(browserhacks)}
+				warnings={[...browserhacks.unique.keys()]}
 				extra_sort_options={[alphabetical_sorting]}
 			/>
 		{:else}

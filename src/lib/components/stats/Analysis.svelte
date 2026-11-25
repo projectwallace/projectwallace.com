@@ -4,14 +4,13 @@
 	import Nav from './Nav.svelte'
 	import Devtools from '#lib/components/DevTools.svelte'
 	import type { CSSOrigin } from '#lib/css-origins.ts'
-	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { analyze_css, type CssAnalysis } from '#lib/analyze-css.ts'
 	import NetworkPanel from '#lib/components/NetworkPanel.svelte'
 	import ItemUsage from '#lib/components/ItemUsage.svelte'
 	import JsonPanel from '#lib/components/devtools/JsonPanel.svelte'
 	import CssPanel from '#lib/components/devtools/CssPanel.svelte'
 	import { analyzer_tabs, type TabId } from '#lib/components/devtools/tabs.ts'
 	import { get_css_state } from '#lib/css-state.svelte.ts'
-	import { analyze } from '@projectwallace/css-analyzer'
 	import { PersistedState } from 'runed'
 
 	interface Props {
@@ -24,11 +23,7 @@
 
 	let { nav, children, devtools }: Props = $props()
 	let css_state = get_css_state()
-	let analysis = $derived(
-		analyze(css_state.css, {
-			useLocations: true
-		})
-	)
+	let analysis = $derived(analyze_css(css_state.css))
 	let nav_visible = new PersistedState<boolean>('analyzer-nav-visible', true)
 
 	function on_keydown(event: KeyboardEvent) {

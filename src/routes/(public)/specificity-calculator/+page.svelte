@@ -2,8 +2,8 @@
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
-	import { parse_selector_list } from '@projectwallace/css-parser'
-	import { calculateSpecificity, type Specificity } from '@projectwallace/css-analyzer'
+	import { is_selector, parse_selector_list } from '@projectwallace/css-parser'
+	import { get_specificity, type Specificity } from '@projectwallace/css-analyzer/selectors'
 	import Seo from '#lib/components/Seo.svelte'
 	import Panel from '#lib/components/Panel.svelte'
 	import Label from '#lib/components/Label.svelte'
@@ -35,15 +35,12 @@
 	function calculate(value: string) {
 		try {
 			let ast = parse_selector_list(value)
-			let specificities = calculateSpecificity(ast)
 			let calculated: typeof result = []
 
 			if (ast.has_children) {
-				for (let i = 0; i < specificities.length; i++) {
-					let specificity = specificities[i]
-					let selector = ast.children[i]
-					if (selector?.type_name === 'Selector' && specificity) {
-						calculated.push({ selector: selector.text, specificity })
+				for (let selector of ast) {
+					if (is_selector(selector)) {
+						calculated.push({ selector: selector.text, specificity: get_specificity(selector) })
 					}
 				}
 

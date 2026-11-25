@@ -2,9 +2,9 @@
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import type { Sizing } from './ColorBar.ts'
 
-	type Colors = CssAnalysis['values']['colors']
+	type Colors = CssAnalysis['colors']
 
-	type Props = Pick<Colors, 'total' | 'totalUnique'> & {
+	type Props = Pick<Colors, 'total' | 'total_unique'> & {
 		colors?: {
 			converted: { authored: string }
 			locations: { length: number }
@@ -12,7 +12,7 @@
 		sizing?: Sizing
 	}
 
-	let { colors = [], total = 0, totalUnique = 0, sizing = 'relative' }: Props = $props()
+	let { colors = [], total = 0, total_unique = 0, sizing = 'relative' }: Props = $props()
 
 	let canvas: HTMLCanvasElement
 	let ctx: CanvasRenderingContext2D | null
@@ -27,11 +27,11 @@
 		let MULTIPLIER = 1
 		let TARGET = 2000
 
-		if (totalUnique < TARGET) {
-			MULTIPLIER = Math.floor(TARGET / totalUnique)
+		if (total_unique < TARGET) {
+			MULTIPLIER = Math.floor(TARGET / total_unique)
 		}
 
-		canvas.width = sizing === 'relative' ? total * MULTIPLIER : totalUnique * MULTIPLIER
+		canvas.width = sizing === 'relative' ? total * MULTIPLIER : total_unique * MULTIPLIER
 		ctx = canvas.getContext('2d')
 
 		if (ctx === null) {

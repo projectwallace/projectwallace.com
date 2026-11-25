@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { format_number } from '#lib/format-number.ts'
+	import { summarize } from '@projectwallace/css-analyzer'
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import { Panel } from '#lib/components/Panel/index.ts'
 	import Heading from '#lib/components/Heading.svelte'
@@ -11,7 +12,8 @@
 
 	let { declarations = Object.create(null) }: Props = $props()
 
-	let { total, uniquenessRatio, totalUnique, importants } = $derived(declarations)
+	let { total, total_unique, importants } = $derived(declarations)
+	let { uniqueness_ratio } = $derived(summarize(declarations))
 </script>
 
 <div id="declarations">
@@ -24,8 +26,8 @@
 				<Item key="Total" value={format_number(total)} />
 				<Item
 					key="Unique"
-					value={format_number(totalUnique)}
-					secondary_value="{format_number(uniquenessRatio * 100, { decimals: 2 })}%"
+					value={format_number(total_unique)}
+					secondary_value="{format_number(uniqueness_ratio * 100, { decimals: 2 })}%"
 				/>
 			</StatsList>
 		</Panel>
@@ -36,7 +38,7 @@
 				<Item
 					key="Total"
 					value={format_number(importants.total)}
-					secondary_value="{format_number(importants.ratio * 100, {
+					secondary_value="{format_number((total === 0 ? 0 : importants.total / total) * 100, {
 						decimals: 2
 					})}% of all declarations"
 				/>

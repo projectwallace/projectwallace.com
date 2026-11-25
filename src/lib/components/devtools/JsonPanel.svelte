@@ -6,15 +6,14 @@
 	let { json }: { json: unknown } = $props()
 
 	function replacer(key: string, value: unknown): unknown {
-		// Replace 'unique' with the data from 'uniqueWithLocations' but only their counts
-		if (typeof value === 'object' && value !== null && 'uniqueWithLocations' in value) {
-			const { uniqueWithLocations, ...rest } = value as Record<string, unknown>
-			return {
-				...rest,
-				unique: Object.fromEntries(
-					Object.entries(uniqueWithLocations as Record<string, unknown[]>).map(([k, v]) => [k, v.length])
-				)
-			}
+		// Maps of unique items are written as { item: count }, without their locations
+		if (value instanceof Map) {
+			return Object.fromEntries(
+				[...value].map(([k, v]) => [k, typeof v === 'object' && v !== null && 'count' in v ? v.count : v])
+			)
+		}
+		if (key === 'locations') {
+			return undefined
 		}
 		return value
 	}
