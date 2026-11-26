@@ -5,7 +5,8 @@ import {
 	is_atrule,
 	is_function,
 	is_identifier,
-	is_declaration
+	is_declaration,
+	is_custom
 } from '@projectwallace/css-parser'
 import { DefinedUsed } from '@projectwallace/css-analyzer/utils/collections'
 import type { CssLocation } from '#lib/css-location.ts'
@@ -28,14 +29,14 @@ export function analyze(css: string) {
 
 	walk(ast, (node) => {
 		if (is_declaration(node)) {
-			if (node.property.startsWith('--')) {
+			if (is_custom(node.property)) {
 				tracker.define(node.property, to_loc(node))
 			}
 		} else if (is_function(node) && node.name === 'var') {
 			let first_child = node.first_child
 			let second_child = first_child?.next_sibling
 
-			if (first_child && is_identifier(first_child) && first_child.name.startsWith('--')) {
+			if (first_child && is_identifier(first_child) && is_custom(first_child.name)) {
 				let name = first_child.name
 				tracker.use(name, to_loc(node))
 
