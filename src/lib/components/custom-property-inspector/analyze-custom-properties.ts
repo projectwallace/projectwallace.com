@@ -74,7 +74,11 @@ export function analyze(css: string) {
 	let undeclared_with_fallback = new Set<string>()
 	for (let name of used) {
 		if (!declared.has(name)) {
-			;(with_fallback.has(name) ? undeclared_with_fallback : undeclared).add(name)
+			if (with_fallback.has(name)) {
+				undeclared_with_fallback.add(name)
+			} else {
+				undeclared.add(name)
+			}
 		}
 	}
 
