@@ -11,7 +11,7 @@ catalogs:
       version: 1.1.1
 
 overrides:
-  '@projectwallace/css-analyzer': ^10.0.0
+  '@projectwallace/css-analyzer': ^10.1.0
   '@projectwallace/css-parser': ^0.20.0
   '@projectwallace/format-css': ^3.2.2
   '@projectwallace/color-sorter': ^9.0.0
@@ -37,8 +37,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       '@projectwallace/css-analyzer':
-        specifier: ^10.0.0
-        version: 10.0.0
+        specifier: ^10.1.0
+        version: 10.1.0
       '@projectwallace/css-code-coverage':
         specifier: ^1.0.8
         version: 1.0.8
@@ -866,8 +866,8 @@ packages:
     resolution: {integrity: sha512-yBHv8jSNWUG4KF/G+3AgA4dCR3M/KPSQ4xCTQTZMo2Gq3p0+9mCwavHVp3nJfUGpCFCgojcF3BbS+v8erYAYwg==}
     engines: {node: '>=18.0.0'}
 
-  '@projectwallace/css-analyzer@10.0.0':
-    resolution: {integrity: sha512-xk/hi+dvgyC4FU1ru/jvwA00ztEJWnJwp2D3SMgeqhm7Ws2a97v3Yp4zWZqYEvNWILuDPTnCuHaQmVXpEQCd8Q==}
+  '@projectwallace/css-analyzer@10.1.0':
+    resolution: {integrity: sha512-WFbc3rOZx28i6UtZh9vK3qDJEYKS9LoaR7E1dP67+LKFFtoy7MijWolyqjOpInhrdTSscxMzXf1v3zupEMAzig==}
     engines: {node: '>=22.18.0', pnpm: '>=11.0.0'}
 
   '@projectwallace/css-code-coverage@1.0.8':
@@ -2286,7 +2286,7 @@ snapshots:
     dependencies:
       '@colordx/core': 7.3.0
 
-  '@projectwallace/css-analyzer@10.0.0':
+  '@projectwallace/css-analyzer@10.1.0':
     dependencies:
       '@projectwallace/css-parser': 0.20.0
 
@@ -2297,13 +2297,13 @@ snapshots:
 
   '@projectwallace/css-code-quality@4.0.0':
     dependencies:
-      '@projectwallace/css-analyzer': 10.0.0
+      '@projectwallace/css-analyzer': 10.1.0
 
   '@projectwallace/css-design-tokens@0.12.3':
     dependencies:
       '@colordx/core': 7.3.0
       '@projectwallace/color-sorter': 9.0.0
-      '@projectwallace/css-analyzer': 10.0.0
+      '@projectwallace/css-analyzer': 10.1.0
       '@projectwallace/css-parser': 0.20.0
 
   '@projectwallace/css-layer-tree@2.2.0':
@@ -2324,7 +2324,7 @@ snapshots:
 
   '@projectwallace/stylelint-plugin@1.1.1(stylelint@18.0.0)':
     dependencies:
-      '@projectwallace/css-analyzer': 10.0.0
+      '@projectwallace/css-analyzer': 10.1.0
       '@projectwallace/css-layer-tree': 2.2.0
       '@projectwallace/css-parser': 0.20.0
       stylelint: 18.0.0
