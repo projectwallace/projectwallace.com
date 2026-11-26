@@ -8,7 +8,6 @@ import {
 	is_declaration,
 	is_custom
 } from '@projectwallace/css-parser'
-import { DefinedUsed } from '@projectwallace/css-analyzer/utils/collections'
 import type { CssLocation } from '#lib/css-location.ts'
 
 function to_loc(node: CSSNode): CssLocation {
@@ -24,50 +23,60 @@ export function analyze(css: string) {
 	let ast = parse(css, {
 		parse_selectors: false
 	})
-	let tracker = new DefinedUsed<CssLocation>()
-	let declared_with_fallback = new Set<string>()
+	let declared = new Set<string>()
+	let used = new Set<string>()
+	let with_fallback = new Set<string>()
+	let all = new Map<string, CssLocation[]>()
+
+	function add(name: string, node: CSSNode) {
+		let loc = to_loc(node)
+		let locs = all.get(name)
+		if (locs) {
+			locs.push(loc)
+		} else {
+			all.set(name, [loc])
+		}
+	}
 
 	walk(ast, (node) => {
 		if (is_declaration(node)) {
 			if (is_custom(node.property)) {
-				tracker.define(node.property, to_loc(node))
+				declared.add(node.property)
+				add(node.property, node)
 			}
 		} else if (is_function(node) && node.name === 'var') {
-			let first_child = node.first_child
-			let second_child = first_child?.next_sibling
+			let name_node = node.first_child
+			if (name_node && is_identifier(name_node) && is_custom(name_node.name)) {
+				let name = name_node.name
+				used.add(name)
+				add(name, node)
 
-			if (first_child && is_identifier(first_child) && is_custom(first_child.name)) {
-				let name = first_child.name
-				tracker.use(name, to_loc(node))
-
-				// check if it has a fallback value that is a custom property
-				if (second_child && !(is_function(second_child) && second_child.name === 'var')) {
-					declared_with_fallback.add(name)
+				// a fallback that is not itself a var() makes the property safe to be undeclared
+				let fallback = name_node.next_sibling
+				if (fallback && !(is_function(fallback) && fallback.name === 'var')) {
+					with_fallback.add(name)
 				}
 			}
 		} else if (is_atrule(node) && node.name === 'property' && node.has_prelude) {
-			tracker.define(node.prelude.text, to_loc(node))
+			declared.add(node.prelude.text)
+			add(node.prelude.text, node)
 		}
 	})
 
-	let { unused, unknown } = tracker.analyze()
-	let { definitions, usages } = tracker.payloads()
-
-	// Definitions and usages together, in source order
-	let all_properties = new Map<string, CssLocation[]>()
-	for (let name of new Set([...definitions.keys(), ...usages.keys()])) {
-		let locations = [...(definitions.get(name) ?? []), ...(usages.get(name) ?? [])]
-		all_properties.set(
-			name,
-			locations.sort((a, b) => a.offset - b.offset)
-		)
+	let unused = new Set<string>()
+	for (let name of declared) {
+		if (!used.has(name)) {
+			unused.add(name)
+		}
 	}
-	all_properties = new Map([...all_properties].sort((a, b) => a[1][0].offset - b[1][0].offset))
 
-	return {
-		all: all_properties,
-		unused: new Set(unused),
-		undeclared: new Set(unknown.filter((name) => !declared_with_fallback.has(name))),
-		undeclared_with_fallback: new Set(unknown.filter((name) => declared_with_fallback.has(name)))
+	let undeclared = new Set<string>()
+	let undeclared_with_fallback = new Set<string>()
+	for (let name of used) {
+		if (!declared.has(name)) {
+			;(with_fallback.has(name) ? undeclared_with_fallback : undeclared).add(name)
+		}
 	}
+
+	return { all, unused, undeclared, undeclared_with_fallback }
 }
