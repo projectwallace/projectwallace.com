@@ -106,3 +106,105 @@ test('used @property', () => {
 		{ column: 6, length: 11, line: 7, offset: 77 }
 	])
 })
+
+test('declared and used property is not flagged', () => {
+	let actual = analyze(`
+	x {
+		--used: 1;
+		color: var(--used);
+	}`)
+	expect(actual.unused.size).toBe(0)
+	expect(actual.undeclared.size).toBe(0)
+	expect(actual.undeclared_with_fallback.size).toBe(0)
+	expect(actual.all.size).toBe(1)
+	expect(actual.all.get('--used')).toHaveLength(2)
+})
+
+test('collects every declaration and usage of a property', () => {
+	let actual = analyze(`
+	a {
+		--x: 1;
+		color: var(--x);
+	}
+	b {
+		--x: 2;
+		background: var(--x);
+	}`)
+	expect(actual.all.size).toBe(1)
+	let locations = actual.all.get('--x')!
+	expect(locations).toHaveLength(4)
+	// in source order
+	expect(locations.map((loc) => loc.line)).toEqual([3, 4, 7, 8])
+})
+
+test('ignores regular declarations and var() without a custom property', () => {
+	let actual = analyze(`
+	x {
+		color: red;
+		width: calc(1px + 2px);
+		margin: var(invalid);
+	}`)
+	expect(actual.all.size).toBe(0)
+	expect(actual.unused.size).toBe(0)
+	expect(actual.undeclared.size).toBe(0)
+	expect(actual.undeclared_with_fallback.size).toBe(0)
+})
+
+test('finds properties inside at-rules and nested rules', () => {
+	let actual = analyze(`
+	@media (min-width: 10px) {
+		@layer base {
+			x {
+				--in-media: 1;
+				& y {
+					color: var(--in-media);
+					background: var(--nested-undeclared);
+				}
+			}
+		}
+	}`)
+	expect(actual.all.size).toBe(2)
+	expect(actual.unused.size).toBe(0)
+	expect(actual.undeclared).toEqual(new Set(['--nested-undeclared']))
+})
+
+test('custom properties are case-sensitive', () => {
+	let actual = analyze(`
+	x {
+		--Color: red;
+		color: var(--color);
+	}`)
+	expect(actual.all.size).toBe(2)
+	expect(actual.unused).toEqual(new Set(['--Color']))
+	expect(actual.undeclared).toEqual(new Set(['--color']))
+})
+
+test('a property used with and without a fallback counts as having a fallback', () => {
+	let actual = analyze(`
+	x {
+		color: var(--undeclared);
+		background: var(--undeclared, red);
+	}`)
+	expect(actual.undeclared_with_fallback).toEqual(new Set(['--undeclared']))
+	expect(actual.undeclared.size).toBe(0)
+	expect(actual.all.get('--undeclared')).toHaveLength(2)
+})
+
+test('declared property with a fallback is not flagged as undeclared', () => {
+	let actual = analyze(`
+	x {
+		--declared: 1;
+		color: var(--declared, red);
+	}`)
+	expect(actual.undeclared.size).toBe(0)
+	expect(actual.undeclared_with_fallback.size).toBe(0)
+	expect(actual.unused.size).toBe(0)
+})
+
+test('empty input', () => {
+	let actual = analyze('')
+	expect(actual.all.size).toBe(0)
+	expect(actual.unused.size).toBe(0)
+	expect(actual.undeclared.size).toBe(0)
+	expect(actual.undeclared_with_fallback.size).toBe(0)
+})
