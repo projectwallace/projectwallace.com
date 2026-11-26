@@ -27,6 +27,9 @@
 	import { design_token_tabs, type TabId } from '#lib/components/devtools/tabs.ts'
 	import DesignTokensPanel from '#lib/components/devtools/DesignTokensPanel.svelte'
 	import { get_css_state } from '#lib/css-state.svelte.ts'
+	import { summarize } from '@projectwallace/css-analyzer'
+	import { with_locations } from '#lib/analysis-locations.ts'
+	import { analyze_tokens } from '#lib/analyze-css.ts'
 	import { string_sort } from '#lib/string-sort.ts'
 	import { normalize_line_height } from '#lib/sort-line-height.ts'
 	import { nav as navigation } from './nav.ts'
@@ -60,7 +63,11 @@
 </Hero>
 
 {#if css_state.origins.length > 0}
-	<Analysis origins={css_state.origins} prettify_css_before_analyze={css_state.should_prettify}>
+	<Analysis
+		analyze={analyze_tokens}
+		origins={css_state.origins}
+		prettify_css_before_analyze={css_state.should_prettify}
+	>
 		{#snippet nav()}
 			<Nav nav={navigation} />
 		{/snippet}
@@ -68,25 +75,25 @@
 		{#snippet children({ analysis, css })}
 			{#key css}
 				<div class="group">
-					<Colors colors={analysis.values.colors} />
+					<Colors colors={analysis.colors} />
 
 					<Panel id="gradients">
 						<Header>
 							<Heading element="h3">Gradients</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.gradients.total },
+									{ name: 'Total', value: analysis.gradients.total },
 									{
 										name: 'Unique',
-										value: analysis.values.gradients.totalUnique,
-										ratio: analysis.values.gradients.uniquenessRatio
+										value: analysis.gradients.total_unique,
+										ratio: summarize(analysis.gradients).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
 
-						{#if analysis.values.gradients.total > 0}
-							<GradientList items={analysis.values.gradients.uniqueWithLocations} />
+						{#if analysis.gradients.total > 0}
+							<GradientList items={with_locations(analysis.gradients)} />
 						{:else}
 							<Empty>No gradients found.</Empty>
 						{/if}
@@ -97,18 +104,18 @@
 							<Heading element="h3">Font-sizes</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.fontSizes.total },
+									{ name: 'Total', value: analysis.font_sizes.total },
 									{
 										name: 'Unique',
-										value: analysis.values.fontSizes.totalUnique,
-										ratio: analysis.values.fontSizes.uniquenessRatio
+										value: analysis.font_sizes.total_unique,
+										ratio: summarize(analysis.font_sizes).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
 
-						{#if analysis.values.fontSizes.total > 0}
-							<FontSizes sizes={analysis.values.fontSizes.uniqueWithLocations} />
+						{#if analysis.font_sizes.total > 0}
+							<FontSizes sizes={with_locations(analysis.font_sizes)} />
 						{:else}
 							<Empty>No font-sizes found.</Empty>
 						{/if}
@@ -119,19 +126,19 @@
 							<Heading element="h3">Font-families</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.fontFamilies.total },
+									{ name: 'Total', value: analysis.font_families.total },
 									{
 										name: 'Unique',
-										value: analysis.values.fontFamilies.totalUnique,
-										ratio: analysis.values.fontFamilies.uniquenessRatio
+										value: analysis.font_families.total_unique,
+										ratio: summarize(analysis.font_families).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
-						{#if analysis.values.fontFamilies.total > 0}
+						{#if analysis.font_families.total > 0}
 							<ValueCountList
 								id="font-family"
-								unique={analysis.values.fontFamilies.uniqueWithLocations}
+								unique={with_locations(analysis.font_families)}
 								extra_sort_options={[sort_az]}
 								node_type="value"
 							/>
@@ -140,27 +147,27 @@
 						{/if}
 					</Panel>
 
-					<FontFaces {...analysis.atrules.fontface} />
+					<FontFaces {...analysis.atrules.font_faces} />
 
 					<Panel id="line-heights">
 						<Header>
 							<Heading element="h3">Line-heights</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.lineHeights.total },
+									{ name: 'Total', value: analysis.line_heights.total },
 									{
 										name: 'Unique',
-										value: analysis.values.lineHeights.totalUnique,
-										ratio: analysis.values.lineHeights.uniquenessRatio
+										value: analysis.line_heights.total_unique,
+										ratio: summarize(analysis.line_heights).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
-						{#if analysis.values.lineHeights.total > 0}
+						{#if analysis.line_heights.total > 0}
 							<ValueCountList
 								id="line-height"
 								node_type="value"
-								unique={analysis.values.lineHeights.uniqueWithLocations}
+								unique={with_locations(analysis.line_heights)}
 								extra_sort_options={[
 									{
 										id: 'size',
@@ -179,20 +186,20 @@
 							<Heading element="h3">Text-shadows</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.textShadows.total },
+									{ name: 'Total', value: analysis.text_shadows.total },
 									{
 										name: 'Unique',
-										value: analysis.values.textShadows.totalUnique,
-										ratio: analysis.values.textShadows.uniquenessRatio
+										value: analysis.text_shadows.total_unique,
+										ratio: summarize(analysis.text_shadows).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
-						{#if analysis.values.textShadows.total > 0}
+						{#if analysis.text_shadows.total > 0}
 							<ValueCountList
 								id="text-shadows"
 								node_type="value"
-								unique={analysis.values.textShadows.uniqueWithLocations}
+								unique={with_locations(analysis.text_shadows)}
 								extra_sort_options={[sort_az]}
 							/>
 						{:else}
@@ -205,20 +212,20 @@
 							<Heading element="h3">Box-shadows</Heading>
 							<DefinitionList
 								stats={[
-									{ name: 'Total', value: analysis.values.boxShadows.total },
+									{ name: 'Total', value: analysis.box_shadows.total },
 									{
 										name: 'Unique',
-										value: analysis.values.boxShadows.totalUnique,
-										ratio: analysis.values.boxShadows.uniquenessRatio
+										value: analysis.box_shadows.total_unique,
+										ratio: summarize(analysis.box_shadows).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
-						{#if analysis.values.boxShadows.total > 0}
+						{#if analysis.box_shadows.total > 0}
 							<ValueCountList
 								id="box-shadows"
 								node_type="value"
-								unique={analysis.values.boxShadows.uniqueWithLocations}
+								unique={with_locations(analysis.box_shadows)}
 								extra_sort_options={[sort_az]}
 							/>
 						{:else}
@@ -233,18 +240,18 @@
 								stats={[
 									{
 										name: 'Total',
-										value: analysis.values.borderRadiuses.total
+										value: analysis.border_radiuses.total
 									},
 									{
 										name: 'Unique',
-										value: analysis.values.borderRadiuses.totalUnique,
-										ratio: analysis.values.borderRadiuses.uniquenessRatio
+										value: analysis.border_radiuses.total_unique,
+										ratio: summarize(analysis.border_radiuses).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
-						{#if analysis.values.borderRadiuses.total > 0}
-							<Radiuses items={analysis.values.borderRadiuses} />
+						{#if analysis.border_radiuses.total > 0}
+							<Radiuses items={analysis.border_radiuses} />
 						{:else}
 							<Empty>No border-radius found</Empty>
 						{/if}
@@ -257,24 +264,22 @@
 								stats={[
 									{
 										name: 'Total',
-										value: analysis.values.animations.durations.total
+										value: analysis.durations.total
 									},
 									{
 										name: 'Unique',
-										value: analysis.values.animations.durations.totalUnique,
-										ratio: analysis.values.animations.durations.uniquenessRatio
+										value: analysis.durations.total_unique,
+										ratio: summarize(analysis.durations).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
-						{#if analysis.values.animations.durations.total}
+						{#if analysis.durations.total}
 							<ValueCountList
 								id="animation-durations-list"
 								node_type="value"
-								unique={analysis.values.animations.durations.uniqueWithLocations}
-								warnings={Object.keys(analysis.values.animations.durations.unique).filter(
-									(duration) => !validate_duration(duration)
-								)}
+								unique={with_locations(analysis.durations)}
+								warnings={[...analysis.durations.unique.keys()].filter((duration) => !validate_duration(duration))}
 								extra_sort_options={[
 									{
 										id: 'duration',
@@ -295,21 +300,21 @@
 								stats={[
 									{
 										name: 'Total',
-										value: analysis.values.animations.timingFunctions.total
+										value: analysis.timing_functions.total
 									},
 									{
 										name: 'Unique',
-										value: analysis.values.animations.timingFunctions.totalUnique,
-										ratio: analysis.values.animations.timingFunctions.uniquenessRatio
+										value: analysis.timing_functions.total_unique,
+										ratio: summarize(analysis.timing_functions).uniqueness_ratio
 									}
 								]}
 							/>
 						</Header>
-						{#if analysis.values.animations.timingFunctions.total > 0}
+						{#if analysis.timing_functions.total > 0}
 							<ValueCountList
 								id="animation-functions-list"
 								node_type="value"
-								unique={analysis.values.animations.timingFunctions.uniqueWithLocations}
+								unique={with_locations(analysis.timing_functions)}
 								extra_sort_options={[sort_az]}
 							/>
 						{:else}
@@ -317,7 +322,7 @@
 						{/if}
 					</Panel>
 
-					<Units units={analysis.values.units} />
+					<Units units={analysis.units} />
 				</div>
 			{/key}
 		{/snippet}

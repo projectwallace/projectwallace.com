@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
-	import type { CssLocation } from '#lib/css-location.ts'
+	import { with_locations } from '#lib/analysis-locations.ts'
+	import { summarize_numbers, type CountResult } from '@projectwallace/css-analyzer'
 	import { format_number } from '#lib/format-number.ts'
 	import ScatterPlot from '#lib/components/stats/ScatterPlot.svelte'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
@@ -13,16 +14,6 @@
 	import type { NodeType } from '#lib/components/use-css-highlight.ts'
 
 	type Props = Pick<CssAnalysis, 'rules' | 'atrules' | 'selectors' | 'declarations'>
-
-	type NestingStats =
-		| CssAnalysis['atrules']['nesting']
-		| CssAnalysis['rules']['nesting']
-		| CssAnalysis['selectors']['nesting']
-		| CssAnalysis['declarations']['nesting']
-	type SizeSet =
-		| CssAnalysis['rules']['sizes']
-		| CssAnalysis['rules']['selectors']
-		| CssAnalysis['rules']['declarations']
 
 	let {
 		rules = Object.create(null),
@@ -37,21 +28,30 @@
 	let nesting_display: 'atrules' | 'rules' | 'selectors' | 'declarations' = $state('rules')
 </script>
 
-{#snippet nesting_stats({ label, node_type, nesting }: { label: string; node_type: NodeType; nesting: NestingStats })}
+{#snippet nesting_stats({
+	label,
+	node_type,
+	nesting
+}: {
+	label: string
+	node_type: NodeType
+	nesting: CountResult<number>
+})}
+	{@const summary = summarize_numbers(nesting)}
 	<Header>
 		<Heading element="h3">{label}</Heading>
 		<DefinitionList
 			stats={[
-				{ name: 'Unique', value: format_number(nesting.totalUnique) },
-				{ name: 'Average', value: format_number(nesting.mean) },
-				{ name: 'Max', value: format_number(nesting.max || 0) },
-				{ name: 'Mode', value: format_number(nesting.mode) }
+				{ name: 'Unique', value: format_number(nesting.total_unique) },
+				{ name: 'Average', value: format_number(summary.mean) },
+				{ name: 'Max', value: format_number(summary.max) },
+				{ name: 'Mode', value: format_number(summary.mode) }
 			]}
 		/>
 	</Header>
 
 	<figure>
-		<ScatterPlot max={nesting.max || 0} items={nesting.items} />
+		<ScatterPlot max={summary.max} items={nesting.sequence ?? []} />
 		<figcaption>
 			Nesting depth, showing the first {node_type} in the CSS on the left and the last item on the right.
 		</figcaption>
@@ -60,7 +60,7 @@
 	<BarChart
 		context={`${node_type}-nesting`}
 		class="mt-4"
-		items={Object.entries(nesting.uniqueWithLocations as Record<string, CssLocation[]>).map(([value, locations]) => ({
+		items={Object.entries(with_locations(nesting)).map(([value, locations]) => ({
 			value,
 			locations,
 			count: locations.length
@@ -78,23 +78,24 @@
 }: {
 	label: string
 	node_type: NodeType
-	size_set: SizeSet
+	size_set: CountResult<number>
 	node_name: string
 })}
+	{@const summary = summarize_numbers(size_set)}
 	<Header>
 		<Heading element="h3">{label}</Heading>
 		<DefinitionList
 			stats={[
-				{ name: 'Unique', value: format_number(size_set.totalUnique) },
-				{ name: 'Average', value: format_number(size_set.mean) },
-				{ name: 'Max', value: format_number(size_set.max || 0) },
-				{ name: 'Mode', value: format_number(size_set.mode) }
+				{ name: 'Unique', value: format_number(size_set.total_unique) },
+				{ name: 'Average', value: format_number(summary.mean) },
+				{ name: 'Max', value: format_number(summary.max) },
+				{ name: 'Mode', value: format_number(summary.mode) }
 			]}
 		/>
 	</Header>
 	{#if total > 0}
 		<figure>
-			<ScatterPlot max={size_set.max || 0} items={size_set.items} />
+			<ScatterPlot max={summary.max} items={size_set.sequence ?? []} />
 			<figcaption>
 				{label}, showing the first {node_type} in the CSS on the left and the last item on the right.
 			</figcaption>
@@ -102,13 +103,11 @@
 
 		<BarChart
 			context={`${node_type}-per-ruleset`}
-			items={Object.entries(size_set.uniqueWithLocations as Record<string, CssLocation[]>).map(
-				([value, locations]) => ({
-					value,
-					locations,
-					count: locations.length
-				})
-			)}
+			items={Object.entries(with_locations(size_set)).map(([value, locations]) => ({
+				value,
+				locations,
+				count: locations.length
+			}))}
 			column_headers={[node_name, 'Count']}
 			{node_type}
 		/>
@@ -124,7 +123,7 @@
 			<DefinitionList
 				stats={[
 					{ name: 'Total', value: format_number(rules.total) },
-					{ name: 'Empty', value: format_number(rules.empty.total) }
+					{ name: 'Empty', value: format_number(rules.empty) }
 				]}
 			/>
 		</Header>
@@ -169,7 +168,7 @@
 		</div>
 	</Panel>
 
-	{#if nesting.max !== undefined && nesting.max > 0}
+	{#if summarize_numbers(nesting).max > 0}
 		<Panel id="nesting">
 			<Header>
 				<Heading element="h3">Nesting</Heading>

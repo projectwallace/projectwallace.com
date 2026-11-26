@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { with_locations } from '#lib/analysis-locations.ts'
+	import { summarize, summarize_numbers } from '@projectwallace/css-analyzer'
 	import { format_number } from '#lib/format-number.ts'
 	import { format_filesize } from '#lib/format-filesize.ts'
 	import BarChart from '#lib/components/stats/BarChart.svelte'
@@ -11,8 +13,16 @@
 
 	let { result = Object.create(null) }: { result: CssAnalysis } = $props()
 
-	let { stylesheet, rules, atrules, selectors, declarations, properties, values } = $derived(result)
-	let { comments, embeddedContent, size, sourceLinesOfCode, complexity } = $derived(stylesheet)
+	let { stylesheet, rules, atrules, selectors, declarations, properties, value_complexity } = $derived(result)
+	let { comments, embedded, size, source_lines_of_code, complexity } = $derived(stylesheet)
+	let embedded_locations = $derived(with_locations(embedded))
+	let complexity_sums = $derived({
+		atrules: summarize_numbers(atrules.complexity).sum,
+		selectors: summarize_numbers(selectors.complexity).sum,
+		declarations: summarize_numbers(declarations.complexity).sum,
+		properties: summarize_numbers(properties.complexity).sum,
+		values: summarize_numbers(value_complexity).sum
+	})
 </script>
 
 <div id="stylesheet">
@@ -24,7 +34,7 @@
 				<dl class="stylesheet-report-stats">
 					<div>
 						<dt>Lines of Code</dt>
-						<dd>{format_number(sourceLinesOfCode)}</dd>
+						<dd>{format_number(source_lines_of_code)}</dd>
 					</div>
 					<div>
 						<dt>Filesize</dt>
@@ -78,12 +88,12 @@
 				context="stylesheet-complexity"
 				class="mt-4"
 				items={[
-					{ value: 'AtRules', count: atrules.complexity.sum },
+					{ value: 'AtRules', count: complexity_sums.atrules },
 					{ value: 'Rules', count: rules.total },
-					{ value: 'Selectors', count: selectors.complexity.sum },
-					{ value: 'Declarations', count: declarations.complexity.sum },
-					{ value: 'Properties', count: properties.complexity.sum },
-					{ value: 'Values', count: values.complexity.sum }
+					{ value: 'Selectors', count: complexity_sums.selectors },
+					{ value: 'Declarations', count: complexity_sums.declarations },
+					{ value: 'Properties', count: complexity_sums.properties },
+					{ value: 'Values', count: complexity_sums.values }
 				]}
 				column_headers={['Type', 'Complexity']}
 				node_type="value"
@@ -95,23 +105,23 @@
 				<Heading element="h3">Embed types</Heading>
 				<DefinitionList
 					stats={[
-						{ name: 'Total', value: embeddedContent.types.total },
+						{ name: 'Total', value: embedded.total },
 						{
 							name: 'Unique',
-							value: embeddedContent.types.totalUnique,
-							ratio: embeddedContent.types.uniquenessRatio
+							value: embedded.total_unique,
+							ratio: summarize(embedded).uniqueness_ratio
 						}
 					]}
 				/>
 			</Header>
-			{#if embeddedContent.types.total > 0}
+			{#if embedded.total > 0}
 				<BarChart
 					context="embedded-content-size"
 					class="mt-4"
-					items={Object.entries(embeddedContent.types.unique).map(([embedType, item]) => ({
-						value: embedType,
+					items={[...embedded.unique].map(([embed_type, item]) => ({
+						value: embed_type,
 						count: item.count,
-						locations: item.uniqueWithLocations
+						locations: embedded_locations[embed_type]
 					}))}
 					column_headers={['Embed type', 'Count']}
 					node_type="value"
@@ -121,31 +131,20 @@
 			{/if}
 		</Panel>
 
-		{#if embeddedContent.types.total > 0}
+		{#if embedded.total > 0}
 			<Panel>
 				<Header>
-					<Heading element="h3">Embed size per type</Heading>
+					<Heading element="h3">Embed size</Heading>
 					<DefinitionList
 						stats={[
 							{
 								name: 'Total',
-								value: format_filesize(embeddedContent.size.total),
-								ratio: embeddedContent.size.ratio
+								value: format_filesize(embedded.size),
+								ratio: size === 0 ? 0 : embedded.size / size
 							}
 						]}
 					/>
 				</Header>
-				<BarChart
-					context="embedded-content-type"
-					class="mt-4"
-					items={Object.entries(embeddedContent.types.unique).map(([embedType, item]) => ({
-						value: embedType,
-						count: item.size,
-						locations: item.uniqueWithLocations
-					}))}
-					column_headers={['Embed type', 'Size']}
-					node_type="value"
-				/>
 			</Panel>
 		{/if}
 

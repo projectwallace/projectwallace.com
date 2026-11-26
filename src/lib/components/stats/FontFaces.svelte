@@ -10,22 +10,17 @@
 	import { get_css_state } from '#lib/css-state.svelte.ts'
 	import { hash } from '#lib/hash.ts'
 	import { string_sort } from '#lib/string-sort.ts'
-	import type { Location } from '@projectwallace/css-analyzer'
+	import { to_css_location } from '#lib/analysis-locations.ts'
 
 	let css_state = get_css_state()
 	let {
 		elements: { root, item }
 	} = create_keyboard_list()
 
-	type FontFaces = CssAnalysis['atrules']['fontface']
+	type FontFaces = CssAnalysis['atrules']['font_faces']
 
-	let {
-		total = 0,
-		totalUnique = 0,
-		uniquenessRatio = 0,
-		unique = [],
-		uniqueWithLocations = Object.create(null)
-	}: Pick<FontFaces, 'total' | 'totalUnique' | 'uniquenessRatio' | 'unique' | 'uniqueWithLocations'> = $props()
+	let { total = 0, items: unique = [], locations = [] }: Partial<FontFaces> = $props()
+	let total_unique = $derived(unique.length)
 
 	const font_style = 'font-style'
 	const font_weight = 'font-weight'
@@ -58,7 +53,7 @@
 	}
 
 	let sorted = $derived.by(() => {
-		let items = Uint8Array.from({ length: totalUnique }, (_, i) => i)
+		let items = Array.from({ length: total_unique }, (_, i) => i)
 		// sort by family -> weight -> style
 		items.sort((_a: number, _b: number) => {
 			let a = unique[_a]
@@ -118,13 +113,13 @@
 
 	function onchange({ value, active_index }: Parameters<OnChange>[0]) {
 		let unique_index = sorted[active_index]
-		let item = Object.entries(uniqueWithLocations!)[unique_index]
-		if (item) {
+		let location = locations[unique_index]
+		if (location) {
 			css_state.select_item({
 				type: 'font-face',
 				node_type: 'atrule',
 				value,
-				locations: item[1] as Location[]
+				locations: [to_css_location(location)]
 			})
 		}
 	}
@@ -138,7 +133,7 @@
 				<DefinitionList
 					stats={[
 						{ name: 'Total', value: total },
-						{ name: 'Unique', value: totalUnique, ratio: uniquenessRatio }
+						{ name: 'Unique', value: total_unique }
 					]}
 				/>
 			{/if}

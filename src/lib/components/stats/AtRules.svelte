@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
+	import { summarize } from '@projectwallace/css-analyzer'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import AtRule from '#lib/components/stats/AtRule.svelte'
 	import FontFaces from '#lib/components/stats/FontFaces.svelte'
 	import Heading from '#lib/components/Heading.svelte'
@@ -17,7 +19,7 @@
 
 	let { atrules = Object.create(null) }: Props = $props()
 
-	let { media, fontface, import: imports, supports, container, keyframes, layer, property, scope } = $derived(atrules)
+	let { media, font_faces, imports, supports, containers, keyframes, layers, properties, scopes } = $derived(atrules)
 	let css_state = get_css_state()
 
 	let tree = $derived(layer_tree(css_state.css))
@@ -31,19 +33,14 @@
 			<Header>
 				<Heading element="h3">Composition</Heading>
 				{#if atrules.total > 0}
-					<DefinitionList stats={[{ name: 'Atrule names', value: atrules.totalUnique }]} />
+					<DefinitionList stats={[{ name: 'Atrule names', value: atrules.total_unique }]} />
 				{/if}
 			</Header>
 			{#if atrules.total > 0}
 				<BarChart
 					context="atrules-composition"
 					class="mt-4"
-					items={Object.entries(
-						atrules.uniqueWithLocations as Record<
-							string,
-							{ line: number; column: number; offset: number; length: number }[]
-						>
-					)
+					items={Object.entries(with_locations(atrules))
 						.map(([atrule_name, locations]) => ({
 							value: `@${atrule_name}`,
 							count: locations.length,
@@ -58,37 +55,37 @@
 			{/if}
 		</Panel>
 
-		<FontFaces {...fontface} />
-		<AtRule {...media} title="@media" id="media" warnings={Object.keys(media.browserhacks.unique)} />
+		<FontFaces {...font_faces} />
+		<AtRule {...media} title="@media" id="media" warnings={[...media.browserhacks.unique.keys()]} />
 		{#if media.features.total > 0}
 			<AtRule {...media.features} title="@media features" id="media-features" />
 		{/if}
 		<AtRule {...keyframes} title="@keyframes" id="keyframes" />
-		<AtRule {...supports} title="@supports" id="supports" warnings={Object.keys(supports.browserhacks.unique)} />
-		<AtRule {...container} title="@container" id="container" />
-		{#if container.names.total > 0}
-			<AtRule {...container.names} title="@container names" id="container-names" />
+		<AtRule {...supports} title="@supports" id="supports" warnings={[...supports.browserhacks.unique.keys()]} />
+		<AtRule {...containers} title="@container" id="container" />
+		{#if containers.names.total > 0}
+			<AtRule {...containers.names} title="@container names" id="container-names" />
 		{/if}
 		<Panel id="layer">
 			<Header>
 				<Heading element="h3">@layer</Heading>
-				{#if layer.total > 0}
+				{#if layers.total > 0}
 					<DefinitionList
 						stats={[
-							{ name: 'Total', value: layer.total },
-							{ name: 'Unique', value: layer.totalUnique, ratio: layer.uniquenessRatio }
+							{ name: 'Total', value: layers.total },
+							{ name: 'Unique', value: layers.total_unique, ratio: summarize(layers).uniqueness_ratio }
 						]}
 					/>
 				{/if}
 			</Header>
-			{#if layer.total > 0}
+			{#if layers.total > 0}
 				<LayerTree {tree} />
 			{:else}
 				<Empty>No @layer found.</Empty>
 			{/if}
 		</Panel>
-		<AtRule {...property} title="@property" id="property" />
-		<AtRule {...scope} title="@scope" id="scope" />
+		<AtRule {...properties} title="@property" id="property" />
+		<AtRule {...scopes} title="@scope" id="scope" />
 		<AtRule {...imports} title="@import" id="import" />
 	</div>
 </section>

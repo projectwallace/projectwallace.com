@@ -4,29 +4,20 @@
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
 	import Table from '#lib/components/Table.svelte'
 	import type { NormalizedColorWithAuthored } from '@projectwallace/color-sorter'
-	import type { CssLocation } from '#lib/css-location.ts'
 	import ShowMore from '#lib/components/ShowMore.svelte'
-	import type { UniqueWithLocations } from '@projectwallace/css-analyzer'
 
 	let {
 		items = Object.create(null),
 		sizing = 'relative'
 	}: {
-		items?: CssAnalysis['values']['colors']['itemsPerContext']
+		items?: CssAnalysis['colors']['by_context']
 		sizing?: Sizing
 	} = $props()
 
-	type Item = {
-		unique: { converted: NormalizedColorWithAuthored; locations: CssLocation[] }[]
-		total: number
-		totalUnique: number
-		uniqueWithLocations: UniqueWithLocations
-	}
-
 	let max_colors = $derived.by(() => {
 		let _max = 0
-		for (let key in items) {
-			let total = items[key].total
+		for (let item of items.values()) {
+			let total = item.total
 			if (total > _max) {
 				_max = total
 			}
@@ -39,7 +30,7 @@
 			string,
 			{
 				total: number
-				totalUnique: number
+				total_unique: number
 				unique: {
 					converted: {
 						authored: string
@@ -49,14 +40,14 @@
 			}
 		][]
 	>(
-		Object.entries(items)
+		[...items]
 			.sort((a, b) => b[1].total - a[1].total)
 			.map(([property, item]) => {
 				let unique = [] as { converted: { authored: string }; locations: ArrayLike<unknown> }[]
-				for (let [value, locations] of Object.entries(item.uniqueWithLocations)) {
+				for (let [value, { count }] of item.unique) {
 					unique.push({
 						converted: { authored: value },
-						locations: new Uint8Array((locations as {}[]).length)
+						locations: new Uint8Array(count)
 					})
 				}
 				return [
@@ -64,7 +55,7 @@
 					{
 						unique,
 						total: item.total,
-						totalUnique: item.totalUnique
+						total_unique: item.total_unique
 					}
 				]
 			})
@@ -90,7 +81,7 @@
 						</th>
 						<td>
 							<div style:inline-size="{(100 * item.total) / max_colors}%">
-								<ColorBar colors={item.unique} total={item.total} totalUnique={item.totalUnique} {sizing} />
+								<ColorBar colors={item.unique} total={item.total} total_unique={item.total_unique} {sizing} />
 							</div>
 						</td>
 					</tr>

@@ -14,17 +14,17 @@
 
 	let { result = Object.create(null) }: Props = $props()
 
-	let { rules, selectors, declarations, atrules, properties, values } = $derived(result)
+	let { rules, selectors, specificity, declarations, atrules, properties } = $derived(result)
 </script>
 
 <div class="group">
 	<Stylesheet {result} />
 	<Rulesets {rules} {atrules} {selectors} {declarations} />
-	<Selectors {selectors} />
+	<Selectors {selectors} {specificity} />
 	<AtRules {atrules} />
 	<Declarations {declarations} />
 	<Properties {properties} />
-	<Values {values} />
+	<Values {result} />
 </div>
 
 <style>

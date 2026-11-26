@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CssAnalysis } from '#lib/analyze-css.ts'
-	import type { CssLocation } from '#lib/css-location.ts'
+	import { with_locations } from '#lib/analysis-locations.ts'
 	import FilterGroup from '#lib/components/FilterGroup.svelte'
 	import FilterOption from '#lib/components/FilterOption.svelte'
 	import { get_css_state } from '#lib/css-state.svelte.ts'
@@ -10,7 +10,7 @@
 	let css_state = get_css_state()
 
 	interface Props {
-		items?: CssAnalysis['values']['borderRadiuses']
+		items?: CssAnalysis['border_radiuses']
 	}
 
 	let { items = Object.create(null) }: Props = $props()
@@ -21,11 +21,9 @@
 	type Sorting = typeof as_authored | typeof by_count | typeof alphabetically
 	let sorting: Sorting = $state(as_authored)
 
-	let { itemsPerContext } = $derived(items)
 	let flattened = $derived(
-		Object.entries(itemsPerContext).flatMap(([property, data]) => {
-			let uniqueWithLocations = data.uniqueWithLocations as Record<string, CssLocation[]>
-			return Object.entries(uniqueWithLocations).map(([value, locations]) => {
+		[...items.by_context].flatMap(([property, data]) => {
+			return Object.entries(with_locations(data)).map(([value, locations]) => {
 				return {
 					property,
 					value,
