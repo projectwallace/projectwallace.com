@@ -63,24 +63,13 @@ export function analyze(css: string) {
 		}
 	})
 
-	let unused = new Set<string>()
-	for (let name of declared) {
-		if (!used.has(name)) {
-			unused.add(name)
-		}
-	}
+	let unused = declared.difference(used)
+	let all_undeclared = used.difference(declared)
 
-	let undeclared = new Set<string>()
-	let undeclared_with_fallback = new Set<string>()
-	for (let name of used) {
-		if (!declared.has(name)) {
-			if (with_fallback.has(name)) {
-				undeclared_with_fallback.add(name)
-			} else {
-				undeclared.add(name)
-			}
-		}
+	return {
+		all,
+		unused,
+		undeclared: all_undeclared.difference(with_fallback),
+		undeclared_with_fallback: all_undeclared.intersection(with_fallback)
 	}
-
-	return { all, unused, undeclared, undeclared_with_fallback }
 }
